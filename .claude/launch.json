@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "PowerToFly AI",
+      "runtimeExecutable": "/Users/lizu/.local/node/bin/node",
+      "runtimeArgs": ["/Users/lizu/.local/node/server.js"],
+      "port": 3456
+    }
+  ]
+}
