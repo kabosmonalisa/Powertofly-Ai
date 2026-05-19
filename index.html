@@ -464,7 +464,7 @@ h1.hero-headline {
           mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
 }
 .marquee-track {
-  display: flex; gap: 28px;
+  display: flex; gap: 56px; align-items: center;
   width: max-content;
   animation: marquee 22s linear infinite;
 }
@@ -473,30 +473,12 @@ h1.hero-headline {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
-.logo-chip-lg {
-  display: inline-flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 600; color: var(--ink-2);
-  white-space: nowrap;
+.logo-img {
+  height: 36px; width: auto; display: block; flex-shrink: 0;
+  filter: grayscale(100%) opacity(0.6);
+  transition: filter 0.2s ease;
 }
-.logo-chip-lg .logo-mark {
-  width: 18px; height: 18px;
-  display: inline-flex; align-items: center; justify-content: center;
-  border-radius: 4px;
-}
-.logo-chip-lg .skill-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: conic-gradient(from 0deg, #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF);
-  box-shadow: 0 0 8px rgba(79,232,169,0.55);
-  flex-shrink: 0;
-}
-.lm-ms { background: #fff; }
-.lm-aws { background: #232F3E; color: #FF9900; }
-.lm-google { background: #fff; }
-.lm-hf { background: #FFD21E; }
-.lm-lc { background: #1C3C3C; color: #4EE2A3; }
-.lm-sn { background: #29B5E8; color: #fff; }
-.lm-oa { background: #fff; color: #10A37F; }
-.lm-nv { background: #76B900; color: #fff; }
+.logo-img:hover { filter: grayscale(0%) opacity(1); }
 
 /* ===== Mission statement section ===== */
 .section { padding: 100px 32px; }
@@ -824,7 +806,7 @@ h1.hero-headline {
 .sc-right { position: relative; overflow: hidden; }
 .sc-right-hire    { background: #E8EFF5; }
 .sc-right-train   { background: #EAFAF2; }
-.sc-right-consult { background: #EEEEF0; }
+.sc-right-consult { background: #EEF1F3; }
 /* Card 1 — photo */
 .sc-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 62%; display: block; transform: scale(1.18); transform-origin: center 55%; }
 .sc-person-card {
@@ -1107,7 +1089,7 @@ h1.hero-headline {
 
       <!-- (4) Logo marquee -->
       <div class="fcard card-marquee">
-        <span class="fcard-label" style="white-space:nowrap;">Trained on</span>
+        <span class="fcard-label" style="white-space:nowrap;">Trusted by</span>
         <div class="marquee-track-wrap">
           <div class="marquee-track" id="marquee"></div>
         </div>
@@ -1491,16 +1473,10 @@ h1.hero-headline {
   const track = document.getElementById('marquee');
   if (!track) return;
   const logos = [
-    {name:'Microsoft', cls:'lm-ms', mark:'<svg viewBox="0 0 18 18" width="14" height="14"><rect width="8" height="8" fill="#F25022"/><rect x="10" width="8" height="8" fill="#7FBA00"/><rect y="10" width="8" height="8" fill="#00A4EF"/><rect x="10" y="10" width="8" height="8" fill="#FFB900"/></svg>'},
-    {name:'AWS', cls:'lm-aws', mark:'<span style="font-weight:800;font-size:9px;color:#FF9900;">aws</span>'},
-    {name:'Google', cls:'lm-google', mark:'<span style="font-weight:700;font-size:12px;color:#4285F4;">G</span>'},
-    {name:'Hugging Face', cls:'lm-hf', mark:'<span style="font-size:11px;">🤗</span>'},
-    {name:'LangChain', cls:'lm-lc', mark:'<span style="font-weight:700;font-size:9px;color:#4EE2A3;">⛓</span>'},
-    {name:'Snowflake', cls:'lm-sn', mark:'<svg viewBox="0 0 24 24" width="12" height="12" fill="#fff"><path d="M12 2L9 7l3 5 3-5-3-5zm-9 6l5 3 5-3-5-3-5 3zm14 0l5 3 5-3-5-3-5 3zM7 17l5 5 5-5-5-3-5 3z"/></svg>'},
-    {name:'OpenAI', cls:'lm-oa', mark:'<span style="font-weight:700;font-size:11px;color:#10A37F;">◯</span>'},
-    {name:'NVIDIA', cls:'lm-nv', mark:'<span style="font-weight:800;font-size:8px;color:#fff;">▶</span>'}
+    'avery-dennison','expedia','google','nestle','shure',
+    'sp-global','stryker','veracode','visa','zapier','zillow'
   ];
-  const buildOne = (l) => `<span class="logo-chip-lg"><span class="logo-mark ${l.cls}">${l.mark}</span>${l.name}</span>`;
+  const buildOne = (name) => `<img class="logo-img" src="logos/${name}.png" alt="${name}">`;
   const html = logos.map(buildOne).join('');
   track.innerHTML = html + html;
 })();
