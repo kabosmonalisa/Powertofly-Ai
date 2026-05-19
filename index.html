@@ -793,22 +793,22 @@ h1.hero-headline {
 .sc-card:nth-child(2) { z-index: 2; margin-top: 40vh; }
 .sc-card:nth-child(3) { z-index: 3; margin-top: 40vh; }
 .sc-left {
-  padding: 52px 40px;
-  display: flex; flex-direction: column; justify-content: center; gap: 20px;
+  padding: 4rem 40px;
+  display: flex; flex-direction: column; justify-content: center; gap: 16px;
 }
 .sc-tag {
   display: inline-flex; align-items: center;
   padding: 4px 12px; border-radius: 999px;
-  background: var(--bg-soft); border: 1px solid var(--line);
+  background: rgba(79,232,169,0.14);
   font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--ink-2); width: fit-content;
+  text-transform: uppercase; color: #0A8C66; width: fit-content;
 }
 .sc-left h3 {
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-size: clamp(20px, 2vw, 26px); font-weight: 700;
   line-height: 1.22; letter-spacing: -0.025em; color: var(--ink);
 }
-.sc-bullets { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.sc-bullets { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
 .sc-bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
 .sc-ck {
   flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
@@ -842,8 +842,8 @@ h1.hero-headline {
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 /* Cards 2 & 3 — mock UI */
-.sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 28px; }
-.sc-mock-stack { position: relative; width: 100%; max-width: 300px; }
+.sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.sc-mock-stack { position: relative; width: 78%; }
 .sc-mock-peek-card {
   position: absolute; top: 8px; right: -6px; bottom: -8px; left: 6px;
   background: rgba(210,218,222,0.75); border-radius: 16px; z-index: 0;
@@ -1135,10 +1135,10 @@ h1.hero-headline {
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>AI-enabled salespeople and GTM hires</li>
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>AI-enabled recruiters and ops talent</li>
           </ul>
-          <a href="#" class="sc-more">Learn more →</a>
         </div>
         <div class="sc-right sc-right-hire">
-          <img class="sc-photo" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=900&fit=crop&crop=faces&q=80" alt="Sofia M. — AI Application Engineer">
+          <!-- TODO: Replace with a non-stock portrait. Source from Stocksy, Death to Stock, or commission custom. Should look like a real working engineer, not a popular free stock photo. -->
+          <img class="sc-photo" src="/images/hire-card-portrait.jpg" alt="Sofia M. — AI Application Engineer">
           <div class="sc-person-card">
             <div class="sc-person-name">Sofia M.</div>
             <div class="sc-person-role">AI Application Engineer</div>
@@ -1162,7 +1162,6 @@ h1.hero-headline {
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Build projects: RAG, agents, multi-step flows</li>
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Project-based work, not full-time placement</li>
           </ul>
-          <a href="#" class="sc-more">Learn more →</a>
         </div>
         <div class="sc-right sc-right-train">
           <div class="sc-mock-wrap">
@@ -1214,7 +1213,6 @@ h1.hero-headline {
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Org-wide upskilling and enablement</li>
             <li><span class="sc-ck"><svg width="10" height="10" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Hands-on guidance from senior practitioners</li>
           </ul>
-          <a href="#" class="sc-more">Learn more →</a>
         </div>
         <div class="sc-right sc-right-consult">
           <div class="sc-mock-wrap">
@@ -1257,10 +1255,6 @@ h1.hero-headline {
       </div>
 
     </div><!-- /.sc-stack -->
-    <div class="sc-ctas">
-      <a href="#" class="btn btn-primary">Book a discovery call</a>
-      <a href="#" class="btn">Explore our model</a>
-    </div>
   </div>
 </section>
 
