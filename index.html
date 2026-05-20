@@ -834,57 +834,6 @@ h1.hero-headline {
 }
 .btn-book:hover { box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); transform: translateY(-1px); }
 
-/* Modal */
-.booking-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  align-items: center;
-  justify-content: center;
-}
-.booking-modal.open { display: flex; }
-.booking-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.7);
-  backdrop-filter: blur(4px);
-}
-.booking-modal-card {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-  border-radius: 20px;
-  width: min(960px, 95vw);
-  height: min(720px, 90vh);
-  overflow: hidden;
-  box-shadow: 0 32px 80px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-}
-.booking-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  z-index: 2;
-  background: rgba(0,0,0,0.08);
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s ease;
-}
-.booking-close:hover { background: rgba(0,0,0,0.15); }
-.booking-iframe {
-  width: 100%;
-  flex: 1;
-  border: none;
-}
 
 /* ===== Footer ===== */
 .footer {
@@ -1490,23 +1439,9 @@ h1.hero-headline {
     <p class="book-eyebrow">Let's talk</p>
     <h2 class="book-headline">Ready to build your<br>AI team?</h2>
     <p class="book-sub">30 minutes with the team that has spent a decade building the most trusted AI talent community in the industry.</p>
-    <button class="btn btn-book" id="openBooking">Book a discovery call →</button>
+    <a href="book.html" class="btn btn-book">Book a discovery call →</a>
   </div>
 </section>
-
-<!-- BOOKING MODAL -->
-<div class="booking-modal" id="bookingModal" role="dialog" aria-modal="true" aria-label="Book a call">
-  <div class="booking-modal-backdrop" id="bookingBackdrop"></div>
-  <div class="booking-modal-card">
-    <button class="booking-close" id="closeBooking" aria-label="Close">✕</button>
-    <iframe
-      src="book.html"
-      class="booking-iframe"
-      title="Book a call with PowerToFly AI"
-      frameborder="0"
-    ></iframe>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -1705,26 +1640,6 @@ h1.hero-headline {
       btn.setAttribute('aria-expanded', false);
     }
   });
-})();
-
-/* Booking modal */
-(function(){
-  const modal = document.getElementById('bookingModal');
-  const open  = document.getElementById('openBooking');
-  const close = document.getElementById('closeBooking');
-  const backdrop = document.getElementById('bookingBackdrop');
-  if (!modal) return;
-  open.addEventListener('click', () => {
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  });
-  const closeModal = () => {
-    modal.classList.remove('open');
-    document.body.style.overflow = '';
-  };
-  close.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 })();
 
 /* Count-up animation */

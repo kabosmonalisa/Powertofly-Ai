@@ -8,244 +8,263 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <style>
-/* ── Design tokens — must match index.html exactly ── */
+
+/* ===== Design Tokens — must match index.html exactly ===== */
 :root {
   --ink:    #0A0A0A;
   --ink-2:  #2A2A2A;
   --ink-3:  #5C6F69;
   --bg:     #ffffff;
   --bg-soft:#FAFAF6;
-  --green:  #0A8C66;
+  --line:   rgba(10,10,10,0.08);
+  --shadow-card: 0 1px 2px rgba(15,30,26,0.04), 0 8px 28px rgba(15,30,26,0.08);
+  --iri-cyan:  #5BCFFF;
+  --iri-green: #4FE8A9;
+  --iri-lime:  #D5FF66;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  -webkit-font-smoothing: antialiased;
+html, body { height: 100%; -webkit-font-smoothing: antialiased; }
+body {
   font-family: 'Inter', system-ui, sans-serif;
   color: var(--ink);
-  background: var(--bg);
-  height: 100%;
-}
-
-.page {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-}
-
-/* LEFT PANEL */
-.left {
   background: var(--bg-soft);
-  padding: 64px 56px;
+  font-size: 16px;
+  line-height: 1.55;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
-.left-top {}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 56px;
+
+/* ===== Ambient glow ===== */
+.auth-bg {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0; overflow: hidden;
 }
-.brand img { height: 22px; width: auto; }
+.auth-bg-blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(90px); opacity: 0.18;
+}
+.auth-bg-blob.b1 {
+  width: 600px; height: 500px;
+  background: radial-gradient(circle, #5BCFFF, transparent 70%);
+  top: -160px; left: -100px;
+}
+.auth-bg-blob.b2 {
+  width: 500px; height: 400px;
+  background: radial-gradient(circle, #4FE8A9, transparent 70%);
+  bottom: -100px; right: -80px;
+}
+.auth-bg-blob.b3 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, #D5FF66, transparent 70%);
+  top: 40%; left: 60%; opacity: 0.1;
+}
+
+/* ===== Nav ===== */
+.nav {
+  position: relative; z-index: 10;
+  padding: 14px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  display: flex; align-items: center; gap: 10px; text-decoration: none;
+}
+.nav-brand img { height: 22px; width: auto; }
 .brand-ai {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--ink);
-  color: #fff;
-  padding: 3px 9px;
-  border-radius: 999px;
-}
-.left-eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--green);
-  margin-bottom: 16px;
-}
-.left-headline {
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(28px, 3vw, 42px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.0;
-  color: var(--ink);
-  margin-bottom: 20px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 999px;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  color: #0A2A1F;
 }
-.left-sub {
+.nav-back {
+  font-size: 14px; color: var(--ink-3); text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 180ms ease;
+}
+.nav-back:hover { color: var(--ink); }
+
+/* ===== Layout ===== */
+.book-wrap {
+  position: relative; z-index: 1;
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px 20px 48px;
+}
+
+/* ===== Card ===== */
+.book-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
+  width: 100%;
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  overflow: hidden;
+  min-height: 620px;
+}
+
+/* ===== Left panel ===== */
+.book-left {
+  background: var(--bg-soft);
+  padding: 52px 44px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  border-right: 1px solid var(--line);
+}
+.book-eyebrow {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: #0A8C66; margin-bottom: 16px;
+}
+.book-headline {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.04em; line-height: 1.0;
+  color: var(--ink); margin-bottom: 20px;
+}
+.book-sub {
   font-size: 18px;
   color: var(--ink-3);
   line-height: 1.55;
-  max-width: 36ch;
+  max-width: 32ch;
   margin-bottom: 40px;
 }
-.left-meta {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.book-meta {
+  display: flex; flex-direction: column; gap: 12px;
 }
 .meta-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--ink-2);
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; font-weight: 500; color: var(--ink-2);
 }
 .meta-icon {
-  width: 32px;
-  height: 32px;
-  background: #fff;
+  width: 32px; height: 32px;
+  background: var(--bg);
+  border: 1px solid var(--line);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
 }
-.left-bottom {
-  font-size: 12px;
-  color: var(--ink-3);
+.book-footer {
+  font-size: 12px; color: var(--ink-3); margin-top: 48px;
 }
 
-/* RIGHT PANEL */
-.right {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
+/* ===== Right panel (HubSpot) ===== */
+.book-right {
+  display: flex; flex-direction: column;
 }
-.right-header {
-  padding: 32px 48px 0;
-  font-size: 13px;
+.book-right-header {
+  padding: 28px 40px 0;
+  font-size: 13px; font-weight: 500;
   color: var(--ink-3);
-  font-weight: 500;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
 }
-.hubspot-wrap {
-  flex: 1;
-  padding: 0 48px 48px;
-  display: flex;
-  flex-direction: column;
+.hs-area {
+  flex: 1; padding: 32px 40px;
+  display: flex; flex-direction: column;
 }
 
-/* ── HubSpot embed goes here ── */
-/* Devs: paste the HubSpot meetings embed script inside #hs-embed-target */
+/* ── Placeholder shown until HubSpot is wired ── */
 #hs-embed-target {
-  flex: 1;
-  min-height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1; min-height: 460px;
+  display: flex; align-items: center; justify-content: center;
 }
-
-/* Placeholder shown until HubSpot loads */
 .hs-placeholder {
-  text-align: center;
-  color: var(--ink-3);
+  text-align: center; color: var(--ink-3);
 }
-.hs-placeholder-icon {
-  font-size: 40px;
-  margin-bottom: 16px;
-}
+.hs-placeholder-icon { font-size: 36px; margin-bottom: 14px; }
 .hs-placeholder h3 {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--ink);
-  margin-bottom: 8px;
+  font-size: 18px; font-weight: 700;
+  color: var(--ink); margin-bottom: 8px;
 }
 .hs-placeholder p {
-  font-size: 14px;
-  line-height: 1.6;
-  max-width: 32ch;
-  margin: 0 auto;
+  font-size: 14px; line-height: 1.6; max-width: 30ch; margin: 0 auto;
 }
 .hs-placeholder code {
-  display: inline-block;
-  margin-top: 16px;
-  background: var(--bg-soft);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  color: var(--green);
+  display: inline-block; margin-top: 14px;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  padding: 5px 12px; border-radius: 6px;
+  font-size: 12px; color: #0A8C66;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  .page { grid-template-columns: 1fr; }
-  .left { padding: 40px 24px 32px; }
-  .right-header { padding: 24px 24px 0; }
-  .hubspot-wrap { padding: 0 24px 40px; }
+/* ===== Mobile ===== */
+@media (max-width: 680px) {
+  .nav { padding: 12px 20px; }
+  .book-card { grid-template-columns: 1fr; }
+  .book-left { padding: 36px 24px 28px; border-right: none; border-bottom: 1px solid var(--line); }
+  .book-right-header { padding: 20px 24px 14px; }
+  .hs-area { padding: 20px 24px 28px; }
 }
 </style>
 </head>
 <body>
 
-<div class="page">
-
-  <!-- LEFT: context panel -->
-  <div class="left">
-    <div class="left-top">
-      <div class="brand">
-        <img src="PowerToFly-Logo-Black.png" alt="PowerToFly AI">
-        <span class="brand-ai">AI</span>
-      </div>
-
-      <p class="left-eyebrow">Let's talk</p>
-      <h1 class="left-headline">Book a<br>discovery call</h1>
-      <p class="left-sub">30 minutes with the team that has spent a decade building the most trusted AI talent community in the industry.</p>
-
-      <div class="left-meta">
-        <div class="meta-item">
-          <div class="meta-icon">🕐</div>
-          30 minutes
-        </div>
-        <div class="meta-item">
-          <div class="meta-icon">📞</div>
-          Phone or video call
-        </div>
-        <div class="meta-item">
-          <div class="meta-icon">🌍</div>
-          Available globally
-        </div>
-      </div>
-    </div>
-
-    <div class="left-bottom">
-      © 2026 PowerToFly. All rights reserved.
-    </div>
-  </div>
-
-  <!-- RIGHT: HubSpot embed -->
-  <div class="right">
-    <div class="right-header">Schedule a time that works for you</div>
-    <div class="hubspot-wrap">
-
-      <!-- ============================================================
-           DEVS: Replace the placeholder below with the HubSpot
-           meetings embed script. Example:
-
-           <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-           <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/YOUR-LINK?embed=true"></div>
-
-           Or paste the full embed snippet here.
-      ============================================================ -->
-
-      <div id="hs-embed-target">
-        <div class="hs-placeholder">
-          <div class="hs-placeholder-icon">📅</div>
-          <h3>Calendar coming soon</h3>
-          <p>Devs — paste the HubSpot meetings embed code inside <code>#hs-embed-target</code></p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
+<!-- Ambient glow -->
+<div class="auth-bg" aria-hidden="true">
+  <div class="auth-bg-blob b1"></div>
+  <div class="auth-bg-blob b2"></div>
+  <div class="auth-bg-blob b3"></div>
 </div>
+
+<!-- Nav -->
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <img src="PowerToFly-Logo-Black.png" alt="PowerToFly AI">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back</a>
+</nav>
+
+<!-- Main -->
+<main class="book-wrap">
+  <div class="book-card">
+
+    <!-- Left: context -->
+    <div class="book-left">
+      <div>
+        <p class="book-eyebrow">Let's talk</p>
+        <h1 class="book-headline">Book a discovery call</h1>
+        <p class="book-sub">30 minutes with the team that has spent a decade building the most trusted AI talent community in the industry.</p>
+        <div class="book-meta">
+          <div class="meta-item"><div class="meta-icon">🕐</div> 30 minutes</div>
+          <div class="meta-item"><div class="meta-icon">📞</div> Phone or video call</div>
+          <div class="meta-item"><div class="meta-icon">🌍</div> Available globally</div>
+        </div>
+      </div>
+      <p class="book-footer">© 2026 PowerToFly. All rights reserved.</p>
+    </div>
+
+    <!-- Right: HubSpot -->
+    <div class="book-right">
+      <div class="book-right-header">Schedule a time that works for you</div>
+      <div class="hs-area">
+
+        <!-- ============================================================
+             DEVS: Replace the placeholder below with the HubSpot
+             meetings embed script. Example:
+
+             <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+             <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/YOUR-LINK?embed=true"></div>
+        ============================================================ -->
+        <div id="hs-embed-target">
+          <div class="hs-placeholder">
+            <div class="hs-placeholder-icon">📅</div>
+            <h3>Calendar coming soon</h3>
+            <p>Devs — paste the HubSpot embed code inside <code>#hs-embed-target</code></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
 
 </body>
 </html>
