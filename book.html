@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a call — PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0A0A0A;
+  --ink-2: #2A2A2A;
+  --ink-3: #5C6F69;
+  --bg: #ffffff;
+  --green: #0A8C66;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+  height: 100%;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+}
+
+/* LEFT PANEL */
+.left {
+  background: #F5F7F5;
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.left-top {}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 56px;
+}
+.brand img { height: 22px; width: auto; }
+.brand-ai {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: var(--ink);
+  color: #fff;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.left-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+.left-headline {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.0;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.left-sub {
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.6;
+  max-width: 36ch;
+  margin-bottom: 40px;
+}
+.left-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.meta-icon {
+  width: 32px;
+  height: 32px;
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+.left-bottom {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+/* RIGHT PANEL */
+.right {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+.right-header {
+  padding: 32px 48px 0;
+  font-size: 13px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+.hubspot-wrap {
+  flex: 1;
+  padding: 0 48px 48px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HubSpot embed goes here ── */
+/* Devs: paste the HubSpot meetings embed script inside #hs-embed-target */
+#hs-embed-target {
+  flex: 1;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Placeholder shown until HubSpot loads */
+.hs-placeholder {
+  text-align: center;
+  color: var(--ink-3);
+}
+.hs-placeholder-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+.hs-placeholder h3 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.hs-placeholder p {
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 32ch;
+  margin: 0 auto;
+}
+.hs-placeholder code {
+  display: inline-block;
+  margin-top: 16px;
+  background: #F5F7F5;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--green);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; }
+  .left { padding: 40px 24px 32px; }
+  .right-header { padding: 24px 24px 0; }
+  .hubspot-wrap { padding: 0 24px 40px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- LEFT: context panel -->
+  <div class="left">
+    <div class="left-top">
+      <div class="brand">
+        <img src="PowerToFly-Logo-Black.png" alt="PowerToFly AI">
+        <span class="brand-ai">AI</span>
+      </div>
+
+      <p class="left-eyebrow">Let's talk</p>
+      <h1 class="left-headline">Book a<br>discovery call</h1>
+      <p class="left-sub">30 minutes. No pitch deck. Just a conversation about what you're building and how we can help staff it.</p>
+
+      <div class="left-meta">
+        <div class="meta-item">
+          <div class="meta-icon">🕐</div>
+          30 minutes
+        </div>
+        <div class="meta-item">
+          <div class="meta-icon">📞</div>
+          Phone or video call
+        </div>
+        <div class="meta-item">
+          <div class="meta-icon">🌍</div>
+          Available globally
+        </div>
+      </div>
+    </div>
+
+    <div class="left-bottom">
+      © 2026 PowerToFly. All rights reserved.
+    </div>
+  </div>
+
+  <!-- RIGHT: HubSpot embed -->
+  <div class="right">
+    <div class="right-header">Schedule a time that works for you</div>
+    <div class="hubspot-wrap">
+
+      <!-- ============================================================
+           DEVS: Replace the placeholder below with the HubSpot
+           meetings embed script. Example:
+
+           <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
+           <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/YOUR-LINK?embed=true"></div>
+
+           Or paste the full embed snippet here.
+      ============================================================ -->
+
+      <div id="hs-embed-target">
+        <div class="hs-placeholder">
+          <div class="hs-placeholder-icon">📅</div>
+          <h3>Calendar coming soon</h3>
+          <p>Devs — paste the HubSpot meetings embed code inside <code>#hs-embed-target</code></p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
