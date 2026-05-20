@@ -75,10 +75,16 @@ img { display: block; max-width: 100%; }
 /* ===== Nav ===== */
 .nav {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: saturate(140%) blur(10px);
-  border-bottom: 1px solid var(--line);
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: 1px solid transparent;
   padding: 0 32px;
+  transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--line);
 }
 .nav-inner {
   max-width: 1280px; margin: 0 auto;
@@ -2028,6 +2034,15 @@ h1.hero-headline {
     paused = !paused;
     pauseBtn.textContent = paused ? '▶' : '⏸';
   });
+
+  // Nav transparency on scroll
+  (function(){
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
 
   // Logo strip
   const fhLogoTrack = document.getElementById('fhLogosTrack');
