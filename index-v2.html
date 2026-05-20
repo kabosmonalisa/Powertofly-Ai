@@ -1863,81 +1863,100 @@ h1.hero-headline {
   const track = document.getElementById('fhTrack');
   if (!track) return;
 
-  const cohorts = [
-    'Software Engineers', 'Healthcare Professionals', 'Data Scientists',
-    'UX Designers', 'Finance Experts', 'Sales Leaders',
-    'Operations', 'Product Managers'
-  ];
-
+  // Slides: 6 videos + 2 static images nicely distributed
   const slides = [
-    { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4', label: 'Software Engineers' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4', label: 'Data Scientists' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4', label: 'UX Designers' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4', label: 'Finance Experts' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4', label: 'Sales Leaders' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/6889677/6889677-hd_1920_1080_25fps.mp4', label: 'Operations' },
-    { type: 'img', src: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&h=700&fit=crop&crop=faces', label: 'Product Managers' }
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4',   label: 'UX Designers' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4',   label: 'Finance Experts' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces', label: 'Sales Leaders' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4',    label: 'Operations' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4',   label: 'Product Managers' }
   ];
 
-  // Build slides
-  slides.forEach((slide, i) => {
-    const div = document.createElement('div');
-    div.className = 'fh-slide' + (i === 0 ? ' active' : '');
+  const cohorts = slides.map(s => s.label);
+  const N = slides.length;
+  const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
+  const tints = [
+    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)','rgb(225,215,200)',
+    'rgb(210,225,215)','rgb(220,200,215)','rgb(215,220,200)','rgb(200,210,220)'
+  ];
 
+  function makeSlideEl(slide, active) {
+    const div = document.createElement('div');
+    div.className = 'fh-slide' + (active ? ' active' : '');
     if (slide.type === 'video') {
-      const video = document.createElement('video');
-      video.src = slide.src;
-      video.autoplay = true;
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      video.setAttribute('playsinline', '');
-      video.className = 'fh-media loaded';
-      video.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-      div.appendChild(video);
+      const v = document.createElement('video');
+      v.src = slide.src; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('playsinline','');
+      v.className = 'fh-media loaded';
+      v.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      div.appendChild(v);
     } else {
       const img = document.createElement('img');
-      img.alt = slide.label;
-      img.className = 'fh-media';
+      img.alt = slide.label; img.className = 'fh-media';
       img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
       img.onload = () => img.classList.add('loaded');
       img.src = slide.src;
       div.appendChild(img);
     }
+    return div;
+  }
 
-    track.appendChild(div);
+  // Build track: [clone of last] + [all real slides] + [clone of first]
+  // This enables seamless infinite loop in both directions
+  track.appendChild(makeSlideEl(slides[N-1], false)); // clone of last
+  slides.forEach((s, i) => track.appendChild(makeSlideEl(s, i === 0)));
+  track.appendChild(makeSlideEl(slides[0], false)); // clone of first
+
+  // trackPos: 1 = real slide 0, 2 = real slide 1, ... N = real slide N-1
+  let trackPos = 1;
+  let ci = 0; // real slide index
+  let charI = 0, deleting = false, paused = false;
+
+  function slideW() {
+    const el = track.querySelector('.fh-slide');
+    return el ? el.offsetWidth + 14 : 0;
+  }
+
+  function moveTo(pos, animate) {
+    track.style.transition = animate ? TRANSITION : 'none';
+    track.style.transform = `translateX(-${pos * slideW()}px)`;
+  }
+
+  function setActive(realIdx) {
+    track.querySelectorAll('.fh-slide').forEach((s, i) => {
+      s.classList.toggle('active', i === realIdx + 1);
+    });
+    const shadow = document.getElementById('fhCardShadow');
+    if (shadow) shadow.style.background = tints[realIdx % N];
+  }
+
+  // Seamless loop: after transition ends on a clone, snap to the real slide instantly
+  track.addEventListener('transitionend', () => {
+    if (trackPos === N + 1) { // landed on clone-of-first
+      trackPos = 1;
+      moveTo(trackPos, false);
+    } else if (trackPos === 0) { // landed on clone-of-last
+      trackPos = N;
+      moveTo(trackPos, false);
+    }
   });
 
-  // Build ghost spans for height measurement
+  // Initial position
+  moveTo(trackPos, false);
+  setActive(ci);
+
+  // Build ghost for typewriter measurement
   const ghost = document.getElementById('fhGhost');
-  cohorts.forEach(c => {
-    const s = document.createElement('div');
-    s.textContent = c;
-    ghost.appendChild(s);
+  if (ghost) cohorts.forEach(c => {
+    const s = document.createElement('div'); s.textContent = c; ghost.appendChild(s);
   });
 
   // Typewriter
   const typedEl = document.getElementById('fhTyped');
-  const cursor = document.getElementById('fhCursor');
-  const shadow = document.getElementById('fhCardShadow');
-  let ci = 0, charI = 0, deleting = false, paused = false;
-  const TYPE_SPEED = 60, DEL_SPEED = 30, HOLD = 2200, PAUSE_BETWEEN = 350;
-
-  // Slide colors for shadow tint
-  const tints = [
-    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)',
-    'rgb(225,215,200)','rgb(210,225,215)','rgb(220,200,215)',
-    'rgb(215,220,200)','rgb(200,210,220)'
-  ];
-
-  function goToSlide(idx) {
-    const slides = track.querySelectorAll('.fh-slide');
-    slides.forEach((s,i) => s.classList.toggle('active', i === idx));
-    const slideW = slides[0] ? slides[0].offsetWidth + 14 : 0;
-    track.style.transform = `translateX(-${idx * slideW}px)`;
-    if (shadow) shadow.style.background = tints[idx % tints.length];
-  }
+  const TYPE_SPEED = 55, DEL_SPEED = 28, HOLD = 2400, PAUSE_BETWEEN = 380;
 
   function typeTick() {
     if (paused) { setTimeout(typeTick, 200); return; }
@@ -1945,21 +1964,18 @@ h1.hero-headline {
     if (!deleting) {
       charI++;
       typedEl.textContent = word.slice(0, charI);
-      // animate width
       typedEl.style.width = typedEl.scrollWidth + 'px';
-      if (charI === word.length) {
-        deleting = true;
-        setTimeout(typeTick, HOLD);
-        return;
-      }
+      if (charI === word.length) { deleting = true; setTimeout(typeTick, HOLD); return; }
     } else {
       charI--;
       typedEl.textContent = word.slice(0, charI);
       typedEl.style.width = charI > 0 ? typedEl.scrollWidth + 'px' : '0px';
       if (charI === 0) {
         deleting = false;
-        ci = (ci + 1) % cohorts.length;
-        goToSlide(ci);
+        ci = (ci + 1) % N;
+        trackPos = (trackPos % N) + 1; // advance, wrapping via clone
+        moveTo(trackPos, true);
+        setActive(ci);
         setTimeout(typeTick, PAUSE_BETWEEN);
         return;
       }
@@ -1967,29 +1983,27 @@ h1.hero-headline {
     setTimeout(typeTick, deleting ? DEL_SPEED : TYPE_SPEED);
   }
 
-  goToSlide(0);
-  setTimeout(typeTick, 800);
+  setTimeout(typeTick, 900);
 
   // Controls
-  document.getElementById('fhPrev')?.addEventListener('click', () => {
-    ci = (ci - 1 + cohorts.length) % cohorts.length;
+  function jumpTo(newCi) {
+    ci = newCi;
+    trackPos = ci + 1;
     charI = 0; deleting = false;
     typedEl.textContent = ''; typedEl.style.width = '0';
-    goToSlide(ci); typeTick();
-  });
-  document.getElementById('fhNext')?.addEventListener('click', () => {
-    ci = (ci + 1) % cohorts.length;
-    charI = 0; deleting = false;
-    typedEl.textContent = ''; typedEl.style.width = '0';
-    goToSlide(ci); typeTick();
-  });
+    moveTo(trackPos, true);
+    setActive(ci);
+    typeTick();
+  }
+  document.getElementById('fhPrev')?.addEventListener('click', () => jumpTo((ci - 1 + N) % N));
+  document.getElementById('fhNext')?.addEventListener('click', () => jumpTo((ci + 1) % N));
   const pauseBtn = document.getElementById('fhPause');
   pauseBtn?.addEventListener('click', () => {
     paused = !paused;
     pauseBtn.textContent = paused ? '▶' : '⏸';
   });
 
-  // Logo strip (reuse existing logos array)
+  // Logo strip
   const fhLogoTrack = document.getElementById('fhLogosTrack');
   if (fhLogoTrack) {
     const logos = ['avery-dennison','expedia','google','nestle','shure','sp-global','stryker','veracode','visa','zapier','zillow'];
