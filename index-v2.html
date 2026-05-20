@@ -1882,17 +1882,20 @@ h1.hero-headline {
   const track = document.getElementById('fhTrack');
   if (!track) return;
 
-  // Slides: 6 videos + 4 static images nicely distributed
+  // Slides: videos + statics, male portraits at every 4th position (3, 7, 11)
   const slides = [
     { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=700&fit=crop&crop=faces', label: 'ML Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4',   label: 'UX Designers' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=500&h=700&fit=crop&crop=faces', label: 'AI/ML Specialists' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4',   label: 'Finance Experts' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&h=700&fit=crop&crop=faces', label: 'DevOps Engineers' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces', label: 'Sales Leaders' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4',    label: 'Operations' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces', label: 'Research Scientists' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&h=700&fit=crop&crop=faces', label: 'Solutions Architects' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4',   label: 'Product Managers' }
   ];
 
@@ -1900,9 +1903,10 @@ h1.hero-headline {
   const N = slides.length;
   const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
   const tints = [
-    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)','rgb(225,215,200)',
-    'rgb(210,225,215)','rgb(220,200,215)','rgb(215,220,200)','rgb(200,210,220)',
-    'rgb(218,208,222)','rgb(205,218,210)'
+    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)','rgb(210,205,218)',
+    'rgb(225,215,200)','rgb(210,225,215)','rgb(220,200,215)','rgb(205,212,222)',
+    'rgb(215,220,200)','rgb(200,210,220)','rgb(218,208,222)','rgb(208,218,210)',
+    'rgb(205,218,210)'
   ];
 
   function makeSlideEl(slide, active) {
