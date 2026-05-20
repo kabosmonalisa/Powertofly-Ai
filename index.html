@@ -285,7 +285,7 @@ h1.hero-headline {
   animation: blink 0.9s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.cohort-suffix { display: none; }
+.cohort-suffix { color: var(--ink-3); font-weight: 500; margin-left: 8px; }
 /* keep ha styles for any residual references but hide the wrap */
 .hero-avatars {
   display: flex; justify-content: center; align-items: center;
@@ -722,8 +722,9 @@ h1.hero-headline {
 }
 .stat-big-label {
   margin-top: 10px;
-  font-size: 15px;
-  color: rgba(255,255,255,0.65);
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
   letter-spacing: 0.005em;
 }
 
@@ -1077,7 +1078,7 @@ h1.hero-headline {
 
     <div class="hero-ticker-wrap">
       <div class="hero-typewriter-line">
-        <span class="cohort-live-dot" aria-hidden="true"></span><span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span>
+        <span class="cohort-live-dot" aria-hidden="true"></span><span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span><span class="cohort-suffix">&nbsp;· ready to deploy</span>
       </div>
     </div>
 
@@ -1296,15 +1297,15 @@ h1.hero-headline {
     </div>
     <div class="stats-card-dark">
       <div>
-        <div class="stat-big-num">3.4M+</div>
+        <div class="stat-big-num" data-count="3.4" data-suffix="M+">3.4M+</div>
         <div class="stat-big-label">Diverse professionals</div>
       </div>
       <div>
-        <div class="stat-big-num">204</div>
+        <div class="stat-big-num" data-count="204" data-suffix="">204</div>
         <div class="stat-big-label">Countries represented</div>
       </div>
       <div>
-        <div class="stat-big-num">98%</div>
+        <div class="stat-big-num" data-count="98" data-suffix="%">98%</div>
         <div class="stat-big-label">Client retention rate</div>
       </div>
     </div>
@@ -1570,6 +1571,38 @@ h1.hero-headline {
       btn.setAttribute('aria-expanded', false);
     }
   });
+})();
+
+/* Count-up animation */
+(function(){
+  const nums = document.querySelectorAll('.stat-big-num[data-count]');
+  if (!nums.length) return;
+  const easeOut = t => 1 - Math.pow(1 - t, 3);
+  const animate = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const isDecimal = target % 1 !== 0;
+    const duration = 1800;
+    const start = performance.now();
+    const step = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const val = easeOut(progress) * target;
+      el.textContent = (isDecimal ? val.toFixed(1) : Math.floor(val)) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = (isDecimal ? target.toFixed(1) : target) + suffix;
+    };
+    requestAnimationFrame(step);
+  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  nums.forEach(el => observer.observe(el));
 })();
 </script>
 
