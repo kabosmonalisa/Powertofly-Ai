@@ -196,7 +196,7 @@ img { display: block; max-width: 100%; }
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  padding: 120px 32px 100px;
+  padding: 44px 32px 0;
   background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
   overflow: hidden;
 }
@@ -1065,14 +1065,14 @@ h1.hero-headline {
 /* ===== Figma-style hero carousel ===== */
 .fh-wrap {
   position: relative;
-  margin-top: 48px;
+  margin-top: 20px;
   margin-left: calc(-1 * (100vw - 100%) / 2);
   width: 100vw;
 }
 .fh-track-container {
   overflow-x: clip;
   position: relative;
-  padding: 24px 0 100px;
+  padding: 12px 0 220px;
 }
 .fh-track {
   display: flex;
@@ -1886,15 +1886,17 @@ h1.hero-headline {
   const track = document.getElementById('fhTrack');
   if (!track) return;
 
-  // Slides: 6 videos + 2 static images nicely distributed
+  // Slides: 6 videos + 4 static images nicely distributed
   const slides = [
     { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4',   label: 'UX Designers' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=500&h=700&fit=crop&crop=faces', label: 'AI/ML Specialists' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4',   label: 'Finance Experts' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces', label: 'Sales Leaders' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4',    label: 'Operations' },
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces', label: 'Research Scientists' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4',   label: 'Product Managers' }
   ];
 
@@ -1903,7 +1905,8 @@ h1.hero-headline {
   const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
   const tints = [
     'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)','rgb(225,215,200)',
-    'rgb(210,225,215)','rgb(220,200,215)','rgb(215,220,200)','rgb(200,210,220)'
+    'rgb(210,225,215)','rgb(220,200,215)','rgb(215,220,200)','rgb(200,210,220)',
+    'rgb(218,208,222)','rgb(205,218,210)'
   ];
 
   function makeSlideEl(slide, active) {
@@ -1996,7 +1999,7 @@ h1.hero-headline {
       if (charI === 0) {
         deleting = false;
         ci = (ci + 1) % N;
-        trackPos = (trackPos % N) + 1; // advance, wrapping via clone
+        trackPos = trackPos + 1; // advance into clone then transitionend snaps back
         moveTo(trackPos, true);
         setActive(ci);
         setTimeout(typeTick, PAUSE_BETWEEN);
@@ -2009,14 +2012,14 @@ h1.hero-headline {
   setTimeout(typeTick, 900);
 
   // Controls
-  function jumpTo(newCi) {
+  function jumpTo(newCi, dir) {
     ci = newCi;
     trackPos = ci + 1;
     charI = 0; deleting = false;
     typedEl.textContent = ''; typedEl.style.width = '0';
     moveTo(trackPos, true);
     setActive(ci);
-    typeTick();
+    setTimeout(typeTick, 300);
   }
   document.getElementById('fhPrev')?.addEventListener('click', () => jumpTo((ci - 1 + N) % N));
   document.getElementById('fhNext')?.addEventListener('click', () => jumpTo((ci + 1) % N));
