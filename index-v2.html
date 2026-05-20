@@ -1086,14 +1086,14 @@ h1.hero-headline {
 }
 .fh-slide:not(.active) { opacity: 0.75; transform: scale(0.96); }
 .fh-slide.active { opacity: 1; transform: scale(1); }
-.fh-slide img {
+.fh-slide .fh-media {
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
 }
-.fh-slide img.loaded { opacity: 1; }
+.fh-slide .fh-media.loaded { opacity: 1; }
 .fh-slide:hover { transform: scale(1.02) perspective(800px) rotateY(-2deg); }
 
 /* Controls */
@@ -1864,32 +1864,49 @@ h1.hero-headline {
   if (!track) return;
 
   const cohorts = [
-    'Software Engineers','Healthcare Professionals','Data Scientists',
-    'Finance Experts','UX Designers','Sales Leaders',
-    'Operations','Product Managers'
+    'Software Engineers', 'Healthcare Professionals', 'Data Scientists',
+    'UX Designers', 'Finance Experts', 'Sales Leaders',
+    'Operations', 'Product Managers'
   ];
 
-  const images = [
-    'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1559103377-5cf08b5a6b37?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1616587226960-4a03badbe8bf?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&h=700&fit=crop&crop=faces'
+  const slides = [
+    { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4', label: 'Software Engineers' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4', label: 'Data Scientists' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4', label: 'UX Designers' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4', label: 'Finance Experts' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4', label: 'Sales Leaders' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6889677/6889677-hd_1920_1080_25fps.mp4', label: 'Operations' },
+    { type: 'img', src: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&h=700&fit=crop&crop=faces', label: 'Product Managers' }
   ];
 
   // Build slides
-  images.forEach((src, i) => {
-    const slide = document.createElement('div');
-    slide.className = 'fh-slide' + (i === 0 ? ' active' : '');
-    const img = document.createElement('img');
-    img.alt = cohorts[i] || '';
-    img.onload = () => img.classList.add('loaded');
-    img.src = src;
-    slide.appendChild(img);
-    track.appendChild(slide);
+  slides.forEach((slide, i) => {
+    const div = document.createElement('div');
+    div.className = 'fh-slide' + (i === 0 ? ' active' : '');
+
+    if (slide.type === 'video') {
+      const video = document.createElement('video');
+      video.src = slide.src;
+      video.autoplay = true;
+      video.muted = true;
+      video.loop = true;
+      video.playsInline = true;
+      video.setAttribute('playsinline', '');
+      video.className = 'fh-media loaded';
+      video.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      div.appendChild(video);
+    } else {
+      const img = document.createElement('img');
+      img.alt = slide.label;
+      img.className = 'fh-media';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      img.onload = () => img.classList.add('loaded');
+      img.src = slide.src;
+      div.appendChild(img);
+    }
+
+    track.appendChild(div);
   });
 
   // Build ghost spans for height measurement
