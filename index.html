@@ -785,7 +785,7 @@ h1.hero-headline {
 
 /* ===== Book a call ===== */
 .section-book {
-  background: var(--ink);
+  background: #F5F7F5;
   padding: 140px 32px;
   text-align: center;
 }
@@ -798,7 +798,7 @@ h1.hero-headline {
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #00C47A;
+  color: #0A8C66;
   margin-bottom: 20px;
 }
 .book-headline {
@@ -807,12 +807,12 @@ h1.hero-headline {
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 0.95;
-  color: #ffffff;
+  color: var(--ink);
   margin-bottom: 24px;
 }
 .book-sub {
   font-size: 18px;
-  color: rgba(255,255,255,0.55);
+  color: var(--ink-3);
   line-height: 1.6;
   max-width: 480px;
   margin: 0 auto 40px;
@@ -821,7 +821,7 @@ h1.hero-headline {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #00C47A;
+  background: var(--ink);
   color: #fff;
   font-family: 'Inter Tight', sans-serif;
   font-size: 16px;
@@ -830,9 +830,9 @@ h1.hero-headline {
   border-radius: 100px;
   border: none;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
 }
-.btn-book:hover { background: #00a868; transform: translateY(-1px); }
+.btn-book:hover { box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); transform: translateY(-1px); }
 
 /* Modal */
 .booking-modal {
@@ -1490,7 +1490,7 @@ h1.hero-headline {
     <p class="book-eyebrow">Let's talk</p>
     <h2 class="book-headline">Ready to build your<br>AI team?</h2>
     <p class="book-sub">30 minutes. No pitch deck. Just a conversation about what you're building and how we can help.</p>
-    <button class="btn btn-book" id="openBooking">Book a 30-min call →</button>
+    <button class="btn btn-book" id="openBooking">Book a discovery call →</button>
   </div>
 </section>
 
