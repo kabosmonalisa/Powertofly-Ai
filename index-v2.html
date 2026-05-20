@@ -1069,6 +1069,7 @@ h1.hero-headline {
 
   /* Footer */
   .footer-cols { grid-template-columns: 1fr; gap: 40px; }
+  .footer { padding-left: 0; padding-right: 0; }
   .footer-inner { padding: 56px 20px 32px; }
   .footer-brand svg { width: 120px; height: auto; }
 
@@ -1906,22 +1907,23 @@ h1.hero-headline {
   const track = document.getElementById('fhTrack');
   if (!track) return;
 
-  // Slides: strictly alternating video/static, no two statics or two men adjacent
+  // Slides: alternating video/static, women at both ends (first+last = women for seamless loop)
+  // Men at positions 2, 6, 9, 12 — never adjacent
   const slides = [
-    { type: 'video', src: 'https://videos.pexels.com/video-files/8034784/8034784-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },      // video · woman
-    { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' }, // static · woman
-    { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },   // video · woman
-    { type: 'img',   src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=700&fit=crop&crop=faces', label: 'ML Engineers' },      // static · man
-    { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4',   label: 'UX Designers' },              // video
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' },      // static · woman ← START
+    { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },          // video  · woman
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1556157382-97eda2d62296?w=500&h=700&fit=crop&crop=faces', label: 'ML Engineers' },            // static · man
+    { type: 'video', src: 'https://videos.pexels.com/video-files/8034784/8034784-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },               // video  · woman
     { type: 'img',   src: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=500&h=700&fit=crop', label: 'AI/ML Specialists' }, // static · woman
-    { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4',   label: 'Finance Experts' },           // video
+    { type: 'video', src: 'https://videos.pexels.com/video-files/4065629/4065629-uhd_1440_2732_25fps.mp4',   label: 'UX Designers' },                     // video
     { type: 'img',   src: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=500&h=700&fit=crop', label: 'DevOps Engineers' }, // static · man
-    { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4',    label: 'Operations' },                // video
-    { type: 'img',   src: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces', label: 'Sales Leaders' }, // static · woman
-    { type: 'video', src: 'https://videos.pexels.com/video-files/4489881/4489881-uhd_1440_2732_25fps.mp4',   label: 'Mechanics' },                 // video · man
-    { type: 'img',   src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces', label: 'Research Scientists' }, // static · woman
-    { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4',   label: 'Product Managers' },          // video
-    { type: 'img',   src: 'https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=500&h=700&fit=crop&crop=faces', label: 'Solutions Architects' } // static · man
+    { type: 'video', src: 'https://videos.pexels.com/video-files/7679430/7679430-uhd_1440_2732_25fps.mp4',   label: 'Finance Experts' },                  // video
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces', label: 'Sales Leaders' },        // static · woman
+    { type: 'video', src: 'https://videos.pexels.com/video-files/4489881/4489881-uhd_1440_2732_25fps.mp4',   label: 'Mechanics' },                        // video  · man
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces', label: 'Research Scientists' },  // static · woman
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6130029/6130029-hd_1920_1080_30fps.mp4',    label: 'Operations' },                       // video
+    { type: 'img',   src: 'https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?w=500&h=700&fit=crop&crop=faces', label: 'Solutions Architects' }, // static · man
+    { type: 'video', src: 'https://videos.pexels.com/video-files/8636287/8636287-uhd_2560_1440_25fps.mp4',   label: 'Product Managers' }                  // video  ← END (neutral, loops to woman)
   ];
 
   const cohorts = slides.map(s => s.label);
