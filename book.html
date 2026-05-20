@@ -37,29 +37,11 @@ body {
 }
 
 /* ===== Ambient glow ===== */
-.auth-bg {
-  position: fixed; inset: 0;
-  pointer-events: none; z-index: 0; overflow: hidden;
-}
-.auth-bg-blob {
-  position: absolute; border-radius: 50%;
-  filter: blur(90px); opacity: 0.18;
-}
-.auth-bg-blob.b1 {
-  width: 600px; height: 500px;
-  background: radial-gradient(circle, #5BCFFF, transparent 70%);
-  top: -160px; left: -100px;
-}
-.auth-bg-blob.b2 {
-  width: 500px; height: 400px;
-  background: radial-gradient(circle, #4FE8A9, transparent 70%);
-  bottom: -100px; right: -80px;
-}
-.auth-bg-blob.b3 {
-  width: 360px; height: 360px;
-  background: radial-gradient(circle, #D5FF66, transparent 70%);
-  top: 40%; left: 60%; opacity: 0.1;
-}
+.auth-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.auth-bg-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.18; }
+.auth-bg-blob.b1 { width: 600px; height: 500px; background: radial-gradient(circle, #5BCFFF, transparent 70%); top: -160px; left: -100px; }
+.auth-bg-blob.b2 { width: 500px; height: 400px; background: radial-gradient(circle, #4FE8A9, transparent 70%); bottom: -100px; right: -80px; }
+.auth-bg-blob.b3 { width: 360px; height: 360px; background: radial-gradient(circle, #D5FF66, transparent 70%); top: 40%; left: 60%; opacity: 0.1; }
 
 /* ===== Nav ===== */
 .nav {
@@ -67,14 +49,11 @@ body {
   padding: 14px 32px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.nav-brand {
-  display: flex; align-items: center; gap: 10px; text-decoration: none;
-}
+.nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .nav-brand img { height: 22px; width: auto; }
 .brand-ai {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
   padding: 4px 10px; border-radius: 999px;
   background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
   color: #0A2A1F;
@@ -88,8 +67,7 @@ body {
 
 /* ===== Layout ===== */
 .book-wrap {
-  position: relative; z-index: 1;
-  flex: 1;
+  position: relative; z-index: 1; flex: 1;
   display: flex; align-items: center; justify-content: center;
   padding: 24px 20px 48px;
 }
@@ -100,15 +78,12 @@ body {
   border: 1px solid var(--line);
   border-radius: 28px;
   box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
-  width: 100%;
-  max-width: 960px;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
+  width: 100%; max-width: 880px;
+  display: grid; grid-template-columns: 1fr 1.2fr;
   overflow: hidden;
-  min-height: 620px;
 }
 
-/* ===== Left panel ===== */
+/* ===== Left ===== */
 .book-left {
   background: var(--bg-soft);
   padding: 52px 44px;
@@ -116,81 +91,87 @@ body {
   border-right: 1px solid var(--line);
 }
 .book-eyebrow {
-  font-size: 12px; font-weight: 700;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  color: #0A8C66; margin-bottom: 16px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: #0A8C66; margin-bottom: 16px;
 }
 .book-headline {
   font-family: 'Inter Tight', sans-serif;
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 800;
-  letter-spacing: -0.04em; line-height: 1.0;
+  font-weight: 800; letter-spacing: -0.04em; line-height: 1.0;
   color: var(--ink); margin-bottom: 20px;
 }
 .book-sub {
-  font-size: 18px;
-  color: var(--ink-3);
-  line-height: 1.55;
-  max-width: 32ch;
-  margin-bottom: 40px;
+  font-size: 18px; color: var(--ink-3);
+  line-height: 1.55; max-width: 32ch; margin-bottom: 40px;
 }
-.book-meta {
-  display: flex; flex-direction: column; gap: 12px;
-}
+.book-meta { display: flex; flex-direction: column; gap: 12px; }
 .meta-item {
   display: flex; align-items: center; gap: 12px;
   font-size: 14px; font-weight: 500; color: var(--ink-2);
 }
 .meta-icon {
-  width: 32px; height: 32px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 8px;
+  width: 32px; height: 32px; background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   font-size: 15px; flex-shrink: 0;
 }
-.book-footer {
-  font-size: 12px; color: var(--ink-3); margin-top: 48px;
-}
+.book-footer { font-size: 12px; color: var(--ink-3); margin-top: 48px; }
 
-/* ===== Right panel (HubSpot) ===== */
-.book-right {
-  display: flex; flex-direction: column;
-}
-.book-right-header {
-  padding: 28px 40px 0;
-  font-size: 13px; font-weight: 500;
-  color: var(--ink-3);
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 16px;
-}
-.hs-area {
-  flex: 1; padding: 32px 40px;
-  display: flex; flex-direction: column;
-}
+/* ===== Right: form ===== */
+.book-right { padding: 52px 44px; display: flex; flex-direction: column; justify-content: center; }
 
-/* ── Placeholder shown until HubSpot is wired ── */
-#hs-embed-target {
-  flex: 1; min-height: 460px;
-  display: flex; align-items: center; justify-content: center;
-}
-.hs-placeholder {
-  text-align: center; color: var(--ink-3);
-}
-.hs-placeholder-icon { font-size: 36px; margin-bottom: 14px; }
-.hs-placeholder h3 {
+.form-heading {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 18px; font-weight: 700;
-  color: var(--ink); margin-bottom: 8px;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.02em; color: var(--ink);
+  margin-bottom: 6px;
 }
-.hs-placeholder p {
-  font-size: 14px; line-height: 1.6; max-width: 30ch; margin: 0 auto;
+.form-sub {
+  font-size: 14px; color: var(--ink-3);
+  margin-bottom: 28px; line-height: 1.5;
 }
-.hs-placeholder code {
-  display: inline-block; margin-top: 14px;
-  background: var(--bg-soft); border: 1px solid var(--line);
-  padding: 5px 12px; border-radius: 6px;
-  font-size: 12px; color: #0A8C66;
+
+.book-form { display: flex; flex-direction: column; gap: 14px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field label {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-2); letter-spacing: 0.01em;
+}
+.field input, .field select {
+  width: 100%; padding: 11px 14px;
+  border-radius: 12px; border: 1.5px solid var(--line);
+  background: var(--bg-soft);
+  font-family: 'Inter', sans-serif; font-size: 15px; color: var(--ink);
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  appearance: none; -webkit-appearance: none;
+}
+.field input:focus, .field select:focus {
+  border-color: #4FE8A9;
+  box-shadow: 0 0 0 3px rgba(79,232,169,0.15);
+}
+.field input::placeholder { color: var(--ink-3); opacity: 0.6; }
+
+.btn-submit {
+  margin-top: 4px;
+  width: 100%; padding: 14px;
+  background: var(--ink); color: #fff;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; font-weight: 700;
+  border: none; border-radius: 14px; cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-submit:hover {
+  box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
+  transform: translateY(-1px);
+}
+
+.form-note {
+  font-size: 12px; color: var(--ink-3);
+  text-align: center; margin-top: 12px;
 }
 
 /* ===== Mobile ===== */
@@ -198,21 +179,19 @@ body {
   .nav { padding: 12px 20px; }
   .book-card { grid-template-columns: 1fr; }
   .book-left { padding: 36px 24px 28px; border-right: none; border-bottom: 1px solid var(--line); }
-  .book-right-header { padding: 20px 24px 14px; }
-  .hs-area { padding: 20px 24px 28px; }
+  .book-right { padding: 32px 24px 40px; }
+  .field-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- Ambient glow -->
 <div class="auth-bg" aria-hidden="true">
   <div class="auth-bg-blob b1"></div>
   <div class="auth-bg-blob b2"></div>
   <div class="auth-bg-blob b3"></div>
 </div>
 
-<!-- Nav -->
 <nav class="nav">
   <a href="index.html" class="nav-brand">
     <img src="PowerToFly-Logo-Black.png" alt="PowerToFly AI">
@@ -221,50 +200,77 @@ body {
   <a href="index.html" class="nav-back">← Back</a>
 </nav>
 
-<!-- Main -->
 <main class="book-wrap">
   <div class="book-card">
 
-    <!-- Left: context -->
+    <!-- Left -->
     <div class="book-left">
       <div>
         <p class="book-eyebrow">Let's talk</p>
         <h1 class="book-headline">Book a discovery call</h1>
         <p class="book-sub">30 minutes with the team that has spent a decade building the most trusted AI talent community in the industry.</p>
         <div class="book-meta">
-          <div class="meta-item"><div class="meta-icon">🕐</div> 30 minutes</div>
-          <div class="meta-item"><div class="meta-icon">📞</div> Phone or video call</div>
-          <div class="meta-item"><div class="meta-icon">🌍</div> Available globally</div>
+          <div class="meta-item"><div class="meta-icon">🕐</div>30 minutes</div>
+          <div class="meta-item"><div class="meta-icon">📞</div>Phone or video call</div>
+          <div class="meta-item"><div class="meta-icon">🌍</div>Available globally</div>
         </div>
       </div>
       <p class="book-footer">© 2026 PowerToFly. All rights reserved.</p>
     </div>
 
-    <!-- Right: HubSpot -->
+    <!-- Right: form -->
     <div class="book-right">
-      <div class="book-right-header">Schedule a time that works for you</div>
-      <div class="hs-area">
+      <p class="form-heading">Tell us a bit about you</p>
+      <p class="form-sub">We'll take you straight to the calendar to pick a time.</p>
 
-        <!-- ============================================================
-             DEVS: Replace the placeholder below with the HubSpot
-             meetings embed script. Example:
-
-             <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
-             <div class="meetings-iframe-container" data-src="https://meetings.hubspot.com/YOUR-LINK?embed=true"></div>
-        ============================================================ -->
-        <div id="hs-embed-target">
-          <div class="hs-placeholder">
-            <div class="hs-placeholder-icon">📅</div>
-            <h3>Calendar coming soon</h3>
-            <p>Devs — paste the HubSpot embed code inside <code>#hs-embed-target</code></p>
+      <form class="book-form" id="bookForm" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label for="firstname">First name</label>
+            <input type="text" id="firstname" name="firstname" placeholder="Sarah" required>
+          </div>
+          <div class="field">
+            <label for="lastname">Last name</label>
+            <input type="text" id="lastname" name="lastname" placeholder="Chen" required>
           </div>
         </div>
-
-      </div>
+        <div class="field">
+          <label for="email">Work email</label>
+          <input type="email" id="email" name="email" placeholder="sarah@company.com" required>
+        </div>
+        <div class="field">
+          <label for="company">Company</label>
+          <input type="text" id="company" name="company" placeholder="Acme Corp" required>
+        </div>
+        <div class="field">
+          <label for="jobtitle">Job title</label>
+          <input type="text" id="jobtitle" name="jobtitle" placeholder="Head of AI">
+        </div>
+        <button type="submit" class="btn-submit">Pick a time →</button>
+        <p class="form-note">You'll choose a date and time on the next step.</p>
+      </form>
     </div>
 
   </div>
 </main>
+
+<script>
+// ── Devs: replace HUBSPOT_MEETINGS_URL with the actual meetings link ──
+// e.g. https://meetings.hubspot.com/powertofly/discovery-call
+const HUBSPOT_MEETINGS_URL = 'HUBSPOT_MEETINGS_URL_HERE';
+
+document.getElementById('bookForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const first   = encodeURIComponent(document.getElementById('firstname').value.trim());
+  const last    = encodeURIComponent(document.getElementById('lastname').value.trim());
+  const email   = encodeURIComponent(document.getElementById('email').value.trim());
+  const company = encodeURIComponent(document.getElementById('company').value.trim());
+  const title   = encodeURIComponent(document.getElementById('jobtitle').value.trim());
+
+  const url = `${HUBSPOT_MEETINGS_URL}?firstname=${first}&lastname=${last}&email=${email}&company=${company}&jobtitle=${title}`;
+  window.location.href = url;
+});
+</script>
 
 </body>
 </html>
