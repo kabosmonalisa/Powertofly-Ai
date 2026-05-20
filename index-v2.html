@@ -1165,39 +1165,30 @@ h1.hero-headline {
   justify-content: flex-start;
 }
 .fh-text-area {
-  position: relative;
+  display: flex;
+  align-items: center;
   flex: 1;
   min-width: 0;
-  min-height: 36px;
 }
-.fh-ghost {
-  position: absolute;
-  visibility: hidden;
-  white-space: nowrap;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(28px, 3.2vw, 44px);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  pointer-events: none;
-}
+.fh-ghost { display: none; }
 .fh-typed {
   font-family: 'Inter Tight', sans-serif;
   font-size: clamp(28px, 3.2vw, 44px);
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--ink);
-  display: inline-block;
+  display: block;
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  vertical-align: bottom;
 }
 .fh-cursor {
-  display: inline-block;
+  display: block;
+  flex-shrink: 0;
   border-left: 2.5px solid var(--ink);
-  height: 0.85em;
-  margin-left: 2px;
-  vertical-align: bottom;
+  height: 0.8em;
+  margin-left: 3px;
+  align-self: center;
   animation: fhBlink 1s infinite;
 }
 @keyframes fhBlink {
