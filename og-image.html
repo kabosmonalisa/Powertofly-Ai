@@ -5,7 +5,7 @@
 <title>OG Image — PowerToFly AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Inter+Tight:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body {
@@ -15,13 +15,13 @@ html, body {
   -webkit-font-smoothing: antialiased;
 }
 body {
-  font-family: 'Inter', sans-serif;
-  background: #FAFAF6;
+  font-family: 'Inter Tight', sans-serif;
+  background: #0A0A0A;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 56px 72px 52px;
+  padding: 52px 68px 48px;
 }
 
 /* Gradient blobs */
@@ -29,139 +29,109 @@ body {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
-  filter: blur(80px);
+  filter: blur(100px);
+  opacity: 0.35;
 }
 .blob-1 {
-  width: 520px; height: 420px;
-  background: radial-gradient(circle, rgba(91,207,255,0.32), transparent 70%);
-  top: -120px; left: -80px;
+  width: 600px; height: 500px;
+  background: #5BCFFF;
+  top: -200px; left: -100px;
 }
 .blob-2 {
-  width: 440px; height: 360px;
-  background: radial-gradient(circle, rgba(79,232,169,0.28), transparent 70%);
-  bottom: -80px; right: -60px;
+  width: 500px; height: 400px;
+  background: #4FE8A9;
+  bottom: -150px; right: -80px;
 }
 .blob-3 {
-  width: 320px; height: 320px;
-  background: radial-gradient(circle, rgba(213,255,102,0.2), transparent 70%);
-  top: 30%; left: 55%;
+  width: 360px; height: 360px;
+  background: #D5FF66;
+  top: 20%; left: 50%;
+  opacity: 0.18;
 }
 
-/* Top row */
+/* Top */
 .top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 12px;
   position: relative; z-index: 2;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
 }
 .brand-wordmark {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: -0.03em;
-  color: #0A0A0A;
+  color: #ffffff;
 }
 .brand-ai {
-  padding: 4px 12px;
+  padding: 5px 13px;
   border-radius: 999px;
   background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
   font-family: 'Inter Tight', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.04em;
   color: #0A2A1F;
 }
-.tagline {
-  font-size: 13px;
-  font-weight: 500;
-  color: #5C6F69;
-  letter-spacing: 0.02em;
-}
 
 /* Headline */
-.headline-wrap {
-  position: relative; z-index: 2;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px 0 0;
-}
 .headline {
+  position: relative; z-index: 2;
   font-family: 'Inter Tight', sans-serif;
   font-weight: 800;
-  font-size: 76px;
-  line-height: 0.95;
+  font-size: 96px;
+  line-height: 0.92;
   letter-spacing: -0.045em;
-  color: #0A0A0A;
+  color: #ffffff;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 .headline em {
   font-style: italic;
-  font-weight: 700;
-  color: #0A0A0A;
-}
-.sub {
-  margin-top: 20px;
-  font-size: 18px;
-  font-weight: 400;
-  color: #5C6F69;
-  line-height: 1.5;
-  max-width: 520px;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Bottom row */
+/* Bottom */
 .bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   position: relative; z-index: 2;
 }
-.pill-row {
+.live {
   display: flex;
   align-items: center;
   gap: 8px;
-}
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-weight: 600;
-  border: 1.5px solid rgba(10,10,10,0.1);
-  color: #2A2A2A;
-  background: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
-.pill-dot {
-  width: 6px; height: 6px;
+.live-dot {
+  width: 8px; height: 8px;
   border-radius: 50%;
   background: #00C47A;
+  box-shadow: 0 0 8px #00C47A;
 }
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 999px;
-  background: #0A0A0A;
-  color: #fff;
-  font-family: 'Inter Tight', sans-serif;
+.url {
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.01em;
 }
 
-/* Accent bar */
+/* Bottom accent bar */
 .accent-bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 4px;
+  height: 5px;
   background: linear-gradient(90deg, #5BCFFF, #4FE8A9, #D5FF66);
 }
 </style>
@@ -172,30 +142,21 @@ body {
 <div class="blob blob-2"></div>
 <div class="blob blob-3"></div>
 
-<!-- Top -->
 <div class="top">
-  <div class="brand">
-    <span class="brand-wordmark">PowerToFly</span>
-    <span class="brand-ai">AI</span>
-  </div>
-  <span class="tagline">powertofly.com/ai</span>
+  <span class="brand-wordmark">PowerToFly</span>
+  <span class="brand-ai">AI</span>
 </div>
 
-<!-- Headline -->
-<div class="headline-wrap">
-  <h1 class="headline">Your AI is only as good as<br>the <em>humans</em> behind it.</h1>
-  <p class="sub">50,000 verified experts across every discipline — the most trusted AI talent community in the industry.</p>
+<div class="headline">
+  <div>Your AI is only as<br>good as the<br><em>humans</em> behind it.</div>
 </div>
 
-<!-- Bottom -->
 <div class="bottom">
-  <div class="pill-row">
-    <div class="pill"><span class="pill-dot"></span>Ready to deploy</div>
-    <div class="pill">50,000+ experts</div>
-    <div class="pill">204 countries</div>
-    <div class="pill">98% retention</div>
+  <div class="live">
+    <span class="live-dot"></span>
+    50,000 verified experts · ready to deploy
   </div>
-  <div class="cta">Book a discovery call →</div>
+  <span class="url">powertofly.com/ai</span>
 </div>
 
 <div class="accent-bar"></div>
