@@ -228,32 +228,28 @@ h1.hero-headline {
 
 /* Avatar cluster */
 .hero-ticker-wrap { margin: 48px auto 0; text-align: center; }
-.hero-ticker-microcopy { font-size: 13px; color: var(--ink-3); margin-bottom: 16px; }
-.hero-ticker-track-wrap {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
-          mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+.hero-typewriter-line {
+  display: inline-flex; align-items: baseline; gap: 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 600;
+  color: var(--ink);
 }
-.hero-ticker-track {
-  display: flex; gap: 10px; align-items: center;
-  width: max-content;
-  animation: marquee 30s linear infinite;
+.cohort-type-word {
+  color: #0A8C66;
+  min-width: 1ch;
 }
-.hero-ticker-track:hover { animation-play-state: paused; }
-.cohort-chip {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 7px 14px; border-radius: 999px;
-  background: #fff;
-  border: 1px solid var(--line);
-  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-  font-size: 13px; font-weight: 500; color: var(--ink-2);
-  white-space: nowrap; flex-shrink: 0;
-}
-.cohort-dot {
-  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+.cohort-cursor {
+  display: inline-block;
+  width: 2px; height: 1.1em;
   background: #4FE8A9;
-  box-shadow: 0 0 6px rgba(79,232,169,0.7);
+  margin-left: 2px;
+  vertical-align: middle;
+  border-radius: 1px;
+  animation: blink 0.8s step-end infinite;
 }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cohort-suffix { color: var(--ink-3); font-weight: 500; margin-left: 6px; }
 /* keep ha styles for any residual references but hide the wrap */
 .hero-avatars {
   display: flex; justify-content: center; align-items: center;
@@ -1044,9 +1040,8 @@ h1.hero-headline {
     </div>
 
     <div class="hero-ticker-wrap">
-      <div class="hero-ticker-microcopy">50,000+ experts · ready to deploy</div>
-      <div class="hero-ticker-track-wrap">
-        <div class="hero-ticker-track" id="cohortTicker"></div>
+      <div class="hero-typewriter-line">
+        <span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span><span class="cohort-suffix">&nbsp;· ready to deploy</span>
       </div>
     </div>
 
@@ -1479,20 +1474,32 @@ h1.hero-headline {
   }, 3000);
 })();
 
-/* (3b) Cohort ticker */
+/* (3b) Cohort typewriter */
 (function(){
-  const track = document.getElementById('cohortTicker');
-  if (!track) return;
+  const el = document.getElementById('cohortWord');
+  if (!el) return;
   const cohorts = [
-    'Software Engineers','AI/ML Specialists','Data Scientists',
-    'Heads of Marketing','Finance Experts','Healthcare Professionals',
-    'Sales Leaders','Nurses','Mechanics','Operations',
-    'Product Managers','Legal','UX Designers','Recruiters',
-    'Customer Success','Logistics','HR Leaders','Research Scientists'
+    'Software Engineers','Nurses','Finance Experts','AI/ML Specialists',
+    'Healthcare Professionals','Heads of Marketing','Mechanics',
+    'Data Scientists','Sales Leaders','UX Designers','Operations',
+    'Product Managers','Recruiters','Research Scientists',
+    'Customer Success','HR Leaders','Legal','Logistics'
   ];
-  const buildOne = (c) => `<span class="cohort-chip"><span class="cohort-dot"></span>${c}</span>`;
-  const html = cohorts.map(buildOne).join('');
-  track.innerHTML = html + html;
+  let ci = 0, ti = 0, deleting = false;
+  const TYPE_SPEED = 55, DELETE_SPEED = 30, HOLD = 1800, PAUSE = 400;
+
+  function tick() {
+    const word = cohorts[ci];
+    if (!deleting) {
+      el.textContent = word.slice(0, ++ti);
+      if (ti === word.length) { deleting = true; setTimeout(tick, HOLD); return; }
+    } else {
+      el.textContent = word.slice(0, --ti);
+      if (ti === 0) { deleting = false; ci = (ci + 1) % cohorts.length; setTimeout(tick, PAUSE); return; }
+    }
+    setTimeout(tick, deleting ? DELETE_SPEED : TYPE_SPEED);
+  }
+  tick();
 })();
 
 /* (4) Marquee — company logos */
