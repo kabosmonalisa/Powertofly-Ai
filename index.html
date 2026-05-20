@@ -229,27 +229,49 @@ h1.hero-headline {
 /* Avatar cluster */
 .hero-ticker-wrap { margin: 48px auto 0; text-align: center; }
 .hero-typewriter-line {
-  display: inline-flex; align-items: baseline; gap: 0;
+  display: inline-flex; align-items: center; gap: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(15px, 1.4vw, 18px);
+  font-size: clamp(18px, 2vw, 26px);
   font-weight: 600;
   color: var(--ink);
 }
+.cohort-live-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  background: #00C47A;
+  border-radius: 50%;
+  margin-right: 10px;
+  flex-shrink: 0;
+  animation: livepulse 1.8s ease-in-out infinite;
+}
+@keyframes livepulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+.cohort-label {
+  font-size: clamp(10px, 0.85vw, 12px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-right: 10px;
+  flex-shrink: 0;
+}
 .cohort-type-word {
-  color: #0A8C66;
+  color: #00C47A;
   min-width: 1ch;
 }
 .cohort-cursor {
   display: inline-block;
   width: 2px; height: 1.1em;
-  background: #4FE8A9;
+  background: #00C47A;
   margin-left: 2px;
   vertical-align: middle;
   border-radius: 1px;
   animation: blink 0.8s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.cohort-suffix { color: var(--ink-3); font-weight: 500; margin-left: 6px; }
+.cohort-suffix { color: var(--ink-3); font-weight: 500; margin-left: 8px; }
 /* keep ha styles for any residual references but hide the wrap */
 .hero-avatars {
   display: flex; justify-content: center; align-items: center;
@@ -1041,7 +1063,7 @@ h1.hero-headline {
 
     <div class="hero-ticker-wrap">
       <div class="hero-typewriter-line">
-        <span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span><span class="cohort-suffix">&nbsp;· ready to deploy</span>
+        <span class="cohort-live-dot" aria-hidden="true"></span><span class="cohort-label">Now deploying</span><span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span><span class="cohort-suffix">&nbsp;· ready to deploy</span>
       </div>
     </div>
 
