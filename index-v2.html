@@ -1097,8 +1097,7 @@ h1.hero-headline {
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   cursor: pointer;
 }
-.fh-slide:not(.active) { opacity: 0.75; transform: scale(0.96); }
-.fh-slide.active { opacity: 1; transform: scale(1); }
+.fh-slide { opacity: 1; }
 .fh-slide .fh-media {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -1107,7 +1106,7 @@ h1.hero-headline {
   transition: opacity 0.8s ease-in-out;
 }
 .fh-slide .fh-media.loaded { opacity: 1; }
-.fh-slide:hover { transform: scale(1.02) perspective(800px) rotateY(-2deg); }
+.fh-slide:hover { transform: scale(1.02); }
 
 /* Controls */
 .fh-controls {
@@ -1135,7 +1134,7 @@ h1.hero-headline {
 /* Floating card */
 .fh-card-outer {
   position: absolute;
-  top: 50%;
+  top: 64%;
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 3px;
