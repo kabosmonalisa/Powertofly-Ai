@@ -5,170 +5,74 @@
 <title>OG Image — PowerToFly AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600&family=Inter+Tight:ital,wght@0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Inter+Tight:ital,wght@0,800;1,800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  width: 1200px;
-  height: 630px;
-  overflow: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+html, body { width: 1200px; height: 630px; overflow: hidden; -webkit-font-smoothing: antialiased; }
 body {
-  font-family: 'Inter', sans-serif;
-  background: #FAFAF6;
+  font-family: 'Inter Tight', sans-serif;
+  background: #0A0A0A;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 52px 72px 52px;
-  /* Hero gradient — exactly matching the page */
-  background: radial-gradient(ellipse 1400px 900px at 50% -80px,
-    rgba(79,232,169,0.28) 0%,
-    rgba(213,255,102,0.14) 32%,
-    #FAFAF6 65%);
+  padding: 52px 68px 48px;
 }
+.blob { position: absolute; border-radius: 50%; pointer-events: none; filter: blur(100px); opacity: 0.35; }
+.blob-1 { width: 600px; height: 500px; background: #5BCFFF; top: -200px; left: -100px; }
+.blob-2 { width: 500px; height: 400px; background: #4FE8A9; bottom: -150px; right: -80px; }
+.blob-3 { width: 360px; height: 360px; background: #D5FF66; top: 20%; left: 50%; opacity: 0.18; }
 
-/* Top nav row */
-.top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; z-index: 2;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.top { display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; }
 .brand-wordmark {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #0A0A0A;
+  font-size: 42px; font-weight: 800;
+  letter-spacing: -0.03em; color: #ffffff;
 }
 .brand-ai {
-  padding: 6px 14px;
-  border-radius: 999px;
+  padding: 7px 16px; border-radius: 999px;
   background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
   font-family: 'Inter Tight', sans-serif;
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-  color: #0A2A1F;
-  box-shadow: 0 4px 16px rgba(79,232,169,0.35);
-}
-.url {
-  font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 500;
-  color: #5C6F69;
-  letter-spacing: 0.01em;
+  font-size: 18px; font-weight: 800; letter-spacing: 0.04em; color: #0A2A1F;
 }
 
-/* Headline */
-.headline-wrap {
-  position: relative; z-index: 2;
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
 .headline {
+  position: relative; z-index: 2;
   font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: 96px;
-  line-height: 0.93;
-  letter-spacing: -0.048em;
-  color: #0A0A0A;
+  font-weight: 800; font-size: 88px;
+  line-height: 0.95; letter-spacing: -0.045em; color: #ffffff;
+  flex: 1; display: flex; align-items: center;
 }
+.headline .line1 { white-space: nowrap; }
 .headline em {
   font-style: italic;
-  font-weight: 700;
-  color: #0A0A0A;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
 }
 
-/* Bottom row */
-.bottom {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative; z-index: 2;
-}
-.pills {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 16px;
-  border-radius: 999px;
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  font-weight: 600;
-  color: #2A2A2A;
-  background: rgba(255,255,255,0.85);
-  border: 1.5px solid rgba(10,10,10,0.09);
-}
-.pill-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: #00C47A;
-  box-shadow: 0 0 6px rgba(0,196,122,0.6);
-}
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 16px 32px;
-  border-radius: 999px;
-  background: #0A0A0A;
-  color: #fff;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
+.bottom { display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 2; }
+.live { display: flex; align-items: center; gap: 8px; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.04em; text-transform: uppercase; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #00C47A; box-shadow: 0 0 8px #00C47A; }
+.url { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.35); }
 
-/* Bottom accent bar */
-.accent-bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #5BCFFF, #4FE8A9, #D5FF66);
-}
+.accent-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 5px; background: linear-gradient(90deg, #5BCFFF, #4FE8A9, #D5FF66); }
 </style>
 </head>
 <body>
-
-<!-- Top -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
 <div class="top">
-  <div class="brand">
-    <span class="brand-wordmark">PowerToFly</span>
-    <span class="brand-ai">AI</span>
-  </div>
+  <span class="brand-wordmark">PowerToFly</span>
+  <span class="brand-ai">AI</span>
+</div>
+<div class="headline">
+  <div><span class="line1">Your AI is only as good as</span><br>the <em>humans</em> behind it.</div>
+</div>
+<div class="bottom">
+  <div class="live"><span class="live-dot"></span>50,000 verified experts · ready to deploy</div>
   <span class="url">powertofly.com/ai</span>
 </div>
-
-<!-- Headline -->
-<div class="headline-wrap">
-  <h1 class="headline"><span style="white-space:nowrap">Your AI is only as good as</span><br>the <em>humans</em> behind it.</h1>
-</div>
-
-<!-- Bottom -->
-<div class="bottom">
-  <div class="pills">
-    <div class="pill"><span class="pill-dot"></span>Ready to deploy</div>
-    <div class="pill">50,000+ experts</div>
-    <div class="pill">204 countries</div>
-  </div>
-  <div class="cta">Book a discovery call →</div>
-</div>
-
 <div class="accent-bar"></div>
-
 </body>
 </html>
