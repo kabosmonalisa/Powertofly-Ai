@@ -1896,6 +1896,7 @@ h1.hero-headline {
 
   // Slides: videos + statics, male portraits at every 4th position (3, 7, 11)
   const slides = [
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6100901/6100901-uhd_1440_2732_30fps.mp4',   label: 'AI Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/5717293/5717293-uhd_1440_2560_25fps.mp4',   label: 'Software Engineers' },
     { type: 'video', src: 'https://videos.pexels.com/video-files/12908928/12908928-uhd_1440_2560_24fps.mp4', label: 'Healthcare Professionals' },
     { type: 'img',   src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces', label: 'Data Scientists' },
@@ -1915,10 +1916,10 @@ h1.hero-headline {
   const N = slides.length;
   const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
   const tints = [
-    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)','rgb(210,205,218)',
-    'rgb(225,215,200)','rgb(210,225,215)','rgb(220,200,215)','rgb(205,212,222)',
-    'rgb(215,220,200)','rgb(200,210,220)','rgb(218,208,222)','rgb(208,218,210)',
-    'rgb(205,218,210)'
+    'rgb(210,208,220)','rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)',
+    'rgb(210,205,218)','rgb(225,215,200)','rgb(210,225,215)','rgb(220,200,215)',
+    'rgb(205,212,222)','rgb(215,220,200)','rgb(200,210,220)','rgb(218,208,222)',
+    'rgb(208,218,210)','rgb(205,218,210)'
   ];
 
   function makeSlideEl(slide, active) {
