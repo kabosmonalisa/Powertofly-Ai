@@ -202,7 +202,7 @@ img { display: block; max-width: 100%; }
 /* ===== Hero ===== */
 .hero {
   position: relative;
-  padding: 88px 32px 0;
+  padding: 88px 32px 72px;
   background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
   overflow: hidden;
 }
@@ -1071,27 +1071,27 @@ h1.hero-headline {
 /* ===== Figma-style hero carousel ===== */
 .fh-wrap {
   position: relative;
-  margin-top: 20px;
+  margin-top: 40px;
   margin-left: calc(-1 * (100vw - 100%) / 2);
   width: 100vw;
 }
 .fh-track-container {
   overflow-x: clip;
   position: relative;
-  padding: 12px 0 120px;
+  padding: 12px 0 0;
 }
 .fh-track {
   display: flex;
   align-items: center;
-  gap: 14px;
-  padding-left: calc((100vw - 23vw) / 2 - 14px);
+  gap: 12px;
+  padding-left: calc((100vw - 20vw) / 2 - 12px);
   transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
 .fh-slide {
-  flex: 0 0 23vw;
-  aspect-ratio: 4/5;
-  border-radius: 18px;
+  flex: 0 0 20vw;
+  aspect-ratio: 5/6;
+  border-radius: 16px;
   overflow: hidden;
   transform-style: preserve-3d;
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
@@ -1112,7 +1112,7 @@ h1.hero-headline {
 /* Controls */
 .fh-controls {
   position: absolute;
-  bottom: 128px;
+  bottom: 20px;
   right: 40px;
   display: flex;
   gap: 8px;
@@ -1135,9 +1135,9 @@ h1.hero-headline {
 /* Floating card */
 .fh-card-outer {
   position: absolute;
-  bottom: 20px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   padding: 3px;
   border-radius: 24px;
   z-index: 20;
@@ -1291,9 +1291,9 @@ h1.hero-headline {
 
 /* Mobile */
 @media (max-width: 768px) {
-  .fh-slide { flex: 0 0 70vw; }
-  .fh-card-outer { min-width: calc(100vw - 48px); bottom: 16px; }
-  .fh-controls { right: 16px; bottom: 128px; }
+  .fh-slide { flex: 0 0 68vw; }
+  .fh-card-outer { min-width: calc(100vw - 48px); }
+  .fh-controls { right: 16px; bottom: 16px; }
   .fh-cta { padding: 14px 28px; font-size: 15px; }
 }
 </style>
