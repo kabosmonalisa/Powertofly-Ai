@@ -1126,30 +1126,35 @@ h1.hero-headline {
   left: 50%;
   transform: translateX(-50%);
   padding: 3px;
-  border-radius: 20px;
+  border-radius: 24px;
   z-index: 20;
-  min-width: min(520px, 90vw);
+  min-width: min(640px, 90vw);
 }
 .fh-card-shadow {
   position: absolute;
   inset: 2px;
   background: rgb(225,225,225);
-  border-radius: 18px;
-  box-shadow: rgba(0,0,0,0.12) 0px 24px 70px;
+  border-radius: 22px;
+  box-shadow: rgba(0,0,0,0.14) 0px 28px 80px;
   transition: background 0.4s ease;
 }
 .fh-card {
   position: relative;
   background: #ffffff;
-  border-radius: 16px;
-  padding: 20px 24px;
+  border-radius: 20px;
+  padding: 24px 28px 28px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 10px;
+}
+.fh-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .fh-text-area {
   position: relative;
-  min-height: 28px;
+  min-height: 36px;
   transition: min-height 0.3s ease;
 }
 .fh-ghost {
@@ -1157,14 +1162,14 @@ h1.hero-headline {
   visibility: hidden;
   white-space: nowrap;
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(22px, 2.8vw, 34px);
+  font-size: clamp(28px, 3.2vw, 44px);
   font-weight: 800;
   letter-spacing: -0.03em;
   pointer-events: none;
 }
 .fh-typed {
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(22px, 2.8vw, 34px);
+  font-size: clamp(28px, 3.2vw, 44px);
   font-weight: 800;
   letter-spacing: -0.03em;
   color: var(--ink);
@@ -1176,9 +1181,9 @@ h1.hero-headline {
 }
 .fh-cursor {
   display: inline-block;
-  border-left: 2px solid var(--ink);
+  border-left: 2.5px solid var(--ink);
   height: 1.15em;
-  margin-left: 1px;
+  margin-left: 2px;
   vertical-align: middle;
   animation: fhBlink 1s infinite;
 }
@@ -1189,31 +1194,43 @@ h1.hero-headline {
 .fh-card-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 12px;
+  margin-top: 4px;
 }
 .fh-suffix {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
 .fh-cta {
   background: var(--ink);
   color: #fff;
-  padding: 9px 20px;
+  padding: 16px 32px;
   border-radius: 999px;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
   transition: box-shadow 0.2s ease, transform 0.15s ease;
 }
 .fh-cta:hover {
-  box-shadow: 0 8px 24px rgba(79,232,169,0.3);
+  box-shadow: 0 12px 28px rgba(79,232,169,0.3), 0 4px 12px rgba(0,0,0,0.18);
   transform: translateY(-1px);
+}
+
+/* Text below carousel */
+.fh-below-text {
+  max-width: 680px;
+  margin: 40px auto 0;
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-3);
+  padding: 0 24px;
 }
 
 /* Full-width logos below hero */
@@ -1263,7 +1280,8 @@ h1.hero-headline {
 @media (max-width: 768px) {
   .fh-slide { flex: 0 0 72vw; }
   .fh-card-outer { min-width: calc(100vw - 48px); bottom: 16px; }
-  .fh-controls { right: 16px; bottom: 90px; }
+  .fh-controls { right: 16px; bottom: 110px; }
+  .fh-cta { padding: 14px 28px; font-size: 15px; }
 }
 </style>
 </head>
@@ -1340,12 +1358,6 @@ h1.hero-headline {
   <div class="hero-inner">
     <h1 class="hero-headline">Your AI is only as good as the <span class="italic-accent">humans</span> behind it.</h1>
 
-    <p class="hero-sub">50,000 verified experts across every discipline built over a decade into the most trusted AI talent community in the industry.</p>
-
-    <div class="hero-ctas">
-      <a href="book.html" class="btn btn-primary">Book a discovery call →</a>
-    </div>
-
     <!-- Figma-style hero carousel -->
     <div class="fh-wrap">
       <div class="fh-track-container">
@@ -1361,17 +1373,21 @@ h1.hero-headline {
       <div class="fh-card-outer" id="fhCardOuter">
         <div class="fh-card-shadow" id="fhCardShadow"></div>
         <div class="fh-card">
+          <div class="fh-card-top">
+            <span class="fh-suffix">● Ready to deploy</span>
+          </div>
           <div class="fh-text-area" id="fhTextArea">
             <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
             <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
           </div>
           <div class="fh-card-bottom">
-            <span class="fh-suffix">ready to deploy</span>
-            <a href="book.html" class="fh-cta">Get started</a>
+            <a href="book.html" class="fh-cta">Get started →</a>
           </div>
         </div>
       </div>
     </div>
+
+    <p class="fh-below-text">50,000 verified experts across every discipline built over a decade into the most trusted AI talent community in the industry.</p>
   </div>
 </section>
 
