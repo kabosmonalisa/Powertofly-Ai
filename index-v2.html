@@ -1167,8 +1167,9 @@ h1.hero-headline {
 }
 .fh-text-area {
   position: relative;
+  flex: 1;
+  min-width: 0;
   min-height: 36px;
-  transition: min-height 0.3s ease;
 }
 .fh-ghost {
   position: absolute;
@@ -1207,9 +1208,8 @@ h1.hero-headline {
 .fh-card-bottom {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 4px;
+  justify-content: space-between;
+  gap: 20px;
 }
 .fh-suffix {
   font-size: 11px;
@@ -1389,11 +1389,11 @@ h1.hero-headline {
           <div class="fh-card-top">
             <span class="fh-suffix">● Ready to deploy</span>
           </div>
-          <div class="fh-text-area" id="fhTextArea">
-            <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
-            <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
-          </div>
           <div class="fh-card-bottom">
+            <div class="fh-text-area" id="fhTextArea">
+              <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
+              <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
+            </div>
             <a href="book.html" class="fh-cta">Get started →</a>
           </div>
         </div>
