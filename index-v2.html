@@ -1054,6 +1054,215 @@ h1.hero-headline {
   .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
   .sc-ctas { flex-direction: column; align-items: center; }
 }
+
+/* ===== Figma-style hero carousel ===== */
+.fh-wrap {
+  position: relative;
+  margin-top: 48px;
+  margin-left: calc(-1 * (100vw - 100%) / 2);
+  width: 100vw;
+}
+.fh-track-container {
+  overflow-x: clip;
+  position: relative;
+  padding: 24px 0 100px;
+}
+.fh-track {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-left: calc((100vw - 25vw) / 2 - 14px);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+.fh-slide {
+  flex: 0 0 25vw;
+  aspect-ratio: 3/4;
+  border-radius: 18px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  cursor: pointer;
+}
+.fh-slide:not(.active) { opacity: 0.75; transform: scale(0.96); }
+.fh-slide.active { opacity: 1; transform: scale(1); }
+.fh-slide img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+.fh-slide img.loaded { opacity: 1; }
+.fh-slide:hover { transform: scale(1.02) perspective(800px) rotateY(-2deg); }
+
+/* Controls */
+.fh-controls {
+  position: absolute;
+  bottom: 110px;
+  right: 40px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+.fh-ctrl-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(0,0,0,0.08);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; color: var(--ink);
+  transition: background 0.15s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.fh-ctrl-btn:hover { background: #fff; }
+
+/* Floating card */
+.fh-card-outer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px;
+  border-radius: 20px;
+  z-index: 20;
+  min-width: 380px;
+}
+.fh-card-shadow {
+  position: absolute;
+  inset: 2px;
+  background: rgb(225,225,225);
+  border-radius: 18px;
+  box-shadow: rgba(0,0,0,0.12) 0px 24px 70px;
+  transition: background 0.4s ease;
+}
+.fh-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fh-text-area {
+  position: relative;
+  min-height: 28px;
+  transition: min-height 0.3s ease;
+}
+.fh-ghost {
+  position: absolute;
+  visibility: hidden;
+  white-space: nowrap;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  pointer-events: none;
+}
+.fh-typed {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+  vertical-align: bottom;
+}
+.fh-cursor {
+  display: inline-block;
+  border-left: 2px solid var(--ink);
+  height: 1.15em;
+  margin-left: 1px;
+  vertical-align: middle;
+  animation: fhBlink 1s infinite;
+}
+@keyframes fhBlink {
+  0%, 100% { border-left-color: var(--ink); }
+  50% { border-left-color: transparent; }
+}
+.fh-card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.fh-suffix {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.fh-cta {
+  background: var(--ink);
+  color: #fff;
+  padding: 9px 20px;
+  border-radius: 999px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.fh-cta:hover {
+  box-shadow: 0 8px 24px rgba(79,232,169,0.3);
+  transform: translateY(-1px);
+}
+
+/* Full-width logos below hero */
+.fh-logos-strip {
+  width: 100%;
+  padding: 32px 0;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+.fh-logos-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 32px;
+}
+.fh-logos-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+.fh-logos-track-wrap { overflow: hidden; flex: 1; }
+.fh-logos-track {
+  display: flex;
+  gap: 56px;
+  align-items: center;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+.fh-logo-img {
+  height: 24px;
+  width: auto;
+  display: block;
+  flex-shrink: 0;
+  filter: grayscale(100%) opacity(0.55);
+  transition: filter 0.2s ease;
+}
+.fh-logo-img:hover { filter: grayscale(0%) opacity(1); }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .fh-slide { flex: 0 0 72vw; }
+  .fh-card-outer { min-width: calc(100vw - 48px); bottom: 16px; }
+  .fh-controls { right: 16px; bottom: 90px; }
+}
 </style>
 </head>
 <body>
@@ -1135,71 +1344,44 @@ h1.hero-headline {
       <a href="book.html" class="btn btn-primary">Book a discovery call →</a>
     </div>
 
-    <div class="hero-ticker-wrap">
-      <div class="hero-typewriter-line">
-        <span class="cohort-suffix">Ready to deploy</span><span class="cohort-live-dot" aria-hidden="true"></span><span class="cohort-type-word" id="cohortWord"></span><span class="cohort-cursor"></span>
+    <!-- Figma-style hero carousel -->
+    <div class="fh-wrap">
+      <div class="fh-track-container">
+        <div class="fh-track" id="fhTrack"></div>
+        <div class="fh-controls">
+          <button class="fh-ctrl-btn" id="fhPrev" aria-label="Previous">←</button>
+          <button class="fh-ctrl-btn" id="fhPause" aria-label="Pause">⏸</button>
+          <button class="fh-ctrl-btn" id="fhNext" aria-label="Next">→</button>
+        </div>
       </div>
-    </div>
 
-    <!-- Photo stage with floating cards -->
-    <div class="hero-stage">
-      <div class="hero-photo" role="img" aria-label="Portrait of AI engineer"></div>
-
-      <!-- (1) Profile card -->
-      <div class="fcard card-profile" id="profileCard">
-        <div class="profile-row">
-          <div class="profile-avatar">
-            <img data-avatar-img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=160&h=160&fit=crop&crop=faces&q=80" alt="">
+      <!-- Floating typewriter card -->
+      <div class="fh-card-outer" id="fhCardOuter">
+        <div class="fh-card-shadow" id="fhCardShadow"></div>
+        <div class="fh-card">
+          <div class="fh-text-area" id="fhTextArea">
+            <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
+            <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
           </div>
-          <div class="profile-info">
-            <div class="profile-name" data-name>Adaeze O.</div>
-            <div class="profile-role" data-role>Healthcare RAG engineer</div>
+          <div class="fh-card-bottom">
+            <span class="fh-suffix">ready to deploy</span>
+            <a href="book.html" class="fh-cta">Get started</a>
           </div>
-          <span class="profile-match"><span class="dot"></span> <span data-match>Verified fellow</span></span>
-        </div>
-        <div class="profile-meta">
-          <span>Skills</span>
-          <div class="logos">
-            <span class="logo-chip" data-logo1>RAG</span>
-            <span class="logo-chip" data-logo2>FT</span>
-            <span class="logo-chip" data-logo3>EV</span>
-            <span class="logo-chip" data-logo4>LLM</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- (2) Typewriter input -->
-      <div class="fcard card-input">
-        <div class="input-head">
-          <span class="spinner"></span>
-          Talent search
-        </div>
-        <div class="input-field">
-          <span class="typed" id="typed"></span><span class="caret"></span>
-        </div>
-        <div class="input-actions">
-          <span class="input-chip">🔍 12 fellows matched</span>
-          <span class="input-send">
-            <svg width="12" height="12" viewBox="0 0 12 12"><path d="M6 11V1M2 5l4-4 4 4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- (3) Cycling pill -->
-      <div class="fcard card-pill">
-        <div class="pill"><span class="dot"></span><span class="pill-text" id="pillText">Hire your AI team</span></div>
-      </div>
-
-      <!-- (4) Logo marquee -->
-      <div class="fcard card-marquee">
-        <span class="fcard-label" style="white-space:nowrap;">Trusted by</span>
-        <div class="marquee-track-wrap">
-          <div class="marquee-track" id="marquee"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+<!-- FULL WIDTH LOGOS -->
+<div class="fh-logos-strip">
+  <div class="fh-logos-inner">
+    <span class="fh-logos-label">Trusted by</span>
+    <div class="fh-logos-track-wrap">
+      <div class="fh-logos-track" id="fhLogosTrack"></div>
+    </div>
+  </div>
+</div>
 
 <!-- SERVICES -->
 <section class="section section-services">
@@ -1672,6 +1854,129 @@ h1.hero-headline {
     });
   }, { threshold: 0.5 });
   nums.forEach(el => observer.observe(el));
+})();
+
+/* Figma-style hero carousel */
+(function(){
+  const track = document.getElementById('fhTrack');
+  if (!track) return;
+
+  const cohorts = [
+    'Software Engineers','Healthcare Professionals','Data Scientists',
+    'Finance Experts','UX Designers','Sales Leaders',
+    'Operations','Product Managers'
+  ];
+
+  const images = [
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=500&h=700&fit=crop&crop=faces'
+  ];
+
+  // Build slides
+  images.forEach((src, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'fh-slide' + (i === 0 ? ' active' : '');
+    const img = document.createElement('img');
+    img.alt = cohorts[i] || '';
+    img.onload = () => img.classList.add('loaded');
+    img.src = src;
+    slide.appendChild(img);
+    track.appendChild(slide);
+  });
+
+  // Build ghost spans for height measurement
+  const ghost = document.getElementById('fhGhost');
+  cohorts.forEach(c => {
+    const s = document.createElement('div');
+    s.textContent = c;
+    ghost.appendChild(s);
+  });
+
+  // Typewriter
+  const typedEl = document.getElementById('fhTyped');
+  const cursor = document.getElementById('fhCursor');
+  const shadow = document.getElementById('fhCardShadow');
+  let ci = 0, charI = 0, deleting = false, paused = false;
+  const TYPE_SPEED = 60, DEL_SPEED = 30, HOLD = 2200, PAUSE_BETWEEN = 350;
+
+  // Slide colors for shadow tint
+  const tints = [
+    'rgb(200,220,215)','rgb(215,210,220)','rgb(200,215,225)',
+    'rgb(225,215,200)','rgb(210,225,215)','rgb(220,200,215)',
+    'rgb(215,220,200)','rgb(200,210,220)'
+  ];
+
+  function goToSlide(idx) {
+    const slides = track.querySelectorAll('.fh-slide');
+    slides.forEach((s,i) => s.classList.toggle('active', i === idx));
+    const slideW = slides[0] ? slides[0].offsetWidth + 14 : 0;
+    track.style.transform = `translateX(-${idx * slideW}px)`;
+    if (shadow) shadow.style.background = tints[idx % tints.length];
+  }
+
+  function typeTick() {
+    if (paused) { setTimeout(typeTick, 200); return; }
+    const word = cohorts[ci];
+    if (!deleting) {
+      charI++;
+      typedEl.textContent = word.slice(0, charI);
+      // animate width
+      typedEl.style.width = typedEl.scrollWidth + 'px';
+      if (charI === word.length) {
+        deleting = true;
+        setTimeout(typeTick, HOLD);
+        return;
+      }
+    } else {
+      charI--;
+      typedEl.textContent = word.slice(0, charI);
+      typedEl.style.width = charI > 0 ? typedEl.scrollWidth + 'px' : '0px';
+      if (charI === 0) {
+        deleting = false;
+        ci = (ci + 1) % cohorts.length;
+        goToSlide(ci);
+        setTimeout(typeTick, PAUSE_BETWEEN);
+        return;
+      }
+    }
+    setTimeout(typeTick, deleting ? DEL_SPEED : TYPE_SPEED);
+  }
+
+  goToSlide(0);
+  setTimeout(typeTick, 800);
+
+  // Controls
+  document.getElementById('fhPrev')?.addEventListener('click', () => {
+    ci = (ci - 1 + cohorts.length) % cohorts.length;
+    charI = 0; deleting = false;
+    typedEl.textContent = ''; typedEl.style.width = '0';
+    goToSlide(ci); typeTick();
+  });
+  document.getElementById('fhNext')?.addEventListener('click', () => {
+    ci = (ci + 1) % cohorts.length;
+    charI = 0; deleting = false;
+    typedEl.textContent = ''; typedEl.style.width = '0';
+    goToSlide(ci); typeTick();
+  });
+  const pauseBtn = document.getElementById('fhPause');
+  pauseBtn?.addEventListener('click', () => {
+    paused = !paused;
+    pauseBtn.textContent = paused ? '▶' : '⏸';
+  });
+
+  // Logo strip (reuse existing logos array)
+  const fhLogoTrack = document.getElementById('fhLogosTrack');
+  if (fhLogoTrack) {
+    const logos = ['avery-dennison','expedia','google','nestle','shure','sp-global','stryker','veracode','visa','zapier','zillow'];
+    const html = logos.map(n => `<img class="fh-logo-img" src="logos/${n}.png" alt="${n}">`).join('');
+    fhLogoTrack.innerHTML = html + html;
+  }
 })();
 </script>
 
