@@ -1128,7 +1128,7 @@ h1.hero-headline {
   padding: 3px;
   border-radius: 20px;
   z-index: 20;
-  min-width: 380px;
+  min-width: min(520px, 90vw);
 }
 .fh-card-shadow {
   position: absolute;
@@ -1142,7 +1142,7 @@ h1.hero-headline {
   position: relative;
   background: #ffffff;
   border-radius: 16px;
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1157,14 +1157,16 @@ h1.hero-headline {
   visibility: hidden;
   white-space: nowrap;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   pointer-events: none;
 }
 .fh-typed {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 17px;
-  font-weight: 700;
+  font-size: clamp(22px, 2.8vw, 34px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
   color: var(--ink);
   display: inline-block;
   overflow: hidden;
@@ -1868,14 +1870,14 @@ h1.hero-headline {
   ];
 
   const images = [
-    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=500&h=700&fit=crop&crop=faces',
-    'https://images.unsplash.com/photo-1537511446984-935f663eb1f4?w=500&h=700&fit=crop&crop=faces'
+    'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1559103377-5cf08b5a6b37?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1616587226960-4a03badbe8bf?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=500&h=700&fit=crop&crop=faces',
+    'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&h=700&fit=crop&crop=faces'
   ];
 
   // Build slides
