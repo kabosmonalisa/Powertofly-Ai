@@ -1078,6 +1078,17 @@ h1.hero-headline {
   .sc-left { padding: 32px 24px; }
   .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
   .sc-ctas { flex-direction: column; align-items: center; }
+
+  /* Hero mobile */
+  .hero { padding: 52px 20px 48px; }
+  h1.hero-headline { font-size: clamp(30px, 7.5vw, 44px); line-height: 1.05; }
+  h1.hero-headline span[style*="nowrap"] { white-space: normal; }
+  .fh-wrap { margin-top: 20px; }
+  .fh-below-text { font-size: 14px; padding: 0 16px; margin-top: 20px; }
+
+  /* Mobile drawer fix */
+  .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+  .mobile-drawer .drawer-cta { gap: 12px; }
 }
 
 /* ===== Figma-style hero carousel ===== */
@@ -1293,10 +1304,13 @@ h1.hero-headline {
 
 /* Mobile */
 @media (max-width: 768px) {
-  .fh-slide { flex: 0 0 68vw; }
-  .fh-card-outer { min-width: calc(100vw - 48px); }
+  .fh-slide { flex: 0 0 72vw; aspect-ratio: 4/5; }
+  .fh-track { padding-left: calc((100vw - 72vw) / 2 - 6px); }
+  .fh-card-outer { min-width: calc(100vw - 40px); top: 68%; }
   .fh-controls { right: 16px; bottom: 16px; }
-  .fh-cta { padding: 14px 28px; font-size: 15px; }
+  .fh-cta { padding: 12px 22px; font-size: 14px; }
+  .fh-typed { font-size: clamp(18px, 4vw, 26px); }
+  .fh-card { padding: 18px 20px 20px; }
 }
 </style>
 </head>
@@ -1378,9 +1392,7 @@ h1.hero-headline {
       <div class="fh-track-container">
         <div class="fh-track" id="fhTrack"></div>
         <div class="fh-controls">
-          <button class="fh-ctrl-btn" id="fhPrev" aria-label="Previous">←</button>
-          <button class="fh-ctrl-btn" id="fhPause" aria-label="Pause">⏸</button>
-          <button class="fh-ctrl-btn" id="fhNext" aria-label="Next">→</button>
+          <button class="fh-ctrl-btn" id="fhPause" aria-label="Pause/Play">⏸</button>
         </div>
       </div>
 
@@ -2034,8 +2046,6 @@ h1.hero-headline {
     setActive(ci);
     setTimeout(typeTick, 300);
   }
-  document.getElementById('fhPrev')?.addEventListener('click', () => jumpTo((ci - 1 + N) % N));
-  document.getElementById('fhNext')?.addEventListener('click', () => jumpTo((ci + 1) % N));
   const pauseBtn = document.getElementById('fhPause');
   pauseBtn?.addEventListener('click', () => {
     paused = !paused;
