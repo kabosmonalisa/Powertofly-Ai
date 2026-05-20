@@ -227,8 +227,34 @@ h1.hero-headline {
 .hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
 
 /* Avatar cluster */
-.hero-avatars-wrap { margin: 48px auto 0; text-align: center; }
-.hero-avatars-microcopy { font-size: 13px; color: var(--ink-3); margin-bottom: 18px; }
+.hero-ticker-wrap { margin: 48px auto 0; text-align: center; }
+.hero-ticker-microcopy { font-size: 13px; color: var(--ink-3); margin-bottom: 16px; }
+.hero-ticker-track-wrap {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0%, #000 8%, #000 92%, transparent 100%);
+}
+.hero-ticker-track {
+  display: flex; gap: 10px; align-items: center;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.hero-ticker-track:hover { animation-play-state: paused; }
+.cohort-chip {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 14px; border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  font-size: 13px; font-weight: 500; color: var(--ink-2);
+  white-space: nowrap; flex-shrink: 0;
+}
+.cohort-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  background: #4FE8A9;
+  box-shadow: 0 0 6px rgba(79,232,169,0.7);
+}
+/* keep ha styles for any residual references but hide the wrap */
 .hero-avatars {
   display: flex; justify-content: center; align-items: center;
   gap: 10px; max-width: 560px; margin: 0 auto;
@@ -911,13 +937,8 @@ h1.hero-headline {
   .card-profile .profile-info { overflow: hidden; min-width: 0; }
 
   .hero-sparkle.s2 { display: none; }
-  .hero-avatars-wrap { margin-top: 36px; }
-  .hero-avatars { gap: 4px; max-width: 100%; }
-  .ha.a1, .ha.a6 { width: 36px;  height: 36px;  margin-top: 14px; }
-  .ha.a2         { width: 48px;  height: 48px;  margin-top: -10px; }
-  .ha.a3         { width: 58px;  height: 58px;  margin-top: 0; }
-  .ha.a4         { width: 44px;  height: 44px;  margin-top: -16px; }
-  .ha.a5         { width: 52px;  height: 52px;  margin-top: 8px; }
+  .hero-ticker-wrap { margin-top: 36px; }
+  .cohort-chip { font-size: 12px; padding: 6px 12px; }
 
   /* Sections */
   .section { padding: 48px 20px; }
@@ -1022,15 +1043,10 @@ h1.hero-headline {
       <a href="#" class="btn btn-primary">Book a discovery call →</a>
     </div>
 
-    <div class="hero-avatars-wrap">
-      <div class="hero-avatars-microcopy">50,000+ engineers shaping the next generation of AI</div>
-      <div class="hero-avatars">
-        <div class="ha a1"><div class="ha-float"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=faces" alt=""></div></div>
-        <div class="ha a2"><div class="ha-float"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=200&h=200&fit=crop&crop=faces" alt=""></div></div>
-        <div class="ha a3"><div class="ha-float"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=200&h=200&fit=crop&crop=faces" alt=""></div></div>
-        <div class="ha a4"><div class="ha-float"><img src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&h=200&fit=crop&crop=faces" alt=""></div></div>
-        <div class="ha a5"><div class="ha-float"><img src="photos/photo-1609436132311-e4b0c9370469.avif" alt=""></div></div>
-        <div class="ha a6"><div class="ha-float"><img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=faces" alt=""></div></div>
+    <div class="hero-ticker-wrap">
+      <div class="hero-ticker-microcopy">50,000+ experts · ready to deploy</div>
+      <div class="hero-ticker-track-wrap">
+        <div class="hero-ticker-track" id="cohortTicker"></div>
       </div>
     </div>
 
@@ -1461,6 +1477,22 @@ h1.hero-headline {
       el.classList.remove('swap');
     }, 320);
   }, 3000);
+})();
+
+/* (3b) Cohort ticker */
+(function(){
+  const track = document.getElementById('cohortTicker');
+  if (!track) return;
+  const cohorts = [
+    'Software Engineers','AI/ML Specialists','Data Scientists',
+    'Heads of Marketing','Finance Experts','Healthcare Professionals',
+    'Sales Leaders','Nurses','Mechanics','Operations',
+    'Product Managers','Legal','UX Designers','Recruiters',
+    'Customer Success','Logistics','HR Leaders','Research Scientists'
+  ];
+  const buildOne = (c) => `<span class="cohort-chip"><span class="cohort-dot"></span>${c}</span>`;
+  const html = cohorts.map(buildOne).join('');
+  track.innerHTML = html + html;
 })();
 
 /* (4) Marquee — company logos */
