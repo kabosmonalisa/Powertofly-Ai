@@ -231,17 +231,14 @@ h1.hero-headline {
 .hero-typewriter-line {
   display: inline-flex; align-items: center; gap: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 600;
-  color: var(--ink);
 }
 .cohort-live-dot {
   position: relative;
   display: inline-block;
-  width: 9px; height: 9px;
+  width: 7px; height: 7px;
   background: #00C47A;
   border-radius: 50%;
-  margin-right: 12px;
+  margin-right: 10px;
   flex-shrink: 0;
   animation: livepulse 2s ease-in-out infinite;
 }
@@ -251,7 +248,7 @@ h1.hero-headline {
   inset: -4px;
   border-radius: 50%;
   background: #00C47A;
-  opacity: 0.2;
+  opacity: 0.18;
   animation: livering 2s ease-in-out infinite;
 }
 @keyframes livepulse {
@@ -259,8 +256,8 @@ h1.hero-headline {
   50% { opacity: 0.6; transform: scale(0.85); }
 }
 @keyframes livering {
-  0%, 100% { transform: scale(1); opacity: 0.2; }
-  50% { transform: scale(1.6); opacity: 0; }
+  0%, 100% { transform: scale(1); opacity: 0.18; }
+  50% { transform: scale(1.7); opacity: 0; }
 }
 .cohort-label {
   font-size: clamp(10px, 0.85vw, 11px);
@@ -272,8 +269,11 @@ h1.hero-headline {
   flex-shrink: 0;
 }
 .cohort-type-word {
+  font-size: clamp(17px, 1.8vw, 22px);
+  font-weight: 700;
   color: #00C47A;
   min-width: 1ch;
+  letter-spacing: -0.02em;
 }
 .cohort-cursor {
   display: inline-block;
@@ -285,7 +285,14 @@ h1.hero-headline {
   animation: blink 0.9s step-end infinite;
 }
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-.cohort-suffix { color: var(--ink-3); font-weight: 500; margin-left: 8px; }
+.cohort-suffix {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-3);
+  letter-spacing: 0.04em;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
 /* keep ha styles for any residual references but hide the wrap */
 .hero-avatars {
   display: flex; justify-content: center; align-items: center;
