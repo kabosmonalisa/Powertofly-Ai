@@ -1093,7 +1093,7 @@ h1.hero-headline {
   h1.hero-headline { font-size: clamp(30px, 7.5vw, 44px); line-height: 1.05; }
   h1.hero-headline span[style*="nowrap"] { white-space: normal; }
   .fh-wrap { margin-top: 20px; }
-  .fh-below-text { font-size: 14px; padding: 0 16px; margin-top: 20px; }
+  .fh-below-text { font-size: 14px; padding: 0 16px; margin-top: 20px; white-space: normal; }
 
   /* Mobile drawer fix */
   .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
@@ -1259,13 +1259,14 @@ h1.hero-headline {
 
 /* Text below carousel */
 .fh-below-text {
-  max-width: 680px;
+  max-width: none;
   margin: 40px auto 0;
   text-align: center;
   font-size: 18px;
   line-height: 1.6;
   color: var(--ink-3);
   padding: 0 24px;
+  white-space: nowrap;
 }
 
 /* Full-width logos below hero */

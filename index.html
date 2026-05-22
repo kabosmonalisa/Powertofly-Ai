@@ -219,10 +219,11 @@ h1.hero-headline {
   max-width: 16ch;
 }
 .hero-sub {
-  max-width: 52ch;
+  max-width: none;
   margin: 24px auto 0;
   font-size: 18px; line-height: 1.55;
   color: var(--ink-2);
+  white-space: nowrap;
 }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
 
@@ -1015,6 +1016,7 @@ h1.hero-headline {
 
   /* Hero */
   .hero { padding: 64px 20px 0; }
+  .hero-sub { white-space: normal; font-size: 16px; }
   .hero-stage { aspect-ratio: 4/3; margin-top: 32px; overflow: hidden; border-radius: 16px; }
   .hero-photo { width: 100%; border-radius: 16px; }
 
