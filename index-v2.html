@@ -1272,45 +1272,39 @@ h1.hero-headline {
 /* Full-width logos below hero */
 .fh-logos-strip {
   width: 100%;
-  padding: 32px 0;
+  padding: 64px 0;
   overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
   background: var(--bg);
+  text-align: center;
 }
 .fh-logos-inner {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 0 32px;
 }
-.fh-logos-label {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  white-space: nowrap;
-  flex-shrink: 0;
-  margin-right: 8px;
+.fh-logos-label { display: none; }
+.fh-logos-track-wrap {
+  overflow: hidden;
+  flex: 1;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
 }
-.fh-logos-track-wrap { overflow: hidden; flex: 1; }
 .fh-logos-track {
   display: flex;
-  gap: 56px;
+  gap: 64px;
   align-items: center;
   width: max-content;
-  animation: marquee 40s linear infinite;
+  animation: marquee 28s linear infinite;
 }
+.fh-logos-track:hover { animation-play-state: paused; }
 .fh-logo-img {
-  height: 24px;
+  height: 28px;
   width: auto;
   display: block;
   flex-shrink: 0;
-  filter: grayscale(100%) opacity(0.55);
-  transition: filter 0.2s ease;
+  filter: grayscale(1) opacity(0.45);
+  transition: filter 220ms ease;
 }
-.fh-logo-img:hover { filter: grayscale(0%) opacity(1); }
+.fh-logo-img:hover { filter: grayscale(0) opacity(1); }
 
 /* Mobile */
 @media (max-width: 768px) {
