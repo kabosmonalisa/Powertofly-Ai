@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerToFly AI — Design System Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ptf.css">
+<style>
+/* Reference page layout only */
+.ref-body { max-width: 900px; margin: 0 auto; padding: 60px 32px 120px; }
+.ref-section { margin-bottom: 72px; }
+.ref-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-3);
+  border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 32px;
+}
+.ref-row { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start; }
+.ref-label { font-size: 11px; color: var(--ink-3); margin-top: 8px; font-weight: 500; }
+
+/* Swatch */
+.swatch { width: 80px; text-align: center; }
+.swatch-box { height: 64px; border-radius: 12px; border: 1px solid var(--line); margin-bottom: 6px; }
+.swatch .hex { font-size: 10.5px; color: var(--ink-3); font-family: monospace; }
+.swatch .varname { font-size: 10px; color: var(--ink-3); opacity: 0.7; }
+
+/* Page header */
+.ref-header {
+  background: #000; color: #fff; padding: 32px;
+  border-radius: 16px; margin-bottom: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ref-header h1 { font-size: 22px; font-weight: 700; color: #fff; }
+.ref-header p { font-size: 13px; color: #758682; margin-top: 4px; }
+.ref-version { font-size: 11px; padding: 4px 12px; border-radius: 999px; background: rgba(255,255,255,0.1); color: #fff; }
+
+/* Type specimen */
+.type-row { margin-bottom: 20px; }
+.type-meta { font-size: 11px; color: var(--ink-3); margin-top: 4px; font-family: monospace; }
+</style>
+</head>
+<body>
+<div class="ref-body">
+
+  <div class="ref-header">
+    <div>
+      <h1>PowerToFly AI — Design System</h1>
+      <p>Shared tokens, components, and patterns for all pages.</p>
+    </div>
+    <span class="ref-version">ptf.css · v1</span>
+  </div>
+
+  <!-- ===== Color Tokens ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Color Tokens</div>
+
+    <p style="font-size:13px;color:var(--ink-3);margin-bottom:24px;">Usage: <code style="font-size:11.5px;background:var(--bg-soft);padding:2px 6px;border-radius:4px;">color: var(--ink)</code></p>
+
+    <div style="margin-bottom:24px;">
+      <div class="ref-label" style="margin-bottom:12px;">Ink / Text</div>
+      <div class="ref-row">
+        <div class="swatch"><div class="swatch-box" style="background:#0A0A0A;"></div><div class="hex">#0A0A0A</div><div class="varname">--ink</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#2A2A2A;"></div><div class="hex">#2A2A2A</div><div class="varname">--ink-2</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#5C6F69;"></div><div class="hex">#5C6F69</div><div class="varname">--ink-3</div></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:24px;">
+      <div class="ref-label" style="margin-bottom:12px;">Background</div>
+      <div class="ref-row">
+        <div class="swatch"><div class="swatch-box" style="background:#ffffff;"></div><div class="hex">#ffffff</div><div class="varname">--bg</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#FAFAF6;"></div><div class="hex">#FAFAF6</div><div class="varname">--bg-soft</div></div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:24px;">
+      <div class="ref-label" style="margin-bottom:12px;">Iridescent Brand</div>
+      <div class="ref-row">
+        <div class="swatch"><div class="swatch-box" style="background:#5BCFFF;"></div><div class="hex">#5BCFFF</div><div class="varname">--iri-cyan</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#4FE8A9;"></div><div class="hex">#4FE8A9</div><div class="varname">--iri-green</div></div>
+        <div class="swatch"><div class="swatch-box" style="background:#D5FF66;"></div><div class="hex">#D5FF66</div><div class="varname">--iri-lime</div></div>
+        <div class="swatch">
+          <div class="swatch-box" style="background:linear-gradient(135deg,#5BCFFF,#4FE8A9,#D5FF66);"></div>
+          <div class="hex">gradient</div><div class="varname">brand gradient</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Typography ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Typography</div>
+
+    <div class="type-row">
+      <div class="display" style="font-size:clamp(36px,6vw,72px);">Display Heading</div>
+      <div class="type-meta">.display · Inter Tight 700 · letter-spacing -0.035em</div>
+    </div>
+
+    <div class="type-row" style="margin-top:24px;">
+      <div class="display italic-accent" style="font-size:clamp(36px,6vw,72px);">Iridescent italic</div>
+      <div class="type-meta">.italic-accent · gradient cyan→green→lime</div>
+    </div>
+
+    <div class="type-row" style="margin-top:24px;">
+      <div class="display italic-plain" style="font-size:clamp(36px,6vw,72px);">Plain italic accent</div>
+      <div class="type-meta">.italic-plain · same weight, no gradient</div>
+    </div>
+
+    <div class="type-row" style="margin-top:24px;">
+      <div style="font-size:16px;line-height:1.55;">Body text — Inter 400, 16px, line-height 1.55. Used for all descriptive copy, subtitles, and general content across every page.</div>
+      <div class="type-meta">body · Inter 400</div>
+    </div>
+
+    <div class="type-row" style="margin-top:16px;">
+      <div style="font-size:13.5px;color:var(--ink-3);">Secondary / caption text — 13–14px, color: --ink-3</div>
+      <div class="type-meta">secondary · Inter 400-500, #5C6F69</div>
+    </div>
+  </div>
+
+  <!-- ===== Buttons ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Buttons</div>
+
+    <div class="ref-row" style="align-items:center;">
+      <div>
+        <button class="btn">Default .btn</button>
+        <div class="ref-label">.btn · white bg, dark border</div>
+      </div>
+      <div>
+        <button class="btn btn-primary">Primary .btn-primary</button>
+        <div class="ref-label">.btn-primary · dark bg, white text</div>
+      </div>
+      <div>
+        <button class="btn btn-sm">Small .btn-sm</button>
+        <div class="ref-label">.btn-sm · compact padding</div>
+      </div>
+    </div>
+
+    <div class="ref-row" style="margin-top:24px;background:#000;padding:20px;border-radius:16px;align-items:center;">
+      <div>
+        <button class="btn btn-light">Light .btn-light</button>
+        <div class="ref-label" style="color:#758682;">On dark backgrounds</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Brand Badge ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Brand Badge</div>
+    <div class="ref-row" style="align-items:center;">
+      <span class="brand-ai">AI</span>
+      <div style="font-size:13px;color:var(--ink-3);">.brand-ai · iridescent gradient pill · used in nav and footer</div>
+    </div>
+  </div>
+
+  <!-- ===== Nav ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Navigation</div>
+    <div style="font-size:13.5px;color:var(--ink-3);margin-bottom:16px;">The nav is rendered per-page in HTML. ptf.css styles it; ptf.js handles hamburger + scroll transparency.<br>Default: transparent → frosted glass on scroll. Override with <code style="font-size:11.5px;background:var(--bg-soft);padding:2px 6px;border-radius:4px;">.nav { background: rgba(255,255,255,0.85); }</code> for always-frosted (talents).</div>
+    <div style="background:var(--bg-soft);border-radius:12px;padding:20px;font-family:monospace;font-size:12px;line-height:1.8;color:var(--ink-2);">
+      &lt;nav class="nav" id="mainNav"&gt;<br>
+      &nbsp;&nbsp;&lt;div class="nav-inner"&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;a class="brand" href="/"&gt;...logo... &lt;span class="brand-ai"&gt;AI&lt;/span&gt;&lt;/a&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="nav-links"&gt;...links...&lt;/div&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="nav-cta"&gt;...buttons...&lt;/div&gt;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;button class="hamburger" id="hamburger" aria-expanded="false"&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/button&gt;<br>
+      &nbsp;&nbsp;&lt;/div&gt;<br>
+      &lt;/nav&gt;<br>
+      &lt;div class="mobile-drawer" id="mobileDrawer" aria-hidden="true"&gt;...links...&lt;/div&gt;
+    </div>
+  </div>
+
+  <!-- ===== Animations ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Shared Animations</div>
+    <div class="ref-row">
+      <div style="width:80px;height:80px;background:var(--iri-green);border-radius:16px;animation:avFloat 2s ease-in-out infinite;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">avFloat</div>
+      <div style="margin-left:16px;">
+        <div style="font-size:13.5px;font-weight:600;">@keyframes avFloat</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:4px;">Gentle vertical bob — used on avatar images, hero illustrations.<br><code style="font-size:11px;">animation: avFloat 2s ease-in-out infinite;</code></div>
+        <div style="margin-top:12px;font-size:13.5px;font-weight:600;">@keyframes marquee</div>
+        <div style="font-size:12px;color:var(--ink-3);margin-top:4px;">Infinite horizontal scroll — used on logo strips.<br><code style="font-size:11px;">animation: marquee 28s linear infinite;</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Design System Files ===== -->
+  <div class="ref-section">
+    <div class="ref-title">Files</div>
+    <div style="background:var(--bg-soft);border-radius:12px;padding:24px;font-size:13px;line-height:2;">
+      <strong>ds/ptf.css</strong> — Shared tokens + components (this file's source)<br>
+      <strong>ds/ptf.js</strong> — Shared behavior: nav init, marquee utility<br>
+      <strong>ds/reference.html</strong> — This style guide<br>
+      <br>
+      <strong>employers/index.html</strong> — Employers landing page<br>
+      <strong>talents/index.html</strong> — Talents landing page<br>
+      <br>
+      Each page links:<br>
+      <code style="font-size:11.5px;background:#fff;padding:2px 8px;border-radius:4px;">&lt;link rel="stylesheet" href="../ds/ptf.css"&gt;</code><br>
+      <code style="font-size:11.5px;background:#fff;padding:2px 8px;border-radius:4px;">&lt;script src="../ds/ptf.js"&gt;&lt;/script&gt;</code>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
