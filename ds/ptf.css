@@ -187,17 +187,21 @@ img { display: block; max-width: 100%; }
   opacity: 1;
   pointer-events: all;
 }
-.mobile-drawer a {
+.mobile-drawer a:not(.btn) {
   font-size: 16px; font-weight: 500;
   color: var(--ink); text-decoration: none;
   padding: 14px 0;
   border-bottom: 1px solid var(--line);
 }
-.mobile-drawer a:last-of-type { border-bottom: none; }
+.mobile-drawer a:not(.btn):last-of-type { border-bottom: none; }
 .mobile-drawer .drawer-cta {
   margin-top: 20px; display: flex; flex-direction: column; gap: 10px;
+  border-top: 1px solid var(--line); padding-top: 20px;
 }
-.mobile-drawer .btn { justify-content: center; width: 100%; }
+/* Buttons in drawer — restore correct colors, no border-bottom bleed */
+.mobile-drawer .btn { justify-content: center; width: 100%; padding: 13px 26px; border-bottom: none !important; }
+.mobile-drawer .btn-primary { color: #fff; }
+.mobile-drawer .btn-primary:hover { color: #fff; }
 
 /* ===== Footer ===== */
 .footer { background: #000000; color: #C8D2CE; padding: 24px 32px 36px; }
