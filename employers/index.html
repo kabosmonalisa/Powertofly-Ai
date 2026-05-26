@@ -1034,14 +1034,14 @@ h1.hero-headline {
 
 /* Text below carousel */
 .fh-below-text {
-  max-width: none;
+  max-width: 640px;
   margin: 40px auto 0;
   text-align: center;
   font-size: 18px;
   line-height: 1.6;
   color: var(--ink-3);
   padding: 0 24px;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 /* Full-width logos below hero */
@@ -1592,26 +1592,7 @@ h1.hero-headline {
   track.innerHTML = html + html;
 })();
 
-// Hamburger menu
-(function() {
-  const btn = document.getElementById('hamburger');
-  const drawer = document.getElementById('mobileDrawer');
-  if (!btn || !drawer) return;
-  btn.addEventListener('click', function() {
-    const open = drawer.classList.toggle('open');
-    btn.classList.toggle('open', open);
-    btn.setAttribute('aria-expanded', open);
-    drawer.setAttribute('aria-hidden', !open);
-  });
-  // Close on outside click
-  document.addEventListener('click', function(e) {
-    if (!btn.contains(e.target) && !drawer.contains(e.target)) {
-      drawer.classList.remove('open');
-      btn.classList.remove('open');
-      btn.setAttribute('aria-expanded', false);
-    }
-  });
-})();
+// Hamburger handled by ../ds/ptf.js
 
 /* Count-up animation */
 (function(){
@@ -1653,7 +1634,7 @@ h1.hero-headline {
   // Slides: alternating video/static, women at both ends (first+last = women for seamless loop)
   // Men at positions 2, 6, 9, 12 — never adjacent
   const slides = [
-    { type: 'video', src: 'https://videos.pexels.com/video-files/5981660/5981660-uhd_2732_1440_25fps.mp4',   label: 'Software Engineers', mediaStyle: 'object-fit:contain;background:#f2efeb;' },  // V · woman relaxing with laptop cozy
+    { type: 'video', src: 'https://videos.pexels.com/video-files/5981660/5981660-uhd_2732_1440_25fps.mp4',   label: 'Software Engineers', mediaStyle: 'object-fit:contain;', slideBg: '#f0ede8' },  // V · woman relaxing with laptop cozy
     { type: 'img',   src: 'photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg',                   label: 'Product Designers' },          // S · 01 Black F
     { type: 'img',   src: 'photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg',            label: 'Research Scientists' },        // S · 02 white M
     { type: 'video', src: 'https://videos.pexels.com/video-files/7981969/7981969-uhd_2560_1440_30fps.mp4',   label: 'UX Designers' },              // V · woman w/ glasses talking
@@ -1689,6 +1670,7 @@ h1.hero-headline {
   function makeSlideEl(slide, active) {
     const div = document.createElement('div');
     div.className = 'fh-slide' + (active ? ' active' : '');
+    if (slide.slideBg) div.style.background = slide.slideBg;
     if (slide.type === 'video') {
       const v = document.createElement('video');
       v.src = slide.src; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
