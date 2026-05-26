@@ -117,61 +117,30 @@ body {
 }
 .book-footer { font-size: 12px; color: var(--ink-3); margin-top: 48px; }
 
-/* ===== Right: form ===== */
-.book-right { padding: 52px 44px; display: flex; flex-direction: column; justify-content: center; }
+/* ===== Right: calendar embed ===== */
+.book-right {
+  padding: 40px 44px;
+  display: flex; flex-direction: column;
+  background: var(--bg);
+}
 
-.form-heading {
+.cal-heading {
   font-family: 'Inter Tight', sans-serif;
   font-size: 20px; font-weight: 700;
   letter-spacing: -0.02em; color: var(--ink);
   margin-bottom: 6px;
 }
-.form-sub {
+.cal-sub {
   font-size: 14px; color: var(--ink-3);
-  margin-bottom: 28px; line-height: 1.5;
+  margin-bottom: 20px; line-height: 1.5;
 }
 
-.book-form { display: flex; flex-direction: column; gap: 14px; }
-
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.field label {
-  font-size: 13px; font-weight: 600;
-  color: var(--ink-2); letter-spacing: 0.01em;
-}
-.field input, .field select {
-  width: 100%; padding: 11px 14px;
-  border-radius: 12px; border: 1.5px solid var(--line);
-  background: var(--bg-soft);
-  font-family: 'Inter', sans-serif; font-size: 15px; color: var(--ink);
-  outline: none;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
-  appearance: none; -webkit-appearance: none;
-}
-.field input:focus, .field select:focus {
-  border-color: #4FE8A9;
-  box-shadow: 0 0 0 3px rgba(79,232,169,0.15);
-}
-.field input::placeholder { color: var(--ink-3); opacity: 0.6; }
-
-.btn-submit {
-  margin-top: 4px;
-  width: 100%; padding: 14px;
-  background: var(--ink); color: #fff;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 16px; font-weight: 700;
-  border: none; border-radius: 14px; cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-}
-.btn-submit:hover {
-  box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
-  transform: translateY(-1px);
-}
-
-.form-note {
-  font-size: 12px; color: var(--ink-3);
-  text-align: center; margin-top: 12px;
+/* HubSpot embed fills remaining space */
+.meetings-iframe-container { flex: 1; min-height: 480px; }
+.meetings-iframe-container iframe {
+  width: 100% !important;
+  min-height: 480px;
+  border: none;
 }
 
 /* ===== Mobile ===== */
@@ -179,8 +148,8 @@ body {
   .nav { padding: 12px 20px; }
   .book-card { grid-template-columns: 1fr; }
   .book-left { padding: 36px 24px 28px; border-right: none; border-bottom: 1px solid var(--line); }
-  .book-right { padding: 32px 24px 40px; }
-  .field-row { grid-template-columns: 1fr; }
+  .book-right { padding: 28px 24px 32px; }
+  .meetings-iframe-container { min-height: 560px; }
 }
 </style>
 </head>
@@ -218,59 +187,19 @@ body {
       <p class="book-footer">© 2026 PowerToFly. All rights reserved.</p>
     </div>
 
-    <!-- Right: form -->
+    <!-- Right: HubSpot calendar embed -->
     <div class="book-right">
-      <p class="form-heading">Tell us a bit about you</p>
-      <p class="form-sub">We'll take you straight to the calendar to pick a time.</p>
-
-      <form class="book-form" id="bookForm" novalidate>
-        <div class="field-row">
-          <div class="field">
-            <label for="firstname">First name</label>
-            <input type="text" id="firstname" name="firstname" placeholder="Sarah" required>
-          </div>
-          <div class="field">
-            <label for="lastname">Last name</label>
-            <input type="text" id="lastname" name="lastname" placeholder="Chen" required>
-          </div>
-        </div>
-        <div class="field">
-          <label for="email">Work email</label>
-          <input type="email" id="email" name="email" placeholder="sarah@company.com" required>
-        </div>
-        <div class="field">
-          <label for="company">Company</label>
-          <input type="text" id="company" name="company" placeholder="Acme Corp" required>
-        </div>
-        <div class="field">
-          <label for="jobtitle">Job title</label>
-          <input type="text" id="jobtitle" name="jobtitle" placeholder="Head of AI">
-        </div>
-        <button type="submit" class="btn-submit">Pick a time →</button>
-        <p class="form-note">You'll choose a date and time on the next step.</p>
-      </form>
+      <p class="cal-heading">Schedule your call</p>
+      <p class="cal-sub">Pick a time below — the calendar loads from HubSpot.</p>
+      <!-- ── Devs: replace HUBSPOT_MEETINGS_URL with the actual embed URL ──
+           e.g. https://meetings.hubspot.com/powertofly/discovery-call?embed=true -->
+      <div class="meetings-iframe-container" data-src="HUBSPOT_MEETINGS_URL?embed=true"></div>
+      <script type="text/javascript" src="https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js"></script>
     </div>
 
   </div>
 </main>
 
-<script>
-// ── Devs: replace HUBSPOT_MEETINGS_URL with the actual meetings link ──
-// e.g. https://meetings.hubspot.com/powertofly/discovery-call
-const HUBSPOT_MEETINGS_URL = 'HUBSPOT_MEETINGS_URL_HERE';
-
-document.getElementById('bookForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const first   = encodeURIComponent(document.getElementById('firstname').value.trim());
-  const last    = encodeURIComponent(document.getElementById('lastname').value.trim());
-  const email   = encodeURIComponent(document.getElementById('email').value.trim());
-  const company = encodeURIComponent(document.getElementById('company').value.trim());
-  const title   = encodeURIComponent(document.getElementById('jobtitle').value.trim());
-
-  const url = `${HUBSPOT_MEETINGS_URL}?firstname=${first}&lastname=${last}&email=${email}&company=${company}&jobtitle=${title}`;
-  window.location.href = url;
-});
-</script>
 
 </body>
 </html>
