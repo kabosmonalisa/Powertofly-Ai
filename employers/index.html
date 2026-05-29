@@ -1137,34 +1137,47 @@ h1.hero-headline {
 
 /* ===== Business Outcomes ===== */
 .outcomes-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px 64px;
-  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 760px;
   margin: 0 auto;
 }
-.outcome-item { display: flex; gap: 20px; align-items: flex-start; }
+.outcome-item {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--line);
+}
+.outcome-item:last-child { border-bottom: none; }
 .outcome-num {
   flex-shrink: 0;
   font-family: 'Inter Tight', sans-serif;
-  font-size: 12px; font-weight: 800;
-  letter-spacing: 0.06em; color: var(--ink-3);
-  padding-top: 5px; min-width: 24px;
+  font-size: 64px; font-weight: 800;
+  letter-spacing: -0.05em; line-height: 1;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  min-width: 96px; text-align: right;
+  padding-top: 4px;
 }
+.outcome-body { padding-top: 8px; }
 .outcome-item h4 {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 20px; font-weight: 700;
+  font-size: 22px; font-weight: 700;
   letter-spacing: -0.025em; line-height: 1.2;
   color: var(--ink); margin-bottom: 8px;
 }
-.outcome-item p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
+.outcome-item p { font-size: 16px; color: var(--ink-3); line-height: 1.6; }
 
 @media (max-width: 768px) {
   .benefits-row { grid-template-columns: 1fr 1fr; }
-  .outcomes-grid { grid-template-columns: 1fr; gap: 32px; }
+  .outcome-num { font-size: 48px; min-width: 72px; }
 }
 @media (max-width: 480px) {
   .benefits-row { grid-template-columns: 1fr; }
+  .outcome-num { font-size: 40px; min-width: 56px; }
 }
 </style>
 </head>
@@ -1434,7 +1447,7 @@ h1.hero-headline {
 
       <div class="outcome-item">
         <div class="outcome-num">01</div>
-        <div>
+        <div class="outcome-body">
           <h4>Improve AI Quality</h4>
           <p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p>
         </div>
@@ -1442,7 +1455,7 @@ h1.hero-headline {
 
       <div class="outcome-item">
         <div class="outcome-num">02</div>
-        <div>
+        <div class="outcome-body">
           <h4>Accelerate Product Delivery</h4>
           <p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p>
         </div>
@@ -1450,7 +1463,7 @@ h1.hero-headline {
 
       <div class="outcome-item">
         <div class="outcome-num">03</div>
-        <div>
+        <div class="outcome-body">
           <h4>Reduce Implementation Risk</h4>
           <p>Project-to-hire pathways let you validate fit before making long-term commitments.</p>
         </div>
@@ -1458,7 +1471,7 @@ h1.hero-headline {
 
       <div class="outcome-item">
         <div class="outcome-num">04</div>
-        <div>
+        <div class="outcome-body">
           <h4>Compete More Effectively</h4>
           <p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p>
         </div>
