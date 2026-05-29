@@ -145,7 +145,7 @@ img { display: block; max-width: 100%; }
 .nav-links { display: flex; gap: 28px; }
 .nav-links a {
   color: var(--ink); text-decoration: none;
-  font-size: 14.5px; font-weight: 500;
+  font-size: 13.5px; font-weight: 400;
 }
 .nav-links a:hover { opacity: 0.65; }
 .nav-cta { display: flex; gap: 10px; }
