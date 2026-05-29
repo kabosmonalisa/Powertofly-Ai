@@ -1137,46 +1137,38 @@ h1.hero-headline {
 
 /* ===== Business Outcomes ===== */
 .outcomes-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 760px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px 80px;
+  max-width: 860px;
   margin: 0 auto;
 }
 .outcome-item {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
   align-items: flex-start;
-  padding: 32px 0;
-  border-bottom: 1px solid var(--line);
 }
-.outcome-item:last-child { border-bottom: none; }
 .outcome-num {
-  flex-shrink: 0;
-  min-width: 80px;
-  display: flex;
-  justify-content: flex-end;
-  padding-top: 2px;
+  margin-bottom: 20px;
 }
-.outcome-num svg { width: 52px; height: 52px; }
-.outcome-body { padding-top: 8px; }
+.outcome-num svg { width: 72px; height: 72px; }
 .outcome-item h4 {
   font-family: 'Inter Tight', sans-serif;
   font-size: 22px; font-weight: 700;
   letter-spacing: -0.025em; line-height: 1.2;
-  color: var(--ink); margin-bottom: 8px;
+  color: var(--ink); margin-bottom: 10px;
 }
 .outcome-item p { font-size: 16px; color: var(--ink-3); line-height: 1.6; }
 
 @media (max-width: 768px) {
   .benefits-row { grid-template-columns: 1fr 1fr; }
-  .outcome-num { min-width: 64px; }
-  .outcome-num svg { width: 42px; height: 42px; }
+  .outcomes-grid { gap: 40px 48px; }
+  .outcome-num svg { width: 56px; height: 56px; }
 }
 @media (max-width: 480px) {
   .benefits-row { grid-template-columns: 1fr; }
-  .outcome-num { min-width: 48px; }
-  .outcome-num svg { width: 34px; height: 34px; }
+  .outcomes-grid { grid-template-columns: 1fr; gap: 40px; }
+  .outcome-num svg { width: 48px; height: 48px; }
 }
 </style>
 </head>
@@ -1491,7 +1483,8 @@ h1.hero-headline {
         <div class="outcome-num">
           <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs><linearGradient id="oc4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 2,58 L 2,36 L 16,20 L 24,36 L 32,4 L 40,36 L 48,20 L 62,36 L 62,58 Z" fill="url(#oc4)"/>
+            <rect x="4" y="46" width="56" height="14" rx="3" fill="url(#oc4)"/>
+            <path d="M 4,46 L 4,22 L 18,36 L 32,6 L 46,36 L 60,22 L 60,46 Z" fill="url(#oc4)"/>
           </svg>
         </div>
         <div class="outcome-body">
