@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Business Outcomes — 5 Options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds/ptf.css">
+<style>
+:root {
+  --iri-cyan: #5BCFFF; --iri-green: #4FE8A9; --iri-lime: #D5FF66;
+}
+body { background: #f4f4f0; }
+
+/* ===== Layout ===== */
+.page-wrap { max-width: 1100px; margin: 0 auto; padding: 60px 32px 120px; }
+.option-block { margin-bottom: 80px; }
+.option-label {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #0A8C66;
+  margin-bottom: 6px;
+}
+.option-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+  color: #0A0A0A; margin-bottom: 28px;
+}
+.option-divider {
+  border: none; border-top: 1px solid rgba(10,10,10,0.1);
+  margin-bottom: 40px;
+}
+
+/* ===== Shared section head ===== */
+.section-head { text-align: center; margin-bottom: 48px; }
+.section-head h2 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(28px, 3.5vw, 44px); font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.05; color: #0A0A0A;
+}
+
+/* ===== OPTION A — Talents-style single column steps ===== */
+.opt-a-wrap { max-width: 640px; margin: 0 auto; position: relative; }
+.opt-a-wrap::before {
+  content: '';
+  position: absolute;
+  left: 23px; top: 44px; bottom: 44px;
+  width: 1px; border-left: 2px dashed rgba(10,10,10,0.12);
+}
+.opt-a-step { display: flex; gap: 24px; align-items: flex-start; padding: 20px 0; }
+.opt-a-num {
+  width: 48px; height: 48px; flex-shrink: 0;
+  border-radius: 50%; background: #fff;
+  border: 1.5px solid rgba(10,10,10,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 12px; letter-spacing: 0.04em;
+  color: #5C6F69; position: relative; z-index: 1;
+}
+.opt-a-content { padding-top: 12px; }
+.opt-a-content h4 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 22px; font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.2;
+  color: #0A0A0A; margin-bottom: 8px;
+}
+.opt-a-content p { font-size: 16px; color: #5C6F69; line-height: 1.6; }
+
+/* ===== OPTION B — 2×2 grid with circle badges ===== */
+.opt-b-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px 64px; max-width: 900px; margin: 0 auto;
+}
+.opt-b-item { display: flex; gap: 20px; align-items: flex-start; }
+.opt-b-num {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 50%; background: #fff;
+  border: 1.5px solid rgba(10,10,10,0.1);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 12px; letter-spacing: 0.04em;
+  color: #5C6F69;
+}
+.opt-b-item h4 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.2;
+  color: #0A0A0A; margin-bottom: 8px; padding-top: 10px;
+}
+.opt-b-item p { font-size: 15px; color: #5C6F69; line-height: 1.6; }
+
+/* ===== OPTION C — Big iridescent numbers ===== */
+.opt-c-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px 80px; max-width: 900px; margin: 0 auto;
+}
+.opt-c-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 72px; font-weight: 800;
+  letter-spacing: -0.05em; line-height: 1;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.opt-c-item h4 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.2;
+  color: #0A0A0A; margin-bottom: 8px;
+}
+.opt-c-item p { font-size: 15px; color: #5C6F69; line-height: 1.6; }
+
+/* ===== OPTION D — Cards with gradient top accent ===== */
+.opt-d-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; max-width: 900px; margin: 0 auto;
+}
+.opt-d-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid rgba(10,10,10,0.09);
+  box-shadow: 0 1px 2px rgba(15,30,26,0.04), 0 8px 28px rgba(15,30,26,0.08);
+  padding: 28px 28px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.opt-d-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #5BCFFF, #4FE8A9, #D5FF66);
+}
+.opt-d-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.06em;
+  color: #5C6F69; margin-bottom: 12px;
+}
+.opt-d-card h4 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.2;
+  color: #0A0A0A; margin-bottom: 10px;
+}
+.opt-d-card p { font-size: 15px; color: #5C6F69; line-height: 1.6; }
+
+/* ===== OPTION E — Dark section ===== */
+.opt-e-wrap {
+  background: #000;
+  border-radius: 28px;
+  padding: 72px 64px;
+}
+.opt-e-wrap .section-head h2 { color: #fff; }
+.opt-e-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px 80px; max-width: 860px; margin: 0 auto;
+}
+.opt-e-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px; font-weight: 800; letter-spacing: 0.08em;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 10px;
+}
+.opt-e-item h4 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 700;
+  letter-spacing: -0.025em; line-height: 1.2;
+  color: #fff; margin-bottom: 8px;
+}
+.opt-e-item p { font-size: 15px; color: #97A8A2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <div style="text-align:center; margin-bottom: 72px;">
+    <div style="font-family:'Inter Tight',sans-serif; font-size:11px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; color:#5C6F69; margin-bottom:12px;">Business Outcomes — pick your style</div>
+    <div style="font-family:'Inter Tight',sans-serif; font-size:36px; font-weight:800; letter-spacing:-0.04em;">5 options, same content</div>
+  </div>
+
+  <!-- OPTION A -->
+  <div class="option-block" style="background:#fff; border-radius:24px; padding: 56px 48px;">
+    <div class="option-label">Option A</div>
+    <div class="option-title">Talents-style — single column with dashed timeline &amp; animated circles</div>
+    <hr class="option-divider">
+    <div class="section-head"><h2>The difference the right AI experts make.</h2></div>
+    <div class="opt-a-wrap">
+      <div class="opt-a-step">
+        <div class="opt-a-num">01</div>
+        <div class="opt-a-content"><h4>Improve AI Quality</h4><p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p></div>
+      </div>
+      <div class="opt-a-step">
+        <div class="opt-a-num">02</div>
+        <div class="opt-a-content"><h4>Accelerate Product Delivery</h4><p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p></div>
+      </div>
+      <div class="opt-a-step">
+        <div class="opt-a-num">03</div>
+        <div class="opt-a-content"><h4>Reduce Implementation Risk</h4><p>Project-to-hire pathways let you validate fit before making long-term commitments.</p></div>
+      </div>
+      <div class="opt-a-step">
+        <div class="opt-a-num">04</div>
+        <div class="opt-a-content"><h4>Compete More Effectively</h4><p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPTION B -->
+  <div class="option-block" style="background:#fff; border-radius:24px; padding: 56px 48px;">
+    <div class="option-label">Option B</div>
+    <div class="option-title">2×2 grid with circle badges — compact &amp; scannable</div>
+    <hr class="option-divider">
+    <div class="section-head"><h2>The difference the right AI experts make.</h2></div>
+    <div class="opt-b-grid">
+      <div class="opt-b-item"><div class="opt-b-num">01</div><div><h4>Improve AI Quality</h4><p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p></div></div>
+      <div class="opt-b-item"><div class="opt-b-num">02</div><div><h4>Accelerate Product Delivery</h4><p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p></div></div>
+      <div class="opt-b-item"><div class="opt-b-num">03</div><div><h4>Reduce Implementation Risk</h4><p>Project-to-hire pathways let you validate fit before making long-term commitments.</p></div></div>
+      <div class="opt-b-item"><div class="opt-b-num">04</div><div><h4>Compete More Effectively</h4><p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p></div></div>
+    </div>
+  </div>
+
+  <!-- OPTION C -->
+  <div class="option-block" style="background:#fff; border-radius:24px; padding: 56px 48px;">
+    <div class="option-label">Option C</div>
+    <div class="option-title">Big iridescent numbers — editorial &amp; brand-forward</div>
+    <hr class="option-divider">
+    <div class="section-head"><h2>The difference the right AI experts make.</h2></div>
+    <div class="opt-c-grid">
+      <div class="opt-c-item"><div class="opt-c-num">01</div><h4>Improve AI Quality</h4><p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p></div>
+      <div class="opt-c-item"><div class="opt-c-num">02</div><h4>Accelerate Product Delivery</h4><p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p></div>
+      <div class="opt-c-item"><div class="opt-c-num">03</div><h4>Reduce Implementation Risk</h4><p>Project-to-hire pathways let you validate fit before making long-term commitments.</p></div>
+      <div class="opt-c-item"><div class="opt-c-num">04</div><h4>Compete More Effectively</h4><p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p></div>
+    </div>
+  </div>
+
+  <!-- OPTION D -->
+  <div class="option-block" style="background:#fff; border-radius:24px; padding: 56px 48px;">
+    <div class="option-label">Option D</div>
+    <div class="option-title">Cards with gradient top accent — consistent with "Why Companies" above</div>
+    <hr class="option-divider">
+    <div class="section-head"><h2>The difference the right AI experts make.</h2></div>
+    <div class="opt-d-grid">
+      <div class="opt-d-card"><div class="opt-d-num">01</div><h4>Improve AI Quality</h4><p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p></div>
+      <div class="opt-d-card"><div class="opt-d-num">02</div><h4>Accelerate Product Delivery</h4><p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p></div>
+      <div class="opt-d-card"><div class="opt-d-num">03</div><h4>Reduce Implementation Risk</h4><p>Project-to-hire pathways let you validate fit before making long-term commitments.</p></div>
+      <div class="opt-d-card"><div class="opt-d-num">04</div><h4>Compete More Effectively</h4><p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p></div>
+    </div>
+  </div>
+
+  <!-- OPTION E -->
+  <div class="option-block">
+    <div class="option-label">Option E</div>
+    <div class="option-title" style="margin-bottom:28px;">Dark section — bold statement, strong visual break on the page</div>
+    <div class="opt-e-wrap">
+      <div class="section-head"><h2>The difference the right AI experts make.</h2></div>
+      <div class="opt-e-grid">
+        <div class="opt-e-item"><div class="opt-e-num">01</div><h4>Improve AI Quality</h4><p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p></div>
+        <div class="opt-e-item"><div class="opt-e-num">02</div><h4>Accelerate Product Delivery</h4><p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p></div>
+        <div class="opt-e-item"><div class="opt-e-num">03</div><h4>Reduce Implementation Risk</h4><p>Project-to-hire pathways let you validate fit before making long-term commitments.</p></div>
+        <div class="opt-e-item"><div class="opt-e-num">04</div><h4>Compete More Effectively</h4><p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
