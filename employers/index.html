@@ -1153,15 +1153,12 @@ h1.hero-headline {
 .outcome-item:last-child { border-bottom: none; }
 .outcome-num {
   flex-shrink: 0;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 64px; font-weight: 800;
-  letter-spacing: -0.05em; line-height: 1;
-  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text;
-  min-width: 96px; text-align: right;
-  padding-top: 4px;
+  min-width: 80px;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 2px;
 }
+.outcome-num svg { width: 52px; height: 52px; }
 .outcome-body { padding-top: 8px; }
 .outcome-item h4 {
   font-family: 'Inter Tight', sans-serif;
@@ -1173,11 +1170,13 @@ h1.hero-headline {
 
 @media (max-width: 768px) {
   .benefits-row { grid-template-columns: 1fr 1fr; }
-  .outcome-num { font-size: 48px; min-width: 72px; }
+  .outcome-num { min-width: 64px; }
+  .outcome-num svg { width: 42px; height: 42px; }
 }
 @media (max-width: 480px) {
   .benefits-row { grid-template-columns: 1fr; }
-  .outcome-num { font-size: 40px; min-width: 56px; }
+  .outcome-num { min-width: 48px; }
+  .outcome-num svg { width: 34px; height: 34px; }
 }
 </style>
 </head>
@@ -1450,7 +1449,12 @@ h1.hero-headline {
     <div class="outcomes-grid">
 
       <div class="outcome-item">
-        <div class="outcome-num">01</div>
+        <div class="outcome-num">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="oc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 32,2 L 62,32 L 32,62 L 2,32 Z" fill="url(#oc1)"/>
+          </svg>
+        </div>
         <div class="outcome-body">
           <h4>Improve AI Quality</h4>
           <p>Domain-qualified experts who already understand your data context produce better models from the first day of engagement.</p>
@@ -1458,7 +1462,12 @@ h1.hero-headline {
       </div>
 
       <div class="outcome-item">
-        <div class="outcome-num">02</div>
+        <div class="outcome-num">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="oc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 40,2 L 18,36 L 32,36 L 24,62 L 52,26 L 36,26 Z" fill="url(#oc2)"/>
+          </svg>
+        </div>
         <div class="outcome-body">
           <h4>Accelerate Product Delivery</h4>
           <p>Verified experts who contribute from day one mean your AI initiatives ship on schedule.</p>
@@ -1466,7 +1475,12 @@ h1.hero-headline {
       </div>
 
       <div class="outcome-item">
-        <div class="outcome-num">03</div>
+        <div class="outcome-num">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="oc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 32,2 L 60,12 L 60,34 C 60,50 48,60 32,62 C 16,60 4,50 4,34 L 4,12 Z" fill="url(#oc3)"/>
+          </svg>
+        </div>
         <div class="outcome-body">
           <h4>Reduce Implementation Risk</h4>
           <p>Project-to-hire pathways let you validate fit before making long-term commitments.</p>
@@ -1474,7 +1488,12 @@ h1.hero-headline {
       </div>
 
       <div class="outcome-item">
-        <div class="outcome-num">04</div>
+        <div class="outcome-num">
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="oc4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 2,58 L 2,36 L 16,20 L 24,36 L 32,4 L 40,36 L 48,20 L 62,36 L 62,58 Z" fill="url(#oc4)"/>
+          </svg>
+        </div>
         <div class="outcome-body">
           <h4>Compete More Effectively</h4>
           <p>When your AI experts already understand your business, you move faster, build better, and get to market ahead of the competition.</p>
