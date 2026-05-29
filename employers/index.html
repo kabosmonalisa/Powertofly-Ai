@@ -1812,10 +1812,9 @@ h1.hero-headline {
   const slides = [
     { type: 'video', src: 'https://videos.pexels.com/video-files/7652209/7652209-uhd_1440_2560_30fps.mp4',   label: 'Software Engineers' },  // V · blonde woman smiling at laptop, modern office, portrait
     { type: 'img',   src: 'photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg',                   label: 'Product Designers' },          // S · 01 Black F
-    { type: 'img',   src: 'photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg',            label: 'Research Scientists' },        // S · 02 white M
+    { type: 'img',   src: 'photos/14.white-man-laptop.jpg',                                                   label: 'Research Scientists' },        // S · 14 white M laptop
     { type: 'video', src: 'https://videos.pexels.com/video-files/7981969/7981969-uhd_2560_1440_30fps.mp4',   label: 'UX Designers' },              // V · woman w/ glasses talking
-    { type: 'img',   src: 'photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg',                       label: 'Data Scientists' },            // S · 06 Black F
-    { type: 'img',   src: 'photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg',                      label: 'GTM Specialists' },            // S · 07 Indian M
+    { type: 'img',   src: 'photos/15.muslim-lady.jpg', mediaStyle: 'object-position: center 25%;',          label: 'Data Scientists' },            // S · 15 Muslim lady zoomed
     { type: 'video', src: 'https://videos.pexels.com/video-files/8202005/8202005-uhd_2560_1440_25fps.mp4',   label: 'Healthcare Professionals' },   // V · man posing office
     { type: 'img',   src: 'photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg',                       label: 'Operations Leaders' },         // S · 03 Black F
     { type: 'img',   src: 'photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg',         label: 'Solutions Architects' },       // S · 09 white M
@@ -1857,7 +1856,7 @@ h1.hero-headline {
     } else {
       const img = document.createElement('img');
       img.alt = slide.label; img.className = 'fh-media';
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;' + (slide.mediaStyle || '');
       img.onload = () => img.classList.add('loaded');
       img.src = slide.src;
       div.appendChild(img);
