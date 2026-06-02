@@ -23,6 +23,10 @@
   --iri-cyan:  #5BCFFF;
   --iri-green: #4FE8A9;
   --iri-lime:  #D5FF66;
+
+  /* Brand purple */
+  --purple:       #5B4FCF;
+  --purple-light: #EEEBFF;
 }
 
 /* ===== Reset ===== */
