@@ -2317,6 +2317,21 @@ h1.hero-headline {
     if (overlay) overlay.classList.remove('on');
   }
   document.querySelectorAll('.nav-btn[data-fly]').forEach(function(btn){
+    var drop = btn.closest('.nav-drop');
+
+    /* hover */
+    drop.addEventListener('mouseenter', function(){
+      var fly = document.getElementById(btn.dataset.fly);
+      closeAll();
+      fly.classList.add('open');
+      btn.classList.add('open');
+      if (overlay) overlay.classList.add('on');
+    });
+    drop.addEventListener('mouseleave', function(){
+      closeAll();
+    });
+
+    /* click (toggle — also works on touch) */
     btn.addEventListener('click', function(e){
       e.stopPropagation();
       var fly = document.getElementById(btn.dataset.fly);
