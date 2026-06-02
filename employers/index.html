@@ -1210,7 +1210,7 @@ h1.hero-headline {
 
 /* ── Full-width mega flyout ── */
 .nav-fly {
-  position: absolute; left: 0; right: 0; top: calc(100% + 6px);
+  position: absolute; left: 0; right: 0; top: 100%;
   background: transparent; border: none; box-shadow: none;
   display: none; overflow: visible; z-index: 200;
   padding: 0 32px;
@@ -2325,25 +2325,35 @@ h1.hero-headline {
 /* ===== Flyout nav ===== */
 (function(){
   var overlay = document.getElementById('navOverlay');
+  var closeTimer = null;
+
   function closeAll() {
     document.querySelectorAll('.nav-fly').forEach(function(f){ f.classList.remove('open'); });
     document.querySelectorAll('.nav-btn[data-fly]').forEach(function(b){ b.classList.remove('open'); });
     if (overlay) overlay.classList.remove('on');
   }
+
+  function scheduleClose() {
+    closeTimer = setTimeout(closeAll, 150);
+  }
+
+  function cancelClose() {
+    clearTimeout(closeTimer);
+  }
+
   document.querySelectorAll('.nav-btn[data-fly]').forEach(function(btn){
     var drop = btn.closest('.nav-drop');
 
-    /* hover */
+    /* hover — open immediately, close after short delay */
     drop.addEventListener('mouseenter', function(){
+      cancelClose();
       var fly = document.getElementById(btn.dataset.fly);
       closeAll();
       fly.classList.add('open');
       btn.classList.add('open');
       if (overlay) overlay.classList.add('on');
     });
-    drop.addEventListener('mouseleave', function(){
-      closeAll();
-    });
+    drop.addEventListener('mouseleave', scheduleClose);
 
     /* click (toggle — also works on touch) */
     btn.addEventListener('click', function(e){
