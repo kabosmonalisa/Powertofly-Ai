@@ -1549,8 +1549,8 @@ h1.hero-headline {
 
     </div><!-- /nav-items -->
     <div class="nav-cta">
-      <a href="https://powertofly.com/talent" class="btn btn-sm" style="border:1px solid var(--line);color:var(--ink-3);">Find work</a>
-      <a href="../book/" class="btn btn-primary btn-sm">Book a call</a>
+      <a href="https://powertofly.com/talent" class="btn btn-sm btn-outline">Find work</a>
+      <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -2341,10 +2341,11 @@ h1.hero-headline {
   document.querySelectorAll('.nav-btn[data-fly]').forEach(function(btn){
     var drop = btn.closest('.nav-drop');
 
+    var fly = document.getElementById(btn.dataset.fly);
+
     /* hover — open immediately, close after short delay */
     drop.addEventListener('mouseenter', function(){
       cancelClose();
-      var fly = document.getElementById(btn.dataset.fly);
       closeAll();
       fly.classList.add('open');
       btn.classList.add('open');
@@ -2352,10 +2353,13 @@ h1.hero-headline {
     });
     drop.addEventListener('mouseleave', scheduleClose);
 
+    /* keep open while cursor is inside the flyout panel */
+    fly.addEventListener('mouseenter', cancelClose);
+    fly.addEventListener('mouseleave', scheduleClose);
+
     /* click (toggle — also works on touch) */
     btn.addEventListener('click', function(e){
       e.stopPropagation();
-      var fly = document.getElementById(btn.dataset.fly);
       var isOpen = fly.classList.contains('open');
       closeAll();
       if (!isOpen) {
