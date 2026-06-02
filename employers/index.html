@@ -1199,10 +1199,19 @@ h1.hero-headline {
 .nav-fly {
   position: absolute; left: 0; right: 0; top: 100%;
   background: transparent; border: none; box-shadow: none;
-  display: none; overflow: visible; z-index: 200;
+  overflow: visible; z-index: 200;
   padding: 0 32px; padding-top: 2px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s .2s;
+  pointer-events: none;
 }
-.nav-fly.open { display: block; }
+.nav-fly.open {
+  opacity: 1; visibility: visible;
+  transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s 0s;
+  pointer-events: auto;
+}
 
 /* Same structure for every flyout */
 .mega-inner {
@@ -1210,7 +1219,7 @@ h1.hero-headline {
   display: grid; grid-template-columns: 1fr 260px;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.10);
   overflow: hidden;
 }
 /* ── LEFT: navigation items ── */
