@@ -1197,18 +1197,21 @@ h1.hero-headline {
 /* ── Full-width mega flyout ── */
 .nav-fly {
   position: absolute; left: 0; right: 0; top: 100%;
+  background: transparent; border: none; box-shadow: none;
+  display: none; overflow: visible; z-index: 200;
+  padding: 0 32px; /* match nav padding so panel aligns with nav content */
+}
+.nav-fly.open { display: block; }
+
+/* Same structure for every flyout — panel lives here */
+.mega-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 3fr 2fr;
   background: #fff;
   border: 1px solid rgba(0,0,0,.08); border-top: none;
   border-radius: 0 0 16px 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,.10), 0 1px 4px rgba(0,0,0,.06);
-  display: none; overflow: hidden; z-index: 200;
-}
-.nav-fly.open { display: block; }
-
-/* Same structure for every flyout */
-.mega-inner {
-  max-width: 1280px; margin: 0 auto;
-  display: grid; grid-template-columns: 3fr 2fr;
+  overflow: hidden;
 }
 .mega-left  { padding: 28px 40px 28px 32px; }
 .mega-right {
