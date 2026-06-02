@@ -1171,6 +1171,20 @@ h1.hero-headline {
   .outcome-num svg { width: 48px; height: 48px; }
 }
 
+/* ===== NAV: fixed + transparent at top, frosted on scroll ===== */
+.nav {
+  position: fixed; left: 0; right: 0; top: 0;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+/* Push hero content below the fixed nav bar */
+.hero { padding-top: 56px; }
+
 /* ===== FLYOUT NAV — employers page only ===== */
 .nav-links { display: none !important; }
 .nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
