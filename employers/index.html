@@ -1200,54 +1200,50 @@ h1.hero-headline {
   position: absolute; left: 0; right: 0; top: 100%;
   background: transparent; border: none; box-shadow: none;
   display: none; overflow: visible; z-index: 200;
-  padding: 0 32px;
+  padding: 0 32px; padding-top: 8px;
 }
 .nav-fly.open { display: block; }
 
 /* Same structure for every flyout */
 .mega-inner {
-  max-width: 680px; margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 240px;
+  max-width: 780px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 260px;
   background: #fff;
-  border: 1px solid rgba(0,0,0,.08);
   border-radius: 16px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.06);
+  box-shadow: 0 8px 40px rgba(0,0,0,.14), 0 2px 8px rgba(0,0,0,.08);
   overflow: hidden;
 }
 /* ── LEFT: navigation items ── */
-.mega-left  { padding: 28px 40px 28px 32px; }
+.mega-left  { padding: 32px 44px 32px 36px; }
 
 /* Eyebrow — brand green, same as benefit cards */
 .fly-eyebrow {
-  font-size: 10px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #0A8C66; margin-bottom: 14px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: #0A8C66; margin-bottom: 18px;
 }
 
 /* Stacked nav items */
-.mega-items { display: flex; flex-direction: column; gap: 2px; }
+.mega-items { display: flex; flex-direction: column; gap: 4px; }
 
 /* Clickable nav items — clear hover signal */
 .fly-item {
   display: block;
-  padding: 11px 14px 11px 12px;
+  padding: 13px 16px 13px 14px;
   border-radius: 8px;
   border-left: 2px solid transparent;
   text-decoration: none; color: inherit; cursor: pointer;
-  transition: background .12s, border-color .12s;
-  margin-bottom: 2px;
+  transition: border-color .12s;
 }
-.fly-item:hover {
-  border-left-color: #0A8C66;
-}
+.fly-item:hover { border-left-color: #0A8C66; }
 .fly-title {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 14.5px; font-weight: 700; letter-spacing: -0.02em;
-  color: var(--ink); margin-bottom: 4px; line-height: 1.2;
+  font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 5px; line-height: 1.2;
   display: flex; align-items: center; gap: 6px;
   transition: color .12s;
 }
 .fly-item:hover .fly-title { color: #0A8C66; }
-.fly-desc { font-size: 12px; color: var(--ink-3); line-height: 1.45; }
+.fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 
 .fly-badge {
   display: inline-flex; align-items: center;
@@ -1267,7 +1263,7 @@ h1.hero-headline {
 
 /* ── RIGHT: information panel — dark, brand-forward ── */
 .mega-right {
-  padding: 28px 32px;
+  padding: 32px 28px;
   background: var(--ink);
   display: flex; flex-direction: column; justify-content: space-between;
 }
@@ -1279,10 +1275,10 @@ h1.hero-headline {
 .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
 .stat-num {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 28px; font-weight: 800; letter-spacing: -0.04em;
-  color: #fff; line-height: 1; margin-bottom: 4px;
+  font-size: 32px; font-weight: 800; letter-spacing: -0.04em;
+  color: #fff; line-height: 1; margin-bottom: 5px;
 }
-.stat-lbl { font-size: 11.5px; color: rgba(255,255,255,0.75); line-height: 1.4; }
+.stat-lbl { font-size: 12.5px; color: rgba(255,255,255,0.78); line-height: 1.4; }
 
 /* Proof items inside dark panel */
 .proof-item {
