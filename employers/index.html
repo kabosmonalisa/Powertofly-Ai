@@ -1174,7 +1174,7 @@ h1.hero-headline {
 /* ===== FLYOUT NAV — employers page only ===== */
 .nav-links { display: none !important; }
 .nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
-.nav-drop  { position: relative; }
+.nav-drop  { position: static; } /* .nav (sticky) is the containing block */
 
 .nav-btn {
   background: none; border: none;
@@ -1194,72 +1194,76 @@ h1.hero-headline {
 }
 .nav-btn.open .nav-chev { transform: rotate(180deg); }
 
-/* Flyout panels */
+/* ── Full-width mega flyout ── */
 .nav-fly {
-  position: absolute; top: calc(100% + 8px);
+  position: absolute; left: 0; right: 0; top: 100%;
   background: #fff;
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.08); border-top: none;
+  border-radius: 0 0 16px 16px;
   box-shadow: 0 8px 32px rgba(0,0,0,.10), 0 1px 4px rgba(0,0,0,.06);
   display: none; overflow: hidden; z-index: 200;
 }
 .nav-fly.open { display: block; }
-#fly-build   { left: -8px; width: 660px; }
-#fly-experts { left: 0;    width: 520px; }
-#fly-diff    { left: 0;    width: 480px; }
-#fly-events  { left: 0;    width: 440px; }
-#fly-company { right: 0;   width: 280px; }
 
-.fly-cols { display: flex; }
-.fly-main { flex: 1; padding: 20px 22px; min-width: 0; }
-.fly-side {
-  width: 210px; flex-shrink: 0;
+/* Same structure for every flyout */
+.mega-inner {
+  max-width: 1280px; margin: 0 auto;
+  display: grid; grid-template-columns: 3fr 2fr;
+}
+.mega-left  { padding: 28px 40px 28px 32px; }
+.mega-right {
+  padding: 28px 32px;
   background: var(--bg-soft);
   border-left: 1px solid var(--line);
-  padding: 20px 18px;
+  display: flex; flex-direction: column; justify-content: space-between;
 }
+.mega-right-dark {
+  padding: 28px 32px;
+  background: var(--ink);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+
+/* 2-col items grid inside mega-left */
+.mega-items { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 20px; }
+
+/* Nav items — no icons, clean text */
 .fly-eyebrow {
   font-size: 10px; font-weight: 700; letter-spacing: .1em;
-  text-transform: uppercase; color: var(--ink-3);
-  margin-bottom: 12px;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 14px;
 }
 .fly-item {
-  display: flex; align-items: flex-start; gap: 11px;
-  padding: 9px 10px; border-radius: 8px;
-  margin-bottom: 3px; transition: background .1s;
+  display: block; padding: 10px 12px; border-radius: 8px;
   text-decoration: none; color: inherit; cursor: pointer;
+  transition: background .1s; margin-bottom: 2px;
 }
-.fly-item:hover { background: var(--bg-soft); }
-.fly-icon {
-  width: 34px; height: 34px; border-radius: 8px;
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.fly-icon svg { width: 17px; height: 17px; }
+.fly-item:hover { background: rgba(0,0,0,.04); }
 .fly-title {
-  font-size: 13.5px; font-weight: 500; color: var(--ink);
-  margin-bottom: 3px; line-height: 1.3;
+  font-size: 14px; font-weight: 500; color: var(--ink);
+  margin-bottom: 4px; line-height: 1.3;
   display: flex; align-items: center; gap: 6px;
 }
-.fly-desc { font-size: 12px; color: var(--ink-3); line-height: 1.4; }
+.fly-desc { font-size: 12px; color: var(--ink-3); line-height: 1.45; }
+
 .fly-badge {
   display: inline-flex; align-items: center;
   font-size: 9.5px; font-weight: 700; letter-spacing: .05em;
   text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
 }
 .fly-badge-soon { background: #fdf0dc; color: #9a5f00; }
-.fly-rule { border: none; border-top: 1px solid var(--line); margin: 12px 0; }
 
-/* Industries mini-grid */
+.fly-rule { border: none; border-top: 1px solid var(--line); margin: 18px 0 16px; }
+
+/* Industries grid */
 .ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
-.ind-item { padding: 7px 9px; border-radius: 8px; transition: background .1s; }
-.ind-item:hover { background: var(--bg-soft); }
+.ind-item { padding: 7px 9px; border-radius: 8px; transition: background .1s; cursor: default; }
+.ind-item:hover { background: rgba(0,0,0,.04); }
 .ind-name { font-size: 12.5px; font-weight: 500; color: var(--ink); }
 .ind-desc  { font-size: 11px; color: var(--ink-3); margin-top: 1px; }
 
 /* Proof panel */
 .proof-item {
   display: flex; align-items: center; gap: 8px;
-  font-size: 12px; color: var(--ink-3); margin-bottom: 8px;
+  font-size: 12px; color: var(--ink-3); margin-bottom: 10px;
 }
 .proof-check {
   width: 18px; height: 18px; border-radius: 50%;
@@ -1268,39 +1272,33 @@ h1.hero-headline {
 }
 .proof-check svg { width: 9px; height: 9px; }
 .fly-cta {
-  display: block; width: 100%;
+  display: block;
   background: var(--ink); color: #fff;
   font-family: inherit; font-size: 12.5px; font-weight: 500;
   padding: 10px 14px; border-radius: 8px;
   text-align: center; text-decoration: none;
-  transition: opacity .12s; margin-top: 16px;
+  transition: opacity .12s; margin-top: 20px;
 }
 .fly-cta:hover { opacity: 0.85; }
 
 /* Stat panels */
-.stat-item { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.stat-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
 .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
 .stat-num {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 26px; font-weight: 800; letter-spacing: -0.04em;
+  font-size: 28px; font-weight: 800; letter-spacing: -0.04em;
   color: var(--ink); line-height: 1; margin-bottom: 2px;
 }
 .stat-lbl { font-size: 11px; color: var(--ink-3); line-height: 1.4; }
 
-/* Events dark panel */
-.fly-event-dark {
-  width: 200px; flex-shrink: 0;
-  background: var(--ink);
-  padding: 20px 18px;
-  display: flex; flex-direction: column; justify-content: space-between;
-}
+/* Events dark right panel content */
 .event-ey {
   font-size: 10px; font-weight: 700; letter-spacing: .1em;
   text-transform: uppercase; color: #4FE8A9; margin-bottom: 8px;
 }
 .event-hl {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 18px; font-weight: 700; letter-spacing: -0.02em;
+  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
   color: #fff; line-height: 1.25; margin-bottom: 6px;
 }
 .event-date { font-size: 12px; color: #888; margin-bottom: 20px; }
@@ -1366,17 +1364,19 @@ h1.hero-headline {
       <div class="nav-drop">
         <button class="nav-btn" data-fly="fly-build">Build better AI <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
         <div class="nav-fly" id="fly-build">
-          <div class="fly-cols">
-            <div class="fly-main">
+          <div class="mega-inner">
+            <div class="mega-left">
               <div class="fly-eyebrow">Services</div>
-              <a class="fly-item" href="#services">
-                <div class="fly-icon" style="background:#e2f5ee"><svg viewBox="0 0 17 17" fill="none" stroke="#0f6e56" stroke-width="1.6"><path d="M8.5 1.5L2 5v7l6.5 3.5L15 12V5L8.5 1.5z"/><path d="M8.5 10V7M6.2 5.8l2.3 1.4 2.3-1.4"/></svg></div>
-                <div><div class="fly-title">Staff your AI team</div><div class="fly-desc">Domain-qualified professionals, ready from day 1. Full-time, contract, or project-to-hire.</div></div>
-              </a>
-              <a class="fly-item" href="#services">
-                <div class="fly-icon" style="background:#e6f1fb"><svg viewBox="0 0 17 17" fill="none" stroke="#185fa5" stroke-width="1.6"><circle cx="8.5" cy="8.5" r="6.5"/><path d="M5.5 8.5h6M8.5 5.5v6"/></svg></div>
-                <div><div class="fly-title">Get better training data</div><div class="fly-desc">Verified domain experts for RLHF, model eval, red teaming, and QA.</div></div>
-              </a>
+              <div class="mega-items">
+                <a class="fly-item" href="#services">
+                  <div class="fly-title">Staff your AI team</div>
+                  <div class="fly-desc">Domain-qualified professionals, ready from day 1. Full-time, contract, or project-to-hire.</div>
+                </a>
+                <a class="fly-item" href="#services">
+                  <div class="fly-title">Get better training data</div>
+                  <div class="fly-desc">Verified domain experts for RLHF, model eval, red teaming, and QA.</div>
+                </a>
+              </div>
               <hr class="fly-rule">
               <div class="fly-eyebrow">Industries we serve</div>
               <div class="ind-grid">
@@ -1388,10 +1388,10 @@ h1.hero-headline {
                 <div class="ind-item"><div class="ind-name">Retail &amp; Ecommerce</div><div class="ind-desc">Multilingual eval</div></div>
               </div>
             </div>
-            <div class="fly-side" style="display:flex;flex-direction:column;justify-content:space-between;">
+            <div class="mega-right">
               <div>
                 <div class="fly-eyebrow">Get started</div>
-                <p style="font-size:12px;color:var(--ink-3);line-height:1.6;margin-bottom:14px;">Tell us what you're building and we'll match you with verified domain experts.</p>
+                <p style="font-size:12px;color:var(--ink-3);line-height:1.6;margin-bottom:16px;">Tell us what you're building and we'll match you with verified domain experts.</p>
                 <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Domain + AI expertise verified</div>
                 <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>115K+ experts</div>
                 <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Global talent pool</div>
@@ -1406,19 +1406,21 @@ h1.hero-headline {
       <div class="nav-drop">
         <button class="nav-btn" data-fly="fly-experts">Meet our experts <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
         <div class="nav-fly" id="fly-experts">
-          <div class="fly-cols">
-            <div class="fly-main">
+          <div class="mega-inner">
+            <div class="mega-left">
               <div class="fly-eyebrow">The community</div>
-              <a class="fly-item" href="../expert-finder/">
-                <div class="fly-icon" style="background:#f0effe"><svg viewBox="0 0 17 17" fill="none" stroke="#4f44c4" stroke-width="1.6"><circle cx="8.5" cy="5.5" r="3"/><path d="M2 15c0-3.6 2.9-6.5 6.5-6.5S15 11.4 15 15"/></svg></div>
-                <div><div class="fly-title">Expert Finder <span class="fly-badge fly-badge-soon">Coming soon</span></div><div class="fly-desc">Browse 115K+ professionals by role, domain, and industry.</div></div>
-              </a>
-              <a class="fly-item" href="../how-we-verify/">
-                <div class="fly-icon" style="background:#e2f5ee"><svg viewBox="0 0 17 17" fill="none" stroke="#0f6e56" stroke-width="1.6"><path d="M8.5 1.5l1.6 3.2 3.6.5-2.6 2.6.6 3.6-3.2-1.7-3.2 1.7.6-3.6L3 5.2l3.6-.5z"/></svg></div>
-                <div><div class="fly-title">How we verify <span class="fly-badge fly-badge-soon">Coming soon</span></div><div class="fly-desc">Identity, credentials, and domain expertise — all confirmed.</div></div>
-              </a>
+              <div class="mega-items">
+                <a class="fly-item" href="../expert-finder/">
+                  <div class="fly-title">Expert Finder <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Browse 115K+ professionals by role, domain, and industry.</div>
+                </a>
+                <a class="fly-item" href="../how-we-verify/">
+                  <div class="fly-title">How we verify <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Identity, credentials, and domain expertise — all confirmed.</div>
+                </a>
+              </div>
             </div>
-            <div class="fly-side">
+            <div class="mega-right">
               <div class="fly-eyebrow">By the numbers</div>
               <div class="stat-item"><div class="stat-num">115K+</div><div class="stat-lbl">AI-skilled professionals</div></div>
               <div class="stat-item"><div class="stat-num">204</div><div class="stat-lbl">Countries represented</div></div>
@@ -1433,22 +1435,24 @@ h1.hero-headline {
       <div class="nav-drop">
         <button class="nav-btn" data-fly="fly-diff">The PTF difference <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
         <div class="nav-fly" id="fly-diff">
-          <div class="fly-cols">
-            <div class="fly-main">
+          <div class="mega-inner">
+            <div class="mega-left">
               <div class="fly-eyebrow">Our case</div>
-              <a class="fly-item" href="../why-powertofly/">
-                <div class="fly-icon" style="background:#e2f5ee"><svg viewBox="0 0 17 17" fill="none" stroke="#0f6e56" stroke-width="1.6"><circle cx="8.5" cy="8.5" r="6.5"/><path d="M5.5 8.5l2 2 4-4"/></svg></div>
-                <div><div class="fly-title">Why PowerToFly <span class="fly-badge fly-badge-soon">Coming soon</span></div><div class="fly-desc">Representative AI talent is no longer a nice-to-have.</div></div>
-              </a>
-              <a class="fly-item" href="../compare/">
-                <div class="fly-icon" style="background:#e6f1fb"><svg viewBox="0 0 17 17" fill="none" stroke="#185fa5" stroke-width="1.6"><path d="M2 8.5h13M8.5 2l6.5 6.5-6.5 6.5"/></svg></div>
-                <div><div class="fly-title">Compare us <span class="fly-badge fly-badge-soon">Coming soon</span></div><div class="fly-desc">PTF vs Scale AI, Andela, Mercor, and LinkedIn.</div></div>
-              </a>
+              <div class="mega-items">
+                <a class="fly-item" href="../why-powertofly/">
+                  <div class="fly-title">Why PowerToFly <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Representative AI talent is no longer a nice-to-have.</div>
+                </a>
+                <a class="fly-item" href="../compare/">
+                  <div class="fly-title">Compare us <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">PTF vs Scale AI, Andela, Mercor, and LinkedIn.</div>
+                </a>
+              </div>
             </div>
-            <div class="fly-side">
+            <div class="mega-right">
               <div class="fly-eyebrow">The numbers</div>
               <div class="stat-item"><div class="stat-num">~78%</div><div class="stat-lbl">of AI researchers are male — Stanford HAI 2023</div></div>
-              <div class="stat-item" style="margin-top:12px"><div class="stat-num">0</div><div class="stat-lbl">competitors addressing this at the talent layer</div></div>
+              <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">competitors addressing this at the talent layer</div></div>
             </div>
           </div>
         </div>
@@ -1458,15 +1462,17 @@ h1.hero-headline {
       <div class="nav-drop">
         <button class="nav-btn" data-fly="fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
         <div class="nav-fly" id="fly-events">
-          <div class="fly-cols">
-            <div class="fly-main">
+          <div class="mega-inner">
+            <div class="mega-left">
               <div class="fly-eyebrow">Events</div>
-              <a class="fly-item" href="https://powertofly.com/browse-events">
-                <div class="fly-icon" style="background:var(--bg-soft)"><svg viewBox="0 0 17 17" fill="none" stroke="#5f5d58" stroke-width="1.6"><rect x="2" y="3" width="13" height="12" rx="2"/><path d="M5 2v2M12 2v2M2 7h13"/></svg></div>
-                <div><div class="fly-title">All upcoming events</div><div class="fly-desc">Hiring summits, AI talent events, virtual and in-person.</div></div>
-              </a>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/browse-events">
+                  <div class="fly-title">All upcoming events</div>
+                  <div class="fly-desc">Hiring summits, AI talent showcases, virtual and in-person.</div>
+                </a>
+              </div>
             </div>
-            <div class="fly-event-dark">
+            <div class="mega-right-dark">
               <div>
                 <div class="event-ey">Featured event</div>
                 <div class="event-hl">AI Talent Summit 2026</div>
@@ -1482,16 +1488,25 @@ h1.hero-headline {
       <div class="nav-drop">
         <button class="nav-btn" data-fly="fly-company">Company <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
         <div class="nav-fly" id="fly-company">
-          <div style="padding:20px 22px;min-width:270px;">
-            <div class="fly-eyebrow">PowerToFly</div>
-            <a class="fly-item" href="https://powertofly.com/about">
-              <div class="fly-icon" style="background:var(--bg-soft)"><svg viewBox="0 0 17 17" fill="none" stroke="#5f5d58" stroke-width="1.6"><rect x="2" y="2" width="13" height="13" rx="2"/><path d="M5 8.5h7M5 5.5h7M5 11.5h5"/></svg></div>
-              <div><div class="fly-title">About</div><div class="fly-desc">Our mission, team, and 12-year story.</div></div>
-            </a>
-            <a class="fly-item" href="https://powertofly.com/up">
-              <div class="fly-icon" style="background:var(--bg-soft)"><svg viewBox="0 0 17 17" fill="none" stroke="#5f5d58" stroke-width="1.6"><path d="M2 13V6l6.5-4 6.5 4v7"/><path d="M6 13V9.5h5V13"/></svg></div>
-              <div><div class="fly-title">Resources &amp; blog</div><div class="fly-desc">AI talent guides, benchmarks, thought leadership.</div></div>
-            </a>
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">PowerToFly</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/about">
+                  <div class="fly-title">About</div>
+                  <div class="fly-desc">Our mission, team, and 12-year story.</div>
+                </a>
+                <a class="fly-item" href="https://powertofly.com/up">
+                  <div class="fly-title">Resources &amp; blog</div>
+                  <div class="fly-desc">AI talent guides, benchmarks, thought leadership.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">Our network</div>
+              <div class="stat-item"><div class="stat-num">12</div><div class="stat-lbl">Years building diverse tech talent pipelines</div></div>
+              <div class="stat-item"><div class="stat-num">115K+</div><div class="stat-lbl">AI-skilled professionals ready to work</div></div>
+            </div>
           </div>
         </div>
       </div>
