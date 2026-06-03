@@ -27,6 +27,18 @@
   /* Brand purple */
   --purple:       #5B4FCF;
   --purple-light: #EEEBFF;
+
+  /* Brand greens */
+  --green:     #0A8C66;
+  --green-mid: #4FE8A9;
+
+  /* Border-radius scale */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-2xl:  28px;
+  --r-pill: 999px;
 }
 
 /* ===== Reset ===== */
@@ -258,6 +270,114 @@ img { display: block; max-width: 100%; }
   0%, 100% { transform: translateY(0); }
   50%      { transform: translateY(-8px); }
 }
+
+/* ===== Page layout ===== */
+.section { padding: 100px 32px; }
+.section-narrow { max-width: 1180px; margin: 0 auto; }
+.section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
+.section-head h2 {
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-weight: 700; font-size: clamp(32px, 4vw, 52px);
+  line-height: 1.05; letter-spacing: -0.03em; color: var(--ink);
+}
+.section-head p {
+  margin-top: 16px; font-size: 16.5px;
+  color: var(--ink-3); line-height: 1.6;
+  max-width: 48ch; margin-left: auto; margin-right: auto;
+}
+.section-eyebrow {
+  display: block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--green);
+  margin-bottom: 10px;
+}
+
+/* ===== Coming-soon pages ===== */
+.cs-wrap {
+  min-height: 80vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 80px 32px; text-align: center;
+}
+.cs-inner { max-width: 560px; margin: 0 auto; }
+.cs-eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 20px;
+}
+.cs-headline {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(36px, 5vw, 60px); font-weight: 800;
+  letter-spacing: -0.04em; line-height: 1.0;
+  color: var(--ink); margin-bottom: 20px;
+}
+.cs-sub { font-size: 18px; color: var(--ink-3); line-height: 1.6; margin-bottom: 40px; }
+.cs-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ===== Testimonial cards ===== */
+.testimonials {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 20px; margin-top: 48px;
+}
+.t-card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: var(--r-xl); padding: 24px;
+  display: flex; flex-direction: column;
+  transition: transform 200ms ease;
+}
+.t-card:hover { transform: translateY(-4px); }
+.t-stars { color: #F5A623; font-size: 14px; letter-spacing: 2px; }
+.t-quote {
+  margin-top: 14px; font-size: 15px; line-height: 1.5;
+  color: var(--ink); letter-spacing: -0.005em;
+}
+.t-meta {
+  margin-top: auto; padding-top: 22px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
+}
+.t-meta-info { display: flex; flex-direction: column; min-width: 0; }
+.t-author  { font-size: 14px; font-weight: 600; color: var(--ink); }
+.t-company { font-size: 13.5px; font-weight: 500; color: var(--ink-2); margin-top: 4px; }
+.t-role    { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; line-height: 1.35; }
+.t-li {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 8px; text-decoration: none;
+  font-size: 11.5px; font-weight: 600; color: #0A66C2;
+  transition: opacity .15s;
+}
+.t-li:hover { opacity: 0.7; }
+.t-li svg { width: 18px; height: 18px; fill: #0A66C2; flex-shrink: 0; }
+.t-logo {
+  width: 52px; height: 52px; border-radius: 50%;
+  flex-shrink: 0; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.t-logo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+/* ===== Benefit cards ===== */
+.benefit-card {
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(10,10,10,0.09);
+  box-shadow: var(--shadow-card);
+  background: var(--bg);
+  padding: 32px 28px 36px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+.benefit-sparkle {
+  width: 52px; height: 52px;
+  animation: floatY 4s ease-in-out infinite;
+  margin-bottom: 4px;
+}
+.benefit-card:nth-child(2) .benefit-sparkle { animation-delay: -1.3s; }
+.benefit-card:nth-child(3) .benefit-sparkle { animation-delay: -2.7s; }
+.benefit-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--green);
+}
+.benefit-card h3 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 19px; font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.2; color: var(--ink);
+}
+.benefit-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
 
 /* ===== Shared Responsive ===== */
 @media (max-width: 768px) {
