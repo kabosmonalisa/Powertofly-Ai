@@ -244,6 +244,10 @@ img { display: block; max-width: 100%; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+@keyframes avFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
 
 /* ===== Page layout ===== */
 .section { padding: 100px 32px; }

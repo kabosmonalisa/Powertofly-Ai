@@ -1,0 +1,41 @@
+/*
+ * PowerToFly AI — Color Tokens (standalone)
+ * Import this file or copy the :root block into any project.
+ */
+
+:root {
+  /* ─── Text ─────────────────── */
+  --ink:     #0A0A0A;   /* primary text, headings, black buttons */
+  --ink-2:   #2A2A2A;   /* secondary headings */
+  --ink-3:   #5C6F69;   /* descriptions, captions, labels */
+
+  /* ─── Backgrounds ───────────── */
+  --bg:      #FFFFFF;   /* page white */
+  --bg-soft: #FAFAF6;   /* soft panels, sidebar backgrounds */
+
+  /* ─── Brand Greens ──────────── */
+  --green:     #0A8C66;  /* eyebrows, badges, link hover */
+  --green-mid: #4FE8A9;  /* CTAs on dark, checkmarks, footer hover */
+
+  /* ─── Iridescent Gradient ───── */
+  /* Use: linear-gradient(135deg, var(--iri-cyan) 0%, var(--iri-green) 50%, var(--iri-lime) 100%) */
+  --iri-cyan:  #5BCFFF;
+  --iri-green: #4FE8A9;
+  --iri-lime:  #D5FF66;
+
+  /* ─── Brand Purple ──────────── */
+  --purple:       #5B4FCF;   /* coming-soon badges, accents */
+  --purple-light: #EEEBFF;   /* purple badge backgrounds */
+
+  /* ─── UI ────────────────────── */
+  --line:        rgba(10, 10, 10, 0.08);  /* borders, dividers */
+  --shadow-card: 0 1px 2px rgba(15,30,26,0.04), 0 8px 28px rgba(15,30,26,0.08);
+
+  /* ─── Border Radius ─────────── */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-xl:   20px;
+  --r-2xl:  28px;
+  --r-pill: 999px;
+}

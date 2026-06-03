@@ -148,29 +148,6 @@ h1.hero-headline {
   display: flex; justify-content: center; align-items: center;
   gap: 10px; max-width: 560px; margin: 0 auto;
 }
-.ha { border-radius: 50%; padding: 3px; flex-shrink: 0; }
-.ha-float {
-  width: 100%; height: 100%;
-  border-radius: 50%; overflow: hidden;
-  background: #ddd;
-  animation-name: avFloat;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-.ha-float img { display: block; width: 100%; height: 100%; object-fit: cover; }
-@keyframes avFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-.ha.a1 { width: 60px;  height: 60px;  background: conic-gradient(from 30deg,  #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 20px rgba(91,207,255,0.42); margin-top: 24px; }
-.ha.a2 { width: 84px;  height: 84px;  background: conic-gradient(from 90deg,  #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 24px rgba(79,232,169,0.45); margin-top: -16px; }
-.ha.a3 { width: 100px; height: 100px; background: conic-gradient(from 180deg, #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 28px rgba(213,255,102,0.42); margin-top: 0; }
-.ha.a4 { width: 78px;  height: 78px;  background: conic-gradient(from 240deg, #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 22px rgba(79,232,169,0.45); margin-top: -28px; }
-.ha.a5 { width: 92px;  height: 92px;  background: conic-gradient(from 320deg, #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 26px rgba(79,232,169,0.42); margin-top: 12px; }
-.ha.a6 { width: 60px;  height: 60px;  background: conic-gradient(from 60deg,  #5BCFFF, #4FE8A9, #D5FF66, #5BCFFF); box-shadow: 0 0 18px rgba(91,207,255,0.45); margin-top: 20px; }
-.ha.a1 .ha-float { animation-duration: 4.2s; animation-delay: 0s; }
-.ha.a2 .ha-float { animation-duration: 4.6s; animation-delay: 0.3s; }
-.ha.a3 .ha-float { animation-duration: 4.0s; animation-delay: 0.6s; }
-.ha.a4 .ha-float { animation-duration: 4.8s; animation-delay: 0.9s; }
-.ha.a5 .ha-float { animation-duration: 4.4s; animation-delay: 0.4s; }
-.ha.a6 .ha-float { animation-duration: 5.0s; animation-delay: 0.7s; }
 
 /* ===== Photo stage (no gradient backdrop — photo carries its own background) ===== */
 .hero-stage {
