@@ -28,6 +28,48 @@ h1.hero-headline {
 /* ===== Nav override — talents nav is always frosted glass ===== */
 .nav { background: rgba(255,255,255,0.85); backdrop-filter: saturate(140%) blur(10px); border-bottom: 1px solid var(--line); }
 
+/* ===== Nav dropdown ===== */
+.nav-dropdown { position: relative; }
+.nav-dropdown-trigger {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14.5px; font-weight: 500;
+  color: var(--ink); padding: 0;
+  transition: opacity 180ms;
+}
+.nav-dropdown-trigger:hover { opacity: 0.65; }
+.nav-dropdown-trigger svg { transition: transform 200ms ease; }
+.nav-dropdown.open .nav-dropdown-trigger svg { transform: rotate(180deg); }
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 14px);
+  left: -16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.04), 0 12px 32px rgba(0,0,0,0.10);
+  padding: 8px;
+  min-width: 260px;
+  z-index: 100;
+}
+.nav-dropdown.open .nav-dropdown-menu { display: block; }
+.nav-dd-item {
+  display: block; padding: 12px 14px;
+  border-radius: 10px; text-decoration: none;
+  transition: background 150ms ease;
+}
+.nav-dd-item:hover { background: var(--bg-soft); }
+.nav-dd-title { font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.nav-dd-desc { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
+.nav-login {
+  font-size: 14.5px; font-weight: 500;
+  color: var(--ink); text-decoration: none;
+  transition: opacity 180ms;
+}
+.nav-login:hover { opacity: 0.65; }
+
 /* ===== Sections ===== */
 .section {
 padding: 96px 32px;
@@ -1008,15 +1050,29 @@ background: transparent;
 <span class="brand-ai">AI</span>
 </a>
 <div class="nav-links">
-<a href="https://powertofly.com/about">About</a>
-<a href="https://powertofly.com/jobs/">Jobs</a>
-<a href="https://powertofly.com/browse-events">Events</a>
-<a href="https://powertofly.com/companies/all">Companies</a>
-<a href="https://powertofly.com/#">Resources</a>
+  <div class="nav-dropdown" id="navDropdown">
+    <button class="nav-dropdown-trigger" id="navDropdownTrigger" aria-expanded="false" aria-haspopup="true">
+      Find work
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l4 4 4-4"/></svg>
+    </button>
+    <div class="nav-dropdown-menu" role="menu">
+      <a href="join.html" class="nav-dd-item" role="menuitem">
+        <div class="nav-dd-title">Train AI models</div>
+        <div class="nav-dd-desc">Get paid to put your expertise to work on AI projects</div>
+      </a>
+      <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener" class="nav-dd-item" role="menuitem">
+        <div class="nav-dd-title">Job board</div>
+        <div class="nav-dd-desc">Full-time and contract roles across every function</div>
+      </a>
+    </div>
+  </div>
+  <a href="https://powertofly.com/browse-events">Events</a>
+  <a href="https://powertofly.com/up">Blog</a>
+  <a href="https://powertofly.com/about">About</a>
 </div>
 <div class="nav-cta">
-<a href="join.html" class="btn btn-sm">Sign up</a>
-<a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M17 4l3 3-3 3M4 7h16"/><path d="M7 20l-3-3 3-3M20 17H4"/></svg>Employers</a>
+  <a href="join.html" class="nav-login">Log in</a>
+  <a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-sm">Hire an expert →</a>
 </div>
 <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
 <span></span><span></span><span></span>
@@ -1024,14 +1080,14 @@ background: transparent;
 </div>
 </nav>
 <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-<a href="https://powertofly.com/about">About</a>
-<a href="https://powertofly.com/jobs/">Jobs</a>
+<a href="join.html">Train AI models</a>
+<a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Job board</a>
 <a href="https://powertofly.com/browse-events">Events</a>
-<a href="https://powertofly.com/companies/all">Companies</a>
-<a href="https://powertofly.com/#">Resources</a>
+<a href="https://powertofly.com/up">Blog</a>
+<a href="https://powertofly.com/about">About</a>
 <div class="drawer-cta">
-<a href="join.html" class="btn btn-sm">Sign up</a>
-<a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M17 4l3 3-3 3M4 7h16"/><path d="M7 20l-3-3 3-3M20 17H4"/></svg>Employers</a>
+<a href="join.html" class="btn btn-sm">Log in</a>
+<a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
 </div>
 </div>
 
@@ -1750,6 +1806,23 @@ background: transparent;
     });
   }, { threshold: 0.5 });
   nums.forEach(function(el){ observer.observe(el); });
+})();
+// Nav dropdown
+(function() {
+  var dropdown = document.getElementById('navDropdown');
+  var trigger = document.getElementById('navDropdownTrigger');
+  if (!dropdown || !trigger) return;
+  trigger.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var open = dropdown.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', function(e) {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove('open');
+      trigger.setAttribute('aria-expanded', false);
+    }
+  });
 })();
 </script>
 </body>
