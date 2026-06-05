@@ -935,6 +935,27 @@ h1.hero-headline {
   /* Mobile drawer fix */
   .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
   .mobile-drawer .drawer-cta { gap: 12px; }
+  /* Mobile drawer grouped nav */
+  .drawer-group { padding: 16px 0 8px; border-bottom: 1px solid var(--line); }
+  .drawer-group:last-of-type { border-bottom: none; }
+  .drawer-cat {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #0A8C66;
+    padding: 0; margin-bottom: 4px; display: block;
+    border-bottom: none !important;
+  }
+  .drawer-group a {
+    font-size: 15px; font-weight: 500; color: var(--ink);
+    padding: 10px 0 10px 12px; border-bottom: none !important;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .drawer-group a:hover { opacity: 0.65; }
+  .drawer-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
+    background: var(--purple-light); color: var(--purple);
+  }
 }
 
 /* ===== Figma-style hero carousel ===== */
@@ -1609,14 +1630,35 @@ h1.hero-headline {
 </nav>
 <div class="nav-overlay" id="navOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-  <a href="#services">Build your AI capability</a>
-  <a href="#services">Improve AI performance</a>
-  <a href="../expert-finder/">Expert Finder</a>
-  <a href="../how-we-verify/">How We Verify</a>
-  <a href="../why-powertofly/">Why PowerToFly</a>
-  <a href="../compare/">Compare us</a>
-  <a href="https://powertofly.com/browse-events">Events</a>
-  <a href="https://powertofly.com/about">About</a>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Build better AI</span>
+    <a href="#services">Build your AI capability</a>
+    <a href="#services">Improve AI performance</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Meet our experts</span>
+    <a href="../expert-finder/">Expert Finder <span class="drawer-badge">Coming soon</span></a>
+    <a href="../how-we-verify/">How we verify <span class="drawer-badge">Coming soon</span></a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">The PTF difference</span>
+    <a href="../why-powertofly/">Why PowerToFly <span class="drawer-badge">Coming soon</span></a>
+    <a href="../compare/">Compare us <span class="drawer-badge">Coming soon</span></a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Events</span>
+    <a href="https://powertofly.com/browse-events">All upcoming events</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Company</span>
+    <a href="https://powertofly.com/about">About</a>
+    <a href="https://powertofly.com/up">Resources &amp; blog</a>
+  </div>
   <div class="drawer-cta">
     <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
     <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
