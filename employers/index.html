@@ -931,6 +931,12 @@ h1.hero-headline {
   .fh-wrap { margin-top: 20px; }
   .fh-below-text { font-size: 14px; padding: 0 16px; margin-top: 20px; white-space: normal; }
 
+  /* Kill all animations on mobile */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
   /* Mobile drawer fix */
   .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
   .mobile-drawer .drawer-cta { gap: 12px; }
