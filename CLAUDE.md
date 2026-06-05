@@ -8,6 +8,24 @@ Every new page must look like it belongs to the same site as those two. When in 
 
 ---
 
+## Before writing any CSS — mandatory first step
+
+**Before writing a single line of CSS for a new page, fetch the live source of both reference pages and grep for the pattern you need.**
+
+If the pattern exists in employers or talents → copy it character-for-character. Do not rewrite it from memory.  
+If the pattern does not exist in either page → write minimal new CSS only for what is genuinely unique to this page.
+
+This applies to: nav, footer, hero layout, section padding, card styles, typography, buttons, timelines, tabs, marquees — everything. When in doubt, check the source first.
+
+```
+curl -s https://kabosmonalisa.github.io/Powertofly-Ai/employers/ | grep -A20 "thing-you-need"
+curl -s https://kabosmonalisa.github.io/Powertofly-Ai/talents/   | grep -A20 "thing-you-need"
+```
+
+Never guess. Never build from memory. Always check the source.
+
+---
+
 ## Shared design system
 All new pages link ONE file: `../ds/ptf.css`
 All JS: `../ds/ptf.js`
@@ -58,8 +76,10 @@ Only add CSS to the page `<style>` block for layout and components **unique to t
 ---
 
 ## New page checklist
+- [ ] Fetched live source of employers + talents and grepped for every pattern used
+- [ ] Nav copied character-for-character from `employers/index.html` (mega flyout, mobile drawer with drawer-groups)
+- [ ] Footer copied character-for-character from `ds/template.html`
 - [ ] Links `../ds/ptf.css` and `../ds/ptf.js`
-- [ ] Nav + footer copied from `ds/template.html`
 - [ ] Headline italic uses `<em class="italic-plain">`, never gradient
 - [ ] No duplicate tokens or resets in page `<style>`
 - [ ] Sentence case throughout
