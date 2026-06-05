@@ -1103,6 +1103,21 @@ background: transparent;
 .logo-strip-viewport { mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); }
 .logo-strip-track img { height: 36px; }
 .section { padding: 36px 20px; }
+.drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.drawer-group:last-of-type { border-bottom: none; }
+.drawer-cat {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #0A8C66;
+  padding: 0; margin-bottom: 8px; display: block;
+  border-bottom: none !important;
+}
+.drawer-group a {
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  padding: 8px 0 8px 12px; border-bottom: none !important;
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.drawer-group a:hover { opacity: 0.65; }
 }
 
 </style>
@@ -1160,15 +1175,28 @@ background: transparent;
 </nav>
 <div class="nav-overlay" id="navOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
-<a href="join.html">Train AI models</a>
-<a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Job board</a>
-<a href="https://powertofly.com/browse-events">Events</a>
-<a href="https://powertofly.com/up">Blog</a>
-<a href="https://powertofly.com/about">About</a>
-<div class="drawer-cta">
-<a href="join.html" class="btn btn-sm">Log in</a>
-<a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
-</div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Find work</span>
+    <a href="join.html">Train AI models</a>
+    <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Job board</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Events</span>
+    <a href="https://powertofly.com/browse-events">All upcoming events</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Company</span>
+    <a href="https://powertofly.com/up">Blog</a>
+    <a href="https://powertofly.com/about">About</a>
+  </div>
+
+  <div class="drawer-cta">
+    <a href="join.html" class="btn btn-sm">Log in</a>
+    <a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
+  </div>
 </div>
 
 <main>
