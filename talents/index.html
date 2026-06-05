@@ -84,19 +84,18 @@ h1.hero-headline {
 }
 .mega-items { display: flex; flex-direction: column; gap: 4px; }
 .fly-item {
-  display: block; padding: 13px 16px 13px 14px;
-  border-radius: 8px; border-left: 2px solid transparent;
+  display: block; padding: 13px 16px;
+  border-radius: 8px;
   text-decoration: none; color: inherit; cursor: pointer;
-  transition: border-color .12s;
+  transition: background .12s;
 }
-.fly-item:hover { border-left-color: #0A8C66; }
+.fly-item:hover { background: var(--bg-soft); }
 .fly-title {
   font-family: 'Inter Tight', sans-serif;
   font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
   color: var(--ink); margin-bottom: 5px; line-height: 1.2;
-  transition: color .12s;
 }
-.fly-item:hover .fly-title { color: #0A8C66; }
+.fly-item:hover .fly-title { color: var(--ink); }
 .fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 .mega-right {
   padding: 28px 24px;
