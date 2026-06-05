@@ -1,0 +1,946 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hire AI experts — PowerToFly AI</title>
+<meta property="og:title"       content="Hire AI experts who already know your industry — PowerToFly AI">
+<meta property="og:description" content="80K+ verified domain & functional experts. Smaller scale, bigger impact.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY
+ * Tokens, buttons, nav, footer, section layout → already in ptf.css
+ */
+
+/* ── Hero ── */
+.hero {
+  padding: 96px 32px 80px;
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
+  text-align: center;
+}
+.hero-inner { max-width: 1400px; margin: 0 auto; }
+h1.hero-headline {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 76px);
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  max-width: 18ch;
+  margin: 0 auto;
+}
+.hero-sub {
+  max-width: 52ch; margin: 24px auto 0;
+  font-size: 18px; line-height: 1.55; color: var(--ink-2);
+}
+.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+
+.deploy-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff;
+  padding: 10px 20px; border-radius: 999px;
+  font-size: 13.5px; font-weight: 600;
+  box-shadow: 0 10px 24px rgba(10,10,10,0.28);
+  margin-top: 48px;
+}
+.deploy-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #4FE8A9;
+  animation: livepulse 2s ease-in-out infinite;
+}
+@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+
+.hero-card-wrap { display: flex; justify-content: center; margin-top: 16px; }
+.expert-card {
+  background: #fff; border: 1px solid var(--line);
+  border-radius: 16px; box-shadow: var(--shadow-card);
+  padding: 16px 20px; display: flex; align-items: center;
+  gap: 14px; width: 360px; text-align: left;
+}
+.expert-avatar {
+  width: 44px; height: 44px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0; background: #eee;
+}
+.expert-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.expert-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.expert-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+.expert-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  background: rgba(79,232,169,0.16); color: #0A8C66;
+  font-size: 11px; font-weight: 600;
+  padding: 4px 10px; border-radius: 999px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
+
+/* ── Who it's for ── */
+.audience-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  max-width: 1100px; margin: 0 auto;
+}
+.audience-card {
+  border: 1px solid var(--line); border-radius: var(--r-xl);
+  padding: 24px 22px; background: var(--bg);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.audience-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.audience-icon {
+  width: 36px; height: 36px; border-radius: var(--r-sm);
+  background: var(--bg-soft); border: 1px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 14px;
+}
+.audience-card h3 {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 16px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 6px;
+}
+.audience-card p { font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+
+/* ── Problem ── */
+.section-problem { background: var(--ink); padding: 120px 32px; text-align: center; }
+.problem-inner { max-width: 960px; margin: 0 auto; }
+.problem-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px;
+}
+.problem-headline {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(32px, 4.5vw, 56px); letter-spacing: -0.035em;
+  line-height: 1.05; color: #fff; margin-bottom: 32px;
+}
+.problem-body {
+  font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.65;
+  max-width: 680px; margin: 0 auto 56px;
+}
+.problem-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  border-radius: var(--r-2xl); overflow: hidden;
+}
+.pstat { background: rgba(255,255,255,0.06); padding: 40px 32px; text-align: center; }
+.pstat-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(42px, 6vw, 72px); letter-spacing: -0.04em;
+  line-height: 1; color: #fff;
+}
+.pstat-num.hi { color: #4FE8A9; }
+.pstat-label { font-size: 13.5px; color: rgba(255,255,255,0.5); margin-top: 10px; line-height: 1.45; }
+
+/* ── Trust ladder ── */
+.trust-ladder {
+  display: flex; max-width: 1100px; margin: 0 auto;
+  border-radius: var(--r-2xl); overflow: hidden;
+  border: 1px solid var(--line);
+}
+.rung {
+  flex: 1; padding: 36px 24px; background: var(--bg);
+  border-right: 1px solid var(--line); position: relative;
+  transition: background 180ms;
+}
+.rung:last-child { border-right: none; }
+.rung:hover { background: var(--bg-soft); }
+.rung-step {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px;
+}
+.rung-label {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px;
+}
+.rung:last-child .rung-label { color: var(--green); }
+.rung-desc { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+
+/* ── Domain expertise ── */
+.expertise-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;
+  max-width: 960px; margin: 0 auto;
+}
+.expertise-card {
+  border-radius: var(--r-xl); background: var(--bg-soft);
+  border: 1px solid var(--line); padding: 28px;
+}
+.exp-role {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+}
+.exp-task {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 19px; letter-spacing: -0.025em; line-height: 1.25;
+  color: var(--ink); margin-bottom: 10px;
+}
+.exp-desc { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+/* ── Archetypes ── */
+.section-archetypes { background: var(--bg-soft); padding: 100px 32px; }
+.archetypes-inner { max-width: 1100px; margin: 0 auto; }
+.arch-tabs {
+  display: flex; gap: 6px; justify-content: center;
+  margin-bottom: 40px; flex-wrap: wrap;
+}
+.arch-tab {
+  padding: 10px 24px; border-radius: 999px;
+  font-size: 14px; font-weight: 500;
+  background: transparent; border: 1.5px solid var(--line);
+  color: var(--ink-3); cursor: pointer;
+  transition: border-color 160ms, color 160ms, background 160ms;
+}
+.arch-tab:hover { border-color: rgba(10,10,10,0.22); color: var(--ink); }
+.arch-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.arch-panel { display: none; }
+.arch-panel[aria-hidden="false"] { display: block; }
+.arch-panel-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  background: var(--bg); border-radius: var(--r-2xl);
+  border: 1px solid var(--line); padding: 48px; align-items: start;
+}
+.arch-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--green); margin-bottom: 16px;
+}
+.arch-headline {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.8vw, 34px); letter-spacing: -0.03em;
+  line-height: 1.1; color: var(--ink); margin-bottom: 16px;
+}
+.arch-body { font-size: 16px; color: var(--ink-3); line-height: 1.65; margin-bottom: 28px; }
+.arch-detail-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px;
+}
+.arch-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
+.arch-title-chip {
+  font-size: 13px; font-weight: 500; color: var(--ink-2);
+  background: var(--bg-soft); border: 1px solid var(--line);
+  padding: 5px 12px; border-radius: 999px;
+}
+.arch-meta {
+  background: var(--bg-soft); border-radius: var(--r-lg);
+  padding: 20px 22px; display: flex; flex-direction: column; gap: 12px;
+}
+.arch-meta-row { display: flex; gap: 12px; font-size: 14px; }
+.arch-meta-key { color: var(--ink-3); font-weight: 500; min-width: 110px; flex-shrink: 0; }
+.arch-meta-val { color: var(--ink); font-weight: 500; }
+
+/* ── Capabilities ── */
+.cap-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  max-width: 960px; margin: 0 auto;
+}
+.cap-card {
+  background: var(--bg); border: 1px solid var(--line);
+  border-radius: var(--r-xl); padding: 28px 24px;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.cap-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+.cap-icon {
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  background: rgba(79,232,169,0.12); border: 1px solid rgba(79,232,169,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 16px;
+}
+.cap-card h3 {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 17px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px;
+}
+.cap-card p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+/* ── How it works ── */
+.section-how { background: var(--bg-soft); padding: 100px 32px; }
+.how-inner { max-width: 860px; margin: 0 auto; }
+.how-step {
+  display: grid; grid-template-columns: 48px 1fr; gap: 24px;
+  padding: 36px 0; border-bottom: 1px solid var(--line); align-items: start;
+}
+.how-step:last-child { border-bottom: none; }
+.how-num {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 42px; letter-spacing: -0.04em; line-height: 1;
+  color: rgba(10,10,10,0.1);
+}
+.how-step h3 {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 20px; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 6px;
+}
+.how-step p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
+.how-admin {
+  margin-top: 48px; padding: 28px 32px; border-radius: var(--r-xl);
+  background: var(--ink); color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.6;
+}
+.how-admin strong { color: #4FE8A9; font-weight: 600; }
+
+/* ── Auditability ── */
+.audit-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  max-width: 960px; margin: 0 auto;
+}
+.audit-card {
+  border: 1px solid var(--line); border-radius: var(--r-xl);
+  padding: 28px 24px; background: var(--bg);
+}
+.audit-check {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: rgba(79,232,169,0.16); border: 1px solid rgba(79,232,169,0.28);
+  display: flex; align-items: center; justify-content: center; margin-bottom: 16px;
+}
+.audit-card h3 {
+  font-family: 'Inter Tight', sans-serif; font-weight: 700;
+  font-size: 17px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px;
+}
+.audit-card p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
+
+/* ── Testimonials ── */
+.testi-inner { max-width: 1100px; margin: 0 auto; }
+.testi-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; margin-top: 48px;
+}
+
+/* ── Logo marquee ── */
+.section-logos { padding: 64px 0; overflow: hidden; background: var(--bg); }
+.logos-label {
+  text-align: center; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3); margin-bottom: 32px;
+}
+.logos-track-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+.logos-track {
+  display: flex; gap: 64px; align-items: center;
+  width: max-content; animation: marquee 32s linear infinite;
+}
+.logos-track:hover { animation-play-state: paused; }
+.logo-img {
+  height: 28px; width: auto; display: block; flex-shrink: 0;
+  filter: grayscale(1) opacity(0.45); transition: filter 220ms;
+}
+.logo-img:hover { filter: grayscale(0) opacity(1); }
+
+/* ── Final CTA ── */
+.section-book { background: #000; padding: 140px 32px; text-align: center; }
+.book-inner { max-width: 640px; margin: 0 auto; }
+.book-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px;
+}
+.book-headline {
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em;
+  line-height: 0.95; color: #fff; margin-bottom: 24px;
+}
+.book-sub {
+  font-size: 18px; color: rgba(255,255,255,0.5);
+  line-height: 1.6; margin: 0 auto 40px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .audience-grid { grid-template-columns: repeat(2, 1fr); }
+  .arch-panel-inner { grid-template-columns: 1fr; }
+  .cap-grid { grid-template-columns: repeat(2, 1fr); }
+  .audit-grid { grid-template-columns: repeat(2, 1fr); }
+  .problem-stats { grid-template-columns: 1fr; }
+  .nav-inner, .footer-inner { max-width: 1400px; }
+}
+@media (max-width: 600px) {
+  .hero { padding: 64px 20px 56px; }
+  h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
+  .trust-ladder { flex-direction: column; border-radius: var(--r-lg); }
+  .rung { border-right: none; border-bottom: 1px solid var(--line); }
+  .rung:last-child { border-bottom: none; }
+  .audience-grid, .expertise-grid, .cap-grid, .audit-grid { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; }
+  .arch-panel-inner { padding: 28px 24px; }
+  .arch-tabs { flex-direction: column; }
+  .how-step { grid-template-columns: 40px 1fr; gap: 16px; }
+  .section-archetypes, .section-how { padding: 64px 20px; }
+  .section-book { padding: 100px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="brand" href="../employers/">
+      <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+      <span class="brand-ai">AI</span>
+    </a>
+    <div class="nav-links">
+      <a href="../hire/" style="font-weight:600">Hire</a>
+      <a href="../employers/#services">Train</a>
+      <a href="../expert-finder/">Expert Finder</a>
+      <a href="../how-we-verify/">How We Verify</a>
+      <a href="../why-powertofly/">Why PowerToFly</a>
+      <a href="../compare/">Compare</a>
+      <a href="https://powertofly.com/about">About</a>
+    </div>
+    <div class="nav-cta">
+      <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+      <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-links">
+    <a href="../hire/" style="font-weight:600">Hire</a>
+    <a href="../employers/#services">Train</a>
+    <a href="../expert-finder/">Expert Finder</a>
+    <a href="../how-we-verify/">How We Verify</a>
+    <a href="../why-powertofly/">Why PowerToFly</a>
+    <a href="../compare/">Compare</a>
+    <a href="https://powertofly.com/about">About</a>
+  </div>
+  <div class="drawer-cta">
+    <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+    <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+  </div>
+</div>
+
+<main>
+
+<!-- 1. HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-headline">Hire AI experts who already <em class="italic-plain">know</em> your industry</h1>
+    <p class="hero-sub">80K+ verified domain and functional experts — vetted, traceable, and ready to deploy. Not anonymous crowds. People who understand what your AI is actually doing.</p>
+    <div class="hero-ctas">
+      <a href="../book/" class="btn btn-primary">Book a discovery call →</a>
+      <a href="#role-types" class="btn">See who we have</a>
+    </div>
+    <div class="deploy-pill">
+      <span class="deploy-dot"></span>
+      <!-- COPY: confirm --> Ready to deploy
+    </div>
+    <div class="hero-card-wrap">
+      <div class="expert-card">
+        <div class="expert-avatar">
+          <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=88&h=88&fit=crop&crop=faces&q=80" alt="" loading="lazy">
+        </div>
+        <div>
+          <!-- COPY: confirm -->
+          <div class="expert-name">Dr. Amara O.</div>
+          <div class="expert-role">Clinical AI evaluator · 12 yrs oncology</div>
+        </div>
+        <div class="expert-badge"><span class="dot"></span> Verified</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. WHO IT'S FOR -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>Who hires through PowerToFly AI</h2>
+      <p>Teams that can't afford anonymous — where domain knowledge is the difference between useful AI and dangerous AI.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <div class="audience-icon">🧬</div>
+        <h3>AI labs &amp; model builders</h3>
+        <p>Pre-training data, RLHF, red teaming, and evaluation that needs people who understand the domain, not just the task.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🏥</div>
+        <h3>Enterprises in regulated fields</h3>
+        <p>Healthcare, finance, and legal teams deploying AI where a wrong answer has real consequences — and your board needs a paper trail.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">📊</div>
+        <h3>Product teams needing domain-grounded data</h3>
+        <p>Engineers who need subject-matter experts to generate, label, and validate the examples that make their models actually work.</p>
+      </div>
+      <div class="audience-card">
+        <div class="audience-icon">🌍</div>
+        <h3>Teams that need representative talent</h3>
+        <p>75%+ of our network is women and BIPOC. When your AI is built by people who look like the world it serves, it performs better.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. THE PROBLEM -->
+<section class="section-problem">
+  <div class="problem-inner">
+    <p class="problem-eyebrow">The gap no one else is closing</p>
+    <h2 class="problem-headline">Bias and quality are decided at the <em class="italic-plain">talent layer.</em></h2>
+    <p class="problem-body">The people who generate your training data, evaluate your models, and red-team your outputs determine whether your AI is fair, accurate, and defensible. Right now, that layer is invisible — anonymous crowds with no domain expertise and no accountability. Nobody is solving it at scale. We are.</p>
+    <div class="problem-stats">
+      <div class="pstat">
+        <div class="pstat-num">~78%</div>
+        <!-- COPY: confirm — Stanford HAI 2023 -->
+        <p class="pstat-label">of AI researchers are male — the people shaping AI reflect a narrow slice of the world it's built for</p>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num hi">0</div>
+        <p class="pstat-label">competitors operating at the talent layer with verified domain experts, representative diversity, and auditable outputs</p>
+      </div>
+      <div class="pstat">
+        <div class="pstat-num">80K+</div>
+        <p class="pstat-label">domain &amp; functional experts vetted over 12+ years across 190 countries</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TRUST LADDER -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>How a person becomes ready to deploy</h2>
+      <p>Every expert in our network has passed all five rungs. There are no shortcuts.</p>
+    </div>
+    <div class="trust-ladder">
+      <div class="rung">
+        <div class="rung-step">Step 01</div>
+        <div class="rung-label">Verified</div>
+        <p class="rung-desc">Identity, credentials, and professional history confirmed — not self-reported.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-step">Step 02</div>
+        <div class="rung-label">Vetted</div>
+        <p class="rung-desc">Domain knowledge assessed through structured screening — not a resume scan.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-step">Step 03</div>
+        <div class="rung-label">Qualified</div>
+        <p class="rung-desc">Matched to a capability tier based on demonstrated skill depth, not job title.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-step">Step 04</div>
+        <div class="rung-label">Trusted</div>
+        <p class="rung-desc">Performance history on real projects — completion rate, quality scores, client feedback.</p>
+      </div>
+      <div class="rung">
+        <div class="rung-step">Step 05</div>
+        <div class="rung-label">Ready to deploy</div>
+        <p class="rung-desc">Cleared for your project. Background-checked, onboarded, ready to start in days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. DOMAIN EXPERTISE -->
+<section class="section" style="background:var(--bg-soft)">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>What domain expertise actually looks like</h2>
+      <p>Not abstract "AI workers." People with real careers, catching the things a generalist would miss.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <p class="exp-role">Clinician · Healthcare AI</p>
+        <p class="exp-task">Reviewing a diagnostic model's output for a rare pulmonary condition</p>
+        <p class="exp-desc">A physician with 10 years in respiratory medicine catching a false negative that a data labeler with no clinical background couldn't have flagged.</p>
+      </div>
+      <div class="expertise-card">
+        <p class="exp-role">Attorney · Legal AI</p>
+        <p class="exp-task">Annotating contract clauses in a document-understanding model</p>
+        <p class="exp-desc">A practicing lawyer who knows that "material adverse change" means something specific — and that the model's interpretation would never hold up in court.</p>
+      </div>
+      <div class="expertise-card">
+        <p class="exp-role">CFA · Financial AI</p>
+        <p class="exp-task">Validating an earnings forecast model against regulatory standards</p>
+        <p class="exp-desc">A chartered analyst who spots that the model is extrapolating from pre-restatement figures — an error a non-specialist reviewer wouldn't catch.</p>
+      </div>
+      <div class="expertise-card">
+        <p class="exp-role">Multilingual reviewer · Regional AI</p>
+        <p class="exp-task">Catching a culturally offensive framing in a localized model output</p>
+        <p class="exp-desc">A native speaker who identifies that the model's phrasing is grammatically correct but socially unacceptable in that market — something no translation tool surfaces.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. THREE ARCHETYPES -->
+<section class="section-archetypes" id="role-types">
+  <div class="archetypes-inner">
+    <div class="section-head">
+      <h2>Three types of experts. One network.</h2>
+      <p>Every engagement starts with the right archetype — then we match the specific credentials, industry, and language profile you need.</p>
+    </div>
+    <div class="arch-tabs" role="tablist" aria-label="Expert archetypes">
+      <button class="arch-tab" role="tab" aria-selected="true"  aria-controls="panel-domain"      id="tab-domain">Domain professionals</button>
+      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-functional"  id="tab-functional">Functional experts</button>
+      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-consultants" id="tab-consultants">AI consultants</button>
+    </div>
+
+    <div class="arch-panel" id="panel-domain" role="tabpanel" aria-labelledby="tab-domain" aria-hidden="false">
+      <div class="arch-panel-inner">
+        <div>
+          <p class="arch-eyebrow">Domain professionals</p>
+          <h3 class="arch-headline">People who've spent careers in the field your AI is entering</h3>
+          <p class="arch-body">Clinicians, lawyers, engineers, educators, scientists — professionals with deep subject-matter expertise who evaluate, annotate, and validate AI outputs in domains they've worked in for years.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about domain professionals →</a>
+        </div>
+        <div>
+          <p class="arch-detail-label">Example titles</p>
+          <div class="arch-titles">
+            <span class="arch-title-chip">Clinical AI evaluator</span>
+            <span class="arch-title-chip">Legal annotation specialist</span>
+            <span class="arch-title-chip">Financial model reviewer</span>
+            <span class="arch-title-chip">Biomedical researcher</span>
+            <span class="arch-title-chip">Education curriculum reviewer</span>
+          </div>
+          <p class="arch-detail-label">Typical engagement</p>
+          <div class="arch-meta">
+            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Project-based or ongoing retainer</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">Within days of briefing</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">Single expert to large panel</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-panel" id="panel-functional" role="tabpanel" aria-labelledby="tab-functional" aria-hidden="true">
+      <div class="arch-panel-inner">
+        <div>
+          <p class="arch-eyebrow">Functional experts</p>
+          <h3 class="arch-headline">Specialists who understand AI workflows from the inside</h3>
+          <p class="arch-body">Data scientists, ML engineers, prompt engineers, and QA specialists who embed directly into your pipeline — contributing to model training, evaluation, red teaming, and quality assurance.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about functional experts →</a>
+        </div>
+        <div>
+          <p class="arch-detail-label">Example titles</p>
+          <div class="arch-titles">
+            <span class="arch-title-chip">RLHF specialist</span>
+            <span class="arch-title-chip">Prompt engineer</span>
+            <span class="arch-title-chip">Red team analyst</span>
+            <span class="arch-title-chip">Data labeling lead</span>
+            <span class="arch-title-chip">Model QA engineer</span>
+            <span class="arch-title-chip">Multilingual evaluator</span>
+          </div>
+          <p class="arch-detail-label">Typical engagement</p>
+          <div class="arch-meta">
+            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Embedded or sprint-based</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">Within a week of scoping</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">Individual to cross-functional squad</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arch-panel" id="panel-consultants" role="tabpanel" aria-labelledby="tab-consultants" aria-hidden="true">
+      <div class="arch-panel-inner">
+        <div>
+          <p class="arch-eyebrow">AI consultants</p>
+          <h3 class="arch-headline">Senior advisors who help you build the right thing</h3>
+          <!-- COPY: confirm -->
+          <p class="arch-body">AI ethicists, responsible AI leads, and senior practitioners who work at the intersection of domain expertise and AI deployment — helping you design the talent strategy and quality framework before you scale.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about AI consultants →</a>
+        </div>
+        <div>
+          <p class="arch-detail-label">Example titles</p>
+          <div class="arch-titles">
+            <span class="arch-title-chip">Responsible AI advisor</span>
+            <span class="arch-title-chip">AI ethics consultant</span>
+            <span class="arch-title-chip">Evaluation framework lead</span>
+            <span class="arch-title-chip">Diversity &amp; AI strategist</span>
+            <span class="arch-title-chip">Senior ML advisor</span>
+          </div>
+          <p class="arch-detail-label">Typical engagement</p>
+          <div class="arch-meta">
+            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Advisory, fractional, or project</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">After a discovery call</span></div>
+            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">One to three advisors</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CAPABILITIES -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>The GenAI jobs our experts accelerate</h2>
+      <p>From raw data to production model — each capability is staffed with verified experts, not anonymous contributors.</p>
+    </div>
+    <!-- FUTURE: Deel-style selector by industry or outcome -->
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-icon">🔁</div>
+        <h3>RLHF &amp; preference data</h3>
+        <p>Human feedback from experts who understand what "better" means in your domain — not crowdworkers guessing at intent.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">📐</div>
+        <h3>Model evaluation</h3>
+        <p>Structured benchmarking and qualitative assessment by subject-matter experts who catch failures automated metrics miss.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🔴</div>
+        <h3>Red teaming</h3>
+        <p>Adversarial testing by domain professionals who know the specific failure modes that matter in your industry.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">✅</div>
+        <h3>Quality assurance</h3>
+        <p>Output review and validation at scale — with traceable contributors, defined rubrics, and audit-ready documentation.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🌐</div>
+        <h3>Multilingual &amp; multicultural</h3>
+        <p>Native speakers across 190 countries — covering regional dialect, cultural context, and what translation tools miss.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🏷️</div>
+        <h3>Data annotation &amp; labeling</h3>
+        <p>Domain-grounded annotation by experts who understand the subject matter, not generalists working from a style guide.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. HOW IT WORKS -->
+<section class="section-how">
+  <div class="how-inner">
+    <div class="section-head">
+      <h2>Hiring made straightforward</h2>
+      <p>Tell us what you need. We handle the matching, vetting, and admin. You get verified experts who start fast.</p>
+    </div>
+    <div>
+      <div class="how-step">
+        <div class="how-num">01</div>
+        <div>
+          <h3>Tell us what you need</h3>
+          <p>One call. You describe the domain, the task, the scope, and the timeline. We ask the questions you haven't thought of yet.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">02</div>
+        <div>
+          <h3>We match verified experts</h3>
+          <p>From 80K+ vetted professionals, we surface the specific credential, language, and experience profile your project requires — a human-reviewed shortlist, not a keyword match.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">03</div>
+        <div>
+          <h3>Start in days, not weeks</h3>
+          <p>Experts are pre-cleared and onboarded. Most projects are staffed and running within a week of your discovery call.</p>
+        </div>
+      </div>
+      <div class="how-step">
+        <div class="how-num">04</div>
+        <div>
+          <h3>Project-to-hire to validate fit</h3>
+          <p>Start with a scoped engagement. If the expert is the right long-term fit, convert to a full hire — we support the transition.</p>
+        </div>
+      </div>
+    </div>
+    <div class="how-admin">
+      <strong>We handle the admin.</strong> Background checks, onboarding, payroll, benefits, and compliance — across 190 countries. Your team focuses on the work, not the paperwork.
+    </div>
+  </div>
+</section>
+
+<!-- 9. AUDITABILITY -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>Defensible by design</h2>
+      <p>Anonymous-crowd vendors can't tell you who touched your data. We can. Every contributor is verified and every output is traceable — because your regulators and board will ask.</p>
+    </div>
+    <div class="audit-grid">
+      <div class="audit-card">
+        <div class="audit-check">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Verified contributor records</h3>
+        <p>Every person who touches your data has a verified identity, confirmed credentials, and a performance history you can review.</p>
+      </div>
+      <div class="audit-card">
+        <div class="audit-check">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Traceable outputs</h3>
+        <p>A clear chain of custody from task assignment to final output — so you can show exactly who produced what, and when.</p>
+      </div>
+      <div class="audit-card">
+        <div class="audit-check">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Audit-ready documentation</h3>
+        <p>Structured reports your legal, compliance, and board teams can actually use — not a spreadsheet you have to reformat the night before the review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. TESTIMONIALS -->
+<section class="section">
+  <div class="testi-inner">
+    <div class="section-head">
+      <h2>What teams say</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"The quality of annotators we got through PowerToFly was night and day compared to other platforms. These are people who actually understand the domain — they caught issues in our training data that our internal team had missed for months."</p>
+        <div class="t-meta">
+          <div class="t-meta-info">
+            <!-- COPY: confirm -->
+            <span class="t-author">Wade Foster</span>
+            <span class="t-company">Zapier</span>
+            <span class="t-role">CEO &amp; Co-founder</span>
+          </div>
+          <img src="../logos/zapier.png" alt="Zapier" class="t-co-logo" loading="lazy">
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"We needed reviewers who understood media publishing — not just people who could follow a rubric. PowerToFly found us specialists who had actually worked in editorial. The difference in output quality was immediate."</p>
+        <div class="t-meta">
+          <div class="t-meta-info">
+            <!-- COPY: confirm -->
+            <span class="t-author">Greg Galant</span>
+            <span class="t-company">RebelMouse</span>
+            <span class="t-role">CEO</span>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"The compliance documentation alone was worth it. We could show our legal team exactly who contributed to every training dataset — something no other vendor we talked to could provide."</p>
+        <div class="t-meta">
+          <div class="t-meta-info">
+            <!-- COPY: confirm -->
+            <span class="t-author">Andrew Milligan</span>
+            <span class="t-company">SoftwareOne</span>
+            <span class="t-role">VP, Product</span>
+          </div>
+        </div>
+      </div>
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <p class="t-quote">"We're in aerospace — we can't use anonymous contractors on sensitive AI evaluation work. PowerToFly's verification process gave us the confidence to move forward. Experts were cleared, credentialed, and ready faster than we expected."</p>
+        <div class="t-meta">
+          <div class="t-meta-info">
+            <!-- COPY: confirm -->
+            <span class="t-author">Lisa Chen</span>
+            <span class="t-company">Collins Aerospace</span>
+            <span class="t-role">Director, AI Programs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. LOGO MARQUEE -->
+<section class="section-logos">
+  <p class="logos-label">Trusted by teams at</p>
+  <div class="logos-track-wrap">
+    <div class="logos-track">
+      <img src="../logos/google.png"        alt="Google"         class="logo-img" loading="lazy">
+      <img src="../logos/visa.png"           alt="Visa"           class="logo-img" loading="lazy">
+      <img src="../logos/expedia.png"        alt="Expedia"        class="logo-img" loading="lazy">
+      <img src="../logos/zapier.png"         alt="Zapier"         class="logo-img" loading="lazy">
+      <img src="../logos/zillow.png"         alt="Zillow"         class="logo-img" loading="lazy">
+      <img src="../logos/nestle.png"         alt="Nestlé"         class="logo-img" loading="lazy">
+      <img src="../logos/stryker.png"        alt="Stryker"        class="logo-img" loading="lazy">
+      <img src="../logos/sp-global.png"      alt="S&amp;P Global" class="logo-img" loading="lazy">
+      <img src="../logos/avery-dennison.png" alt="Avery Dennison" class="logo-img" loading="lazy">
+      <img src="../logos/veracode.png"       alt="Veracode"       class="logo-img" loading="lazy">
+      <img src="../logos/shure.png"          alt="Shure"          class="logo-img" loading="lazy">
+      <img src="../logos/google.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/visa.png"           alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/expedia.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/zapier.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/zillow.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/nestle.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/stryker.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/sp-global.png"      alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/avery-dennison.png" alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/veracode.png"       alt="" aria-hidden="true" class="logo-img" loading="lazy">
+      <img src="../logos/shure.png"          alt="" aria-hidden="true" class="logo-img" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 12. FINAL CTA -->
+<section class="section-book">
+  <div class="book-inner">
+    <p class="book-eyebrow">Ready when you are</p>
+    <h2 class="book-headline">Smaller scale.<br>Bigger impact.</h2>
+    <p class="book-sub">80K+ verified experts who already know your industry — not an anonymous crowd. One call to find out what that means for your project.</p>
+    <a href="../book/" class="btn btn-light" style="font-size:16px;padding:16px 32px;font-weight:700">Book a discovery call →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-brand">
+          <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="white"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="white"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="white"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="white"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="white"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="white"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="white"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="white"/></svg>
+          <span class="brand-ai">AI</span>
+        </div>
+        <p class="footer-bio">The training network powering production AI.</p>
+      </div>
+      <div class="footer-col">
+        <h5>For Talent</h5>
+        <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Jobs</a>
+        <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Events</a>
+        <a href="https://powertofly.com/companies/all" target="_blank" rel="noopener">Companies</a>
+        <a href="https://powertofly.com/up" target="_blank" rel="noopener">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Employers</h5>
+        <a href="../hire/">Hire</a>
+        <a href="../employers/#services">Train</a>
+        <a href="../expert-finder/">Expert Finder</a>
+        <a href="../how-we-verify/">How We Verify</a>
+        <a href="../why-powertofly/">Why PowerToFly</a>
+        <a href="../compare/">Compare</a>
+        <a href="../book/">Book a call</a>
+      </div>
+      <div class="footer-col">
+        <h5>Our Company</h5>
+        <a href="https://powertofly.com/about" target="_blank" rel="noopener">About Us</a>
+        <a href="https://powertofly.com/about/contact-us" target="_blank" rel="noopener">Contact Us</a>
+        <a href="https://powertofly.com/" target="_blank" rel="noopener">PowerToFly</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PowerToFly.</span>
+      <span class="links"><a href="https://powertofly.com/about/legal" target="_blank" rel="noopener">Legal &amp; Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../ds/ptf.js"></script>
+<script>
+(function () {
+  var tabs   = document.querySelectorAll('.arch-tab');
+  var panels = document.querySelectorAll('.arch-panel');
+  function activate(i) {
+    tabs.forEach(function (t, j) { t.setAttribute('aria-selected', i === j ? 'true' : 'false'); });
+    panels.forEach(function (p, j) { p.setAttribute('aria-hidden', i === j ? 'false' : 'true'); });
+  }
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { activate(i); });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { activate((i + 1) % tabs.length); tabs[(i + 1) % tabs.length].focus(); }
+      if (e.key === 'ArrowLeft')  { var p = (i + tabs.length - 1) % tabs.length; activate(p); tabs[p].focus(); }
+    });
+  });
+}());
+</script>
+</body>
+</html>
