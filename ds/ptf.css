@@ -177,7 +177,8 @@ img { display: block; max-width: 100%; }
 }
 .drawer-links {
   overflow-y: auto;
-  flex: 1;
+  flex: 1 1 0;
+  min-height: 0;
   padding: 20px 24px 0;
 }
 .mobile-drawer .drawer-cta {
@@ -185,6 +186,7 @@ img { display: block; max-width: 100%; }
   border-top: 1px solid var(--line);
   background: #fff;
   flex-shrink: 0;
+  margin-top: 0;
 }
 .mobile-drawer.open {
   display: flex;
@@ -200,8 +202,9 @@ img { display: block; max-width: 100%; }
 }
 .mobile-drawer a:not(.btn):last-of-type { border-bottom: none; }
 .mobile-drawer .drawer-cta {
-  margin-top: 20px; display: flex; flex-direction: column; gap: 10px;
-  border-top: 1px solid var(--line); padding-top: 20px;
+  margin-top: 0; display: flex; flex-direction: column; gap: 10px;
+  border-top: 1px solid var(--line); padding: 16px 24px 24px;
+  flex-shrink: 0; background: #fff;
 }
 /* Buttons in drawer — restore correct colors, no border-bottom bleed */
 .mobile-drawer .btn { justify-content: center; width: 100%; padding: 13px 26px; border-bottom: none !important; }
