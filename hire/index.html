@@ -96,43 +96,72 @@
 .nav-overlay.on { display: block; }
 @media (max-width: 900px) { .nav-items { display: none; } }
 
-/* ── Hero ── */
+/* ── Hero — exact from employers ── */
 .hero {
-  padding: 96px 32px 80px;
+  position: relative;
+  padding: 96px 32px 72px;
   background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
-  text-align: center;
+  overflow: hidden;
 }
-.hero-inner { max-width: 1400px; margin: 0 auto; }
+.hero-inner { position: relative; z-index: 2; max-width: 1400px; margin: 0 auto; text-align: center; }
 h1.hero-headline {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-weight: 700;
   font-size: clamp(36px, 5.5vw, 68px);
   line-height: 1.0; letter-spacing: -0.04em;
-  max-width: 18ch; margin: 0 auto;
+  margin: 0 auto; max-width: none;
 }
-.hero-sub { max-width: 52ch; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); }
-.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
-.deploy-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ink); color: #fff;
-  padding: 10px 20px; border-radius: 999px;
-  font-size: 13.5px; font-weight: 600;
-  box-shadow: 0 10px 24px rgba(10,10,10,0.28); margin-top: 48px;
+.fh-wrap { position: relative; margin-top: 40px; margin-left: calc(-1 * (100vw - 100%) / 2); width: 100vw; }
+.fh-track-container { overflow-x: clip; position: relative; padding: 12px 0 0; }
+.fh-track { display: flex; align-items: center; gap: 12px; padding-left: calc((100vw - 20vw) / 2 - 12px); transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+.fh-slide { flex: 0 0 20vw; aspect-ratio: 7/8; border-radius: 16px; overflow: hidden; transition: transform 0.2s ease-out, opacity 0.2s ease-out; cursor: pointer; }
+.fh-slide .fh-media { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.8s ease-in-out; }
+.fh-slide .fh-media.loaded { opacity: 1; }
+.fh-slide:hover { transform: scale(1.02); }
+.fh-controls { position: absolute; bottom: 20px; right: 40px; display: flex; gap: 8px; z-index: 10; }
+.fh-ctrl-btn { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.92); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.08); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--ink); transition: background 0.15s ease; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.fh-ctrl-btn:hover { background: #fff; }
+.fh-card-outer { position: absolute; top: 72%; left: 50%; transform: translate(-50%, -50%); padding: 3px; border-radius: 24px; z-index: 20; min-width: min(640px, 90vw); }
+.fh-card-shadow { position: absolute; inset: 2px; background: rgb(225,225,225); border-radius: 22px; box-shadow: rgba(0,0,0,0.14) 0px 28px 80px; transition: background 0.4s ease; }
+.fh-card { position: relative; background: #ffffff; border-radius: 20px; padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px; }
+.fh-card-top { display: flex; align-items: center; justify-content: flex-start; }
+.fh-text-area { display: flex; align-items: center; flex: 1; min-width: 0; }
+.fh-ghost { display: none; }
+.fh-typed { font-family: 'Inter Tight', sans-serif; font-size: clamp(22px, 2.4vw, 34px); font-weight: 400; letter-spacing: -0.02em; color: var(--ink); display: block; overflow: hidden; white-space: nowrap; width: 0; }
+.fh-cursor { display: block; flex-shrink: 0; border-left: 2.5px solid var(--ink); height: 1.15em; margin-left: 3px; align-self: center; animation: fhBlink 1s infinite; }
+@keyframes fhBlink { 0%, 100% { border-left-color: var(--ink); } 50% { border-left-color: transparent; } }
+.fh-card-bottom { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.fh-suffix { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+.fh-cta { background: var(--ink); color: #fff; padding: 16px 32px; border-radius: 999px; font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: box-shadow 0.2s ease, transform 0.15s ease; }
+.fh-cta:hover { box-shadow: 0 12px 28px rgba(79,232,169,0.3), 0 4px 12px rgba(0,0,0,0.18); transform: translateY(-1px); }
+.fh-below-text { max-width: 640px; margin: 40px auto 0; text-align: center; font-size: 18px; line-height: 1.6; color: var(--ink-3); padding: 0 24px; }
+.fh-logos-strip { width: 100%; padding: 64px 0; overflow: hidden; background: var(--bg); }
+.fh-logos-inner { display: flex; align-items: center; }
+.fh-logos-track-wrap { overflow: hidden; flex: 1; mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); }
+.fh-logos-track { display: flex; gap: 64px; align-items: center; width: max-content; animation: marquee 28s linear infinite; }
+.fh-logos-track:hover { animation-play-state: paused; }
+.fh-logo-img { height: 28px; width: auto; display: block; flex-shrink: 0; filter: grayscale(1) opacity(0.45); transition: filter 220ms ease; }
+.fh-logo-img:hover { filter: grayscale(0) opacity(1); }
+@media (max-width: 768px) {
+  .fh-slide { flex: 0 0 72vw; aspect-ratio: 4/5; }
+  .fh-track { padding-left: calc((100vw - 72vw) / 2 - 6px); }
+  .fh-card-outer { min-width: calc(100vw - 40px); top: 68%; }
+  .fh-controls { right: 16px; bottom: 16px; }
+  .fh-cta { padding: 12px 22px; font-size: 14px; }
+  .fh-typed { font-size: clamp(18px, 4vw, 26px); }
+  .fh-card { padding: 18px 20px 20px; }
 }
-.deploy-dot { width: 7px; height: 7px; border-radius: 50%; background: #4FE8A9; animation: livepulse 2s ease-in-out infinite; }
-@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
-.hero-card-wrap { display: flex; justify-content: center; margin-top: 16px; }
-.expert-card {
-  background: #fff; border: 1px solid var(--line); border-radius: 16px;
-  box-shadow: var(--shadow-card); padding: 16px 20px;
-  display: flex; align-items: center; gap: 14px; width: 360px; text-align: left;
-}
-.expert-avatar { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; flex-shrink: 0; background: #eee; }
-.expert-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.expert-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
-.expert-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
-.expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
+
+/* ── Stats portrait — exact from employers ── */
+.section-stats { background: var(--bg); padding: 100px 32px; }
+.stats-card-wrap { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 8px; border-radius: 32px; }
+.stats-portrait { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-size: cover; background-position: center; position: relative; }
+.stats-portrait-icon { position: absolute; top: 20px; left: 20px; width: 52px; height: 52px; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.28)); }
+.stats-card-dark { background: #0A0A0A; border-radius: 28px; padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; gap: 40px; color: #fff; }
+.stat-big-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(56px, 8vw, 104px); line-height: 1; letter-spacing: -0.04em; color: #ffffff; }
+.stat-unit { font-size: 0.28em; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; margin-left: 4px; vertical-align: baseline; }
+.stat-big-label { margin-top: 10px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.58); letter-spacing: 0.01em; line-height: 1.45; }
+@media (max-width: 900px) { .stats-card-wrap { grid-template-columns: 1fr; } .stats-portrait { aspect-ratio: 4/3; } .stats-card-dark { padding: 48px 32px; } }
 
 /* ── Who it's for ── */
 .audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto; }
@@ -142,12 +171,6 @@ h1.hero-headline {
 .audience-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 6px; }
 .audience-card p { font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
 
-/* ── Problem — cards, no full-width black ── */
-.problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
-.problem-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 28px; background: var(--bg); }
-.problem-card-num { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(56px, 8vw, 104px); letter-spacing: -0.04em; line-height: 1; color: var(--ink); margin-bottom: 12px; }
-.problem-card-num.hi { color: var(--green); }
-.problem-card p { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
 
 /* ── Trust ladder ── */
 .trust-ladder { display: flex; max-width: 1100px; margin: 0 auto; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid var(--line); }
@@ -498,27 +521,42 @@ h1.hero-headline {
 <section class="hero">
   <div class="hero-inner">
     <h1 class="hero-headline">Hire AI experts who already <em class="italic-plain">know</em> your industry</h1>
-    <p class="hero-sub">80K+ verified domain and functional experts — vetted, traceable, and ready to deploy. Not anonymous crowds. People who understand what your AI is actually doing.</p>
-    <div class="hero-ctas">
-      <a href="../book/" class="btn btn-primary">Book a discovery call →</a>
-      <a href="#role-types" class="btn">See who we have</a>
-    </div>
-    <div class="deploy-pill"><span class="deploy-dot"></span> <!-- COPY: confirm --> Ready to deploy</div>
-    <div class="hero-card-wrap">
-      <div class="expert-card">
-        <div class="expert-avatar">
-          <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=88&h=88&fit=crop&crop=faces&q=80" alt="" loading="lazy">
+
+    <div class="fh-wrap">
+      <div class="fh-track-container">
+        <div class="fh-track" id="fhTrack"></div>
+        <div class="fh-controls">
+          <button class="fh-ctrl-btn" id="fhPause" aria-label="Pause/Play">⏸</button>
         </div>
-        <div>
-          <!-- COPY: confirm -->
-          <div class="expert-name">Dr. Amara O.</div>
-          <div class="expert-role">Clinical AI evaluator · 12 yrs oncology</div>
+      </div>
+      <div class="fh-card-outer" id="fhCardOuter">
+        <div class="fh-card-shadow" id="fhCardShadow"></div>
+        <div class="fh-card">
+          <div class="fh-card-top">
+            <span class="fh-suffix"><span style="color:#00C47A">●</span> Ready to deploy</span>
+          </div>
+          <div class="fh-card-bottom">
+            <div class="fh-text-area" id="fhTextArea">
+              <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
+              <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
+            </div>
+            <a href="../book/" class="fh-cta">Book a call →</a>
+          </div>
         </div>
-        <div class="expert-badge"><span class="dot"></span> Verified</div>
       </div>
     </div>
+
+    <p class="fh-below-text">80K+ verified domain &amp; functional experts who look like the world your AI is being built for.</p>
   </div>
 </section>
+
+<div class="fh-logos-strip">
+  <div class="fh-logos-inner">
+    <div class="fh-logos-track-wrap">
+      <div class="fh-logos-track" id="fhLogosTrack"></div>
+    </div>
+  </div>
+</div>
 
 <!-- 2. WHO IT'S FOR -->
 <section class="section">
@@ -552,26 +590,29 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- 3. THE PROBLEM — cards, no full-width black -->
-<section class="section" style="background:var(--bg-soft)">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>The gap no one else is closing</h2>
-      <p>Bias and quality are decided at the talent layer — and right now that layer is invisible. Anonymous crowds, no domain expertise, no accountability.</p>
+<!-- 3. STATS PORTRAIT — exact from employers -->
+<section class="section-stats">
+  <div class="stats-card-wrap">
+    <div class="stats-portrait" role="img" aria-label="Domain expert portrait" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&h=1200&fit=crop&q=80')">
+      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
     </div>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-card-num">~78%</div>
-        <!-- COPY: confirm — Stanford HAI 2023 -->
-        <p>of AI researchers are male. The people shaping AI reflect a narrow slice of the world it's being built for.</p>
+    <div class="stats-card-dark">
+      <div>
+        <div class="stat-big-num">80<span class="stat-unit">K+</span></div>
+        <div class="stat-big-label">Verified domain &amp; functional experts — the people no anonymous platform can match</div>
       </div>
-      <div class="problem-card">
-        <div class="problem-card-num hi">0</div>
-        <p>competitors operating at the talent layer with verified domain experts, representative diversity, and auditable outputs.</p>
+      <div>
+        <div class="stat-big-num">190</div>
+        <!-- COPY: confirm -->
+        <div class="stat-big-label">Countries in our network — native speakers, regional domain experts, global coverage</div>
       </div>
-      <div class="problem-card">
-        <div class="problem-card-num">80K+</div>
-        <p>domain &amp; functional experts vetted over 12+ years across 190 countries. Nobody else has this.</p>
+      <div>
+        <div class="stat-big-num">0</div>
+        <div class="stat-big-label">Competitors operating at the talent layer with verified credentials, diversity, and auditable outputs</div>
+      </div>
+      <div>
+        <div class="stat-big-num">12<span class="stat-unit">+</span></div>
+        <div class="stat-big-label">Years building the most trusted AI talent community in the world</div>
       </div>
     </div>
   </div>
@@ -953,6 +994,89 @@ h1.hero-headline {
 
 <script src="../ds/ptf.js"></script>
 <script>
+/* ── Hero carousel — exact from employers ── */
+(function(){
+  const track = document.getElementById('fhTrack');
+  if (!track) return;
+  const slides = [
+    { type: 'video', src: 'https://videos.pexels.com/video-files/7652209/7652209-uhd_1440_2560_30fps.mp4',   label: 'Clinical AI evaluators' },
+    { type: 'img',   src: '../photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg',                label: 'Legal professionals' },
+    { type: 'img',   src: '../photos/14.white-man-laptop.jpg',                                               label: 'Research scientists' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/7981969/7981969-uhd_2560_1440_30fps.mp4',  label: 'Finance experts' },
+    { type: 'img',   src: '../photos/15.muslim-lady.jpg', mediaStyle: 'object-position: center 25%;',       label: 'Data scientists' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/8202005/8202005-uhd_2560_1440_25fps.mp4',  label: 'Healthcare professionals' },
+    { type: 'img',   src: '../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg',                   label: 'Domain experts' },
+    { type: 'img',   src: '../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg',     label: 'AI consultants' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/3044691/3044691-uhd_2560_1440_24fps.mp4',  label: 'ML engineers' },
+    { type: 'img',   src: '../photos/05.fat-white-lady-allgo-an-app-for-plus-size-people-39qdb4V84YI-unsplash.jpg', label: 'Multilingual reviewers' },
+    { type: 'img',   src: '../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg',                 label: 'RLHF specialists' },
+    { type: 'video', src: 'https://videos.pexels.com/video-files/6883838/6883838-uhd_1440_2732_25fps.mp4',  label: 'Red team analysts' },
+    { type: 'img',   src: '../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg',        label: 'Clinicians' },
+    { type: 'img',   src: '../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg', label: 'QA specialists' },
+    { type: 'img',   src: '../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg',                  label: 'Functional experts' },
+  ];
+  const cohorts = slides.map(s => s.label);
+  const N = slides.length;
+  const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
+  const tints = ['rgb(200,215,225)','rgb(215,210,220)','rgb(210,205,218)','rgb(200,220,215)','rgb(225,215,200)','rgb(210,225,215)','rgb(200,215,225)','rgb(218,208,222)','rgb(212,210,205)','rgb(210,205,218)','rgb(205,212,222)','rgb(225,215,200)','rgb(200,215,225)','rgb(215,220,200)','rgb(210,225,215)'];
+  function makeSlideEl(slide) {
+    const div = document.createElement('div'); div.className = 'fh-slide';
+    if (slide.type === 'video') {
+      const v = document.createElement('video');
+      v.src = slide.src; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute('playsinline',''); v.className = 'fh-media loaded';
+      v.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;' + (slide.mediaStyle || '');
+      div.appendChild(v);
+    } else {
+      const img = document.createElement('img');
+      img.alt = slide.label; img.className = 'fh-media';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;' + (slide.mediaStyle || '');
+      img.onload = () => img.classList.add('loaded'); img.src = slide.src;
+      div.appendChild(img);
+    }
+    return div;
+  }
+  track.appendChild(makeSlideEl(slides[N-1]));
+  slides.forEach(s => track.appendChild(makeSlideEl(s)));
+  track.appendChild(makeSlideEl(slides[0]));
+  let trackPos = 1, ci = 0, charI = 0, deleting = false, paused = false;
+  function slideW() { const el = track.querySelector('.fh-slide'); return el ? el.offsetWidth + 12 : 0; }
+  function moveTo(pos, animate) { track.style.transition = animate ? TRANSITION : 'none'; track.style.transform = 'translateX(-' + (pos * slideW()) + 'px)'; }
+  function setActive(idx) { const shadow = document.getElementById('fhCardShadow'); if (shadow) shadow.style.background = tints[idx % tints.length]; }
+  track.addEventListener('transitionend', () => {
+    if (trackPos === N + 1) { trackPos = 1; moveTo(trackPos, false); }
+    else if (trackPos === 0) { trackPos = N; moveTo(trackPos, false); }
+  });
+  moveTo(trackPos, false); setActive(ci);
+  const ghost = document.getElementById('fhGhost');
+  if (ghost) cohorts.forEach(c => { const s = document.createElement('div'); s.textContent = c; ghost.appendChild(s); });
+  const typedEl = document.getElementById('fhTyped');
+  const TYPE_SPEED = 55, DEL_SPEED = 28, HOLD = 2400, PAUSE_BETWEEN = 380;
+  function typeTick() {
+    if (paused) { setTimeout(typeTick, 200); return; }
+    const word = cohorts[ci];
+    if (!deleting) {
+      charI++; typedEl.textContent = word.slice(0, charI); typedEl.style.width = typedEl.scrollWidth + 'px';
+      if (charI === word.length) { deleting = true; setTimeout(typeTick, HOLD); return; }
+    } else {
+      charI--; typedEl.textContent = word.slice(0, charI); typedEl.style.width = charI > 0 ? typedEl.scrollWidth + 'px' : '0px';
+      if (charI === 0) {
+        deleting = false; ci = (ci + 1) % N; trackPos++; moveTo(trackPos, true); setActive(ci);
+        setTimeout(typeTick, PAUSE_BETWEEN); return;
+      }
+    }
+    setTimeout(typeTick, deleting ? DEL_SPEED : TYPE_SPEED);
+  }
+  setTimeout(typeTick, 900);
+  const pauseBtn = document.getElementById('fhPause');
+  if (pauseBtn) pauseBtn.addEventListener('click', () => { paused = !paused; pauseBtn.textContent = paused ? '▶' : '⏸'; });
+  const fhLogoTrack = document.getElementById('fhLogosTrack');
+  if (fhLogoTrack && window.PTF) {
+    const logos = ['avery-dennison','expedia','google','nestle','shure','sp-global','stryker','veracode','visa','zapier','zillow'];
+    PTF.initMarquee(fhLogoTrack, logos.map(n => '<img class="fh-logo-img" src="../logos/' + n + '.png" alt="' + n + '">'));
+  }
+})();
+
 /* ── Mega nav flyouts ── */
 (function () {
   var btns    = document.querySelectorAll('.nav-btn[data-fly]');
