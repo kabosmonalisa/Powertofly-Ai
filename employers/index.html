@@ -915,8 +915,12 @@ h1.hero-headline {
 
   /* Sticky stack — mobile */
   .sc-card { grid-template-columns: 1fr; height: auto; }
-  .sc-right { display: block; height: 220px; }
+  .sc-right { display: block; height: 260px; }
   .sc-left { padding: 32px 24px; }
+  /* Scale mock UIs to fit mobile panel */
+  .sc-mock-stack { transform: scale(0.78); transform-origin: center; }
+  /* Hide person card overlay on mobile — too cramped */
+  .sc-person-card { display: none; }
   .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
   .sc-ctas { flex-direction: column; align-items: center; }
 
