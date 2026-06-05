@@ -145,7 +145,7 @@ h1.hero-headline {
 /* ── Problem — cards, no full-width black ── */
 .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
 .problem-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 28px; background: var(--bg); }
-.problem-card-num { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(40px, 5vw, 64px); letter-spacing: -0.04em; line-height: 1; color: var(--ink); margin-bottom: 12px; }
+.problem-card-num { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(56px, 8vw, 104px); letter-spacing: -0.04em; line-height: 1; color: var(--ink); margin-bottom: 12px; }
 .problem-card-num.hi { color: var(--green); }
 .problem-card p { font-size: 14px; color: var(--ink-3); line-height: 1.55; }
 
@@ -238,7 +238,7 @@ h1.hero-headline {
 .audit-card p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
 
 /* ── Testimonials ── */
-.testi-inner { max-width: 1100px; margin: 0 auto; }
+.testi-inner { max-width: 1400px; margin: 0 auto; }
 .testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
 
 /* ── Logo marquee ── */
@@ -256,6 +256,16 @@ h1.hero-headline {
 .book-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px; }
 .book-headline { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
 .book-sub { font-size: 18px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0 auto 40px; }
+.btn-book {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #ffffff; color: #0A0A0A;
+  font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700;
+  padding: 16px 32px; border-radius: 100px; border: none; cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-book:hover { background: rgba(255,255,255,0.88); color: #0A0A0A; box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3); transform: translateY(-1px); }
+.section-narrow { max-width: 1400px; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
@@ -893,7 +903,7 @@ h1.hero-headline {
     <p class="book-eyebrow">Ready when you are</p>
     <h2 class="book-headline">Smaller scale.<br>Bigger impact.</h2>
     <p class="book-sub">80K+ verified experts who already know your industry — not an anonymous crowd. One call to find out what that means for your project.</p>
-    <a href="../book/" class="btn btn-light" style="font-size:16px;padding:16px 32px;font-weight:700">Book a discovery call →</a>
+    <a href="../book/" class="btn btn-book">Book a discovery call →</a>
   </div>
 </section>
 
