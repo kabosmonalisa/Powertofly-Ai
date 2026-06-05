@@ -166,16 +166,25 @@ img { display: block; max-width: 100%; }
   position: fixed;
   top: 57px; left: 0; right: 0;
   max-height: calc(100vh - 57px);
-  overflow-y: auto;
   background: #fff;
   border-bottom: 1px solid var(--line);
   z-index: 49;
-  padding: 20px 24px 28px;
   flex-direction: column; gap: 0;
   box-shadow: 0 12px 32px rgba(0,0,0,0.08);
   transform: translateY(-8px); opacity: 0;
   transition: transform 200ms ease, opacity 200ms ease;
   pointer-events: none;
+}
+.drawer-links {
+  overflow-y: auto;
+  flex: 1;
+  padding: 20px 24px 0;
+}
+.mobile-drawer .drawer-cta {
+  padding: 16px 24px 24px;
+  border-top: 1px solid var(--line);
+  background: #fff;
+  flex-shrink: 0;
 }
 .mobile-drawer.open {
   display: flex;
