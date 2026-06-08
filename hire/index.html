@@ -163,7 +163,7 @@ h1.hero-headline {
   display: flex; align-items: center; justify-content: center;
   padding: 20px 18px; flex-shrink: 0;
 }
-.hire-float-spark-col svg { width: 52px; height: 52px; stroke: #4FE8A9; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hire-float-spark-col svg { width: 52px; height: 52px; stroke-linecap: round; stroke-linejoin: round; }
 .hire-float-vline {
   width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0;
 }
@@ -536,6 +536,16 @@ h1.hero-headline {
 </div>
 
 <main>
+<!-- Shared gradient defs — referenced by all hire-float icons -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5BCFFF"/>
+      <stop offset="50%" stop-color="#4FE8A9"/>
+      <stop offset="100%" stop-color="#D5FF66"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <!-- 01. HERO -->
 <section class="hero">
@@ -571,11 +581,11 @@ h1.hero-headline {
 
       <div class="hire-float hire-float-1">
         <div class="hire-float-spark-col">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="5" r="2"/>
-            <line x1="12" y1="7" x2="12" y2="21"/>
-            <line x1="7" y1="10.5" x2="17" y2="10.5"/>
-            <path d="M7 10.5 C3.5 10.5 3.5 16 3.5 16 C3.5 20 7.5 21.5 12 21.5 C16.5 21.5 20.5 20 20.5 16 C20.5 10.5 17 10.5 17 10.5"/>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="5" r="2" stroke="url(#ptf-grad)" stroke-width="2.5"/>
+            <line x1="12" y1="7" x2="12" y2="21" stroke="url(#ptf-grad)" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="7" y1="10.5" x2="17" y2="10.5" stroke="url(#ptf-grad)" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M7 10.5 C3.5 10.5 3.5 16 3.5 16 C3.5 20 7.5 21.5 12 21.5 C16.5 21.5 20.5 20 20.5 16 C20.5 10.5 17 10.5 17 10.5" stroke="url(#ptf-grad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -589,9 +599,7 @@ h1.hero-headline {
       <div class="hire-float hire-float-2">
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="6" x2="12" y2="12"/>
-            <line x1="12" y1="12" x2="16" y2="14"/>
+            <path fill="url(#ptf-grad)" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -605,11 +613,7 @@ h1.hero-headline {
       <div class="hire-float hire-float-3">
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="7" cy="12" r="4"/>
-            <line x1="11" y1="12" x2="21" y2="12"/>
-            <line x1="17" y1="12" x2="17" y2="15"/>
-            <line x1="20" y1="12" x2="20" y2="14"/>
-          </svg>
+            <path fill="url(#ptf-grad)" d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
         </div>
         <div class="hire-float-vline"></div>
         <div class="hire-float-body">
