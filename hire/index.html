@@ -18,13 +18,15 @@
  */
 
 /* ── Top alert bar ── */
-.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
+.top-alert { background: linear-gradient(90deg, #FF0018, #FF7A00, #FFD700, #00C86F, #0073FF, #7B00FF, #FF0090); background-size: 300% 100%; animation: prideshift 6s linear infinite; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
 .top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
 .top-alert a:hover { background: #fff; color: #7B00FF; }
 .top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); padding: 4px; display: flex; align-items: center; justify-content: center; transition: color .15s; }
 .top-alert-close:hover { color: #fff; }
 .top-alert.hidden { display: none; }
+.top-alert a:hover { background: rgba(255,255,255,0.2); color: #fff; }
+@keyframes prideshift { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }
 
 /* ── Employers-style mega nav ── */
 .nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
@@ -347,7 +349,7 @@ h1.hero-headline {
 
 <!-- ═══ TOP ALERT ═══ -->
 <div class="top-alert" id="topAlert">
-  <strong>Join our PRIDE Summit &amp; Virtual Job Fair</strong> &nbsp;June 24–25
+  🌈 <strong>Join our PRIDE Summit &amp; Virtual Job Fair</strong> &nbsp;June 24–25
   <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register now →</a>
   <button class="top-alert-close" id="topAlertClose" aria-label="Close">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
