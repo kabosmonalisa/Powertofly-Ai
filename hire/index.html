@@ -135,8 +135,8 @@ h1.hero-headline {
 .hire-around-wrap { position: relative; width: 100%; max-width: 1400px; height: 460px; flex-shrink: 0; }
 .hire-center-portrait {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 300px; height: 100%;
-  border-radius: 24px; background-size: cover; background-position: center 10%;
+  width: 320px; height: 320px;
+  border-radius: 24px; background-size: cover; background-position: center 15%;
   box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
 }
 .hire-float {
@@ -910,9 +910,9 @@ h1.hero-headline {
   var f3 = document.querySelector('.hire-float-3');
   if (!section || !f1) return;
 
-  /* Travel distance (px) from resting position back to edge */
-  var TX = 560;  /* f1/f2 horizontal travel */
-  var TY = 320;  /* f3 vertical travel */
+  /* How far each card travels inward from its edge position */
+  var TX = 420;  /* f1/f2 slide horizontally toward portrait */
+  var TY = 300;  /* f3 rises up from below */
 
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
 
@@ -920,26 +920,18 @@ h1.hero-headline {
     var rect      = section.getBoundingClientRect();
     var sectionH  = section.offsetHeight;
     var vh        = window.innerHeight;
-    /* pixels scrolled past the top of the section (negative = not yet reached) */
     var scrolled  = -rect.top;
-    /* total scrollable distance while section is sticky */
     var total     = sectionH - vh;
-    /* raw progress 0→1 across the full sticky scroll range */
     var raw       = clamp(scrolled / total, 0, 1);
 
-    /* Peak: 0→1 in first half, 1→0 in second half — perfectly linear, no easing */
-    var peak;
-    if (raw <= 0.5) {
-      peak = raw * 2;
-    } else {
-      peak = (1 - raw) * 2;
-    }
+    /* peak 0→1 first half (cards slide in), 1→0 second half (cards slide back out) */
+    var peak = raw <= 0.5 ? raw * 2 : (1 - raw) * 2;
 
-    /* Cards start at edges (peak=0) and rest overlapping portrait (peak=1) */
-    f1.style.transform = 'translateX(' + (-TX * (1 - peak)) + 'px)';
-    f2.style.transform = 'translateX(' + ( TX * (1 - peak)) + 'px)';
+    /* peak=0: cards sit at edges (CSS positions). peak=1: translated toward portrait */
+    f1.style.transform = 'translateX(' + ( TX * peak) + 'px)';
+    f2.style.transform = 'translateX(' + (-TX * peak) + 'px)';
     f3.style.transform = 'translateY(' + ( TY * (1 - peak)) + 'px)';
-    f1.style.opacity = f2.style.opacity = f3.style.opacity = clamp(peak * 4, 0, 1);
+    f1.style.opacity = f2.style.opacity = f3.style.opacity = clamp(peak * 3, 0, 1);
   }
 
   window.addEventListener('scroll', update, { passive: true });
