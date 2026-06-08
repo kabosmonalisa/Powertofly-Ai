@@ -1217,18 +1217,12 @@ h1.hero-headline {
   max-width: 1400px; margin: 0 auto;
 }
 .outcomes-scene-inner .section-head { margin-bottom: 16px; }
-.outcomes-wrap { position: relative; width: 100%; height: 520px; }
-.outcomes-center-portrait {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 340px; height: 380px;
-  border-radius: 20px; background-size: cover; background-position: center 30%;
-  box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
-}
+.outcomes-wrap { position: relative; width: 100%; height: 400px; }
 .oc-float {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  width: 400px; display: flex; align-items: stretch;
+  width: 400px; height: 160px; display: flex; align-items: stretch;
   opacity: 0;
   transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
 }
@@ -1236,28 +1230,27 @@ h1.hero-headline {
   display: flex; align-items: center; justify-content: center;
   padding: 20px 18px; flex-shrink: 0;
 }
-.oc-float-spark-col svg { width: 52px; height: 52px; }
+.oc-float-spark-col svg { width: 68px; height: 68px; }
 .oc-float-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0; }
 .oc-float-body { padding: 20px 20px; flex: 1; }
 .oc-float h4 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
 .oc-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
 
-/* positions: 2 left, 2 right — overlap portrait */
-.oc-float-1 { top: 50%; margin-top: -140px; left: calc(50% - 560px); transform: translateX(-900px); }
-.oc-float-2 { top: 50%; margin-top:   20px; left: calc(50% - 560px); transform: translateX(-900px); }
-.oc-float-3 { top: 50%; margin-top: -140px; right: calc(50% - 560px); transform: translateX(900px); }
-.oc-float-4 { top: 50%; margin-top:   20px; right: calc(50% - 560px); transform: translateX(900px); }
+/* left pair slides from left, right pair from right — meet in centre */
+.oc-float-1 { top: 50%; margin-top: -176px; left: calc(50% - 412px); transform: translateX(-900px); }
+.oc-float-2 { top: 50%; margin-top:   16px; left: calc(50% - 412px); transform: translateX(-900px); }
+.oc-float-3 { top: 50%; margin-top: -176px; left: calc(50% + 12px);  transform: translateX( 900px); }
+.oc-float-4 { top: 50%; margin-top:   16px; left: calc(50% + 12px);  transform: translateX( 900px); }
 
 .outcomes-wrap.cards-in .oc-float-1 { transform: translateX(0); opacity: 1; }
 .outcomes-wrap.cards-in .oc-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
 .outcomes-wrap.cards-in .oc-float-3 { transform: translateX(0); opacity: 1; transition-delay: 0.08s; }
 .outcomes-wrap.cards-in .oc-float-4 { transform: translateX(0); opacity: 1; transition-delay: 0.20s; }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .outcomes-scene-outer { padding: 64px 20px; }
   .outcomes-wrap { height: auto; display: flex; flex-direction: column; gap: 14px; align-items: center; }
-  .outcomes-center-portrait { display: none; }
-  .oc-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 420px; }
+  .oc-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 460px; height: auto; }
 }
 @media (max-width: 768px) {
   .benefits-row { grid-template-columns: 1fr 1fr; }
@@ -1887,8 +1880,6 @@ h1.hero-headline {
       <h2>The difference the right AI experts make.</h2>
     </div>
     <div class="outcomes-wrap">
-
-      <div class="outcomes-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=700&h=900&fit=crop&crop=faces&q=80');"></div>
 
       <!-- Left top — auto_awesome -->
       <div class="oc-float oc-float-1">
