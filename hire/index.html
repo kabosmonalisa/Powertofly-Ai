@@ -124,31 +124,31 @@ h1.hero-headline {
 .expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
-/* ── Hire types — sticky scroll, scroll-driven cards ── */
-.hire-scroll-outer { position: relative; }
+/* ── Hire types — pure 1:1 scroll-scrubbed ── */
+.hire-scroll-outer { position: relative; min-height: 380vh; }
 .hire-sticky-scene {
   position: sticky; top: 0; height: 100vh;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 32px; overflow: hidden; padding: 32px;
+  gap: 28px; overflow: hidden;
 }
-.hire-sticky-scene .section-head { margin-bottom: 0; }
-.hire-around-wrap { position: relative; width: 100%; max-width: 900px; height: 440px; flex-shrink: 0; }
-.hire-scroll-pad { height: 120vh; }
+.hire-sticky-scene .section-head { margin-bottom: 0; flex-shrink: 0; }
+.hire-around-wrap { position: relative; width: 100%; max-width: 1400px; height: 460px; flex-shrink: 0; }
 .hire-center-portrait {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 280px; height: 100%;
-  border-radius: 24px; background-size: cover; background-position: center top;
+  width: 300px; height: 100%;
+  border-radius: 24px; background-size: cover; background-position: center 10%;
   box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
 }
 .hire-float {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  padding: 20px 22px; width: 250px; will-change: transform, opacity;
+  padding: 20px 22px; width: 260px; will-change: transform, opacity;
 }
-.hire-float-1 { top: 30px; left: 20px; }
-.hire-float-2 { top: calc(50% - 80px); right: 20px; }
-.hire-float-3 { bottom: 20px; left: 50%; margin-left: -125px; }
+/* Resting (fully-in) positions */
+.hire-float-1 { top: 40px;             left: 0; }
+.hire-float-2 { top: calc(50% - 90px); right: 0; }
+.hire-float-3 { bottom: 30px;          left: 50%; margin-left: -130px; }
 .hire-float-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
 .hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; }
 .hire-float p { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
@@ -902,35 +902,46 @@ h1.hero-headline {
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 }());
 
-/* ── Hire cards — pure scroll-driven, no transitions ── */
+/* ── Hire cards — pure 1:1 scroll scrub, no easing ── */
 (function () {
   var section = document.querySelector('.hire-scroll-outer');
   var f1 = document.querySelector('.hire-float-1');
   var f2 = document.querySelector('.hire-float-2');
   var f3 = document.querySelector('.hire-float-3');
   if (!section || !f1) return;
-  var EDGE = 900;
-  function lerp(a, b, t) { return a + (b - a) * t; }
+
+  /* Travel distance (px) from resting position back to edge */
+  var TX = 560;  /* f1/f2 horizontal travel */
+  var TY = 320;  /* f3 vertical travel */
+
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
-  function easeInOut(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
   function update() {
-    var rect = section.getBoundingClientRect();
-    var total = section.offsetHeight;
-    /* 0 = top of section at bottom of viewport, 1 = bottom of section at top */
-    var raw = (window.innerHeight - rect.top) / (total + window.innerHeight);
-    raw = clamp(raw, 0, 1);
-    /* cards fully visible in the middle of the scroll range */
-    var progress = easeInOut(clamp((raw - 0.15) / 0.7, 0, 1));
-    /* reverse: cards go back out as section scrolls away */
-    var peak = 1 - Math.abs(progress * 2 - 1);
-    var ox1 = lerp(-EDGE, 0, peak);
-    var ox2 = lerp(EDGE,  0, peak);
-    var oy3 = lerp(400,   0, peak);
-    var op  = clamp(peak * 1.5, 0, 1);
-    f1.style.opacity = op; f1.style.transform = 'translateX('+ox1+'px)';
-    f2.style.opacity = op; f2.style.transform = 'translateX('+ox2+'px)';
-    f3.style.opacity = op; f3.style.transform = 'translateY('+oy3+'px)';
+    var rect      = section.getBoundingClientRect();
+    var sectionH  = section.offsetHeight;
+    var vh        = window.innerHeight;
+    /* pixels scrolled past the top of the section (negative = not yet reached) */
+    var scrolled  = -rect.top;
+    /* total scrollable distance while section is sticky */
+    var total     = sectionH - vh;
+    /* raw progress 0→1 across the full sticky scroll range */
+    var raw       = clamp(scrolled / total, 0, 1);
+
+    /* Peak: 0→1 in first half, 1→0 in second half — perfectly linear, no easing */
+    var peak;
+    if (raw <= 0.5) {
+      peak = raw * 2;
+    } else {
+      peak = (1 - raw) * 2;
+    }
+
+    /* Cards start at edges (peak=0) and rest overlapping portrait (peak=1) */
+    f1.style.transform = 'translateX(' + (-TX * (1 - peak)) + 'px)';
+    f2.style.transform = 'translateX(' + ( TX * (1 - peak)) + 'px)';
+    f3.style.transform = 'translateY(' + ( TY * (1 - peak)) + 'px)';
+    f1.style.opacity = f2.style.opacity = f3.style.opacity = clamp(peak * 4, 0, 1);
   }
+
   window.addEventListener('scroll', update, { passive: true });
   update();
 }());
