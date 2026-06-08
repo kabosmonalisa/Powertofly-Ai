@@ -157,22 +157,18 @@ h1.hero-headline {
 .hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; }
 .hire-float p { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
 
-/* ── sc-cards — exact from employers ── */
+/* ── Experts list ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
-.experts-inner { max-width: 1400px; margin: 0 auto; }
-.sc-stack { padding-bottom: 4vh; }
-.sc-card {
-  position: sticky; top: 15vh;
-  height: 600px; border-radius: 21px;
+.experts-inner { max-width: 1200px; margin: 0 auto; }
+.experts-list { display: flex; flex-direction: column; gap: 24px; }
+.expert-row {
+  border-radius: 20px;
   border: 1px solid rgba(10,10,10,0.1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
   overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr;
-  background: #fff;
+  background: #fff; min-height: 360px;
 }
-.sc-card:nth-child(1) { z-index: 1; }
-.sc-card:nth-child(2) { z-index: 2; margin-top: 40vh; }
-.sc-card:nth-child(3) { z-index: 3; margin-top: 40vh; }
 .sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .sc-tag { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; background: rgba(79,232,169,0.14); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0A8C66; width: fit-content; }
 .sc-left h3 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.22; letter-spacing: -0.025em; color: var(--ink); }
@@ -297,10 +293,9 @@ h1.hero-headline {
   .hire-float { position: static; width: 100%; transform: none !important; opacity: 1 !important; }
   .hire-scroll-pad { display: none; }
   .stats-grid { max-width: 100%; }
-  .sc-card { grid-template-columns: 1fr; height: auto; }
-  .sc-right { display: block; height: 240px; }
+  .expert-row { grid-template-columns: 1fr; }
+  .sc-right { height: 240px; }
   .sc-left { padding: 32px 24px; }
-  .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
   .how-inner { grid-template-columns: 1fr; gap: 48px; }
   .how-portrait-card { aspect-ratio: 4/3; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -600,9 +595,9 @@ h1.hero-headline {
     <div class="section-head">
       <h2>Experts across every function and industry</h2>
     </div>
-    <div class="sc-stack">
+    <div class="experts-list">
 
-      <div class="sc-card">
+      <div class="expert-row">
         <div class="sc-left">
           <span class="sc-tag">Domain professionals</span>
           <h3>Industry experts who bring deep subject-matter knowledge to every role</h3>
@@ -655,7 +650,7 @@ h1.hero-headline {
         </div>
       </div>
 
-      <div class="sc-card">
+      <div class="expert-row">
         <div class="sc-left">
           <span class="sc-tag">Functional experts</span>
           <h3>Skilled professionals who use AI to work smarter and deliver more</h3>
@@ -708,7 +703,7 @@ h1.hero-headline {
         </div>
       </div>
 
-      <div class="sc-card">
+      <div class="expert-row">
         <div class="sc-left">
           <span class="sc-tag">AI professionals</span>
           <h3>Technical specialists who build, deploy, and scale AI systems</h3>
@@ -752,7 +747,7 @@ h1.hero-headline {
         </div>
       </div>
 
-    </div>
+    </div><!-- /experts-list -->
   </div>
 </section>
 
