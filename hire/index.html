@@ -256,14 +256,13 @@ h1.hero-headline {
 .stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(48px, 6vw, 80px); line-height: 1; letter-spacing: -0.04em; color: #fff; }
 .stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
-/* ── Logo marquee ── */
-.section-logos { padding: 64px 0; overflow: hidden; background: var(--bg); }
-.logos-label { text-align: center; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 32px; }
-.logos-track-wrap { overflow: hidden; mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); }
-.logos-track { display: flex; gap: 64px; align-items: center; width: max-content; animation: marquee 32s linear infinite; }
-.logos-track:hover { animation-play-state: paused; }
-.logo-img { height: 28px; width: auto; display: block; flex-shrink: 0; filter: grayscale(1) opacity(0.45); transition: filter 220ms; }
-.logo-img:hover { filter: grayscale(0) opacity(1); }
+/* ── Stats band ── */
+.section-statband { background: var(--ink); padding: 0 32px; }
+.statband-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+.statband-item { padding: 48px 32px; border-right: 1px solid rgba(255,255,255,0.08); text-align: center; }
+.statband-item:last-child { border-right: none; }
+.statband-num { font-family: 'Inter Tight', sans-serif; font-size: clamp(40px, 4.5vw, 64px); font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1; }
+.statband-lbl { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.4; }
 
 /* ── Final CTA ── */
 .section-book { background: #000; padding: 140px 32px; text-align: center; }
@@ -525,32 +524,24 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- Logos — right under hero -->
-<section class="section-logos">
-  <div class="logos-track-wrap">
-    <div class="logos-track">
-      <img src="../logos/google.png"        alt="Google"         class="logo-img" loading="lazy">
-      <img src="../logos/visa.png"           alt="Visa"           class="logo-img" loading="lazy">
-      <img src="../logos/expedia.png"        alt="Expedia"        class="logo-img" loading="lazy">
-      <img src="../logos/zapier.png"         alt="Zapier"         class="logo-img" loading="lazy">
-      <img src="../logos/zillow.png"         alt="Zillow"         class="logo-img" loading="lazy">
-      <img src="../logos/nestle.png"         alt="Nestlé"         class="logo-img" loading="lazy">
-      <img src="../logos/stryker.png"        alt="Stryker"        class="logo-img" loading="lazy">
-      <img src="../logos/sp-global.png"      alt="S&amp;P Global" class="logo-img" loading="lazy">
-      <img src="../logos/avery-dennison.png" alt="Avery Dennison" class="logo-img" loading="lazy">
-      <img src="../logos/veracode.png"       alt="Veracode"       class="logo-img" loading="lazy">
-      <img src="../logos/shure.png"          alt="Shure"          class="logo-img" loading="lazy">
-      <img src="../logos/google.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/visa.png"           alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/expedia.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/zapier.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/zillow.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/nestle.png"         alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/stryker.png"        alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/sp-global.png"      alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/avery-dennison.png" alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/veracode.png"       alt="" aria-hidden="true" class="logo-img" loading="lazy">
-      <img src="../logos/shure.png"          alt="" aria-hidden="true" class="logo-img" loading="lazy">
+<!-- Stats band -->
+<section class="section-statband">
+  <div class="statband-inner">
+    <div class="statband-item">
+      <div class="statband-num">80K+</div>
+      <div class="statband-lbl">Functional &amp; domain experts</div>
+    </div>
+    <div class="statband-item">
+      <div class="statband-num">6,500</div>
+      <div class="statband-lbl">AI professionals</div>
+    </div>
+    <div class="statband-item">
+      <div class="statband-num">190</div>
+      <div class="statband-lbl">Countries represented</div>
+    </div>
+    <div class="statband-item">
+      <div class="statband-num">75%+</div>
+      <div class="statband-lbl">Women &amp; BIPOC in our network</div>
     </div>
   </div>
 </section>
