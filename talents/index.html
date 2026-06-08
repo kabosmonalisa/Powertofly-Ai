@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 <link rel="stylesheet" href="../ds/ptf.css">
 <meta property="og:url" content="https://kabosmonalisa.github.io/Powertofly-Ai/talents/">
 <style>
@@ -694,13 +695,15 @@ background: transparent;
   flex-direction: column;
   gap: 12px;
 }
-.benefit-sparkle {
-  width: 52px;
-  height: 52px;
-  margin-bottom: 4px;
+.benefit-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  display: block;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-.benefit-card:nth-child(2) .benefit-sparkle { }
-.benefit-card:nth-child(3) .benefit-sparkle { }
 .benefit-card h3 {
   font-family: 'Inter Tight', sans-serif;
   font-size: 19px;
@@ -1311,32 +1314,21 @@ background: transparent;
   <div class="benefits-row">
 
     <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs><linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <path d="M 14,90 A 76,24 0 0 0 166,90" fill="none" stroke="url(#sg1)" stroke-width="16" stroke-linecap="round" transform="rotate(-20 90 90)"/>
-        <circle cx="90" cy="90" r="48" fill="url(#sg1)"/>
-        <path d="M 14,90 A 76,24 0 0 1 166,90" fill="none" stroke="url(#sg1)" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6" transform="rotate(-20 90 90)"/>
-      </svg>
+      <span class="material-icons-round benefit-icon" aria-hidden="true">public</span>
       <h3>Work from anywhere</h3>
       <p class="benefit-insight">Building AI that works for everyone starts with experts from everywhere.</p>
       <p>Every project is fully remote. Your geography, cultural context, and lived experience are exactly what clients are looking for.</p>
     </div>
 
     <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs><linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <text x="90" y="128" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="148" fill="url(#sg2)" text-anchor="middle">$</text>
-      </svg>
+      <span class="material-icons-round benefit-icon" aria-hidden="true">payments</span>
       <h3>Earn what your expertise is worth</h3>
       <p class="benefit-insight">Your knowledge has real market value — and now there's a direct way to cash in on it.</p>
       <p>Get paid for what you already know. Our experts earn $65–130/hr contributing to real AI projects, with payments landing in your account every week.</p>
     </div>
 
     <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs><linearGradient id="sg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#sg3)"/>
-      </svg>
+      <span class="material-icons-round benefit-icon" aria-hidden="true">psychology</span>
       <h3>Build real AI experience</h3>
       <p class="benefit-insight">Do work that matters beyond the paycheck.</p>
       <p>Every project you contribute to makes AI a little more accurate, a little less biased, and a little more useful for everyone. You build experience — and the world gets better AI.</p>
