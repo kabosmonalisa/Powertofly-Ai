@@ -1228,25 +1228,25 @@ h1.hero-headline {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  width: 280px; display: flex; align-items: stretch;
+  width: 400px; display: flex; align-items: stretch;
   opacity: 0;
   transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
 }
 .oc-float-spark-col {
   display: flex; align-items: center; justify-content: center;
-  padding: 16px 14px; flex-shrink: 0;
+  padding: 20px 18px; flex-shrink: 0;
 }
-.oc-float-spark-col svg { width: 40px; height: 40px; }
-.oc-float-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 14px 0; }
-.oc-float-body { padding: 16px 16px; flex: 1; }
-.oc-float h4 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: -0.02em; line-height: 1.2; color: var(--ink); margin-bottom: 5px; }
-.oc-float p { font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+.oc-float-spark-col svg { width: 52px; height: 52px; }
+.oc-float-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0; }
+.oc-float-body { padding: 20px 20px; flex: 1; }
+.oc-float h4 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+.oc-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
 
-/* positions: 2 left, 2 right */
-.oc-float-1 { top: 50%; margin-top: -140px; left: calc(50% - 500px); transform: translateX(-700px); }
-.oc-float-2 { top: 50%; margin-top:   20px; left: calc(50% - 500px); transform: translateX(-700px); }
-.oc-float-3 { top: 50%; margin-top: -140px; right: calc(50% - 500px); transform: translateX(700px); }
-.oc-float-4 { top: 50%; margin-top:   20px; right: calc(50% - 500px); transform: translateX(700px); }
+/* positions: 2 left, 2 right — overlap portrait */
+.oc-float-1 { top: 50%; margin-top: -140px; left: calc(50% - 560px); transform: translateX(-900px); }
+.oc-float-2 { top: 50%; margin-top:   20px; left: calc(50% - 560px); transform: translateX(-900px); }
+.oc-float-3 { top: 50%; margin-top: -140px; right: calc(50% - 560px); transform: translateX(900px); }
+.oc-float-4 { top: 50%; margin-top:   20px; right: calc(50% - 560px); transform: translateX(900px); }
 
 .outcomes-wrap.cards-in .oc-float-1 { transform: translateX(0); opacity: 1; }
 .outcomes-wrap.cards-in .oc-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
@@ -1890,12 +1890,12 @@ h1.hero-headline {
 
       <div class="outcomes-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=700&h=900&fit=crop&crop=faces&q=80');"></div>
 
-      <!-- Left top -->
+      <!-- Left top — auto_awesome -->
       <div class="oc-float oc-float-1">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 32,2 L 62,32 L 32,62 L 2,32 Z" transform="scale(2.8) translate(0,0)" fill="url(#og1)"/>
+            <path fill="url(#og1)" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1905,12 +1905,12 @@ h1.hero-headline {
         </div>
       </div>
 
-      <!-- Left bottom -->
+      <!-- Left bottom — bolt -->
       <div class="oc-float oc-float-2">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#og2)"/>
+            <path fill="url(#og2)" d="M7 2v11h3v9l7-12h-4l4-8z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1920,12 +1920,12 @@ h1.hero-headline {
         </div>
       </div>
 
-      <!-- Right top -->
+      <!-- Right top — verified_user / shield -->
       <div class="oc-float oc-float-3">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 90,10 L 162,54 L 162,126 C 162,156 130,172 90,174 C 50,172 18,156 18,126 L 18,54 Z" fill="url(#og3)"/>
+            <path fill="url(#og3)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1935,12 +1935,12 @@ h1.hero-headline {
         </div>
       </div>
 
-      <!-- Right bottom -->
+      <!-- Right bottom — trending_up -->
       <div class="oc-float oc-float-4">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 10,140 L 10,80 L 50,110 L 90,20 L 130,110 L 170,80 L 170,140 Z" fill="url(#og4)"/>
+            <path fill="url(#og4)" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
