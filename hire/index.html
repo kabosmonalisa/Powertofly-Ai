@@ -142,13 +142,13 @@ h1.hero-headline {
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
   padding: 20px 22px; width: 260px;
 }
-/* Start: far away. End: overlapping the portrait */
-.hire-float-1 { top: 40px; left: 80px; opacity: 0; transform: translate(-120px, -60px) scale(0.92); transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22,1,0.36,1); }
-.hire-float-2 { top: 50%; right: 60px; opacity: 0; transform: translateY(-50%) translateX(120px) scale(0.92); transition: opacity 700ms ease 150ms, transform 700ms cubic-bezier(0.22,1,0.36,1) 150ms; }
-.hire-float-3 { bottom: 40px; left: 140px; opacity: 0; transform: translate(-60px, 100px) scale(0.92); transition: opacity 700ms ease 300ms, transform 700ms cubic-bezier(0.22,1,0.36,1) 300ms; }
-.hire-float-1.visible { opacity: 1; transform: translate(0,0) scale(1); }
-.hire-float-2.visible { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
-.hire-float-3.visible { opacity: 1; transform: translate(0,0) scale(1); }
+/* Start at screen edges, converge to overlap portrait */
+.hire-float-1 { top: 60px; left: 30px; opacity: 0; transform: translateX(calc(-50vw - 100%)); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.22,1,0.36,1); }
+.hire-float-2 { top: calc(50% - 80px); right: 30px; opacity: 0; transform: translateX(calc(50vw + 100%)); transition: opacity 800ms ease 180ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 180ms; }
+.hire-float-3 { bottom: 40px; left: 50%; margin-left: -130px; opacity: 0; transform: translateY(60vh); transition: opacity 800ms ease 360ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 360ms; }
+.hire-float-1.visible { opacity: 1; transform: translateX(0); }
+.hire-float-2.visible { opacity: 1; transform: translateX(0); }
+.hire-float-3.visible { opacity: 1; transform: translateY(0); }
 .hire-float-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
 .hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; }
 .hire-float p { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
@@ -214,7 +214,7 @@ h1.hero-headline {
 .section-how { background: var(--bg); padding: 100px 32px; }
 .how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center 20%; position: relative; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center 30%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
@@ -565,7 +565,7 @@ h1.hero-headline {
   <div class="hire-sticky-scene">
     <div class="hire-around-wrap">
 
-      <div class="hire-center-portrait" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div>
+      <div class="hire-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&h=900&fit=crop&crop=faces&auto=format&q=80'); background-position: center 10%;"></div>
 
       <div class="hire-float hire-float-1">
         <p class="hire-float-eyebrow">Full-time</p>
