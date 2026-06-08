@@ -257,12 +257,12 @@ h1.hero-headline {
 .stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
 /* ── Stats band ── */
-.section-statband { background: var(--ink); padding: 0 32px; }
+.section-statband { background: var(--bg); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 0 32px; }
 .statband-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
-.statband-item { padding: 48px 32px; border-right: 1px solid rgba(255,255,255,0.08); text-align: center; }
+.statband-item { padding: 40px 32px; border-right: 1px solid var(--line); text-align: center; }
 .statband-item:last-child { border-right: none; }
-.statband-num { font-family: 'Inter Tight', sans-serif; font-size: clamp(40px, 4.5vw, 64px); font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1; }
-.statband-lbl { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.4; }
+.statband-num { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4vw, 56px); font-weight: 800; letter-spacing: -0.04em; color: var(--ink); line-height: 1; }
+.statband-lbl { font-size: 13px; color: var(--ink-3); margin-top: 8px; line-height: 1.4; }
 
 /* ── Final CTA ── */
 .section-book { background: #000; padding: 140px 32px; text-align: center; }
