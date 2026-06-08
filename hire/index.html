@@ -124,16 +124,16 @@ h1.hero-headline {
 .expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
-/* ── Hire types — entrance animation, no scroll-jacking ── */
+/* ── Hire types ── */
 .hire-scroll-outer { background: var(--bg); padding: 100px 32px; overflow: hidden; }
 .hire-sticky-scene {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center;
   gap: 40px; max-width: 1400px; margin: 0 auto;
 }
-.hire-around-wrap { position: relative; width: 100%; height: 460px; flex-shrink: 0; }
+.hire-around-wrap { position: relative; width: 100%; height: 480px; }
 .hire-center-portrait {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 320px; height: 320px;
+  width: 300px; height: 300px;
   border-radius: 24px; background-size: cover; background-position: center 15%;
   box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
 }
@@ -141,20 +141,18 @@ h1.hero-headline {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  padding: 20px 22px; width: 260px;
-  transition: transform 0.75s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease;
+  padding: 20px 22px; width: 240px;
+  opacity: 0;
+  transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.55s ease;
 }
-/* Start positions (off at edges) */
-.hire-float-1 { top: 40px;             left: 0;   transform: translateX(-480px); opacity: 0; }
-.hire-float-2 { top: calc(50% - 90px); right: 0;  transform: translateX( 480px); opacity: 0; }
-.hire-float-3 { bottom: 30px;          left: 50%; margin-left: -130px; transform: translateY(200px); opacity: 0; }
-/* Animated-in state */
-.hire-around-wrap.cards-in .hire-float-1 { transform: translateX(380px); opacity: 1; }
-.hire-around-wrap.cards-in .hire-float-2 { transform: translateX(-380px); opacity: 1; }
-.hire-around-wrap.cards-in .hire-float-3 { transform: translateY(0);     opacity: 1; }
-/* Stagger */
-.hire-around-wrap.cards-in .hire-float-2 { transition-delay: 0.1s; }
-.hire-around-wrap.cards-in .hire-float-3 { transition-delay: 0.2s; }
+/* Resting positions — clear of the portrait */
+.hire-float-1 { top: 50%; margin-top: -110px; left:  40px; transform: translateX(-340px); }
+.hire-float-2 { top: 50%; margin-top: -110px; right: 40px; transform: translateX( 340px); }
+.hire-float-3 { bottom: 0; left: 50%; margin-left: -120px; transform: translateY(160px); }
+/* Triggered state */
+.hire-around-wrap.cards-in .hire-float-1 { transform: translateX(0); opacity: 1; }
+.hire-around-wrap.cards-in .hire-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.1s; }
+.hire-around-wrap.cards-in .hire-float-3 { transform: translateY(0); opacity: 1; transition-delay: 0.2s; }
 .hire-float-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
 .hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; }
 .hire-float p { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
