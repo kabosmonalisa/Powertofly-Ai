@@ -1122,7 +1122,7 @@ h1.hero-headline {
   text-align: center;
   font-size: 18px;
   line-height: 1.6;
-  color: var(--ink);
+  color: var(--ink-3);
   padding: 0 24px;
   white-space: normal;
 }
@@ -1176,52 +1176,42 @@ h1.hero-headline {
 }
 
 /* ===== Why Companies Choose PowerToFly ===== */
-.why-scroll-outer { background: var(--bg); padding: 100px 32px; overflow: hidden; }
-.why-sticky-scene {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 0; max-width: 1400px; margin: 0 auto;
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
 }
-.why-sticky-scene .section-head { margin-bottom: 16px; }
-.why-around-wrap { position: relative; width: 100%; height: 440px; }
-.why-center-portrait {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 340px; height: 340px;
-  border-radius: 20px; background-size: cover; background-position: center 20%;
-  box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
+.benefits-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 960px;
+  margin: 0 auto;
 }
-.why-float {
-  position: absolute; z-index: 3;
-  background: #fff; border: 1px solid var(--line);
-  border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  width: 320px; display: flex; align-items: stretch;
-  opacity: 0;
-  transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
+.benefit-card {
+  border-radius: 20px;
+  border: 1px solid rgba(10,10,10,0.09);
+  box-shadow: var(--shadow-card);
+  background: var(--bg);
+  padding: 32px 28px 36px;
+  display: flex; flex-direction: column; gap: 12px;
 }
-.why-float-spark-col {
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px 16px; flex-shrink: 0;
+.benefit-sparkle {
+  width: 52px; height: 52px;
+  animation: floatY 4s ease-in-out infinite;
+  margin-bottom: 4px;
 }
-.why-float-spark-col svg { width: 52px; height: 52px; }
-.why-float-vline {
-  width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0;
+.benefit-card:nth-child(2) .benefit-sparkle { animation-delay: -1.3s; }
+.benefit-card:nth-child(3) .benefit-sparkle { animation-delay: -2.7s; }
+.benefit-eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #0A8C66;
 }
-.why-float-body { padding: 20px 18px; flex: 1; }
-.why-float-1 { top: 50%; margin-top: -80px; left: calc(50% - 510px); transform: translateX(-800px); }
-.why-float-2 { top: 50%; margin-top: -80px; right: calc(50% - 510px); transform: translateX(800px); }
-.why-float-3 { top: calc(50% + 110px); left: 50%; margin-left: -160px; transform: translateY(400px); }
-.why-around-wrap.cards-in .why-float-1 { transform: translateX(0); opacity: 1; }
-.why-around-wrap.cards-in .why-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
-.why-around-wrap.cards-in .why-float-3 { transform: translateY(0); opacity: 1; transition-delay: 0.24s; }
-.why-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
-.why-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
-.why-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0A8C66; margin-bottom: 6px; }
-
-@media (max-width: 768px) {
-  .why-scroll-outer { padding: 64px 20px; }
-  .why-around-wrap { height: auto; display: flex; flex-direction: column; gap: 16px; align-items: center; }
-  .why-center-portrait { display: none; }
-  .why-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 420px; }
+.benefit-card h3 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 19px; font-weight: 700;
+  letter-spacing: -0.03em; line-height: 1.2; color: var(--ink);
 }
+.benefit-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
 
 /* ===== Business Outcomes ===== */
 .outcomes-grid {
@@ -1724,60 +1714,43 @@ h1.hero-headline {
 </div>
 
 <!-- WHY COMPANIES CHOOSE POWERTOFLY -->
-<section class="why-scroll-outer">
-  <div class="why-sticky-scene">
+<section class="section" style="background: var(--bg-soft);">
+  <div class="section-narrow">
     <div class="section-head">
       <h2>Why Companies Choose PowerToFly</h2>
     </div>
-    <div class="why-around-wrap">
+    <div class="benefits-row">
 
-      <div class="why-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&h=900&fit=crop&crop=faces&q=80');"></div>
-
-      <div class="why-float why-float-1">
-        <div class="why-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
-            <defs><linearGradient id="wg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#wg1)"/>
-          </svg>
-        </div>
-        <div class="why-float-vline"></div>
-        <div class="why-float-body">
-          <div class="why-eyebrow">Domain Expertise</div>
-          <h3>An expert community you can't find anywhere else.</h3>
-          <p>A deep pool of mid-to-senior professionals spanning every industry, function, and seniority level — verified and ready to contribute from day one.</p>
-        </div>
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="wc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#wc1)"/>
+        </svg>
+        <span class="benefit-eyebrow">Domain Expertise</span>
+        <h3>An expert community you can't find anywhere else.</h3>
+        <p>A deep pool of mid-to-senior professionals spanning every industry, function, and seniority level. Domain-qualified & functional experts, verified and ready to contribute from day one.</p>
       </div>
 
-      <div class="why-float why-float-2">
-        <div class="why-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
-            <defs><linearGradient id="wg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 14,90 A 76,24 0 0 0 166,90" fill="none" stroke="url(#wg2)" stroke-width="16" stroke-linecap="round" transform="rotate(-20 90 90)"/>
-            <circle cx="90" cy="90" r="48" fill="url(#wg2)"/>
-            <path d="M 14,90 A 76,24 0 0 1 166,90" fill="none" stroke="url(#wg2)" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6" transform="rotate(-20 90 90)"/>
-          </svg>
-        </div>
-        <div class="why-float-vline"></div>
-        <div class="why-float-body">
-          <div class="why-eyebrow">Global Reach</div>
-          <h3>Built on relationships no algorithm can replicate.</h3>
-          <p>A global community with over 80% women and 70% BIPOC — the perspectives your AI needs to work for everyone.</p>
-        </div>
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="wc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path d="M 14,90 A 76,24 0 0 0 166,90" fill="none" stroke="url(#wc2)" stroke-width="16" stroke-linecap="round" transform="rotate(-20 90 90)"/>
+          <circle cx="90" cy="90" r="48" fill="url(#wc2)"/>
+          <path d="M 14,90 A 76,24 0 0 1 166,90" fill="none" stroke="url(#wc2)" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6" transform="rotate(-20 90 90)"/>
+        </svg>
+        <span class="benefit-eyebrow">Global Reach</span>
+        <h3>Built on relationships no algorithm can replicate.</h3>
+        <p>A global community with over 80% women and 70% BIPOC, bringing the perspectives your AI program needs to work for everyone. The kind of depth and range no job board can reach.</p>
       </div>
 
-      <div class="why-float why-float-3">
-        <div class="why-float-spark-col">
-          <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
-            <defs><linearGradient id="wg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <text x="90" y="128" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="148" fill="url(#wg3)" text-anchor="middle">$</text>
-          </svg>
-        </div>
-        <div class="why-float-vline"></div>
-        <div class="why-float-body">
-          <div class="why-eyebrow">Flexible Pricing</div>
-          <h3>Representative AI talent, priced so every team can access it.</h3>
-          <p>No surprise markups. Staff aug, retained search, or project-to-hire — options that flex as your needs evolve.</p>
-        </div>
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><linearGradient id="wc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <text x="90" y="128" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="148" fill="url(#wc3)" text-anchor="middle">$</text>
+        </svg>
+        <span class="benefit-eyebrow">Flexible Pricing</span>
+        <h3>Representative AI talent, priced so every team can access it.</h3>
+        <p>Accessible pricing with no surprise markups. Staff aug, retained search, or project-to-hire — straightforward options that flex as your needs evolve.</p>
       </div>
 
     </div>
@@ -2509,17 +2482,6 @@ h1.hero-headline {
   if (overlay) overlay.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 })();
-
-/* ── Why cards — slide in on scroll-into-view ── */
-(function () {
-  var wrap = document.querySelector('.why-around-wrap');
-  if (!wrap) return;
-  if (!('IntersectionObserver' in window)) { wrap.classList.add('cards-in'); return; }
-  var obs = new IntersectionObserver(function (entries) {
-    if (entries[0].isIntersecting) { wrap.classList.add('cards-in'); obs.disconnect(); }
-  }, { threshold: 0.1 });
-  obs.observe(wrap);
-}());
 </script>
 
 </body>
