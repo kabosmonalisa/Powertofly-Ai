@@ -124,17 +124,6 @@ h1.hero-headline {
 .expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
-/* ── Stats portrait — exact from employers ── */
-.section-stats { background: var(--bg); padding: 100px 32px; }
-.stats-card-wrap { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 8px; border-radius: 32px; }
-.stats-portrait { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-size: cover; background-position: center; position: relative; }
-.stats-portrait-icon { position: absolute; top: 20px; left: 20px; width: 52px; height: 52px; filter: drop-shadow(0 6px 16px rgba(0,0,0,0.28)); }
-.stats-card-dark { background: #0A0A0A; border-radius: 28px; padding: 64px 56px; display: flex; flex-direction: column; justify-content: center; gap: 40px; color: #fff; }
-.stat-big-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(56px, 8vw, 104px); line-height: 1; letter-spacing: -0.04em; color: #ffffff; }
-.stat-unit { font-size: 0.28em; font-weight: 700; letter-spacing: -0.02em; color: #ffffff; margin-left: 4px; vertical-align: baseline; }
-.stat-big-label { margin-top: 10px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.58); letter-spacing: 0.01em; line-height: 1.45; }
-@media (max-width: 900px) { .stats-card-wrap { grid-template-columns: 1fr; } .stats-portrait { aspect-ratio: 4/3; } .stats-card-dark { padding: 48px 32px; } }
-
 /* ── Hire type cards ── */
 .hire-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
 .hire-type-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 28px; background: var(--bg); }
@@ -144,56 +133,50 @@ h1.hero-headline {
 .hire-type-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; }
 .hire-type-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
 
+/* ── sc-cards — exact from employers ── */
+.section-experts { background: var(--bg); padding: 100px 32px; }
+.experts-inner { max-width: 1400px; margin: 0 auto; }
+.sc-stack { padding-bottom: 4vh; }
+.sc-card {
+  position: sticky; top: 15vh;
+  height: 600px; border-radius: 21px;
+  border: 1px solid rgba(10,10,10,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 32px rgba(0,0,0,0.08);
+  overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr;
+  background: #fff;
+}
+.sc-card:nth-child(1) { z-index: 1; }
+.sc-card:nth-child(2) { z-index: 2; margin-top: 40vh; }
+.sc-card:nth-child(3) { z-index: 3; margin-top: 40vh; }
+.sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
+.sc-tag { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; background: rgba(79,232,169,0.14); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0A8C66; width: fit-content; }
+.sc-left h3 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.22; letter-spacing: -0.025em; color: var(--ink); }
+.sc-body { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
+.sc-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.sc-title-chip { font-size: 12px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
+.sc-more { font-size: 14px; font-weight: 600; color: #0A8C66; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 200ms ease; margin-top: 4px; }
+.sc-more:hover { gap: 11px; }
+.sc-right { position: relative; overflow: hidden; }
+.sc-right-domain   { background: #E8EFF5; }
+.sc-right-function { background: #EAFAF2; }
+.sc-right-ai       { background: #FAF1E8; }
+.sc-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+.sc-person-card { position: absolute; bottom: 28px; left: 28px; background: #fff; border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 28px rgba(0,0,0,0.15); min-width: 190px; }
+.sc-person-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+.sc-person-role { font-size: 12px; color: #0A8C66; font-weight: 500; margin-top: 2px; }
+.sc-person-sep { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
+.sc-person-verify { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-3); font-weight: 500; }
+.sc-verify-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(79,232,169,0.2); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.sc-icon-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.sc-big-icon { font-size: 80px; opacity: 0.18; }
 
-/* ── Trust ladder ── */
-.trust-ladder { display: flex; max-width: 1100px; margin: 0 auto; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid var(--line); }
-.rung { flex: 1; padding: 36px 22px; background: var(--bg); border-right: 1px solid var(--line); transition: background 180ms; }
-.rung:last-child { border-right: none; }
-.rung:hover { background: var(--bg-soft); }
-.rung-step { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
-.rung-label { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px; }
-.rung:last-child .rung-label { color: var(--green); }
-.rung-desc { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
-
-/* ── Domain expertise ── */
-.expertise-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
-.expertise-card { border-radius: var(--r-xl); background: var(--bg-soft); border: 1px solid var(--line); padding: 28px; }
-.exp-role { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
-.exp-task { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.025em; line-height: 1.25; color: var(--ink); margin-bottom: 10px; }
-.exp-desc { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
-
-/* ── Archetypes ── */
-.section-archetypes { background: var(--bg-soft); padding: 100px 32px; }
-.archetypes-inner { max-width: 1100px; margin: 0 auto; }
-.arch-tabs { display: flex; gap: 6px; justify-content: center; margin-bottom: 40px; flex-wrap: wrap; }
-.arch-tab { padding: 10px 24px; border-radius: 999px; font-size: 14px; font-weight: 500; background: transparent; border: 1.5px solid var(--line); color: var(--ink-3); cursor: pointer; transition: border-color 160ms, color 160ms, background 160ms; }
-.arch-tab:hover { border-color: rgba(10,10,10,0.22); color: var(--ink); }
-.arch-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-.arch-panel { display: none; }
-.arch-panel[aria-hidden="false"] { display: block; }
-.arch-panel-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; background: var(--bg); border-radius: var(--r-2xl); border: 1px solid var(--line); padding: 48px; align-items: start; }
-.arch-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 16px; }
-.arch-headline { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: clamp(22px, 2.8vw, 34px); letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); margin-bottom: 16px; }
-.arch-body { font-size: 16px; color: var(--ink-3); line-height: 1.65; margin-bottom: 28px; }
-.arch-detail-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
-.arch-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 28px; }
-.arch-title-chip { font-size: 13px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 5px 12px; border-radius: 999px; }
-.arch-meta { background: var(--bg-soft); border-radius: var(--r-lg); padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
-.arch-meta-row { display: flex; gap: 12px; font-size: 14px; }
-.arch-meta-key { color: var(--ink-3); font-weight: 500; min-width: 110px; flex-shrink: 0; }
-.arch-meta-val { color: var(--ink); font-weight: 500; }
-
-/* ── Capabilities ── */
-.cap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
-.cap-card { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 28px 24px; transition: transform 180ms ease, box-shadow 180ms ease; }
-.cap-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
-.cap-icon { width: 40px; height: 40px; border-radius: var(--r-sm); background: rgba(79,232,169,0.12); border: 1px solid rgba(79,232,169,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 16px; }
-.cap-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px; }
-.cap-card p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
-
-/* ── How it works — talents-style vertical timeline ── */
+/* ── How it works — exact talents layout ── */
 .section-how { background: var(--bg-soft); padding: 100px 32px; }
-.how-inner { max-width: 680px; margin: 0 auto; }
+.how-outer { max-width: 1180px; margin: 0 auto; }
+.how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
+.how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
   display: flex; flex-direction: column;
@@ -226,16 +209,13 @@ h1.hero-headline {
 .how-admin { margin-top: 48px; padding: 28px 32px; border-radius: var(--r-xl); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.6; }
 .how-admin strong { color: #4FE8A9; font-weight: 600; }
 
-/* ── Auditability ── */
-.audit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
-.audit-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 28px 24px; background: var(--bg); }
-.audit-check { width: 32px; height: 32px; border-radius: 50%; background: rgba(79,232,169,0.16); border: 1px solid rgba(79,232,169,0.28); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
-.audit-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px; }
-.audit-card p { font-size: 14px; color: var(--ink-3); line-height: 1.6; }
-
-/* ── Testimonials ── */
-.testi-inner { max-width: 1400px; margin: 0 auto; }
-.testi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+/* ── Stats — clean 4-up grid ── */
+.section-stats { background: var(--bg); padding: 100px 32px; }
+.stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid var(--line); }
+.stat-block { padding: 48px 36px; background: var(--bg); border-right: 1px solid var(--line); }
+.stat-block:last-child { border-right: none; }
+.stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(42px, 5vw, 72px); line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
+.stat-block-label { margin-top: 12px; font-size: 14px; color: var(--ink-3); line-height: 1.5; }
 
 /* ── Logo marquee ── */
 .section-logos { padding: 64px 0; overflow: hidden; background: var(--bg); }
@@ -265,24 +245,24 @@ h1.hero-headline {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .audience-grid { grid-template-columns: repeat(2, 1fr); }
-  .arch-panel-inner { grid-template-columns: 1fr; }
-  .cap-grid { grid-template-columns: repeat(2, 1fr); }
-  .audit-grid { grid-template-columns: repeat(2, 1fr); }
-  .problem-grid { grid-template-columns: 1fr; }
   .nav-inner, .footer-inner { max-width: 1400px; }
+  .hire-type-grid { grid-template-columns: 1fr; }
+  .sc-card { grid-template-columns: 1fr; height: auto; }
+  .sc-right { display: block; height: 240px; }
+  .sc-left { padding: 32px 24px; }
+  .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
+  .how-inner { grid-template-columns: 1fr; gap: 48px; }
+  .how-portrait-card { aspect-ratio: 4/3; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .stat-block:nth-child(2) { border-right: none; }
 }
 @media (max-width: 600px) {
   .hero { padding: 64px 20px 56px; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
-  .trust-ladder { flex-direction: column; border-radius: var(--r-lg); }
-  .rung { border-right: none; border-bottom: 1px solid var(--line); }
-  .rung:last-child { border-bottom: none; }
-  .audience-grid, .expertise-grid, .cap-grid, .audit-grid { grid-template-columns: 1fr; }
-  .testi-grid { grid-template-columns: 1fr; }
-  .arch-panel-inner { padding: 28px 24px; }
-  .arch-tabs { flex-direction: column; }
-  .section-archetypes, .section-how { padding: 64px 20px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .stat-block { border-right: none; border-bottom: 1px solid var(--line); }
+  .stat-block:last-child { border-bottom: none; }
+  .section-experts, .section-how { padding: 64px 20px; }
   .section-book { padding: 100px 20px; }
 }
 </style>
@@ -501,172 +481,7 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- 02. HIRE THE WAY THAT WORKS -->
-<section class="section" style="background:var(--bg-soft)">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>Hire the way that works for your business</h2>
-    </div>
-    <div class="hire-type-grid">
-      <div class="hire-type-card">
-        <h3>Full-time</h3>
-        <p>Find AI-native professionals who are ready to commit and contribute from day one.</p>
-      </div>
-      <div class="hire-type-card">
-        <h3>Contract</h3>
-        <p>Need to move fast? Bring in experts for a specific initiative, on a timeline that works for you.</p>
-      </div>
-      <div class="hire-type-card hire-type-card--featured">
-        <h3>Project-to-hire</h3>
-        <p>Start with a short-term project and convert to a full-time role when you're confident in the fit. No long-term commitment until you're ready to make one.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 03. EXPERTS ACROSS EVERY FUNCTION -->
-<section class="section-archetypes" id="role-types">
-  <div class="archetypes-inner">
-    <div class="section-head">
-      <h2>Experts across every function and industry</h2>
-    </div>
-    <div class="arch-tabs" role="tablist" aria-label="Expert archetypes">
-      <button class="arch-tab" role="tab" aria-selected="true"  aria-controls="panel-domain"     id="tab-domain">Domain professionals</button>
-      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-functional" id="tab-functional">Functional experts</button>
-      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-ai"         id="tab-ai">AI professionals</button>
-    </div>
-
-    <div class="arch-panel" id="panel-domain" role="tabpanel" aria-labelledby="tab-domain" aria-hidden="false">
-      <div class="arch-panel-inner">
-        <div>
-          <p class="arch-eyebrow">Domain professionals</p>
-          <h3 class="arch-headline">Industry experts who bring deep subject-matter knowledge to every role.</h3>
-          <p class="arch-body">These are the people whose value comes from what they know. Physicians, lawyers, accountants, financial analysts, educators, and specialists who bring years of domain depth to the roles that need it most. When the work requires someone who already understands how your industry thinks, operates, and makes decisions, this is where we start.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Find your domain expert →</a>
-        </div>
-        <div>
-          <p class="arch-detail-label">Example titles</p>
-          <div class="arch-titles">
-            <span class="arch-title-chip">Physician</span>
-            <span class="arch-title-chip">Nurse</span>
-            <span class="arch-title-chip">Pharmacist</span>
-            <span class="arch-title-chip">Lawyer</span>
-            <span class="arch-title-chip">Accountant</span>
-            <span class="arch-title-chip">Financial analyst</span>
-            <span class="arch-title-chip">Teacher</span>
-            <span class="arch-title-chip">Professor</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="arch-panel" id="panel-functional" role="tabpanel" aria-labelledby="tab-functional" aria-hidden="true">
-      <div class="arch-panel-inner">
-        <div>
-          <p class="arch-eyebrow">Functional experts</p>
-          <h3 class="arch-headline">Skilled professionals who use AI to work smarter and deliver more.</h3>
-          <p class="arch-body">Professionals who know their craft and have built AI fluency into how they work. They bring the skills, the professionalism, and the efficiency that growing teams need to move fast and get things done.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Find your functional expert →</a>
-        </div>
-        <div>
-          <p class="arch-detail-label">Example titles</p>
-          <div class="arch-titles">
-            <span class="arch-title-chip">Software engineer</span>
-            <span class="arch-title-chip">QA analyst</span>
-            <span class="arch-title-chip">Project manager</span>
-            <span class="arch-title-chip">Operations specialist</span>
-            <span class="arch-title-chip">Designer</span>
-            <span class="arch-title-chip">Content writer</span>
-            <span class="arch-title-chip">Linguist</span>
-            <span class="arch-title-chip">Annotator</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="arch-panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" aria-hidden="true">
-      <div class="arch-panel-inner">
-        <div>
-          <p class="arch-eyebrow">AI professionals</p>
-          <h3 class="arch-headline">Technical specialists who build, deploy, and scale AI systems.</h3>
-          <p class="arch-body">The people who work closest to the model, designing pipelines, writing prompts, evaluating outputs, and shipping AI products. If you're building something technical and need someone who can hit the ground running, this is your archetype.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Find your AI professional →</a>
-        </div>
-        <div>
-          <p class="arch-detail-label">Example titles</p>
-          <div class="arch-titles">
-            <span class="arch-title-chip">ML engineer</span>
-            <span class="arch-title-chip">Data scientist</span>
-            <span class="arch-title-chip">Prompt engineer</span>
-            <span class="arch-title-chip">AI product lead</span>
-            <span class="arch-title-chip">LLM evaluation specialist</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 04. HOW IT WORKS -->
-<section class="section-how">
-  <div class="how-inner">
-    <div class="section-head">
-      <h2>How it works</h2>
-    </div>
-    <div class="steps" id="stepsContainer">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <h4>Tell us what you need</h4>
-          <p>One conversation is all it takes. Share the role, the context, and what success looks like — and we'll handle the rest.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <h4>Meet your matches</h4>
-          <p>We surface candidates who fit your exact brief — the right function, industry, and AI fluency for what you're building.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <h4>Get started</h4>
-          <p>Welcome your new team member and hit the ground running. We handle the background checks, onboarding, payroll, and compliance, so you can focus on the work.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 05. STATS -->
-<section class="section-stats">
-  <div class="stats-card-wrap">
-    <div class="stats-portrait" role="img" aria-label="Domain expert" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&h=1200&fit=crop&q=80')">
-      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
-    </div>
-    <div class="stats-card-dark">
-      <div>
-        <div class="stat-big-num">80<span class="stat-unit">K+</span></div>
-        <div class="stat-big-label">Functional and domain experts</div>
-      </div>
-      <div>
-        <div class="stat-big-num">6,500</div>
-        <div class="stat-big-label">AI professionals</div>
-      </div>
-      <div>
-        <div class="stat-big-num">190</div>
-        <div class="stat-big-label">Countries represented</div>
-      </div>
-      <div>
-        <div class="stat-big-num">12 <span class="stat-unit">years</span></div>
-        <div class="stat-big-label">Building the most diverse AI talent network</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Logo bar -->
+<!-- Logos — right under hero -->
 <section class="section-logos">
   <div class="logos-track-wrap">
     <div class="logos-track">
@@ -692,6 +507,168 @@ h1.hero-headline {
       <img src="../logos/avery-dennison.png" alt="" aria-hidden="true" class="logo-img" loading="lazy">
       <img src="../logos/veracode.png"       alt="" aria-hidden="true" class="logo-img" loading="lazy">
       <img src="../logos/shure.png"          alt="" aria-hidden="true" class="logo-img" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- 02. HIRE THE WAY THAT WORKS -->
+<section class="section" style="background:var(--bg-soft)">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>Hire the way that works for your business</h2>
+    </div>
+    <div class="hire-type-grid">
+      <div class="hire-type-card">
+        <h3>Full-time</h3>
+        <p>Find AI-native professionals who are ready to commit and contribute from day one.</p>
+      </div>
+      <div class="hire-type-card">
+        <h3>Contract</h3>
+        <p>Need to move fast? Bring in experts for a specific initiative, on a timeline that works for you.</p>
+      </div>
+      <div class="hire-type-card hire-type-card--featured">
+        <h3>Project-to-hire</h3>
+        <p>Start with a short-term project and convert to a full-time role when you're confident in the fit. No long-term commitment until you're ready to make one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. EXPERTS — sc-stack cards, exact employers style -->
+<section class="section-experts" id="role-types">
+  <div class="experts-inner">
+    <div class="section-head">
+      <h2>Experts across every function and industry</h2>
+    </div>
+    <div class="sc-stack">
+
+      <div class="sc-card">
+        <div class="sc-left">
+          <span class="sc-tag">Domain professionals</span>
+          <h3>Industry experts who bring deep subject-matter knowledge to every role</h3>
+          <p class="sc-body">These are the people whose value comes from what they know. Physicians, lawyers, accountants, financial analysts, educators, and specialists who bring years of domain depth to the roles that need it most.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">Physician</span>
+            <span class="sc-title-chip">Nurse</span>
+            <span class="sc-title-chip">Lawyer</span>
+            <span class="sc-title-chip">Accountant</span>
+            <span class="sc-title-chip">Financial analyst</span>
+            <span class="sc-title-chip">Teacher</span>
+          </div>
+          <a href="../book/" class="sc-more">Find your domain expert →</a>
+        </div>
+        <div class="sc-right sc-right-domain">
+          <img class="sc-photo" src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=600&fit=crop&crop=faces&q=80" alt="">
+          <div class="sc-person-card">
+            <div class="sc-person-name">Dr. Amara O.</div>
+            <div class="sc-person-role">Clinical AI evaluator</div>
+            <hr class="sc-person-sep">
+            <div class="sc-person-verify">
+              <div class="sc-verify-dot"><svg width="8" height="8" viewBox="0 0 8 8" fill="none"><path d="M1.5 4l2 2L6.5 2" stroke="#0A8C66" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              Credentials verified
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-left">
+          <span class="sc-tag">Functional experts</span>
+          <h3>Skilled professionals who use AI to work smarter and deliver more</h3>
+          <p class="sc-body">Professionals who know their craft and have built AI fluency into how they work. They bring the skills, the professionalism, and the efficiency that growing teams need to move fast.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">Software engineer</span>
+            <span class="sc-title-chip">QA analyst</span>
+            <span class="sc-title-chip">Designer</span>
+            <span class="sc-title-chip">Content writer</span>
+            <span class="sc-title-chip">Linguist</span>
+            <span class="sc-title-chip">Annotator</span>
+          </div>
+          <a href="../book/" class="sc-more">Find your functional expert →</a>
+        </div>
+        <div class="sc-right sc-right-function">
+          <div class="sc-icon-wrap"><span class="sc-big-icon">⚙️</span></div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-left">
+          <span class="sc-tag">AI professionals</span>
+          <h3>Technical specialists who build, deploy, and scale AI systems</h3>
+          <p class="sc-body">The people who work closest to the model — designing pipelines, writing prompts, evaluating outputs, and shipping AI products. If you're building something technical, this is your archetype.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">ML engineer</span>
+            <span class="sc-title-chip">Data scientist</span>
+            <span class="sc-title-chip">Prompt engineer</span>
+            <span class="sc-title-chip">AI product lead</span>
+            <span class="sc-title-chip">LLM evaluator</span>
+          </div>
+          <a href="../book/" class="sc-more">Find your AI professional →</a>
+        </div>
+        <div class="sc-right sc-right-ai">
+          <div class="sc-icon-wrap"><span class="sc-big-icon">🤖</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04. HOW IT WORKS — exact talents layout -->
+<section class="section-how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>How it works</h2>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps" id="stepsContainer">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Tell us what you need</h4>
+            <p>One conversation is all it takes. Share the role, the context, and what success looks like — and we'll handle the rest.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>Meet your matches</h4>
+            <p>We surface candidates who fit your exact brief — the right function, industry, and AI fluency for what you're building.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Get started</h4>
+            <p>Welcome your new team member and hit the ground running. We handle the background checks, onboarding, payroll, and compliance, so you can focus on the work.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. STATS — clean 4-up grid, on brand -->
+<section class="section-stats">
+  <div class="stats-grid">
+    <div class="stat-block">
+      <div class="stat-block-num">80K+</div>
+      <div class="stat-block-label">Functional and domain experts</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">6,500</div>
+      <div class="stat-block-label">AI professionals</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">190</div>
+      <div class="stat-block-label">Countries represented</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-block-num">12 yrs</div>
+      <div class="stat-block-label">Building the most diverse AI talent network</div>
     </div>
   </div>
 </section>
@@ -762,89 +739,6 @@ h1.hero-headline {
 
 <script src="../ds/ptf.js"></script>
 <script>
-/* ── placeholder removed ── */
-(function(){
-  const track = document.getElementById('fhTrack');
-  if (!track) return;
-  const slides = [
-    { type: 'video', src: 'https://videos.pexels.com/video-files/7652209/7652209-uhd_1440_2560_30fps.mp4',   label: 'Clinical AI evaluators' },
-    { type: 'img',   src: '../photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg',                label: 'Legal professionals' },
-    { type: 'img',   src: '../photos/14.white-man-laptop.jpg',                                               label: 'Research scientists' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/7981969/7981969-uhd_2560_1440_30fps.mp4',  label: 'Finance experts' },
-    { type: 'img',   src: '../photos/15.muslim-lady.jpg', mediaStyle: 'object-position: center 25%;',       label: 'Data scientists' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/8202005/8202005-uhd_2560_1440_25fps.mp4',  label: 'Healthcare professionals' },
-    { type: 'img',   src: '../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg',                   label: 'Domain experts' },
-    { type: 'img',   src: '../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg',     label: 'AI consultants' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/3044691/3044691-uhd_2560_1440_24fps.mp4',  label: 'ML engineers' },
-    { type: 'img',   src: '../photos/05.fat-white-lady-allgo-an-app-for-plus-size-people-39qdb4V84YI-unsplash.jpg', label: 'Multilingual reviewers' },
-    { type: 'img',   src: '../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg',                 label: 'RLHF specialists' },
-    { type: 'video', src: 'https://videos.pexels.com/video-files/6883838/6883838-uhd_1440_2732_25fps.mp4',  label: 'Red team analysts' },
-    { type: 'img',   src: '../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg',        label: 'Clinicians' },
-    { type: 'img',   src: '../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg', label: 'QA specialists' },
-    { type: 'img',   src: '../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg',                  label: 'Functional experts' },
-  ];
-  const cohorts = slides.map(s => s.label);
-  const N = slides.length;
-  const TRANSITION = 'transform 0.65s cubic-bezier(0.4, 0, 0.2, 1)';
-  const tints = ['rgb(200,215,225)','rgb(215,210,220)','rgb(210,205,218)','rgb(200,220,215)','rgb(225,215,200)','rgb(210,225,215)','rgb(200,215,225)','rgb(218,208,222)','rgb(212,210,205)','rgb(210,205,218)','rgb(205,212,222)','rgb(225,215,200)','rgb(200,215,225)','rgb(215,220,200)','rgb(210,225,215)'];
-  function makeSlideEl(slide) {
-    const div = document.createElement('div'); div.className = 'fh-slide';
-    if (slide.type === 'video') {
-      const v = document.createElement('video');
-      v.src = slide.src; v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
-      v.setAttribute('playsinline',''); v.className = 'fh-media loaded';
-      v.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;' + (slide.mediaStyle || '');
-      div.appendChild(v);
-    } else {
-      const img = document.createElement('img');
-      img.alt = slide.label; img.className = 'fh-media';
-      img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;' + (slide.mediaStyle || '');
-      img.onload = () => img.classList.add('loaded'); img.src = slide.src;
-      div.appendChild(img);
-    }
-    return div;
-  }
-  track.appendChild(makeSlideEl(slides[N-1]));
-  slides.forEach(s => track.appendChild(makeSlideEl(s)));
-  track.appendChild(makeSlideEl(slides[0]));
-  let trackPos = 1, ci = 0, charI = 0, deleting = false, paused = false;
-  function slideW() { const el = track.querySelector('.fh-slide'); return el ? el.offsetWidth + 12 : 0; }
-  function moveTo(pos, animate) { track.style.transition = animate ? TRANSITION : 'none'; track.style.transform = 'translateX(-' + (pos * slideW()) + 'px)'; }
-  function setActive(idx) { const shadow = document.getElementById('fhCardShadow'); if (shadow) shadow.style.background = tints[idx % tints.length]; }
-  track.addEventListener('transitionend', () => {
-    if (trackPos === N + 1) { trackPos = 1; moveTo(trackPos, false); }
-    else if (trackPos === 0) { trackPos = N; moveTo(trackPos, false); }
-  });
-  moveTo(trackPos, false); setActive(ci);
-  const ghost = document.getElementById('fhGhost');
-  if (ghost) cohorts.forEach(c => { const s = document.createElement('div'); s.textContent = c; ghost.appendChild(s); });
-  const typedEl = document.getElementById('fhTyped');
-  const TYPE_SPEED = 55, DEL_SPEED = 28, HOLD = 2400, PAUSE_BETWEEN = 380;
-  function typeTick() {
-    if (paused) { setTimeout(typeTick, 200); return; }
-    const word = cohorts[ci];
-    if (!deleting) {
-      charI++; typedEl.textContent = word.slice(0, charI); typedEl.style.width = typedEl.scrollWidth + 'px';
-      if (charI === word.length) { deleting = true; setTimeout(typeTick, HOLD); return; }
-    } else {
-      charI--; typedEl.textContent = word.slice(0, charI); typedEl.style.width = charI > 0 ? typedEl.scrollWidth + 'px' : '0px';
-      if (charI === 0) {
-        deleting = false; ci = (ci + 1) % N; trackPos++; moveTo(trackPos, true); setActive(ci);
-        setTimeout(typeTick, PAUSE_BETWEEN); return;
-      }
-    }
-    setTimeout(typeTick, deleting ? DEL_SPEED : TYPE_SPEED);
-  }
-  setTimeout(typeTick, 900);
-  const pauseBtn = document.getElementById('fhPause');
-  if (pauseBtn) pauseBtn.addEventListener('click', () => { paused = !paused; pauseBtn.textContent = paused ? '▶' : '⏸'; });
-  const fhLogoTrack = document.getElementById('fhLogosTrack');
-  if (fhLogoTrack && window.PTF) {
-    const logos = ['avery-dennison','expedia','google','nestle','shure','sp-global','stryker','veracode','visa','zapier','zillow'];
-    PTF.initMarquee(fhLogoTrack, logos.map(n => '<img class="fh-logo-img" src="../logos/' + n + '.png" alt="' + n + '">'));
-  }
-})();
-
 /* ── Mega nav flyouts ── */
 (function () {
   var btns    = document.querySelectorAll('.nav-btn[data-fly]');
@@ -868,23 +762,6 @@ h1.hero-headline {
   });
   if (overlay) overlay.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
-}());
-
-/* ── Archetype tabs ── */
-(function () {
-  var tabs   = document.querySelectorAll('.arch-tab');
-  var panels = document.querySelectorAll('.arch-panel');
-  function activate(i) {
-    tabs.forEach(function (t, j) { t.setAttribute('aria-selected', i === j ? 'true' : 'false'); });
-    panels.forEach(function (p, j) { p.setAttribute('aria-hidden', i === j ? 'false' : 'true'); });
-  }
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { activate(i); });
-    tab.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { var n = (i + 1) % tabs.length; activate(n); tabs[n].focus(); }
-      if (e.key === 'ArrowLeft')  { var p = (i + tabs.length - 1) % tabs.length; activate(p); tabs[p].focus(); }
-    });
-  });
 }());
 
 /* ── Timeline scroll fade-in ── */
