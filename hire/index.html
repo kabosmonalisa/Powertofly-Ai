@@ -124,30 +124,34 @@ h1.hero-headline {
 .expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
-/* ── Hire types — person center, cards floating around ── */
-.hire-around-wrap { position: relative; max-width: 1060px; margin: 0 auto; min-height: 640px; }
+/* ── Hire types — sticky scroll, cards converge ── */
+.hire-scroll-outer { padding: 100px 32px 0; }
+.hire-scroll-outer .section-head { max-width: 720px; margin: 0 auto 64px; text-align: center; }
+.hire-sticky-scene { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.hire-around-wrap { position: relative; width: 100%; max-width: 1000px; height: 560px; }
+.hire-scroll-pad { height: 60vh; } /* scroll room after sticky releases */
 .hire-center-portrait {
-  position: absolute; top: 0; bottom: 0;
-  left: 50%; transform: translateX(-50%);
-  width: 340px; border-radius: 24px;
-  background-size: cover; background-position: center top;
-  box-shadow: 0 24px 60px rgba(15,30,26,0.18);
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 320px; height: 100%;
+  border-radius: 24px; background-size: cover; background-position: center top;
+  box-shadow: 0 24px 60px rgba(15,30,26,0.18); z-index: 1;
 }
 .hire-float {
-  position: absolute; z-index: 2;
+  position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  padding: 22px 24px; width: 270px;
+  padding: 20px 22px; width: 260px;
 }
-.hire-float-1 { top: 40px; left: 0; opacity: 0; transform: translateX(-32px); transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22,1,0.36,1); }
-.hire-float-2 { top: 50%; right: 0; transform: translateY(-50%) translateX(32px); opacity: 0; transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22,1,0.36,1) 120ms; }
-.hire-float-3 { bottom: 40px; left: 40px; opacity: 0; transform: translateY(32px); transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22,1,0.36,1) 240ms; }
-.hire-float-1.visible { opacity: 1; transform: translateX(0); }
-.hire-float-2.visible { opacity: 1; transform: translateY(-50%) translateX(0); }
-.hire-float-3.visible { opacity: 1; transform: translateY(0); }
+/* Start: far away. End: overlapping the portrait */
+.hire-float-1 { top: 40px; left: 80px; opacity: 0; transform: translate(-120px, -60px) scale(0.92); transition: opacity 700ms ease, transform 700ms cubic-bezier(0.22,1,0.36,1); }
+.hire-float-2 { top: 50%; right: 60px; opacity: 0; transform: translateY(-50%) translateX(120px) scale(0.92); transition: opacity 700ms ease 150ms, transform 700ms cubic-bezier(0.22,1,0.36,1) 150ms; }
+.hire-float-3 { bottom: 40px; left: 140px; opacity: 0; transform: translate(-60px, 100px) scale(0.92); transition: opacity 700ms ease 300ms, transform 700ms cubic-bezier(0.22,1,0.36,1) 300ms; }
+.hire-float-1.visible { opacity: 1; transform: translate(0,0) scale(1); }
+.hire-float-2.visible { opacity: 1; transform: translateY(-50%) translateX(0) scale(1); }
+.hire-float-3.visible { opacity: 1; transform: translate(0,0) scale(1); }
 .hire-float-eyebrow { font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
-.hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 6px; }
-.hire-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+.hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; }
+.hire-float p { font-size: 12.5px; color: var(--ink-3); line-height: 1.55; }
 
 /* ── sc-cards — exact from employers ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
@@ -282,9 +286,11 @@ h1.hero-headline {
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .nav-inner, .footer-inner { max-width: 1400px; }
-  .hire-around-wrap { min-height: auto; display: flex; flex-direction: column; gap: 16px; }
+  .hire-sticky-scene { position: static; height: auto; padding: 40px 0; flex-direction: column; gap: 20px; }
+  .hire-around-wrap { height: auto; display: flex; flex-direction: column; gap: 16px; }
   .hire-center-portrait { position: static; width: 100%; aspect-ratio: 4/3; transform: none; }
   .hire-float { position: static; width: 100%; transform: none !important; opacity: 1 !important; }
+  .hire-scroll-pad { display: none; }
   .stats-grid { max-width: 100%; }
   .sc-card { grid-template-columns: 1fr; height: auto; }
   .sc-right { display: block; height: 240px; }
@@ -552,14 +558,14 @@ h1.hero-headline {
 </section>
 
 <!-- 02. HIRE THE WAY THAT WORKS -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>Hire the way that works for your business</h2>
-    </div>
+<section class="hire-scroll-outer">
+  <div class="section-head">
+    <h2>Hire the way that works for your business</h2>
+  </div>
+  <div class="hire-sticky-scene">
     <div class="hire-around-wrap">
 
-      <div class="hire-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&h=900&fit=crop&crop=faces&q=80')"></div>
+      <div class="hire-center-portrait" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div>
 
       <div class="hire-float hire-float-1">
         <p class="hire-float-eyebrow">Full-time</p>
@@ -581,6 +587,7 @@ h1.hero-headline {
 
     </div>
   </div>
+  <div class="hire-scroll-pad"></div>
 </section>
 
 <!-- 03. EXPERTS — sc-stack cards, exact employers style -->
@@ -895,15 +902,22 @@ h1.hero-headline {
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 }());
 
-/* ── Hire float cards animate in ── */
+/* ── Hire cards converge on scroll ── */
 (function () {
+  var scene = document.querySelector('.hire-sticky-scene');
   var cards = document.querySelectorAll('.hire-float');
-  if (!cards.length) return;
+  if (!scene || !cards.length) return;
   if (!('IntersectionObserver' in window)) { cards.forEach(function(c){ c.classList.add('visible'); }); return; }
+  var triggered = false;
   var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  cards.forEach(function(c){ obs.observe(c); });
+    entries.forEach(function(e){
+      if (e.isIntersecting && !triggered) {
+        triggered = true;
+        cards.forEach(function(c){ c.classList.add('visible'); });
+      }
+    });
+  }, { threshold: 0.3 });
+  obs.observe(scene);
 }());
 
 /* ── Timeline scroll fade-in ── */
