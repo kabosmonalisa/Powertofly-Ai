@@ -1176,11 +1176,11 @@ h1.hero-headline {
   0%, 100% { transform: translateY(0px); }
   50%       { transform: translateY(-14px); }
 }
-.benefits-row {
+.why-row {
   display: flex; flex-direction: column; gap: 20px;
   max-width: 820px; margin: 0 auto;
 }
-.benefit-card {
+.why-card {
   width: 100%; min-height: 160px;
   border-radius: var(--r-xl);
   border: 1px solid var(--line);
@@ -1188,23 +1188,23 @@ h1.hero-headline {
   background: #fff;
   display: flex; align-items: stretch;
 }
-.benefit-spark-col {
+.why-spark-col {
   display: flex; align-items: center; justify-content: center;
   padding: 20px 18px; flex-shrink: 0;
 }
-.benefit-spark-col svg { width: 68px; height: 68px; }
-.benefit-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0; }
-.benefit-body { padding: 20px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
-.benefit-eyebrow {
+.why-spark-col svg { width: 68px; height: 68px; }
+.why-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0; }
+.why-body { padding: 20px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+.why-eyebrow {
   font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
   text-transform: uppercase; color: #0A8C66;
 }
-.benefit-card h3 {
+.why-card h3 {
   font-family: 'Inter Tight', sans-serif;
   font-size: 17px; font-weight: 700;
   letter-spacing: -0.025em; line-height: 1.2; color: var(--ink);
 }
-.benefit-card p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
+.why-card p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
 
 /* ===== Business Outcomes ===== */
 /* ===== Outcomes — floating card scene ===== */
@@ -1250,9 +1250,9 @@ h1.hero-headline {
   .oc-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 460px; height: auto; }
 }
 @media (max-width: 600px) {
-  .benefit-spark-col { padding: 16px 14px; }
-  .benefit-spark-col svg { width: 48px; height: 48px; }
-  .benefit-body { padding: 16px; }
+  .why-spark-col { padding: 16px 14px; }
+  .why-spark-col svg { width: 48px; height: 48px; }
+  .why-body { padding: 16px; }
 }
 
 
@@ -1725,48 +1725,48 @@ h1.hero-headline {
     <div class="section-head">
       <h2>Why Companies Choose PowerToFly</h2>
     </div>
-    <div class="benefits-row">
+    <div class="why-row">
 
-      <div class="benefit-card">
-        <div class="benefit-spark-col">
+      <div class="why-card">
+        <div class="why-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="wc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <path fill="url(#wc1)" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
           </svg>
         </div>
-        <div class="benefit-vline"></div>
-        <div class="benefit-body">
-          <span class="benefit-eyebrow">Domain Expertise</span>
+        <div class="why-vline"></div>
+        <div class="why-body">
+          <span class="why-eyebrow">Domain Expertise</span>
           <h3>An expert community you can't find anywhere else.</h3>
           <p>Verified mid-to-senior professionals spanning every industry and function, ready to contribute from day one.</p>
         </div>
       </div>
 
-      <div class="benefit-card">
-        <div class="benefit-spark-col">
+      <div class="why-card">
+        <div class="why-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="wc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <path fill="url(#wc2)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
           </svg>
         </div>
-        <div class="benefit-vline"></div>
-        <div class="benefit-body">
-          <span class="benefit-eyebrow">Global Reach</span>
+        <div class="why-vline"></div>
+        <div class="why-body">
+          <span class="why-eyebrow">Global Reach</span>
           <h3>Built on relationships no algorithm can replicate.</h3>
           <p>80%+ women and 70%+ BIPOC — the perspectives your AI needs to work for everyone.</p>
         </div>
       </div>
 
-      <div class="benefit-card">
-        <div class="benefit-spark-col">
+      <div class="why-card">
+        <div class="why-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="wc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <path fill="url(#wc3)" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
           </svg>
         </div>
-        <div class="benefit-vline"></div>
-        <div class="benefit-body">
-          <span class="benefit-eyebrow">Flexible Pricing</span>
+        <div class="why-vline"></div>
+        <div class="why-body">
+          <span class="why-eyebrow">Flexible Pricing</span>
           <h3>Representative AI talent, priced so every team can access it.</h3>
           <p>No surprise markups. Staff aug, retained search, or project-to-hire — options that flex as your needs evolve.</p>
         </div>
