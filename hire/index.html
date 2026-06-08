@@ -128,6 +128,10 @@ h1.hero-headline {
 .hire-section-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .hire-portrait { border-radius: 28px; overflow: hidden; aspect-ratio: 3/4; background-size: cover; background-position: center top; position: sticky; top: 100px; }
 .hire-cards { display: flex; flex-direction: column; gap: 16px; }
+.hire-card-animated { opacity: 0; transform: translateX(48px); transition: opacity 560ms ease, transform 560ms cubic-bezier(0.22,1,0.36,1); }
+.hire-card-animated:nth-child(2) { transition-delay: 120ms; }
+.hire-card-animated:nth-child(3) { transition-delay: 240ms; }
+.hire-card-animated.visible { opacity: 1; transform: translateX(0); }
 
 /* ── sc-cards — exact from employers ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
@@ -168,10 +172,10 @@ h1.hero-headline {
 .sc-big-icon { font-size: 80px; opacity: 0.18; }
 
 /* ── How it works — exact talents layout ── */
-.section-how { background: var(--bg-soft); padding: 100px 32px; }
+.section-how { background: var(--bg); padding: 100px 32px; }
 .how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background-image: url('https://images.unsplash.com/photo-1556761175-4b46a572b786?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center 30%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
@@ -205,13 +209,13 @@ h1.hero-headline {
 .how-admin { margin-top: 48px; padding: 28px 32px; border-radius: var(--r-xl); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.6; }
 .how-admin strong { color: #4FE8A9; font-weight: 600; }
 
-/* ── Stats — clean 4-up grid ── */
-.section-stats { background: var(--bg); padding: 100px 32px; }
-.stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid var(--line); }
-.stat-block { padding: 48px 36px; background: var(--bg); border-right: 1px solid var(--line); }
+/* ── Stats — dark background ── */
+.section-stats { background: var(--ink); padding: 100px 32px; }
+.stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
+.stat-block { padding: 48px 36px; background: rgba(255,255,255,0.04); border-right: 1px solid rgba(255,255,255,0.08); }
 .stat-block:last-child { border-right: none; }
-.stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(42px, 5vw, 72px); line-height: 1; letter-spacing: -0.04em; color: var(--ink); }
-.stat-block-label { margin-top: 12px; font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+.stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(42px, 5vw, 72px); line-height: 1; letter-spacing: -0.04em; color: #fff; }
+.stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
 /* ── Logo marquee ── */
 .section-logos { padding: 64px 0; overflow: hidden; background: var(--bg); }
@@ -252,6 +256,7 @@ h1.hero-headline {
   .how-portrait-card { aspect-ratio: 4/3; }
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-block:nth-child(2) { border-right: none; }
+  .stat-block:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.08); }
 }
 @media (max-width: 600px) {
   .hero { padding: 64px 20px 56px; }
@@ -509,17 +514,17 @@ h1.hero-headline {
 </section>
 
 <!-- 02. HIRE THE WAY THAT WORKS -->
-<section class="section" style="background:var(--bg-soft)">
+<section class="section">
   <div class="section-narrow">
     <div class="section-head">
       <h2>Hire the way that works for your business</h2>
     </div>
     <div class="hire-section-inner">
 
-      <div class="hire-portrait" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=1200&fit=crop&crop=faces&q=80')"></div>
+      <div class="hire-portrait" style="background-image:url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=800&h=1200&fit=crop&crop=faces&q=80')"></div>
 
       <div class="hire-cards">
-        <div class="benefit-card">
+        <div class="benefit-card hire-card-animated">
           <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs><linearGradient id="ht1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#ht1)"/>
@@ -529,7 +534,7 @@ h1.hero-headline {
           <p>Find AI-native professionals who are in it for the long term — people who grow with your team and build expertise in your specific context.</p>
         </div>
 
-        <div class="benefit-card">
+        <div class="benefit-card hire-card-animated">
           <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs><linearGradient id="ht2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <path d="M 14,90 A 76,24 0 0 0 166,90" fill="none" stroke="url(#ht2)" stroke-width="16" stroke-linecap="round" transform="rotate(-20 90 90)"/>
@@ -541,7 +546,7 @@ h1.hero-headline {
           <p>Need to move fast? Bring in verified experts for a defined scope — no lengthy recruiting process, no long-term commitment until you're ready.</p>
         </div>
 
-        <div class="benefit-card">
+        <div class="benefit-card hire-card-animated">
           <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <defs><linearGradient id="ht3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
             <text x="90" y="128" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="148" fill="url(#ht3)" text-anchor="middle">→</text>
@@ -609,7 +614,38 @@ h1.hero-headline {
           <a href="../book/" class="sc-more">Find your functional expert →</a>
         </div>
         <div class="sc-right sc-right-function">
-          <div class="sc-icon-wrap"><span class="sc-big-icon">⚙️</span></div>
+          <div class="sc-mock-wrap">
+            <div class="sc-mock-stack">
+              <div class="sc-mock-peek-card"></div>
+              <div class="sc-mock">
+                <div class="sc-mock-hd">
+                  <div class="sc-mock-icon-box">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="#0A8C66"><path d="M8 0a8 8 0 100 16A8 8 0 008 0zm3.5 7H9V4.5a1 1 0 00-2 0V8a1 1 0 00.29.71l2.5 2.5a1 1 0 001.42-1.42L9.5 8.29V7h2a1 1 0 000-2z"/></svg>
+                  </div>
+                  <span class="sc-mock-title">Active engagements</span>
+                </div>
+                <div class="sc-mock-sub">3 functional experts placed</div>
+                <hr class="sc-mock-hr">
+                <div class="sc-mock-rows">
+                  <div class="sc-mock-row active">
+                    <span class="sc-mock-row-lbl">QA engineer · Fintech audit</span>
+                    <span class="sc-badge sc-badge-green">Active</span>
+                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  </div>
+                  <div class="sc-mock-row">
+                    <span class="sc-mock-row-lbl">Content writer · LLM eval</span>
+                    <span class="sc-badge sc-badge-amber">Starting soon</span>
+                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  </div>
+                  <div class="sc-mock-row">
+                    <span class="sc-mock-row-lbl">Operations specialist · AI ops</span>
+                    <span class="sc-badge sc-badge-gray">Matched</span>
+                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -628,7 +664,38 @@ h1.hero-headline {
           <a href="../book/" class="sc-more">Find your AI professional →</a>
         </div>
         <div class="sc-right sc-right-ai">
-          <div class="sc-icon-wrap"><span class="sc-big-icon">🤖</span></div>
+          <div class="sc-mock-wrap">
+            <div class="sc-mock-stack">
+              <div class="sc-mock-peek-card"></div>
+              <div class="sc-mock">
+                <div class="sc-mock-hd">
+                  <div class="sc-mock-icon-box">
+                    <svg width="14" height="14" viewBox="0 0 16 16" fill="#0A8C66"><path d="M6 1a1 1 0 000 2h4a1 1 0 000-2H6zM3 5a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2V5zm2 1a1 1 0 000 2h.01a1 1 0 000-2H5zm2 0a1 1 0 011 1v2a1 1 0 01-2 0V7a1 1 0 011-1zm3 0a1 1 0 000 2h.01a1 1 0 000-2H10z"/></svg>
+                  </div>
+                  <span class="sc-mock-title">Model evaluation results</span>
+                </div>
+                <div class="sc-mock-sub">LLM evaluation · 48 outputs reviewed</div>
+                <hr class="sc-mock-hr">
+                <div class="sc-mock-rows">
+                  <div class="sc-mock-row active">
+                    <span class="sc-mock-row-lbl">Accuracy · Clinical QA</span>
+                    <span class="sc-badge sc-badge-green">94.2%</span>
+                    <span class="sc-status-done">✓</span>
+                  </div>
+                  <div class="sc-mock-row active">
+                    <span class="sc-mock-row-lbl">Hallucination rate</span>
+                    <span class="sc-badge sc-badge-green">1.4%</span>
+                    <span class="sc-status-done">✓</span>
+                  </div>
+                  <div class="sc-mock-row">
+                    <span class="sc-mock-row-lbl">Red team · adversarial</span>
+                    <span class="sc-badge sc-badge-amber">In review</span>
+                    <span class="sc-status-prog">↻</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -784,6 +851,17 @@ h1.hero-headline {
   });
   if (overlay) overlay.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+}());
+
+/* ── Hire cards slide-in ── */
+(function () {
+  var cards = document.querySelectorAll('.hire-card-animated');
+  if (!cards.length) return;
+  if (!('IntersectionObserver' in window)) { cards.forEach(function(c){ c.classList.add('visible'); }); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  cards.forEach(function(c){ obs.observe(c); });
 }());
 
 /* ── Timeline scroll fade-in ── */
