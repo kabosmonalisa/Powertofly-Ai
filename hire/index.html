@@ -17,6 +17,14 @@
  * PAGE-SPECIFIC STYLES ONLY
  */
 
+/* ── Top alert bar ── */
+.top-alert { background: var(--purple-light); color: var(--purple); display: flex; align-items: center; justify-content: center; gap: 12px; padding: 10px 20px; font-size: 13.5px; font-weight: 500; line-height: 1.4; position: relative; }
+.top-alert a { color: var(--purple); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+.top-alert a:hover { opacity: 0.75; }
+.top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--purple); opacity: 0.6; padding: 4px; display: flex; align-items: center; justify-content: center; }
+.top-alert-close:hover { opacity: 1; }
+.top-alert.hidden { display: none; }
+
 /* ── Employers-style mega nav ── */
 .nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
 .nav-drop  { position: static; }
@@ -335,6 +343,15 @@ h1.hero-headline {
 </style>
 </head>
 <body>
+
+<!-- ═══ TOP ALERT ═══ -->
+<div class="top-alert" id="topAlert">
+  🖥️ Join our PRIDE Summit &amp; Virtual Job Fair on June 24–25 &nbsp;
+  <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register now →</a>
+  <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
 
 <!-- ═══ NAV — exact employers nav ═══ -->
 <nav class="nav" id="mainNav">
@@ -890,6 +907,12 @@ h1.hero-headline {
 
 <script src="../ds/ptf.js"></script>
 <script>
+/* ── Top alert close ── */
+(function(){
+  var btn = document.getElementById('topAlertClose');
+  if (btn) btn.addEventListener('click', function(){ document.getElementById('topAlert').classList.add('hidden'); });
+}());
+
 /* ── Mega nav flyouts ── */
 (function () {
   var btns    = document.querySelectorAll('.nav-btn[data-fly]');
