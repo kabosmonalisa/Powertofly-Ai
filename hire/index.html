@@ -160,14 +160,11 @@ h1.hero-headline {
 /* ── Experts list ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
 .experts-inner { max-width: 1200px; margin: 0 auto; }
-.experts-list { display: flex; flex-direction: column; gap: 24px; }
+.experts-list { display: flex; flex-direction: column; }
 .expert-row {
-  border-radius: 20px;
-  border: 1px solid rgba(10,10,10,0.1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
-  overflow: hidden;
   display: grid; grid-template-columns: 1fr 1fr;
-  background: #fff; min-height: 360px;
+  min-height: 360px;
+  border-top: 1px solid var(--line);
 }
 .sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .sc-tag { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; background: rgba(79,232,169,0.14); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0A8C66; width: fit-content; }
@@ -214,7 +211,7 @@ h1.hero-headline {
 .section-how { background: var(--bg); padding: 100px 32px; }
 .how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; height: 100%; min-height: 480px; background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 1/1; background-image: url('https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&h=900&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
