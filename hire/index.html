@@ -135,13 +135,14 @@ h1.hero-headline {
 .stat-big-label { margin-top: 10px; font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.58); letter-spacing: 0.01em; line-height: 1.45; }
 @media (max-width: 900px) { .stats-card-wrap { grid-template-columns: 1fr; } .stats-portrait { aspect-ratio: 4/3; } .stats-card-dark { padding: 48px 32px; } }
 
-/* ── Who it's for ── */
-.audience-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1100px; margin: 0 auto; }
-.audience-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px 22px; background: var(--bg); transition: transform 180ms ease, box-shadow 180ms ease; }
-.audience-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
-.audience-icon { width: 36px; height: 36px; border-radius: var(--r-sm); background: var(--bg-soft); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px; }
-.audience-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 6px; }
-.audience-card p { font-size: 13.5px; color: var(--ink-3); line-height: 1.5; }
+/* ── Hire type cards ── */
+.hire-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
+.hire-type-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 28px; background: var(--bg); }
+.hire-type-card--featured { background: var(--ink); border-color: var(--ink); }
+.hire-type-card--featured h3 { color: #fff; }
+.hire-type-card--featured p { color: rgba(255,255,255,0.65); }
+.hire-type-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; }
+.hire-type-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
 
 
 /* ── Trust ladder ── */
@@ -489,249 +490,116 @@ h1.hero-headline {
 
 <main>
 
-<!-- 1. HERO -->
+<!-- 01. HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <h1 class="hero-headline">Hire AI experts who already <em class="italic-plain">know</em> your industry</h1>
-    <p class="hero-sub">80K+ verified domain and functional experts — vetted, traceable, and ready to deploy. Not anonymous crowds. People who understand what your AI is actually doing.</p>
+    <h1 class="hero-headline">Find the expert who moves your business <em class="italic-plain">forward.</em></h1>
+    <p class="hero-sub">One great hire changes what's possible. PowerToFly connects you with AI-native professionals who come with the tools, skills, and knowledge to hit the ground running.</p>
     <div class="hero-ctas">
       <a href="../book/" class="btn btn-primary">Book a discovery call →</a>
-      <a href="#role-types" class="btn">See who we have</a>
-    </div>
-    <div class="deploy-pill"><span class="deploy-dot"></span> <!-- COPY: confirm --> Ready to deploy</div>
-    <div class="hero-card-wrap">
-      <div class="expert-card">
-        <div class="expert-avatar">
-          <img src="https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=88&h=88&fit=crop&crop=faces&q=80" alt="" loading="lazy">
-        </div>
-        <div>
-          <!-- COPY: confirm -->
-          <div class="expert-name">Dr. Amara O.</div>
-          <div class="expert-role">Clinical AI evaluator · 12 yrs oncology</div>
-        </div>
-        <div class="expert-badge"><span class="dot"></span> Verified</div>
-      </div>
     </div>
   </div>
 </section>
 
-<!-- 2. WHO IT'S FOR -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>Who hires through PowerToFly AI</h2>
-      <p>Teams that can't afford anonymous — where domain knowledge is the difference between useful AI and dangerous AI.</p>
-    </div>
-    <div class="audience-grid">
-      <div class="audience-card">
-        <div class="audience-icon">🧬</div>
-        <h3>AI labs &amp; model builders</h3>
-        <p>Pre-training data, RLHF, red teaming, and evaluation that needs people who understand the domain, not just the task.</p>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">🏥</div>
-        <h3>Enterprises in regulated fields</h3>
-        <p>Healthcare, finance, and legal teams deploying AI where a wrong answer has real consequences — and your board needs a paper trail.</p>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">📊</div>
-        <h3>Product teams needing domain-grounded data</h3>
-        <p>Engineers who need subject-matter experts to generate, label, and validate the examples that make their models work.</p>
-      </div>
-      <div class="audience-card">
-        <div class="audience-icon">🌍</div>
-        <h3>Teams that need representative talent</h3>
-        <p>75%+ of our network is women and BIPOC. When your AI is built by people who look like the world it serves, it performs better.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 3. STATS PORTRAIT — exact from employers -->
-<section class="section-stats">
-  <div class="stats-card-wrap">
-    <div class="stats-portrait" role="img" aria-label="Domain expert portrait" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&h=1200&fit=crop&q=80')">
-      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
-    </div>
-    <div class="stats-card-dark">
-      <div>
-        <div class="stat-big-num">80<span class="stat-unit">K+</span></div>
-        <div class="stat-big-label">Verified domain &amp; functional experts — the people no anonymous platform can match</div>
-      </div>
-      <div>
-        <div class="stat-big-num">190</div>
-        <!-- COPY: confirm -->
-        <div class="stat-big-label">Countries in our network — native speakers, regional domain experts, global coverage</div>
-      </div>
-      <div>
-        <div class="stat-big-num">0</div>
-        <div class="stat-big-label">Competitors operating at the talent layer with verified credentials, diversity, and auditable outputs</div>
-      </div>
-      <div>
-        <div class="stat-big-num">12<span class="stat-unit">+</span></div>
-        <div class="stat-big-label">Years building the most trusted AI talent community in the world</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. TRUST LADDER -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>How a person becomes ready to deploy</h2>
-      <p>Every expert in our network has passed all five rungs. There are no shortcuts.</p>
-    </div>
-    <div class="trust-ladder">
-      <div class="rung">
-        <div class="rung-step">Step 01</div>
-        <div class="rung-label">Verified</div>
-        <p class="rung-desc">Identity, credentials, and professional history confirmed — not self-reported.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-step">Step 02</div>
-        <div class="rung-label">Vetted</div>
-        <p class="rung-desc">Domain knowledge assessed through structured screening — not a resume scan.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-step">Step 03</div>
-        <div class="rung-label">Qualified</div>
-        <p class="rung-desc">Matched to a capability tier based on demonstrated skill depth, not job title.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-step">Step 04</div>
-        <div class="rung-label">Trusted</div>
-        <p class="rung-desc">Performance history on real projects — completion rate, quality scores, client feedback.</p>
-      </div>
-      <div class="rung">
-        <div class="rung-step">Step 05</div>
-        <div class="rung-label">Ready to deploy</div>
-        <p class="rung-desc">Cleared for your project. Background-checked, onboarded, ready to start in days.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 5. DOMAIN EXPERTISE -->
+<!-- 02. HIRE THE WAY THAT WORKS -->
 <section class="section" style="background:var(--bg-soft)">
   <div class="section-narrow">
     <div class="section-head">
-      <h2>What domain expertise actually looks like</h2>
-      <p>Not abstract "AI workers." People with real careers, catching the things a generalist would miss.</p>
+      <h2>Hire the way that works for your business</h2>
     </div>
-    <div class="expertise-grid">
-      <div class="expertise-card">
-        <p class="exp-role">Clinician · Healthcare AI</p>
-        <p class="exp-task">Reviewing a diagnostic model's output for a rare pulmonary condition</p>
-        <p class="exp-desc">A physician with 10 years in respiratory medicine catching a false negative that a data labeler with no clinical background couldn't have flagged.</p>
+    <div class="hire-type-grid">
+      <div class="hire-type-card">
+        <h3>Full-time</h3>
+        <p>Find AI-native professionals who are ready to commit and contribute from day one.</p>
       </div>
-      <div class="expertise-card">
-        <p class="exp-role">Attorney · Legal AI</p>
-        <p class="exp-task">Annotating contract clauses in a document-understanding model</p>
-        <p class="exp-desc">A practicing lawyer who knows that "material adverse change" means something specific — and that the model's interpretation would never hold up in court.</p>
+      <div class="hire-type-card">
+        <h3>Contract</h3>
+        <p>Need to move fast? Bring in experts for a specific initiative, on a timeline that works for you.</p>
       </div>
-      <div class="expertise-card">
-        <p class="exp-role">CFA · Financial AI</p>
-        <p class="exp-task">Validating an earnings forecast model against regulatory standards</p>
-        <p class="exp-desc">A chartered analyst who spots that the model is extrapolating from pre-restatement figures — an error a non-specialist reviewer wouldn't catch.</p>
-      </div>
-      <div class="expertise-card">
-        <p class="exp-role">Multilingual reviewer · Regional AI</p>
-        <p class="exp-task">Catching a culturally offensive framing in a localized model output</p>
-        <p class="exp-desc">A native speaker who identifies that the model's phrasing is grammatically correct but socially unacceptable in that market — something no translation tool surfaces.</p>
+      <div class="hire-type-card hire-type-card--featured">
+        <h3>Project-to-hire</h3>
+        <p>Start with a short-term project and convert to a full-time role when you're confident in the fit. No long-term commitment until you're ready to make one.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 6. THREE ARCHETYPES -->
+<!-- 03. EXPERTS ACROSS EVERY FUNCTION -->
 <section class="section-archetypes" id="role-types">
   <div class="archetypes-inner">
     <div class="section-head">
-      <h2>Three types of experts. One network.</h2>
-      <p>Every engagement starts with the right archetype — then we match the specific credentials, industry, and language profile you need.</p>
+      <h2>Experts across every function and industry</h2>
     </div>
     <div class="arch-tabs" role="tablist" aria-label="Expert archetypes">
-      <button class="arch-tab" role="tab" aria-selected="true"  aria-controls="panel-domain"      id="tab-domain">Domain professionals</button>
-      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-functional"  id="tab-functional">Functional experts</button>
-      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-consultants" id="tab-consultants">AI consultants</button>
+      <button class="arch-tab" role="tab" aria-selected="true"  aria-controls="panel-domain"     id="tab-domain">Domain professionals</button>
+      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-functional" id="tab-functional">Functional experts</button>
+      <button class="arch-tab" role="tab" aria-selected="false" aria-controls="panel-ai"         id="tab-ai">AI professionals</button>
     </div>
+
     <div class="arch-panel" id="panel-domain" role="tabpanel" aria-labelledby="tab-domain" aria-hidden="false">
       <div class="arch-panel-inner">
         <div>
           <p class="arch-eyebrow">Domain professionals</p>
-          <h3 class="arch-headline">People who've spent careers in the field your AI is entering</h3>
-          <p class="arch-body">Clinicians, lawyers, engineers, educators, scientists — professionals with deep subject-matter expertise who evaluate, annotate, and validate AI outputs in domains they've worked in for years.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about domain professionals →</a>
+          <h3 class="arch-headline">Industry experts who bring deep subject-matter knowledge to every role.</h3>
+          <p class="arch-body">These are the people whose value comes from what they know. Physicians, lawyers, accountants, financial analysts, educators, and specialists who bring years of domain depth to the roles that need it most. When the work requires someone who already understands how your industry thinks, operates, and makes decisions, this is where we start.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Find your domain expert →</a>
         </div>
         <div>
           <p class="arch-detail-label">Example titles</p>
           <div class="arch-titles">
-            <span class="arch-title-chip">Clinical AI evaluator</span>
-            <span class="arch-title-chip">Legal annotation specialist</span>
-            <span class="arch-title-chip">Financial model reviewer</span>
-            <span class="arch-title-chip">Biomedical researcher</span>
-            <span class="arch-title-chip">Education curriculum reviewer</span>
-          </div>
-          <p class="arch-detail-label">Typical engagement</p>
-          <div class="arch-meta">
-            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Project-based or ongoing retainer</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">Within days of briefing</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">Single expert to large panel</span></div>
+            <span class="arch-title-chip">Physician</span>
+            <span class="arch-title-chip">Nurse</span>
+            <span class="arch-title-chip">Pharmacist</span>
+            <span class="arch-title-chip">Lawyer</span>
+            <span class="arch-title-chip">Accountant</span>
+            <span class="arch-title-chip">Financial analyst</span>
+            <span class="arch-title-chip">Teacher</span>
+            <span class="arch-title-chip">Professor</span>
           </div>
         </div>
       </div>
     </div>
+
     <div class="arch-panel" id="panel-functional" role="tabpanel" aria-labelledby="tab-functional" aria-hidden="true">
       <div class="arch-panel-inner">
         <div>
           <p class="arch-eyebrow">Functional experts</p>
-          <h3 class="arch-headline">Specialists who understand AI workflows from the inside</h3>
-          <p class="arch-body">Data scientists, ML engineers, prompt engineers, and QA specialists who embed directly into your pipeline — contributing to model training, evaluation, red teaming, and quality assurance.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about functional experts →</a>
+          <h3 class="arch-headline">Skilled professionals who use AI to work smarter and deliver more.</h3>
+          <p class="arch-body">Professionals who know their craft and have built AI fluency into how they work. They bring the skills, the professionalism, and the efficiency that growing teams need to move fast and get things done.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Find your functional expert →</a>
         </div>
         <div>
           <p class="arch-detail-label">Example titles</p>
           <div class="arch-titles">
-            <span class="arch-title-chip">RLHF specialist</span>
-            <span class="arch-title-chip">Prompt engineer</span>
-            <span class="arch-title-chip">Red team analyst</span>
-            <span class="arch-title-chip">Data labeling lead</span>
-            <span class="arch-title-chip">Model QA engineer</span>
-            <span class="arch-title-chip">Multilingual evaluator</span>
-          </div>
-          <p class="arch-detail-label">Typical engagement</p>
-          <div class="arch-meta">
-            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Embedded or sprint-based</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">Within a week of scoping</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">Individual to cross-functional squad</span></div>
+            <span class="arch-title-chip">Software engineer</span>
+            <span class="arch-title-chip">QA analyst</span>
+            <span class="arch-title-chip">Project manager</span>
+            <span class="arch-title-chip">Operations specialist</span>
+            <span class="arch-title-chip">Designer</span>
+            <span class="arch-title-chip">Content writer</span>
+            <span class="arch-title-chip">Linguist</span>
+            <span class="arch-title-chip">Annotator</span>
           </div>
         </div>
       </div>
     </div>
-    <div class="arch-panel" id="panel-consultants" role="tabpanel" aria-labelledby="tab-consultants" aria-hidden="true">
+
+    <div class="arch-panel" id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" aria-hidden="true">
       <div class="arch-panel-inner">
         <div>
-          <p class="arch-eyebrow">AI consultants</p>
-          <h3 class="arch-headline">Senior advisors who help you build the right thing</h3>
-          <!-- COPY: confirm -->
-          <p class="arch-body">AI ethicists, responsible AI leads, and senior practitioners who work at the intersection of domain expertise and AI deployment — helping you design the talent strategy and quality framework before you scale.</p>
-          <a href="../book/" class="btn btn-primary btn-sm">Talk to us about AI consultants →</a>
+          <p class="arch-eyebrow">AI professionals</p>
+          <h3 class="arch-headline">Technical specialists who build, deploy, and scale AI systems.</h3>
+          <p class="arch-body">The people who work closest to the model, designing pipelines, writing prompts, evaluating outputs, and shipping AI products. If you're building something technical and need someone who can hit the ground running, this is your archetype.</p>
+          <a href="../book/" class="btn btn-primary btn-sm">Find your AI professional →</a>
         </div>
         <div>
           <p class="arch-detail-label">Example titles</p>
           <div class="arch-titles">
-            <span class="arch-title-chip">Responsible AI advisor</span>
-            <span class="arch-title-chip">AI ethics consultant</span>
-            <span class="arch-title-chip">Evaluation framework lead</span>
-            <span class="arch-title-chip">Diversity &amp; AI strategist</span>
-            <span class="arch-title-chip">Senior ML advisor</span>
-          </div>
-          <p class="arch-detail-label">Typical engagement</p>
-          <div class="arch-meta">
-            <div class="arch-meta-row"><span class="arch-meta-key">Engagement</span><span class="arch-meta-val">Advisory, fractional, or project</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Start time</span><span class="arch-meta-val">After a discovery call</span></div>
-            <div class="arch-meta-row"><span class="arch-meta-key">Team size</span><span class="arch-meta-val">One to three advisors</span></div>
+            <span class="arch-title-chip">ML engineer</span>
+            <span class="arch-title-chip">Data scientist</span>
+            <span class="arch-title-chip">Prompt engineer</span>
+            <span class="arch-title-chip">AI product lead</span>
+            <span class="arch-title-chip">LLM evaluation specialist</span>
           </div>
         </div>
       </div>
@@ -739,134 +607,67 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- 7. CAPABILITIES -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>The GenAI jobs our experts accelerate</h2>
-      <p>From raw data to production model — each capability staffed with verified experts, not anonymous contributors.</p>
-    </div>
-    <!-- FUTURE: Deel-style selector by industry or outcome -->
-    <div class="cap-grid">
-      <div class="cap-card"><div class="cap-icon">🔁</div><h3>RLHF &amp; preference data</h3><p>Human feedback from experts who understand what "better" means in your domain — not crowdworkers guessing at intent.</p></div>
-      <div class="cap-card"><div class="cap-icon">📐</div><h3>Model evaluation</h3><p>Structured benchmarking and qualitative assessment by subject-matter experts who catch failures automated metrics miss.</p></div>
-      <div class="cap-card"><div class="cap-icon">🔴</div><h3>Red teaming</h3><p>Adversarial testing by domain professionals who know the specific failure modes that matter in your industry.</p></div>
-      <div class="cap-card"><div class="cap-icon">✅</div><h3>Quality assurance</h3><p>Output review and validation at scale — with traceable contributors, defined rubrics, and audit-ready documentation.</p></div>
-      <div class="cap-card"><div class="cap-icon">🌐</div><h3>Multilingual &amp; multicultural</h3><p>Native speakers across 190 countries — covering regional dialect, cultural context, and what translation tools miss.</p></div>
-      <div class="cap-card"><div class="cap-icon">🏷️</div><h3>Data annotation &amp; labeling</h3><p>Domain-grounded annotation by experts who understand the subject matter, not generalists working from a style guide.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- 8. HOW IT WORKS — talents vertical timeline -->
+<!-- 04. HOW IT WORKS -->
 <section class="section-how">
   <div class="how-inner">
     <div class="section-head">
-      <h2>Hiring made straightforward</h2>
-      <p>Tell us what you need. We handle the matching, vetting, and admin.</p>
+      <h2>How it works</h2>
     </div>
     <div class="steps" id="stepsContainer">
       <div class="step">
         <div class="step-num">01</div>
         <div class="step-content">
           <h4>Tell us what you need</h4>
-          <p>One call. You describe the domain, the task, the scope, and the timeline. We ask the questions you haven't thought of yet.</p>
+          <p>One conversation is all it takes. Share the role, the context, and what success looks like — and we'll handle the rest.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">02</div>
         <div class="step-content">
-          <h4>We match verified experts</h4>
-          <p>From 80K+ vetted professionals, we surface the exact credential, language, and experience profile your project requires — a human-reviewed shortlist, not a keyword match.</p>
+          <h4>Meet your matches</h4>
+          <p>We surface candidates who fit your exact brief — the right function, industry, and AI fluency for what you're building.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">03</div>
         <div class="step-content">
-          <h4>Start in days, not weeks</h4>
-          <p>Experts are pre-cleared and onboarded. Most projects are staffed and running within a week of your discovery call.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <h4>Project-to-hire to validate fit</h4>
-          <p>Start with a scoped engagement. If the expert is the right long-term fit, convert to a full hire — we support the transition.</p>
-        </div>
-      </div>
-    </div>
-    <div class="how-admin"><strong>We handle the admin.</strong> Background checks, onboarding, payroll, benefits, and compliance — across 190 countries. Your team focuses on the work, not the paperwork.</div>
-  </div>
-</section>
-
-<!-- 9. AUDITABILITY -->
-<section class="section">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>Defensible by design</h2>
-      <p>Anonymous-crowd vendors can't tell you who touched your data. We can. Every contributor is verified, every output is traceable.</p>
-    </div>
-    <div class="audit-grid">
-      <div class="audit-card">
-        <div class="audit-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Verified contributor records</h3>
-        <p>Every person who touches your data has a verified identity, confirmed credentials, and a performance history you can review.</p>
-      </div>
-      <div class="audit-card">
-        <div class="audit-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Traceable outputs</h3>
-        <p>A clear chain of custody from task assignment to final output — so you can show exactly who produced what, and when.</p>
-      </div>
-      <div class="audit-card">
-        <div class="audit-check"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4.5" stroke="#0A8C66" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Audit-ready documentation</h3>
-        <p>Structured reports your legal, compliance, and board teams can actually use — not a spreadsheet you reformat the night before the review.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 10. TESTIMONIALS -->
-<section class="section" style="background:var(--bg-soft)">
-  <div class="testi-inner">
-    <div class="section-head"><h2>What teams say</h2></div>
-    <div class="testi-grid">
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-quote">"The quality of annotators we got through PowerToFly was night and day compared to other platforms. These are people who actually understand the domain — they caught issues in our training data that our internal team had missed for months."</p>
-        <div class="t-meta">
-          <div class="t-meta-info"><!-- COPY: confirm --><span class="t-author">Wade Foster</span><span class="t-company">Zapier</span><span class="t-role">CEO &amp; Co-founder</span></div>
-          <img src="../logos/zapier.png" alt="Zapier" class="t-co-logo" loading="lazy">
-        </div>
-      </div>
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-quote">"We needed reviewers who understood media publishing — not just people who could follow a rubric. PowerToFly found us specialists who had actually worked in editorial. The difference in output quality was immediate."</p>
-        <div class="t-meta">
-          <div class="t-meta-info"><!-- COPY: confirm --><span class="t-author">Greg Galant</span><span class="t-company">RebelMouse</span><span class="t-role">CEO</span></div>
-        </div>
-      </div>
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-quote">"The compliance documentation alone was worth it. We could show our legal team exactly who contributed to every training dataset — something no other vendor we talked to could provide."</p>
-        <div class="t-meta">
-          <div class="t-meta-info"><!-- COPY: confirm --><span class="t-author">Andrew Milligan</span><span class="t-company">SoftwareOne</span><span class="t-role">VP, Product</span></div>
-        </div>
-      </div>
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <p class="t-quote">"We're in aerospace — we can't use anonymous contractors on sensitive AI evaluation work. PowerToFly's verification process gave us the confidence to move forward. Experts were cleared, credentialed, and ready faster than we expected."</p>
-        <div class="t-meta">
-          <div class="t-meta-info"><!-- COPY: confirm --><span class="t-author">Lisa Chen</span><span class="t-company">Collins Aerospace</span><span class="t-role">Director, AI Programs</span></div>
+          <h4>Get started</h4>
+          <p>Welcome your new team member and hit the ground running. We handle the background checks, onboarding, payroll, and compliance, so you can focus on the work.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 11. LOGO MARQUEE -->
+<!-- 05. STATS -->
+<section class="section-stats">
+  <div class="stats-card-wrap">
+    <div class="stats-portrait" role="img" aria-label="Domain expert" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=900&h=1200&fit=crop&q=80')">
+      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
+    </div>
+    <div class="stats-card-dark">
+      <div>
+        <div class="stat-big-num">80<span class="stat-unit">K+</span></div>
+        <div class="stat-big-label">Functional and domain experts</div>
+      </div>
+      <div>
+        <div class="stat-big-num">6,500</div>
+        <div class="stat-big-label">AI professionals</div>
+      </div>
+      <div>
+        <div class="stat-big-num">190</div>
+        <div class="stat-big-label">Countries represented</div>
+      </div>
+      <div>
+        <div class="stat-big-num">12 <span class="stat-unit">years</span></div>
+        <div class="stat-big-label">Building the most diverse AI talent network</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Logo bar -->
 <section class="section-logos">
-  <p class="logos-label">Trusted by teams at</p>
   <div class="logos-track-wrap">
     <div class="logos-track">
       <img src="../logos/google.png"        alt="Google"         class="logo-img" loading="lazy">
@@ -895,12 +696,22 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- 12. FINAL CTA -->
+<!-- 06. TESTIMONIALS — hidden until quotes verified -->
+<!--
+<section class="section" style="background:var(--bg-soft)">
+  <div class="testi-inner">
+    <div class="section-head"><h2>What teams say</h2></div>
+    <div class="testi-grid">
+      Reinstate once client quotes confirmed: Zapier, RebelMouse, SoftwareOne, Collins Aerospace
+    </div>
+  </div>
+</section>
+-->
+
+<!-- 07. FINAL CTA -->
 <section class="section-book">
   <div class="book-inner">
-    <p class="book-eyebrow">Ready when you are</p>
-    <h2 class="book-headline">Smaller scale.<br>Bigger impact.</h2>
-    <p class="book-sub">80K+ verified experts who already know your industry — not an anonymous crowd. One call to find out what that means for your project.</p>
+    <h2 class="book-headline">One conversation to find the person who changes everything.</h2>
     <a href="../book/" class="btn btn-book">Book a discovery call →</a>
   </div>
 </section>
