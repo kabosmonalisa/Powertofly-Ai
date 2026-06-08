@@ -359,7 +359,7 @@ img { display: block; max-width: 100%; }
   font-size: 19px; font-weight: 700;
   letter-spacing: -0.03em; line-height: 1.2; color: var(--ink);
 }
-.benefit-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
+.benefit-card p { font-size: 15px; color: var(--ink-2); line-height: 1.6; }
 
 /* ===== Shared Responsive ===== */
 @media (max-width: 768px) {
