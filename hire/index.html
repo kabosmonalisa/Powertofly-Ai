@@ -155,23 +155,23 @@ h1.hero-headline {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  width: 320px; display: flex; align-items: stretch;
+  width: 360px; display: flex; align-items: stretch;
   opacity: 0;
   transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
 }
 .hire-float-spark-col {
   display: flex; align-items: center; justify-content: center;
-  padding: 20px 16px; flex-shrink: 0;
+  padding: 20px 18px; flex-shrink: 0;
 }
-.hire-float-spark-col svg { width: 52px; height: 52px; }
+.hire-float-spark-col svg { width: 68px; height: 68px; }
 .hire-float-vline {
   width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0;
 }
-.hire-float-body { padding: 20px 18px; flex: 1; }
-/* Start: far off-screen */
-.hire-float-1 { top: 50%; margin-top: -80px; left: calc(50% - 510px); transform: translateX(-800px); }
-.hire-float-2 { top: 50%; margin-top: -80px; right: calc(50% - 510px); transform: translateX( 800px); }
-.hire-float-3 { top: calc(50% + 110px); left: 50%; margin-left: -160px; transform: translateY(400px); }
+.hire-float-body { padding: 20px 20px; flex: 1; }
+/* Side cards clear of portrait, bottom card just below */
+.hire-float-1 { top: 50%; margin-top: -90px; left: calc(50% - 560px); transform: translateX(-900px); }
+.hire-float-2 { top: 50%; margin-top: -90px; right: calc(50% - 560px); transform: translateX( 900px); }
+.hire-float-3 { top: calc(50% + 150px); left: 50%; margin-left: -180px; transform: translateY(400px); }
 /* Land at resting position */
 .hire-around-wrap.cards-in .hire-float-1 { transform: translateX(0); opacity: 1; }
 .hire-around-wrap.cards-in .hire-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
@@ -584,7 +584,8 @@ h1.hero-headline {
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
             <defs><linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#hg1)"/>
+            <circle cx="62" cy="90" r="46" fill="url(#hg1)" opacity="0.85"/>
+            <circle cx="118" cy="90" r="46" fill="url(#hg1)" opacity="0.55"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -599,9 +600,8 @@ h1.hero-headline {
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
             <defs><linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <circle cx="90" cy="90" r="60" fill="url(#hg2)" opacity="0.9"/>
-            <circle cx="90" cy="90" r="36" fill="#fff" opacity="0.5"/>
-            <circle cx="90" cy="90" r="18" fill="url(#hg2)"/>
+            <circle cx="90" cy="90" r="72" stroke="url(#hg2)" stroke-width="14" stroke-dasharray="36 18"/>
+            <circle cx="90" cy="90" r="36" fill="url(#hg2)"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -616,7 +616,10 @@ h1.hero-headline {
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 180 180" fill="none" aria-hidden="true">
             <defs><linearGradient id="hg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path d="M100 20 L60 100 H90 L80 160 L120 80 H90 Z" fill="url(#hg3)"/>
+            <path d="M30 110 C30 110 70 110 90 90 C110 70 150 70 150 70" stroke="url(#hg3)" stroke-width="14" stroke-linecap="round" stroke-dasharray="1 22"/>
+            <path d="M30 110 C30 110 70 110 90 90 C110 70 150 70 150 70" stroke="url(#hg3)" stroke-width="14" stroke-linecap="round" stroke-dashoffset="60"/>
+            <circle cx="150" cy="70" r="18" fill="url(#hg3)"/>
+            <circle cx="30" cy="110" r="10" fill="url(#hg3)" opacity="0.5"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
