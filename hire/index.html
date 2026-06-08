@@ -209,10 +209,10 @@ h1.hero-headline {
 .how-admin { margin-top: 48px; padding: 28px 32px; border-radius: var(--r-xl); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.6; }
 .how-admin strong { color: #4FE8A9; font-weight: 600; }
 
-/* ── Stats — dark background ── */
-.section-stats { background: var(--ink); padding: 100px 32px; }
-.stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; border-radius: var(--r-2xl); overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-.stat-block { padding: 48px 36px; background: rgba(255,255,255,0.04); border-right: 1px solid rgba(255,255,255,0.08); }
+/* ── Stats — dark contained card ── */
+.section-stats { background: var(--bg); padding: 100px 32px; }
+.stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); border-radius: var(--r-2xl); overflow: hidden; background: var(--ink); }
+.stat-block { padding: 48px 36px; border-right: 1px solid rgba(255,255,255,0.08); }
 .stat-block:last-child { border-right: none; }
 .stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(42px, 5vw, 72px); line-height: 1; letter-spacing: -0.04em; color: #fff; }
 .stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
