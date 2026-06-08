@@ -124,14 +124,10 @@ h1.hero-headline {
 .expert-badge { display: inline-flex; align-items: center; gap: 5px; background: rgba(79,232,169,0.16); color: #0A8C66; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
-/* ── Hire type cards ── */
-.hire-type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 960px; margin: 0 auto; }
-.hire-type-card { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 32px 28px; background: var(--bg); }
-.hire-type-card--featured { background: var(--ink); border-color: var(--ink); }
-.hire-type-card--featured h3 { color: #fff; }
-.hire-type-card--featured p { color: rgba(255,255,255,0.65); }
-.hire-type-card h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; }
-.hire-type-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
+/* ── Hire types — portrait + benefit cards ── */
+.hire-section-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+.hire-portrait { border-radius: 28px; overflow: hidden; aspect-ratio: 3/4; background-size: cover; background-position: center top; position: sticky; top: 100px; }
+.hire-cards { display: flex; flex-direction: column; gap: 16px; }
 
 /* ── sc-cards — exact from employers ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
@@ -246,7 +242,8 @@ h1.hero-headline {
 /* ── Responsive ── */
 @media (max-width: 900px) {
   .nav-inner, .footer-inner { max-width: 1400px; }
-  .hire-type-grid { grid-template-columns: 1fr; }
+  .hire-section-inner { grid-template-columns: 1fr; }
+  .hire-portrait { aspect-ratio: 4/3; position: static; }
   .sc-card { grid-template-columns: 1fr; height: auto; }
   .sc-right { display: block; height: 240px; }
   .sc-left { padding: 32px 24px; }
@@ -517,19 +514,44 @@ h1.hero-headline {
     <div class="section-head">
       <h2>Hire the way that works for your business</h2>
     </div>
-    <div class="hire-type-grid">
-      <div class="hire-type-card">
-        <h3>Full-time</h3>
-        <p>Find AI-native professionals who are ready to commit and contribute from day one.</p>
+    <div class="hire-section-inner">
+
+      <div class="hire-portrait" style="background-image:url('https://images.unsplash.com/photo-1573497019418-b400bb3ab074?w=800&h=1200&fit=crop&crop=faces&q=80')"></div>
+
+      <div class="hire-cards">
+        <div class="benefit-card">
+          <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="ht1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#ht1)"/>
+          </svg>
+          <span class="benefit-eyebrow">Full-time</span>
+          <h3>Ready to commit and contribute from day one.</h3>
+          <p>Find AI-native professionals who are in it for the long term — people who grow with your team and build expertise in your specific context.</p>
+        </div>
+
+        <div class="benefit-card">
+          <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="ht2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <path d="M 14,90 A 76,24 0 0 0 166,90" fill="none" stroke="url(#ht2)" stroke-width="16" stroke-linecap="round" transform="rotate(-20 90 90)"/>
+            <circle cx="90" cy="90" r="48" fill="url(#ht2)"/>
+            <path d="M 14,90 A 76,24 0 0 1 166,90" fill="none" stroke="url(#ht2)" stroke-width="16" stroke-linecap="round" stroke-opacity="0.6" transform="rotate(-20 90 90)"/>
+          </svg>
+          <span class="benefit-eyebrow">Contract</span>
+          <h3>Move fast on a specific initiative, on your timeline.</h3>
+          <p>Need to move fast? Bring in verified experts for a defined scope — no lengthy recruiting process, no long-term commitment until you're ready.</p>
+        </div>
+
+        <div class="benefit-card">
+          <svg class="benefit-sparkle" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><linearGradient id="ht3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+            <text x="90" y="128" font-family="Inter Tight, Inter, sans-serif" font-weight="800" font-size="148" fill="url(#ht3)" text-anchor="middle">→</text>
+          </svg>
+          <span class="benefit-eyebrow">Project-to-hire</span>
+          <h3>Start with a project. Convert when you're confident.</h3>
+          <p>Begin with a short-term engagement and convert to full-time when the fit is proven. No long-term commitment until you're ready to make one.</p>
+        </div>
       </div>
-      <div class="hire-type-card">
-        <h3>Contract</h3>
-        <p>Need to move fast? Bring in experts for a specific initiative, on a timeline that works for you.</p>
-      </div>
-      <div class="hire-type-card hire-type-card--featured">
-        <h3>Project-to-hire</h3>
-        <p>Start with a short-term project and convert to a full-time role when you're confident in the fit. No long-term commitment until you're ready to make one.</p>
-      </div>
+
     </div>
   </div>
 </section>
