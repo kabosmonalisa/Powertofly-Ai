@@ -279,8 +279,8 @@ h1.hero-headline {
 
 /* ── Stats band ── */
 .section-statband { background: transparent; padding: 0 32px; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
-.statband-item { padding: 28px 24px; display: flex; align-items: center; gap: 10px; border-right: 1px solid var(--line); }
+.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid var(--line); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .statband-icon svg { width: 15px; height: 15px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
