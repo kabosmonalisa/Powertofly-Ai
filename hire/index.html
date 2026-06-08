@@ -155,9 +155,14 @@ h1.hero-headline {
   position: absolute; z-index: 3;
   background: #fff; border: 1px solid var(--line);
   border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  padding: 20px 22px; width: 240px;
+  padding: 22px 24px; width: 290px;
+  overflow: hidden;
   opacity: 0;
   transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
+}
+.hire-float-spark {
+  position: absolute; top: -12px; right: -12px;
+  width: 72px; height: 72px; pointer-events: none; opacity: 0.9;
 }
 /* Start: far off-screen */
 .hire-float-1 { top: 50%; margin-top: -80px; left: calc(50% - 390px); transform: translateX(-800px); }
@@ -572,18 +577,32 @@ h1.hero-headline {
       <div class="hire-center-portrait" style="background-image:url('https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&h=900&fit=crop&crop=faces&q=80'); background-position: center 10%; background-size: cover;"></div>
 
       <div class="hire-float hire-float-1">
+        <svg class="hire-float-spark" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <defs><linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path d="M 90,2 L 104,76 L 178,90 L 104,104 L 90,178 L 76,104 L 2,90 L 76,76 Z" fill="url(#hg1)"/>
+        </svg>
         <div class="fly-eyebrow">Full-time</div>
         <h3>Ready to commit and contribute from day one.</h3>
         <p>AI-native professionals in it for the long term — people who grow with your team.</p>
       </div>
 
       <div class="hire-float hire-float-2">
+        <svg class="hire-float-spark" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <defs><linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <circle cx="90" cy="90" r="60" fill="url(#hg2)" opacity="0.9"/>
+          <circle cx="90" cy="90" r="36" fill="#fff" opacity="0.5"/>
+          <circle cx="90" cy="90" r="18" fill="url(#hg2)"/>
+        </svg>
         <div class="fly-eyebrow">Contract</div>
         <h3>Move fast on a specific initiative.</h3>
         <p>Bring in verified experts for a defined scope, on a timeline that works for you.</p>
       </div>
 
       <div class="hire-float hire-float-3">
+        <svg class="hire-float-spark" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+          <defs><linearGradient id="hg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path d="M100 20 L60 100 H90 L80 160 L120 80 H90 Z" fill="url(#hg3)"/>
+        </svg>
         <div class="fly-eyebrow">Project-to-hire</div>
         <h3>Start with a project. Convert when you're confident.</h3>
         <p>No long-term commitment until you're ready to make one.</p>
