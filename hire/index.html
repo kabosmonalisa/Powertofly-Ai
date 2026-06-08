@@ -96,6 +96,19 @@
 .nav-overlay.on { display: block; }
 @media (max-width: 900px) { .nav-items { display: none; } }
 
+/* ── Hero eyebrow ── */
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: #0A8C66;
+  margin-bottom: 20px;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: '';
+  display: block; width: 18px; height: 1.5px;
+  background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
+}
+
 /* ── Hero ── */
 .hero {
   padding: 96px 32px 72px;
@@ -517,7 +530,7 @@ h1.hero-headline {
 <!-- 01. HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="fly-eyebrow" style="margin-bottom:20px;">Hire AI experts</div>
+    <div class="hero-eyebrow">Hire AI experts</div>
     <h1 class="hero-headline">Find the expert who moves<br><em class="italic-plain">your business forward.</em></h1>
     <p class="hero-sub">One great hire changes what's possible. PowerToFly connects you with AI-native professionals who come with the tools, skills, and knowledge to hit the ground running.</p>
     <div class="hero-ctas">
