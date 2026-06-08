@@ -1181,7 +1181,7 @@ h1.hero-headline {
   max-width: 820px; margin: 0 auto;
 }
 .benefit-card {
-  width: 100%; height: 160px;
+  width: 100%; min-height: 160px;
   border-radius: var(--r-xl);
   border: 1px solid var(--line);
   box-shadow: var(--shadow-card);
@@ -1249,11 +1249,10 @@ h1.hero-headline {
   .outcomes-wrap { height: auto; display: flex; flex-direction: column; gap: 14px; align-items: center; }
   .oc-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 460px; height: auto; }
 }
-@media (max-width: 768px) {
-  .benefits-row { grid-template-columns: 1fr 1fr; }
-}
-@media (max-width: 480px) {
-  .benefits-row { grid-template-columns: 1fr; }
+@media (max-width: 600px) {
+  .benefit-spark-col { padding: 16px 14px; }
+  .benefit-spark-col svg { width: 48px; height: 48px; }
+  .benefit-body { padding: 16px; }
 }
 
 
