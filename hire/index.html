@@ -277,15 +277,18 @@ h1.hero-headline {
 .stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(48px, 6vw, 80px); line-height: 1; letter-spacing: -0.04em; color: #fff; }
 .stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
-/* ── Stats band ── */
-.section-statband { background: transparent; padding: 0 32px; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); }
-.statband-item { padding: 32px 24px; display: flex; align-items: center; gap: 12px; }
-.statband-icon { width: 36px; height: 36px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-.statband-icon svg { width: 18px; height: 18px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.statband-text { display: flex; align-items: baseline; gap: 7px; }
-.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 800; letter-spacing: -0.03em; color: var(--ink); white-space: nowrap; }
-.statband-lbl { font-family: 'Inter', sans-serif; font-size: 20px; font-weight: 400; color: var(--ink-2); }
+/* ── Stats marquee ── */
+.section-statband { background: transparent; padding: 20px 0; overflow: hidden; }
+.statband-track-wrap { overflow: hidden; mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); }
+.statband-track { display: flex; align-items: center; width: max-content; gap: 0; animation: marquee 28s linear infinite; }
+.statband-track:hover { animation-play-state: paused; }
+.statband-item { display: flex; align-items: center; gap: 10px; padding: 0 48px; }
+.statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.statband-icon svg { width: 15px; height: 15px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.statband-text { display: flex; align-items: baseline; gap: 6px; }
+.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
+.statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-2); white-space: nowrap; }
+.statband-dot { width: 4px; height: 4px; border-radius: 50%; background: #4FE8A9; flex-shrink: 0; }
 
 /* ── Final CTA ── */
 .section-book { background: #000; padding: 140px 32px; text-align: center; }
@@ -548,24 +551,28 @@ h1.hero-headline {
   </div>
 </section>
 
-<!-- Stats band -->
+<!-- Stats marquee -->
 <section class="section-statband">
-  <div class="statband-inner">
-    <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div>
-    </div>
-    <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6-5 8v1H10v-1c-2.5-2-5-4.5-5-8a7 7 0 0 1 7-7z"/><path d="M10 21h4"/><path d="M9 17h6"/></svg></div>
-      <div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI professionals</span></div>
-    </div>
-    <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-      <div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div>
-    </div>
-    <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-      <div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div>
+  <div class="statband-track-wrap">
+    <div class="statband-track">
+      <!-- Set 1 -->
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6-5 8v1H10v-1c-2.5-2-5-4.5-5-8a7 7 0 0 1 7-7z"/><path d="M10 21h4"/><path d="M9 17h6"/></svg></div><div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI professionals</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
+      <div class="statband-dot"></div>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6-5 8v1H10v-1c-2.5-2-5-4.5-5-8a7 7 0 0 1 7-7z"/><path d="M10 21h4"/><path d="M9 17h6"/></svg></div><div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI professionals</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
+      <div class="statband-dot"></div>
+      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
+      <div class="statband-dot"></div>
     </div>
   </div>
 </section>
