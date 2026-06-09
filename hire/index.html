@@ -341,7 +341,7 @@ h1.hero-headline {
   .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 40px; gap: 8px; }
   /* Mobile drawer */
   .mobile-drawer { display: none; }
-  .mobile-drawer.open { display: flex; height: calc(100vh - 57px); }
+  .mobile-drawer.open { display: flex; }
   .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
   .mobile-drawer .drawer-cta { gap: 12px; }
   .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
@@ -966,8 +966,23 @@ h1.hero-headline {
 /* ── Top alert close ── */
 (function(){
   var btn = document.getElementById('topAlertClose');
-  if (btn) btn.addEventListener('click', function(){ document.getElementById('topAlert').classList.add('hidden'); });
+  if (btn) btn.addEventListener('click', function(){
+    document.getElementById('topAlert').classList.add('hidden');
+    positionDrawer();
+  });
 }());
+
+/* ── Fix drawer top to sit flush below the nav (accounts for alert bar) ── */
+function positionDrawer() {
+  var nav    = document.querySelector('.nav');
+  var drawer = document.getElementById('mobileDrawer');
+  if (!nav || !drawer) return;
+  var navBottom = nav.getBoundingClientRect().bottom;
+  drawer.style.top    = navBottom + 'px';
+  drawer.style.height = (window.innerHeight - navBottom) + 'px';
+}
+document.getElementById('hamburger').addEventListener('click', positionDrawer);
+window.addEventListener('resize', positionDrawer);
 
 /* ── Mega nav flyouts ── */
 (function () {
