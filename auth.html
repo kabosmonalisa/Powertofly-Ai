@@ -358,6 +358,22 @@ body {
 }
 .btn-skip:hover { color: var(--ink); }
 
+/* ===== Thank you screen ===== */
+.thanks-icon {
+  font-size: 32px;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  display: block;
+}
+.thanks-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 20px 0;
+}
+
 /* ===== Responsive ===== */
 @media (max-width: 500px) {
   .auth-card { padding: 24px 20px 24px; border-radius: 20px; }
@@ -435,7 +451,7 @@ body {
           <div class="step-track"><div class="step-fill" style="width:50%"></div></div>
         </div>
         <h1 class="auth-heading">Join as an expert</h1>
-        <p class="auth-sub">Get matched to AI projects that need your domain expertise.</p>
+        <p class="auth-sub">Get matched to AI projects or full-time roles in your field.</p>
         <form class="auth-form" onsubmit="goToStep2();return false">
           <div class="field-row">
             <div class="field">
@@ -500,8 +516,17 @@ body {
               <div class="upload-name" id="uploadName"></div>
             </div>
           </div>
-          <button class="btn-auth" type="submit">Complete profile</button>
+          <button class="btn-auth" type="submit" onclick="goToThankYou();return false">Complete profile</button>
         </form>
+      </div>
+
+      <!-- Thank you -->
+      <div id="signupThanks" style="display:none">
+        <div class="thanks-icon">✦</div>
+        <h1 class="auth-heading">You're in early.</h1>
+        <p class="auth-sub" style="margin-bottom:0">We're just getting started — which means you're not a user number, you're someone we actually know.<br><br>We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
+        <div class="thanks-divider"></div>
+        <p class="auth-note" style="margin-top:0">Keep an eye on your inbox. We'll be in touch soon.</p>
       </div>
 
     </div>
@@ -525,6 +550,11 @@ function showPanel(panel) {
 function goToStep2() {
   document.getElementById('signupStep1').style.display = 'none';
   document.getElementById('signupStep2').style.display = 'block';
+}
+function goToThankYou() {
+  document.getElementById('signupStep2').style.display = 'none';
+  document.getElementById('signupThanks').style.display = 'block';
+  document.querySelector('.auth-toggle').style.display = 'none';
 }
 function handleFile(input) {
   var name = input.files[0] ? input.files[0].name : '';
