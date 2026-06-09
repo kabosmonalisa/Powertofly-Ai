@@ -359,14 +359,36 @@ body {
 .btn-skip:hover { color: var(--ink); }
 
 /* ===== Thank you screen ===== */
-.thanks-icon {
-  font-size: 32px;
-  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 16px;
-  display: block;
+@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+#signupThanks {
+  background: radial-gradient(ellipse 500px 260px at 50% 0%, rgba(79,232,169,0.18) 0%, rgba(213,255,102,0.08) 50%, transparent 100%);
+  border-radius: 16px;
+  padding-top: 8px;
+}
+.thanks-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: #0A8C66;
+  margin-bottom: 20px;
+}
+.thanks-eyebrow::before, .thanks-eyebrow::after {
+  content: ''; display: block;
+  width: 18px; height: 1.5px;
+  background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
+}
+.thanks-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff;
+  padding: 10px 20px; border-radius: 999px;
+  font-size: 13px; font-weight: 600;
+  box-shadow: 0 10px 24px rgba(10,10,10,0.22);
+  margin-bottom: 20px;
+}
+.thanks-pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #4FE8A9;
+  animation: livepulse 2s ease-in-out infinite;
+  flex-shrink: 0;
 }
 .thanks-divider {
   height: 1px;
@@ -522,7 +544,8 @@ body {
 
       <!-- Thank you -->
       <div id="signupThanks" style="display:none">
-        <div class="thanks-icon">✦</div>
+        <div class="thanks-eyebrow">You're in</div>
+        <div class="thanks-pill"><div class="thanks-pulse"></div>Profile received</div>
         <h1 class="auth-heading">You're in early.</h1>
         <p class="auth-sub" style="margin-bottom:0">We're just getting started — which means you're not a user number, you're someone we actually know.<br><br>We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
         <div class="thanks-divider"></div>
