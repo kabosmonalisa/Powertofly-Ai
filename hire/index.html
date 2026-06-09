@@ -322,11 +322,11 @@ h1.hero-headline {
   .hire-sticky-scene { padding: 0; }
   .hire-around-wrap { height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; }
   .hire-center-portrait { position: static; width: 100%; max-width: 400px; aspect-ratio: 1/1; transform: none; }
-  .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; }
+  .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; margin: 0 !important; }
   /* Experts */
   .section-experts { padding: 60px 20px; }
   .expert-row { grid-template-columns: 1fr; gap: 0; }
-  .sc-right { height: 240px; border-radius: 16px; }
+  .sc-right { height: 300px; border-radius: 16px; }
   .sc-left { padding: 32px 20px; }
   /* How it works */
   .section-how { padding: 60px 20px; }
@@ -343,15 +343,28 @@ h1.hero-headline {
 @media (max-width: 600px) {
   .hero { padding: 48px 20px 40px; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
+  .hero-sub { font-size: 16px; }
   .section-experts, .section-how { padding: 48px 20px; }
   .section-book { padding: 80px 20px; }
   .hire-scroll-outer { padding: 48px 20px; }
-  /* Stats band single column */
-  .statband-item { flex: 0 0 100%; border-right: none; }
+  .section-statband { padding: 0 20px; }
+  /* Stats band — bold statements on mobile */
+  .statband-item { flex: 0 0 100%; border-right: none; padding: 20px 4px; }
   .statband-item:nth-child(3) { border-bottom: 1px solid var(--line); }
-  /* How it works — steps full width */
+  .statband-icon { display: none; }
+  .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .statband-num { font-size: 36px; letter-spacing: -0.04em; }
+  .statband-lbl { font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  /* How it works — steps always visible, no entrance animation on mobile */
   .steps::before { left: 20px; }
-  .step { gap: 16px; padding: 24px 0; }
+  .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
+  /* Expert rows — remove fixed height, tighten text padding */
+  .expert-row { min-height: 0; }
+  .sc-left { padding: 32px 0 24px; }
+  /* Illustration panels — auto-height, card dictates size */
+  .sc-right { height: auto; min-height: 0; padding: 28px 16px; }
+  .sc-mock-wrap { position: static; padding: 0; display: block; }
+  .sc-mock-stack { width: 100%; }
 }
 </style>
 </head>
@@ -581,7 +594,7 @@ h1.hero-headline {
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">Hire AI experts</div>
-    <h1 class="hero-headline">Find the expert who moves<br>your business <em class="italic-plain">forward.</em></h1>
+    <h1 class="hero-headline">Find the expert who moves your business <em class="italic-plain">forward.</em></h1>
     <p class="hero-sub">One great hire changes what's possible. PowerToFly connects you with AI-native professionals who come with the tools, skills, and knowledge to hit the ground running.</p>
     <div class="hero-ctas">
       <a href="../book/" class="btn btn-primary">Book a discovery call →</a>
@@ -603,7 +616,7 @@ h1.hero-headline {
 <section class="hire-scroll-outer">
   <div class="hire-sticky-scene">
     <div class="section-head">
-      <h2>Hire the way that works for<br>your business</h2>
+      <h2>Hire the way that works for your business</h2>
     </div>
     <div class="hire-around-wrap">
 
@@ -641,6 +654,7 @@ h1.hero-headline {
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path fill="url(#ptf-grad)" d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+          </svg>
         </div>
         <div class="hire-float-vline"></div>
         <div class="hire-float-body">
@@ -741,7 +755,7 @@ h1.hero-headline {
                     <div style="width:36px;height:36px;border-radius:50%;background:#C8D8E8;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:12px;color:#4a7a8a;">MT</div>
                     <div style="flex:1;min-width:0;">
                       <div style="font-size:12px;font-weight:600;color:var(--ink);">Marcus T.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">Software engineer · AI tools</div>
+                      <div style="font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Software engineer · AI tools</div>
                     </div>
                     <span class="sc-badge sc-badge-green">Top match</span>
                   </div>
@@ -749,7 +763,7 @@ h1.hero-headline {
                     <div style="width:36px;height:36px;border-radius:50%;background:#E8F5F0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:12px;color:#2a7a5a;">PS</div>
                     <div style="flex:1;min-width:0;">
                       <div style="font-size:12px;font-weight:600;color:var(--ink);">Priya S.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">UX designer · AI products</div>
+                      <div style="font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">UX designer · AI products</div>
                     </div>
                     <span class="sc-badge sc-badge-gray">Shortlisted</span>
                   </div>
@@ -757,7 +771,7 @@ h1.hero-headline {
                     <div style="width:36px;height:36px;border-radius:50%;background:#FFF3E0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:12px;color:#8a5a20;">ZK</div>
                     <div style="flex:1;min-width:0;">
                       <div style="font-size:12px;font-weight:600;color:var(--ink);">Zoe K.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">Content writer · LLM eval</div>
+                      <div style="font-size:11px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Content writer · LLM eval</div>
                     </div>
                     <span class="sc-badge sc-badge-gray">Shortlisted</span>
                   </div>
