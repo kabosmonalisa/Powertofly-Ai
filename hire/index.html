@@ -349,13 +349,15 @@ h1.hero-headline {
   .section-book { padding: 80px 20px; }
   .hire-scroll-outer { padding: 48px 20px; }
   .section-statband { padding: 0 20px; }
-  /* Stats band — bold statements on mobile */
-  .statband-item { flex: 0 0 100%; border-right: none; padding: 20px 4px; }
-  .statband-item:nth-child(3) { border-bottom: 1px solid var(--line); }
+  /* Stats band — 2×2 grid on mobile */
+  .statband-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
+  .statband-item:nth-child(odd) { border-right: 1px solid var(--line); }
+  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
   .statband-icon { display: none; }
   .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .statband-num { font-size: 36px; letter-spacing: -0.04em; }
-  .statband-lbl { font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  .statband-num { font-size: 32px; letter-spacing: -0.04em; }
+  .statband-lbl { font-size: 13px; font-weight: 500; color: var(--ink-2); }
   /* How it works — steps always visible, no entrance animation on mobile */
   .steps::before { left: 20px; }
   .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
