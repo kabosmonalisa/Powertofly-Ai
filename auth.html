@@ -332,22 +332,29 @@ body {
 .btn-skip:hover { color: var(--ink); }
 
 /* ===== Thank you screen ===== */
-#signupThanks { text-align: left; }
+#signupThanks { text-align: left; padding-top: 8px; }
+.thanks-icon { margin-bottom: 20px; }
 .thanks-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
   text-transform: uppercase; color: #0A8C66;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+}
+.thanks-body {
+  font-size: 14px;
+  color: var(--ink-3);
+  line-height: 1.65;
+  margin-bottom: 28px;
 }
 .thanks-divider {
   height: 1px;
   background: var(--line);
-  margin: 24px 0;
+  margin: 28px 0 20px;
 }
 .btn-dashboard {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--ink); color: #fff;
-  padding: 14px 26px; border-radius: 999px;
+  padding: 18px 26px; border-radius: 999px;
   border: 1.5px solid var(--ink);
   font-family: 'Inter Tight', sans-serif;
   font-size: 15px; font-weight: 600;
@@ -504,9 +511,21 @@ body {
 
       <!-- Thank you -->
       <div id="signupThanks" style="display:none">
-        <div class="thanks-eyebrow">You're in</div>
+        <div class="thanks-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24">
+            <defs>
+              <linearGradient id="ptf-grad-thanks" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#5BCFFF"/>
+                <stop offset="50%" stop-color="#4FE8A9"/>
+                <stop offset="100%" stop-color="#D5FF66"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#ptf-grad-thanks)" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+          </svg>
+        </div>
+        <div class="thanks-eyebrow">Profile received</div>
         <h1 class="auth-heading">You're in early.</h1>
-        <p class="auth-sub">We're just getting started — which means you're not a user number, you're someone we actually know. We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
+        <p class="thanks-body">We're just getting started — which means you're not a user number, you're someone we actually know. We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
         <a href="#" class="btn-dashboard">Go to your dashboard →</a>
         <div class="thanks-divider"></div>
         <p class="auth-note" style="margin-top:0">Keep an eye on your inbox. We'll be in touch soon.</p>
