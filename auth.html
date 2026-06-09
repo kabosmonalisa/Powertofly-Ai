@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in — PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+
+/* ===== Design Tokens ===== */
+:root {
+--ink: #0A0A0A;
+--ink-2: #2A2A2A;
+--ink-3: #5C6F69;
+--bg: #ffffff;
+--bg-soft: #FAFAF6;
+--line: rgba(10,10,10,0.08);
+--shadow-card: 0 1px 2px rgba(15,30,26,0.04), 0 8px 28px rgba(15,30,26,0.08);
+--iri-cyan: #5BCFFF;
+--iri-green: #4FE8A9;
+--iri-lime: #D5FF66;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg-soft);
+  font-size: 16px;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Ambient glow ===== */
+.auth-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.auth-bg-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.18;
+}
+.auth-bg-blob.b1 {
+  width: 600px; height: 500px;
+  background: radial-gradient(circle, #5BCFFF, transparent 70%);
+  top: -160px; left: -100px;
+}
+.auth-bg-blob.b2 {
+  width: 500px; height: 400px;
+  background: radial-gradient(circle, #4FE8A9, transparent 70%);
+  bottom: -100px; right: -80px;
+}
+.auth-bg-blob.b3 {
+  width: 360px; height: 360px;
+  background: radial-gradient(circle, #D5FF66, transparent 70%);
+  top: 40%; left: 60%;
+  opacity: 0.1;
+}
+
+/* ===== Nav ===== */
+.nav {
+  position: relative;
+  z-index: 10;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.nav-brand svg { height: 22px; width: auto; }
+.brand-ai {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
+  color: #0A2A1F;
+}
+.nav-back {
+  font-size: 14px;
+  color: var(--ink-3);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 180ms ease;
+}
+.nav-back:hover { color: var(--ink); }
+
+/* ===== Main layout ===== */
+.auth-wrap {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 20px 32px;
+}
+
+/* ===== Card ===== */
+.auth-card {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 40px 32px;
+}
+
+/* ===== Toggle ===== */
+.auth-toggle {
+  display: flex;
+  background: rgba(10,10,10,0.05);
+  border-radius: 999px;
+  padding: 3px;
+  margin-bottom: 24px;
+  gap: 4px;
+}
+.auth-toggle button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 999px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease;
+  background: transparent;
+  color: var(--ink-3);
+}
+.auth-toggle button.active {
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(10,10,10,0.1);
+}
+
+/* ===== Heading ===== */
+.auth-heading {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+  color: var(--ink);
+}
+.auth-sub {
+  font-size: 15px;
+  color: var(--ink-3);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+/* ===== Form ===== */
+.auth-form { display: flex; flex-direction: column; gap: 12px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  letter-spacing: 0.01em;
+}
+.field input,
+.field select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--bg-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.field input::placeholder { color: var(--ink-3); opacity: 0.7; }
+.field input:focus,
+.field select:focus {
+  border-color: var(--iri-green);
+  box-shadow: 0 0 0 3px rgba(79,232,169,0.15);
+  background: var(--bg);
+}
+
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+/* ===== Submit button ===== */
+.btn-auth {
+  margin-top: 4px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+  border: none;
+  background: var(--ink);
+  color: #fff;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.btn-auth:hover {
+  background: #1a1a1a;
+  box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
+  transform: translateY(-1px);
+}
+
+/* ===== Divider ===== */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0;
+  color: var(--ink-3);
+  font-size: 13px;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ===== Social buttons ===== */
+.social-btns { display: flex; flex-direction: column; gap: 10px; }
+.btn-social {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+.btn-social:hover { border-color: rgba(10,10,10,0.2); background: var(--bg-soft); }
+.btn-social svg { flex-shrink: 0; }
+
+/* ===== Footer note ===== */
+.auth-note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--ink-3);
+  text-align: center;
+  line-height: 1.5;
+}
+.auth-note a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.auth-note a:hover { text-decoration: underline; }
+
+/* ===== Panel visibility ===== */
+.auth-panel { display: none; }
+.auth-panel.active { display: block; }
+
+/* ===== Step indicator ===== */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.step-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 250ms ease, width 250ms ease;
+}
+.step-dot.active {
+  width: 24px;
+  border-radius: 99px;
+  background: var(--ink);
+}
+.step-label {
+  font-size: 12px;
+  color: var(--ink-3);
+  margin-left: 4px;
+}
+
+/* ===== Step 2 — profile ===== */
+.upload-area {
+  border: 1.5px dashed rgba(10,10,10,0.18);
+  border-radius: 14px;
+  padding: 28px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 200ms, background 200ms;
+  background: var(--bg-soft);
+  position: relative;
+}
+.upload-area:hover { border-color: var(--iri-green); background: rgba(79,232,169,0.04); }
+.upload-area input[type="file"] {
+  position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+}
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-area p { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+.upload-area strong { color: var(--ink); font-weight: 600; }
+.upload-name {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--iri-green);
+  font-weight: 600;
+  display: none;
+}
+
+.btn-skip {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; color: var(--ink-3);
+  text-decoration: underline; text-underline-offset: 3px;
+  margin-top: 4px; padding: 0;
+  transition: color 180ms;
+}
+.btn-skip:hover { color: var(--ink); }
+
+/* ===== Responsive ===== */
+@media (max-width: 500px) {
+  .auth-card { padding: 36px 24px 32px; border-radius: 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .nav { padding: 16px 20px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="auth-bg">
+  <div class="auth-bg-blob b1"></div>
+  <div class="auth-bg-blob b2"></div>
+  <div class="auth-bg-blob b3"></div>
+</div>
+
+<nav class="nav">
+  <a href="index.html" class="nav-brand">
+    <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+    <span class="brand-ai">AI</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-toggle">
+      <button id="tabSignIn" onclick="showPanel('signin')">Sign in</button>
+      <button class="active" id="tabSignUp" onclick="showPanel('signup')">Sign up</button>
+    </div>
+
+    <!-- SIGN IN -->
+    <div class="auth-panel" id="panelSignin">
+      <h1 class="auth-heading">Welcome back</h1>
+      <p class="auth-sub">Sign in to your PowerToFly AI account.</p>
+      <form class="auth-form" onsubmit="return false">
+        <div class="field">
+          <label for="si-email">Email</label>
+          <input type="email" id="si-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="si-password">Password</label>
+          <input type="password" id="si-password" placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button class="btn-auth" type="submit">Sign in</button>
+      </form>
+      <div class="auth-divider">or</div>
+      <div class="social-btns">
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.5 9.173c0-4.142-3.357-7.5-7.5-7.5s-7.5 3.358-7.5 7.5c0 3.745 2.745 6.85 6.328 7.41v-5.24H5.652V9.173h2.176V7.41c0-2.149 1.28-3.337 3.24-3.337.937 0 1.918.167 1.918.167v2.11h-1.08c-1.064 0-1.396.66-1.396 1.337v1.607h2.375l-.379 2.37H10.51v5.24c3.583-.56 6.328-3.665 6.328-7.41H16.5Z" fill="#1877F2"/></svg>
+          Continue with LinkedIn
+        </button>
+      </div>
+      <p class="auth-note">
+        Don't have an account? <a href="#" onclick="showPanel('signup');return false">Sign up free</a>
+      </p>
+      <p class="auth-note" style="margin-top:10px">
+        <a href="#">Forgot password?</a>
+      </p>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="auth-panel active" id="panelSignup">
+
+      <!-- Step 1 -->
+      <div id="signupStep1">
+        <div class="step-indicator">
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <span class="step-label">Step 1 of 2</span>
+        </div>
+        <h1 class="auth-heading">Join as an expert</h1>
+        <p class="auth-sub">Get matched to AI projects that need your domain expertise.</p>
+        <form class="auth-form" onsubmit="goToStep2();return false">
+          <div class="field-row">
+            <div class="field">
+              <label for="su-first">First name</label>
+              <input type="text" id="su-first" placeholder="Amara" autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="su-last">Last name</label>
+              <input type="text" id="su-last" placeholder="Osei" autocomplete="family-name">
+            </div>
+          </div>
+          <div class="field">
+            <label for="su-email">Email</label>
+            <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email">
+          </div>
+
+          <div class="field">
+            <label for="su-password">Password</label>
+            <input type="password" id="su-password" placeholder="Min. 8 characters" autocomplete="new-password">
+          </div>
+          <button class="btn-auth" type="submit">Continue →</button>
+        </form>
+        <div class="auth-divider">or</div>
+        <div class="social-btns">
+          <button class="btn-social">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+            Continue with Google
+          </button>
+          <button class="btn-social">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M16.5 9.173c0-4.142-3.357-7.5-7.5-7.5s-7.5 3.358-7.5 7.5c0 3.745 2.745 6.85 6.328 7.41v-5.24H5.652V9.173h2.176V7.41c0-2.149 1.28-3.337 3.24-3.337.937 0 1.918.167 1.918.167v2.11h-1.08c-1.064 0-1.396.66-1.396 1.337v1.607h2.375l-.379 2.37H10.51v5.24c3.583-.56 6.328-3.665 6.328-7.41H16.5Z" fill="#1877F2"/></svg>
+            Continue with LinkedIn
+          </button>
+        </div>
+        <p class="auth-note">
+          Already have an account? <a href="#" onclick="showPanel('signin');return false">Sign in</a>
+        </p>
+        <p class="auth-note" style="margin-top:10px;font-size:12px">
+          By creating an account you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.
+        </p>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="signupStep2" style="display:none">
+        <div class="step-indicator">
+          <div class="step-dot active"></div>
+          <div class="step-dot active"></div>
+          <span class="step-label">Step 2 of 2</span>
+        </div>
+        <h1 class="auth-heading">Almost there</h1>
+        <p class="auth-sub">Help us match you faster by sharing your professional profile.</p>
+        <form class="auth-form" onsubmit="return false">
+          <div class="field">
+            <label for="su-linkedin">LinkedIn profile</label>
+            <input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off">
+          </div>
+          <div class="field">
+            <label>Resume or CV</label>
+            <div class="upload-area" id="uploadArea">
+              <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
+              <div class="upload-icon">📄</div>
+              <p><strong>Click to upload</strong> or drag and drop</p>
+              <p>PDF, DOC, DOCX — max 5MB</p>
+              <div class="upload-name" id="uploadName"></div>
+            </div>
+          </div>
+          <button class="btn-auth" type="submit">Complete profile</button>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+if (new URLSearchParams(window.location.search).get('mode') === 'signin') showPanel('signin');
+function showPanel(panel) {
+  document.getElementById('panelSignin').classList.toggle('active', panel === 'signin');
+  document.getElementById('panelSignup').classList.toggle('active', panel === 'signup');
+  document.getElementById('tabSignIn').classList.toggle('active', panel === 'signin');
+  document.getElementById('tabSignUp').classList.toggle('active', panel === 'signup');
+  document.title = panel === 'signin' ? 'Sign in — PowerToFly AI' : 'Sign up — PowerToFly AI';
+  if (panel === 'signup') {
+    document.getElementById('signupStep1').style.display = 'block';
+    document.getElementById('signupStep2').style.display = 'none';
+  }
+}
+function goToStep2() {
+  document.getElementById('signupStep1').style.display = 'none';
+  document.getElementById('signupStep2').style.display = 'block';
+  document.querySelector('#signupStep2 .step-dot:first-child').classList.add('active');
+}
+function handleFile(input) {
+  var name = input.files[0] ? input.files[0].name : '';
+  var el = document.getElementById('uploadName');
+  el.textContent = name;
+  el.style.display = name ? 'block' : 'none';
+}
+</script>
+
+</body>
+</html>
