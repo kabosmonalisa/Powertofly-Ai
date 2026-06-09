@@ -285,42 +285,20 @@ body {
 
 /* ===== Step indicator ===== */
 .step-indicator {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 14px;
-}
-.step-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(79,232,169,0.12);
-  color: #0A8C66;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  gap: 10px;
+  margin-bottom: 16px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .14em;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 999px;
-  width: fit-content;
+  color: #0A8C66;
 }
-.step-pill-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #4FE8A9;
-}
-.step-track {
-  width: 100%;
-  height: 3px;
-  background: rgba(10,10,10,0.07);
-  border-radius: 99px;
-  overflow: hidden;
-}
-.step-fill {
-  height: 100%;
-  border-radius: 99px;
-  background: linear-gradient(90deg, #5BCFFF 0%, #4FE8A9 50%, #D5FF66 100%);
-  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+.step-indicator::before, .step-indicator::after {
+  content: ''; display: block;
+  width: 18px; height: 1.5px;
+  background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
 }
 
 /* ===== Step 2 — profile ===== */
@@ -359,12 +337,7 @@ body {
 .btn-skip:hover { color: var(--ink); }
 
 /* ===== Thank you screen ===== */
-@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
-#signupThanks {
-  background: radial-gradient(ellipse 500px 260px at 50% 0%, rgba(79,232,169,0.18) 0%, rgba(213,255,102,0.08) 50%, transparent 100%);
-  border-radius: 16px;
-  padding-top: 8px;
-}
+#signupThanks { text-align: left; }
 .thanks-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
@@ -376,24 +349,27 @@ body {
   width: 18px; height: 1.5px;
   background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
 }
-.thanks-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ink); color: #fff;
-  padding: 10px 20px; border-radius: 999px;
-  font-size: 13px; font-weight: 600;
-  box-shadow: 0 10px 24px rgba(10,10,10,0.22);
-  margin-bottom: 20px;
-}
-.thanks-pulse {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: #4FE8A9;
-  animation: livepulse 2s ease-in-out infinite;
-  flex-shrink: 0;
-}
 .thanks-divider {
   height: 1px;
   background: var(--line);
-  margin: 20px 0;
+  margin: 24px 0;
+}
+.btn-dashboard {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: #fff;
+  padding: 14px 26px; border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 15px; font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none; cursor: pointer;
+  transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  width: 100%; justify-content: center;
+}
+.btn-dashboard:hover {
+  background: #1a1a1a;
+  box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
+  transform: translateY(-1px);
 }
 
 /* ===== Responsive ===== */
@@ -468,10 +444,7 @@ body {
 
       <!-- Step 1 -->
       <div id="signupStep1">
-        <div class="step-indicator">
-          <div class="step-pill"><div class="step-pill-dot"></div>Step 1 of 2</div>
-          <div class="step-track"><div class="step-fill" style="width:50%"></div></div>
-        </div>
+        <div class="step-indicator">Step 1 of 2</div>
         <h1 class="auth-heading">Join as an expert</h1>
         <p class="auth-sub">Get matched to AI projects or full-time roles in your field.</p>
         <form class="auth-form" onsubmit="goToStep2();return false">
@@ -517,10 +490,7 @@ body {
 
       <!-- Step 2 -->
       <div id="signupStep2" style="display:none">
-        <div class="step-indicator">
-          <div class="step-pill"><div class="step-pill-dot"></div>Step 2 of 2</div>
-          <div class="step-track"><div class="step-fill" style="width:100%"></div></div>
-        </div>
+        <div class="step-indicator">Step 2 of 2</div>
         <h1 class="auth-heading">Almost there</h1>
         <p class="auth-sub">Help us match you faster by sharing your professional profile.</p>
         <form class="auth-form" onsubmit="return false">
@@ -545,9 +515,9 @@ body {
       <!-- Thank you -->
       <div id="signupThanks" style="display:none">
         <div class="thanks-eyebrow">You're in</div>
-        <div class="thanks-pill"><div class="thanks-pulse"></div>Profile received</div>
         <h1 class="auth-heading">You're in early.</h1>
-        <p class="auth-sub" style="margin-bottom:0">We're just getting started — which means you're not a user number, you're someone we actually know.<br><br>We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
+        <p class="auth-sub">We're just getting started — which means you're not a user number, you're someone we actually know. We'll personally review your profile and reach out when there's a match worth your time. No noise, just the right opportunity.</p>
+        <a href="#" class="btn-dashboard">Go to your dashboard →</a>
         <div class="thanks-divider"></div>
         <p class="auth-note" style="margin-top:0">Keep an eye on your inbox. We'll be in touch soon.</p>
       </div>
