@@ -25,7 +25,7 @@
 .top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); padding: 4px; display: flex; align-items: center; justify-content: center; transition: color .15s; }
 .top-alert-close:hover { color: #fff; }
 .top-alert.hidden { display: none; }
-.top-alert-pride { background: linear-gradient(90deg, #FF2D87, #FFEB00, #00E5FF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; }
+.top-alert-pride { color: #fff; font-weight: 800; }
 
 /* ── Employers-style mega nav ── */
 .nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
@@ -104,7 +104,7 @@
 .event-reg:hover { opacity: 0.85; }
 .nav-overlay { position: fixed; inset: 0; z-index: 190; display: none; }
 .nav-overlay.on { display: block; }
-@media (max-width: 900px) { .nav-items { display: none; } }
+@media (max-width: 900px) { .nav-items { display: none; } .nav-cta { display: none; } }
 
 /* ── Hero eyebrow ── */
 .hero-eyebrow {
@@ -243,7 +243,7 @@ h1.hero-headline {
 .section-how { background: var(--bg); padding: 80px 32px 160px; }
 .how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 1/1; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=900&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 1/1; max-height: 460px; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=900&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
@@ -401,7 +401,7 @@ h1.hero-headline {
 
 <!-- ═══ TOP ALERT ═══ -->
 <div class="top-alert" id="topAlert">
-  🌈 Join our <span class="top-alert-pride">PRIDE Summit &amp; Virtual Job Fair</span> &nbsp;June 24–25
+  Join our <span class="top-alert-pride">PRIDE Summit &amp; Virtual Job Fair</span> &nbsp;June 24–25
   <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register now →</a>
   <button class="top-alert-close" id="topAlertClose" aria-label="Close">
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
