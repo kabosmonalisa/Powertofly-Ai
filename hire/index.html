@@ -17,6 +17,10 @@
  * PAGE-SPECIFIC STYLES ONLY
  */
 
+/* ── Fixed site header (alert + nav) ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
 /* ── Top alert bar ── */
 .top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
@@ -399,6 +403,7 @@ h1.hero-headline {
 </head>
 <body>
 
+<div class="site-header" id="siteHeader">
 <!-- ═══ TOP ALERT ═══ -->
 <div class="top-alert" id="topAlert">
   AI &amp; Emerging Tech Summit 2026 &nbsp;· &nbsp;Sept 16–17 · Virtual
@@ -573,6 +578,7 @@ h1.hero-headline {
     </button>
   </div>
 </nav>
+</div><!-- /site-header -->
 <div class="nav-overlay" id="navOverlay"></div>
 <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
   <div class="drawer-links">
@@ -963,23 +969,32 @@ h1.hero-headline {
 
 <script src="../ds/ptf.js"></script>
 <script>
+/* ── Sync body padding to fixed header height ── */
+function syncHeaderOffset() {
+  var h = document.getElementById('siteHeader');
+  if (h) document.body.style.paddingTop = h.offsetHeight + 'px';
+}
+syncHeaderOffset();
+window.addEventListener('resize', syncHeaderOffset);
+
 /* ── Top alert close ── */
 (function(){
   var btn = document.getElementById('topAlertClose');
   if (btn) btn.addEventListener('click', function(){
     document.getElementById('topAlert').classList.add('hidden');
+    syncHeaderOffset();
     positionDrawer();
   });
 }());
 
 /* ── Fix drawer top to sit flush below the nav (accounts for alert bar) ── */
 function positionDrawer() {
-  var nav    = document.querySelector('.nav');
+  var h      = document.getElementById('siteHeader');
   var drawer = document.getElementById('mobileDrawer');
-  if (!nav || !drawer) return;
-  var navBottom = nav.getBoundingClientRect().bottom;
-  drawer.style.top    = navBottom + 'px';
-  drawer.style.height = (window.innerHeight - navBottom) + 'px';
+  if (!h || !drawer) return;
+  var bottom = h.getBoundingClientRect().bottom;
+  drawer.style.top    = bottom + 'px';
+  drawer.style.height = (window.innerHeight - bottom) + 'px';
 }
 document.getElementById('hamburger').addEventListener('click', positionDrawer);
 window.addEventListener('resize', positionDrawer);
