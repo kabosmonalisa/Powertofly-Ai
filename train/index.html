@@ -288,7 +288,7 @@ h1.hero-headline {
   .statband-inner { flex-wrap: wrap; }
   .statband-item { flex: 0 0 50%; border-bottom: 1px solid var(--line); }
   .statband-item:nth-child(2) { border-right: none; }
-  .statband-item:nth-child(3) { border-bottom: none; }
+  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
   .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 40px; gap: 8px; }
   .mobile-drawer { display: none; }
   .mobile-drawer.open { display: flex; }
@@ -328,7 +328,7 @@ h1.hero-headline {
   .statband-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
   .statband-item:nth-child(odd) { border-right: 1px solid var(--line); }
-  .statband-item:nth-child(3) { border-bottom: none; }
+  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
   .statband-icon { display: none; }
   .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
   .statband-num { font-size: 32px; letter-spacing: -0.04em; }
@@ -562,7 +562,7 @@ h1.hero-headline {
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">Train AI models</div>
-    <h1 class="hero-headline">Better AI models start with <em class="italic-plain">better experts.</em></h1>
+    <h1 class="hero-headline">Better AI models start with&nbsp;<em class="italic-plain">better&nbsp;experts.</em></h1>
     <p class="hero-sub">PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it's being built to serve.</p>
     <div class="hero-ctas">
       <a href="../book/" class="btn btn-primary">Talk to our team →</a>
@@ -584,6 +584,10 @@ h1.hero-headline {
     <div class="statband-item">
       <div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
       <div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div>
+    </div>
+    <div class="statband-item">
+      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div>
     </div>
   </div>
 </section>
