@@ -207,6 +207,63 @@ body {
 
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
+/* ===== Identity chips ===== */
+.id-section { margin-bottom: 18px; }
+.id-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 8px;
+}
+.id-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.id-chip {
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: var(--bg);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: border-color 150ms, background 150ms, color 150ms;
+  user-select: none;
+}
+.id-chip:hover { border-color: var(--iri-green); }
+.id-chip.selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+.id-skip {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--ink-3);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: none;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+}
+.id-skip:hover { color: var(--ink); }
+.id-privacy {
+  font-size: 11px;
+  color: var(--ink-3);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+.id-privacy a { color: var(--ink-3); }
+
 /* ===== Submit button ===== */
 .btn-auth {
   margin-top: 4px;
@@ -443,7 +500,7 @@ body {
 
       <!-- Step 1 -->
       <div id="signupStep1">
-        <div class="step-indicator">Step 1 of 2</div>
+        <div class="step-indicator">Step 1 of 3</div>
         <h1 class="auth-heading">Join a community built for experts</h1>
         <p class="auth-sub">Tell us who you are. We'll find the right fit.</p>
         <form class="auth-form" onsubmit="goToStep2();return false">
@@ -489,7 +546,7 @@ body {
 
       <!-- Step 2 -->
       <div id="signupStep2" style="display:none">
-        <div class="step-indicator">Step 2 of 2</div>
+        <div class="step-indicator">Step 2 of 3</div>
         <h1 class="auth-heading">Almost there</h1>
         <p class="auth-sub">Help us match you faster by sharing your professional profile.</p>
         <form class="auth-form" onsubmit="return false">
@@ -507,8 +564,73 @@ body {
               <div class="upload-name" id="uploadName"></div>
             </div>
           </div>
-          <button class="btn-auth" type="submit" onclick="goToThankYou();return false">Complete profile</button>
+          <button class="btn-auth" type="submit" onclick="goToStep3();return false">Continue →</button>
         </form>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="signupStep3" style="display:none">
+        <div class="step-indicator">Step 3 of 3</div>
+        <h1 class="auth-heading">A little about you</h1>
+        <p class="auth-sub">Helps us surface the right opportunities. Skip or update anytime.</p>
+
+        <div class="id-section">
+          <div class="id-section-label">Pronouns</div>
+          <div class="id-chips">
+            <span class="id-chip" onclick="toggleChip(this)">she/her</span>
+            <span class="id-chip" onclick="toggleChip(this)">he/him</span>
+            <span class="id-chip" onclick="toggleChip(this)">they/them</span>
+            <span class="id-chip" onclick="toggleChip(this)">ze/hir</span>
+            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          </div>
+        </div>
+
+        <div class="id-section">
+          <div class="id-section-label">Gender identity</div>
+          <div class="id-chips">
+            <span class="id-chip" onclick="toggleChip(this)">Woman</span>
+            <span class="id-chip" onclick="toggleChip(this)">Man</span>
+            <span class="id-chip" onclick="toggleChip(this)">Transgender</span>
+            <span class="id-chip" onclick="toggleChip(this)">Non-binary</span>
+            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          </div>
+        </div>
+
+        <div class="id-section">
+          <div class="id-section-label">Ethnicity</div>
+          <div class="id-chips">
+            <span class="id-chip" onclick="toggleChip(this)">Asian</span>
+            <span class="id-chip" onclick="toggleChip(this)">Pacific Islander</span>
+            <span class="id-chip" onclick="toggleChip(this)">Black / African diaspora</span>
+            <span class="id-chip" onclick="toggleChip(this)">Hispanic or Latino</span>
+            <span class="id-chip" onclick="toggleChip(this)">Indigenous</span>
+            <span class="id-chip" onclick="toggleChip(this)">Middle East or North Africa</span>
+            <span class="id-chip" onclick="toggleChip(this)">White or European</span>
+            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          </div>
+        </div>
+
+        <div class="id-section">
+          <div class="id-section-label">Community</div>
+          <div class="id-chips">
+            <span class="id-chip" onclick="toggleChip(this)">LGBTQIA+</span>
+            <span class="id-chip" onclick="toggleChip(this)">Disabled</span>
+            <span class="id-chip" onclick="toggleChip(this)">Neurodivergent</span>
+            <span class="id-chip" onclick="toggleChip(this)">Parent or caregiver</span>
+            <span class="id-chip" onclick="toggleChip(this)">Military service</span>
+            <span class="id-chip" onclick="toggleChip(this)">Living outside my home country</span>
+            <span class="id-chip" onclick="toggleChip(this)">Ally</span>
+            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          </div>
+        </div>
+
+        <button class="btn-auth" onclick="goToThankYou()">Save &amp; finish</button>
+        <button class="id-skip" onclick="goToThankYou()">Skip for now</button>
+        <p class="id-privacy">By saving you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
       </div>
 
       <!-- Thank you -->
@@ -549,16 +671,26 @@ function showPanel(panel) {
   if (panel === 'signup') {
     document.getElementById('signupStep1').style.display = 'block';
     document.getElementById('signupStep2').style.display = 'none';
+    document.getElementById('signupStep3').style.display = 'none';
+    document.getElementById('signupThanks').style.display = 'none';
   }
 }
 function goToStep2() {
   document.getElementById('signupStep1').style.display = 'none';
   document.getElementById('signupStep2').style.display = 'block';
 }
+function goToStep3() {
+  document.getElementById('signupStep2').style.display = 'none';
+  document.getElementById('signupStep3').style.display = 'block';
+}
 function goToThankYou() {
   document.getElementById('signupStep2').style.display = 'none';
+  document.getElementById('signupStep3').style.display = 'none';
   document.getElementById('signupThanks').style.display = 'block';
   document.querySelector('.auth-toggle').style.display = 'none';
+}
+function toggleChip(el) {
+  el.classList.toggle('selected');
 }
 function handleFile(input) {
   var name = input.files[0] ? input.files[0].name : '';
