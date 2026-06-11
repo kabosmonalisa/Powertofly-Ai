@@ -320,8 +320,8 @@ h1.hero-headline {
 .why-card { background: #0A0A0A !important; }
 .why-card h4 { color: #fff !important; }
 .why-card p { color: rgba(255,255,255,0.5) !important; }
-.why-card-icon { background: rgba(79,232,169,0.12) !important; }
-.why-card-icon svg { stroke: #4FE8A9 !important; }
+.why-card-icon { background: none !important; border: none !important; width: auto !important; height: auto !important; border-radius: 0 !important; margin-bottom: 24px !important; }
+.why-card-icon svg { width: 56px !important; height: 56px !important; stroke: none !important; }
 
 /* How it works section */
 .section-how { background: #0A0A0A !important; }
@@ -883,7 +883,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <!-- MUI: CheckCircle -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
         </div>
         <h4>More accurate outputs</h4>
         <p>Experts who understand your use case catch errors that generic annotators miss.</p>
@@ -891,7 +892,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <!-- MUI: VerifiedUser -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
         </div>
         <h4>Defensible by design</h4>
         <p>Verified identities and credentials mean you can explain who trained your model to your regulators, your legal team, and your board.</p>
@@ -899,7 +901,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <!-- MUI: Visibility -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
         </div>
         <h4>Fewer blind spots</h4>
         <p>A representative expert pool catches the edge cases a homogenous team won't see coming, before they become a problem in production.</p>
@@ -907,7 +910,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          <!-- MUI: Autorenew -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
         </div>
         <h4>Consistent across releases</h4>
         <p>Work with the same experts across model versions. Familiarity with your data compounds over time.</p>
