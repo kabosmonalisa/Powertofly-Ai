@@ -123,9 +123,11 @@ body {
   border-radius: 28px;
   box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
   width: 100%;
-  max-width: 720px;
+  max-width: 540px;
   padding: 24px 40px 24px;
+  transition: max-width 250ms ease;
 }
+.auth-card.wide { max-width: 720px; }
 
 /* ===== Toggle ===== */
 .auth-toggle {
@@ -693,12 +695,14 @@ function goToStep2() {
 function goToStep3() {
   document.getElementById('signupStep2').style.display = 'none';
   document.getElementById('signupStep3').style.display = 'block';
+  document.querySelector('.auth-card').classList.add('wide');
 }
 function goToThankYou() {
   document.getElementById('signupStep2').style.display = 'none';
   document.getElementById('signupStep3').style.display = 'none';
   document.getElementById('signupThanks').style.display = 'block';
   document.querySelector('.auth-toggle').style.display = 'none';
+  document.querySelector('.auth-card').classList.remove('wide');
 }
 function toggleChip(el) {
   el.classList.toggle('selected');
