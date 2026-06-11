@@ -123,7 +123,7 @@ body {
   border-radius: 28px;
   box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
   width: 100%;
-  max-width: 540px;
+  max-width: 720px;
   padding: 24px 40px 24px;
 }
 
@@ -208,27 +208,33 @@ body {
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
 /* ===== Identity chips ===== */
-.id-section { margin-bottom: 18px; }
+.id-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 28px;
+  margin-bottom: 4px;
+}
+.id-section { margin-bottom: 0; }
 .id-section-label {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--ink-3);
-  margin-bottom: 8px;
+  margin-bottom: 7px;
 }
 .id-chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 5px;
 }
 .id-chip {
-  padding: 6px 13px;
+  padding: 4px 11px;
   border-radius: 999px;
   border: 1.5px solid var(--line);
   background: var(--bg);
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--ink-2);
   cursor: pointer;
@@ -240,6 +246,9 @@ body {
   background: var(--ink);
   border-color: var(--ink);
   color: #fff;
+}
+@media (max-width: 600px) {
+  .id-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 .id-skip {
   display: block;
@@ -574,57 +583,59 @@ body {
         <h1 class="auth-heading">A little about you</h1>
         <p class="auth-sub">Helps us surface the right opportunities. Skip or update anytime.</p>
 
-        <div class="id-section">
-          <div class="id-section-label">Pronouns</div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">she/her</span>
-            <span class="id-chip" onclick="toggleChip(this)">he/him</span>
-            <span class="id-chip" onclick="toggleChip(this)">they/them</span>
-            <span class="id-chip" onclick="toggleChip(this)">ze/hir</span>
-            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
-            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+        <div class="id-grid">
+          <div class="id-section">
+            <div class="id-section-label">Pronouns</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">she/her</span>
+              <span class="id-chip" onclick="toggleChip(this)">he/him</span>
+              <span class="id-chip" onclick="toggleChip(this)">they/them</span>
+              <span class="id-chip" onclick="toggleChip(this)">ze/hir</span>
+              <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+              <span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
           </div>
-        </div>
 
-        <div class="id-section">
-          <div class="id-section-label">Gender identity</div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">Woman</span>
-            <span class="id-chip" onclick="toggleChip(this)">Man</span>
-            <span class="id-chip" onclick="toggleChip(this)">Transgender</span>
-            <span class="id-chip" onclick="toggleChip(this)">Non-binary</span>
-            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
-            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          <div class="id-section">
+            <div class="id-section-label">Gender identity</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Woman</span>
+              <span class="id-chip" onclick="toggleChip(this)">Man</span>
+              <span class="id-chip" onclick="toggleChip(this)">Transgender</span>
+              <span class="id-chip" onclick="toggleChip(this)">Non-binary</span>
+              <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+              <span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
           </div>
-        </div>
 
-        <div class="id-section">
-          <div class="id-section-label">Ethnicity</div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">Asian</span>
-            <span class="id-chip" onclick="toggleChip(this)">Pacific Islander</span>
-            <span class="id-chip" onclick="toggleChip(this)">Black / African diaspora</span>
-            <span class="id-chip" onclick="toggleChip(this)">Hispanic or Latino</span>
-            <span class="id-chip" onclick="toggleChip(this)">Indigenous</span>
-            <span class="id-chip" onclick="toggleChip(this)">Middle East or North Africa</span>
-            <span class="id-chip" onclick="toggleChip(this)">White or European</span>
-            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
-            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          <div class="id-section">
+            <div class="id-section-label">Ethnicity</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Asian</span>
+              <span class="id-chip" onclick="toggleChip(this)">Pacific Islander</span>
+              <span class="id-chip" onclick="toggleChip(this)">Black / African diaspora</span>
+              <span class="id-chip" onclick="toggleChip(this)">Hispanic or Latino</span>
+              <span class="id-chip" onclick="toggleChip(this)">Indigenous</span>
+              <span class="id-chip" onclick="toggleChip(this)">Middle East or North Africa</span>
+              <span class="id-chip" onclick="toggleChip(this)">White or European</span>
+              <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+              <span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
           </div>
-        </div>
 
-        <div class="id-section">
-          <div class="id-section-label">Community</div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">LGBTQIA+</span>
-            <span class="id-chip" onclick="toggleChip(this)">Disabled</span>
-            <span class="id-chip" onclick="toggleChip(this)">Neurodivergent</span>
-            <span class="id-chip" onclick="toggleChip(this)">Parent or caregiver</span>
-            <span class="id-chip" onclick="toggleChip(this)">Military service</span>
-            <span class="id-chip" onclick="toggleChip(this)">Living outside my home country</span>
-            <span class="id-chip" onclick="toggleChip(this)">Ally</span>
-            <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
-            <span class="id-chip" onclick="toggleChip(this)">Other</span>
+          <div class="id-section">
+            <div class="id-section-label">Community</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">LGBTQIA+</span>
+              <span class="id-chip" onclick="toggleChip(this)">Disabled</span>
+              <span class="id-chip" onclick="toggleChip(this)">Neurodivergent</span>
+              <span class="id-chip" onclick="toggleChip(this)">Parent or caregiver</span>
+              <span class="id-chip" onclick="toggleChip(this)">Military service</span>
+              <span class="id-chip" onclick="toggleChip(this)">Living outside my home country</span>
+              <span class="id-chip" onclick="toggleChip(this)">Ally</span>
+              <span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+              <span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
           </div>
         </div>
 
