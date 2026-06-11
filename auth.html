@@ -213,8 +213,8 @@ body {
 .id-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px 28px;
-  margin-bottom: 4px;
+  gap: 28px 36px;
+  margin-bottom: 20px;
 }
 .id-section { margin-bottom: 0; }
 .id-section-label {
@@ -252,10 +252,12 @@ body {
 @media (max-width: 600px) {
   .id-grid { grid-template-columns: 1fr; gap: 16px; }
 }
+.id-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
 .id-skip {
-  display: block;
-  text-align: center;
-  margin-top: 10px;
   font-size: 13px;
   color: var(--ink-3);
   cursor: pointer;
@@ -263,15 +265,16 @@ body {
   text-underline-offset: 3px;
   background: none;
   border: none;
-  width: 100%;
   font-family: 'Inter', sans-serif;
+  white-space: nowrap;
 }
 .id-skip:hover { color: var(--ink); }
 .id-privacy {
   font-size: 11px;
   color: var(--ink-3);
-  margin-top: 14px;
+  margin-top: 12px;
   line-height: 1.5;
+  text-align: center;
 }
 .id-privacy a { color: var(--ink-3); }
 
@@ -641,8 +644,10 @@ body {
           </div>
         </div>
 
-        <button class="btn-auth" onclick="goToThankYou()">Save &amp; finish</button>
-        <button class="id-skip" onclick="goToThankYou()">Skip for now</button>
+        <div class="id-actions">
+          <button class="btn-auth" style="width:auto;padding:16px 32px" onclick="goToThankYou()">Save &amp; finish</button>
+          <button class="id-skip" onclick="goToThankYou()">Skip for now</button>
+        </div>
         <p class="id-privacy">By saving you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
       </div>
 
