@@ -22,10 +22,10 @@
 .site-header .nav { position: static; }
 
 /* ── Top alert bar ── */
-.top-alert { background: #0A0A0A; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
 .top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
-.top-alert a:hover { background: #fff; color: #0A0A0A; }
+.top-alert a:hover { background: #fff; color: #7B00FF; }
 .top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); padding: 4px; display: flex; align-items: center; justify-content: center; transition: color .15s; }
 .top-alert-close:hover { color: #fff; }
 .top-alert.hidden { display: none; }
@@ -145,7 +145,7 @@ h1.hero-headline {
 /* ── Stats band — dark, flows from dark hero ── */
 .section-statband { background: #0A0A0A; padding: 0 32px; border-bottom: none; }
 .statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
-.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: none; }
+.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .statband-icon svg { width: 15px; height: 15px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -165,12 +165,13 @@ h1.hero-headline {
 .use-card:first-child { border-radius: var(--r-xl) 0 0 var(--r-xl); }
 .use-card:last-child  { border-radius: 0 var(--r-xl) var(--r-xl) 0; }
 .use-icon {
-  width: 44px; height: 44px; border-radius: 12px;
-  background: rgba(79,232,169,0.12);
+  width: 56px; height: 56px; border-radius: 16px;
+  background: rgba(79,232,169,0.08);
+  border: 1px solid rgba(79,232,169,0.18);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
-.use-icon svg { width: 22px; height: 22px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.use-icon svg { width: 30px; height: 30px; }
 .use-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 12px; line-height: 1.2; }
 .use-card p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.65; }
 
@@ -285,7 +286,8 @@ h1.hero-headline {
    ══════════════════════════════════════════ */
 
 /* Nav */
-.nav { background: #0A0A0A !important; border-bottom: none !important; }
+.nav { background: #0A0A0A !important; border: none !important; box-shadow: none !important; }
+.nav-inner { border: none !important; box-shadow: none !important; }
 .nav-btn { color: rgba(255,255,255,0.85) !important; }
 .brand svg { filter: brightness(0) invert(1); }
 .brand-ai { color: #0A0A0A !important; background: #4FE8A9 !important; }
@@ -624,6 +626,16 @@ h1.hero-headline {
 </div>
 
 <main>
+<!-- Shared gradient defs -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5BCFFF"/>
+      <stop offset="50%" stop-color="#4FE8A9"/>
+      <stop offset="100%" stop-color="#D5FF66"/>
+    </linearGradient>
+  </defs>
+</svg>
 
 <!-- 01. HERO -->
 <section class="hero">
@@ -669,7 +681,10 @@ h1.hero-headline {
 
       <div class="use-card">
         <div class="use-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          <!-- MUI: Feedback (speech bubble with alert) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="url(#ptf-grad)" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V6h2v4z"/>
+          </svg>
         </div>
         <h3>RLHF &amp; human feedback</h3>
         <p>The feedback your model learns from is only as good as the people providing it. Domain experts bring the industry knowledge that turns human feedback into something your model can actually use.</p>
@@ -677,7 +692,10 @@ h1.hero-headline {
 
       <div class="use-card">
         <div class="use-icon">
-          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          <!-- MUI: AssignmentTurnedIn (clipboard with checkmark) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="url(#ptf-grad)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
         </div>
         <h3>Evaluation &amp; QA</h3>
         <p>Structured testing against your criteria, across languages and use cases. Domain-matched experts test outputs against real-world expectations, not just benchmark scores.</p>
@@ -685,7 +703,10 @@ h1.hero-headline {
 
       <div class="use-card">
         <div class="use-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <!-- MUI: Security (shield with keyhole) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="url(#ptf-grad)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
+          </svg>
         </div>
         <h3>Red teaming</h3>
         <p>Adversarial testing by people who know where your model is most likely to fail. Our red teamers come from the industries your model serves, so they find the failures that actually matter before your users do.</p>
