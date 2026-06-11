@@ -122,14 +122,10 @@
   background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
 }
 
-/* ── Hero — dark with brand glow ── */
+/* ── Hero — flat dark, no gradients ── */
 .hero {
   padding: 96px 32px 80px;
-  background:
-    radial-gradient(ellipse 900px 600px at 20% 120%, rgba(123,0,255,0.18) 0%, transparent 65%),
-    radial-gradient(ellipse 800px 500px at 80% 110%, rgba(79,232,169,0.16) 0%, transparent 60%),
-    radial-gradient(ellipse 600px 400px at 50% -20%, rgba(79,232,169,0.12) 0%, transparent 70%),
-    #0A0A0A;
+  background: #0A0A0A;
   text-align: center;
 }
 .hero-inner { max-width: 1400px; margin: 0 auto; }
@@ -283,6 +279,61 @@ h1.hero-headline {
   transition: box-shadow 0.2s ease, transform 0.15s ease;
 }
 .btn-book:hover { background: rgba(255,255,255,0.88); color: #0A0A0A; box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3); transform: translateY(-1px); }
+
+/* ══════════════════════════════════════════
+   FULL DARK MODE — train page only
+   ══════════════════════════════════════════ */
+
+/* Nav */
+.nav { background: #0A0A0A !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+.nav-btn { color: rgba(255,255,255,0.85) !important; }
+.brand svg { filter: brightness(0) invert(1); }
+.brand-ai { color: rgba(255,255,255,0.45) !important; }
+.hamburger span { background: rgba(255,255,255,0.85) !important; }
+
+/* Expert types section */
+.section-experts { background: #0A0A0A !important; }
+.section-experts .section-head h2 { color: #fff; }
+.sc-left h3 { color: #fff !important; }
+.sc-body { color: rgba(255,255,255,0.5) !important; }
+.sc-tag { background: rgba(79,232,169,0.12) !important; color: #4FE8A9 !important; }
+.sc-title-chip { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.55) !important; }
+.sc-right-domain   { background: #0e151f !important; }
+.sc-right-function { background: #0a1910 !important; }
+.sc-right-ai       { background: #1a1509 !important; }
+.sc-mock-peek-card { background: rgba(255,255,255,0.05) !important; }
+.sc-more { color: #4FE8A9 !important; }
+
+/* Why it matters section */
+.section-why { background: #111 !important; }
+.why-lead h2 { color: #fff !important; }
+.why-lead p { color: rgba(255,255,255,0.5) !important; }
+.why-grid { background: rgba(255,255,255,0.07) !important; }
+.why-card { background: #111 !important; }
+.why-card h4 { color: #fff !important; }
+.why-card p { color: rgba(255,255,255,0.5) !important; }
+.why-card-icon { background: rgba(79,232,169,0.12) !important; }
+.why-card-icon svg { stroke: #4FE8A9 !important; }
+
+/* How it works section */
+.section-how { background: #0A0A0A !important; }
+.section-how .section-head h2 { color: #fff; }
+.steps::before { border-color: rgba(255,255,255,0.1) !important; }
+.step-num { background: #0A0A0A !important; border-color: rgba(255,255,255,0.15) !important; color: rgba(255,255,255,0.35) !important; }
+.step-content h4 { color: #fff !important; }
+.step-content p { color: rgba(255,255,255,0.5) !important; }
+
+/* Section heads used everywhere */
+.section-head h2 { color: #fff; }
+.section-head p  { color: rgba(255,255,255,0.5); }
+
+/* Mid-page CTA button — make it stand out on dark */
+.experts-cta .btn-primary {
+  background: #fff !important; color: #0A0A0A !important;
+}
+.experts-cta .btn-primary:hover { background: rgba(255,255,255,0.88) !important; }
+
+/* ══════════════════════════════════════════ */
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
