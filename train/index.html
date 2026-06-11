@@ -109,11 +109,11 @@
 .nav-overlay.on { display: block; }
 @media (max-width: 900px) { .nav-items { display: none; } .nav-cta { display: none; } }
 
-/* ── Hero eyebrow ── */
+/* ── Hero eyebrow — white on dark ── */
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #0A8C66;
+  text-transform: uppercase; color: #4FE8A9;
   margin-bottom: 20px;
 }
 .hero-eyebrow::before, .hero-eyebrow::after {
@@ -122,10 +122,14 @@
   background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
 }
 
-/* ── Hero ── */
+/* ── Hero — dark with brand glow ── */
 .hero {
-  padding: 96px 32px 72px;
-  background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
+  padding: 96px 32px 80px;
+  background:
+    radial-gradient(ellipse 900px 600px at 20% 120%, rgba(123,0,255,0.18) 0%, transparent 65%),
+    radial-gradient(ellipse 800px 500px at 80% 110%, rgba(79,232,169,0.16) 0%, transparent 60%),
+    radial-gradient(ellipse 600px 400px at 50% -20%, rgba(79,232,169,0.12) 0%, transparent 70%),
+    #0A0A0A;
   text-align: center;
 }
 .hero-inner { max-width: 1400px; margin: 0 auto; }
@@ -135,38 +139,44 @@ h1.hero-headline {
   font-size: clamp(36px, 5.5vw, 68px);
   line-height: 1.0; letter-spacing: -0.04em;
   max-width: 22ch; margin: 0 auto;
+  color: #fff;
 }
-.hero-sub { max-width: 68ch; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+.hero-sub { max-width: 68ch; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: rgba(255,255,255,0.6); }
 .hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+/* italic-plain inherits h1 color (#fff on dark hero) — no override needed */
+/* btn-primary already has dark bg + white text — stays correct on dark hero */
 
-/* ── Stats band ── */
-.section-statband { background: transparent; padding: 0 32px; }
+/* ── Stats band — dark, flows from dark hero ── */
+.section-statband { background: #0A0A0A; padding: 0 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
 .statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
-.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid var(--line); }
+.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.08); }
 .statband-item:last-child { border-right: none; }
-.statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-.statband-icon svg { width: 15px; height: 15px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.statband-icon svg { width: 15px; height: 15px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .statband-text { display: flex; align-items: baseline; gap: 6px; }
-.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
-.statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-2); }
+.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
+.statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
-/* ── Use cases — 3-col cards ── */
-.section-uses { background: var(--bg-soft); padding: 100px 32px; }
+/* ── Use cases — 3-col cards, dark ── */
+.section-uses { background: #111; padding: 100px 32px; }
 .uses-inner { max-width: 1200px; margin: 0 auto; }
-.uses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+.uses-inner .section-head h2 { color: #fff; }
+.uses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 56px; background: rgba(255,255,255,0.07); border-radius: var(--r-xl); overflow: hidden; }
 .use-card {
-  background: #fff; border: 1px solid var(--line);
-  border-radius: var(--r-xl); padding: 36px 32px;
+  background: #111; border: none;
+  border-radius: 0; padding: 40px 36px;
 }
+.use-card:first-child { border-radius: var(--r-xl) 0 0 var(--r-xl); }
+.use-card:last-child  { border-radius: 0 var(--r-xl) var(--r-xl) 0; }
 .use-icon {
   width: 44px; height: 44px; border-radius: 12px;
-  background: rgba(79,232,169,0.14);
+  background: rgba(79,232,169,0.12);
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 20px;
 }
-.use-icon svg { width: 22px; height: 22px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.use-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 12px; line-height: 1.2; }
-.use-card p { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
+.use-icon svg { width: 22px; height: 22px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.use-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.025em; color: #fff; margin-bottom: 12px; line-height: 1.2; }
+.use-card p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.65; }
 
 /* ── Expert types — sc-stack layout ── */
 .section-experts { background: var(--bg); padding: 80px 32px; }
@@ -276,7 +286,9 @@ h1.hero-headline {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .uses-grid { grid-template-columns: 1fr; gap: 16px; }
+  .uses-grid { grid-template-columns: 1fr; gap: 2px; border-radius: 16px; }
+  .use-card:first-child { border-radius: 16px 16px 0 0; }
+  .use-card:last-child  { border-radius: 0 0 16px 16px; }
   .section-experts { padding: 60px 20px; }
   .expert-row { grid-template-columns: 1fr; gap: 0; }
   .sc-right { height: 300px; border-radius: 16px; }
@@ -286,7 +298,7 @@ h1.hero-headline {
   .how-portrait-card { height: 260px; min-height: 0; width: 100%; aspect-ratio: unset; }
   .why-grid { grid-template-columns: 1fr; }
   .statband-inner { flex-wrap: wrap; }
-  .statband-item { flex: 0 0 50%; border-bottom: 1px solid var(--line); }
+  .statband-item { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .statband-item:nth-child(2) { border-right: none; }
   .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
   .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 40px; gap: 8px; }
@@ -329,6 +341,7 @@ h1.hero-headline {
   .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
   .statband-item:nth-child(odd) { border-right: 1px solid var(--line); }
   .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
+  .statband-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
   .statband-icon { display: none; }
   .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
   .statband-num { font-size: 32px; letter-spacing: -0.04em; }
