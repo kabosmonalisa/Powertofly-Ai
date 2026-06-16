@@ -388,8 +388,9 @@ h1.hero-headline {
    ══════════════════════════════════════════ */
 
 /* Nav */
-.nav { background: transparent !important; border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.nav { background: transparent !important; border: none !important; box-shadow: none !important; border-bottom: none !important; transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease; }
 .nav.scrolled { background: transparent !important; backdrop-filter: none !important; }
+.nav.nav-solid { background: rgba(10,10,10,0.9) !important; backdrop-filter: saturate(140%) blur(12px) !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
 .nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
 .site-header { box-shadow: none !important; border-bottom: none !important; }
 .nav, .nav-inner, .nav-fly { border-bottom: none !important; box-shadow: none !important; }
@@ -1398,6 +1399,20 @@ function syncHeaderOffset() {
 }
 syncHeaderOffset();
 window.addEventListener('resize', syncHeaderOffset);
+
+/* ── Nav gets a background once you scroll past the hero ── */
+(function(){
+  var nav = document.querySelector('.nav');
+  var hero = document.querySelector('.hero');
+  if (!nav || !hero) return;
+  function onScroll(){
+    var trigger = hero.offsetHeight - 80;
+    nav.classList.toggle('nav-solid', window.scrollY > trigger);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+}());
 
 /* ── Hero video play/pause (stop function) ── */
 (function(){
