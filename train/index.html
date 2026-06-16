@@ -222,6 +222,20 @@ h1.hero-headline {
   animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
   z-index: 3;
 }
+/* Grid mesh texture on orb surface */
+.orb-grid {
+  position: absolute; top: 50%; left: 50%;
+  width: 150px; height: 150px; margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.13) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.13) 1px, transparent 1px);
+  background-size: 16px 16px;
+  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
+  z-index: 4;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
 /* Membrane — organic wobble ring around core */
 .orb-membrane {
   position: absolute; top: 50%; left: 50%;
@@ -926,6 +940,7 @@ h1.hero-headline {
         <div class="orb-membrane"></div>
         <!-- Core body -->
         <div class="orb-core"></div>
+        <div class="orb-grid"></div>
         <div class="orb-glint"></div>
         <!-- Orbiting neuron nodes -->
         <div class="neuro neuro-1"></div>
