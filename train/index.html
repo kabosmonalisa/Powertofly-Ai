@@ -146,13 +146,14 @@
   border-radius: 0; overflow: hidden; background: #000;
 }
 .hero-vid-toggle {
-  position: absolute; bottom: 20px; left: 20px; z-index: 5;
-  width: 42px; height: 42px; border-radius: 50%;
+  position: absolute; bottom: 20px; right: 40px; z-index: 5;
+  width: 36px; height: 36px; border-radius: 50%;
   background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
   border: 1px solid rgba(255,255,255,0.28); color: #fff;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  font-size: 14px; line-height: 1; transition: background .15s ease;
+  font-size: 13px; line-height: 1; transition: background .15s ease;
 }
+@media (max-width: 860px) { .hero-vid-toggle { right: 16px; bottom: 16px; } }
 .hero-vid-toggle:hover { background: rgba(0,0,0,0.72); }
 .hero-video {
   position: absolute; inset: 0;
