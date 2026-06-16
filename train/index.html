@@ -220,7 +220,7 @@ h1.hero-headline {
     0 0 96px rgba(79,232,169,0.32),
     0 0 180px rgba(79,232,169,0.14),
     inset 0 0 32px rgba(91,207,255,0.22);
-  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
+  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 12s ease-in-out infinite;
   z-index: 3;
 }
 /* Membrane — organic wobble ring around core */
@@ -229,7 +229,7 @@ h1.hero-headline {
   width: 200px; height: 200px; margin: -100px 0 0 -100px;
   border-radius: 50%;
   border: 1.5px solid rgba(79,232,169,0.28);
-  animation: orb-morph 7s ease-in-out infinite reverse, membrane-pulse 3.8s ease-in-out infinite;
+  animation: orb-morph 12s ease-in-out infinite reverse, membrane-pulse 3.8s ease-in-out infinite;
   z-index: 2;
 }
 .orb-glint {
@@ -271,15 +271,16 @@ h1.hero-headline {
   50%       { box-shadow: 0 0 72px rgba(79,232,169,0.9), 0 0 140px rgba(79,232,169,0.48), 0 0 260px rgba(79,232,169,0.2), inset 0 0 52px rgba(91,207,255,0.32); }
 }
 @keyframes orb-morph {
-  0%   { border-radius: 62% 38% 70% 30% / 45% 55% 45% 55%; }
-  12%  { border-radius: 38% 62% 35% 65% / 68% 32% 66% 34%; }
-  25%  { border-radius: 72% 28% 52% 48% / 36% 64% 38% 62%; }
-  37%  { border-radius: 30% 70% 62% 38% / 58% 42% 72% 28%; }
-  50%  { border-radius: 55% 45% 28% 72% / 74% 26% 48% 52%; }
-  62%  { border-radius: 40% 60% 74% 26% / 32% 68% 30% 70%; }
-  75%  { border-radius: 68% 32% 40% 60% / 52% 48% 64% 36%; }
-  87%  { border-radius: 34% 66% 58% 42% / 62% 38% 36% 64%; }
-  100% { border-radius: 62% 38% 70% 30% / 45% 55% 45% 55%; }
+  0%   { border-radius: 80% 20% 55% 45% / 37% 63% 37% 63%; }
+  10%  { border-radius: 22% 78% 40% 60% / 74% 26% 82% 18%; }
+  20%  { border-radius: 76% 24% 78% 22% / 20% 80% 28% 72%; }
+  30%  { border-radius: 18% 82% 30% 70% / 60% 40% 76% 24%; }
+  42%  { border-radius: 85% 15% 50% 50% / 42% 58% 18% 82%; }
+  54%  { border-radius: 25% 75% 82% 18% / 78% 22% 44% 56%; }
+  65%  { border-radius: 70% 30% 18% 82% / 24% 76% 80% 20%; }
+  76%  { border-radius: 15% 85% 60% 40% / 80% 20% 30% 70%; }
+  88%  { border-radius: 60% 40% 24% 76% / 18% 82% 62% 38%; }
+  100% { border-radius: 80% 20% 55% 45% / 37% 63% 37% 63%; }
 }
 @keyframes membrane-pulse {
   0%, 100% { opacity: 0.55; transform: scale(1); }
