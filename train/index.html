@@ -232,12 +232,13 @@ h1.hero-headline {
   background: transparent;
   z-index: 4; pointer-events: none;
   animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
-  mix-blend-mode: overlay;
+  /* NO mix-blend-mode here — it breaks overflow:hidden clipping in browsers */
 }
 .orb-grid-svg {
   position: absolute; top: 0; left: 0;
   width: 100%; height: 100%;
   background: transparent;
+  mix-blend-mode: overlay;
 }
 /* Membrane — organic wobble ring around core */
 .orb-membrane {
