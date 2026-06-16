@@ -194,6 +194,8 @@ h1.hero-headline {
 .use-card-dark h3 { color: #fff !important; }
 .use-card-dark p  { color: rgba(255,255,255,0.5) !important; }
 .use-card-dark .benefit-eyebrow { color: #4FE8A9 !important; }
+.use-card-photo { width: 100%; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; margin-bottom: 18px; background: #0A0A0A; }
+.use-card-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; }
 .hire-sticky-scene .section-head { margin-bottom: 16px; }
 .hire-around-wrap { position: relative; width: 100%; height: 440px; }
 .hire-center-portrait {
@@ -969,30 +971,21 @@ html, body { background: #0A0A0A !important; }
     <div class="benefits-row">
 
       <div class="benefit-card use-card-dark">
-        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-          <defs><linearGradient id="uc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#uc1)" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-        </svg>
+        <div class="use-card-photo"><img src="person-1.jpg" alt="" loading="lazy"></div>
         <div class="benefit-eyebrow">RLHF &amp; human feedback</div>
         <h3>Feedback that actually makes your model better.</h3>
         <p>Domain experts provide the nuanced signal that generalist crowds can't — rated, ranked, and explained in context.</p>
       </div>
 
       <div class="benefit-card use-card-dark">
-        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-          <defs><linearGradient id="uc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#uc2)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-        </svg>
+        <div class="use-card-photo"><img src="person-2.jpg" alt="" loading="lazy"></div>
         <div class="benefit-eyebrow">Evaluation &amp; QA</div>
         <h3>Test against real-world expectations, not benchmarks.</h3>
         <p>Domain-matched experts evaluate outputs across languages and edge cases your team would never think to test.</p>
       </div>
 
       <div class="benefit-card use-card-dark">
-        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-          <defs><linearGradient id="uc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#uc3)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
-        </svg>
+        <div class="use-card-photo"><img src="person-3.jpg" alt="" loading="lazy"></div>
         <div class="benefit-eyebrow">Red teaming</div>
         <h3>Find the failures before your users do.</h3>
         <p>Adversarial testing by people who know your industry — they probe where your model is most likely to fail in production.</p>
