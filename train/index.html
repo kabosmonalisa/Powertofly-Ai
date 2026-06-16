@@ -560,6 +560,12 @@ h1.hero-headline {
 
 .why-outcomes-wrap { position: relative; width: 100%; height: 400px; }
 
+/* Stack the floating outcome cards below 1080px (two 400px cards can't fit side-by-side) */
+@media (max-width: 1080px) {
+  .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 16px !important; align-items: center !important; margin-top: 8px !important; }
+  .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
+}
+
 /* How it works section */
 .section-how { background: #0A0A0A !important; }
 .section-how .section-head h2 { color: #fff; }
@@ -594,7 +600,7 @@ h1.hero-headline {
   .sc-left { padding: 32px 20px; }
   .section-how { padding: 60px 20px; }
   .how-inner { grid-template-columns: 1fr; gap: 40px; }
-  .how-portrait-card { height: 260px; min-height: 0; width: 100%; aspect-ratio: unset; }
+  .how-portrait-card { height: 440px; min-height: 0; width: 100%; aspect-ratio: unset; }
   .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: center !important; }
   .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
   .statband-inner { flex-wrap: wrap; }
@@ -643,8 +649,8 @@ h1.hero-headline {
   .statband-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
   .statband-icon { display: none; }
   .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .statband-num { font-size: 32px; letter-spacing: -0.04em; }
-  .statband-lbl { font-size: 13px; font-weight: 500; color: var(--ink-2); }
+  .statband-num { font-size: 40px !important; letter-spacing: -0.04em; color: #fff !important; }
+  .statband-lbl { font-size: 16px !important; font-weight: 500; color: rgba(255,255,255,0.7) !important; }
   .steps::before { left: 20px; }
   .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
   .expert-row { min-height: 0; }
