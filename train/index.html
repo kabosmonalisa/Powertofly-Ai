@@ -223,23 +223,6 @@ h1.hero-headline {
   animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
   z-index: 3;
 }
-/* Grid mesh wrapper — morphs with the orb so grid clips to blob shape */
-.orb-grid-wrap {
-  position: absolute; top: 50%; left: 50%;
-  width: 150px; height: 150px; margin: -75px 0 0 -75px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: transparent;
-  z-index: 4; pointer-events: none;
-  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
-  /* NO mix-blend-mode here — it breaks overflow:hidden clipping in browsers */
-}
-.orb-grid-svg {
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: transparent;
-  mix-blend-mode: overlay;
-}
 /* Membrane — organic wobble ring around core */
 .orb-membrane {
   position: absolute; top: 50%; left: 50%;
@@ -288,12 +271,15 @@ h1.hero-headline {
   50%       { box-shadow: 0 0 72px rgba(79,232,169,0.9), 0 0 140px rgba(79,232,169,0.48), 0 0 260px rgba(79,232,169,0.2), inset 0 0 52px rgba(91,207,255,0.32); }
 }
 @keyframes orb-morph {
-  0%, 100% { border-radius: 50%; }
-  16% { border-radius: 44% 56% 55% 45% / 46% 43% 57% 54%; }
-  33% { border-radius: 58% 42% 44% 56% / 53% 50% 50% 47%; }
-  50% { border-radius: 45% 55% 58% 42% / 42% 58% 42% 58%; }
-  66% { border-radius: 54% 46% 43% 57% / 57% 54% 46% 43%; }
-  83% { border-radius: 48% 52% 57% 43% / 43% 45% 55% 57%; }
+  0%   { border-radius: 62% 38% 70% 30% / 45% 55% 45% 55%; }
+  12%  { border-radius: 38% 62% 35% 65% / 68% 32% 66% 34%; }
+  25%  { border-radius: 72% 28% 52% 48% / 36% 64% 38% 62%; }
+  37%  { border-radius: 30% 70% 62% 38% / 58% 42% 72% 28%; }
+  50%  { border-radius: 55% 45% 28% 72% / 74% 26% 48% 52%; }
+  62%  { border-radius: 40% 60% 74% 26% / 32% 68% 30% 70%; }
+  75%  { border-radius: 68% 32% 40% 60% / 52% 48% 64% 36%; }
+  87%  { border-radius: 34% 66% 58% 42% / 62% 38% 36% 64%; }
+  100% { border-radius: 62% 38% 70% 30% / 45% 55% 45% 55%; }
 }
 @keyframes membrane-pulse {
   0%, 100% { opacity: 0.55; transform: scale(1); }
@@ -1069,42 +1055,6 @@ h1.hero-headline {
         <div class="orb-membrane"></div>
         <!-- Core body -->
         <div class="orb-core"></div>
-        <!-- Sphere mesh — latitude + longitude lines that follow surface curvature -->
-        <!-- Wrapped in .orb-grid-wrap so overflow:hidden clips to morphing blob shape -->
-        <div class="orb-grid-wrap" aria-hidden="true">
-          <svg class="orb-grid-svg" viewBox="0 0 150 150" fill="none">
-            <defs>
-              <radialGradient id="orb-sph-light" cx="36%" cy="30%" r="65%">
-                <stop offset="0%"   stop-color="white" stop-opacity="0.72"/>
-                <stop offset="55%"  stop-color="white" stop-opacity="0.28"/>
-                <stop offset="100%" stop-color="white" stop-opacity="0.03"/>
-              </radialGradient>
-              <mask id="orb-sph-mask">
-                <rect width="150" height="150" fill="url(#orb-sph-light)"/>
-              </mask>
-            </defs>
-            <g mask="url(#orb-sph-mask)" stroke="white" stroke-width="0.6">
-              <!-- 9 Latitude rings: narrow at poles, widest at equator -->
-              <ellipse cx="75" cy="4"   rx="20"  ry="7"/>
-              <ellipse cx="75" cy="20"  rx="46"  ry="17"/>
-              <ellipse cx="75" cy="40"  rx="64"  ry="23"/>
-              <ellipse cx="75" cy="60"  rx="72"  ry="26"/>
-              <ellipse cx="75" cy="75"  rx="74"  ry="27"/>
-              <ellipse cx="75" cy="90"  rx="72"  ry="26"/>
-              <ellipse cx="75" cy="110" rx="64"  ry="23"/>
-              <ellipse cx="75" cy="130" rx="46"  ry="17"/>
-              <ellipse cx="75" cy="146" rx="20"  ry="7"/>
-              <!-- 7 Longitude meridians at different rx values -->
-              <ellipse cx="75" cy="75" rx="12"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="30"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="50"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="62"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="74"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="86"  ry="74"/>
-              <ellipse cx="75" cy="75" rx="98"  ry="74"/>
-            </g>
-          </svg>
-        </div>
         <div class="orb-glint"></div>
         <!-- Orbiting neuron nodes -->
         <div class="neuro neuro-1"></div>
