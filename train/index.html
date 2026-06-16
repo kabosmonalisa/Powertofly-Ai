@@ -149,6 +149,7 @@ h1.hero-headline {
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 .statband-icon svg { width: 15px; height: 15px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.statband-icon svg[style*="fill:#4FE8A9"] { stroke: none; fill: #4FE8A9; }
 .statband-text { display: flex; align-items: baseline; gap: 6px; }
 .statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
@@ -222,14 +223,21 @@ h1.hero-headline {
   animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
   z-index: 3;
 }
-/* Grid mesh texture on orb surface */
-/* Sphere mesh SVG — follows curvature like a blanket */
-.orb-grid-svg {
+/* Grid mesh wrapper — morphs with the orb so grid clips to blob shape */
+.orb-grid-wrap {
   position: absolute; top: 50%; left: 50%;
   width: 150px; height: 150px; margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: transparent;
   z-index: 4; pointer-events: none;
-  animation: orb-breathe 3.8s ease-in-out infinite;
+  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
   mix-blend-mode: overlay;
+}
+.orb-grid-svg {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: transparent;
 }
 /* Membrane — organic wobble ring around core */
 .orb-membrane {
@@ -468,51 +476,109 @@ h1.hero-headline {
 
 /* ── 2D cursor animations per card ── */
 /* Card 1: clicks Response A then Response B */
+/*
+  Illustration cursor animations — Card 1: RLHF preference
+  Cursor starts bottom-center, glides to "Response A" button, clicks (scale down),
+  button glows green for 1.2s, cursor glides to "Response B", clicks, B glows.
+  Total cycle: 7s
+*/
 @keyframes cur1 {
-  0%,8%   { transform:translate(0,0) scale(1); }
-  22%     { transform:translate(-48px,-28px) scale(1); }
-  27%     { transform:translate(-48px,-28px) scale(0.82); }
-  32%     { transform:translate(-48px,-28px) scale(1); }
-  50%,58% { transform:translate(0,0) scale(1); }
-  72%     { transform:translate(38px,-28px) scale(1); }
-  77%     { transform:translate(38px,-28px) scale(0.82); }
-  82%     { transform:translate(38px,-28px) scale(1); }
-  96%,100%{ transform:translate(0,0) scale(1); }
+  /* rest at center */
+  0%,6%    { transform:translate(0,0) scale(1); }
+  /* glide to Response A (top-left) */
+  18%      { transform:translate(-46px,-30px) scale(1); }
+  /* click down */
+  21%      { transform:translate(-46px,-30px) scale(0.78); }
+  /* release & hold over A */
+  25%,40%  { transform:translate(-46px,-30px) scale(1); }
+  /* glide across to Response B (top-right) */
+  52%      { transform:translate(44px,-30px) scale(1); }
+  /* click B */
+  55%      { transform:translate(44px,-30px) scale(0.78); }
+  /* release & hold over B */
+  58%,72%  { transform:translate(44px,-30px) scale(1); }
+  /* return to rest */
+  84%,100% { transform:translate(0,0) scale(1); }
 }
-/* Card 2: moves down the eval rows clicking each */
-@keyframes cur2 {
-  0%,8%  { transform:translate(0,0) scale(1); }
-  20%    { transform:translate(10px,-38px) scale(1); }
-  25%    { transform:translate(10px,-38px) scale(0.82); }
-  30%    { transform:translate(10px,-38px) scale(1); }
-  45%    { transform:translate(10px,-12px) scale(1); }
-  50%    { transform:translate(10px,-12px) scale(0.82); }
-  55%    { transform:translate(10px,-12px) scale(1); }
-  70%    { transform:translate(10px,14px) scale(1); }
-  75%    { transform:translate(10px,14px) scale(0.82); }
-  80%    { transform:translate(10px,14px) scale(1); }
-  95%,100%{ transform:translate(0,0) scale(1); }
-}
-/* Card 3: clicks on CRITICAL finding */
-@keyframes cur3 {
-  0%,10% { transform:translate(0,0) scale(1); }
-  28%    { transform:translate(0px,-42px) scale(1); }
-  34%    { transform:translate(0px,-42px) scale(0.82); }
-  40%    { transform:translate(0px,-42px) scale(1); }
-  70%,100%{ transform:translate(0,0) scale(1); }
-}
-/* Glow pulse when clicked — synced timing */
+/* Response A glows on click at ~21% of 7s = 1.47s */
 @keyframes resp-a-glow {
-  0%,26%,38%,100% { box-shadow:none; }
-  29%,35% { box-shadow:0 0 14px rgba(79,232,169,0.55); }
+  0%,18%,42%,100% { box-shadow:none; border-color:#4FE8A9; }
+  21%,40%         { box-shadow:0 0 0 2px rgba(79,232,169,0.45), 0 0 18px rgba(79,232,169,0.4); border-color:#4FE8A9; }
 }
+/* Response B glows on click at ~55% */
+@keyframes resp-b-glow {
+  0%,52%,74%,100% { box-shadow:none; border-color:rgba(255,255,255,0.12); }
+  55%,72%         { box-shadow:0 0 0 2px rgba(91,207,255,0.4), 0 0 18px rgba(91,207,255,0.3); border-color:rgba(91,207,255,0.6); }
+}
+
+/*
+  Card 2: Human eval — cursor clicks rating stars on each eval row in sequence.
+  Cursor starts right side, clicks row 1 star, row 2 star, row 3 star.
+  Total cycle: 7s
+*/
+@keyframes cur2 {
+  0%,6%     { transform:translate(0,0) scale(1); }
+  /* glide to row 1 rating */
+  16%       { transform:translate(-12px,-44px) scale(1); }
+  19%       { transform:translate(-12px,-44px) scale(0.78); }
+  22%,36%   { transform:translate(-12px,-44px) scale(1); }
+  /* glide to row 2 rating */
+  46%       { transform:translate(-12px,-14px) scale(1); }
+  49%       { transform:translate(-12px,-14px) scale(0.78); }
+  52%,66%   { transform:translate(-12px,-14px) scale(1); }
+  /* glide to row 3 rating */
+  74%       { transform:translate(-12px,16px) scale(1); }
+  77%       { transform:translate(-12px,16px) scale(0.78); }
+  80%,90%   { transform:translate(-12px,16px) scale(1); }
+  96%,100%  { transform:translate(0,0) scale(1); }
+}
+/* Row 1 highlights on click at ~19% */
+@keyframes row1-hl {
+  0%,16%,38%,100% { background:rgba(255,255,255,0.03); }
+  19%,36%         { background:rgba(79,232,169,0.1); }
+}
+/* Row 2 highlights on click at ~49% */
+@keyframes row2-hl {
+  0%,46%,68%,100% { background:rgba(255,255,255,0.03); }
+  49%,66%         { background:rgba(79,232,169,0.1); }
+}
+/* Row 3 highlights on click at ~77% */
+@keyframes row3-hl {
+  0%,74%,92%,100% { background:rgba(255,255,255,0.03); }
+  77%,90%         { background:rgba(79,232,169,0.1); }
+}
+/* Keep legacy name for existing HTML refs */
 @keyframes row-highlight {
-  0%,24%,32%,100% { background:#0d2015; }
-  27%,31% { background:#143525; }
+  0%,16%,38%,100% { background:rgba(255,255,255,0.03); }
+  19%,36%         { background:rgba(79,232,169,0.1); }
 }
+
+/*
+  Card 3: Red team — cursor clicks the CRITICAL finding to expand it,
+  then clicks on the FIX button that appears.
+  Total cycle: 7s
+*/
+@keyframes cur3 {
+  0%,8%     { transform:translate(0,0) scale(1); }
+  /* glide to CRITICAL row */
+  22%       { transform:translate(-2px,-40px) scale(1); }
+  25%       { transform:translate(-2px,-40px) scale(0.78); }
+  28%,52%   { transform:translate(-2px,-40px) scale(1); }
+  /* glide to FIX button inside expanded card */
+  62%       { transform:translate(30px,-22px) scale(1); }
+  65%       { transform:translate(30px,-22px) scale(0.78); }
+  68%,80%   { transform:translate(30px,-22px) scale(1); }
+  90%,100%  { transform:translate(0,0) scale(1); }
+}
+/* CRITICAL row pulses on click at ~25% */
 @keyframes critical-pulse {
-  0%,33%,45%,100% { border-left-color:#ff4444; }
-  36%,42% { border-left-color:#ff8888; box-shadow:0 0 12px rgba(255,68,68,0.4); }
+  0%,22%,54%,100%  { border-left-color:#ff4444; box-shadow:none; }
+  25%,52%          { border-left-color:#ff6666; box-shadow:0 0 16px rgba(255,68,68,0.35); }
+}
+/* FIX button lights up when cursor reaches it at ~65% */
+@keyframes fix-btn-glow {
+  0%,62%,82%,100%  { background:rgba(79,232,169,0.08); color:#4FE8A9; }
+  65%,80%          { background:rgba(79,232,169,0.22); color:#fff; box-shadow:0 0 8px rgba(79,232,169,0.4); }
 }
 
 .ai-cursor { position:absolute; pointer-events:none; z-index:10; }
@@ -909,20 +975,13 @@ h1.hero-headline {
 <section class="section-statband">
   <div class="statband-inner">
     <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:4px;">
-        <div style="display:flex;gap:2px;line-height:1;">
-          <svg width="11" height="11" viewBox="0 0 24 24"><path fill="#F5A623" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="11" height="11" viewBox="0 0 24 24"><path fill="#F5A623" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="11" height="11" viewBox="0 0 24 24"><path fill="#F5A623" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="11" height="11" viewBox="0 0 24 24"><path fill="#F5A623" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-          <svg width="11" height="11" viewBox="0 0 24 24"><path fill="#F5A623" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-        </div>
-        <div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div>
-      </div>
+      <!-- Star icon replaces people icon -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div>
     </div>
     <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 3.5-2.5 6-5 8v1H10v-1c-2.5-2-5-4.5-5-8a7 7 0 0 1 7-7z"/><path d="M10 21h4"/><path d="M9 17h6"/></svg></div>
+      <!-- Robot/AI chip icon -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7C5.9 5 5 5.9 5 7v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg></div>
       <div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI professionals</span></div>
     </div>
     <div class="statband-item">
@@ -930,7 +989,8 @@ h1.hero-headline {
       <div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div>
     </div>
     <div class="statband-item">
-      <div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <!-- Diversity/woman icon (MUI Diversity3) -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></div>
       <div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div>
     </div>
   </div>
@@ -1008,32 +1068,41 @@ h1.hero-headline {
         <!-- Core body -->
         <div class="orb-core"></div>
         <!-- Sphere mesh — latitude + longitude lines that follow surface curvature -->
-        <svg class="orb-grid-svg" viewBox="0 0 150 150" fill="none" aria-hidden="true">
-          <defs>
-            <clipPath id="orb-sph-clip"><circle cx="75" cy="75" r="73"/></clipPath>
-            <radialGradient id="orb-sph-light" cx="36%" cy="30%" r="65%">
-              <stop offset="0%"   stop-color="white" stop-opacity="0.7"/>
-              <stop offset="60%"  stop-color="white" stop-opacity="0.25"/>
-              <stop offset="100%" stop-color="white" stop-opacity="0.04"/>
-            </radialGradient>
-            <mask id="orb-sph-mask">
-              <circle cx="75" cy="75" r="73" fill="url(#orb-sph-light)"/>
-            </mask>
-          </defs>
-          <g clip-path="url(#orb-sph-clip)" mask="url(#orb-sph-mask)" stroke="white" stroke-width="0.85">
-            <!-- Latitude rings: narrow at poles, widest at equator -->
-            <ellipse cx="75" cy="11"  rx="36"  ry="13"/>
-            <ellipse cx="75" cy="38"  rx="63"  ry="24"/>
-            <ellipse cx="75" cy="75"  rx="73"  ry="27"/>
-            <ellipse cx="75" cy="112" rx="63"  ry="24"/>
-            <ellipse cx="75" cy="139" rx="36"  ry="13"/>
-            <!-- Longitude meridians: ellipses through poles at different angles -->
-            <line x1="75" y1="2" x2="75" y2="148"/>
-            <ellipse cx="75" cy="75" rx="36"  ry="72"/>
-            <ellipse cx="75" cy="75" rx="63"  ry="72"/>
-            <ellipse cx="75" cy="75" rx="73"  ry="72"/>
-          </g>
-        </svg>
+        <!-- Wrapped in .orb-grid-wrap so overflow:hidden clips to morphing blob shape -->
+        <div class="orb-grid-wrap" aria-hidden="true">
+          <svg class="orb-grid-svg" viewBox="0 0 150 150" fill="none">
+            <defs>
+              <radialGradient id="orb-sph-light" cx="36%" cy="30%" r="65%">
+                <stop offset="0%"   stop-color="white" stop-opacity="0.72"/>
+                <stop offset="55%"  stop-color="white" stop-opacity="0.28"/>
+                <stop offset="100%" stop-color="white" stop-opacity="0.03"/>
+              </radialGradient>
+              <mask id="orb-sph-mask">
+                <rect width="150" height="150" fill="url(#orb-sph-light)"/>
+              </mask>
+            </defs>
+            <g mask="url(#orb-sph-mask)" stroke="white" stroke-width="0.6">
+              <!-- 9 Latitude rings: narrow at poles, widest at equator -->
+              <ellipse cx="75" cy="4"   rx="20"  ry="7"/>
+              <ellipse cx="75" cy="20"  rx="46"  ry="17"/>
+              <ellipse cx="75" cy="40"  rx="64"  ry="23"/>
+              <ellipse cx="75" cy="60"  rx="72"  ry="26"/>
+              <ellipse cx="75" cy="75"  rx="74"  ry="27"/>
+              <ellipse cx="75" cy="90"  rx="72"  ry="26"/>
+              <ellipse cx="75" cy="110" rx="64"  ry="23"/>
+              <ellipse cx="75" cy="130" rx="46"  ry="17"/>
+              <ellipse cx="75" cy="146" rx="20"  ry="7"/>
+              <!-- 7 Longitude meridians at different rx values -->
+              <ellipse cx="75" cy="75" rx="12"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="30"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="50"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="62"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="74"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="86"  ry="74"/>
+              <ellipse cx="75" cy="75" rx="98"  ry="74"/>
+            </g>
+          </svg>
+        </div>
         <div class="orb-glint"></div>
         <!-- Orbiting neuron nodes -->
         <div class="neuro neuro-1"></div>
@@ -1125,9 +1194,9 @@ h1.hero-headline {
           <div class="sc-mock-wrap">
             <!-- RLHF A/B preference comparison -->
             <div class="sc-mock sc-mock-dark-blue" style="position:relative;overflow:visible;">
-              <!-- 2D flat cursor — clicks A then B -->
-              <div class="ai-cursor" style="bottom:44px;left:50%;margin-left:-8px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur1 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              <!-- 2D flat cursor — clicks Response A then Response B -->
+              <div class="ai-cursor" style="bottom:36px;left:50%;margin-left:-8px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur1 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
               <!-- Pexels avatars -->
               <div class="avatar-row">
@@ -1138,11 +1207,11 @@ h1.hero-headline {
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">RLHF · Response comparison</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
-                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;animation:resp-a-glow 4.4s ease-in-out infinite;">
+                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;animation:resp-a-glow 7s ease-in-out infinite;">
                   <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.06em;margin-bottom:5px;">RESPONSE A ✓</div>
                   <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.5;">The standard dosage is 500 mg twice daily with meals, adjusted for renal function…</div>
                 </div>
-                <div style="background:#111e2e;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px;">
+                <div style="background:#111e2e;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px;animation:resp-b-glow 7s ease-in-out infinite;">
                   <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.06em;margin-bottom:5px;">RESPONSE B</div>
                   <div style="font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;">Dosing varies widely. Consult a physician for personalized dosing advice…</div>
                 </div>
@@ -1177,9 +1246,9 @@ h1.hero-headline {
           <div class="sc-mock-wrap">
             <!-- Evaluation scorecard -->
             <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:visible;">
-              <!-- 2D cursor scrolling through eval rows -->
-              <div class="ai-cursor" style="bottom:32px;right:18px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur2 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              <!-- 2D cursor clicking rating checkmarks on each eval row -->
+              <div class="ai-cursor" style="bottom:28px;right:16px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur2 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
               <!-- Pexels avatars -->
               <div class="avatar-row">
@@ -1189,11 +1258,11 @@ h1.hero-headline {
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">Eval run · HR policy assistant</div>
               <div style="display:flex;flex-direction:column;gap:5px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row-highlight 4.4s ease-in-out infinite;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row1-hl 7s ease-in-out infinite;">
                   <span style="font-size:12px;color:rgba(255,255,255,0.75);">Factual accuracy</span>
                   <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row2-hl 7s ease-in-out infinite;">
                   <span style="font-size:12px;color:rgba(255,255,255,0.75);">Policy compliance</span>
                   <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
                 </div>
@@ -1201,7 +1270,7 @@ h1.hero-headline {
                   <span style="font-size:12px;color:rgba(255,255,255,0.75);">Tone appropriateness</span>
                   <span style="font-size:10px;font-weight:700;color:#f5a623;letter-spacing:0.04em;">⚠ REVIEW</span>
                 </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row3-hl 7s ease-in-out infinite;">
                   <span style="font-size:12px;color:rgba(255,255,255,0.75);">Completeness</span>
                   <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
                 </div>
@@ -1234,9 +1303,9 @@ h1.hero-headline {
           <div class="sc-mock-wrap">
             <!-- Red team attack log -->
             <div class="sc-mock sc-mock-dark-red" style="position:relative;overflow:visible;">
-              <!-- 2D cursor clicking on CRITICAL finding -->
-              <div class="ai-cursor" style="bottom:56px;left:50%;margin-left:-8px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur3 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
+              <!-- 2D cursor: clicks CRITICAL row, then the FIX button inside it -->
+              <div class="ai-cursor" style="bottom:52px;left:50%;margin-left:-8px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur3 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
               <!-- Pexels avatars -->
               <div class="avatar-row">
@@ -1248,8 +1317,11 @@ h1.hero-headline {
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ff5555;margin-bottom:10px;">Red team log · Finance LLM</div>
               <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
-                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;animation:critical-pulse 4.4s ease-in-out infinite;">
-                  <div style="font-size:9px;font-weight:700;color:#ff5555;letter-spacing:0.08em;margin-bottom:3px;">CRITICAL</div>
+                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;animation:critical-pulse 7s ease-in-out infinite;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                    <div style="font-size:9px;font-weight:700;color:#ff5555;letter-spacing:0.08em;">CRITICAL</div>
+                    <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;border:1px solid rgba(79,232,169,0.3);cursor:default;animation:fix-btn-glow 7s ease-in-out infinite;">FIX →</div>
+                  </div>
                   <div style="font-size:11px;color:rgba(255,255,255,0.8);">Jailbreak via role-play → exposes user PII</div>
                 </div>
                 <div style="padding:9px 12px;background:#1c1208;border-left:2.5px solid #f5a623;border-radius:0 7px 7px 0;">
