@@ -476,110 +476,111 @@ h1.hero-headline {
 .statband-lbl { font-size: 15px !important; }
 
 /* ── 2D cursor animations per card ── */
-/* Card 1: clicks Response A then Response B */
-/*
-  Illustration cursor animations — Card 1: RLHF preference
-  Cursor starts bottom-center, glides to "Response A" button, clicks (scale down),
-  button glows green for 1.2s, cursor glides to "Response B", clicks, B glows.
-  Total cycle: 7s
-*/
+/* =====================================================
+   ILLUSTRATION CURSOR ANIMATIONS
+   Interactions planned per card:
+   Card 1 (RLHF):   cursor (bottom-center) → clicks "Response A" tab (up-left)
+                     → A tab turns green + response highlights
+                     → cursor glides to annotation box (down) → clicks → box gets focus ring
+   Card 2 (Eval):   cursor (mid-right) → clicks 5th dot on Accuracy row (up-left)
+                     → all 5 dots fill → cursor drops to Clarity row → clicks 4th dot
+                     → 4 dots fill → Submit pulses active
+   Card 3 (Red team): cursor (mid-bottom) → clicks CRITICAL row (up)
+                     → row expands to reveal detail + Flag button
+                     → cursor glides to Flag button → clicks → "Flagged ✓" green state
+   All cycle: 8s for more comfortable pacing
+   ===================================================== */
+
+/* --- Card 1 --- */
+/* Cursor: starts bottom-center of card */
 @keyframes cur1 {
-  /* rest at center */
-  0%,6%    { transform:translate(0,0) scale(1); }
-  /* glide to Response A (top-left) */
-  18%      { transform:translate(-46px,-30px) scale(1); }
-  /* click down */
-  21%      { transform:translate(-46px,-30px) scale(0.78); }
-  /* release & hold over A */
-  25%,40%  { transform:translate(-46px,-30px) scale(1); }
-  /* glide across to Response B (top-right) */
-  52%      { transform:translate(44px,-30px) scale(1); }
-  /* click B */
-  55%      { transform:translate(44px,-30px) scale(0.78); }
-  /* release & hold over B */
-  58%,72%  { transform:translate(44px,-30px) scale(1); }
-  /* return to rest */
-  84%,100% { transform:translate(0,0) scale(1); }
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(-44px,-98px) scale(1); }    /* arrive at tab A */
+  20%       { transform:translate(-44px,-98px) scale(0.72); } /* click */
+  23%,44%   { transform:translate(-44px,-98px) scale(1); }    /* hold — reading */
+  56%       { transform:translate(4px,-38px) scale(1); }      /* glide to annotation */
+  59%       { transform:translate(4px,-38px) scale(0.72); }   /* click */
+  62%,80%   { transform:translate(4px,-38px) scale(1); }      /* hold */
+  92%,100%  { transform:translate(0,0) scale(1); }            /* return */
 }
-/* Response A glows on click at ~21% of 7s = 1.47s */
-@keyframes resp-a-glow {
-  0%,18%,42%,100% { box-shadow:none; border-color:#4FE8A9; }
-  21%,40%         { box-shadow:0 0 0 2px rgba(79,232,169,0.45), 0 0 18px rgba(79,232,169,0.4); border-color:#4FE8A9; }
+/* Tab A active state: turns green on click at 20% */
+@keyframes tab-a-active {
+  0%,17%,82%,100% { background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.38); border-color:rgba(255,255,255,0.1); }
+  20%,80%         { background:#4FE8A9; color:#0a0a0a; border-color:#4FE8A9; }
 }
-/* Response B glows on click at ~55% */
-@keyframes resp-b-glow {
-  0%,52%,74%,100% { box-shadow:none; border-color:rgba(255,255,255,0.12); }
-  55%,72%         { box-shadow:0 0 0 2px rgba(91,207,255,0.4), 0 0 18px rgba(91,207,255,0.3); border-color:rgba(91,207,255,0.6); }
+/* Response A card: gets selected green border at same time as tab click */
+@keyframes resp-a-selected {
+  0%,17%,82%,100% { border-color:rgba(255,255,255,0.07); box-shadow:none; }
+  20%,80%         { border-color:#4FE8A9; box-shadow:0 0 0 1px rgba(79,232,169,0.25), 0 0 20px rgba(79,232,169,0.15); }
+}
+/* Annotation box: gets focus ring when cursor clicks it at 59% */
+@keyframes annot-focus {
+  0%,56%,82%,100% { border-color:rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); }
+  59%,80%         { border-color:rgba(79,232,169,0.5); background:rgba(79,232,169,0.04); box-shadow:0 0 0 2px rgba(79,232,169,0.12); }
 }
 
-/*
-  Card 2: Human eval — cursor clicks rating stars on each eval row in sequence.
-  Cursor starts right side, clicks row 1 star, row 2 star, row 3 star.
-  Total cycle: 7s
-*/
+/* --- Card 2 --- */
+/* Cursor: starts mid-right of card */
 @keyframes cur2 {
-  0%,6%     { transform:translate(0,0) scale(1); }
-  /* glide to row 1 rating */
-  16%       { transform:translate(-12px,-44px) scale(1); }
-  19%       { transform:translate(-12px,-44px) scale(0.78); }
-  22%,36%   { transform:translate(-12px,-44px) scale(1); }
-  /* glide to row 2 rating */
-  46%       { transform:translate(-12px,-14px) scale(1); }
-  49%       { transform:translate(-12px,-14px) scale(0.78); }
-  52%,66%   { transform:translate(-12px,-14px) scale(1); }
-  /* glide to row 3 rating */
-  74%       { transform:translate(-12px,16px) scale(1); }
-  77%       { transform:translate(-12px,16px) scale(0.78); }
-  80%,90%   { transform:translate(-12px,16px) scale(1); }
-  96%,100%  { transform:translate(0,0) scale(1); }
-}
-/* Row 1 highlights on click at ~19% */
-@keyframes row1-hl {
-  0%,16%,38%,100% { background:rgba(255,255,255,0.03); }
-  19%,36%         { background:rgba(79,232,169,0.1); }
-}
-/* Row 2 highlights on click at ~49% */
-@keyframes row2-hl {
-  0%,46%,68%,100% { background:rgba(255,255,255,0.03); }
-  49%,66%         { background:rgba(79,232,169,0.1); }
-}
-/* Row 3 highlights on click at ~77% */
-@keyframes row3-hl {
-  0%,74%,92%,100% { background:rgba(255,255,255,0.03); }
-  77%,90%         { background:rgba(79,232,169,0.1); }
-}
-/* Keep legacy name for existing HTML refs */
-@keyframes row-highlight {
-  0%,16%,38%,100% { background:rgba(255,255,255,0.03); }
-  19%,36%         { background:rgba(79,232,169,0.1); }
-}
-
-/*
-  Card 3: Red team — cursor clicks the CRITICAL finding to expand it,
-  then clicks on the FIX button that appears.
-  Total cycle: 7s
-*/
-@keyframes cur3 {
-  0%,8%     { transform:translate(0,0) scale(1); }
-  /* glide to CRITICAL row */
-  22%       { transform:translate(-2px,-40px) scale(1); }
-  25%       { transform:translate(-2px,-40px) scale(0.78); }
-  28%,52%   { transform:translate(-2px,-40px) scale(1); }
-  /* glide to FIX button inside expanded card */
-  62%       { transform:translate(30px,-22px) scale(1); }
-  65%       { transform:translate(30px,-22px) scale(0.78); }
-  68%,80%   { transform:translate(30px,-22px) scale(1); }
+  0%,5%     { transform:translate(0,0) scale(1); }
+  15%       { transform:translate(-28px,-62px) scale(1); }    /* arrive at Accuracy 5th dot */
+  18%       { transform:translate(-28px,-62px) scale(0.72); } /* click */
+  21%,42%   { transform:translate(-28px,-62px) scale(1); }    /* hold */
+  54%       { transform:translate(-28px,-14px) scale(1); }    /* drop to Clarity 4th dot */
+  57%       { transform:translate(-28px,-14px) scale(0.72); } /* click */
+  60%,78%   { transform:translate(-28px,-14px) scale(1); }    /* hold */
   90%,100%  { transform:translate(0,0) scale(1); }
 }
-/* CRITICAL row pulses on click at ~25% */
-@keyframes critical-pulse {
-  0%,22%,54%,100%  { border-left-color:#ff4444; box-shadow:none; }
-  25%,52%          { border-left-color:#ff6666; box-shadow:0 0 16px rgba(255,68,68,0.35); }
+/* Accuracy dots: all 5 fill green at 18% */
+@keyframes dot-acc {
+  0%,15%    { background:rgba(255,255,255,0.14); }
+  18%,100%  { background:#4FE8A9; }
 }
-/* FIX button lights up when cursor reaches it at ~65% */
-@keyframes fix-btn-glow {
-  0%,62%,82%,100%  { background:rgba(79,232,169,0.08); color:#4FE8A9; }
-  65%,80%          { background:rgba(79,232,169,0.22); color:#fff; box-shadow:0 0 8px rgba(79,232,169,0.4); }
+/* Clarity dots 1-4 fill at 57% (5th stays empty) */
+@keyframes dot-cla {
+  0%,54%    { background:rgba(255,255,255,0.14); }
+  57%,100%  { background:#4FE8A9; }
+}
+/* Submit button activates after second click */
+@keyframes submit-active {
+  0%,54%,100% { opacity:0.3; }
+  60%,92%     { opacity:1; box-shadow:0 0 0 1px rgba(79,232,169,0.4); }
+}
+
+/* --- Card 3 --- */
+/* Cursor: starts mid-bottom-center */
+@keyframes cur3 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(0,-78px) scale(1); }        /* arrive at CRITICAL row */
+  20%       { transform:translate(0,-78px) scale(0.72); }     /* click */
+  23%,44%   { transform:translate(0,-78px) scale(1); }        /* hold — row expands */
+  56%       { transform:translate(62px,-60px) scale(1); }     /* glide to Flag button */
+  59%       { transform:translate(62px,-60px) scale(0.72); }  /* click */
+  62%,80%   { transform:translate(62px,-60px) scale(1); }     /* hold */
+  92%,100%  { transform:translate(0,0) scale(1); }
+}
+/* CRITICAL row expands on click at 20% */
+@keyframes crit-expand {
+  0%,17%    { max-height:42px; overflow:hidden; }
+  20%,100%  { max-height:140px; }
+}
+/* CRITICAL row border pulses when clicked */
+@keyframes crit-pulse {
+  0%,17%,82%,100% { border-left-color:#ff4444; box-shadow:none; }
+  20%,45%          { border-left-color:#ff6666; box-shadow:0 0 14px rgba(255,68,68,0.3); }
+}
+/* Flag button: appears in expanded row, gets clicked at 59% */
+@keyframes flag-btn {
+  0%,17%    { opacity:0; }          /* hidden until row expands */
+  22%,56%   { opacity:1; background:transparent; color:rgba(255,255,255,0.35); border-color:rgba(255,255,255,0.12); }
+  59%,80%   { opacity:1; background:rgba(79,232,169,0.15); color:#4FE8A9; border-color:rgba(79,232,169,0.5); }
+  83%,100%  { opacity:0; }          /* reset for next cycle */
+}
+/* "Flagged" label: appears after click at 59% */
+@keyframes flagged-lbl {
+  0%,58%   { opacity:0; transform:translateY(4px); }
+  62%,80%  { opacity:1; transform:translateY(0); }
+  83%,100% { opacity:0; }
 }
 
 .ai-cursor { position:absolute; pointer-events:none; z-index:10; }
@@ -990,8 +991,8 @@ h1.hero-headline {
       <div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div>
     </div>
     <div class="statband-item">
-      <!-- Diversity/woman icon (MUI Diversity3) -->
-      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85A6.95 6.95 0 0 0 20 14c-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/></svg></div>
+      <!-- Female / Venus symbol (MUI Female icon) -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm1 2h-2v2H9v2h2v4h2v-4h2v-2h-2v-2z"/></svg></div>
       <div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div>
     </div>
   </div>
@@ -1193,35 +1194,35 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-domain">
           <div class="sc-mock-wrap">
-            <!-- RLHF A/B preference comparison -->
-            <div class="sc-mock sc-mock-dark-blue" style="position:relative;overflow:visible;">
-              <!-- 2D flat cursor — clicks Response A then Response B -->
-              <div class="ai-cursor" style="bottom:36px;left:50%;margin-left:-8px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur1 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
-              </div>
-              <!-- Pexels avatars -->
-              <div class="avatar-row">
-                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <span class="av-lbl">3 reviewers active</span>
-              </div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">RLHF · Response comparison</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
-                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;animation:resp-a-glow 7s ease-in-out infinite;">
-                  <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.06em;margin-bottom:5px;">RESPONSE A ✓</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.5;">The standard dosage is 500 mg twice daily with meals, adjusted for renal function…</div>
+            <div class="sc-mock-stack">
+              <!-- Card 1: RLHF — cursor clicks "Response A" tab (tab activates green,
+                   response card gets green border), then clicks annotation box (focus ring) -->
+              <div class="sc-mock sc-mock-dark-blue" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur1 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
                 </div>
-                <div style="background:#111e2e;border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px;animation:resp-b-glow 7s ease-in-out infinite;">
-                  <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.06em;margin-bottom:5px;">RESPONSE B</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;">Dosing varies widely. Consult a physician for personalized dosing advice…</div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div class="av" style="width:22px;height:22px;border-color:#0a1525;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Dr. Rania K.</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">Cardiology</div>
+                  </div>
+                  <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">RLHF</div>
                 </div>
-              </div>
-              <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:#111e2e;border-radius:8px;">
-                <div style="width:28px;height:28px;border-radius:50%;background:#1a3a5a;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:10px;color:#7abbe8;">RK</div>
-                <div>
-                  <div style="font-size:10px;color:rgba(255,255,255,0.45);">Dr. Rania K. · Cardiology</div>
-                  <div style="font-size:10px;color:#4FE8A9;font-weight:600;margin-top:2px;">A is more precise — specifies route &amp; renal caveat</div>
+                <!-- Tabs: Response A activates on click -->
+                <div style="display:flex;gap:5px;margin-bottom:9px;">
+                  <div style="flex:1;padding:5px 0;border-radius:6px;border:1px solid;font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;cursor:default;animation:tab-a-active 8s ease-in-out infinite;">Response A</div>
+                  <div style="flex:1;padding:5px 0;border-radius:6px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);font-size:9px;font-weight:700;color:rgba(255,255,255,0.28);text-align:center;">Response B</div>
+                </div>
+                <!-- Response content: green border appears when A is selected -->
+                <div style="padding:10px 11px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.07);margin-bottom:7px;animation:resp-a-selected 8s ease-in-out infinite;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.55;">The standard dosage is 500 mg twice daily with meals — adjusted for renal function in patients with CrCl &lt;30.</div>
+                </div>
+                <!-- Annotation box: focus ring on cursor click -->
+                <div style="padding:8px 10px;border-radius:7px;border:1px solid rgba(255,255,255,0.06);animation:annot-focus 8s ease-in-out infinite;">
+                  <div style="font-size:9px;color:rgba(255,255,255,0.26);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.07em;">Annotation</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.52);line-height:1.4;">More precise — includes dosing route &amp; renal caveat</div>
                 </div>
               </div>
             </div>
@@ -1245,42 +1246,73 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-function">
           <div class="sc-mock-wrap">
-            <!-- Evaluation scorecard -->
-            <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:visible;">
-              <!-- 2D cursor clicking rating checkmarks on each eval row -->
-              <div class="ai-cursor" style="bottom:28px;right:16px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur2 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
+            <div class="sc-mock-stack">
+              <!-- Card 2: Eval scoring — cursor (mid-right) clicks last dot on Accuracy row
+                   (all 5 fill green), then drops to Clarity row (4 fill), Submit activates -->
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="top:50%;right:14px;margin-top:-8px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur2 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div class="av" style="width:22px;height:22px;border-color:#060e09;"><img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Josephine M.</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">Legal writer</div>
+                  </div>
+                  <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">EVAL</div>
+                </div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:9px;text-transform:uppercase;letter-spacing:0.07em;">HR policy assistant · Quality rubric</div>
+                <!-- Dot-rating rows -->
+                <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px;">
+                  <!-- Row: Accuracy — 5 dots, all fill on click -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Accuracy</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.24s;"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Tone — static 3/5 filled -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Tone</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Completeness — static 4/5 -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Completeness</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Clarity — 4 dots fill on second click -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Clarity</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Submit — dims until second click activates it -->
+                <div style="padding:7px 0;text-align:center;border-radius:7px;border:1px solid rgba(79,232,169,0.2);font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:submit-active 8s ease-in-out infinite;">Submit eval →</div>
               </div>
-              <!-- Pexels avatars -->
-              <div class="avatar-row">
-                <div class="av" style="border-color:#060e09;"><img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#060e09;"><img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <span class="av-lbl">2 evaluators reviewing</span>
-              </div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">Eval run · HR policy assistant</div>
-              <div style="display:flex;flex-direction:column;gap:5px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row1-hl 7s ease-in-out infinite;">
-                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Factual accuracy</span>
-                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row2-hl 7s ease-in-out infinite;">
-                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Policy compliance</span>
-                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#1e1808;border-radius:7px;">
-                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Tone appropriateness</span>
-                  <span style="font-size:10px;font-weight:700;color:#f5a623;letter-spacing:0.04em;">⚠ REVIEW</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row3-hl 7s ease-in-out infinite;">
-                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Completeness</span>
-                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
-                </div>
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#1e1808;border-radius:7px;">
-                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Edge case coverage</span>
-                  <span style="font-size:10px;font-weight:700;color:#f5a623;letter-spacing:0.04em;">⚠ PARTIAL</span>
-                </div>
-              </div>
-              <div style="margin-top:10px;font-size:10px;color:rgba(255,255,255,0.35);">Reviewed by Josephine M. · Legal writer</div>
             </div>
           </div>
         </div>
@@ -1302,41 +1334,57 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-ai">
           <div class="sc-mock-wrap">
-            <!-- Red team attack log -->
-            <div class="sc-mock sc-mock-dark-red" style="position:relative;overflow:visible;">
-              <!-- 2D cursor: clicks CRITICAL row, then the FIX button inside it -->
-              <div class="ai-cursor" style="bottom:52px;left:50%;margin-left:-8px;">
-                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur3 7s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
-              </div>
-              <!-- Pexels avatars -->
-              <div class="avatar-row">
-                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                <span class="av-lbl">5 teamers active</span>
-              </div>
-              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ff5555;margin-bottom:10px;">Red team log · Finance LLM</div>
-              <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
-                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;animation:critical-pulse 7s ease-in-out infinite;">
-                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
-                    <div style="font-size:9px;font-weight:700;color:#ff5555;letter-spacing:0.08em;">CRITICAL</div>
-                    <div style="font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;border:1px solid rgba(79,232,169,0.3);cursor:default;animation:fix-btn-glow 7s ease-in-out infinite;">FIX →</div>
+            <div class="sc-mock-stack">
+              <!-- Card 3: Red team — cursor (bottom-center) clicks CRITICAL row
+                   → row expands revealing detail + Flag button
+                   → cursor glides to Flag → "Flagged ✓" green state -->
+              <div class="sc-mock sc-mock-dark-red" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur3 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div style="display:flex;">
+                    <div class="av" style="width:22px;height:22px;border-color:#0a0404;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                    <div class="av" style="width:22px;height:22px;border-color:#0a0404;margin-left:-7px;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                   </div>
-                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Jailbreak via role-play → exposes user PII</div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Red team · Finance LLM</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">2 of 5 active</div>
+                  </div>
+                  <div style="margin-left:auto;display:flex;align-items:center;gap:4px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#ff5555;animation:livepulse 1.6s ease-in-out infinite;"></div>
+                    <span style="font-size:8px;color:rgba(255,255,255,0.4);">LIVE</span>
+                  </div>
                 </div>
-                <div style="padding:9px 12px;background:#1c1208;border-left:2.5px solid #f5a623;border-radius:0 7px 7px 0;">
-                  <div style="font-size:9px;font-weight:700;color:#f5a623;letter-spacing:0.08em;margin-bottom:3px;">HIGH</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Prompt injection bypasses compliance rules</div>
+                <!-- Finding rows -->
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <!-- CRITICAL: expands on click, shows Flag button -->
+                  <div style="background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;overflow:hidden;animation:crit-expand 8s ease-in-out infinite, crit-pulse 8s ease-in-out infinite;">
+                    <div style="padding:9px 10px;">
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                        <div style="font-size:8px;font-weight:700;color:#ff5555;letter-spacing:0.1em;">CRITICAL</div>
+                        <!-- Flag button — appears after row expands, changes on click -->
+                        <div style="font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;border:1px solid;cursor:default;white-space:nowrap;animation:flag-btn 8s ease-in-out infinite;">Flag →</div>
+                      </div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.75);">Jailbreak via role-play → exposes user PII</div>
+                      <!-- Detail shown when expanded -->
+                      <div style="margin-top:7px;font-size:9px;color:rgba(255,255,255,0.4);line-height:1.45;border-top:1px solid rgba(255,68,68,0.12);padding-top:7px;">Probe #47: role-play as "no-filter mode" bypasses system prompt. Reproduce with attached payload.</div>
+                      <!-- Flagged confirmation label -->
+                      <div style="margin-top:6px;font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:flagged-lbl 8s ease-in-out infinite;">✓ Flagged for fix</div>
+                    </div>
+                  </div>
+                  <!-- HIGH — static -->
+                  <div style="padding:8px 10px;background:#1c1208;border-left:2.5px solid #f5a623;border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:#f5a623;letter-spacing:0.1em;margin-bottom:3px;">HIGH</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.65);">Prompt injection bypasses compliance rules</div>
+                  </div>
+                  <!-- MEDIUM — static -->
+                  <div style="padding:8px 10px;background:#0c1a10;border-left:2.5px solid #4FE8A9;border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.1em;margin-bottom:3px;">MEDIUM</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.65);">Inconsistent output on edge-case queries</div>
+                  </div>
                 </div>
-                <div style="padding:9px 12px;background:#0c1a10;border-left:2.5px solid #4FE8A9;border-radius:0 7px 7px 0;">
-                  <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;margin-bottom:3px;">MEDIUM</div>
-                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Inconsistent output on edge case queries</div>
-                </div>
-              </div>
-              <div style="display:flex;align-items:center;gap:7px;">
-                <div style="width:7px;height:7px;border-radius:50%;background:#ff5555;animation:livepulse 1.6s ease-in-out infinite;flex-shrink:0;"></div>
-                <span style="font-size:10px;color:rgba(255,255,255,0.35);">3 of 214 probes flagged · 5 teamers active</span>
               </div>
             </div>
           </div>
