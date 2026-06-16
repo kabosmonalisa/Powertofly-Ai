@@ -137,14 +137,23 @@
 .hero-text {
   align-self: center;
   text-align: left;
-  padding: 80px 56px 80px max(32px, calc((100vw - 1280px) / 2));
+  padding: 124px 56px 80px max(32px, calc((100vw - 1280px) / 2));
 }
 .hero-media {
-  align-self: center;
+  align-self: start;
   position: relative; width: 100%;
-  height: 76vh; min-height: 500px; max-height: 740px;
+  height: 82vh; min-height: 560px; max-height: 840px;
   border-radius: 0; overflow: hidden; background: #000;
 }
+.hero-vid-toggle {
+  position: absolute; bottom: 20px; left: 20px; z-index: 5;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.28); color: #fff;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; line-height: 1; transition: background .15s ease;
+}
+.hero-vid-toggle:hover { background: rgba(0,0,0,0.72); }
 .hero-video {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -173,7 +182,7 @@ h1.hero-headline {
 .section-why .italic-plain { color: #fff !important; }
 
 /* ── Stats band — dark, original small style, with top divider ── */
-.section-statband { background: #0A0A0A !important; padding: 0 32px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: none; }
+.section-statband { background: #0A0A0A !important; margin-top: 56px; padding: 0 32px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: none; }
 .statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
 .statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
@@ -378,7 +387,8 @@ h1.hero-headline {
    ══════════════════════════════════════════ */
 
 /* Nav */
-.nav { background: #0A0A0A !important; border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.nav { background: transparent !important; border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.nav.scrolled { background: transparent !important; backdrop-filter: none !important; }
 .nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
 .site-header { box-shadow: none !important; border-bottom: none !important; }
 .nav, .nav-inner, .nav-fly { border-bottom: none !important; box-shadow: none !important; }
@@ -933,6 +943,7 @@ html, body { background: #0A0A0A !important; }
       <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
         <source src="hero-side.mp4" type="video/mp4">
       </video>
+      <button class="hero-vid-toggle" id="heroVidToggle" aria-label="Pause video">&#10074;&#10074;</button>
     </div>
   </div>
 </section>
@@ -1379,11 +1390,25 @@ html, body { background: #0A0A0A !important; }
 <script>
 /* ── Sync body padding to fixed header height ── */
 function syncHeaderOffset() {
-  var h = document.getElementById('siteHeader');
-  if (h) document.body.style.paddingTop = h.offsetHeight + 'px';
+  /* Only offset by the purple top-alert height so the hero video sits behind the transparent nav */
+  var alert = document.getElementById('topAlert');
+  var alertH = (alert && !alert.classList.contains('hidden')) ? alert.offsetHeight : 0;
+  document.body.style.paddingTop = alertH + 'px';
 }
 syncHeaderOffset();
 window.addEventListener('resize', syncHeaderOffset);
+
+/* ── Hero video play/pause (stop function) ── */
+(function(){
+  var t = document.getElementById('heroVidToggle');
+  var v = document.querySelector('.hero-video');
+  if (t && v) {
+    t.addEventListener('click', function(){
+      if (v.paused) { v.play(); t.innerHTML = '&#10074;&#10074;'; t.setAttribute('aria-label','Pause video'); }
+      else { v.pause(); t.innerHTML = '&#9658;'; t.setAttribute('aria-label','Play video'); }
+    });
+  }
+}());
 
 /* ── Top alert close ── */
 (function(){
