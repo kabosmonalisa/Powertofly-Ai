@@ -223,17 +223,12 @@ h1.hero-headline {
   z-index: 3;
 }
 /* Grid mesh texture on orb surface */
-.orb-grid {
+/* Sphere mesh SVG — follows curvature like a blanket */
+.orb-grid-svg {
   position: absolute; top: 50%; left: 50%;
   width: 150px; height: 150px; margin: -75px 0 0 -75px;
-  border-radius: 50%;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.13) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.13) 1px, transparent 1px);
-  background-size: 16px 16px;
-  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
-  z-index: 4;
-  pointer-events: none;
+  z-index: 4; pointer-events: none;
+  animation: orb-breathe 3.8s ease-in-out infinite;
   mix-blend-mode: overlay;
 }
 /* Membrane — organic wobble ring around core */
@@ -440,7 +435,7 @@ h1.hero-headline {
 .nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
 .site-header, .site-header * { border-bottom: none !important; }
 /* Dropdown panels — white thin border */
-.mega-inner { border: 1px solid rgba(255,255,255,0.07) !important; }
+.mega-inner { border: 1px solid rgba(10,140,102,0.25) !important; }
 .nav-cta .btn:not(.btn-primary) { background: transparent !important; color: rgba(255,255,255,0.7) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
 .nav-cta .btn:not(.btn-primary):hover { color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
 .nav-btn { color: rgba(255,255,255,0.85) !important; }
@@ -471,27 +466,62 @@ h1.hero-headline {
 .statband-num { font-size: 15px !important; }
 .statband-lbl { font-size: 15px !important; }
 
-/* Animated cursor in illustrations */
-@keyframes cur-move {
-  0%   { transform: translate(0px, 0px); }
-  25%  { transform: translate(-18px, -12px); }
-  45%  { transform: translate(-20px, -14px) scale(0.88); }
-  55%  { transform: translate(-20px, -14px) scale(1); }
-  80%  { transform: translate(-8px, -5px); }
-  100% { transform: translate(0px, 0px); }
+/* ── 2D cursor animations per card ── */
+/* Card 1: clicks Response A then Response B */
+@keyframes cur1 {
+  0%,8%   { transform:translate(0,0) scale(1); }
+  22%     { transform:translate(-48px,-28px) scale(1); }
+  27%     { transform:translate(-48px,-28px) scale(0.82); }
+  32%     { transform:translate(-48px,-28px) scale(1); }
+  50%,58% { transform:translate(0,0) scale(1); }
+  72%     { transform:translate(38px,-28px) scale(1); }
+  77%     { transform:translate(38px,-28px) scale(0.82); }
+  82%     { transform:translate(38px,-28px) scale(1); }
+  96%,100%{ transform:translate(0,0) scale(1); }
 }
-@keyframes cur-click {
-  0%,40%,100% { opacity:0; transform:scale(0.4); }
-  50%          { opacity:1; transform:scale(1); }
-  70%          { opacity:0; transform:scale(1.6); }
+/* Card 2: moves down the eval rows clicking each */
+@keyframes cur2 {
+  0%,8%  { transform:translate(0,0) scale(1); }
+  20%    { transform:translate(10px,-38px) scale(1); }
+  25%    { transform:translate(10px,-38px) scale(0.82); }
+  30%    { transform:translate(10px,-38px) scale(1); }
+  45%    { transform:translate(10px,-12px) scale(1); }
+  50%    { transform:translate(10px,-12px) scale(0.82); }
+  55%    { transform:translate(10px,-12px) scale(1); }
+  70%    { transform:translate(10px,14px) scale(1); }
+  75%    { transform:translate(10px,14px) scale(0.82); }
+  80%    { transform:translate(10px,14px) scale(1); }
+  95%,100%{ transform:translate(0,0) scale(1); }
 }
+/* Card 3: clicks on CRITICAL finding */
+@keyframes cur3 {
+  0%,10% { transform:translate(0,0) scale(1); }
+  28%    { transform:translate(0px,-42px) scale(1); }
+  34%    { transform:translate(0px,-42px) scale(0.82); }
+  40%    { transform:translate(0px,-42px) scale(1); }
+  70%,100%{ transform:translate(0,0) scale(1); }
+}
+/* Glow pulse when clicked — synced timing */
+@keyframes resp-a-glow {
+  0%,26%,38%,100% { box-shadow:none; }
+  29%,35% { box-shadow:0 0 14px rgba(79,232,169,0.55); }
+}
+@keyframes row-highlight {
+  0%,24%,32%,100% { background:#0d2015; }
+  27%,31% { background:#143525; }
+}
+@keyframes critical-pulse {
+  0%,33%,45%,100% { border-left-color:#ff4444; }
+  36%,42% { border-left-color:#ff8888; box-shadow:0 0 12px rgba(255,68,68,0.4); }
+}
+
 .ai-cursor { position:absolute; pointer-events:none; z-index:10; }
-.ai-cursor svg { animation: cur-move 3.2s ease-in-out infinite; }
-.ai-cursor-ring { position:absolute; top:-4px; left:-4px; width:16px; height:16px; border:1.5px solid rgba(255,255,255,0.7); border-radius:50%; animation: cur-click 3.2s ease-in-out infinite; }
+.ai-cursor svg { display:block; }
 .avatar-row { display:flex; align-items:center; margin-bottom:10px; }
-.av { width:22px; height:22px; border-radius:50%; border:2px solid; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:800; flex-shrink:0; }
-.av+.av { margin-left:-6px; }
-.av-lbl { font-size:10px; color:rgba(255,255,255,0.38); margin-left:7px; }
+.av { width:24px; height:24px; border-radius:50%; border:2px solid; flex-shrink:0; overflow:hidden; }
+.av img { width:100%; height:100%; object-fit:cover; }
+.av+.av { margin-left:-7px; }
+.av-lbl { font-size:10px; color:rgba(255,255,255,0.38); margin-left:8px; }
 .section-experts .section-head h2 { color: #fff; }
 .sc-left h3 { color: #fff !important; }
 .sc-body { color: rgba(255,255,255,0.5) !important; }
@@ -968,7 +998,33 @@ h1.hero-headline {
         <div class="orb-membrane"></div>
         <!-- Core body -->
         <div class="orb-core"></div>
-        <div class="orb-grid"></div>
+        <!-- Sphere mesh — latitude + longitude lines that follow surface curvature -->
+        <svg class="orb-grid-svg" viewBox="0 0 150 150" fill="none" aria-hidden="true">
+          <defs>
+            <clipPath id="orb-sph-clip"><circle cx="75" cy="75" r="73"/></clipPath>
+            <radialGradient id="orb-sph-light" cx="36%" cy="30%" r="65%">
+              <stop offset="0%"   stop-color="white" stop-opacity="0.7"/>
+              <stop offset="60%"  stop-color="white" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="white" stop-opacity="0.04"/>
+            </radialGradient>
+            <mask id="orb-sph-mask">
+              <circle cx="75" cy="75" r="73" fill="url(#orb-sph-light)"/>
+            </mask>
+          </defs>
+          <g clip-path="url(#orb-sph-clip)" mask="url(#orb-sph-mask)" stroke="white" stroke-width="0.85">
+            <!-- Latitude rings: narrow at poles, widest at equator -->
+            <ellipse cx="75" cy="11"  rx="36"  ry="13"/>
+            <ellipse cx="75" cy="38"  rx="63"  ry="24"/>
+            <ellipse cx="75" cy="75"  rx="73"  ry="27"/>
+            <ellipse cx="75" cy="112" rx="63"  ry="24"/>
+            <ellipse cx="75" cy="139" rx="36"  ry="13"/>
+            <!-- Longitude meridians: ellipses through poles at different angles -->
+            <line x1="75" y1="2" x2="75" y2="148"/>
+            <ellipse cx="75" cy="75" rx="36"  ry="72"/>
+            <ellipse cx="75" cy="75" rx="63"  ry="72"/>
+            <ellipse cx="75" cy="75" rx="73"  ry="72"/>
+          </g>
+        </svg>
         <div class="orb-glint"></div>
         <!-- Orbiting neuron nodes -->
         <div class="neuro neuro-1"></div>
@@ -1059,22 +1115,21 @@ h1.hero-headline {
         <div class="sc-right sc-right-domain">
           <div class="sc-mock-wrap">
             <!-- RLHF A/B preference comparison -->
-            <div class="sc-mock sc-mock-dark-blue" style="position:relative;">
-              <!-- Animated cursor selecting Response A -->
-              <div class="ai-cursor" style="bottom:52px;right:36px;">
-                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
-                <div class="ai-cursor-ring"></div>
+            <div class="sc-mock sc-mock-dark-blue" style="position:relative;overflow:visible;">
+              <!-- 2D flat cursor — clicks A then B -->
+              <div class="ai-cursor" style="bottom:44px;left:50%;margin-left:-8px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur1 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
-              <!-- Avatars -->
+              <!-- Pexels avatars -->
               <div class="avatar-row">
-                <div class="av" style="background:#1a3a5a;border-color:#0a1525;color:#7abbe8;">RK</div>
-                <div class="av" style="background:#1a3a2a;border-color:#0a1525;color:#4FE8A9;">AM</div>
-                <div class="av" style="background:#2a1a3a;border-color:#0a1525;color:#b07ae8;">JL</div>
+                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#0a1525;"><img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                 <span class="av-lbl">3 reviewers active</span>
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">RLHF · Response comparison</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
-                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;">
+                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;animation:resp-a-glow 4.4s ease-in-out infinite;">
                   <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.06em;margin-bottom:5px;">RESPONSE A ✓</div>
                   <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.5;">The standard dosage is 500 mg twice daily with meals, adjusted for renal function…</div>
                 </div>
@@ -1112,21 +1167,20 @@ h1.hero-headline {
         <div class="sc-right sc-right-function">
           <div class="sc-mock-wrap">
             <!-- Evaluation scorecard -->
-            <div class="sc-mock sc-mock-dark-green" style="position:relative;">
-              <!-- Animated cursor hovering over REVIEW row -->
-              <div class="ai-cursor" style="bottom:68px;right:28px;animation-delay:1.1s;">
-                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
-                <div class="ai-cursor-ring" style="animation-delay:1.1s;"></div>
+            <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:visible;">
+              <!-- 2D cursor scrolling through eval rows -->
+              <div class="ai-cursor" style="bottom:32px;right:18px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur2 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
-              <!-- Avatars -->
+              <!-- Pexels avatars -->
               <div class="avatar-row">
-                <div class="av" style="background:#0d2015;border-color:#060e09;color:#4FE8A9;">JM</div>
-                <div class="av" style="background:#1a2510;border-color:#060e09;color:#D5FF66;">TP</div>
+                <div class="av" style="border-color:#060e09;"><img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#060e09;"><img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                 <span class="av-lbl">2 evaluators reviewing</span>
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">Eval run · HR policy assistant</div>
               <div style="display:flex;flex-direction:column;gap:5px;">
-                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;border-radius:7px;animation:row-highlight 4.4s ease-in-out infinite;">
                   <span style="font-size:12px;color:rgba(255,255,255,0.75);">Factual accuracy</span>
                   <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
                 </div>
@@ -1170,23 +1224,22 @@ h1.hero-headline {
         <div class="sc-right sc-right-ai">
           <div class="sc-mock-wrap">
             <!-- Red team attack log -->
-            <div class="sc-mock sc-mock-dark-red" style="position:relative;">
-              <!-- Animated cursor flagging CRITICAL row -->
-              <div class="ai-cursor" style="bottom:80px;right:32px;animation-delay:0.6s;">
-                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
-                <div class="ai-cursor-ring" style="border-color:rgba(255,85,85,0.8);animation-delay:0.6s;"></div>
+            <div class="sc-mock sc-mock-dark-red" style="position:relative;overflow:visible;">
+              <!-- 2D cursor clicking on CRITICAL finding -->
+              <div class="ai-cursor" style="bottom:56px;left:50%;margin-left:-8px;">
+                <svg width="16" height="20" viewBox="0 0 16 20" style="animation:cur3 4.4s ease-in-out infinite;"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.2" stroke-linejoin="round"/></svg>
               </div>
-              <!-- Avatars -->
+              <!-- Pexels avatars -->
               <div class="avatar-row">
-                <div class="av" style="background:#1c0808;border-color:#0a0404;color:#ff7070;">KS</div>
-                <div class="av" style="background:#1c1208;border-color:#0a0404;color:#f5a623;">RO</div>
-                <div class="av" style="background:#0c1a10;border-color:#0a0404;color:#4FE8A9;">PW</div>
-                <div class="av" style="background:#1a0a1a;border-color:#0a0404;color:#b07ae8;">DN</div>
+                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div class="av" style="border-color:#0a0404;"><img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                 <span class="av-lbl">5 teamers active</span>
               </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ff5555;margin-bottom:10px;">Red team log · Finance LLM</div>
               <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
-                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;">
+                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;animation:critical-pulse 4.4s ease-in-out infinite;">
                   <div style="font-size:9px;font-weight:700;color:#ff5555;letter-spacing:0.08em;margin-bottom:3px;">CRITICAL</div>
                   <div style="font-size:11px;color:rgba(255,255,255,0.8);">Jailbreak via role-play → exposes user PII</div>
                 </div>
