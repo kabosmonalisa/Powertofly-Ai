@@ -566,8 +566,8 @@ h1.hero-headline {
 }
 /* CRITICAL row border pulses when clicked */
 @keyframes crit-pulse {
-  0%,17%,82%,100% { border-left-color:#ff4444; box-shadow:none; }
-  20%,45%          { border-left-color:#ff6666; box-shadow:0 0 14px rgba(255,68,68,0.3); }
+  0%,17%,82%,100% { border-left-color:#4FE8A9; box-shadow:none; }
+  20%,45%          { border-left-color:#4FE8A9; box-shadow:0 0 14px rgba(79,232,169,0.2); }
 }
 /* Flag button: appears in expanded row, gets clicked at 59% */
 @keyframes flag-btn {
@@ -1197,13 +1197,13 @@ h1.hero-headline {
             <div class="sc-mock-stack">
               <!-- Card 1: RLHF — cursor clicks "Response A" tab (tab activates green,
                    response card gets green border), then clicks annotation box (focus ring) -->
-              <div class="sc-mock sc-mock-dark-blue" style="position:relative;overflow:hidden;">
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
                 <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
                   <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur1 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
                 </div>
                 <!-- Header -->
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
-                  <div class="av" style="width:22px;height:22px;border-color:#0a1525;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div class="av" style="width:22px;height:22px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                   <div>
                     <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Dr. Rania K.</div>
                     <div style="font-size:9px;color:rgba(255,255,255,0.36);">Cardiology</div>
@@ -1338,51 +1338,48 @@ h1.hero-headline {
               <!-- Card 3: Red team — cursor (bottom-center) clicks CRITICAL row
                    → row expands revealing detail + Flag button
                    → cursor glides to Flag → "Flagged ✓" green state -->
-              <div class="sc-mock sc-mock-dark-red" style="position:relative;overflow:hidden;">
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
                 <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
                   <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur3 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
                 </div>
                 <!-- Header -->
                 <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
                   <div style="display:flex;">
-                    <div class="av" style="width:22px;height:22px;border-color:#0a0404;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                    <div class="av" style="width:22px;height:22px;border-color:#0a0404;margin-left:-7px;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                    <div class="av" style="width:22px;height:22px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                    <div class="av" style="width:22px;height:22px;border-color:#060e09;margin-left:-7px;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
                   </div>
                   <div>
                     <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Red team · Finance LLM</div>
                     <div style="font-size:9px;color:rgba(255,255,255,0.36);">2 of 5 active</div>
                   </div>
                   <div style="margin-left:auto;display:flex;align-items:center;gap:4px;">
-                    <div style="width:6px;height:6px;border-radius:50%;background:#ff5555;animation:livepulse 1.6s ease-in-out infinite;"></div>
+                    <div style="width:6px;height:6px;border-radius:50%;background:#4FE8A9;animation:livepulse 1.6s ease-in-out infinite;"></div>
                     <span style="font-size:8px;color:rgba(255,255,255,0.4);">LIVE</span>
                   </div>
                 </div>
                 <!-- Finding rows -->
                 <div style="display:flex;flex-direction:column;gap:5px;">
-                  <!-- CRITICAL: expands on click, shows Flag button -->
-                  <div style="background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;overflow:hidden;animation:crit-expand 8s ease-in-out infinite, crit-pulse 8s ease-in-out infinite;">
+                  <!-- TOP finding: expands on click, shows Flag button -->
+                  <div style="background:rgba(79,232,169,0.05);border-left:2.5px solid #4FE8A9;border-radius:0 7px 7px 0;overflow:hidden;animation:crit-expand 8s ease-in-out infinite, crit-pulse 8s ease-in-out infinite;">
                     <div style="padding:9px 10px;">
                       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
-                        <div style="font-size:8px;font-weight:700;color:#ff5555;letter-spacing:0.1em;">CRITICAL</div>
-                        <!-- Flag button — appears after row expands, changes on click -->
+                        <div style="font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.1em;">FLAGGED</div>
                         <div style="font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;border:1px solid;cursor:default;white-space:nowrap;animation:flag-btn 8s ease-in-out infinite;">Flag →</div>
                       </div>
                       <div style="font-size:10px;color:rgba(255,255,255,0.75);">Jailbreak via role-play → exposes user PII</div>
-                      <!-- Detail shown when expanded -->
-                      <div style="margin-top:7px;font-size:9px;color:rgba(255,255,255,0.4);line-height:1.45;border-top:1px solid rgba(255,68,68,0.12);padding-top:7px;">Probe #47: role-play as "no-filter mode" bypasses system prompt. Reproduce with attached payload.</div>
-                      <!-- Flagged confirmation label -->
+                      <div style="margin-top:7px;font-size:9px;color:rgba(255,255,255,0.4);line-height:1.45;border-top:1px solid rgba(79,232,169,0.1);padding-top:7px;">Probe #47: role-play as "no-filter mode" bypasses system prompt.</div>
                       <div style="margin-top:6px;font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:flagged-lbl 8s ease-in-out infinite;">✓ Flagged for fix</div>
                     </div>
                   </div>
-                  <!-- HIGH — static -->
-                  <div style="padding:8px 10px;background:#1c1208;border-left:2.5px solid #f5a623;border-radius:0 7px 7px 0;">
-                    <div style="font-size:8px;font-weight:700;color:#f5a623;letter-spacing:0.1em;margin-bottom:3px;">HIGH</div>
-                    <div style="font-size:10px;color:rgba(255,255,255,0.65);">Prompt injection bypasses compliance rules</div>
+                  <!-- Row 2 — static -->
+                  <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:2.5px solid rgba(79,232,169,0.4);border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.7);letter-spacing:0.1em;margin-bottom:3px;">REVIEW</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.55);">Prompt injection bypasses compliance rules</div>
                   </div>
-                  <!-- MEDIUM — static -->
-                  <div style="padding:8px 10px;background:#0c1a10;border-left:2.5px solid #4FE8A9;border-radius:0 7px 7px 0;">
-                    <div style="font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.1em;margin-bottom:3px;">MEDIUM</div>
-                    <div style="font-size:10px;color:rgba(255,255,255,0.65);">Inconsistent output on edge-case queries</div>
+                  <!-- Row 3 — static -->
+                  <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:2.5px solid rgba(79,232,169,0.2);border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.45);letter-spacing:0.1em;margin-bottom:3px;">MONITOR</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.55);">Inconsistent output on edge-case queries</div>
                   </div>
                 </div>
               </div>
