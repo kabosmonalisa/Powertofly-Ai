@@ -22,9 +22,9 @@
 .site-header .nav { position: static; }
 
 /* ── Top alert bar ── */
-.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 14px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; overflow: visible; }
+.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 10px 48px 11px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; position: relative; }
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
-.top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+.top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; vertical-align: middle; }
 .top-alert a:hover { background: #fff; color: #7B00FF; }
 .top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); padding: 4px; display: flex; align-items: center; justify-content: center; transition: color .15s; }
 .top-alert-close:hover { color: #fff; }
@@ -452,13 +452,32 @@ h1.hero-headline {
 .section-head h2 { font-size: clamp(36px, 4vw, 60px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
 .why-lead h2     { font-size: clamp(36px, 4vw, 56px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
 
-/* Statband — Andela-style: big stacked numbers, no icons */
+/* Statband — original small style */
 .section-statband { padding: 0 32px !important; border-top: 1px solid rgba(255,255,255,0.06) !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
-.statband-item    { flex-direction: column !important; align-items: center !important; gap: 6px !important; padding: 52px 16px !important; }
-.statband-icon    { display: none !important; }
-.statband-text    { flex-direction: column !important; align-items: center !important; gap: 4px !important; }
-.statband-num     { font-size: clamp(40px, 4vw, 56px) !important; font-weight: 800 !important; letter-spacing: -0.04em !important; line-height: 1 !important; color: #fff !important; }
-.statband-lbl     { font-size: 13px !important; font-weight: 400 !important; color: rgba(255,255,255,0.4) !important; letter-spacing: 0.02em !important; }
+.statband-num { font-size: 15px !important; }
+.statband-lbl { font-size: 15px !important; }
+
+/* Animated cursor in illustrations */
+@keyframes cur-move {
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(-18px, -12px); }
+  45%  { transform: translate(-20px, -14px) scale(0.88); }
+  55%  { transform: translate(-20px, -14px) scale(1); }
+  80%  { transform: translate(-8px, -5px); }
+  100% { transform: translate(0px, 0px); }
+}
+@keyframes cur-click {
+  0%,40%,100% { opacity:0; transform:scale(0.4); }
+  50%          { opacity:1; transform:scale(1); }
+  70%          { opacity:0; transform:scale(1.6); }
+}
+.ai-cursor { position:absolute; pointer-events:none; z-index:10; }
+.ai-cursor svg { animation: cur-move 3.2s ease-in-out infinite; }
+.ai-cursor-ring { position:absolute; top:-4px; left:-4px; width:16px; height:16px; border:1.5px solid rgba(255,255,255,0.7); border-radius:50%; animation: cur-click 3.2s ease-in-out infinite; }
+.avatar-row { display:flex; align-items:center; margin-bottom:10px; }
+.av { width:22px; height:22px; border-radius:50%; border:2px solid; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:800; flex-shrink:0; }
+.av+.av { margin-left:-6px; }
+.av-lbl { font-size:10px; color:rgba(255,255,255,0.38); margin-left:7px; }
 .section-experts .section-head h2 { color: #fff; }
 .sc-left h3 { color: #fff !important; }
 .sc-body { color: rgba(255,255,255,0.5) !important; }
@@ -997,7 +1016,19 @@ h1.hero-headline {
         <div class="sc-right sc-right-domain">
           <div class="sc-mock-wrap">
             <!-- RLHF A/B preference comparison -->
-            <div class="sc-mock sc-mock-dark-blue">
+            <div class="sc-mock sc-mock-dark-blue" style="position:relative;">
+              <!-- Animated cursor selecting Response A -->
+              <div class="ai-cursor" style="bottom:52px;right:36px;">
+                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
+                <div class="ai-cursor-ring"></div>
+              </div>
+              <!-- Avatars -->
+              <div class="avatar-row">
+                <div class="av" style="background:#1a3a5a;border-color:#0a1525;color:#7abbe8;">RK</div>
+                <div class="av" style="background:#1a3a2a;border-color:#0a1525;color:#4FE8A9;">AM</div>
+                <div class="av" style="background:#2a1a3a;border-color:#0a1525;color:#b07ae8;">JL</div>
+                <span class="av-lbl">3 reviewers active</span>
+              </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">RLHF · Response comparison</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
                 <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;">
@@ -1038,7 +1069,18 @@ h1.hero-headline {
         <div class="sc-right sc-right-function">
           <div class="sc-mock-wrap">
             <!-- Evaluation scorecard -->
-            <div class="sc-mock sc-mock-dark-green">
+            <div class="sc-mock sc-mock-dark-green" style="position:relative;">
+              <!-- Animated cursor hovering over REVIEW row -->
+              <div class="ai-cursor" style="bottom:68px;right:28px;animation-delay:1.1s;">
+                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
+                <div class="ai-cursor-ring" style="animation-delay:1.1s;"></div>
+              </div>
+              <!-- Avatars -->
+              <div class="avatar-row">
+                <div class="av" style="background:#0d2015;border-color:#060e09;color:#4FE8A9;">JM</div>
+                <div class="av" style="background:#1a2510;border-color:#060e09;color:#D5FF66;">TP</div>
+                <span class="av-lbl">2 evaluators reviewing</span>
+              </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">Eval run · HR policy assistant</div>
               <div style="display:flex;flex-direction:column;gap:5px;">
                 <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
@@ -1085,7 +1127,20 @@ h1.hero-headline {
         <div class="sc-right sc-right-ai">
           <div class="sc-mock-wrap">
             <!-- Red team attack log -->
-            <div class="sc-mock sc-mock-dark-red">
+            <div class="sc-mock sc-mock-dark-red" style="position:relative;">
+              <!-- Animated cursor flagging CRITICAL row -->
+              <div class="ai-cursor" style="bottom:80px;right:32px;animation-delay:0.6s;">
+                <svg width="16" height="20" viewBox="0 0 16 20"><path d="M1 1l5.5 14 2-4.5 4.5 2L1 1z" fill="#fff" stroke="rgba(0,0,0,0.4)" stroke-width="1"/></svg>
+                <div class="ai-cursor-ring" style="border-color:rgba(255,85,85,0.8);animation-delay:0.6s;"></div>
+              </div>
+              <!-- Avatars -->
+              <div class="avatar-row">
+                <div class="av" style="background:#1c0808;border-color:#0a0404;color:#ff7070;">KS</div>
+                <div class="av" style="background:#1c1208;border-color:#0a0404;color:#f5a623;">RO</div>
+                <div class="av" style="background:#0c1a10;border-color:#0a0404;color:#4FE8A9;">PW</div>
+                <div class="av" style="background:#1a0a1a;border-color:#0a0404;color:#b07ae8;">DN</div>
+                <span class="av-lbl">5 teamers active</span>
+              </div>
               <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ff5555;margin-bottom:10px;">Red team log · Finance LLM</div>
               <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
                 <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;">
