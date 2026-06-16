@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top alert — cases — PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds/ptf.css">
+<style>
+/* ════════════════════════════════════════════════════════════
+   REAL CHROME — copied verbatim from train/index.html
+   (site-header · top-alert · mega nav · overlay · dark mode)
+   ════════════════════════════════════════════════════════════ */
+
+/* ── Fixed site header (alert + nav) ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Top alert bar ── */
+.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
+.top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
+.top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+.top-alert a:hover { background: #fff; color: #7B00FF; }
+.top-alert-close { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); padding: 4px; display: flex; align-items: center; justify-content: center; transition: color .15s; }
+.top-alert-close:hover { color: #fff; }
+.top-alert.hidden { display: none; }
+
+/* ── Employers-style mega nav ── */
+.nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
+.nav-drop  { position: static; }
+.nav-btn { background: none; border: none; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 400; color: var(--ink); cursor: pointer; padding: 7px 11px; border-radius: 8px; display: flex; align-items: center; gap: 4px; white-space: nowrap; line-height: 1; text-decoration: none; transition: background .12s, color .12s; }
+.nav-btn:hover, .nav-btn.open { background: transparent; color: var(--ink); opacity: 0.65; }
+.nav-chev { width: 12px; height: 12px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.8; transition: transform .18s ease; }
+.nav-btn.open .nav-chev { transform: rotate(180deg); }
+.nav-fly { position: absolute; left: 0; right: 0; top: 100%; background: transparent; border: none; box-shadow: none; overflow: visible; z-index: 200; padding: 0 32px; padding-top: 2px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .2s ease, transform .2s ease, visibility 0s .2s; pointer-events: none; }
+.nav-fly.open { opacity: 1; visibility: visible; transform: translateY(0); transition: opacity .2s ease, transform .2s ease, visibility 0s 0s; pointer-events: auto; }
+.mega-inner { max-width: 780px; margin: 0 auto; display: grid; grid-template-columns: 1fr 260px; background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.10); overflow: hidden; }
+.mega-left  { padding: 32px 44px 32px 36px; }
+.fly-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; margin-bottom: 10px; }
+.mega-items { display: flex; flex-direction: column; gap: 4px; }
+.fly-item { display: block; padding: 11px 12px; margin: 0 -12px; border-radius: 8px; text-decoration: none; color: inherit; cursor: pointer; transition: background .12s; }
+.fly-item:hover { background: var(--bg-soft); }
+.fly-title { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; line-height: 1.2; display: flex; align-items: center; gap: 6px; }
+.fly-desc  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+.fly-badge { display: inline-flex; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; font-family: 'Inter', sans-serif; }
+.fly-badge-soon { background: var(--purple-light); color: var(--purple); }
+.fly-rule { border: none; border-top: 1px solid var(--line); margin: 20px 0 16px; }
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+.ind-item { padding: 6px 8px; border-radius: 6px; }
+.ind-name { font-size: 12px; font-weight: 500; color: var(--ink-3); }
+.ind-desc  { font-size: 11px; color: var(--ink-3); opacity: 0.7; margin-top: 1px; }
+.mega-right { padding: 32px 28px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+.mega-right .fly-eyebrow { color: rgba(255,255,255,0.5); }
+.stat-item { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-num { font-family: 'Inter Tight', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-size: 12.5px; color: rgba(255,255,255,0.78); line-height: 1.4; }
+.proof-desc { font-size: 12px; color: rgba(255,255,255,0.7); line-height:1.55; margin-bottom:16px; }
+.proof-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 12px; line-height: 1.4; }
+.proof-check { width: 16px; height: 16px; border-radius: 50%; background: #4FE8A9; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
+.proof-check svg { width: 8px; height: 8px; stroke: #0A0A0A; }
+.fly-cta { display: block; background: #4FE8A9; color: var(--ink); font-family: inherit; font-size: 12.5px; font-weight: 600; padding: 11px 16px; border-radius: 999px; text-align: center; text-decoration: none; transition: opacity .15s; margin-top: 24px; }
+.fly-cta:hover { opacity: 0.85; }
+.mega-right-dark { padding: 28px 32px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+.event-ey { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 8px; }
+.event-hl { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+.event-date { font-size: 12px; color: #888; margin-bottom: 20px; }
+.event-reg { display: block; background: #4FE8A9; color: var(--ink); font-family: inherit; font-size: 12px; font-weight: 600; padding: 9px 14px; border-radius: 999px; text-align: center; text-decoration: none; transition: opacity .12s; }
+.event-reg:hover { opacity: 0.85; }
+.nav-overlay { position: fixed; inset: 0; z-index: 190; display: none; }
+.nav-overlay.on { display: block; }
+
+/* ── Full dark mode (train page) ── */
+.nav { background: #0A0A0A !important; border: none !important; box-shadow: none !important; }
+.nav-inner { border: none !important; box-shadow: none !important; }
+.nav-cta .btn:not(.btn-primary) { background: transparent !important; color: rgba(255,255,255,0.7) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+.nav-cta .btn:not(.btn-primary):hover { color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
+.nav-btn { color: rgba(255,255,255,0.85) !important; }
+.brand svg { filter: brightness(0) invert(1); }
+.brand-ai { color: #0A0A0A !important; background: #4FE8A9 !important; }
+.hamburger span { background: rgba(255,255,255,0.85) !important; }
+.btn-primary { background: #fff !important; color: #0A0A0A !important; }
+.btn-primary:hover { background: rgba(255,255,255,0.88) !important; color: #0A0A0A !important; }
+
+/* ════════════════════════════════════════════════════════════
+   ADDITIONS for the cases — same uppercase / white-outline language
+   ════════════════════════════════════════════════════════════ */
+.ta-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 11px; border-radius: 999px; background: #fff; color: #7B00FF; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; }
+.ta-dot { width: 6px; height: 6px; border-radius: 50%; background: #7B00FF; animation: tapulse 1.5s ease-out infinite; }
+@keyframes tapulse { 0% { box-shadow: 0 0 0 0 rgba(123,0,255,.5); } 70% { box-shadow: 0 0 0 6px rgba(123,0,255,0); } 100% { box-shadow: 0 0 0 0 rgba(123,0,255,0); } }
+.ta-title { min-width: 0; }
+.ta-title strong { font-weight: 800; letter-spacing: 0.1em; }
+.ta-count { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.ta-count .lbl { letter-spacing: 0.1em; }
+.ta-box { display: inline-flex; align-items: baseline; gap: 3px; border: 1.5px solid rgba(255,255,255,0.45); border-radius: 6px; padding: 4px 7px; }
+.ta-box b { font-size: 13px; font-weight: 800; letter-spacing: 0; }
+.ta-box span { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; opacity: 0.75; }
+.ta-thumb { width: 26px; height: 26px; border-radius: 5px; object-fit: cover; flex-shrink: 0; background: rgba(255,255,255,0.2); }
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE — tablet wraps, mobile stacks (nice, not clipped)
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .nav-items { display: none; } .nav-cta { display: none; }
+  .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 44px; gap: 8px 12px; }
+  .mobile-drawer { display: none; } .mobile-drawer.open { display: flex; }
+  .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+  .mobile-drawer .drawer-cta { gap: 12px; }
+  .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .drawer-group:last-of-type { border-bottom: none; }
+  .drawer-cat { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #0A8C66; padding: 0; margin-bottom: 8px; display: block; border-bottom: none !important; }
+  .drawer-group a { font-size: 15px; font-weight: 500; color: var(--ink); padding: 8px 0 8px 12px; border-bottom: none !important; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .drawer-group a:hover { opacity: 0.65; }
+  .drawer-badge { font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; background: var(--purple-light); color: var(--purple); }
+}
+/* Mobile — stack the bar vertically, badge + close on the top line */
+@media (max-width: 600px) {
+  .top-alert { flex-direction: column; align-items: stretch; text-align: left; padding: 14px 16px; gap: 10px; }
+  .top-alert .ta-badge { align-self: flex-start; }
+  .top-alert .ta-title { font-size: 12.5px; line-height: 1.4; }
+  .top-alert .ta-count { justify-content: flex-start; flex-wrap: wrap; }
+  .top-alert .ta-count .lbl { width: 100%; opacity: 0.75; margin-bottom: 2px; }
+  .top-alert > a { align-self: flex-start; }
+  .top-alert-close { top: 12px; right: 12px; transform: none; }
+}
+
+/* ════════════════════════════════════════════════════════════
+   demo page (behind the chrome) + case switcher — NOT shipped
+   ════════════════════════════════════════════════════════════ */
+body { background: #0A0A0A; color: #fff; }
+.demo-stage { min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 80px 24px; }
+.demo-stage .eg { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #4FE8A9; }
+.demo-stage h1 { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 46px); letter-spacing: -0.035em; margin: 14px 0 12px; }
+.demo-stage p { color: rgba(255,255,255,0.55); max-width: 52ch; font-size: 16px; line-height: 1.6; }
+.demo-controls { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 300; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; max-width: calc(100vw - 24px); background: rgba(20,20,20,0.92); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 6px; }
+.demo-controls button { font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: -0.01em; color: rgba(255,255,255,0.7); background: none; border: none; cursor: pointer; padding: 8px 14px; border-radius: 999px; white-space: nowrap; transition: background .14s, color .14s; }
+.demo-controls button:hover { color: #fff; }
+.demo-controls button.active { background: #7B00FF; color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="site-header" id="siteHeader">
+<!-- ═══ TOP ALERT (content swapped by the case switcher) ═══ -->
+<div class="top-alert" id="topAlert"></div>
+
+<!-- ═══ NAV (verbatim from train/index.html) ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="brand" href="../employers/">
+      <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+      <span class="brand-ai">AI</span>
+    </a>
+
+    <div class="nav-items">
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-build">Build better AI <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-build">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Services</div>
+              <div class="mega-items">
+                <a class="fly-item" href="../hire/">
+                  <div class="fly-title">Hire AI experts</div>
+                  <div class="fly-desc">Staff your team with domain-qualified &amp; functional experts, ready from day one.</div>
+                </a>
+                <a class="fly-item" href="../employers/#services">
+                  <div class="fly-title">Improve AI performance</div>
+                  <div class="fly-desc">Get better training data with verified domain experts for RLHF, evaluation, red teaming, and QA.</div>
+                </a>
+              </div>
+              <hr class="fly-rule">
+              <div class="fly-eyebrow">Industries we serve</div>
+              <div class="ind-grid">
+                <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
+                <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
+                <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
+                <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                <div class="ind-item"><div class="ind-name">Industrial &amp; Mfg</div><div class="ind-desc">Predictive model QA</div></div>
+                <div class="ind-item"><div class="ind-name">Retail &amp; Ecommerce</div><div class="ind-desc">Multilingual eval</div></div>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div>
+                <div class="fly-eyebrow">Get started</div>
+                <p class="proof-desc">Tell us what you're building and we'll match you with verified domain experts.</p>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>80K+ functional &amp; domain experts</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>6,500 AI professionals</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Global talent pool</div>
+              </div>
+              <a href="../book/" class="fly-cta">Book a discovery call →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-experts">Meet our experts <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-experts">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">The community</div>
+              <div class="mega-items">
+                <a class="fly-item" href="../expert-finder/">
+                  <div class="fly-title">Expert Finder <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Browse 80K+ domain &amp; functional experts by role, domain, and industry.</div>
+                </a>
+                <a class="fly-item" href="../how-we-verify/">
+                  <div class="fly-title">How we verify <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Identity, credentials, and domain expertise — all confirmed.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">By the numbers</div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Functional &amp; domain experts</div></div>
+              <div class="stat-item"><div class="stat-num">6,500</div><div class="stat-lbl">AI professionals</div></div>
+              <div class="stat-item"><div class="stat-num">190</div><div class="stat-lbl">Countries represented</div></div>
+              <div class="stat-item"><div class="stat-num">75%+</div><div class="stat-lbl">Women &amp; BIPOC in our network</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-events">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Events</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/browse-events">
+                  <div class="fly-title">All upcoming events</div>
+                  <div class="fly-desc">Hiring summits, AI talent showcases, virtual and in-person.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right-dark">
+              <div>
+                <div class="event-ey">Featured event</div>
+                <div class="event-hl">AI &amp; Emerging Tech Summit 2026</div>
+                <div class="event-date">Sept 16–17 · Virtual</div>
+              </div>
+              <a href="https://powertofly.com/browse-events" class="event-reg">Register now →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-company">Company <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-company">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">PowerToFly</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/about">
+                  <div class="fly-title">About</div>
+                  <div class="fly-desc">Our mission, team, and 12-year story.</div>
+                </a>
+                <a class="fly-item" href="https://powertofly.com/up">
+                  <div class="fly-title">Resources &amp; blog</div>
+                  <div class="fly-desc">AI talent guides, benchmarks, thought leadership.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">Our network</div>
+              <div class="stat-item"><div class="stat-num">12 <span style="font-size:0.52em;font-weight:700">years</span></div><div class="stat-lbl">Building the most diverse AI talent network</div></div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Skilled professionals ready to work</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-cta">
+      <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+      <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+</div><!-- /site-header -->
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-links">
+    <div class="drawer-group">
+      <span class="drawer-cat">Build better AI</span>
+      <a href="../hire/">Hire AI experts</a>
+      <a href="../employers/#services">Improve AI performance</a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Meet our experts</span>
+      <a href="../expert-finder/">Expert Finder <span class="drawer-badge">Coming soon</span></a>
+      <a href="../how-we-verify/">How we verify <span class="drawer-badge">Coming soon</span></a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Events</span>
+      <a href="https://powertofly.com/browse-events">All upcoming events</a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Company</span>
+      <a href="https://powertofly.com/about">About</a>
+      <a href="https://powertofly.com/up">Resources &amp; blog</a>
+    </div>
+  </div>
+  <div class="drawer-cta">
+    <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+    <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+  </div>
+</div>
+
+<main>
+  <div class="demo-stage">
+    <div class="eg">Top alert · live demo</div>
+    <h1>The real bar, every case</h1>
+    <p>This is your actual <code>.top-alert</code> + nav from <code>train/index.html</code>. Switch cases
+    below; resize the window to see tablet (≤900px) and mobile (≤600px). The × dismisses the bar, just like production.</p>
+  </div>
+</main>
+
+<div class="demo-controls" id="demoControls">
+  <button data-case="default" class="active">Event announce</button>
+  <button data-case="live">Live + countdown</button>
+  <button data-case="thumb">Live + thumbnail</button>
+  <button data-case="upcoming">Upcoming</button>
+  <button data-case="plain">Plain notice</button>
+</div>
+
+<script src="ds/ptf.js"></script>
+<script>
+/* ── Case templates (inner HTML of #topAlert, close button appended) ── */
+var CLOSE = '<button class="top-alert-close" id="topAlertClose" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>';
+var COUNT = function(label, units){
+  var boxes = units.map(function(u){ return '<span class="ta-box"><b>'+u[0]+'</b><span>'+u[1]+'</span></span>'; }).join('');
+  return '<span class="ta-count"><span class="lbl">'+label+'</span>'+boxes+'</span>';
+};
+var CASES = {
+  default:  'AI &amp; Emerging Tech Summit 2026 &nbsp;·&nbsp; Sept 16–17 · Virtual'
+            + '<a href="#">Register now →</a>',
+  live:     '<span class="ta-badge"><span class="ta-dot"></span>Live now</span>'
+            + '<span class="ta-title">Live Chat with an Expert: <strong>Breaking into AI roles</strong></span>'
+            + COUNT('Ends in', [['02','D'],['13','H'],['36','M']])
+            + '<a href="#">Join in →</a>',
+  thumb:    '<span class="ta-badge"><span class="ta-dot"></span>Live now</span>'
+            + '<img class="ta-thumb" src="photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="">'
+            + '<span class="ta-title">Diversity Reboot: <strong>Inclusive AI teams</strong></span>'
+            + COUNT('Ends in', [['00','H'],['42','M'],['09','S']])
+            + '<a href="#">Join in →</a>',
+  upcoming: '<span class="ta-badge">Upcoming</span>'
+            + '<span class="ta-title">Resume Reboot Workshop · <strong>Thu, Jun 19 · 1:00 PM ET</strong></span>'
+            + COUNT('Starts in', [['03','D'],['04','H'],['22','M']])
+            + '<a href="#">Register →</a>',
+  plain:    '<span class="ta-badge">New</span>'
+            + '<span class="ta-title">PowerToFly AI matching is live — expert-vetted candidates in days, not weeks</span>'
+            + '<a href="#">See how →</a>'
+};
+
+var topAlert = document.getElementById('topAlert');
+function setCase(key){
+  topAlert.classList.remove('hidden');
+  topAlert.innerHTML = (CASES[key] || CASES.default) + CLOSE;
+  syncHeaderOffset();
+}
+
+/* ── Sync body padding to fixed header height ── */
+function syncHeaderOffset(){
+  var h = document.getElementById('siteHeader');
+  if (h) document.body.style.paddingTop = h.offsetHeight + 'px';
+}
+
+/* ── Demo switcher ── */
+document.getElementById('demoControls').addEventListener('click', function(e){
+  var b = e.target.closest('button[data-case]'); if (!b) return;
+  document.querySelectorAll('#demoControls button').forEach(function(x){ x.classList.remove('active'); });
+  b.classList.add('active');
+  setCase(b.dataset.case);
+});
+
+/* ── Close (event-delegated so it survives innerHTML swaps) ── */
+topAlert.addEventListener('click', function(e){
+  if (e.target.closest('.top-alert-close')) { topAlert.classList.add('hidden'); syncHeaderOffset(); positionDrawer(); }
+});
+
+/* ── Drawer flush below the nav ── */
+function positionDrawer(){
+  var h = document.getElementById('siteHeader'); var drawer = document.getElementById('mobileDrawer');
+  if (!h || !drawer) return;
+  var bottom = h.getBoundingClientRect().bottom;
+  drawer.style.top = bottom + 'px';
+  drawer.style.height = (window.innerHeight - bottom) + 'px';
+}
+document.getElementById('hamburger').addEventListener('click', positionDrawer);
+window.addEventListener('resize', function(){ syncHeaderOffset(); positionDrawer(); });
+
+/* ── Mega nav flyouts (verbatim) ── */
+(function () {
+  var btns = document.querySelectorAll('.nav-btn[data-fly]');
+  var overlay = document.getElementById('navOverlay');
+  var timer;
+  function closeAll(){ document.querySelectorAll('.nav-fly').forEach(function(f){ f.classList.remove('open'); }); btns.forEach(function(b){ b.classList.remove('open'); }); if (overlay) overlay.classList.remove('on'); }
+  function scheduleClose(){ timer = setTimeout(closeAll, 220); }
+  function cancelClose(){ clearTimeout(timer); }
+  btns.forEach(function (btn) {
+    var drop = btn.closest('.nav-drop');
+    var fly = document.getElementById(btn.dataset.fly);
+    drop.addEventListener('mouseenter', function(){ cancelClose(); closeAll(); fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); });
+    drop.addEventListener('mouseleave', scheduleClose);
+    fly.addEventListener('mouseenter', cancelClose);
+    fly.addEventListener('mouseleave', scheduleClose);
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var isOpen = fly.classList.contains('open'); closeAll(); if (!isOpen){ fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); } });
+  });
+  if (overlay) overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+}());
+
+/* init */
+setCase('default');
+</script>
+</body>
+</html>
