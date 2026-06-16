@@ -154,12 +154,14 @@ h1.hero-headline {
 .statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
-/* ── Use cases — float card layout (hire page pattern, dark) ── */
-.hire-scroll-outer { background: #0A0A0A; padding: 80px 32px 160px; overflow: hidden; }
-.hire-sticky-scene {
-  display: flex; flex-direction: column; align-items: center;
-  gap: 0; max-width: 1400px; margin: 0 auto;
-}
+/* ── Use cases — benefit-card style, dark ── */
+.use-cases-section { background: #0A0A0A; padding: 80px 32px; }
+.use-cases-inner { max-width: 1200px; margin: 0 auto; }
+.use-cases-inner .section-head { margin-bottom: 48px; }
+.use-card-dark { background: #141414 !important; border-color: rgba(255,255,255,0.08) !important; box-shadow: none !important; }
+.use-card-dark h3 { color: #fff !important; }
+.use-card-dark p  { color: rgba(255,255,255,0.5) !important; }
+.use-card-dark .benefit-eyebrow { color: #4FE8A9 !important; }
 .hire-sticky-scene .section-head { margin-bottom: 16px; }
 .hire-around-wrap { position: relative; width: 100%; height: 440px; }
 .hire-center-portrait {
@@ -513,9 +515,9 @@ h1.hero-headline {
 .sc-mock-peek-card { display: none !important; }
 .sc-mock-stack { width: 90%; }
 /* Solid dark card overrides for train page */
-.sc-mock.sc-mock-dark-blue  { background: #111e2e !important; border: 1px solid rgba(91,207,255,0.15) !important; box-shadow: none !important; }
-.sc-mock.sc-mock-dark-green { background: #0a1a10 !important; border: 1px solid rgba(79,232,169,0.15) !important; box-shadow: none !important; }
-.sc-mock.sc-mock-dark-red   { background: #12080a !important; border: 1px solid rgba(255,85,85,0.2)  !important; box-shadow: none !important; }
+.sc-mock.sc-mock-dark-blue  { background: #0A0A0A !important; border: 1px solid rgba(91,207,255,0.15) !important; box-shadow: none !important; }
+.sc-mock.sc-mock-dark-green { background: #0A0A0A !important; border: 1px solid rgba(79,232,169,0.15) !important; box-shadow: none !important; }
+.sc-mock.sc-mock-dark-red   { background: #0A0A0A !important; border: 1px solid rgba(255,85,85,0.2)  !important; box-shadow: none !important; }
 .sc-more { color: #4FE8A9 !important; }
 
 /* Why it matters section — oc-float dark layout */
@@ -911,64 +913,41 @@ h1.hero-headline {
 </section>
 
 <!-- 02. WHAT YOU CAN USE THEM FOR -->
-<section class="hire-scroll-outer">
-  <div class="hire-sticky-scene">
+<section class="use-cases-section">
+  <div class="use-cases-inner">
     <div class="section-head">
       <h2>What you can use them for</h2>
     </div>
-    <div class="hire-around-wrap">
+    <div class="benefits-row">
 
-      <!-- Living AI Organism — neural core -->
-      <div class="hire-center-orb">
-        <div class="orb-core"></div>
+      <div class="benefit-card use-card-dark">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><linearGradient id="uc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path fill="url(#uc1)" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+        </svg>
+        <div class="benefit-eyebrow">RLHF &amp; human feedback</div>
+        <h3>Feedback that actually makes your model better.</h3>
+        <p>Domain experts provide the nuanced signal that generalist crowds can't — rated, ranked, and explained in context.</p>
       </div>
 
-      <!-- Float 1: RLHF -->
-      <div class="hire-float hire-float-1">
-        <div class="hire-float-spark-col">
-          <svg viewBox="0 0 24 24" width="88" height="88" aria-hidden="true">
-            <!-- MUI ThumbUp filled -->
-            <path fill="url(#ptf-grad)" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
-          </svg>
-        </div>
-        <div class="hire-float-vline"></div>
-        <div class="hire-float-body">
-          <div class="fly-eyebrow">RLHF &amp; human feedback</div>
-          <h3>Feedback that actually makes your model better.</h3>
-          <p>Domain experts provide the nuanced signal that generalist crowds can't — rated, ranked, and explained.</p>
-        </div>
+      <div class="benefit-card use-card-dark">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><linearGradient id="uc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path fill="url(#uc2)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+        </svg>
+        <div class="benefit-eyebrow">Evaluation &amp; QA</div>
+        <h3>Test against real-world expectations, not benchmarks.</h3>
+        <p>Domain-matched experts evaluate outputs across languages and edge cases your team would never think to test.</p>
       </div>
 
-      <!-- Float 2: Evaluation -->
-      <div class="hire-float hire-float-2">
-        <div class="hire-float-spark-col">
-          <svg viewBox="0 0 24 24" width="88" height="88" aria-hidden="true">
-            <!-- MUI AssignmentTurnedIn filled -->
-            <path fill="url(#ptf-grad)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
-          </svg>
-        </div>
-        <div class="hire-float-vline"></div>
-        <div class="hire-float-body">
-          <div class="fly-eyebrow">Evaluation &amp; QA</div>
-          <h3>Test against real-world expectations, not benchmarks.</h3>
-          <p>Domain-matched experts evaluate outputs across languages and edge cases your team would never think to test.</p>
-        </div>
-      </div>
-
-      <!-- Float 3: Red teaming -->
-      <div class="hire-float hire-float-3">
-        <div class="hire-float-spark-col">
-          <svg viewBox="0 0 24 24" width="88" height="88" aria-hidden="true">
-            <!-- MUI Security filled -->
-            <path fill="url(#ptf-grad)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
-          </svg>
-        </div>
-        <div class="hire-float-vline"></div>
-        <div class="hire-float-body">
-          <div class="fly-eyebrow">Red teaming</div>
-          <h3>Find the failures before your users do.</h3>
-          <p>Adversarial testing by people who know your industry — they probe where your model is most likely to fail in production.</p>
-        </div>
+      <div class="benefit-card use-card-dark">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><linearGradient id="uc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+          <path fill="url(#uc3)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
+        </svg>
+        <div class="benefit-eyebrow">Red teaming</div>
+        <h3>Find the failures before your users do.</h3>
+        <p>Adversarial testing by people who know your industry — they probe where your model is most likely to fail in production.</p>
       </div>
 
     </div>
