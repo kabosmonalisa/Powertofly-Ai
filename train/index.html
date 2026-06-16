@@ -172,21 +172,17 @@ h1.hero-headline {
 .hero .italic-plain,
 .section-why .italic-plain { color: #fff !important; }
 
-/* ── Stats band — dark, left-aligned to logo gutter, elegant ── */
-.section-statband { background: #0A0A0A !important; padding: 0; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: none; }
-.statband-inner {
-  max-width: none; margin: 0; display: flex; align-items: center; gap: 0;
-  padding: 44px max(32px, calc((100vw - 1280px) / 2));
-}
-.statband-item { flex: 0 1 auto; padding: 0 56px; display: flex; align-items: center; gap: 16px; border-right: 1px solid rgba(255,255,255,0.12); }
-.statband-item:first-child { padding-left: 0; }
+/* ── Stats band — dark, original small style, with top divider ── */
+.section-statband { background: #0A0A0A !important; padding: 0 32px; border-top: 1px solid rgba(255,255,255,0.08); border-bottom: none; }
+.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
-.statband-icon { width: 44px; height: 44px; flex-shrink: 0; background: rgba(79,232,169,0.1); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.statband-icon svg { width: 22px; height: 22px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+.statband-icon svg { width: 15px; height: 15px; stroke: #4FE8A9; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .statband-icon svg[style*="fill:#4FE8A9"] { stroke: none; fill: #4FE8A9; }
-.statband-text { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; }
-.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: -0.03em; color: #fff; line-height: 1.05; white-space: nowrap; }
-.statband-lbl { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 400; color: rgba(255,255,255,0.5); white-space: nowrap; }
+.statband-text { display: flex; align-items: baseline; gap: 6px; }
+.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
+.statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
 /* ── Use cases — benefit-card style, dark ── */
 .use-cases-section { background: #0A0A0A; padding: 80px 32px; }
