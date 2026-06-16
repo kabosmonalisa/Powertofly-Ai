@@ -438,9 +438,27 @@ h1.hero-headline {
 .footer { background: #0A0A0A !important; border-top: none !important; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08) !important; }
 
-/* All sections same dark bg */
-.hire-scroll-outer { background: #0A0A0A !important; }
-.section-experts { background: #0A0A0A !important; }
+/* Section rhythm — subtle dark variations so eye can navigate */
+.hire-scroll-outer  { background: #060606 !important; }
+.section-experts    { background: #0A0A0A !important; border-top: 1px solid rgba(255,255,255,0.05) !important; }
+.section-why        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
+.section-how        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
+
+/* Expert row 2: flip illustration to left, text to right — Andela alternating pattern */
+.experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: 1; }
+.experts-list .expert-row:nth-child(2) .sc-left  { grid-column: 2; grid-row: 1; padding: 4rem 60px 4rem 40px; }
+
+/* Section heading sizes — bigger, more editorial */
+.section-head h2 { font-size: clamp(36px, 4vw, 60px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
+.why-lead h2     { font-size: clamp(36px, 4vw, 56px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
+
+/* Statband — Andela-style: big stacked numbers, no icons */
+.section-statband { padding: 0 32px !important; border-top: 1px solid rgba(255,255,255,0.06) !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; }
+.statband-item    { flex-direction: column !important; align-items: center !important; gap: 6px !important; padding: 52px 16px !important; }
+.statband-icon    { display: none !important; }
+.statband-text    { flex-direction: column !important; align-items: center !important; gap: 4px !important; }
+.statband-num     { font-size: clamp(40px, 4vw, 56px) !important; font-weight: 800 !important; letter-spacing: -0.04em !important; line-height: 1 !important; color: #fff !important; }
+.statband-lbl     { font-size: 13px !important; font-weight: 400 !important; color: rgba(255,255,255,0.4) !important; letter-spacing: 0.02em !important; }
 .section-experts .section-head h2 { color: #fff; }
 .sc-left h3 { color: #fff !important; }
 .sc-body { color: rgba(255,255,255,0.5) !important; }
