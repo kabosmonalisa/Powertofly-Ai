@@ -153,28 +153,163 @@ h1.hero-headline {
 .statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: #fff; white-space: nowrap; }
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
-/* ── Use cases — Andela numbered list, pure type ── */
-.section-uses { background: #0A0A0A; padding: 100px 32px; }
-.uses-inner { max-width: 960px; margin: 0 auto; }
-.uses-inner .section-head h2 { color: #fff; }
-.uses-grid { display: flex; flex-direction: column; margin-top: 64px; }
-.use-card {
-  display: flex; align-items: flex-start; gap: 56px;
-  padding: 52px 0;
-  border-top: 1px solid rgba(255,255,255,0.08);
+/* ── Use cases — float card layout (hire page pattern, dark) ── */
+.hire-scroll-outer { background: #0A0A0A; padding: 80px 32px 160px; overflow: hidden; }
+.hire-sticky-scene {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 0; max-width: 1400px; margin: 0 auto;
 }
-.use-card:last-child { border-bottom: 1px solid rgba(255,255,255,0.08); }
-.use-num {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 72px; font-weight: 800;
-  letter-spacing: -0.06em; line-height: 1;
-  color: rgba(255,255,255,0.12);
-  flex-shrink: 0; width: 96px; text-align: right;
-  padding-top: 4px;
+.hire-sticky-scene .section-head { margin-bottom: 16px; }
+.hire-around-wrap { position: relative; width: 100%; height: 440px; }
+.hire-center-portrait {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 340px; height: 340px;
+  border-radius: 20px; background-size: cover; background-position: center 0%;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55); z-index: 1;
 }
-.use-body { flex: 1; }
-.use-card h3 { font-family: 'Inter Tight', sans-serif; font-size: 24px; font-weight: 700; letter-spacing: -0.03em; color: #fff; margin-bottom: 14px; line-height: 1.15; }
-.use-card p { font-size: 16px; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0; max-width: 58ch; }
+.hire-float {
+  position: absolute; z-index: 3;
+  background: #141414; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-xl); box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  width: 400px; height: 160px; display: flex; align-items: stretch;
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
+}
+.hire-float-spark-col {
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px 18px; flex-shrink: 0;
+}
+.hire-float-spark-col svg { width: 68px; height: 68px; }
+.hire-float-vline {
+  width: 2px; background: rgba(255,255,255,0.08); flex-shrink: 0; margin: 16px 0;
+}
+.hire-float-body { padding: 20px 20px; flex: 1; }
+.hire-float-1 { top: 50%; margin-top: -90px; left: calc(50% - 550px); transform: translateX(-900px); }
+.hire-float-2 { top: 50%; margin-top: -90px; right: calc(50% - 550px); transform: translateX( 900px); }
+.hire-float-3 { top: calc(50% + 150px); left: 50%; margin-left: -200px; transform: translateY(400px); }
+.hire-around-wrap.cards-in .hire-float-1 { transform: translateX(0); opacity: 1; }
+.hire-around-wrap.cards-in .hire-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
+.hire-around-wrap.cards-in .hire-float-3 { transform: translateY(0); opacity: 1; transition-delay: 0.24s; }
+.hire-float .fly-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 6px; }
+.hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: #fff; margin-bottom: 6px; }
+.hire-float p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+/* ══ Living AI Organism ══════════════════════════════════════════ */
+.hire-center-orb {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 320px; height: 320px; z-index: 1;
+}
+/* Neural network SVG underlay */
+.orb-neural {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 500px; height: 500px;
+  margin: -250px 0 0 -250px;
+  pointer-events: none;
+  overflow: visible;
+}
+/* Core organism — morphing + breathing */
+.orb-core {
+  position: absolute; top: 50%; left: 50%;
+  width: 150px; height: 150px; margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #c8fff0 0%, #4FE8A9 18%, #22a87a 42%, #0b4530 68%, #040e09 100%);
+  box-shadow:
+    0 0 48px rgba(79,232,169,0.7),
+    0 0 96px rgba(79,232,169,0.32),
+    0 0 180px rgba(79,232,169,0.14),
+    inset 0 0 32px rgba(91,207,255,0.22);
+  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 9s ease-in-out infinite;
+  z-index: 3;
+}
+/* Membrane — organic wobble ring around core */
+.orb-membrane {
+  position: absolute; top: 50%; left: 50%;
+  width: 200px; height: 200px; margin: -100px 0 0 -100px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(79,232,169,0.28);
+  animation: orb-morph 7s ease-in-out infinite reverse, membrane-pulse 3.8s ease-in-out infinite;
+  z-index: 2;
+}
+.orb-glint {
+  position: absolute;
+  top: calc(50% - 56px); left: calc(50% - 26px);
+  width: 40px; height: 20px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(255,255,255,0.42) 0%, transparent 100%);
+  transform: rotate(-28deg); pointer-events: none; z-index: 4;
+}
+/* Orbiting neuron nodes */
+.neuro {
+  position: absolute; top: 50%; left: 50%;
+  border-radius: 50%; transform-origin: 0 0; z-index: 5;
+}
+.neuro-1 { width: 9px; height: 9px; margin: -4.5px;
+  background: #4FE8A9; box-shadow: 0 0 12px #4FE8A9, 0 0 24px rgba(79,232,169,0.55);
+  animation: orbit-1 5.4s ease-in-out infinite; }
+.neuro-2 { width: 6px; height: 6px; margin: -3px;
+  background: #5BCFFF; box-shadow: 0 0 9px #5BCFFF, 0 0 18px rgba(91,207,255,0.5);
+  animation: orbit-2 8.1s ease-in-out infinite; }
+.neuro-3 { width: 11px; height: 11px; margin: -5.5px;
+  background: #D5FF66; box-shadow: 0 0 14px #D5FF66, 0 0 28px rgba(213,255,102,0.45);
+  animation: orbit-3 9.6s ease-in-out infinite; }
+.neuro-4 { width: 5px; height: 5px; margin: -2.5px;
+  background: #4FE8A9; box-shadow: 0 0 7px #4FE8A9;
+  animation: orbit-4 4.8s linear infinite; }
+.neuro-5 { width: 7px; height: 7px; margin: -3.5px;
+  background: #5BCFFF; box-shadow: 0 0 10px #5BCFFF;
+  animation: orbit-5 11.7s ease-in-out infinite reverse; }
+.neuro-6 { width: 4px; height: 4px; margin: -2px;
+  background: #D5FF66; box-shadow: 0 0 6px #D5FF66;
+  animation: orbit-6 7.2s linear infinite reverse; }
+.neuro-7 { width: 8px; height: 8px; margin: -4px;
+  background: #4FE8A9; box-shadow: 0 0 10px #4FE8A9;
+  animation: orbit-7 13.4s ease-in-out infinite; }
+
+@keyframes orb-breathe {
+  0%, 100% { box-shadow: 0 0 48px rgba(79,232,169,0.7), 0 0 96px rgba(79,232,169,0.32), 0 0 180px rgba(79,232,169,0.14), inset 0 0 32px rgba(91,207,255,0.22); }
+  50%       { box-shadow: 0 0 72px rgba(79,232,169,0.9), 0 0 140px rgba(79,232,169,0.48), 0 0 260px rgba(79,232,169,0.2), inset 0 0 52px rgba(91,207,255,0.32); }
+}
+@keyframes orb-morph {
+  0%, 100% { border-radius: 50%; }
+  16% { border-radius: 44% 56% 55% 45% / 46% 43% 57% 54%; }
+  33% { border-radius: 58% 42% 44% 56% / 53% 50% 50% 47%; }
+  50% { border-radius: 45% 55% 58% 42% / 42% 58% 42% 58%; }
+  66% { border-radius: 54% 46% 43% 57% / 57% 54% 46% 43%; }
+  83% { border-radius: 48% 52% 57% 43% / 43% 45% 55% 57%; }
+}
+@keyframes membrane-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50%       { opacity: 0.9; transform: scale(1.06); }
+}
+/* Orbital paths — varying radii to suggest organic depth */
+@keyframes orbit-1 {
+  0%   { transform: rotate(0deg)   translateX(108px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(108px) rotate(-360deg); }
+}
+@keyframes orbit-2 {
+  0%   { transform: rotate(55deg)   translateX(86px) rotate(-55deg); }
+  100% { transform: rotate(415deg)  translateX(86px) rotate(-415deg); }
+}
+@keyframes orbit-3 {
+  0%   { transform: rotate(195deg)  translateX(132px) rotate(-195deg); }
+  100% { transform: rotate(555deg)  translateX(132px) rotate(-555deg); }
+}
+@keyframes orbit-4 {
+  0%   { transform: rotate(310deg)  translateX(68px)  rotate(-310deg); }
+  100% { transform: rotate(670deg)  translateX(68px)  rotate(-670deg); }
+}
+@keyframes orbit-5 {
+  0%   { transform: rotate(128deg)  translateX(148px) rotate(-128deg); }
+  100% { transform: rotate(-232deg) translateX(148px) rotate(232deg); }
+}
+@keyframes orbit-6 {
+  0%   { transform: rotate(240deg)  translateX(96px) rotate(-240deg); }
+  100% { transform: rotate(-120deg) translateX(96px) rotate(120deg); }
+}
+@keyframes orbit-7 {
+  0%   { transform: rotate(75deg)   translateX(120px) rotate(-75deg); }
+  100% { transform: rotate(435deg)  translateX(120px) rotate(-435deg); }
+}
 
 /* ── Expert types — sc-stack layout ── */
 .section-experts { background: var(--bg); padding: 80px 32px; }
@@ -233,7 +368,7 @@ h1.hero-headline {
 .section-how { background: var(--bg); padding: 80px 32px 160px; }
 .how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center 20%; position: relative; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.pexels.com/photos/5244032/pexels-photo-5244032.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-size: cover; background-position: center 15%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
 .steps {
   position: relative;
@@ -287,8 +422,11 @@ h1.hero-headline {
    ══════════════════════════════════════════ */
 
 /* Nav */
-.nav { background: #0A0A0A !important; border: none !important; box-shadow: none !important; }
-.nav-inner { border: none !important; box-shadow: none !important; }
+.nav { background: #0A0A0A !important; border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.site-header, .site-header * { border-bottom: none !important; }
+/* Dropdown panels — white thin border */
+.mega-inner { border: 1px solid rgba(255,255,255,0.16) !important; }
 .nav-cta .btn:not(.btn-primary) { background: transparent !important; color: rgba(255,255,255,0.7) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
 .nav-cta .btn:not(.btn-primary):hover { color: #fff !important; border-color: rgba(255,255,255,0.5) !important; }
 .nav-btn { color: rgba(255,255,255,0.85) !important; }
@@ -301,17 +439,22 @@ h1.hero-headline {
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08) !important; }
 
 /* All sections same dark bg */
-.section-uses   { background: #0A0A0A !important; }
+.hire-scroll-outer { background: #0A0A0A !important; }
 .section-experts { background: #0A0A0A !important; }
 .section-experts .section-head h2 { color: #fff; }
 .sc-left h3 { color: #fff !important; }
 .sc-body { color: rgba(255,255,255,0.5) !important; }
 .sc-tag { background: rgba(79,232,169,0.12) !important; color: #4FE8A9 !important; }
 .sc-title-chip { background: rgba(255,255,255,0.06) !important; border-color: rgba(255,255,255,0.1) !important; color: rgba(255,255,255,0.55) !important; }
-.sc-right-domain   { background: #0e151f !important; }
-.sc-right-function { background: #0a1910 !important; }
-.sc-right-ai       { background: #1a1509 !important; }
-.sc-mock-peek-card { background: rgba(255,255,255,0.05) !important; }
+.sc-right-domain   { background: #0a1828 !important; }
+.sc-right-function { background: #071812 !important; }
+.sc-right-ai       { background: #160809 !important; }
+.sc-mock-peek-card { display: none !important; }
+.sc-mock-stack { width: 90%; }
+/* Solid dark card overrides for train page */
+.sc-mock.sc-mock-dark-blue  { background: #111e2e !important; border: 1px solid rgba(91,207,255,0.15) !important; box-shadow: none !important; }
+.sc-mock.sc-mock-dark-green { background: #0a1a10 !important; border: 1px solid rgba(79,232,169,0.15) !important; box-shadow: none !important; }
+.sc-mock.sc-mock-dark-red   { background: #12080a !important; border: 1px solid rgba(255,85,85,0.2)  !important; box-shadow: none !important; }
 .sc-more { color: #4FE8A9 !important; }
 
 /* Why it matters section */
@@ -323,7 +466,7 @@ h1.hero-headline {
 .why-card h4 { color: #fff !important; }
 .why-card p { color: rgba(255,255,255,0.5) !important; }
 .why-card-icon { background: none !important; border: none !important; width: auto !important; height: auto !important; border-radius: 0 !important; margin-bottom: 24px !important; }
-.why-card-icon svg { width: 56px !important; height: 56px !important; stroke: none !important; }
+.why-card-icon svg { width: 72px !important; height: 72px !important; stroke: none !important; }
 
 /* How it works section */
 .section-how { background: #0A0A0A !important; }
@@ -345,8 +488,11 @@ h1.hero-headline {
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .use-card { gap: 28px; padding: 36px 0; }
-  .use-num { font-size: 48px; width: 56px; }
+  .hire-scroll-outer { padding: 60px 20px 80px; }
+  .hire-sticky-scene { padding: 0; }
+  .hire-around-wrap { height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 32px; }
+  .hire-center-orb { position: static; transform: none; width: 260px; height: 260px; margin: 0 auto; }
+  .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; margin: 0 !important; }
   .section-experts { padding: 60px 20px; }
   .expert-row { grid-template-columns: 1fr; gap: 0; }
   .sc-right { height: 300px; border-radius: 16px; }
@@ -390,7 +536,6 @@ h1.hero-headline {
   h1, h2, h3 { text-wrap: pretty; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; text-wrap: pretty; }
-  .section-uses { padding: 60px 20px; }
   .section-experts, .section-how { padding: 48px 20px; }
   .section-why { padding: 60px 20px; }
   .section-book { padding: 80px 20px; }
@@ -674,40 +819,139 @@ h1.hero-headline {
 </section>
 
 <!-- 02. WHAT YOU CAN USE THEM FOR -->
-<section class="section-uses">
-  <div class="uses-inner">
+<section class="hire-scroll-outer">
+  <div class="hire-sticky-scene">
     <div class="section-head">
       <h2>What you can use them for</h2>
     </div>
-    <div class="uses-grid">
+    <div class="hire-around-wrap">
 
-      <div class="use-card">
-        <div class="use-num">01</div>
-        <div class="use-body">
-          <h3>RLHF &amp; human feedback</h3>
-          <p>The feedback your model learns from is only as good as the people providing it. Domain experts bring the industry knowledge that turns human feedback into something your model can actually use.</p>
+      <!-- Living AI Organism — neural core -->
+      <div class="hire-center-orb">
+        <!-- Neural synapse web -->
+        <svg class="orb-neural" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <filter id="orb-blur"><feGaussianBlur stdDeviation="2"/></filter>
+          </defs>
+          <!-- Static dim axons (center→nodes) -->
+          <line x1="250" y1="250" x2="142" y2="142" stroke="rgba(79,232,169,0.18)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="336" y2="118" stroke="rgba(91,207,255,0.14)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="398" y2="225" stroke="rgba(213,255,102,0.12)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="382" y2="370" stroke="rgba(79,232,169,0.14)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="216" y2="398" stroke="rgba(91,207,255,0.12)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="102" y2="318" stroke="rgba(213,255,102,0.12)" stroke-width="0.8"/>
+          <line x1="250" y1="250" x2="130" y2="370" stroke="rgba(79,232,169,0.1)" stroke-width="0.8"/>
+          <!-- Cross connections (node→node) -->
+          <line x1="142" y1="142" x2="336" y2="118" stroke="rgba(79,232,169,0.07)" stroke-width="0.6"/>
+          <line x1="336" y1="118" x2="398" y2="225" stroke="rgba(91,207,255,0.07)" stroke-width="0.6"/>
+          <line x1="102" y1="318" x2="130" y2="370" stroke="rgba(213,255,102,0.07)" stroke-width="0.6"/>
+          <line x1="382" y1="370" x2="216" y2="398" stroke="rgba(79,232,169,0.07)" stroke-width="0.6"/>
+          <!-- Animated signal pulses along axons (glowing dot traveling each line) -->
+          <circle r="2.5" fill="#4FE8A9" filter="url(#orb-blur)">
+            <animateMotion dur="2.8s" repeatCount="indefinite" begin="0s">
+              <mpath href="#ax1"/>
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#5BCFFF" filter="url(#orb-blur)">
+            <animateMotion dur="3.5s" repeatCount="indefinite" begin="0.7s">
+              <mpath href="#ax2"/>
+            </animateMotion>
+          </circle>
+          <circle r="2.5" fill="#D5FF66" filter="url(#orb-blur)">
+            <animateMotion dur="4.1s" repeatCount="indefinite" begin="1.4s">
+              <mpath href="#ax3"/>
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#4FE8A9" filter="url(#orb-blur)">
+            <animateMotion dur="3.2s" repeatCount="indefinite" begin="2.1s">
+              <mpath href="#ax4"/>
+            </animateMotion>
+          </circle>
+          <circle r="1.8" fill="#5BCFFF" filter="url(#orb-blur)">
+            <animateMotion dur="2.4s" repeatCount="indefinite" begin="0.3s">
+              <mpath href="#ax5"/>
+            </animateMotion>
+          </circle>
+          <circle r="2" fill="#D5FF66" filter="url(#orb-blur)">
+            <animateMotion dur="3.8s" repeatCount="indefinite" begin="1.8s">
+              <mpath href="#ax6"/>
+            </animateMotion>
+          </circle>
+          <!-- Hidden paths for animateMotion -->
+          <path id="ax1" d="M250,250 L142,142" style="display:none"/>
+          <path id="ax2" d="M250,250 L336,118" style="display:none"/>
+          <path id="ax3" d="M250,250 L398,225" style="display:none"/>
+          <path id="ax4" d="M250,250 L382,370" style="display:none"/>
+          <path id="ax5" d="M250,250 L102,318" style="display:none"/>
+          <path id="ax6" d="M250,250 L216,398" style="display:none"/>
+        </svg>
+        <!-- Membrane ring -->
+        <div class="orb-membrane"></div>
+        <!-- Core body -->
+        <div class="orb-core"></div>
+        <div class="orb-glint"></div>
+        <!-- Orbiting neuron nodes -->
+        <div class="neuro neuro-1"></div>
+        <div class="neuro neuro-2"></div>
+        <div class="neuro neuro-3"></div>
+        <div class="neuro neuro-4"></div>
+        <div class="neuro neuro-5"></div>
+        <div class="neuro neuro-6"></div>
+        <div class="neuro neuro-7"></div>
+      </div>
+
+      <!-- Float 1: RLHF -->
+      <div class="hire-float hire-float-1">
+        <div class="hire-float-spark-col">
+          <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+            <!-- MUI ThumbUp filled -->
+            <path fill="url(#ptf-grad)" d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/>
+          </svg>
+        </div>
+        <div class="hire-float-vline"></div>
+        <div class="hire-float-body">
+          <div class="fly-eyebrow">RLHF &amp; human feedback</div>
+          <h3>Feedback that actually makes your model better.</h3>
+          <p>Domain experts provide the nuanced signal that generalist crowds can't — rated, ranked, and explained.</p>
         </div>
       </div>
 
-      <div class="use-card">
-        <div class="use-num">02</div>
-        <div class="use-body">
-          <h3>Evaluation &amp; QA</h3>
-          <p>Structured testing against your criteria, across languages and use cases. Domain-matched experts test outputs against real-world expectations, not just benchmark scores.</p>
+      <!-- Float 2: Evaluation -->
+      <div class="hire-float hire-float-2">
+        <div class="hire-float-spark-col">
+          <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+            <!-- MUI AssignmentTurnedIn filled -->
+            <path fill="url(#ptf-grad)" d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+        </div>
+        <div class="hire-float-vline"></div>
+        <div class="hire-float-body">
+          <div class="fly-eyebrow">Evaluation &amp; QA</div>
+          <h3>Test against real-world expectations, not benchmarks.</h3>
+          <p>Domain-matched experts evaluate outputs across languages and edge cases your team would never think to test.</p>
         </div>
       </div>
 
-      <div class="use-card">
-        <div class="use-num">03</div>
-        <div class="use-body">
-          <h3>Red teaming</h3>
-          <p>Adversarial testing by people who know where your model is most likely to fail. Our red teamers come from the industries your model serves, so they find the failures that actually matter before your users do.</p>
+      <!-- Float 3: Red teaming -->
+      <div class="hire-float hire-float-3">
+        <div class="hire-float-spark-col">
+          <svg viewBox="0 0 24 24" width="56" height="56" aria-hidden="true">
+            <!-- MUI Security filled -->
+            <path fill="url(#ptf-grad)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14l-3-3 1.41-1.41L11 12.17l4.59-4.58L17 9l-6 6z"/>
+          </svg>
+        </div>
+        <div class="hire-float-vline"></div>
+        <div class="hire-float-body">
+          <div class="fly-eyebrow">Red teaming</div>
+          <h3>Find the failures before your users do.</h3>
+          <p>Adversarial testing by people who know your industry — they probe where your model is most likely to fail in production.</p>
         </div>
       </div>
 
     </div>
   </div>
 </section>
+
 
 <!-- 03. EXPERT TYPES -->
 <section class="section-experts" id="expert-types">
@@ -734,35 +978,24 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-domain">
           <div class="sc-mock-wrap">
-            <div class="sc-mock-stack">
-              <div class="sc-mock-peek-card"></div>
-              <div class="sc-mock">
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-                  <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#E8EFF5,#C8D8E8);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:15px;color:#4a7a8a;">RK</div>
-                  <div>
-                    <div class="sc-mock-title">Dr. Rania K.</div>
-                    <div style="font-size:11px;color:var(--ink-3);margin-top:2px;">RLHF annotator · Cardiology</div>
-                  </div>
-                  <div style="margin-left:auto;background:rgba(79,232,169,0.16);color:#0A8C66;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;">● Verified</div>
+            <!-- RLHF A/B preference comparison -->
+            <div class="sc-mock sc-mock-dark-blue">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">RLHF · Response comparison</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:10px;">
+                <div style="background:#1a2e45;border:1.5px solid #4FE8A9;border-radius:8px;padding:10px;position:relative;">
+                  <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.06em;margin-bottom:5px;">RESPONSE A ✓</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.5;">The standard dosage is 500 mg twice daily with meals, adjusted for renal function…</div>
                 </div>
-                <hr class="sc-mock-hr">
-                <div style="display:flex;flex-direction:column;gap:7px;">
-                  <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4FE8A9" stroke-width="1.5"/><path d="M4.5 7l2 2 3-3" stroke="#4FE8A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Medical degree · Cairo University
-                  </div>
-                  <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4FE8A9" stroke-width="1.5"/><path d="M4.5 7l2 2 3-3" stroke="#4FE8A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    9 yrs interventional cardiology
-                  </div>
-                  <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4FE8A9" stroke-width="1.5"/><path d="M4.5 7l2 2 3-3" stroke="#4FE8A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    340 feedback tasks completed
-                  </div>
-                  <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink-2);">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6" stroke="#4FE8A9" stroke-width="1.5"/><path d="M4.5 7l2 2 3-3" stroke="#4FE8A9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    Background check cleared
-                  </div>
+                <div style="background:#111e2e;border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:10px;">
+                  <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.3);letter-spacing:0.06em;margin-bottom:5px;">RESPONSE B</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;">Dosing varies widely. Consult a physician for personalized dosing advice…</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:9px;padding:8px 10px;background:#111e2e;border-radius:8px;">
+                <div style="width:28px;height:28px;border-radius:50%;background:#1a3a5a;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:10px;color:#7abbe8;">RK</div>
+                <div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.45);">Dr. Rania K. · Cardiology</div>
+                  <div style="font-size:10px;color:#4FE8A9;font-weight:600;margin-top:2px;">A is more precise — specifies route &amp; renal caveat</div>
                 </div>
               </div>
             </div>
@@ -786,37 +1019,32 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-function">
           <div class="sc-mock-wrap">
-            <div class="sc-mock-stack">
-              <div class="sc-mock-peek-card"></div>
-              <div class="sc-mock">
-                <div class="sc-mock-title" style="margin-bottom:12px;">Annotation batch · Legal summarization</div>
-                <div style="display:flex;flex-direction:column;gap:8px;">
-                  <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;border:1.5px solid #4FE8A9;background:rgba(79,232,169,0.06);">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#E0EAF4;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:11px;color:#3a6a8a;">JM</div>
-                    <div style="flex:1;min-width:0;">
-                      <div style="font-size:12px;font-weight:600;color:var(--ink);">Josephine M.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">Legal writer · Contract review</div>
-                    </div>
-                    <span class="sc-badge sc-badge-green">Active</span>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:#fff;">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#E8F5F0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:11px;color:#2a7a5a;">TP</div>
-                    <div style="flex:1;min-width:0;">
-                      <div style="font-size:12px;font-weight:600;color:var(--ink);">Tariq P.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">Linguist · Arabic &amp; English</div>
-                    </div>
-                    <span class="sc-badge sc-badge-amber">Queued</span>
-                  </div>
-                  <div style="display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:#fff;">
-                    <div style="width:32px;height:32px;border-radius:50%;background:#FFF3E0;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:800;font-size:11px;color:#8a5a20;">EB</div>
-                    <div style="flex:1;min-width:0;">
-                      <div style="font-size:12px;font-weight:600;color:var(--ink);">Elena B.</div>
-                      <div style="font-size:11px;color:var(--ink-3);">Educator · K–12 curriculum</div>
-                    </div>
-                    <span class="sc-badge sc-badge-amber">Queued</span>
-                  </div>
+            <!-- Evaluation scorecard -->
+            <div class="sc-mock sc-mock-dark-green">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#4FE8A9;margin-bottom:10px;">Eval run · HR policy assistant</div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Factual accuracy</span>
+                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Policy compliance</span>
+                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#1e1808;border-radius:7px;">
+                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Tone appropriateness</span>
+                  <span style="font-size:10px;font-weight:700;color:#f5a623;letter-spacing:0.04em;">⚠ REVIEW</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#0d2015;border-radius:7px;">
+                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Completeness</span>
+                  <span style="font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;">✓ PASS</span>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 11px;background:#1e1808;border-radius:7px;">
+                  <span style="font-size:12px;color:rgba(255,255,255,0.75);">Edge case coverage</span>
+                  <span style="font-size:10px;font-weight:700;color:#f5a623;letter-spacing:0.04em;">⚠ PARTIAL</span>
                 </div>
               </div>
+              <div style="margin-top:10px;font-size:10px;color:rgba(255,255,255,0.35);">Reviewed by Josephine M. · Legal writer</div>
             </div>
           </div>
         </div>
@@ -838,28 +1066,26 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-ai">
           <div class="sc-mock-wrap">
-            <div class="sc-mock-stack">
-              <div class="sc-mock-peek-card"></div>
-              <div class="sc-mock">
-                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-                  <span class="sc-mock-title">Red team run · Finance LLM</span>
-                  <span class="sc-badge sc-badge-green">In progress</span>
+            <!-- Red team attack log -->
+            <div class="sc-mock sc-mock-dark-red">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.09em;text-transform:uppercase;color:#ff5555;margin-bottom:10px;">Red team log · Finance LLM</div>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+                <div style="padding:9px 12px;background:#1c0808;border-left:2.5px solid #ff4444;border-radius:0 7px 7px 0;">
+                  <div style="font-size:9px;font-weight:700;color:#ff5555;letter-spacing:0.08em;margin-bottom:3px;">CRITICAL</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Jailbreak via role-play → exposes user PII</div>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-                  <div style="padding:12px;background:rgba(79,232,169,0.08);border-radius:10px;border:1px solid rgba(79,232,169,0.2);">
-                    <div style="font-family:'Inter Tight',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.03em;color:var(--ink);line-height:1;">214</div>
-                    <div style="font-size:10px;color:var(--ink-3);margin-top:4px;">Probes run</div>
-                  </div>
-                  <div style="padding:12px;background:rgba(220,53,69,0.07);border-radius:10px;border:1px solid rgba(220,53,69,0.18);">
-                    <div style="font-family:'Inter Tight',sans-serif;font-size:28px;font-weight:800;letter-spacing:-0.03em;color:#9c0a16;line-height:1;">7</div>
-                    <div style="font-size:10px;color:var(--ink-3);margin-top:4px;">Failures flagged</div>
-                  </div>
+                <div style="padding:9px 12px;background:#1c1208;border-left:2.5px solid #f5a623;border-radius:0 7px 7px 0;">
+                  <div style="font-size:9px;font-weight:700;color:#f5a623;letter-spacing:0.08em;margin-bottom:3px;">HIGH</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Prompt injection bypasses compliance rules</div>
                 </div>
-                <hr class="sc-mock-hr">
-                <div style="display:flex;align-items:center;gap:6px;">
-                  <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;animation:livepulse 2s ease-in-out infinite;flex-shrink:0;"></div>
-                  <span style="font-size:11px;color:var(--ink-3);">5 red teamers active · 3 domain, 2 technical</span>
+                <div style="padding:9px 12px;background:#0c1a10;border-left:2.5px solid #4FE8A9;border-radius:0 7px 7px 0;">
+                  <div style="font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;margin-bottom:3px;">MEDIUM</div>
+                  <div style="font-size:11px;color:rgba(255,255,255,0.8);">Inconsistent output on edge case queries</div>
                 </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:7px;">
+                <div style="width:7px;height:7px;border-radius:50%;background:#ff5555;animation:livepulse 1.6s ease-in-out infinite;flex-shrink:0;"></div>
+                <span style="font-size:10px;color:rgba(255,255,255,0.35);">3 of 214 probes flagged · 5 teamers active</span>
               </div>
             </div>
           </div>
@@ -885,8 +1111,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <!-- MUI: CheckCircle -->
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <!-- MUI: Verified (bold badge checkmark — very solid filled shape) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/></svg>
         </div>
         <h4>More accurate outputs</h4>
         <p>Experts who understand your use case catch errors that generic annotators miss.</p>
@@ -894,8 +1120,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <!-- MUI: VerifiedUser -->
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          <!-- MUI: Lock (solid padlock — maximum fat simple shape) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
         </div>
         <h4>Defensible by design</h4>
         <p>Verified identities and credentials mean you can explain who trained your model to your regulators, your legal team, and your board.</p>
@@ -903,8 +1129,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <!-- MUI: Visibility -->
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          <!-- MUI: Search (bold magnifier — fat and simple) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         </div>
         <h4>Fewer blind spots</h4>
         <p>A representative expert pool catches the edge cases a homogenous team won't see coming, before they become a problem in production.</p>
@@ -912,8 +1138,8 @@ h1.hero-headline {
 
       <div class="why-card">
         <div class="why-card-icon">
-          <!-- MUI: Autorenew -->
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+          <!-- MUI: Loop (bold circular arrows — cleaner than Autorenew) -->
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#ptf-grad)" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
         </div>
         <h4>Consistent across releases</h4>
         <p>Work with the same experts across model versions. Familiarity with your data compounds over time.</p>
@@ -1090,6 +1316,17 @@ window.addEventListener('resize', positionDrawer);
     s.dataset.delay = i * 110;
     obs.observe(s);
   });
+}());
+
+/* ── Float cards — slide in on scroll-into-view ── */
+(function () {
+  var wrap = document.querySelector('.hire-around-wrap');
+  if (!wrap) return;
+  if (!('IntersectionObserver' in window)) { wrap.classList.add('cards-in'); return; }
+  var obs = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) { wrap.classList.add('cards-in'); obs.disconnect(); }
+  }, { threshold: 0.1 });
+  obs.observe(wrap);
 }());
 </script>
 </body>
