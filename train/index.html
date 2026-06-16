@@ -457,16 +457,99 @@ h1.hero-headline {
 .sc-mock.sc-mock-dark-red   { background: #12080a !important; border: 1px solid rgba(255,85,85,0.2)  !important; box-shadow: none !important; }
 .sc-more { color: #4FE8A9 !important; }
 
-/* Why it matters section */
+/* Why it matters — full dark redesign */
 .section-why { background: #0A0A0A !important; }
 .why-lead h2 { color: #fff !important; }
 .why-lead p { color: rgba(255,255,255,0.5) !important; }
-.why-grid { background: rgba(255,255,255,0.07) !important; }
-.why-card { background: #0A0A0A !important; }
-.why-card h4 { color: #fff !important; }
-.why-card p { color: rgba(255,255,255,0.5) !important; }
-.why-card-icon { background: none !important; border: none !important; width: auto !important; height: auto !important; border-radius: 0 !important; margin-bottom: 24px !important; }
-.why-card-icon svg { width: 72px !important; height: 72px !important; stroke: none !important; }
+
+/* Grid: real gaps, transparent bg so cards float individually */
+.why-grid {
+  background: transparent !important;
+  gap: 16px !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+/* Cards: dark glass with border */
+.why-card {
+  background: rgba(255,255,255,0.03) !important;
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  position: relative !important;
+  padding: 40px 40px !important;
+  transition: border-color .3s, box-shadow .3s !important;
+}
+.why-card:hover {
+  border-color: rgba(255,255,255,0.13) !important;
+  box-shadow: 0 12px 48px rgba(0,0,0,.5) !important;
+}
+
+/* Gradient hairline across top of each card */
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79,232,169,.55) 50%, transparent);
+  pointer-events: none;
+}
+.why-card:nth-child(2)::before { background: linear-gradient(90deg, transparent, rgba(91,207,255,.55) 50%, transparent); }
+.why-card:nth-child(3)::before { background: linear-gradient(90deg, transparent, rgba(213,255,102,.5) 50%, transparent); }
+.why-card:nth-child(4)::before { background: linear-gradient(90deg, transparent, rgba(91,207,255,.35) 30%, rgba(79,232,169,.35) 70%, transparent); }
+
+/* Radial corner glow */
+.why-card::after {
+  content: '';
+  position: absolute;
+  top: -50px; left: -50px;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,232,169,.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.why-card:nth-child(2)::after { background: radial-gradient(circle, rgba(91,207,255,.09) 0%, transparent 70%); }
+.why-card:nth-child(3)::after { background: radial-gradient(circle, rgba(213,255,102,.07) 0%, transparent 70%); }
+.why-card:nth-child(4)::after { background: radial-gradient(circle, rgba(79,232,169,.06) 0%, transparent 70%); }
+
+/* Icon container: glowing rounded square */
+.why-card-icon {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 14px !important;
+  background: rgba(79,232,169,.08) !important;
+  border: 1px solid rgba(79,232,169,.22) !important;
+  box-shadow: 0 0 18px rgba(79,232,169,.12) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 28px !important;
+}
+.why-card:nth-child(2) .why-card-icon {
+  background: rgba(91,207,255,.08) !important;
+  border-color: rgba(91,207,255,.22) !important;
+  box-shadow: 0 0 18px rgba(91,207,255,.12) !important;
+}
+.why-card:nth-child(3) .why-card-icon {
+  background: rgba(213,255,102,.06) !important;
+  border-color: rgba(213,255,102,.2) !important;
+  box-shadow: 0 0 18px rgba(213,255,102,.09) !important;
+}
+.why-card:nth-child(4) .why-card-icon {
+  background: rgba(79,232,169,.06) !important;
+  border-color: rgba(79,232,169,.16) !important;
+  box-shadow: 0 0 18px rgba(79,232,169,.08) !important;
+}
+
+/* Icons: solid color per card accent */
+.why-card-icon svg { width: 28px !important; height: 28px !important; stroke: none !important; }
+.why-card:nth-child(1) .why-card-icon svg path { fill: #4FE8A9 !important; }
+.why-card:nth-child(2) .why-card-icon svg path { fill: #5BCFFF !important; }
+.why-card:nth-child(3) .why-card-icon svg path { fill: #D5FF66 !important; }
+.why-card:nth-child(4) .why-card-icon svg path { fill: #4FE8A9 !important; }
+
+/* Typography */
+.why-card h4 { color: #fff !important; font-size: 17px !important; margin-bottom: 10px !important; }
+.why-card p { color: rgba(255,255,255,.48) !important; font-size: 14px !important; line-height: 1.65 !important; }
 
 /* How it works section */
 .section-how { background: #0A0A0A !important; }
