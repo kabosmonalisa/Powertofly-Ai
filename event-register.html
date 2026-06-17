@@ -205,6 +205,15 @@ body {
 .q-label { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 10px; }
 .q-label .req { color: #C0392B; }
 
+/* ===== Resume upload (from auth.html) ===== */
+.upload-area { border: 1.5px dashed rgba(10,10,10,0.18); border-radius: 14px; padding: 28px 20px; text-align: center; cursor: pointer; transition: border-color 200ms, background 200ms; background: var(--bg-soft); position: relative; }
+.upload-area:hover { border-color: var(--iri-green); background: rgba(79,232,169,0.04); }
+.upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon { font-size: 28px; margin-bottom: 8px; }
+.upload-area p { font-size: 14px; color: var(--ink-3); line-height: 1.5; }
+.upload-area strong { color: var(--ink); font-weight: 600; }
+.upload-name { margin-top: 8px; font-size: 13px; color: var(--iri-green); font-weight: 600; display: none; }
+
 /* ===== Custom checkbox (events + agreement) ===== */
 .check-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
 .check-box {
@@ -377,6 +386,16 @@ body {
             <label for="su-linkedin">LinkedIn profile</label>
             <input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off">
           </div>
+          <div class="field">
+            <label>Resume or CV</label>
+            <div class="upload-area" id="uploadArea">
+              <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
+              <div class="upload-icon">📄</div>
+              <p><strong>Click to upload</strong> or drag and drop</p>
+              <p>PDF, DOC, DOCX — max 5MB</p>
+              <div class="upload-name" id="uploadName"></div>
+            </div>
+          </div>
           <p class="auth-note" style="margin:0;text-align:left;font-size:12px">No LinkedIn? You can <a href="#">add your experience manually</a>.</p>
           <div class="nav-row">
             <button class="btn-skip" type="button" onclick="goToStep('step3')" style="justify-self:start;align-self:center">Skip for now</button>
@@ -535,6 +554,13 @@ function showAuth(which) {
 }
 
 function toggleChip(el) { el.classList.toggle('selected'); }
+
+function handleFile(input) {
+  var name = input.files[0] ? input.files[0].name : '';
+  var el = document.getElementById('uploadName');
+  el.textContent = name;
+  el.style.display = name ? 'block' : 'none';
+}
 
 function toggleFinish() {
   document.getElementById('finishBtn').disabled = !document.getElementById('agreeBox').checked;
