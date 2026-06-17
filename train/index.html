@@ -281,7 +281,7 @@ h1.hero-headline {
 .experts-list { display: flex; flex-direction: column; gap: 80px; }
 .expert-row {
   display: grid; grid-template-columns: 1fr 1fr;
-  min-height: 360px; gap: 60px; align-items: center;
+  min-height: 360px; gap: 60px; align-items: stretch; /* deterministic: illustration fills row, gap between subsections is always the fixed 80px (matches hire) */
 }
 .sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
 .sc-right { border-radius: 20px; min-height: 360px; }

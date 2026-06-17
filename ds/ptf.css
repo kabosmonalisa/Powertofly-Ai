@@ -106,21 +106,18 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===== Eyebrow — the small green label above a headline =====
- * ONE eyebrow style across the whole site. Default is the green pill. */
+ * RULE: eyebrows and small category labels are PLAIN green uppercase text.
+ * NEVER a pill / background / border-radius. This is the brand. */
 .eyebrow {
   display: inline-flex; align-items: center; gap: 7px;
   font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--green);
-  padding: 5px 12px; border-radius: 999px;
-  background: rgba(79, 232, 169, 0.16);   /* soft iridescent-green pill */
   margin-bottom: 16px;
 }
 .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-/* Plain (no pill) variant — when a pill would be too heavy */
-.eyebrow-plain { background: none; padding: 0; }
-/* On dark backgrounds */
-.theme-dark .eyebrow, .eyebrow-on-dark { color: var(--green-mid); background: rgba(79, 232, 169, 0.14); }
+/* On dark backgrounds — still plain text, just the lighter green */
+.theme-dark .eyebrow, .eyebrow-on-dark { color: var(--green-mid); }
 
 /* ===== Buttons ===== */
 .btn {

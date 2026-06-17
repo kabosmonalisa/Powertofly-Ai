@@ -191,13 +191,13 @@ So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 �
 
 ⚠️ **Existing-page note:** `employers/` and `talents/` were built earlier on a wider **1400px** grid (set inline, nav + footer + content together). They're internally aligned, just wider — leave them unless asked to retrofit. **New pages use the 1280 default.** If you ever change a page's width, change nav, footer, and content *together* so they never drift apart.
 
-### 3. The eyebrow is always the green pill
-*"Eyebrow pill"* — one style, everywhere.
+### 3. Eyebrows / small labels are PLAIN green uppercase text — NEVER a pill
+**No pills. No background. No border-radius. No padding box.** Small green category labels (eyebrows, the expert-card `.sc-tag` labels, etc.) are plain uppercase green text. Pills on these are **not the brand** — banned.
 
-- Use **`.eyebrow`** (green uppercase label inside a soft-green pill) above any headline. Optional `<span class="dot"></span>` for a live/now feel.
+- Use **`.eyebrow`** = plain green uppercase text above any headline. `<span class="dot"></span>` is allowed for a live/now indicator (a dot is fine; a pill is not).
 - On dark sections it auto-adjusts (or add `.eyebrow-on-dark`).
-- Only drop the pill with `.eyebrow-plain` when a pill would feel too heavy (rare).
-- ❌ Do not invent `.hero-eyebrow`, `.book-eyebrow`, `.why-eyebrow`, etc. again. One class: `.eyebrow`.
+- ❌ Never give a label a `background` + `border-radius: 999px` (a pill). If you see one, strip it.
+- ❌ Do not invent `.hero-eyebrow`, `.book-eyebrow`, `.why-eyebrow`, etc. One class: `.eyebrow`.
 
 ```html
 <span class="eyebrow"><span class="dot"></span>Now matching experts</span>
@@ -236,7 +236,7 @@ This is the workflow. You bring intent + copy. I handle the system.
 4. Apply rules 1–5 above automatically (spacing, width, eyebrow, images, icons).
 5. Verify in the browser at 1280 / 768 / 375 and show you a screenshot.
 
-You should never have to say "make the eyebrow a pill" or "align the nav to the footer" or "fix the spacing" again. If you do, that's a bug in me — point at this section.
+You should never have to say "no pills on the labels" or "align the nav to the footer" or "fix the spacing" again. If you do, that's a bug in me — point at this section.
 
 ---
 
