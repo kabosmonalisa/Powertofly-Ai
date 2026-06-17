@@ -203,6 +203,9 @@ h1.hero-headline {
 .sc-tag { display: inline-flex; align-items: center; padding: 4px 12px; border-radius: 999px; background: rgba(79,232,169,0.14); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #0A8C66; width: fit-content; }
 .sc-left h3 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.22; letter-spacing: -0.025em; color: var(--ink); }
 .sc-body { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
+/* Alternate the middle row — illustration LEFT, text RIGHT (matches the train page) */
+.experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: 1; }
+.experts-list .expert-row:nth-child(2) .sc-left  { grid-column: 2; grid-row: 1; padding: 4rem 60px 4rem 40px; }
 .sc-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .sc-title-chip { font-size: 12px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
 .sc-more { font-size: 14px; font-weight: 600; color: #0A8C66; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 200ms ease; margin-top: 4px; }
@@ -327,6 +330,10 @@ h1.hero-headline {
   /* Experts */
   .section-experts { padding: 60px 20px; }
   .expert-row { grid-template-columns: 1fr; gap: 0; }
+  /* reset the alternated middle row so it stacks in normal order on mobile */
+  .experts-list .expert-row:nth-child(2) .sc-left,
+  .experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: auto; }
+  .experts-list .expert-row:nth-child(2) .sc-left { padding: 32px 20px; }
   .sc-right { height: 300px; border-radius: 16px; }
   .sc-left { padding: 32px 20px; }
   /* How it works */
