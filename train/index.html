@@ -1405,14 +1405,12 @@ function syncHeaderOffset() {
 syncHeaderOffset();
 window.addEventListener('resize', syncHeaderOffset);
 
-/* ── Nav gets a background once you scroll past the hero ── */
+/* ── Nav is transparent only at the very top; gains solid bg the moment you scroll ── */
 (function(){
   var nav = document.querySelector('.nav');
-  var hero = document.querySelector('.hero');
-  if (!nav || !hero) return;
+  if (!nav) return;
   function onScroll(){
-    var trigger = hero.offsetHeight - 80;
-    nav.classList.toggle('nav-solid', window.scrollY > trigger);
+    nav.classList.toggle('nav-solid', window.scrollY > 4);
   }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
