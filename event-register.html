@@ -160,6 +160,7 @@ body {
 .id-chip.selected { background: var(--ink); border-color: var(--ink); color: #fff; }
 .id-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 32px; margin-bottom: 22px; }
 .id-section { min-width: 0; }
+.id-col { display: flex; flex-direction: column; gap: 24px; }
 
 /* ===== Submit button (from auth.html) ===== */
 .btn-auth {
@@ -432,27 +433,28 @@ body {
             </div>
           </div>
 
-          <div class="id-section">
-            <div class="id-section-label">Years of experience</div>
-            <div class="id-chips">
-              <span class="id-chip" onclick="toggleChip(this)">Less than 1 year</span>
-              <span class="id-chip" onclick="toggleChip(this)">1–3 years</span>
-              <span class="id-chip" onclick="toggleChip(this)">3–5 years</span>
-              <span class="id-chip" onclick="toggleChip(this)">5–8 years</span>
-              <span class="id-chip" onclick="toggleChip(this)">8–12 years</span>
-              <span class="id-chip" onclick="toggleChip(this)">12+ years</span>
+          <div class="id-section id-col">
+            <div>
+              <div class="id-section-label">Years of experience</div>
+              <div class="id-chips">
+                <span class="id-chip" onclick="toggleChip(this)">Less than 1 year</span>
+                <span class="id-chip" onclick="toggleChip(this)">1–3 years</span>
+                <span class="id-chip" onclick="toggleChip(this)">3–5 years</span>
+                <span class="id-chip" onclick="toggleChip(this)">5–8 years</span>
+                <span class="id-chip" onclick="toggleChip(this)">8–12 years</span>
+                <span class="id-chip" onclick="toggleChip(this)">12+ years</span>
+              </div>
             </div>
-          </div>
-
-          <div class="id-section">
-            <div class="id-section-label">Gender identity</div>
-            <div class="id-chips">
-              <span class="id-chip" onclick="toggleChip(this)">Woman</span>
-              <span class="id-chip" onclick="toggleChip(this)">Man</span>
-              <span class="id-chip" onclick="toggleChip(this)">Transgender</span>
-              <span class="id-chip" onclick="toggleChip(this)">Non-binary</span>
-              <span class="id-chip" onclick="toggleChip(this)">Prefer not to disclose</span>
-              <span class="id-chip" onclick="toggleChip(this)">Other</span>
+            <div>
+              <div class="id-section-label">Gender identity</div>
+              <div class="id-chips">
+                <span class="id-chip" onclick="toggleChip(this)">Woman</span>
+                <span class="id-chip" onclick="toggleChip(this)">Man</span>
+                <span class="id-chip" onclick="toggleChip(this)">Transgender</span>
+                <span class="id-chip" onclick="toggleChip(this)">Non-binary</span>
+                <span class="id-chip" onclick="toggleChip(this)">Prefer not to disclose</span>
+                <span class="id-chip" onclick="toggleChip(this)">Other</span>
+              </div>
             </div>
           </div>
         </div>
