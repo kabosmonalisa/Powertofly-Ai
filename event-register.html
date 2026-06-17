@@ -458,16 +458,6 @@ body {
         </div>
 
         <form class="auth-form" onsubmit="goToStep('step4');return false">
-          <div class="field-row">
-            <div class="field">
-              <label for="su-company">Company</label>
-              <input type="text" id="su-company" placeholder="Where you work" autocomplete="organization">
-            </div>
-            <div class="field">
-              <label for="su-phone">Work phone</label>
-              <input type="tel" id="su-phone" placeholder="Optional" autocomplete="tel">
-            </div>
-          </div>
           <div class="nav-row">
             <button class="btn-ghost" type="button" onclick="goToStep('step2')">Back</button>
             <button class="btn-auth" type="submit">Continue →</button>
@@ -485,6 +475,16 @@ body {
             <label for="su-question">Your question or topic <span style="color:#C0392B">*</span></label>
             <textarea id="su-question" placeholder="e.g. How do small teams measure the ROI of AI tools?" onblur="validateRequired('su-question','su-q-field','su-q-msg')"></textarea>
             <div class="field-msg" id="su-q-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Please add a question or topic</div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="su-company">Company</label>
+              <input type="text" id="su-company" placeholder="Where you work" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="su-phone">Work phone</label>
+              <input type="tel" id="su-phone" placeholder="Optional" autocomplete="tel">
+            </div>
           </div>
           <div class="nav-row">
             <button class="btn-ghost" type="button" onclick="goToStep('step3')">Back</button>
