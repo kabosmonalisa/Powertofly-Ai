@@ -132,7 +132,8 @@
 .hero-text {
   align-self: center;
   text-align: left;
-  padding: 172px 72px 104px max(32px, calc((100vw - 1280px) / 2));
+  /* left edge aligns to the nav logo (the --container box), video stays full-bleed right */
+  padding: 172px 72px 104px max(var(--gutter), calc((100vw - var(--container)) / 2));
 }
 .hero-media {
   align-self: start;
@@ -181,7 +182,7 @@ h1.hero-headline {
 
 /* ── Stats band — dark, original small style, with top divider ── */
 .section-statband { background: #0A0A0A !important; margin-top: 56px; padding: 0 32px; border-top: none; border-bottom: none; }
-.statband-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
 .statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -193,7 +194,7 @@ h1.hero-headline {
 
 /* ── Use cases — benefit-card style, dark ── */
 .use-cases-section { background: #0A0A0A; padding: 100px 32px; }
-.use-cases-inner { max-width: 1400px; margin: 0 auto; }
+.use-cases-inner { max-width: 1200px; margin: 0 auto; }
 .use-cases-inner .section-head { margin-bottom: 48px; }
 .benefits-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
 @media (max-width: 900px) { .benefits-row { grid-template-columns: 1fr; } }
@@ -276,7 +277,7 @@ h1.hero-headline {
 
 /* ── Expert types — sc-stack layout ── */
 .section-experts { background: var(--bg); padding: 100px 32px; }
-.experts-inner { max-width: 1400px; margin: 0 auto; }
+.experts-inner { max-width: 1200px; margin: 0 auto; }
 .experts-list { display: flex; flex-direction: column; gap: 80px; }
 .expert-row {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -311,7 +312,7 @@ h1.hero-headline {
 
 /* ── Why it matters — 2×2 benefit grid on dark card ── */
 .section-why { background: var(--bg); padding: 100px 32px; }
-.why-inner { max-width: 1400px; margin: 0 auto; }
+.why-inner { max-width: 1200px; margin: 0 auto; }
 .why-lead { max-width: 700px; margin: 0 auto 64px; text-align: center; }
 .why-lead h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
 .why-lead p { margin-top: 16px; font-size: 17px; color: var(--ink-2); line-height: 1.6; }
@@ -329,7 +330,7 @@ h1.hero-headline {
 
 /* ── How it works ── */
 .section-how { background: var(--bg); padding: 100px 32px; }
-.how-outer { max-width: 1400px; margin: 0 auto; }
+.how-outer { max-width: 1180px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
 .how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.pexels.com/photos/5244032/pexels-photo-5244032.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-size: cover; background-position: center 65%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
