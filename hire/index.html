@@ -147,7 +147,9 @@ h1.hero-headline {
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
 /* ── Hire types ── */
-.hire-scroll-outer { background: var(--bg); padding: 100px 32px; overflow: hidden; }
+/* Pinned scroll section: extra BOTTOM clearance so the animated cards don't crowd
+   the next section's title (documented exception to the 100/100 rule). */
+.hire-scroll-outer { background: var(--bg); padding: 100px 32px 160px; overflow: hidden; }
 .hire-sticky-scene {
   display: flex; flex-direction: column; align-items: center;
   gap: 0; max-width: 1400px; margin: 0 auto;

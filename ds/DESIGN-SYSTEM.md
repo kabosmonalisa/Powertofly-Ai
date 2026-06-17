@@ -160,14 +160,21 @@ Scoped under `.theme-dark`, so light pages are never affected. This is the train
 
 These are the recurring frustrations from past sessions. They are non-negotiable. Follow them without being asked.
 
-### 1. Vertical spacing must be even across every section and every page
-The #1 complaint: *"be consistent with the spacing across the section, across all of my fucking pages."*
+### 1. Vertical spacing — ONE law (train is the reference)
+The #1 recurring complaint. The reference is the **train page**: every body section is **100px top / 100px bottom → a consistent 200px between sections.**
 
-- **Every section uses `.section`** (`var(--section-y)` = 96px top & bottom). That's it.
-- **Never hand-set a section's top/bottom padding.** No `padding: 80px 0`, no `140px`, no `margin-top` to "fix" a gap.
-- Need denser or airier? Use the **variant class**, never a raw number: `.section-tight` (72px) or `.section-loose` (140px, for hero / mission / final CTA only).
-- A section's **background color does not change its spacing.** A dark section and a white section sit on the same rhythm.
-- Two stacked sections = one consistent gap. Don't add extra margins between them.
+**The law (this is the only source of vertical space between sections):**
+- **Every body section uses `.section`** = `var(--section-y)` (**100px**) top & bottom. The gap between any two sections is therefore always **200px**. Nothing else may add space.
+- **No margins on sections. No spacer `<div>`s. No `margin-top` to "nudge" a gap.** If a gap looks wrong, the cause is a rule violation — find it, don't add a counter-margin.
+- A section's **background colour never changes its spacing** — dark and white sections sit on the same 200px rhythm. (If consecutive white sections *feel* like a lot of space, that's the honest 200px, not a bug — it's consistent with train.)
+- Denser/airier only via the **variant class**, never a raw number: `.section-tight` / `.section-loose`.
+
+**The only two formal exceptions (everything else follows the law):**
+1. **Hero** — owns its internal padding (it sits against the nav, no "gap above").
+2. **Stat-strip** — the thin band right after the hero (e.g. `.section-statband`) is an attached strip, not a rhythm section.
+3. *(Special)* a **pinned/scroll-animation section** (e.g. hire's `.hire-scroll-outer`) may use a larger **bottom** padding for animation clearance so its moving cards don't crowd the next title — comment it as such.
+
+Why this kept recurring: space used to come from three places (padding + stray margins + special-section clearance), so it was never one predictable number. Now it's one number (`--section-y`), with the exceptions named above.
 
 ### 2. Width & alignment: nav and footer share one edge; content sits *inside* it
 The other recurring complaint: *"make the top nav elements align with the elements from the footer"* and *"align the top bar to the content, not the screen edge."*
