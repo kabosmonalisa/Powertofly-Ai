@@ -1,28 +1,30 @@
 # PowerToFly AI — Design rules for Claude Code and Cowork
 
-## The two reference pages. Match these exactly.
-- Employers: https://kabosmonalisa.github.io/Powertofly-Ai/employers/
-- Talents: https://kabosmonalisa.github.io/Powertofly-Ai/talents/
+## 📖 The design system is documented. Read it first.
 
-Every new page must look like it belongs to the same site as those two. When in doubt, open them and compare.
+**Before building or editing any page, read [`ds/DESIGN-SYSTEM.md`](ds/DESIGN-SYSTEM.md).**
+It is the single source of truth: the full inventory of every shared component, which class to use when, and how to start a new page.
+
+The system lives in three local files — **reuse them, never rebuild them**:
+- `ds/ptf.css` — all shared styling (tokens, type, buttons, nav, footer, alert, forms, cards, sections, dark theme)
+- `ds/ptf.js` — all shared behavior (nav drawer, scroll, mega-flyout, fixed header, marquee)
+- `ds/template.html` — the page skeleton to copy for a new page
+
+Need a nav / footer / alert / button / card / form / section? **It is already built.** Copy the markup, change the copy. Do not write CSS for it.
+
+Reference renders (what the result should look like): the Employers and Talents pages — locally `employers/index.html` and `talents/index.html`. The local `ds/` files are the source of truth; these pages are just the rendered output.
 
 ---
 
-## Before writing any CSS — mandatory first step
+## 🚫 Non-negotiables (apply on EVERY page, without being asked)
+Full detail in `ds/DESIGN-SYSTEM.md` → "The things Lizu keeps repeating."
+1. **Even spacing.** Every section uses `.section` (96px). Never hand-set section padding; use `.section-tight` / `.section-loose` if needed. Background color never changes rhythm.
+2. **Aligned widths.** Nav + footer share `--container` (1280px); content sits *inside* it — `.section-narrow` 1180, `.content` 1080, `.content-narrow` 720. Never make text as wide as the bar; if you change a page's width, move nav+footer+content together. (employers/talents run a wider 1400 grid inline — leave them.)
+3. **Eyebrow = green pill.** Always `.eyebrow`. Never invent `.hero-eyebrow`/`.book-eyebrow`/etc.
+4. **Images & video = real, diverse, professional people — Pexels preferred** (photos + video), or the local `photos/` library for featured faces. Never posed stock models, never all-white/all-male.
+5. **Icons = iridescent gradient sparkles + thick rounded strokes.** One icon family per page.
 
-**Before writing a single line of CSS for a new page, fetch the live source of both reference pages and grep for the pattern you need.**
-
-If the pattern exists in employers or talents → copy it character-for-character. Do not rewrite it from memory.  
-If the pattern does not exist in either page → write minimal new CSS only for what is genuinely unique to this page.
-
-This applies to: nav, footer, hero layout, section padding, card styles, typography, buttons, timelines, tabs, marquees — everything. When in doubt, check the source first.
-
-```
-curl -s https://kabosmonalisa.github.io/Powertofly-Ai/employers/ | grep -A20 "thing-you-need"
-curl -s https://kabosmonalisa.github.io/Powertofly-Ai/talents/   | grep -A20 "thing-you-need"
-```
-
-Never guess. Never build from memory. Always check the source.
+Workflow: Lizu gives copy + intent. You map it to existing components, reuse them, say which, apply rules 1–5, and verify in the browser. Lizu should never have to re-specify these.
 
 ---
 

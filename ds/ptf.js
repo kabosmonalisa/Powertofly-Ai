@@ -57,10 +57,71 @@ window.PTF = (function () {
     trackEl.innerHTML = html + html; // duplicate for seamless loop
   }
 
-  return { initNav, initMarquee };
+  /**
+   * initMegaNav()
+   * Wires up the mega-flyout nav (hover + click + Escape + overlay).
+   * Requires: .nav-btn[data-fly] buttons, matching .nav-fly#<id> panels.
+   * Optional: #navOverlay dimmer element.
+   */
+  function initMegaNav() {
+    const btns = document.querySelectorAll('.nav-btn[data-fly]');
+    if (!btns.length) return;
+    const overlay = document.getElementById('navOverlay');
+    let timer;
+    function closeAll() {
+      document.querySelectorAll('.nav-fly').forEach(f => f.classList.remove('open'));
+      btns.forEach(b => b.classList.remove('open'));
+      if (overlay) overlay.classList.remove('on');
+    }
+    function scheduleClose() { timer = setTimeout(closeAll, 220); }
+    function cancelClose() { clearTimeout(timer); }
+    btns.forEach(function (btn) {
+      const drop = btn.closest('.nav-drop');
+      const fly  = document.getElementById(btn.dataset.fly);
+      if (!drop || !fly) return;
+      drop.addEventListener('mouseenter', function () { cancelClose(); closeAll(); fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); });
+      drop.addEventListener('mouseleave', scheduleClose);
+      fly.addEventListener('mouseenter', cancelClose);
+      fly.addEventListener('mouseleave', scheduleClose);
+      btn.addEventListener('click', function (e) { e.stopPropagation(); const isOpen = fly.classList.contains('open'); closeAll(); if (!isOpen) { fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); } });
+    });
+    if (overlay) overlay.addEventListener('click', closeAll);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
+  }
+
+  /**
+   * initHeader()
+   * For pages using the fixed .site-header (top-alert + nav). Keeps body
+   * padding equal to the header height and positions the drawer flush below it.
+   * Requires: #siteHeader. Optional: #mobileDrawer, #hamburger.
+   */
+  function initHeader() {
+    const header = document.getElementById('siteHeader');
+    if (!header) return;
+    const drawer = document.getElementById('mobileDrawer');
+    const burger = document.getElementById('hamburger');
+    function syncOffset() { document.body.style.paddingTop = header.offsetHeight + 'px'; }
+    function positionDrawer() {
+      if (!drawer) return;
+      const bottom = header.getBoundingClientRect().bottom;
+      drawer.style.top = bottom + 'px';
+      drawer.style.height = (window.innerHeight - bottom) + 'px';
+    }
+    if (burger) burger.addEventListener('click', positionDrawer);
+    window.addEventListener('resize', function () { syncOffset(); positionDrawer(); });
+    // Re-sync if the alert bar is dismissed
+    const alert = document.getElementById('topAlert') || document.querySelector('.top-alert');
+    if (alert) alert.addEventListener('click', function (e) { if (e.target.closest('.top-alert-close')) { e.target.closest('.top-alert').classList.add('hidden'); syncOffset(); positionDrawer(); } });
+    syncOffset();
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader };
 })();
 
-// Auto-init nav on DOMContentLoaded
+// Auto-init the base nav (hamburger + scroll) on every page.
+// Mega-flyout nav and the fixed site-header are opt-in — call
+// PTF.initMegaNav() and/or PTF.initHeader() from the page if it uses them.
+// (Existing pages wire these inline; new pages should use the shared ones.)
 document.addEventListener('DOMContentLoaded', function () {
   PTF.initNav();
 });

@@ -22,7 +22,7 @@
 .site-header .nav { position: static; }
 
 /* ── Top alert bar ── */
-.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 14px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.4; position: relative; overflow: visible; }
+/* .top-alert base styles now come from ds/ptf.css (single source) */
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
 .top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; vertical-align: middle; }
 .top-alert a:hover { background: #fff; color: #7B00FF; }
@@ -186,7 +186,7 @@ h1.hero-headline {
 
 /* ── Stats band — dark, original small style, with top divider ── */
 .section-statband { background: #0A0A0A !important; margin-top: 56px; padding: 0 32px; border-top: none; border-bottom: none; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: stretch; }
 .statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -197,8 +197,8 @@ h1.hero-headline {
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
 /* ── Use cases — benefit-card style, dark ── */
-.use-cases-section { background: #0A0A0A; padding: 80px 32px; }
-.use-cases-inner { max-width: 1200px; margin: 0 auto; }
+.use-cases-section { background: #0A0A0A; padding: 100px 32px; }
+.use-cases-inner { max-width: 1400px; margin: 0 auto; }
 .use-cases-inner .section-head { margin-bottom: 48px; }
 .benefits-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
 @media (max-width: 900px) { .benefits-row { grid-template-columns: 1fr; } }
@@ -280,8 +280,8 @@ h1.hero-headline {
 }
 
 /* ── Expert types — sc-stack layout ── */
-.section-experts { background: var(--bg); padding: 80px 32px; }
-.experts-inner { max-width: 1200px; margin: 0 auto; }
+.section-experts { background: var(--bg); padding: 100px 32px; }
+.experts-inner { max-width: 1400px; margin: 0 auto; }
 .experts-list { display: flex; flex-direction: column; gap: 80px; }
 .expert-row {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -316,7 +316,7 @@ h1.hero-headline {
 
 /* ── Why it matters — 2×2 benefit grid on dark card ── */
 .section-why { background: var(--bg); padding: 100px 32px; }
-.why-inner { max-width: 1200px; margin: 0 auto; }
+.why-inner { max-width: 1400px; margin: 0 auto; }
 .why-lead { max-width: 700px; margin: 0 auto 64px; text-align: center; }
 .why-lead h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
 .why-lead p { margin-top: 16px; font-size: 17px; color: var(--ink-2); line-height: 1.6; }
@@ -333,8 +333,8 @@ h1.hero-headline {
 .why-card p { font-size: 14.5px; color: var(--ink-3); line-height: 1.6; }
 
 /* ── How it works ── */
-.section-how { background: var(--bg); padding: 80px 32px 160px; }
-.how-outer { max-width: 1180px; margin: 0 auto; }
+.section-how { background: var(--bg); padding: 100px 32px; }
+.how-outer { max-width: 1400px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
 .how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.pexels.com/photos/5244032/pexels-photo-5244032.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-size: cover; background-position: center 65%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
@@ -370,7 +370,7 @@ h1.hero-headline {
 .step-content p { font-size: 17px; color: var(--ink-3); line-height: 1.6; }
 
 /* ── Final CTA ── */
-.section-book { background: #0A0A0A; padding: 120px 32px 160px; text-align: center; }
+.section-book { background: #0A0A0A; padding: 100px 32px; text-align: center; }
 .book-inner { max-width: 900px; margin: 0 auto; }
 .book-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px; }
 .book-headline { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
@@ -656,7 +656,7 @@ html, body { background: #0A0A0A !important; }
   .statband-item { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .statband-item:nth-child(2) { border-right: none; }
   .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
-  .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 40px; gap: 8px; }
+  /* .top-alert responsive handled by ds/ptf.css */
   .mobile-drawer { display: none; }
   .mobile-drawer.open { display: flex; }
   .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }

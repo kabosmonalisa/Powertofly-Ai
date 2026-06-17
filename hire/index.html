@@ -22,7 +22,7 @@
 .site-header .nav { position: static; }
 
 /* ── Top alert bar ── */
-.top-alert { background: #7B00FF; color: #fff; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 48px; font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; position: relative; }
+/* .top-alert base styles now come from ds/ptf.css (single source) */
 .top-alert strong { font-weight: 800; letter-spacing: 0.1em; }
 .top-alert a { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 14px; border-radius: 999px; border: 1.5px solid #fff; color: #fff; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
 .top-alert a:hover { background: #fff; color: #7B00FF; }
@@ -152,7 +152,7 @@ h1.hero-headline {
 .expert-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #4FE8A9; }
 
 /* ── Hire types ── */
-.hire-scroll-outer { background: var(--bg); padding: 80px 32px 160px; overflow: hidden; }
+.hire-scroll-outer { background: var(--bg); padding: 100px 32px; overflow: hidden; }
 .hire-sticky-scene {
   display: flex; flex-direction: column; align-items: center;
   gap: 0; max-width: 1400px; margin: 0 auto;
@@ -194,8 +194,8 @@ h1.hero-headline {
 .hire-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
 
 /* ── Experts list ── */
-.section-experts { background: var(--bg); padding: 80px 32px; }
-.experts-inner { max-width: 1200px; margin: 0 auto; }
+.section-experts { background: var(--bg); padding: 100px 32px; }
+.experts-inner { max-width: 1400px; margin: 0 auto; }
 .experts-list { display: flex; flex-direction: column; gap: 80px; }
 .expert-row {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -244,8 +244,8 @@ h1.hero-headline {
 .sc-status-prog { font-size: 10px; color: var(--ink-3); font-weight: 500; flex-shrink: 0; }
 
 /* ── How it works — exact talents layout ── */
-.section-how { background: var(--bg); padding: 80px 32px 160px; }
-.how-outer { max-width: 1180px; margin: 0 auto; }
+.section-how { background: var(--bg); padding: 100px 32px; }
+.how-outer { max-width: 1400px; margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
 .how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 1/1; max-height: 460px; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=900&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
@@ -293,7 +293,7 @@ h1.hero-headline {
 
 /* ── Stats band ── */
 .section-statband { background: transparent; padding: 0 32px; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: stretch; }
 .statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid var(--line); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -303,7 +303,7 @@ h1.hero-headline {
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-2); }
 
 /* ── Final CTA ── */
-.section-book { background: #000; padding: 120px 32px 160px; text-align: center; }
+.section-book { background: #000; padding: 100px 32px; text-align: center; }
 .book-inner { max-width: 900px; margin: 0 auto; }
 .book-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px; }
 .book-headline { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
@@ -342,7 +342,7 @@ h1.hero-headline {
   .statband-item:nth-child(2) { border-right: none; }
   .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
   /* Top alert */
-  .top-alert { flex-wrap: wrap; justify-content: center; text-align: center; padding: 12px 40px; gap: 8px; }
+  /* .top-alert responsive handled by ds/ptf.css */
   /* Mobile drawer */
   .mobile-drawer { display: none; }
   .mobile-drawer.open { display: flex; }
