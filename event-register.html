@@ -188,13 +188,13 @@ body {
 }
 .btn-auth:hover:not(:disabled) { background: #1a1a1a; box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); transform: translateY(-1px); }
 .btn-auth:disabled { background: rgba(10,10,10,0.18); border-color: transparent; color: rgba(255,255,255,0.85); cursor: not-allowed; }
-.btn-ghost {
+.btn-tertiary {
   width: 100%; padding: 18px 26px; line-height: 1; border-radius: 999px;
-  border: 1.5px solid var(--line); background: var(--bg); color: var(--ink);
+  border: 1.5px solid transparent; background: transparent; color: var(--ink-3);
   font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer;
-  transition: border-color 180ms ease, background 180ms ease;
+  transition: color 180ms ease, background 180ms ease;
 }
-.btn-ghost:hover { border-color: rgba(10,10,10,0.2); background: var(--bg-soft); }
+.btn-tertiary:hover { color: var(--ink); background: rgba(10,10,10,0.04); }
 .btn-skip { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--ink-3); text-decoration: underline; text-underline-offset: 3px; padding: 0; transition: color 180ms; }
 .btn-skip:hover { color: var(--ink); }
 .nav-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 4px; }
@@ -479,7 +479,7 @@ body {
 
         <form class="auth-form" onsubmit="goToStep('step4');return false">
           <div class="nav-row">
-            <button class="btn-ghost" type="button" onclick="goToStep('step2')">Back</button>
+            <button class="btn-tertiary" type="button" onclick="goToStep('step2')">Back</button>
             <button class="btn-auth" type="submit">Continue →</button>
           </div>
         </form>
@@ -507,7 +507,7 @@ body {
             </div>
           </div>
           <div class="nav-row">
-            <button class="btn-ghost" type="button" onclick="goToStep('step3')">Back</button>
+            <button class="btn-tertiary" type="button" onclick="goToStep('step3')">Back</button>
             <button class="btn-auth" type="submit">Continue →</button>
           </div>
         </form>
@@ -543,7 +543,7 @@ body {
           </label>
 
           <div class="nav-row">
-            <button class="btn-ghost" type="button" onclick="goToStep('step4')">Back</button>
+            <button class="btn-tertiary" type="button" onclick="goToStep('step4')">Back</button>
             <button class="btn-auth" type="submit" id="finishBtn" disabled>Finish registration</button>
           </div>
         </form>
