@@ -144,6 +144,7 @@
   position: relative; width: 100%;
   height: 82vh; min-height: 560px; max-height: 840px;
   border-radius: 0 0 0 28px; overflow: hidden; background: #000;
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* force Safari to clip rounded corners */
 }
 .hero-vid-toggle {
   position: absolute; bottom: 20px; right: 40px; z-index: 5;
@@ -160,6 +161,7 @@
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 38%;
   pointer-events: none;
+  border-radius: 0 0 0 28px;
 }
 h1.hero-headline {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
