@@ -65,6 +65,7 @@ body {
   gap: 28px;
   align-items: start;
 }
+.reg-layout.wide { max-width: 1160px; grid-template-columns: minmax(0, 1fr) minmax(0, 660px); }
 
 /* ===== Event detail card (purple) ===== */
 .event-card {
@@ -157,6 +158,8 @@ body {
 }
 .id-chip:hover { border-color: var(--iri-green); }
 .id-chip.selected { background: var(--ink); border-color: var(--ink); color: #fff; }
+.id-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 32px; margin-bottom: 22px; }
+.id-section { min-width: 0; }
 
 /* ===== Submit button (from auth.html) ===== */
 .btn-auth {
@@ -254,7 +257,7 @@ body {
 
 /* ===== Responsive ===== */
 @media (max-width: 880px) {
-  .reg-layout { grid-template-columns: 1fr; max-width: 540px; gap: 18px; }
+  .reg-layout, .reg-layout.wide { grid-template-columns: 1fr; max-width: 560px; gap: 18px; }
   .event-card { position: static; padding: 26px 24px 28px; }
   .event-title { font-size: 22px; }
 }
@@ -376,9 +379,10 @@ body {
         <p class="auth-note" style="margin-top:10px;font-size:12px">By creating an account you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
       </div>
 
-      <!-- STEP 2 — Account created / LinkedIn -->
+      <!-- STEP 2 — Work experience (LinkedIn + resume) -->
       <div class="step" id="step2">
-        <div class="step-indicator">Account created</div>
+        <div class="step-indicator">Step 1 of 4</div>
+        <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
         <h2 class="auth-heading">Awesome! Your account has been created.</h2>
         <p class="auth-sub">Recruiters use your LinkedIn to match you with openings at their company during and after the event — share it!</p>
         <form class="auth-form" onsubmit="goToStep('step3');return false">
@@ -406,75 +410,46 @@ body {
 
       <!-- STEP 3 — Tell us about you -->
       <div class="step" id="step3">
-        <div class="step-indicator">Step 1 of 2</div>
+        <div class="step-indicator">Step 2 of 4</div>
         <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
         <h2 class="auth-heading">Tell us a little more about you</h2>
-        <p class="auth-sub">This helps us connect you with the right people and roles.</p>
+        <p class="auth-sub">This helps us connect you with the right people, panels, and roles. Choose all that apply — none of it affects your eligibility.</p>
 
-        <div class="q-group">
-          <div class="q-label">Area of experience <span style="font-weight:500;color:var(--ink-3)">(choose all that apply)</span></div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">Civil engineering</span>
-            <span class="id-chip" onclick="toggleChip(this)">Customer service</span>
-            <span class="id-chip" onclick="toggleChip(this)">Data</span>
-            <span class="id-chip" onclick="toggleChip(this)">Design</span>
-            <span class="id-chip" onclick="toggleChip(this)">DevOps</span>
-            <span class="id-chip" onclick="toggleChip(this)">Human resources</span>
-            <span class="id-chip" onclick="toggleChip(this)">Finance</span>
-            <span class="id-chip" onclick="toggleChip(this)">Product management</span>
-            <span class="id-chip" onclick="toggleChip(this)">Marketing</span>
-            <span class="id-chip" onclick="toggleChip(this)">Quality assurance</span>
-            <span class="id-chip" onclick="toggleChip(this)">Software engineering</span>
-            <span class="id-chip" onclick="toggleChip(this)">Sales</span>
-            <span class="id-chip" onclick="toggleChip(this)">Writing</span>
-            <span class="id-chip" onclick="toggleChip(this)">Operations</span>
-          </div>
-        </div>
-
-        <div class="q-group">
-          <div class="q-label">Years of experience <span style="font-weight:500;color:var(--ink-3)">(choose all that apply)</span></div>
-          <div class="id-chips">
-            <span class="id-chip" onclick="toggleChip(this)">Less than 1 year</span>
-            <span class="id-chip" onclick="toggleChip(this)">1–3 years</span>
-            <span class="id-chip" onclick="toggleChip(this)">3–5 years</span>
-            <span class="id-chip" onclick="toggleChip(this)">5–8 years</span>
-            <span class="id-chip" onclick="toggleChip(this)">8–12 years</span>
-            <span class="id-chip" onclick="toggleChip(this)">12+ years</span>
-          </div>
-        </div>
-
-        <form class="auth-form" onsubmit="goToStep('step4');return false">
-          <div class="field">
-            <label for="su-company">Company</label>
-            <input type="text" id="su-company" placeholder="Where you work" autocomplete="organization">
-          </div>
-          <div class="field">
-            <label for="su-phone">Work phone</label>
-            <input type="tel" id="su-phone" placeholder="Optional" autocomplete="tel">
-          </div>
-          <div class="nav-row">
-            <button class="btn-ghost" type="button" onclick="goToStep('step2')">Back</button>
-            <button class="btn-auth" type="submit">Continue →</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- STEP 4 — Questions + gender + upcoming events -->
-      <div class="step" id="step4">
-        <div class="step-indicator">Step 2 of 2</div>
-        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
-        <h2 class="auth-heading">Last few details</h2>
-        <p class="auth-sub">Help our panelists prepare, and never miss another event.</p>
-
-        <form class="auth-form" onsubmit="finishRegistration();return false">
-          <div class="field" id="su-q-field">
-            <label for="su-question">Do you have any particular questions for our panelists or a topic you'd like us to dive into? <span style="color:#C0392B">*</span></label>
-            <textarea id="su-question" placeholder="Share a question or topic…" onblur="validateRequired('su-question','su-q-field','su-q-msg')"></textarea>
-            <div class="field-msg" id="su-q-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Please add a question or topic</div>
+        <div class="id-grid">
+          <div class="id-section">
+            <div class="id-section-label">Area of experience</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Civil engineering</span>
+              <span class="id-chip" onclick="toggleChip(this)">Customer service</span>
+              <span class="id-chip" onclick="toggleChip(this)">Data</span>
+              <span class="id-chip" onclick="toggleChip(this)">Design</span>
+              <span class="id-chip" onclick="toggleChip(this)">DevOps</span>
+              <span class="id-chip" onclick="toggleChip(this)">Human resources</span>
+              <span class="id-chip" onclick="toggleChip(this)">Finance</span>
+              <span class="id-chip" onclick="toggleChip(this)">Product management</span>
+              <span class="id-chip" onclick="toggleChip(this)">Marketing</span>
+              <span class="id-chip" onclick="toggleChip(this)">Quality assurance</span>
+              <span class="id-chip" onclick="toggleChip(this)">Software engineering</span>
+              <span class="id-chip" onclick="toggleChip(this)">Sales</span>
+              <span class="id-chip" onclick="toggleChip(this)">Writing</span>
+              <span class="id-chip" onclick="toggleChip(this)">Operations</span>
+            </div>
           </div>
 
-          <div class="q-group" style="margin:8px 0 6px">
-            <div class="q-label">Please mark your gender identity. You may choose more than one. <span style="font-weight:500;color:var(--ink-3)">(choose all that apply)</span></div>
+          <div class="id-section">
+            <div class="id-section-label">Years of experience</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Less than 1 year</span>
+              <span class="id-chip" onclick="toggleChip(this)">1–3 years</span>
+              <span class="id-chip" onclick="toggleChip(this)">3–5 years</span>
+              <span class="id-chip" onclick="toggleChip(this)">5–8 years</span>
+              <span class="id-chip" onclick="toggleChip(this)">8–12 years</span>
+              <span class="id-chip" onclick="toggleChip(this)">12+ years</span>
+            </div>
+          </div>
+
+          <div class="id-section">
+            <div class="id-section-label">Gender identity</div>
             <div class="id-chips">
               <span class="id-chip" onclick="toggleChip(this)">Woman</span>
               <span class="id-chip" onclick="toggleChip(this)">Man</span>
@@ -484,10 +459,54 @@ body {
               <span class="id-chip" onclick="toggleChip(this)">Other</span>
             </div>
           </div>
+        </div>
 
-          <div class="q-group" style="margin:8px 0 6px">
-            <div class="q-label">Don't miss any upcoming events! 😎</div>
-            <p class="auth-sub" style="margin:-4px 0 4px;font-size:13px">Select events to register for in advance.</p>
+        <form class="auth-form" onsubmit="goToStep('step4');return false">
+          <div class="field-row">
+            <div class="field">
+              <label for="su-company">Company</label>
+              <input type="text" id="su-company" placeholder="Where you work" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="su-phone">Work phone</label>
+              <input type="tel" id="su-phone" placeholder="Optional" autocomplete="tel">
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="btn-ghost" type="button" onclick="goToStep('step2')">Back</button>
+            <button class="btn-auth" type="submit">Continue →</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 4 — Your question for the session -->
+      <div class="step" id="step4">
+        <div class="step-indicator">Step 3 of 4</div>
+        <div class="progress-track"><div class="progress-fill" style="width:75%"></div></div>
+        <h2 class="auth-heading">What would you like to get out of this session?</h2>
+        <p class="auth-sub">Chat n Learn sessions are interactive. Drop a question for our panelists or a topic you'd like us to dig into — we'll bring it into the conversation.</p>
+        <form class="auth-form" onsubmit="submitQuestion();return false">
+          <div class="field" id="su-q-field">
+            <label for="su-question">Your question or topic <span style="color:#C0392B">*</span></label>
+            <textarea id="su-question" placeholder="e.g. How do small teams measure the ROI of AI tools?" onblur="validateRequired('su-question','su-q-field','su-q-msg')"></textarea>
+            <div class="field-msg" id="su-q-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Please add a question or topic</div>
+          </div>
+          <div class="nav-row">
+            <button class="btn-ghost" type="button" onclick="goToStep('step3')">Back</button>
+            <button class="btn-auth" type="submit">Continue →</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 5 — Stay connected (upcoming events + agreement) -->
+      <div class="step" id="step5">
+        <div class="step-indicator">Step 4 of 4</div>
+        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+        <h2 class="auth-heading">Don't miss what's next</h2>
+        <p class="auth-sub">Register now for other upcoming Chat n Learn sessions, then confirm to lock in your spot.</p>
+        <form class="auth-form" onsubmit="finishRegistration();return false">
+          <div class="q-group" style="margin:0 0 4px">
+            <div class="q-label">Upcoming events <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
             <div class="event-list">
               <label class="check-row event-opt">
                 <input type="checkbox" class="check-box">
@@ -510,7 +529,7 @@ body {
           </label>
 
           <div class="nav-row">
-            <button class="btn-ghost" type="button" onclick="goToStep('step3')">Back</button>
+            <button class="btn-ghost" type="button" onclick="goToStep('step4')">Back</button>
             <button class="btn-auth" type="submit" id="finishBtn" disabled>Finish registration</button>
           </div>
         </form>
@@ -538,13 +557,21 @@ body {
 </div>
 
 <script>
-var STEPS = ['panelSignin','step1','step2','step3','step4','thanks'];
+var STEPS = ['panelSignin','step1','step2','step3','step4','step5','thanks'];
 
 function goToStep(id) {
   STEPS.forEach(function(s){ document.getElementById(s).classList.toggle('active', s === id); });
   // Toggle (sign in / sign up) only shows on the first step
   document.getElementById('authToggle').style.display = (id === 'step1' || id === 'panelSignin') ? 'flex' : 'none';
+  // Widen the layout on the pill-heavy "About you" step so chips lay out in a grid
+  document.querySelector('.reg-layout').classList.toggle('wide', id === 'step3');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitQuestion() {
+  var q = document.getElementById('su-question').value.trim();
+  if (!q) { validateRequired('su-question','su-q-field','su-q-msg'); return; }
+  goToStep('step5');
 }
 
 function showAuth(which) {
@@ -567,8 +594,6 @@ function toggleFinish() {
 }
 
 function finishRegistration() {
-  var q = document.getElementById('su-question').value.trim();
-  if (!q) { validateRequired('su-question','su-q-field','su-q-msg'); return; }
   if (!document.getElementById('agreeBox').checked) return;
   goToStep('thanks');
 }
