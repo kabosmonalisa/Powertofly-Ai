@@ -81,6 +81,13 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
             <div class="field"><label>Work email</label><input type="email" required></div>
             <button class="btn-auth" type="submit">Continue →</button>
           </form>
+          <!-- Social login — inside the card, with the small terms text under it (faithful to event-register.html) -->
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note" style="margin-top:14px;font-size:12px">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
         <!-- Step 2 — resume + LinkedIn -->
         <div class="flow-step" data-step="2" hidden>
@@ -159,16 +166,6 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
           <p style="font-size:12px;color:var(--ink-3)">Questions? <a href="https://powertofly.com/about/contact-us" style="color:var(--ink-3)">Contact us</a></p>
         </div>
       </div>
-
-      <!-- Social login — OUTSIDE the card on purpose; shown on step 1 only -->
-      <div id="socialOutside" style="margin-top:18px">
-        <div class="auth-divider">or sign up with</div>
-        <div class="social-btns">
-          <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
-          <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
-        </div>
-        <p class="auth-note" style="font-size:12px;margin-top:14px">By registering you agree to PowerToFly's <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a>.</p>
-      </div>
     </div>
 
   </div>
@@ -178,7 +175,6 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
 <script>
   function goToStep(n) {
     document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (+s.dataset.step !== n); });
-    var so = document.getElementById('socialOutside'); if (so) so.hidden = (n !== 1);  /* social only on step 1 */
     window.scrollTo(0, 0);
     return false;
   }
