@@ -45,6 +45,7 @@
    * nav/footer sit just outside the section content — the PTF house pattern.
    * These are the original, proven defaults; existing pages render unchanged.) */
   --container:     1400px;  /* outer shell: nav + footer + main content (one width, all pages align) */
+  --content-body:  1200px;  /* body sections — narrower than the 1400 nav/footer shell (agreed standard) */
   --content-wide:  1180px;  /* .section-narrow — narrower content blocks, inside the shell */
   --content:       1080px;  /* a comfortable content column */
   --content-narrow: 720px;  /* centered headline / prose / form cards */
