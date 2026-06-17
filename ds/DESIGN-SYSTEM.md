@@ -259,7 +259,9 @@ A new flow (summit, virtual job fair, webinar) reuses ALL of the below and only 
 - **Step 3 — demographics:** `.id-grid` (responsive) + `.id-section-label` + `.id-chips` + `.id-chip` (`.selected`).
 - **Submit / thanks:** `.btn-auth`, `.btn-dashboard`, `.thanks-icon` / `.thanks-eyebrow` / `.thanks-body` / `.thanks-divider`.
 
-These are one canonical version. The two existing flows (`auth.html` regular signup, `event-register.html` chat-&-learn) are being converted to use them; once converted, a new flow is copy-only.
+**To build a new flow (summit, job fair, webinar): copy [`ds/flow-template.html`](flow-template.html).** It's a complete, working 4-step signup (info → resume/LinkedIn → demographics → thank-you) built entirely from this kit. Keep the steps you need, delete the rest, change the copy — no new CSS. Steps are `data-step="1..N"`; the inline script shows one at a time.
+
+These are one canonical version. The two **existing** flows (`auth.html`, `event-register.html`) still inline their own copies and are pending conversion to this kit; until then, don't copy *them* for a new flow — copy `flow-template.html`.
 
 ---
 
