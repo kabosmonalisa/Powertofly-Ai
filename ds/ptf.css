@@ -72,11 +72,29 @@ body {
 img { display: block; max-width: 100%; }
 
 /* ===== Typography ===== */
+/* Hero headlines — two official sizes. Pick ONE per page; never hand-set a clamp. */
 .display {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  font-size: clamp(36px, 5.5vw, 68px);
+  letter-spacing: -0.04em;
   line-height: 1.0;
+}
+.display-lg {                       /* larger hero (talents / train scale) */
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 80px);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+/* Card / sub-section heading — one scale, replaces hardcoded 17/22/26px */
+.card-title {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+  color: var(--ink);
 }
 .italic-plain {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
@@ -131,6 +149,17 @@ img { display: block; max-width: 100%; }
   box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);
   transform: translateY(-1px);
 }
+/* Large CTA button — the big white pill on dark CTA bands (was .btn-book / .btn-hero). */
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 16px 32px; border-radius: 999px;
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
+  text-decoration: none; cursor: pointer; border: none;
+  background: #ffffff; color: var(--ink);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+.btn-cta:hover { transform: translateY(-1px); background: #f2f2f2; box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
 
 /* ===== Nav ===== */
 .nav {
@@ -557,16 +586,62 @@ img { display: block; max-width: 100%; }
 .field.is-valid input { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(79,232,169,0.12); }
 
 /* ===== Identity chips (multi-select pills) ===== */
-.id-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 36px; margin-bottom: 20px; }
-.id-section-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 7px; }
+.id-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 24px; margin-bottom: 20px; }
+.id-section-label { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 9px; }
 .id-chips { display: flex; flex-wrap: wrap; gap: 5px; }
 .id-chip {
-  padding: 4px 11px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg);
-  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--ink-2);
+  padding: 6px 13px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--bg);
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; color: var(--ink-2);
   cursor: pointer; transition: border-color 150ms, background 150ms, color 150ms; user-select: none;
 }
 .id-chip:hover { border-color: var(--green-mid); }
 .id-chip.selected { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+/* ===== Signup-flow kit — shared by auth.html, event-register.html, and any new flow =====
+ * A new event/summit/job-fair flow reuses ALL of this and only changes copy + step order. */
+/* Page shell + ambient glow */
+.auth-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.auth-bg-blob { position: absolute; border-radius: 50%; filter: blur(90px); opacity: 0.18; }
+.auth-bg-blob.b1 { width: 600px; height: 500px; background: radial-gradient(circle, var(--iri-cyan), transparent 70%); top: -160px; left: -100px; }
+.auth-bg-blob.b2 { width: 500px; height: 400px; background: radial-gradient(circle, var(--iri-green), transparent 70%); bottom: -100px; right: -80px; }
+.auth-bg-blob.b3 { width: 360px; height: 360px; background: radial-gradient(circle, var(--iri-lime), transparent 70%); top: 40%; left: 60%; opacity: 0.1; }
+/* Minimal nav for flow pages (logo + back link) */
+.nav-brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-brand svg { height: 22px; width: auto; }
+.nav-back { font-size: 14px; color: var(--ink-3); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 180ms ease; }
+.nav-back:hover { color: var(--ink); }
+/* Card shell */
+.auth-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-2xl);
+  box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
+  width: 100%; max-width: 540px; padding: 28px 40px; transition: max-width 250ms ease;
+}
+.auth-card.wide { max-width: 720px; }
+.auth-heading { font-family: 'Inter Tight', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 6px; color: var(--ink); }
+.auth-sub { font-size: 15px; color: var(--ink-3); margin-bottom: 14px; line-height: 1.5; }
+.auth-form { display: flex; flex-direction: column; gap: 14px; }
+/* Sign in / sign up toggle */
+.auth-toggle { display: flex; background: rgba(10,10,10,0.05); border-radius: 999px; padding: 3px; margin-bottom: 16px; gap: 4px; }
+.auth-toggle button { flex: 1; padding: 8px 0; border: none; border-radius: 999px; font-family: 'Inter Tight', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: background 200ms, color 200ms, box-shadow 200ms; background: transparent; color: var(--ink-3); }
+.auth-toggle button.active { background: var(--bg); color: var(--ink); box-shadow: 0 1px 4px rgba(10,10,10,0.1); }
+/* Step indicator ("STEP 1 OF 3") */
+.step-indicator { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--green); }
+/* Resume / file upload */
+.upload-area { border: 1.5px dashed rgba(10,10,10,0.18); border-radius: var(--r-md); padding: 28px 20px; text-align: center; cursor: pointer; transition: border-color 200ms, background 200ms; background: var(--bg-soft); position: relative; }
+.upload-area:hover { border-color: var(--green-mid); }
+.upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.upload-icon { font-size: 22px; margin-bottom: 6px; }
+.upload-name { margin-top: 8px; font-size: 13px; color: var(--green); font-weight: 600; }
+/* Primary submit + dashboard buttons */
+.btn-auth { margin-top: 4px; width: 100%; padding: 18px 26px; line-height: 1; border-radius: 999px; border: 1.5px solid var(--ink); background: var(--ink); color: #fff; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; transition: background 180ms, box-shadow 180ms, transform 180ms; }
+.btn-auth:hover { background: #1a1a1a; transform: translateY(-1px); box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }
+.btn-dashboard { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--ink); color: #fff; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 180ms, transform 180ms; }
+.btn-dashboard:hover { background: #1a1a1a; transform: translateY(-1px); }
+/* Thank-you screen */
+.thanks-icon { margin-bottom: 20px; }
+.thanks-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+.thanks-body { font-size: 16px; color: var(--ink-3); line-height: 1.6; margin-bottom: 28px; }
+.thanks-divider { height: 1px; background: var(--line); margin: 28px 0 18px; }
 
 /* ===== Step / timeline list (dashed connector) ===== */
 .steps { position: relative; display: flex; flex-direction: column; justify-content: space-between; }
@@ -593,6 +668,16 @@ img { display: block; max-width: 100%; }
 /* ===== Section variants ===== */
 .section-tight { padding: var(--section-y-tight) var(--gutter); }  /* denser rhythm */
 .section-loose { padding: var(--section-y-loose) var(--gutter); }  /* hero / mission / final CTA */
+
+/* ===== Final CTA band (dark) — was .section-book / .closing-cta ===== */
+.section-cta { background: var(--ink); color: #fff; padding: var(--section-y) var(--gutter); text-align: center; }
+.section-cta .section-cta-inner { max-width: 720px; margin: 0 auto; }
+.section-cta h2 {
+  font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 800;
+  font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.98; color: #fff;
+  margin-bottom: 20px;
+}
+.section-cta p { font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 0 auto 32px; max-width: 56ch; }
 
 /* ===== Dark theme — SCOPED. Add class="theme-dark" to the page <body>. =====
  * Clean, opt-in version of the train/ dark page. Light pages are unaffected. */

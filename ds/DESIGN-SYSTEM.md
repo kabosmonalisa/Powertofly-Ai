@@ -233,6 +233,36 @@ You should never have to say "make the eyebrow a pill" or "align the nav to the 
 
 ---
 
+---
+
+## Type scale, CTA band & the signup-flow kit (canonical — use these, don't reinvent)
+
+### Headline / heading scale
+- `.display` — standard hero headline, `clamp(36px, 5.5vw, 68px)`.
+- `.display-lg` — large hero (talents/train scale), `clamp(44px, 7vw, 80px)`.
+- `.section-head h2` — section headline, `clamp(32px, 4vw, 52px)`, `-0.03em`/1.05. Don't override per page.
+- `.card-title` — card / sub-section heading, 20px. Replaces hardcoded 17/22/26px.
+- Pick `.display` **or** `.display-lg` per page — never hand-write a hero clamp.
+
+### Buttons
+- `.btn-cta` — the big white CTA pill on dark bands (replaces the old per-page `.btn-book` / `.btn-hero`).
+
+### Final CTA band
+- `.section-cta` — the dark "book a call / get started" band (replaces `.section-book` / `.closing-cta`). Put content in `.section-cta-inner`; it already styles `h2` and `p`.
+
+### Signup-flow kit — build any new flow by REUSING these
+A new flow (summit, virtual job fair, webinar) reuses ALL of the below and only changes **copy + which steps appear**. Do not rebuild a flow from scratch.
+- **Shell:** `.auth-bg` + `.auth-bg-blob.b1/.b2/.b3` (ambient glow), `.nav-brand` + `.nav-back` (minimal nav), `.auth-card` (+ `.wide` for the demographics step).
+- **Heading:** `.auth-heading`, `.auth-sub`, `.auth-toggle` (sign in / sign up), `.step-indicator` ("STEP 1 OF 3").
+- **Step 1 — info:** `.auth-form` + `.field` / `.field-row` / `.field-msg` (+ `.has-error` / `.is-valid`).
+- **Step 2 — resume + LinkedIn:** `.upload-area` (+ `.upload-icon`, `.upload-name`) + a `.field` for the link.
+- **Step 3 — demographics:** `.id-grid` (responsive) + `.id-section-label` + `.id-chips` + `.id-chip` (`.selected`).
+- **Submit / thanks:** `.btn-auth`, `.btn-dashboard`, `.thanks-icon` / `.thanks-eyebrow` / `.thanks-body` / `.thanks-divider`.
+
+These are one canonical version. The two existing flows (`auth.html` regular signup, `event-register.html` chat-&-learn) are being converted to use them; once converted, a new flow is copy-only.
+
+---
+
 ## Not in the system (these ARE page-specific — write fresh CSS here)
 These are bespoke illustrations / one-off layouts. Build them per page; don't try to force them into `ptf.css`:
 - Hero "mock UI" cards (`.sc-mock*`, `.fh-card*`), the typewriter card, the animated AI orb, the floating-outcome cards (`.oc-float*`).
