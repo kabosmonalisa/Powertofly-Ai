@@ -198,10 +198,8 @@ body {
 .auth-note a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .auth-note a:hover { text-decoration: underline; }
 
-/* ===== Step indicator + progress (merge: auth eyebrow + flow progress bar) ===== */
-.step-indicator { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; }
-.progress-track { height: 7px; background: rgba(10,10,10,0.06); border-radius: 999px; margin-bottom: 22px; overflow: hidden; }
-.progress-fill { height: 100%; background: linear-gradient(90deg, #4FE8A9, #5BCFFF); border-radius: 999px; transition: width 450ms ease; }
+/* ===== Step indicator (from auth.html) ===== */
+.step-indicator { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; }
 
 /* ===== Question group (chips on step 3/4) ===== */
 .q-group { margin-bottom: 22px; }
@@ -382,7 +380,6 @@ body {
       <!-- STEP 2 — Work experience (LinkedIn + resume) -->
       <div class="step" id="step2">
         <div class="step-indicator">Step 1 of 4</div>
-        <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
         <h2 class="auth-heading">Awesome! Your account has been created.</h2>
         <p class="auth-sub">Recruiters use your LinkedIn to match you with openings at their company during and after the event — share it!</p>
         <form class="auth-form" onsubmit="goToStep('step3');return false">
@@ -411,7 +408,6 @@ body {
       <!-- STEP 3 — Tell us about you -->
       <div class="step" id="step3">
         <div class="step-indicator">Step 2 of 4</div>
-        <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
         <h2 class="auth-heading">Tell us a little more about you</h2>
         <p class="auth-sub">This helps us connect you with the right people, panels, and roles. Choose all that apply — none of it affects your eligibility.</p>
 
@@ -482,7 +478,6 @@ body {
       <!-- STEP 4 — Your question for the session -->
       <div class="step" id="step4">
         <div class="step-indicator">Step 3 of 4</div>
-        <div class="progress-track"><div class="progress-fill" style="width:75%"></div></div>
         <h2 class="auth-heading">What would you like to get out of this session?</h2>
         <p class="auth-sub">Chat n Learn sessions are interactive. Drop a question for our panelists or a topic you'd like us to dig into — we'll bring it into the conversation.</p>
         <form class="auth-form" onsubmit="submitQuestion();return false">
@@ -501,7 +496,6 @@ body {
       <!-- STEP 5 — Stay connected (upcoming events + agreement) -->
       <div class="step" id="step5">
         <div class="step-indicator">Step 4 of 4</div>
-        <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
         <h2 class="auth-heading">Don't miss what's next</h2>
         <p class="auth-sub">Register now for other upcoming Chat n Learn sessions, then confirm to lock in your spot.</p>
         <form class="auth-form" onsubmit="finishRegistration();return false">
