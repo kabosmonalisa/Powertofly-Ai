@@ -105,7 +105,10 @@ body {
   margin-bottom: 30px;
 }
 .event-title em { font-style: italic; font-weight: 800; }
-.event-host { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
+.event-host { display: flex; align-items: center; gap: 13px; margin-bottom: 26px; }
+.event-host-text { display: flex; flex-direction: column; line-height: 1.25; }
+.event-host-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.01em; color: var(--ink); }
+.event-host-role { font-size: 13px; color: var(--ink-3); }
 .event-avatar {
   width: 54px; height: 54px; border-radius: 50%; flex-shrink: 0;
   object-fit: cover; display: block;
@@ -311,7 +314,12 @@ body {
       </div>
       <h1 class="event-title">AI-powered productivity: from adoption to <em>impact</em></h1>
       <div class="event-host">
-        <img class="event-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Event speaker">
+        <img class="event-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos Hernández">
+        <div class="event-host-text">
+          <!-- COPY: confirm speaker name + role -->
+          <span class="event-host-name">Carlos Hernández</span>
+          <span class="event-host-role">AI Productivity Lead, PowerToFly</span>
+        </div>
       </div>
       <div class="event-meta">
         <div class="event-meta-row">
