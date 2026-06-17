@@ -508,7 +508,7 @@ h1.hero-headline {
 .stats-portrait {
   border-radius: 28px;
   overflow: hidden;
-  aspect-ratio: 3 / 4;
+  /* no fixed aspect-ratio on desktop: the stats card drives the height, portrait fills it (kills the dead space) */
   background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&h=1200&fit=crop&q=80');
   background-size: cover;
   background-position: center;
