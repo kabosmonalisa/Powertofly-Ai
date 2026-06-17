@@ -63,7 +63,7 @@ body {
   max-width: 1020px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 540px);
-  gap: 28px;
+  gap: 60px;
   align-items: start;
 }
 .reg-layout.wide { max-width: 1160px; grid-template-columns: minmax(0, 1fr) minmax(0, 660px); }
@@ -97,12 +97,12 @@ body {
 
 .event-title {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 25px;
+  font-size: 34px;
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
   color: var(--ink);
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 .event-host { display: flex; align-items: center; gap: 12px; margin-bottom: 26px; }
 .event-avatar {
@@ -271,7 +271,7 @@ body {
 @media (max-width: 880px) {
   .reg-layout, .reg-layout.wide { grid-template-columns: 1fr; max-width: 560px; gap: 18px; }
   .event-card { position: static; padding: 26px 24px 28px; }
-  .event-title { font-size: 22px; }
+  .event-title { font-size: 28px; }
 }
 @media (max-width: 500px) {
   .auth-card { padding: 24px 20px; border-radius: 20px; }
