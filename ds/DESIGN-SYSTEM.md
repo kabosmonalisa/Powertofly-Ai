@@ -266,9 +266,11 @@ A new flow (summit, virtual job fair, webinar) reuses ALL of the below and only 
 - **Step 3 — demographics:** `.id-grid` (responsive) + `.id-section-label` + `.id-chips` + `.id-chip` (`.selected`).
 - **Submit / thanks:** `.btn-auth`, `.btn-dashboard`, `.thanks-icon` / `.thanks-eyebrow` / `.thanks-body` / `.thanks-divider`.
 
-**To build a new flow (summit, job fair, webinar): copy [`ds/flow-template.html`](flow-template.html).** It's a complete, working 4-step signup (info → resume/LinkedIn → demographics → thank-you) built entirely from this kit. Keep the steps you need, delete the rest, change the copy — no new CSS. Steps are `data-step="1..N"`; the inline script shows one at a time.
+**To build a new flow, copy the matching template — both are built entirely from this kit (no new CSS), steps are `data-step="1..N"`, the inline script shows one at a time:**
+- **Regular signup** → [`ds/flow-signup.html`](flow-signup.html): centered card, working Sign up / Sign in toggle, gradient SVG check on the thank-you.
+- **Event registration** (summit, job fair, webinar) → [`ds/flow-event.html`](flow-event.html): two-column — left **event-info panel** (`.event-card`, `.event-pill` + `.webinar`/`.workshop`/`.panel` variants, `.event-title`, host, meta) + right form card. Change only the event copy.
 
-These are one canonical version. The two **existing** flows (`auth.html`, `event-register.html`) still inline their own copies and are pending conversion to this kit; until then, don't copy *them* for a new flow — copy `flow-template.html`.
+The **event-info panel** and the **two-column `.reg-layout` shell** are now in `ptf.css`, so a new event flow is copy-and-change-copy. The two **existing** flows (`auth.html`, `event-register.html`) still inline their own copies and are pending conversion to this kit; for a new flow, copy the templates above, not them.
 
 ---
 
