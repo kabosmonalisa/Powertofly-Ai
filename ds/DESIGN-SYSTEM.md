@@ -214,13 +214,22 @@ So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 �
 - Hero/section video (like `train/hero-side.mp4`): source from Pexels video; keep it muted, looping, with a play/pause control.
 - Always set meaningful `alt`. Diversity is the brand — it must be visible in every people-shot.
 
-### 5. Icons & illustrations: the iridescent gradient sparkle, thick rounded strokes
-*"illustration styles"* must be consistent.
+### 5. Icons & illustrations: Material (MUI) style, thick/fat, iridescent gradient
+*"illustration styles"* must be consistent. **The rule:**
 
-- Decorative icons (benefit cards, feature bullets) use the **gradient "sparkle"** style: filled with the iridescent gradient (cyan → green → lime), soft, rounded, with the gentle `floatY` animation (`.benefit-sparkle`).
-- UI/line icons (chevrons, checks, arrows) are **thick, rounded strokes** (`stroke-width` ~1.8–2, round caps) — the "MUI, thicker/fatter" look — never thin hairlines.
-- Accent color for icons on light = `var(--green)`; on dark = `var(--green-mid)`.
-- Keep one icon family per page. Don't mix outline sets.
+- **Confirmation / hero / decorative icons are MUI-style FILLED shapes, fat and bold, filled with the iridescent gradient** (cyan → green → lime). Example — the thank-you check is the solid Material `check` glyph filled with `url(#ptf-check)` gradient:
+  ```html
+  <svg width="60" height="60" viewBox="0 0 24 24">
+    <defs><linearGradient id="ptf-check" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
+    </linearGradient></defs>
+    <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="url(#ptf-check)"/>
+  </svg>
+  ```
+- ❌ **Never** a colored bubble/circle with a flat mono icon inside it. The gradient goes ON the icon shape itself.
+- Small UI icons (chevrons, checks, arrows in meta rows) are **thick rounded strokes** (`stroke-width` 1.8–2, round caps) — the MUI "thicker/fatter" look — never thin hairlines.
+- Accent on light = `var(--green)`; on dark = `var(--green-mid)`.
+- One icon family per page. Don't mix sets.
 
 ---
 
