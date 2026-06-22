@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theme test — light / dark token flip</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ptf.css">
+<style>
+  /* page-only demo scaffold — NOT design-system; just lays out the two panels */
+  body { margin: 0; font-family: 'Inter', sans-serif; background: #E9ECEA; }
+  .demo-head { max-width: 1100px; margin: 0 auto; padding: 32px 24px 8px; }
+  .demo-head h1 { font-family: 'Inter Tight'; font-size: 24px; letter-spacing: -.02em; margin: 0 0 4px; color: #0A0A0A; }
+  .demo-head p { color: #5C6F69; font-size: 14px; margin: 0; max-width: 70ch; line-height: 1.5; }
+  .demo-grid { max-width: 1100px; margin: 0 auto; padding: 20px 24px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .demo-panel { border-radius: 24px; padding: 28px; background: var(--bg); border: 1px solid var(--line); }
+  .demo-tag { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .demo-stack { display: flex; flex-direction: column; gap: 16px; }
+  .demo-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl); box-shadow: var(--shadow-card); padding: 22px; }
+  .demo-card h3 { font-family: 'Inter Tight'; font-size: 18px; letter-spacing: -.02em; margin: 0 0 6px; color: var(--ink); }
+  .demo-card p { font-size: 14px; color: var(--ink-3); margin: 0; line-height: 1.55; }
+  .demo-input { width: 100%; box-sizing: border-box; padding: 12px 14px; border-radius: var(--r-md); border: 1.5px solid var(--line-2); background: var(--surface-2); color: var(--ink); font-size: 14px; }
+  .demo-input::placeholder { color: var(--ink-3); }
+  .demo-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  @media (max-width: 760px) { .demo-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="demo-head">
+  <h1>Theme test — one set of components, two modes</h1>
+  <p>The left panel is default (light). The right panel is the <b>exact same markup</b> wrapped in <code>class="theme-dark"</code>. Nothing is restyled per-panel — the components just read the semantic tokens, which the dark class re-defines. This is what every future page gets for free.</p>
+</div>
+
+<div class="demo-grid">
+
+  <!-- LIGHT -->
+  <div class="demo-panel">
+    <div class="demo-tag">Light</div>
+    <div class="demo-stack">
+      <div class="statband-inner" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+        <div class="statband-item"><span class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">experts</span></span></div>
+        <div class="statband-item"><span class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">countries</span></span></div>
+      </div>
+      <div class="eyebrow"><span class="dot"></span>Eyebrow label</div>
+      <div class="demo-card">
+        <h3>Card on a surface</h3>
+        <p>Body copy uses the muted text token. Borders, shadow and background all come from tokens.</p>
+      </div>
+      <input class="demo-input" placeholder="Input on inset surface">
+      <div class="demo-row">
+        <button class="btn-auth" style="width:auto">Primary</button>
+        <button class="btn-social" style="width:auto">Secondary</button>
+      </div>
+      <div class="id-chips">
+        <span class="id-chip">Chip</span><span class="id-chip selected">Selected</span><span class="id-chip">Option</span>
+      </div>
+      <div class="demo-row">
+        <svg viewBox="0 0 24 24" width="34" height="34"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" width="34" height="34"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/></svg>
+        <a href="#" class="link-accent" style="color:var(--accent);font-weight:600;font-size:14px;text-decoration:none">Accent link →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DARK — identical markup, just wrapped in theme-dark -->
+  <div class="demo-panel theme-dark">
+    <div class="demo-tag">Dark — class="theme-dark"</div>
+    <div class="demo-stack">
+      <div class="statband-inner" style="border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+        <div class="statband-item"><span class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">experts</span></span></div>
+        <div class="statband-item"><span class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">countries</span></span></div>
+      </div>
+      <div class="eyebrow"><span class="dot"></span>Eyebrow label</div>
+      <div class="demo-card">
+        <h3>Card on a surface</h3>
+        <p>Body copy uses the muted text token. Borders, shadow and background all come from tokens.</p>
+      </div>
+      <input class="demo-input" placeholder="Input on inset surface">
+      <div class="demo-row">
+        <button class="btn-auth" style="width:auto">Primary</button>
+        <button class="btn-social" style="width:auto">Secondary</button>
+      </div>
+      <div class="id-chips">
+        <span class="id-chip">Chip</span><span class="id-chip selected">Selected</span><span class="id-chip">Option</span>
+      </div>
+      <div class="demo-row">
+        <svg viewBox="0 0 24 24" width="34" height="34"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg viewBox="0 0 24 24" width="34" height="34"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/></svg>
+        <a href="#" class="link-accent" style="color:var(--accent);font-weight:600;font-size:14px;text-decoration:none">Accent link →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

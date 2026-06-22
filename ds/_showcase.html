@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component showcase — light vs dark</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ptf.css">
+<style>
+  body { background:#EDEFEE; margin:0; }
+  .sc-wrap { max-width:1320px; margin:0 auto; padding:40px 24px 100px; }
+  .sc-h { font-family:'Inter Tight'; font-size:26px; letter-spacing:-.02em; margin:0 0 4px; color:#0A0A0A; }
+  .sc-lead { color:#5C6F69; font-size:14px; margin:0 0 8px; max-width:80ch; line-height:1.5; }
+  .sc-block { margin-top:44px; }
+  .sc-name { font-family:'Inter Tight'; font-size:13px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#0A8C66; }
+  .sc-desc { font-size:13px; color:#5C6F69; margin:2px 0 12px; }
+  .sc-pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch; }
+  .sc-cell { border-radius:18px; overflow:hidden; border:1px solid rgba(0,0,0,.08); }
+  .sc-cell > .pad { padding:28px; height:100%; box-sizing:border-box; }
+  .sc-cell.light { background:#fff; }
+  .sc-cell.dark { background:var(--bg); }   /* .theme-dark on this cell flips the tokens */
+  .sc-mode { font-size:10.5px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; padding:8px 28px; }
+  .sc-cell.light .sc-mode { color:#9aa; background:#fafafa; border-bottom:1px solid rgba(0,0,0,.06); }
+  .sc-cell.dark  .sc-mode { color:rgba(255,255,255,.4); background:#000; border-bottom:1px solid rgba(255,255,255,.08); }
+  @media (max-width:900px){ .sc-pair{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="sc-wrap">
+  <h1 class="sc-h">Component showcase — light vs dark</h1>
+  <p class="sc-lead">Every component, same markup, side by side. The right cell is wrapped in <code>class="theme-dark"</code> — it recolors purely from the semantic tokens. Compare each dark cell against the train page (the gold standard). Flag anything that doesn't match.</p>
+
+  <!-- EYEBROW + SECTION HEAD -->
+  <div class="sc-block">
+    <div class="sc-name">.eyebrow + .section-head</div>
+    <div class="sc-desc">kicker label + centered heading & sub</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad"><div class="eyebrow"><span class="dot"></span>Why PowerToFly</div><div class="section-head" style="margin:0;text-align:left;max-width:none"><h2 style="font-size:34px">The humans behind better AI</h2><p style="margin-left:0;margin-right:0">Real, verified domain experts — matched to the work that needs them.</p></div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad"><div class="eyebrow"><span class="dot"></span>Why PowerToFly</div><div class="section-head" style="margin:0;text-align:left;max-width:none"><h2 style="font-size:34px">The humans behind better AI</h2><p style="margin-left:0;margin-right:0">Real, verified domain experts — matched to the work that needs them.</p></div></div></div>
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="sc-block">
+    <div class="sc-name">buttons</div>
+    <div class="sc-desc">.btn-auth (primary — inverts), .btn-social (secondary), .btn-dashboard</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><button class="btn-auth" style="width:auto">Primary action</button><button class="btn-social" style="width:auto">Continue with Google</button><a class="btn-dashboard" href="#">Explore →</a></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad" style="display:flex;flex-direction:column;gap:12px;align-items:flex-start"><button class="btn-auth" style="width:auto">Primary action</button><button class="btn-social" style="width:auto">Continue with Google</button><a class="btn-dashboard" href="#">Explore →</a></div></div>
+    </div>
+  </div>
+
+  <!-- FIELDS + CHIPS -->
+  <div class="sc-block">
+    <div class="sc-name">.field + .id-chip</div>
+    <div class="sc-desc">form input on inset surface + selectable chips</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad"><div class="auth-form"><div class="field"><label>Work email</label><input type="email" placeholder="you@example.com"></div></div><div class="id-chips" style="margin-top:14px"><span class="id-chip">Data</span><span class="id-chip selected">Design</span><span class="id-chip">Product</span></div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad"><div class="auth-form"><div class="field"><label>Work email</label><input type="email" placeholder="you@example.com"></div></div><div class="id-chips" style="margin-top:14px"><span class="id-chip">Data</span><span class="id-chip selected">Design</span><span class="id-chip">Product</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- STATBAND -->
+  <div class="sc-block">
+    <div class="sc-name">.statband-*</div>
+    <div class="sc-desc">4-up icon + number cells, hairline-separated</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad" style="padding:18px 28px"><div class="statband-inner">
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div><div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
+      </div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad" style="padding:18px 28px"><div class="statband-inner">
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/></svg></div><div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
+      </div></div></div>
+    </div>
+  </div>
+
+  <!-- OUTCOME FLOAT CARD -->
+  <div class="sc-block">
+    <div class="sc-name">.oc-float</div>
+    <div class="sc-desc">floating outcome card — icon column + copy</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad"><div class="oc-float" style="position:static;opacity:1;transform:none;width:100%;height:auto"><div class="oc-float-spark-col"><svg viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><div class="oc-float-vline"></div><div class="oc-float-body"><h4>Reduce risk</h4><p>Project-to-hire pathways let you validate fit first.</p></div></div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad"><div class="oc-float" style="position:static;opacity:1;transform:none;width:100%;height:auto"><div class="oc-float-spark-col"><svg viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg></div><div class="oc-float-vline"></div><div class="oc-float-body"><h4>Reduce risk</h4><p>Project-to-hire pathways let you validate fit first.</p></div></div></div></div>
+    </div>
+  </div>
+
+  <!-- EXPERT ROW / SC mock illustration -->
+  <div class="sc-block">
+    <div class="sc-name">.expert-row / .sc-*</div>
+    <div class="sc-desc">copy column + tinted illustration panel with a mock-UI card</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad"><div class="expert-row" style="min-height:260px;gap:32px">
+        <div class="sc-left" style="padding:0"><span class="sc-tag">Hire</span><h3>Verified domain experts</h3><p class="sc-body">People who already know your industry.</p><a class="sc-more" href="#">Talk to our team →</a></div>
+        <div class="sc-right sc-tint-blue"><div class="sc-mock-wrap"><div class="sc-mock-stack"><div class="sc-mock"><div class="sc-mock-hd"><div class="sc-mock-icon-box"></div><span class="sc-mock-title">Active matches</span></div><div class="sc-mock-sub">3 specialists engaged</div><hr class="sc-mock-hr"><div class="sc-mock-rows"><div class="sc-mock-row"><span class="sc-mock-row-lbl">RAG eval rubric</span><span class="sc-badge sc-badge-green">In review</span></div><div class="sc-mock-row active"><span class="sc-mock-row-lbl">Dataset curation</span><span class="sc-badge sc-badge-amber">In progress</span></div></div></div></div></div></div>
+      </div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark (train gold)</div><div class="pad"><div class="expert-row" style="min-height:260px;gap:32px">
+        <div class="sc-left" style="padding:0"><span class="sc-tag">Hire</span><h3>Verified domain experts</h3><p class="sc-body">People who already know your industry.</p><a class="sc-more" href="#">Talk to our team →</a></div>
+        <div class="sc-right sc-right-domain"><div class="sc-mock-wrap"><div class="sc-mock-stack"><div class="sc-mock sc-mock-dark-blue"><div class="sc-mock-hd"><div class="sc-mock-icon-box"></div><span class="sc-mock-title">Active matches</span></div><div class="sc-mock-sub">3 specialists engaged</div><hr class="sc-mock-hr"><div class="sc-mock-rows"><div class="sc-mock-row"><span class="sc-mock-row-lbl">RAG eval rubric</span><span class="sc-badge sc-badge-green">In review</span></div><div class="sc-mock-row active"><span class="sc-mock-row-lbl">Dataset curation</span><span class="sc-badge sc-badge-amber">In progress</span></div></div></div></div></div></div>
+      </div></div></div>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <div class="sc-block">
+    <div class="sc-name">.mission-statement</div>
+    <div class="sc-desc">one big centered brand statement</div>
+    <div class="sc-pair">
+      <div class="sc-cell light"><div class="sc-mode">Light</div><div class="pad"><div class="mission-statement" style="font-size:30px">AI should be built by the many, not the few.</div></div></div>
+      <div class="sc-cell dark theme-dark"><div class="sc-mode">Dark · theme-dark</div><div class="pad"><div class="mission-statement" style="font-size:30px">AI should be built by the many, not the few.</div></div></div>
+    </div>
+  </div>
+
+  <p class="sc-lead" style="margin-top:48px">Intrinsically-dark components (<code>.section-cta</code>, footer, <code>.stats-card-dark</code>) are always dark on purpose and don't flip — review those directly on the train page.</p>
+
+</div>
+<script src="ptf.js"></script>
+</body>
+</html>
