@@ -152,13 +152,29 @@
   margin: 0;
 }
 
-/* ── Leadership portrait cards — 2×2 inside blog column ── */
-.about-leaders {
+/* ── Leadership — 3-col grid: portraits flank title block in center ── */
+/* Page-specific: no system component covers a centered-title 2×2 portrait grid */
+.about-leaders-wrap {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px 24px;
-  margin-top: 40px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "c1 title c2"
+    "c3 title c4";
+  gap: 20px;
+  margin: 48px auto 0;
+  max-width: var(--content);
 }
+.about-leaders-title {
+  grid-area: title;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 20px;
+}
+.about-leader-card:nth-child(2) { grid-area: c1; }
+.about-leader-card:nth-child(3) { grid-area: c2; }
+.about-leader-card:nth-child(4) { grid-area: c3; }
+.about-leader-card:nth-child(5) { grid-area: c4; }
 .about-leader-img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -166,21 +182,64 @@
   object-position: center top;
   border-radius: var(--r-xl);
   display: block;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
   background: var(--surface);
 }
 .about-leader-name {
   font-family: 'Inter Tight', sans-serif;
-  font-size: 17px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: -0.02em;
   color: var(--ink);
-  margin: 0 0 3px;
+  margin: 0 0 2px;
 }
 .about-leader-role {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--ink-3);
   margin: 0;
+}
+
+/* ── 3-card page navigation — "what else we do" commercial block ── */
+.about-pages-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+.about-pages-card {
+  background: var(--surface);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.about-pages-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+.about-pages-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+}
+.about-pages-body { padding: 24px 24px 28px; }
+.about-pages-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+.about-pages-desc {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.55;
+  margin: 0 0 20px;
+}
+.about-pages-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
 }
 
 /* Two-button CTA row */
@@ -193,15 +252,24 @@
 }
 
 @media (max-width: 768px) {
-  .about-hero-img   { aspect-ratio: 3 / 2; }
-  .about-stat-grid  { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .about-stat-num   { font-size: clamp(40px, 10vw, 60px); }
-  .about-leaders    { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .about-hero-img  { aspect-ratio: 3 / 2; }
+  .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .about-stat-num  { font-size: clamp(40px, 10vw, 60px); }
+  /* Leadership: title on top spanning full width, portraits 2×2 */
+  .about-leaders-wrap {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "title title"
+      "c1    c2"
+      "c3    c4";
+  }
+  .about-leaders-title { padding: 0 0 8px; }
+  /* Pages: single column on tablet */
+  .about-pages-grid { grid-template-columns: 1fr; gap: 16px; }
 }
 @media (max-width: 480px) {
   .about-hero-img  { aspect-ratio: 4 / 3; }
   .about-stat-grid { grid-template-columns: 1fr; }
-  .about-leaders   { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -421,6 +489,18 @@
     </div>
   </section>
 
+  <!-- LOGO STRIP — directly after hero for instant credibility; moved from after stats -->
+  <section class="section">
+    <div class="section-narrow">
+      <div class="about-col">
+        <span class="eyebrow">Trusted by teams at</span>
+      </div>
+    </div>
+    <div class="logo-strip" style="margin-top:24px">
+      <div class="logo-strip-track" id="aboutLogos"></div>
+    </div>
+  </section>
+
   <!-- ② FOUNDING THESIS — centered blog column, left-aligned text within it -->
   <section class="section">
     <div class="section-narrow">
@@ -516,18 +596,6 @@
     </div>
   </section>
 
-  <!-- LOGO STRIP — animated marquee of partner/client logos -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="about-col">
-        <span class="eyebrow">Trusted by teams at</span>
-      </div>
-    </div>
-    <div class="logo-strip" style="margin-top:24px">
-      <div class="logo-strip-track" id="aboutLogos"></div>
-    </div>
-  </section>
-
   <!-- ⑥+⑦ THE SHIFT + LEADERSHIP — one section, continuous editorial block -->
   <section class="section">
     <div class="section-narrow">
@@ -540,40 +608,94 @@
           <p>The community, events, and resources you know from PowerToFly are still here. We're just putting them to work on the problem that needs them most.</p>
         </div>
 
-        <span class="eyebrow" style="margin-top:56px;display:block">Leadership</span>
-        <h2 class="about-h2">The humans behind PowerToFly AI.</h2>
-        <div class="about-leaders">
-          <div>
-            <!-- COPY: replace with real photo of Milena Berry -->
-            <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Milena Berry" class="about-leader-img">
-            <p class="about-leader-name">Milena Berry</p>
-            <p class="about-leader-role">Co-Founder &amp; CEO</p>
-          </div>
-          <div>
-            <!-- COPY: replace with real photo of Katharine Zaleski -->
-            <img src="https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Katharine Zaleski" class="about-leader-img">
-            <p class="about-leader-name">Katharine Zaleski</p>
-            <p class="about-leader-role">Co-Founder &amp; Board Chair</p>
-          </div>
-          <div>
-            <!-- COPY: replace with real photo of Cristina Duke -->
-            <img src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cristina Duke" class="about-leader-img">
-            <p class="about-leader-name">Cristina Duke</p>
-            <p class="about-leader-role">VP of Sales</p>
-          </div>
-          <div>
-            <!-- COPY: replace with real photo of Dina Noufal -->
-            <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dina Noufal" class="about-leader-img">
-            <p class="about-leader-name">Dina Noufal</p>
-            <p class="about-leader-role">Director of Engineering</p>
-          </div>
-        </div><!-- /about-leaders -->
 
       </div><!-- /about-col -->
     </div>
+
+    <!-- Leadership — 3-col grid, title center spanning both rows, portraits at corners -->
+    <!-- Page-specific: breaks out of blog-column width to use full section-narrow -->
+    <div class="about-leaders-wrap">
+      <!-- center title block — grid-area:title spans rows 1&2 via grid-template-areas -->
+      <div class="about-leaders-title">
+        <span class="eyebrow">Leadership</span>
+        <h2 class="about-h2">The humans behind<br>PowerToFly AI.</h2>
+      </div>
+      <!-- portraits: c1 c2 (top) / c3 c4 (bottom) -->
+      <div class="about-leader-card">
+        <!-- COPY: replace with real photo of Milena Berry -->
+        <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Milena Berry" class="about-leader-img">
+        <p class="about-leader-name">Milena Berry</p>
+        <p class="about-leader-role">Co-Founder &amp; CEO</p>
+      </div>
+      <div class="about-leader-card">
+        <!-- COPY: replace with real photo of Katharine Zaleski -->
+        <img src="https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Katharine Zaleski" class="about-leader-img">
+        <p class="about-leader-name">Katharine Zaleski</p>
+        <p class="about-leader-role">Co-Founder &amp; Board Chair</p>
+      </div>
+      <div class="about-leader-card">
+        <!-- COPY: replace with real photo of Cristina Duke -->
+        <img src="https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Cristina Duke" class="about-leader-img">
+        <p class="about-leader-name">Cristina Duke</p>
+        <p class="about-leader-role">VP of Sales</p>
+      </div>
+      <div class="about-leader-card">
+        <!-- COPY: replace with real photo of Dina Noufal -->
+        <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Dina Noufal" class="about-leader-img">
+        <p class="about-leader-name">Dina Noufal</p>
+        <p class="about-leader-role">Director of Engineering</p>
+      </div>
+    </div><!-- /about-leaders-wrap -->
+
   </section>
 
-  <!-- ⑧ FINAL CTA BAND — always-dark closer, blends into footer -->
+  <!-- ⑧ PAGES SECTION — 3-card nav to hire / train / book pages (like Andela) -->
+  <!-- Page-specific: no matching inventory component; uses --surface cards -->
+  <section class="section">
+    <div class="section-narrow">
+      <div class="about-col">
+        <span class="eyebrow">What we do</span>
+        <h2 class="about-h2">Explore what's<br><em class="italic-plain">possible with us.</em></h2>
+      </div>
+      <div class="about-pages-grid">
+        <a href="../hire/" class="about-pages-card">
+          <img
+            src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Diverse professionals collaborating on AI work"
+            class="about-pages-img">
+          <div class="about-pages-body">
+            <p class="about-pages-title">Hire AI experts</p>
+            <p class="about-pages-desc">Access 80K+ vetted specialists — RLHF annotators, red teamers, domain experts — ready to work on your model today.</p>
+            <span class="about-pages-link">Explore hiring →</span>
+          </div>
+        </a>
+        <a href="../train/" class="about-pages-card">
+          <img
+            src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Person working with data and AI tools"
+            class="about-pages-img">
+          <div class="about-pages-body">
+            <p class="about-pages-title">Train your models</p>
+            <p class="about-pages-desc">From data labeling to RLHF to red teaming — we run the human-in-the-loop pipelines that move models from prototype to production.</p>
+            <span class="about-pages-link">See training services →</span>
+          </div>
+        </a>
+        <a href="../book/" class="about-pages-card">
+          <img
+            src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800"
+            alt="Two professionals in a discovery conversation"
+            class="about-pages-img">
+          <div class="about-pages-body">
+            <p class="about-pages-title">Book a discovery call</p>
+            <p class="about-pages-desc">Not sure where to start? Talk with our team about your AI roadmap and we'll map the right path forward.</p>
+            <span class="about-pages-link">Book a call →</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ FINAL CTA BAND — always-dark closer, blends into footer -->
   <section class="section-cta">
     <div class="section-cta-inner">
       <h2>Ready when you are.</h2>
