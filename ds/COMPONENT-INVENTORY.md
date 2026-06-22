@@ -78,7 +78,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 - **Testimonials** — `.testimonials` > `.t-card` (`.t-stars`, `.t-quote`, `.t-author`, `.t-role`, `.t-company`, `.t-logo`, `.t-meta`).
 - **Logo strip (marquee)** — `.logo-strip` > `.logo-strip-track`. Behavior: `PTF.initMarquee()`.
 - **Industries grid** — `.ind-grid` > `.ind-item` (`.ind-name` + `.ind-desc`).
-- **Final CTA band** — `.section-cta` > `.section-cta-inner` (`.eyebrow eyebrow-on-dark` + `h2` + `p` + `.btn.btn-cta`). Always-dark closer; blends into footer.
+- **Final CTA band** — `.section-cta` > `.section-cta-inner` (**`.eyebrow` [required] + `h2` + `p` + `.btn.btn-cta`**). Always-dark closer; blends into footer. The green eyebrow is a REQUIRED part of the band — never omit it. It auto-greens (the band sets `.section-cta .eyebrow` → green-mid), so a plain `.eyebrow` is enough (no `.eyebrow-on-dark` needed).
 
 ### Interactive illustration kit — `.sci` (markup in `ds/_showcase.html`)
 `.sci .sci-card .sci-card-hd .sci-card-icon .sci-card-title .sci-card-sub .sci-rows .sci-row .sci-chip .sci-dots .sci-dot .sci-avatars .sci-av .sci-av-lbl .sci-cursor .sci-cursor-tip .sci-reveal`. Already dark by default. Behavior: `PTF.initIllustrations()` (auto).

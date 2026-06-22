@@ -982,6 +982,9 @@ img { display: block; max-width: 100%; }
 /* ===== Final CTA band (dark) — was .section-book / .closing-cta ===== */
 .section-cta { background: #000000; color: #fff; padding: var(--section-y-loose) var(--gutter); text-align: center; }  /* loose rhythm (generous) + same black as the footer so the band blends into it */
 .section-cta .section-cta-inner { max-width: 720px; margin: 0 auto; }
+/* The CTA band ALWAYS opens with a green eyebrow. The band is dark, so any .eyebrow inside it
+ * is auto-set to the bright green-mid (no need to remember .eyebrow-on-dark). Part of the component. */
+.section-cta .eyebrow { color: var(--green-mid); }
 .section-cta h2 {
   font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 800;
   font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.98; color: #fff;
