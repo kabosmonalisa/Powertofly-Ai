@@ -152,29 +152,21 @@
   margin: 0;
 }
 
-/* ── Leadership — 3-col grid: portraits flank title block in center ── */
-/* Page-specific: no system component covers a centered-title 2×2 portrait grid */
-.about-leaders-wrap {
+/* ── Leadership — 2-col: text left, 2×2 portraits right ── */
+/* Page-specific: no system component for this layout */
+.about-leaders-2col {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-areas:
-    "c1 title c2"
-    "c3 title c4";
-  gap: 20px;
-  margin: var(--section-y) auto 0;
-  max-width: var(--content);
+  grid-template-columns: 1fr 1.6fr;
+  gap: 48px;
+  align-items: start;
+  margin-top: 64px;
 }
-.about-leaders-title {
-  grid-area: title;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 20px;
+.about-leaders-portraits {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
-.about-leader-card:nth-child(2) { grid-area: c1; }
-.about-leader-card:nth-child(3) { grid-area: c2; }
-.about-leader-card:nth-child(4) { grid-area: c3; }
-.about-leader-card:nth-child(5) { grid-area: c4; }
+.about-leaders-text { padding-top: 8px; }
 .about-leader-img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -353,15 +345,8 @@
   .about-hero-img  { aspect-ratio: 3 / 2; }
   .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .about-stat-num  { font-size: clamp(40px, 10vw, 60px); }
-  /* Leadership: title on top spanning full width, portraits 2×2 */
-  .about-leaders-wrap {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "title title"
-      "c1    c2"
-      "c3    c4";
-  }
-  .about-leaders-title { padding: 0 0 8px; }
+  /* Leadership: stack text above portraits on tablet */
+  .about-leaders-2col { grid-template-columns: 1fr; gap: 32px; }
   /* Pages: single column on tablet */
   .about-pages-grid { grid-template-columns: 1fr; gap: 16px; }
 }
@@ -665,57 +650,48 @@
           </div>
 
         </div><!-- /about-stat-grid -->
-      </div><!-- /about-col -->
-    </div><!-- /section-narrow -->
-  </section>
 
-  <!-- ⑥+⑦ THE SHIFT + LEADERSHIP — one section, continuous editorial block -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="about-col">
-
-        <span class="eyebrow">The shift</span>
+        <!-- ⑥ THE SHIFT — merged into editorial block for even 64px rhythm -->
+        <span class="eyebrow" style="margin-top:64px;display:block">The shift</span>
         <h2 class="about-h2">AI is where some of the biggest decisions about <em class="italic-plain">access and representation</em> are being made today.</h2>
         <div class="about-body">
           <p>From the start, we set out to close the gap between talent and opportunity. Now we're bringing that work to where it matters most: <strong>helping companies build AI with the people who reflect the world it serves.</strong></p>
           <p>The community, events, and resources you know from PowerToFly are still here. We're just putting them to work on the problem that needs them most.</p>
         </div>
 
-
       </div><!-- /about-col -->
-    </div>
 
-    <!-- Leadership — 3-col grid, title center spanning both rows, portraits at corners -->
-    <!-- Page-specific: breaks out of blog-column width to use full section-narrow -->
-    <div class="about-leaders-wrap">
-      <!-- center title block — grid-area:title spans rows 1&2 via grid-template-areas -->
-      <div class="about-leaders-title">
-        <span class="eyebrow">Leadership</span>
-        <h2 class="about-h2">The humans behind<br>PowerToFly AI.</h2>
-      </div>
-      <!-- portraits: c1 c2 (top) / c3 c4 (bottom) -->
-      <div class="about-leader-card">
-        <img src="../photos/milena-berry.jpg" alt="Milena Berry" class="about-leader-img">
-        <p class="about-leader-name">Milena Berry</p>
-        <p class="about-leader-role">Co-Founder &amp; CEO</p>
-      </div>
-      <div class="about-leader-card">
-        <img src="../photos/katharine-zaleski.jpg" alt="Katharine Zaleski" class="about-leader-img">
-        <p class="about-leader-name">Katharine Zaleski</p>
-        <p class="about-leader-role">Co-Founder &amp; Board Chair</p>
-      </div>
-      <div class="about-leader-card">
-        <img src="../photos/cristina-duke.jpg" alt="Cristina Duke" class="about-leader-img">
-        <p class="about-leader-name">Cristina Duke</p>
-        <p class="about-leader-role">VP of Sales</p>
-      </div>
-      <div class="about-leader-card">
-        <img src="../photos/dina-noufal.jpg" alt="Dina Noufal" class="about-leader-img">
-        <p class="about-leader-name">Dina Noufal</p>
-        <p class="about-leader-role">Director of Engineering</p>
-      </div>
-    </div><!-- /about-leaders-wrap -->
+      <!-- ⑦ LEADERSHIP — 2-col: text left aligned with section edge, portraits 2×2 right -->
+      <div class="about-leaders-2col">
+        <div class="about-leaders-text">
+          <span class="eyebrow">Leadership</span>
+          <h2 class="about-h2">The humans behind PowerToFly AI.</h2>
+        </div>
+        <div class="about-leaders-portraits">
+          <div class="about-leader-card">
+            <img src="../photos/milena-berry.jpg" alt="Milena Berry" class="about-leader-img">
+            <p class="about-leader-name">Milena Berry</p>
+            <p class="about-leader-role">Co-Founder &amp; CEO</p>
+          </div>
+          <div class="about-leader-card">
+            <img src="../photos/katharine-zaleski.jpg" alt="Katharine Zaleski" class="about-leader-img">
+            <p class="about-leader-name">Katharine Zaleski</p>
+            <p class="about-leader-role">Co-Founder &amp; Board Chair</p>
+          </div>
+          <div class="about-leader-card">
+            <img src="../photos/cristina-duke.jpg" alt="Cristina Duke" class="about-leader-img">
+            <p class="about-leader-name">Cristina Duke</p>
+            <p class="about-leader-role">VP of Sales</p>
+          </div>
+          <div class="about-leader-card">
+            <img src="../photos/dina-noufal.jpg" alt="Dina Noufal" class="about-leader-img">
+            <p class="about-leader-name">Dina Noufal</p>
+            <p class="about-leader-role">Director of Engineering</p>
+          </div>
+        </div><!-- /about-leaders-portraits -->
+      </div><!-- /about-leaders-2col -->
 
+    </div><!-- /section-narrow -->
   </section>
 
   <!-- ⑧ PAGES SECTION — 3-card nav to hire / train / book pages (like Andela) -->
