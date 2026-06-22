@@ -151,9 +151,9 @@ img { display: block; max-width: 100%; }
   transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 .btn:hover { transform: translateY(-1px); background: var(--ink); color: #fff; }
-.btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-primary { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
 .btn-primary:hover {
-  background: #1a1a1a; color: #fff;
+  background: var(--btn-bg-hover); color: var(--btn-fg); border-color: var(--btn-bg-hover);
   box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
 }
 .btn-sm { padding: 10px 18px; font-size: 14px; }
@@ -244,7 +244,7 @@ img { display: block; max-width: 100%; }
   position: fixed;
   top: 57px; left: 0; right: 0;
   max-height: calc(100vh - 57px);
-  background: #fff;
+  background: var(--bg);
   border-bottom: 1px solid var(--line);
   z-index: 49;
   flex-direction: column; gap: 0;
@@ -262,7 +262,7 @@ img { display: block; max-width: 100%; }
 .mobile-drawer .drawer-cta {
   padding: 16px 24px 24px;
   border-top: 1px solid var(--line);
-  background: #fff;
+  background: var(--bg);
   flex-shrink: 0;
   margin-top: 0;
 }
@@ -1024,35 +1024,25 @@ img { display: block; max-width: 100%; }
 .sc-mock-dark-blue .sc-mock-row, .sc-mock-dark-green .sc-mock-row, .sc-mock-dark-red .sc-mock-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
 .sc-mock-dark-blue .sc-mock-hr, .sc-mock-dark-green .sc-mock-hr, .sc-mock-dark-red .sc-mock-hr { border-top-color: rgba(255,255,255,0.1); }
 
-.theme-dark .nav { background: var(--ink); border-color: transparent; }
+/* Nav: transparent over the dark page; solid dark glass once scrolled (matches train).
+ * Text/borders flip via tokens — only the genuinely-special bits are overridden here. */
+.theme-dark .nav { background: transparent; border-color: transparent; }
 .theme-dark .nav.scrolled { background: rgba(10,10,10,0.9); border-bottom-color: rgba(255,255,255,0.08); }
-.theme-dark .nav-btn { color: rgba(255,255,255,0.85); }
-.theme-dark .brand svg { filter: brightness(0) invert(1); }
-.theme-dark .hamburger span { background: rgba(255,255,255,0.85); }
+.theme-dark .brand svg { filter: brightness(0) invert(1); }   /* logo: tokens can't recolor an SVG asset */
+.theme-dark .hamburger span { background: var(--ink); }
 .theme-dark .nav-cta .btn:not(.btn-primary) { background: transparent; color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
 .theme-dark .nav-cta .btn:not(.btn-primary):hover { color: #fff; border-color: rgba(255,255,255,0.5); }
-.theme-dark .btn-primary { background: #fff; color: var(--ink); border-color: #fff; }
-.theme-dark .btn-primary:hover { background: rgba(255,255,255,0.88); color: var(--ink); }
-/* .section-head flips via --ink / --ink-3 tokens — no override needed */
-/* Mega-flyout dropdown in dark — solid green border, dark panel (the train look) */
+/* .btn-primary inverts via --btn-* tokens — no override needed. .nav-btn / .fly-title /
+ * .fly-desc / .fly-rule / .ind-* / .fly-badge all flip via --ink / --ink-3 / --line. */
+/* Mega-flyout dropdown in dark — dark surface + the signature green border (brand accent). */
 .theme-dark .nav-fly { box-shadow: none; }
-.theme-dark .mega-inner { background: #141414; border: 1px solid rgba(79,232,169,0.55); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-.theme-dark .fly-title { color: #fff; }
-.theme-dark .fly-desc  { color: rgba(255,255,255,0.5); }
-.theme-dark .fly-item:hover .fly-title { color: var(--green-mid); }
-.theme-dark .fly-rule { border-top-color: rgba(255,255,255,0.12); }
-.theme-dark .ind-name { color: rgba(255,255,255,0.8); }
+.theme-dark .mega-inner { background: var(--surface); border: 1px solid rgba(79,232,169,0.55); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+.theme-dark .fly-item:hover .fly-title,
 .theme-dark .ind-item:hover .ind-name { color: var(--green-mid); }
-.theme-dark .ind-desc { color: rgba(255,255,255,0.45); }
-.theme-dark .fly-badge { color: rgba(255,255,255,0.7); }
 /* Coming-soon pill: SOLID on dark (transparent purple looks bad on a dark panel) */
 .theme-dark .fly-badge-soon,
 .theme-dark .drawer-badge { background: var(--purple-bright); color: #fff; }
-/* Mobile drawer in dark */
-.theme-dark .mobile-drawer { background: var(--ink); border-bottom-color: rgba(255,255,255,0.1); }
-.theme-dark .mobile-drawer .drawer-cta { background: var(--ink); border-top-color: rgba(255,255,255,0.1); }
-.theme-dark .drawer-group a { color: rgba(255,255,255,0.85); }
-.theme-dark .drawer-group { border-bottom-color: rgba(255,255,255,0.1); }
+/* Mobile drawer flips via tokens (bg/--bg, borders/--line, links/--ink) — no overrides */
 
 /* ===== Responsive for promoted chrome (mega-nav needs more room → 900px) ===== */
 @media (max-width: 900px) {
