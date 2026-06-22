@@ -60,11 +60,11 @@ window.PTF = (function () {
   /**
    * initMegaNav()
    * Wires up the mega-flyout nav (hover + click + Escape + overlay).
-   * Requires: .nav-btn[data-fly] buttons, matching .nav-fly#<id> panels.
-   * Optional: #navOverlay dimmer element.
+   * Requires: any [data-fly] trigger (a .nav-btn text trigger OR a real .btn pill),
+   * matching .nav-fly#<id> panels. Optional: #navOverlay dimmer element.
    */
   function initMegaNav() {
-    const btns = document.querySelectorAll('.nav-btn[data-fly]');
+    const btns = document.querySelectorAll('[data-fly]');
     if (!btns.length) return;
     const overlay = document.getElementById('navOverlay');
     let timer;

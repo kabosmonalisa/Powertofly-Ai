@@ -70,7 +70,14 @@ Always use the variable, never the raw hex.
 | `--iri-cyan/green/lime` | … | Iridescent gradient (the `AI` badge) |
 | `--r-sm … --r-pill` | 8 → 999px | Border-radius scale |
 
-❌ Don't write `#0A0A0A` — write `var(--ink)`. ❌ Don't write `#fff` for a card — write `var(--bg)`.
+**Border-radius — what gets which (use the token, never a raw px):**
+- `--r-2xl` (28px) — **large feature images & portrait cards** (hero image, `.stats-portrait`, `.how-portrait-card`, big media). This is the site's "big rounded" look — every full-width/feature image uses it.
+- `--r-xl` (20px) — content **cards & panels** (`.auth-card`, `.oc-float`, `.sc-right`, why/benefit cards).
+- `--r-md` (12px) / `--r-sm` (8px) — **small UI**: inputs, mock-rows, icon boxes, tiny chips.
+- `--r-pill` (999px) — buttons, eyebrowless tags, avatars.
+- ❌ A feature image must never use `--r-sm`/`--r-md` (looks under-rounded next to the 28px standard). When in doubt for an image, it's `--r-2xl`.
+
+❌ Don't write `#0A0A0A` — write `var(--ink)`. ❌ Don't write `#fff` for a card — write `var(--bg)`. ❌ Don't write `28px` — write `var(--r-2xl)`.
 
 ### Typography
 - `.display` — big display headlines (Inter Tight 700, tight tracking).

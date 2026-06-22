@@ -18,6 +18,9 @@ When Lizu gives you copy and says "make a page" / "new section" / "use this copy
 
 **If you ever feel the urge to write CSS for something visual on a new page, that urge is the bug. Find the component, or ask.**
 
+9. **Prototypes are NOT exempt.** A throwaway/preview page still uses only existing components — buttons especially. "It's just a prototype" is how drift starts; build prototypes from the same closed set as production.
+10. **Buttons are never hand-styled.** They are a closed set (see Buttons below). A small outlined pill is `class="btn btn-sm"`. A button that opens a flyout is a `.btn` + `data-fly`. If you type `border:` or `padding:` on a button, stop — you're doing it wrong.
+
 ---
 
 ## CANONICAL SOURCE FILES — copy markup FROM these (never reinvent)
@@ -50,10 +53,16 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 - **Section heading** — `.section-head` → `h2` + `p`. Flips dark via tokens.
 - **Eyebrow** — `.eyebrow` (+ inner `.dot`). Plain green uppercase, NEVER a pill. `.eyebrow-on-dark` for an ad-hoc dark block on a light page.
 
-### Buttons
-- `.btn` (base), `.btn-primary` (ink fill, inverts in dark), `.btn-light`, `.btn-sm`, `.btn-block` (full-width). 
-- `.btn-cta` — the button for the final CTA band only (always white-on-dark, black label).
+### Buttons — CLOSED SET. Never create a new button class or set a button's border/padding/radius inline.
+- `.btn` — **secondary/outlined** pill (white bg, `1.5px solid var(--ink)` border, ink-fill hover). The outlined button: "Log in", "Find work".
+- `.btn-primary` — **primary** dark pill (ink fill, inverts white in dark).
+- `.btn-cta` — primary for the always-dark final CTA band (white-on-dark, fixed black label).
+- `.btn-light`, `.btn-sm` (smaller), `.btn-block` (full-width) — **modifiers**; combine, e.g. `class="btn btn-sm"`.
 - Flow buttons: `.btn-auth` (primary, inverts), `.btn-social`, `.btn-dashboard`, `.btn-skip`.
+
+**Button hover is ONE language everywhere:** a subtle lift (`translateY(-1px)`) + a soft green-glow shadow (`box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18)`). ❌ A hover **never swaps the fill colour** — no green-on-hover, no colour change. (Exception: the outlined `.btn` fills ink on hover, which is its defined state — not a one-off.)
+❌ **Never** invent `.btn-login` / `.btn-foo` or hand-style a button. A "small outlined pill" is `class="btn btn-sm"` — full stop.
+**A button that also opens a mega-flyout** = an existing button class **+ `data-fly="fly-<id>"`** (the JS binds any `[data-fly]`): `<button class="btn btn-sm" data-fly="fly-login">Log in</button>`. Never build a custom trigger.
 
 ### Section components (the big repeating layouts) — markup in `ds/_showcase.html`
 - **Mission statement** — `.section-mission` > `.mission-statement` (one big centered line).
@@ -86,7 +95,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 MUI **Outlined** path, `fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"`. Needs the `#ptf-grad` `<linearGradient>` def on the page. Thank-you check = same family, `stroke-width="6.5"`, no fill. NOT Feather/Lucide. One family per page.
 
 ### Tokens (reference them; never hardcode hex)
-Color: `--ink --ink-2 --ink-3 --bg --surface --surface-2 --line --line-2 --accent --btn-bg --btn-fg`. Radius: `--r-sm..--r-pill`. Width: `--container --content* --gutter`. Spacing: `--section-y(-tight/-loose)`. `.theme-dark` re-defines the color tokens — that's the whole dark mode.
+Color: `--ink --ink-2 --ink-3 --bg --surface --surface-2 --line --line-2 --accent --btn-bg --btn-fg`. Radius: `--r-sm..--r-pill` — **feature images/portraits = `--r-2xl` (28px); cards/panels = `--r-xl` (20px); small UI = `--r-md/-sm`; buttons/avatars = `--r-pill`** (never a raw px; see DESIGN-SYSTEM "Border-radius — what gets which"). Width: `--container --content* --gutter`. Spacing: `--section-y(-tight/-loose)`, `--hero-top` (hero). `.theme-dark` re-defines the color tokens — that's the whole dark mode.
 
 ---
 
