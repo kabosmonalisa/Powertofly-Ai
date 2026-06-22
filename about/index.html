@@ -215,12 +215,110 @@
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .about-pages-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
-.about-pages-img {
+/* Page thumbnails — CSS mini-renderings of the actual page look, not stock photos */
+.about-pages-thumb {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px 26px;
+  position: relative;
+  overflow: hidden;
+}
+.about-pages-thumb--hire {
+  background: linear-gradient(145deg, #ddf2ea 0%, #f2fcf7 100%);
+}
+.about-pages-thumb--train {
+  background: #0d0d0d;
+}
+.about-pages-thumb--book {
+  background: #efefec;
+}
+/* mini eyebrow */
+.apt-eye {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 8px;
   display: block;
 }
+/* mini headline */
+.apt-hed {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(15px, 1.6vw, 21px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0;
+  color: var(--ink);
+}
+.about-pages-thumb--train .apt-hed { color: #fff; }
+.apt-hed em { font-style: italic; }
+/* mini stat row for hire */
+.apt-stats {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.apt-stat {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-2);
+  background: rgba(255,255,255,0.7);
+  border-radius: 99px;
+  padding: 3px 10px;
+}
+/* video split for train */
+.apt-video {
+  position: absolute;
+  top: 0; right: 0;
+  width: 40%;
+  height: 100%;
+  background: #1a1a1a;
+  border-left: 1px solid #2a2a2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apt-play {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.apt-play svg { margin-left: 2px; }
+/* form columns for book */
+.apt-book-inner {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  padding: 24px 26px;
+}
+.apt-book-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.apt-book-right {
+  width: 44%;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.apt-cal-lines { display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; }
+.apt-cal-line { height: 7px; background: #eee; border-radius: 4px; }
+.apt-cal-line:nth-child(2) { width: 70%; }
+.apt-cal-line:nth-child(3) { width: 55%; }
 .about-pages-body { padding: 24px 24px 28px; }
 .about-pages-title {
   font-family: 'Inter Tight', sans-serif;
@@ -638,21 +736,31 @@
       <h2 class="about-h2" style="margin:20px 0 40px">Explore what's <em class="italic-plain">possible with us.</em></h2>
       <div class="about-pages-grid">
         <a href="../hire/" class="about-pages-card">
-          <img
-            src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Diverse professionals collaborating on AI work"
-            class="about-pages-img">
+          <div class="about-pages-thumb about-pages-thumb--hire">
+            <span class="apt-eye">Hire AI experts</span>
+            <p class="apt-hed">Find the expert who moves your business <em>forward.</em></p>
+            <div class="apt-stats">
+              <span class="apt-stat">80K+ experts</span>
+              <span class="apt-stat">190 countries</span>
+              <span class="apt-stat">75%+ women &amp; BIPOC</span>
+            </div>
+          </div>
           <div class="about-pages-body">
             <p class="about-pages-title">Hire AI experts</p>
             <p class="about-pages-desc">Access 80K+ vetted specialists — RLHF annotators, red teamers, domain experts — ready to work on your model today.</p>
             <span class="about-pages-link">Explore hiring →</span>
           </div>
         </a>
-        <a href="../train/" class="about-pages-card">
-          <img
-            src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Person working with data and AI tools"
-            class="about-pages-img">
+        <a href="../train/index-tokens.html" class="about-pages-card">
+          <div class="about-pages-thumb about-pages-thumb--train">
+            <div class="apt-video">
+              <div class="apt-play">
+                <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1 1l8 5-8 5V1z" fill="rgba(255,255,255,0.7)"/></svg>
+              </div>
+            </div>
+            <span class="apt-eye">Train AI models</span>
+            <p class="apt-hed">Better AI models start with <em>better experts.</em></p>
+          </div>
           <div class="about-pages-body">
             <p class="about-pages-title">Train your models</p>
             <p class="about-pages-desc">From data labeling to RLHF to red teaming — we run the human-in-the-loop pipelines that move models from prototype to production.</p>
@@ -660,10 +768,21 @@
           </div>
         </a>
         <a href="../book/" class="about-pages-card">
-          <img
-            src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=800"
-            alt="Two professionals in a discovery conversation"
-            class="about-pages-img">
+          <div class="about-pages-thumb about-pages-thumb--book">
+            <div class="apt-book-inner">
+              <div class="apt-book-left">
+                <span class="apt-eye">Let's talk</span>
+                <p class="apt-hed">Book a discovery call</p>
+              </div>
+              <div class="apt-book-right">
+                <div class="apt-cal-lines">
+                  <div class="apt-cal-line"></div>
+                  <div class="apt-cal-line"></div>
+                  <div class="apt-cal-line"></div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="about-pages-body">
             <p class="about-pages-title">Book a discovery call</p>
             <p class="about-pages-desc">Not sure where to start? Talk with our team about your AI roadmap and we'll map the right path forward.</p>
