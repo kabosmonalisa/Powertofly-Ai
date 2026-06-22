@@ -90,13 +90,12 @@ h1.hero-headline {
   text-decoration: none; color: inherit; cursor: pointer;
   transition: background .12s;
 }
-.fly-item:hover { background: var(--bg-soft); }
+.fly-item:hover .fly-title { color: var(--green); } /* hover = green text, no bg */
 .fly-title {
   font-family: 'Inter Tight', sans-serif;
   font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
   color: var(--ink); margin-bottom: 5px; line-height: 1.2;
 }
-.fly-item:hover .fly-title { color: var(--ink); }
 .fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 .mega-right {
   padding: 28px 24px;
@@ -130,13 +129,11 @@ h1.hero-headline {
 .nav-overlay.on { display: block; }
 @media (max-width: 900px) { .nav-items { display: none; } }
 
-/* ===== Sections ===== */
+/* ===== Sections → even via the responsive --section-y token ===== */
 .section {
-padding: 100px 32px;
+padding: var(--section-y) var(--gutter);
 }
-.section-narrow {
-max-width: 1400px; margin: 0 auto;
-}
+/* .section-narrow inherits its --content-wide (1180) token from ptf.css — inset, not as wide as the bar */
 .section-head {
 text-align: center; margin-bottom: 56px;
 }
@@ -305,24 +302,7 @@ border: 1px solid var(--line);
 border-radius: 999px;
 padding: 3px 9px;
 }
-.hero-eyebrow {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-padding: 6px 14px;
-border-radius: 999px;
-border: 1px solid var(--line);
-font-size: 13px;
-font-weight: 500;
-color: var(--ink-3);
-letter-spacing: 0.01em;
-}
-.hero-eyebrow-dot {
-width: 6px; height: 6px;
-border-radius: 50%;
-background: linear-gradient(135deg, #5BCFFF, #4FE8A9);
-flex-shrink: 0;
-}
+/* removed dead .hero-eyebrow pill (unused; pills on labels are banned — use .eyebrow) */
 .hero h1 {
 font-family: 'Inter Tight', sans-serif;
 font-size: clamp(44px, 7vw, 80px);
@@ -453,7 +433,7 @@ white-space: nowrap;
 display: grid;
 grid-template-columns: repeat(3, 1fr);
 gap: 24px;
-max-width: 1100px;
+max-width: var(--content);
 margin: 0 auto;
 }
 .opp-card {
@@ -475,9 +455,6 @@ box-shadow: 0 2px 4px rgba(15,30,26,0.05), 0 16px 40px rgba(15,30,26,0.12);
 display: inline-flex;
 align-items: center;
 align-self: flex-start;
-padding: 4px 12px;
-border-radius: 999px;
-background: rgba(79,232,169,0.14);
 color: #0A8C66;
 font-family: 'Inter Tight', sans-serif;
 font-weight: 700;
@@ -564,7 +541,7 @@ background: transparent;
 .logo-strip-track img:hover { filter: grayscale(0) opacity(1); }
 
 /* ===== Testimonials ===== */
-.section-proof { background: var(--bg); padding-bottom: 100px; }
+.section-proof { background: var(--bg); padding-bottom: var(--section-y); }
 .testimonials {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -656,26 +633,7 @@ background: transparent;
 }
 
 /* ===== Mission Statement ===== */
-.mission {
-  padding: 100px 32px;
-  background: var(--bg);
-  text-align: center;
-}
-.mission-inner {
-  max-width: 1180px;
-  margin: 0 auto;
-}
-.mission-inner p {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: clamp(34px, 4.4vw, 60px);
-  letter-spacing: -0.022em;
-  line-height: 1.22;
-  color: var(--ink);
-  max-width: 1180px;
-  margin: 0 auto;
-  text-align: center;
-}
+/* mission now uses the shared .section-mission / .mission-statement (ds/ptf.css) */
 
 /* ===== Benefits (sticky scroll stack) ===== */
 /* ===== Benefit cards — 3-col row ===== */
@@ -683,40 +641,14 @@ background: transparent;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 1100px;
+  max-width: var(--content);
   margin: 0 auto;
 }
-.benefit-card {
-  border-radius: 20px;
-  border: 1px solid rgba(10,10,10,0.09);
-  box-shadow: var(--shadow-card);
-  background: var(--bg);
-  padding: 32px 28px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.benefit-sparkle {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 4px;
-  animation: none !important;
-}
+/* benefit cards → ds/ptf.css; page keeps below (bigger static sparkle, lighter body, insight) */
+.benefit-sparkle { width: 64px; height: 64px; margin-bottom: 4px; animation: none !important; }
 .benefit-card:nth-child(2) .benefit-sparkle,
 .benefit-card:nth-child(3) .benefit-sparkle { animation: none !important; }
-.benefit-card h3 {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.2;
-  color: var(--ink);
-}
-.benefit-card p {
-  font-size: 15px;
-  color: var(--ink-3);
-  line-height: 1.6;
-}
+.benefit-card p { color: var(--ink-3); }
 .benefit-insight {
   font-family: 'Inter Tight', sans-serif;
   font-size: 14px !important;
@@ -726,32 +658,9 @@ background: transparent;
   line-height: 1.45 !important;
 }
 
-/* ===== How It Works ===== */
-.how-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
-  align-items: stretch;
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.how-portrait-card {
-  border-radius: 28px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=900&h=1200&fit=crop&q=80');
-  background-size: cover;
-  background-position: center top;
-  position: relative;
-}
-.how-portrait-icon {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  width: 48px;
-  height: 48px;
-  filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4));
-}
+/* ===== How It Works → structure from ds/ptf.css; page keeps below ===== */
+.how-inner { max-width: var(--content); margin: 0 auto; }
+.how-portrait-card { background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=900&h=1200&fit=crop&q=80'); background-position: center top; }
 .how-stat-chip {
   position: absolute;
   background: rgba(10,10,10,0.80);
@@ -791,141 +700,14 @@ background: transparent;
   height: 360px;
   animation: floatY-slow 7s ease-in-out infinite;
 }
-.steps {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.steps::before {
-  content: '';
-  position: absolute;
-  left: 23px;
-  top: 44px;
-  bottom: 44px;
-  width: 1px;
-  border-left: 2px dashed rgba(10,10,10,0.12);
-  z-index: 0;
-}
-.step {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start;
-  padding: 20px 0;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-.step.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-.step-num {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: var(--bg);
-  border: 1.5px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 800;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--ink-3);
-  position: relative;
-  z-index: 1;
-}
-.step-content { padding-top: 12px; }
-.step-content h4 {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.2;
-  color: var(--ink);
-  margin-bottom: 8px;
-}
-.step-content p {
-  font-size: 17px;
-  color: var(--ink-3);
-  line-height: 1.6;
-}
+/* .steps / .step / .step-num / .step-content → from ds/ptf.css */
 
-/* ===== Stats (black card) ===== */
-.section-stats {
-  background: var(--bg);
-  padding: 100px 32px;
-}
-.stats-card-wrap {
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 8px;
-  border-radius: 32px;
-}
-.stats-portrait {
-  border-radius: 28px;
-  overflow: hidden;
-  /* no fixed aspect-ratio on desktop: the stats card drives the height, portrait fills it (kills the dead space) */
-  background-image: url('https://plus.unsplash.com/premium_photo-1686244745019-b8d2be4dc066?w=900&h=1200&fit=crop&q=80');
-  background-size: cover;
-  background-position: center top;
-  position: relative;
-}
-.stats-portrait-icon {
-  position: absolute;
-  top: 20px; left: 20px;
-  width: 52px; height: 52px;
-  filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.45));
-}
-.stats-card-dark {
-  background: #0A0A0A;
-  border-radius: 28px;
-  padding: 64px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 40px;
-  color: #fff;
-}
-.stat-big-num {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: clamp(56px, 8vw, 104px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: #ffffff;
-  white-space: nowrap;
-}
-.stat-unit {
-  font-size: 0.28em;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin-left: 2px;
-  vertical-align: baseline;
-}
-.stat-big-label {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.58);
-  letter-spacing: 0.01em;
-  line-height: 1.45;
-}
-@media (max-width: 900px) {
-  .stats-card-wrap { grid-template-columns: 1fr; }
-  .stats-portrait { aspect-ratio: 4/3; }
-  .stats-card-dark { padding: 48px 32px; }
-}
-@media (max-width: 600px) {
-  .section-stats { padding: 0 20px 64px; }
-  .stats-card-dark { padding: 36px 24px; gap: 28px; }
-}
+/* ===== Stats → structure from ds/ptf.css; page keeps below (light photo → inverted P, nowrap nums) ===== */
+.stats-portrait { background-image: url('https://plus.unsplash.com/premium_photo-1686244745019-b8d2be4dc066?w=900&h=1200&fit=crop&q=80'); background-position: center top; }
+.stats-portrait-icon { filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.45)); }
+.stat-big-num { white-space: nowrap; }
+.stat-unit { margin-left: 2px; }
+/* stats-card-wrap responsive → from ds/ptf.css */
 
 /* ===== FAQ ===== */
 .faq-list {
@@ -991,120 +773,37 @@ background: transparent;
   line-height: 1.65;
 }
 
-/* ===== Closing CTA ===== */
-.closing-cta {
-  padding: 100px 32px;
-  text-align: center;
-  background: #000000;
-}
-.closing-cta-inner {
-  max-width: 640px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-}
-/* Avatar cluster — exact match to employer .ha pattern */
-.avatar-cluster {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  max-width: 560px;
-  margin: 0 auto;
-}
-.ha {
-  border-radius: 50%;
-  padding: 3px;
-  flex-shrink: 0;
-}
-.ha-float {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #ddd;
-  animation-name: avFloat;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-}
-.ha-float img, .ha-float .avatar-init {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.avatar-init {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #E4EDE9;
-  font-family: 'Inter Tight', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--ink-3);
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-}
-.closing-cta h2 {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  color: #ffffff;
-  max-width: 18ch;
-}
-.closing-cta-sub {
-  font-size: 17px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.55;
-  max-width: 44ch;
-}
-.btn-light {
-  background: #ffffff;
-  color: #0A0A0A;
-  border-color: #ffffff;
-}
-.btn-light:hover {
-  background: rgba(255,255,255,0.88);
-  color: #0A0A0A;
-  box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);
-}
+/* Closing CTA → shared .section-cta + .btn-cta in ds/ptf.css */
 
 /* ===== Responsive ===== */
 @media (max-width: 900px) {
 .opp-grid { grid-template-columns: repeat(2, 1fr); }
 .benefits-row { grid-template-columns: 1fr 1fr; }
-.how-inner { grid-template-columns: 1fr; gap: 48px; }
-.how-portrait-card { aspect-ratio: 4 / 3; }
-.hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: left; }
-.hero-text { align-items: flex-start; }
-.hero-stats { justify-content: flex-start; }
-.hero-domains { justify-content: flex-start; max-width: 100%; }
+/* how-inner / how-portrait-card responsive → from ds/ptf.css */
+/* hero centered on mobile (matches the train page) */
+.hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+.hero-text { align-items: center; text-align: center; }
+.hero-headline, .hero-sub { text-align: center; }
+.hero-stats { justify-content: center; }
+.hero-domains { justify-content: center; max-width: 100%; }
 .hmc-float-wrap { left: 20px; transform: none; bottom: 20px; }
 }
 @media (max-width: 600px) {
 h1.display br { display: none; }
-.section { padding: 48px 20px; }
+/* .section padding → responsive --section-y token */
 .hero { padding: 64px 20px 48px; min-height: auto; }
 .hero-glow { width: 500px; height: 400px; }
 .hero-photo { height: 300px; object-fit: cover; object-position: 35% 20%; }
 .opp-grid { grid-template-columns: 1fr; }
 .hero-stats { gap: 8px; flex-wrap: wrap; }
 .hero-domains { gap: 8px; }
-.mission { padding: 64px 20px; }
 .benefits-row { grid-template-columns: 1fr; }
-.closing-cta { padding: 64px 20px; }
 .hero-match-card { width: 230px; font-size: 13px; }
 .hmc-float-wrap { bottom: 16px; left: auto; right: 12px; transform: none; }
 .stat-big-num { font-size: clamp(44px, 12vw, 72px); }
 .logo-strip { padding: 36px 0; }
 .logo-strip-viewport { mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); }
 .logo-strip-track img { height: 36px; }
-.section { padding: 36px 20px; }
 .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
 .drawer-group:last-of-type { border-bottom: none; }
 .drawer-cat {
@@ -1314,7 +1013,7 @@ h1.display br { display: none; }
     <div class="benefit-card">
       <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs><linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <path fill="url(#sg1)" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.9 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.66-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+        <path fill="url(#sg1)" stroke="url(#sg1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
       </svg>
       <h3>Work from anywhere</h3>
       <p class="benefit-insight">Building AI that works for everyone starts with experts from everywhere.</p>
@@ -1324,7 +1023,7 @@ h1.display br { display: none; }
     <div class="benefit-card">
       <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs><linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <path fill="url(#sg2)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+        <path fill="url(#sg2)" stroke="url(#sg2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
       </svg>
       <h3>Earn what your expertise is worth</h3>
       <p class="benefit-insight">Your knowledge has real market value — and now there's a direct way to cash in on it.</p>
@@ -1334,7 +1033,7 @@ h1.display br { display: none; }
     <div class="benefit-card">
       <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs><linearGradient id="sg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-        <path fill="url(#sg3)" d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+        <path fill="url(#sg3)" stroke="url(#sg3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
       </svg>
       <h3>Build real AI experience</h3>
       <p class="benefit-insight">Do work that matters beyond the paycheck.</p>
@@ -1534,10 +1233,8 @@ h1.display br { display: none; }
 </section>
 
 <!-- MISSION STATEMENT -->
-<section class="mission">
-<div class="mission-inner">
-  <p>Your perspective is your superpower. Put it to work, get paid for it, and help build AI that actually works for everyone.</p>
-</div>
+<section class="section-mission">
+  <p class="mission-statement">Your perspective is your superpower. Put it to work, get paid for it, and help build AI that actually works for everyone.</p>
 </section>
 
 <!-- STATS -->
@@ -1567,7 +1264,7 @@ h1.display br { display: none; }
 
 <!-- JOB BOARD -->
 <section class="section" style="background: var(--bg);">
-<div class="section-narrow" style="max-width: 1100px; margin: 0 auto; text-align: center;">
+<div class="section-narrow" style="max-width: var(--content); margin: 0 auto; text-align: center;">
   <div class="section-head">
     <h2>Not looking for AI work<br><em class="italic-plain">right now?</em></h2>
     <p>Browse thousands of jobs across every industry and function on our job board.</p>
@@ -1703,12 +1400,12 @@ h1.display br { display: none; }
 </section>
 
 <!-- CLOSING CTA -->
-<section class="closing-cta">
-<div class="closing-cta-inner">
+<section class="section-cta">
+<div class="section-cta-inner">
 
 <h2>Start earning from what you already know.</h2>
-  <p class="closing-cta-sub">Your first match is one application away. It takes under 10 minutes.</p>
-  <a href="join.html" class="btn btn-light">Find your first opportunity →</a>
+  <p>Your first match is one application away. It takes under 10 minutes.</p>
+  <a href="join.html" class="btn btn-cta">Find your first opportunity →</a>
 
 </div>
 </section>

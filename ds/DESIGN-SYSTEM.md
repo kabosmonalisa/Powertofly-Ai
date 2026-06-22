@@ -125,6 +125,21 @@ Mobile drawer (grouped) classes for the nav: `.drawer-group`, `.drawer-cat`, `.d
 ### Steps / timeline
 - `.steps` + `.step` (+ `.step-num`, `.step-content`) — numbered vertical steps with dashed connector. Add `.visible` to reveal on scroll.
 
+### Section components (the big repeating layouts)
+These are the "you describe it, here's the component" blocks. All shared in `ptf.css`.
+
+| You say… | Component | Notes |
+|---|---|---|
+| "stats + portrait with the P" | `.section-stats` > `.stats-card-wrap` (`.stats-portrait` + `.stats-card-dark` with `.stat-big-num`/`.stat-unit`/`.stat-big-label`) | Set the photo via inline `background-image` on `.stats-portrait`. For a **light** photo, add `.stats-portrait--light` so the corner icon inverts. |
+| "3 cards in a row" | `.benefit-card` row | see Cards above. |
+| "how-it-works timeline" | `.how-inner` (2-up grid) = `.how-portrait-card` + `.steps` | Photo via inline `background-image`; corner icon `.how-portrait-icon`. |
+| "alternating illustration rows" | `.experts-list` > `.expert-row` (`.sc-left` copy + `.sc-right` panel) | Every 2nd row auto-flips sides. Tint the panel with `.sc-tint-blue` / `.sc-tint-green` / `.sc-tint-amber`. Fill the panel with the `.sc-*` content utilities (`.sc-person-card`, `.sc-mock`, `.sc-badge-*`, …). `.sc-tag` is **plain green uppercase — never a pill.** |
+| "one big mission / statement line" | `.section-mission` > `.mission-statement` | One large centered sentence (`<h2 class="mission-statement">`). Flips white on a `.theme-dark` page. |
+| "dark final CTA band" | `.section-cta` > `.section-cta-inner` (h2 + p + `.btn-cta`) | The dark "book a call / get started" band. Replaces the old per-page `.section-book` / `.closing-cta` / `.btn-book`. |
+| "4-up stat band (icon + number)" | `.section-statband` > `.statband-inner` > `.statband-item` (`.statband-icon` + `.statband-text` > `.statband-num` + `.statband-lbl`) | A hairline-separated row of stats; 4-up → 2×2 on mobile. Light by default; flips on a `.theme-dark` page. |
+
+**Not yet a shared component:** hire's "3 cards floating around a center portrait" scroll-scene (`.hire-center-portrait` + `.hire-float-*`) is page-specific — it's an absolute-positioned sticky-scroll effect, not a reusable layout. Don't reach for it as if it were shared.
+
 ### Dark theme (opt-in) — one class does everything
 **Add `class="theme-dark"` to `<body>`. That's the whole instruction for a dark page.** The entire chrome flips automatically — you never re-spec dropdowns or pills:
 - Nav background, brand logo, hamburger, buttons → dark.
@@ -138,8 +153,28 @@ Scoped under `.theme-dark`, so light pages are never affected. This is the train
 
 > If you ask for a dark-mode page, this is automatic. If anything in the chrome still shows light on a `theme-dark` page, that's a bug to fix in `ptf.css` — not something to patch per page.
 
+### Interactive illustrations (the train-style mock cards) — the `.sci` kit
+The dark, cursor-driven mock illustrations (like train's expert-row panels) are now a **declarative kit** — no hand-written keyframes. Build a scene from shared primitives and tag the targets; `PTF.initIllustrations()` (auto-runs) animates a cursor that glides to each `[data-sci-step]` in order and "clicks" it, toggling `.is-on`.
+
+- **Scene:** `.sci` (relatively positioned). Put one `.sci-cursor` inside (outer = position, inner `.sci-cursor-tip` = the click scale) plus a `.sci-card` (dark mock card: `.sci-card-hd` / `.sci-card-icon` / `.sci-card-title` / `.sci-card-sub`).
+- **Reactive targets** (style their `.is-on` state, the driver toggles it): `.sci-row`, `.sci-dot`, `.sci-chip`, `.sci-reveal` (hidden→shown). Tag each with `data-sci-step="N"`. **Targets sharing the same N light together on one click.**
+- **Group avatars:** `.sci-avatars` > `.sci-av` (+ `.sci-av-lbl`) — always a diverse cluster, never a single individual.
+- **Pacing:** `data-sci-hold` (ms per step, default 1300), `data-sci-glide` (travel ms, default 520). Honors `prefers-reduced-motion` (shows final state, no motion); starts on scroll-in.
+
+```html
+<div class="sci sci-card" data-sci-hold="1200">
+  <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+  <div class="sci-rows">
+    <div class="sci-row" data-sci-step="1">RLHF eval rubric <span class="sci-chip" data-sci-step="1">Review</span></div>
+    <div class="sci-row" data-sci-step="2">Dataset curation <span class="sci-dots"><i class="sci-dot" data-sci-step="2"></i><i class="sci-dot" data-sci-step="2"></i></span></div>
+  </div>
+</div>
+```
+Illustration rules (apply on every illustration): dark canvas + green (`#4FE8A9`) accents only; one cursor per scene; labels reflect the **real adjacent copy** (no lorem); group/diverse avatars; and **no two adjacent illustrations share the same archetype/composition** (don't bore the user page-to-page). *(The `/illustration` skill — Phases B/C — will pick an archetype by content and enforce variety; this kit is the foundation it builds on.)*
+
 ### Behavior — `ds/ptf.js` (`window.PTF`)
 - `PTF.initNav()` — **auto-runs.** Hamburger drawer + scroll-transparency.
+- `PTF.initIllustrations()` — **auto-runs.** Drives `.sci` interactive illustrations (no-op if none).
 - `PTF.initMegaNav()` — call it if the page has the mega-flyout nav.
 - `PTF.initHeader()` — call it if the page uses the fixed `.site-header` + alert bar.
 - `PTF.initMarquee(trackEl, items)` — fill a marquee track with duplicated items.
@@ -160,32 +195,38 @@ Scoped under `.theme-dark`, so light pages are never affected. This is the train
 
 These are the recurring frustrations from past sessions. They are non-negotiable. Follow them without being asked.
 
-### 1. Vertical spacing — ONE law (train is the reference)
-The #1 recurring complaint. The reference is the **train page**: every body section is **100px top / 100px bottom → a consistent 200px between sections.**
+### 1. Vertical spacing — ONE law (two stacked halves, neutral gap)
+The #1 recurring complaint. The model:
 
-**The law (this is the only source of vertical space between sections):**
-- **Every body section uses `.section`** = `var(--section-y)` (**100px**) top & bottom. The gap between any two sections is therefore always **200px**. Nothing else may add space.
-- **No margins on sections. No spacer `<div>`s. No `margin-top` to "nudge" a gap.** If a gap looks wrong, the cause is a rule violation — find it, don't add a counter-margin.
-- A section's **background colour never changes its spacing** — dark and white sections sit on the same 200px rhythm. (If consecutive white sections *feel* like a lot of space, that's the honest 200px, not a bug — it's consistent with train.)
-- Denser/airier only via the **variant class**, never a raw number: `.section-tight` / `.section-loose`.
+**Every section owns a half-gap on its TOP and its BOTTOM, both equal to `var(--section-y)`.** Two adjacent sections **stack** their halves → the gap between *any* two sections is always `2 × --section-y`. Identical everywhere. That's "two stacked, both sections own the gap."
 
-**The only two formal exceptions (everything else follows the law):**
-1. **Hero** — owns its internal padding (it sits against the nav, no "gap above").
-2. **Stat-strip** — the thin band right after the hero (e.g. `.section-statband`) is an attached strip, not a rhythm section.
-3. *(Special)* a **pinned/scroll-animation section** (e.g. hire's `.hire-scroll-outer`) may use a larger **bottom** padding for animation clearance so its moving cards don't crowd the next title — comment it as such.
+**The gap is NEUTRAL (outside the colour), not inside a coloured block:**
+- The half-gap is a section's own **padding**, in the section's own (neutral) background. So a white→white boundary is neutral white space; the rhythm never changes at a colour change.
+- A **coloured block must NOT bleed its colour into the gap.** Put the colour on an **inner element** that hugs its content, so the surrounding padding stays neutral. (The colour owns its content's breathing room; the *gap* stays neutral.)
+- **No margins on sections. No spacer `<div>`s. No `margin-top` nudges.** A wrong gap = a rule violation; find it, don't counter-margin it.
+- Denser/airier only via the variant token (`.section-tight` / `.section-loose`), never a raw px.
 
-Why this kept recurring: space used to come from three places (padding + stray margins + special-section clearance), so it was never one predictable number. Now it's one number (`--section-y`), with the exceptions named above.
+**ONE token, desktop AND mobile.** `--section-y` is `100px`, and shrinks to `60px` on mobile via a single `:root` media query. **Never add per-section mobile padding** — that's exactly what broke the even rhythm before. Change the token; every section follows.
+
+**The only formal exceptions (everything else follows the law), each commented in code:**
+1. **Hero** — owns its internal padding (sits against the fixed header, no "gap above").
+2. **Stat-strip** — a thin band like `.section-statband` is an *attached strip* (flush, `0` vertical padding), not a rhythm section; padding here would render as an ugly band.
+3. **Pinned/scroll-animation section** (e.g. hire's `.hire-scroll-outer`) — may use larger **bottom** padding so its absolutely-positioned moving cards don't crowd the next section (they're out of normal flow, so the section can't auto-size to them).
+4. **Full-bleed closer** — the final `.section-cta` is a full-bleed dark band that blends into the footer (one continuous dark region). It necessarily wraps its content in its own colour (loose rhythm); the neutral gap is only *above* it, none below (it touches the footer).
 
 ### 2. Width & alignment: nav and footer share one edge; content sits *inside* it
 The other recurring complaint: *"make the top nav elements align with the elements from the footer"* and *"align the top bar to the content, not the screen edge."*
 
 The house pattern (from the train page, the most recent reference): the **shell** (nav + footer) is a touch wider than the **content**, so the nav and footer frame the content rather than line up dead-even with the screen edge.
 
-The width ladder (tokens — use these, don't invent pixel values):
-- `--container` (**1280px**) → `.nav-inner`, `.footer-inner`. Nav and footer ALWAYS match, so they align.
-- `--content-wide` (**1180px**) → `.section-narrow`. Main section content — just inside the shell.
-- `--content` (**1080px**) → a comfortable column.
-- `--content-narrow` (**720px**) → headlines, prose, form cards (`.section-head` already uses this).
+The width ladder (tokens — use these, don't invent pixel values). **Body content is always INSET inside the shell — never as wide as the bar:**
+- `--container` (**1400px**) → `.nav-inner`, `.footer-inner` ONLY. The outer shell. Nav and footer always match, so they align with each other.
+- `--content-body` (**1200px**) → the **default body-section width** — the widest content blocks (expert rows, stat grids, use-case grids). Inset from the shell.
+- `--content-wide` (**1180px**) → `.section-narrow`. Section heads / slightly narrower blocks.
+- `--content` (**1080px**) → a comfortable column / card rows.
+- `--content-narrow` (**720px**) → headlines, prose, form cards.
+
+❌ Don't override `.section-narrow` (or any body wrapper) to `--container`/1400 — that makes text as wide as the bar, the exact thing rule 2 bans. Heroes and bespoke full-width scenes may sit at 1400 (edge); ordinary content sections may not.
 
 So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 → text 720.** Never make body text as wide as the nav bar. Left/right padding is always `var(--gutter)` (32px).
 
@@ -214,22 +255,31 @@ So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 �
 - Hero/section video (like `train/hero-side.mp4`): source from Pexels video; keep it muted, looping, with a play/pause control.
 - Always set meaningful `alt`. Diversity is the brand — it must be visible in every people-shot.
 
-### 5. Icons & illustrations: Material (MUI) style, thick/fat, iridescent gradient
-*"illustration styles"* must be consistent. **The rule:**
+### 5. Icons: THE one approved recipe — MUI Outlined + gradient fill&stroke + square corners
+**Lizu approved exactly one icon style for the whole site (2026-06-18). Every icon — existing or new — is built this way. No mixing filled/outline, no other libraries, no improvising.** The live proof sheet is [`ds/_icons.html`](_icons.html) — keep it the source of truth and mirror any icon change there.
 
-- **Confirmation / hero / decorative icons are MUI-style FILLED shapes, fat and bold, filled with the iridescent gradient** (cyan → green → lime). Example — the thank-you check is the solid Material `check` glyph filled with `url(#ptf-check)` gradient:
-  ```html
-  <svg width="60" height="60" viewBox="0 0 24 24">
-    <defs><linearGradient id="ptf-check" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
-    </linearGradient></defs>
-    <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="url(#ptf-check)"/>
-  </svg>
-  ```
-- ❌ **Never** a colored bubble/circle with a flat mono icon inside it. The gradient goes ON the icon shape itself.
-- Small UI icons (chevrons, checks, arrows in meta rows) are **thick rounded strokes** (`stroke-width` 1.8–2, round caps) — the MUI "thicker/fatter" look — never thin hairlines.
-- Accent on light = `var(--green)`; on dark = `var(--green-mid)`.
-- One icon family per page. Don't mix sets.
+**The recipe (one `<path>`):**
+```html
+<svg viewBox="0 0 24 24">
+  <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)"
+        stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"
+        d="<MUI OUTLINED icon path>"/>
+</svg>
+```
+And the gradient def once per page (canonical id `ptf-grad`):
+```html
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
+  </linearGradient>
+</defs></svg>
+```
+- **Source = genuine MUI Material Icons, Outlined variant** (`people_outline`, `favorite_border`, `calendar_today`, `vpn_key_outlined`, `bolt_outlined`, `verified_user_outlined`, `star_border`, `schedule`, `public`, `videocam_outlined`, `lightbulb_outlined`, `attach_money`, `auto_awesome`, …). **NOT** Feather/Lucide — confirm it's really MUI before using.
+- **Fill + matching gradient stroke** = fattens the thin MUI outline uniformly. `1.4` is the approved weight (bump the single number if a future ask says "fatter").
+- **Square corners** — `stroke-linejoin="miter" stroke-linecap="square"` — same look as the thank-you check. Genuinely round shapes (clock/globe circles) stay round on their own; never force a curve straight.
+- The thank-you check is the same family at a heavier stroke: `stroke-width="6.5"`, `stroke-linecap="square"`, `stroke-linejoin="miter"`, no fill.
+- ❌ **Never** a colored bubble/circle with a flat mono icon inside it. The gradient goes ON the icon shape itself. ❌ Never thin hairline strokes, never a different icon set.
+- One icon family per page (this one). Don't mix sets.
 
 ---
 

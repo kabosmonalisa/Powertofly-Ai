@@ -369,27 +369,9 @@ h1.hero-headline {
 .logo-img:hover { filter: grayscale(0%) opacity(1); }
 
 /* ===== Mission statement section ===== */
-.section { padding: 100px 32px; }
-.section-narrow { max-width: 1400px; margin: 0 auto; }
-.section-mission {
-  background: #ffffff;
-  padding: 100px 32px;
-}
-.mission-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-.mission-h {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: clamp(34px, 4.4vw, 60px);
-  line-height: 1.22;
-  letter-spacing: -0.022em;
-  max-width: 1400px;
-  margin: 0 auto;
-  text-align: center;
-  color: var(--ink);
-}
+.section { padding: var(--section-y) var(--gutter); }
+/* .section-narrow inherits its --content-wide (1180) token from ptf.css — inset, not as wide as the bar */
+/* mission now uses the shared .section-mission / .mission-statement (ds/ptf.css) */
 
 /* ===== Services ===== */
 .section-head {
@@ -492,68 +474,8 @@ h1.hero-headline {
 }
 .service-card .more:hover { gap: 12px; transition: gap 200ms ease; }
 
-/* ===== Stats portrait section ===== */
-.section-stats {
-  background: var(--bg);
-  padding: 100px 32px;
-}
-.stats-card-wrap {
-  max-width: 1180px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.15fr;
-  gap: 8px;
-  border-radius: 32px;
-}
-.stats-portrait {
-  border-radius: 28px;
-  overflow: hidden;
-  /* no fixed aspect-ratio on desktop: the stats card drives the height, portrait fills it (kills the dead space) */
-  background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&h=1200&fit=crop&q=80');
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-.stats-portrait-icon {
-  position: absolute;
-  top: 20px; left: 20px;
-  width: 52px; height: 52px;
-  filter: drop-shadow(0 6px 16px rgba(0,0,0,0.28));
-}
-.stats-card-dark {
-  background: #0A0A0A;
-  border-radius: 28px;
-  padding: 64px 56px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 40px;
-  color: #fff;
-}
-.stat-big-num {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: clamp(56px, 8vw, 104px);
-  line-height: 1;
-  letter-spacing: -0.04em;
-  color: #ffffff;
-}
-.stat-unit {
-  font-size: 0.28em;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin-left: 4px;
-  vertical-align: baseline;
-}
-.stat-big-label {
-  margin-top: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.58);
-  letter-spacing: 0.01em;
-  line-height: 1.45;
-}
+/* ===== Stats portrait section → structure from ds/ptf.css; only the photo is page-specific ===== */
+.stats-portrait { background-image: url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&h=1200&fit=crop&q=80'); }
 
 /* ===== Testimonials ===== */
 .section-proof { background: var(--bg); padding-bottom: 100px; }
@@ -618,8 +540,8 @@ h1.hero-headline {
 
 /* ===== Book a call ===== */
 /* ===== Testimonials ===== */
-.section-testimonials { padding: 100px 32px; background: var(--bg); }
-.testimonials-inner { max-width: 1400px; margin: 0 auto; }
+.section-testimonials { padding: var(--section-y) var(--gutter); background: var(--bg); }
+.testimonials-inner { max-width: var(--content-wide); margin: 0 auto; }
 .nav-inner { max-width: 1400px; }
 .footer-inner { max-width: 1400px; }
 .testimonials-grid {
@@ -679,165 +601,26 @@ h1.hero-headline {
   .testimonials-grid { grid-template-columns: 1fr; }
 }
 
-.section-book {
-  background: #000000;
-  padding: 100px 32px;
-  text-align: center;
-}
-.book-inner {
-  max-width: 680px;
-  margin: 0 auto;
-}
-.book-eyebrow {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #4FE8A9;
-  margin-bottom: 20px;
-}
-.book-headline {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(36px, 5vw, 68px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-  color: #ffffff;
-  margin-bottom: 24px;
-}
-.book-sub {
-  font-size: 18px;
-  color: rgba(255,255,255,0.5);
-  line-height: 1.6;
-  max-width: 640px;
-  margin: 0 auto 40px;
-}
-.btn-book {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: #ffffff;
-  color: #0A0A0A;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  padding: 16px 32px;
-  border-radius: 100px;
-  border: none;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
-}
-.btn-book:hover { background: rgba(255,255,255,0.88); color: #0A0A0A; box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3); transform: translateY(-1px); }
+/* Final CTA → shared .section-cta in ds/ptf.css */
 
 
 /* ===== Sticky-stack services ===== */
-.experts-inner { max-width: 1200px; margin: 0 auto; }
-.experts-list { display: flex; flex-direction: column; gap: 80px; }
-.expert-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  height: 460px; gap: 60px; align-items: stretch;
-}
-.sc-left {
-  padding: 4rem 40px 4rem 60px;
-  display: flex; flex-direction: column; justify-content: center; gap: 16px;
-}
-.sc-tag {
-  display: inline-flex; align-items: center;
-  padding: 4px 12px; border-radius: 999px;
-  background: rgba(79,232,169,0.14);
-  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
-  text-transform: uppercase; color: #0A8C66; width: fit-content;
-}
-.sc-left h3 {
-  font-family: 'Inter Tight', 'Inter', sans-serif;
-  font-size: clamp(20px, 2vw, 26px); font-weight: 700;
-  line-height: 1.22; letter-spacing: -0.025em; color: var(--ink);
-}
-.sc-bullets { list-style: none; padding: 0; margin: 16px 0 0; display: flex; flex-direction: column; gap: 10px; }
-.sc-bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; line-height: 1.45; color: var(--ink-2); }
-.sc-ck {
-  flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%;
-  background: rgba(79,232,169,0.18);
-  display: inline-flex; align-items: center; justify-content: center; margin-top: 1px;
-}
-.sc-more {
-  font-size: 14px; font-weight: 600; color: #0A8C66;
-  text-decoration: none; display: inline-flex; align-items: center;
-  gap: 5px; transition: gap 200ms ease;
-}
-.sc-more:hover { gap: 11px; }
-.sc-body { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
-.sc-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.sc-title-chip { font-size: 12px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
-.sc-right { position: relative; overflow: hidden; border-radius: 20px; }
+/* expert rows (.expert-row/.sc-*) now from ds/ptf.css — only page-specific bits below.
+   (Adopting shared also fixes the old pill .sc-tag and removes the peek-card shadow.) */
 .sc-right-hire    { background: #E8EFF5; }
 .sc-right-train   { background: #EAFAF2; }
 .sc-right-consult { background: #FAF1E8; }
-/* Card 1 — photo */
-.sc-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 95%; display: block; }
-.sc-person-card {
-  position: absolute; bottom: 28px; left: 28px;
-  background: #fff; border-radius: 14px; padding: 12px 16px;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.15); min-width: 190px;
-}
-.sc-person-name { font-size: 14px; font-weight: 700; color: var(--ink); }
-.sc-person-role { font-size: 12px; color: #0A8C66; font-weight: 500; margin-top: 2px; }
-.sc-person-sep  { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
-.sc-person-verify { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-3); font-weight: 500; }
-.sc-verify-dot {
-  width: 14px; height: 14px; border-radius: 50%;
-  background: rgba(79,232,169,0.2);
-  display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-/* Cards 2 & 3 — mock UI */
-.sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.sc-mock-stack { position: relative; width: 78%; }
-.sc-mock-peek-card {
-  position: absolute; top: 8px; right: -6px; bottom: -8px; left: 6px;
-  background: rgba(210,218,222,0.75); border-radius: 16px; z-index: 0;
-}
-.sc-mock {
-  position: relative; z-index: 1;
-  background: #fff; border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 18px;
-}
-.sc-mock-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
-.sc-mock-icon-box {
-  width: 30px; height: 30px; border-radius: 8px;
-  background: rgba(79,232,169,0.18);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.sc-mock-title { font-size: 13px; font-weight: 700; color: var(--ink); }
-.sc-mock-sub   { font-size: 11.5px; color: var(--ink-3); margin: 2px 0 10px 40px; }
-.sc-skeleton   { background: var(--line); border-radius: 4px; height: 8px; }
-.sc-mock-hr { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
-.sc-mock-rows { display: flex; flex-direction: column; gap: 5px; }
-.sc-mock-row {
-  display: flex; align-items: center; gap: 6px;
-  padding: 7px 8px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
-}
-.sc-mock-row.active { border-color: #4FE8A9; }
-.sc-mock-row-lbl { flex: 1; min-width: 0; font-size: 11.5px; font-weight: 500; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sc-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.sc-badge-green { background: rgba(79,232,169,0.2); color: #0A8C66; }
-.sc-badge-amber { background: rgba(245,166,35,0.15); color: #A85E00; }
-.sc-badge-gray  { background: var(--bg-soft); color: var(--ink-3); }
-.sc-row-av { width: 18px; height: 18px; border-radius: 50%; background: #ddd; overflow: hidden; flex-shrink: 0; }
-.sc-row-av img { width: 100%; height: 100%; object-fit: cover; }
-.sc-status-done { font-size: 10px; color: #0A8C66; font-weight: 600; flex-shrink: 0; }
-.sc-status-prog { font-size: 10px; color: var(--ink-3); font-weight: 500; flex-shrink: 0; }
+.sc-photo { object-position: center 95%; }   /* page-specific crop */
+.sc-skeleton { background: var(--line); border-radius: 4px; height: 8px; }
 .sc-status-none { font-size: 10px; color: var(--ink-3); opacity: 0.6; flex-shrink: 0; }
-.sc-row-check   { flex-shrink: 0; }
-/* CTAs below stack */
+.sc-row-check { flex-shrink: 0; }
 .sc-ctas { display: flex; gap: 12px; justify-content: center; padding: 8px 0 60px; position: relative; z-index: 10; }
 
 /* Responsive */
 @media (max-width: 900px) {
   .nav-links { display: none; }
   .services-grid, .testimonials { grid-template-columns: 1fr; }
-  .stats-card-wrap { grid-template-columns: 1fr; }
-  .stats-portrait { aspect-ratio: 4/3; }
-  .stats-card-dark { padding: 48px 32px; }
+  /* stats-card-wrap responsive → from ds/ptf.css */
   .footer-cols { grid-template-columns: 1fr 1fr; }
   .card-input { right: -2%; width: 240px; }
   .card-profile { left: -2%; width: 230px; }
@@ -880,15 +663,10 @@ h1.hero-headline {
   .hero-ticker-wrap { margin-top: 36px; }
   .cohort-chip { font-size: 12px; padding: 6px 12px; }
 
-  /* Sections */
-  .section { padding: 48px 20px; }
-  .section-mission { padding: 40px 20px; }
-  .section-stats { padding: 48px 20px; }
+  /* section padding → even via the responsive --section-y token (no per-section mobile overrides) */
   .section-head { margin-bottom: 28px; }
-  .mission-h { font-size: clamp(24px, 6vw, 34px); }
 
-  /* Stats */
-  .stats-card-dark { padding: 36px 24px; }
+  /* stats-card-wrap responsive → from ds/ptf.css */
 
   /* Logos */
   .fh-logos-strip { padding: 36px 0; }
@@ -901,15 +679,7 @@ h1.hero-headline {
   .footer-inner { padding: 56px 20px 32px; }
   .footer-brand svg { width: 120px; height: auto; }
 
-  /* Sticky stack — mobile */
-  .sc-card { grid-template-columns: 1fr; height: auto; }
-  .sc-right { display: block; height: 260px; }
-  .sc-left { padding: 32px 24px; }
-  /* Scale mock UIs to fit mobile panel */
-  .sc-mock-stack { transform: scale(0.78); transform-origin: center; }
-  /* Hide person card overlay on mobile — too cramped */
-  .sc-person-card { display: none; }
-  .sc-card:nth-child(2), .sc-card:nth-child(3) { margin-top: 8vh; }
+  /* expert-row mobile responsive → from ds/ptf.css; card stays over the photo on mobile */
   .sc-ctas { flex-direction: column; align-items: center; }
 
   /* Hero mobile */
@@ -1172,84 +942,22 @@ h1.hero-headline {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  max-width: 1100px; margin: 0 auto;
+  max-width: var(--content); margin: 0 auto;
 }
-.why-card {
-  border-radius: 20px;
-  border: 1px solid rgba(10,10,10,0.09);
-  box-shadow: var(--shadow-card);
-  background: var(--bg);
-  padding: 32px 28px 36px;
-  display: flex; flex-direction: column; gap: 12px;
-}
-.why-spark-col { display: none; }
-.why-vline { display: none; }
-.why-body { display: contents; }
-.why-eyebrow {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: #0A8C66;
-}
-.why-card h3 {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 19px; font-weight: 700;
-  letter-spacing: -0.03em; line-height: 1.2; color: var(--ink);
-}
-.why-card p { font-size: 15px; color: var(--ink-3); line-height: 1.6; }
-.why-sparkle {
-  width: 64px; height: 64px; margin-bottom: 4px;
-}
+/* why-cards now use the shared .benefit-card / .benefit-eyebrow / .benefit-sparkle (ds/ptf.css) */
 
 @media (max-width: 768px) { .why-row { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .why-row { grid-template-columns: 1fr; } }
 
 /* ===== Business Outcomes ===== */
 /* ===== Outcomes — floating card scene ===== */
-.outcomes-scene-outer { background: #fff; padding: 100px 32px; overflow: hidden; position: relative; z-index: 1; }
+.outcomes-scene-outer { background: #fff; padding: var(--section-y) var(--gutter); overflow: hidden; position: relative; z-index: 1; }
 .outcomes-scene-inner {
   display: flex; flex-direction: column; align-items: center;
   max-width: 1400px; margin: 0 auto;
 }
 .outcomes-scene-inner .section-head { margin-bottom: 60px; }
-.outcomes-wrap { position: relative; width: 100%; height: 400px; }
-.oc-float {
-  position: absolute; z-index: 3;
-  background: #fff; border: 1px solid var(--line);
-  border-radius: var(--r-xl); box-shadow: var(--shadow-card);
-  width: 400px; height: 160px; display: flex; align-items: stretch;
-  opacity: 0;
-  transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
-}
-.oc-float-spark-col {
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px 18px; flex-shrink: 0;
-}
-.oc-float-spark-col svg { width: 68px; height: 68px; }
-.oc-float-vline { width: 2px; background: var(--line); flex-shrink: 0; margin: 16px 0; }
-.oc-float-body { padding: 20px 20px; flex: 1; }
-.oc-float h4 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
-.oc-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
-
-/* left pair slides from left, right pair from right — meet in centre */
-.oc-float-1 { top: 50%; margin-top: -176px; left: calc(50% - 412px); transform: translateX(-900px); }
-.oc-float-2 { top: 50%; margin-top:   16px; left: calc(50% - 412px); transform: translateX(-900px); }
-.oc-float-3 { top: 50%; margin-top: -176px; left: calc(50% + 12px);  transform: translateX( 900px); }
-.oc-float-4 { top: 50%; margin-top:   16px; left: calc(50% + 12px);  transform: translateX( 900px); }
-
-.outcomes-wrap.cards-in .oc-float-1 { transform: translateX(0); opacity: 1; }
-.outcomes-wrap.cards-in .oc-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
-.outcomes-wrap.cards-in .oc-float-3 { transform: translateX(0); opacity: 1; transition-delay: 0.08s; }
-.outcomes-wrap.cards-in .oc-float-4 { transform: translateX(0); opacity: 1; transition-delay: 0.20s; }
-
-@media (max-width: 1000px) {
-  .outcomes-scene-outer { padding: 64px 20px; }
-  .outcomes-wrap { height: auto; display: flex; flex-direction: column; gap: 14px; align-items: center; }
-  .oc-float { position: static; opacity: 1; transform: none !important; width: 100%; max-width: 460px; height: auto; }
-}
-@media (max-width: 600px) {
-  .why-spark-col { padding: 16px 14px; }
-  .why-spark-col svg { width: 48px; height: 48px; }
-  .why-body { padding: 16px; }
-}
+/* .outcomes-wrap + .oc-float* (the floating outcome-cards scene) now come from ds/ptf.css */
 
 
 /* ===== FLYOUT NAV — employers page only ===== */
@@ -1323,14 +1031,13 @@ h1.hero-headline {
   text-decoration: none; color: inherit; cursor: pointer;
   transition: background .12s;
 }
-.fly-item:hover { background: var(--bg-soft); }
+.fly-item:hover .fly-title { color: var(--green); } /* hover = green text, no bg */
 .fly-title {
   font-family: 'Inter Tight', sans-serif;
   font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
   color: var(--ink); margin-bottom: 5px; line-height: 1.2;
   display: flex; align-items: center; gap: 6px;
 }
-.fly-item:hover .fly-title { color: var(--ink); }
 .fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 
 .fly-badge {
@@ -1723,32 +1430,32 @@ h1.hero-headline {
     </div>
     <div class="why-row">
 
-      <div class="why-card">
-        <svg class="why-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
           <defs><linearGradient id="wc1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#wc1)" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+          <path fill="url(#wc1)" stroke="url(#wc1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
         </svg>
-        <span class="why-eyebrow">Domain Expertise</span>
+        <span class="benefit-eyebrow">Domain Expertise</span>
         <h3>An expert community you can't find anywhere else.</h3>
         <p>A deep pool of mid-to-senior professionals spanning every industry, function, and seniority level — verified and ready to contribute from day one.</p>
       </div>
 
-      <div class="why-card">
-        <svg class="why-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
           <defs><linearGradient id="wc2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#wc2)" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+          <path fill="url(#wc2)" stroke="url(#wc2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
         </svg>
-        <span class="why-eyebrow">Global Reach</span>
+        <span class="benefit-eyebrow">Global Reach</span>
         <h3>Built on relationships no algorithm can replicate.</h3>
         <p>A global community with over 80% women and 70% BIPOC — the perspectives your AI needs to work for everyone.</p>
       </div>
 
-      <div class="why-card">
-        <svg class="why-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+      <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
           <defs><linearGradient id="wc3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-          <path fill="url(#wc3)" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+          <path fill="url(#wc3)" stroke="url(#wc3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
         </svg>
-        <span class="why-eyebrow">Flexible Pricing</span>
+        <span class="benefit-eyebrow">Flexible Pricing</span>
         <h3>Representative AI talent, priced so every team can access it.</h3>
         <p>Accessible pricing with no surprise markups. Staff aug, retained search, or project-to-hire — options that flex as your needs evolve.</p>
       </div>
@@ -1858,9 +1565,7 @@ h1.hero-headline {
 
 <!-- MISSION -->
 <section class="section-mission" style="display:none">
-  <div class="mission-inner">
-    <h2 class="mission-h">When your AI experts understand your industry from day one, your business scales faster, builds better models, and competes more effectively. PowerToFly delivers the right talent for the job.</h2>
-  </div>
+  <h2 class="mission-statement">When your AI experts understand your industry from day one, your business scales faster, builds better models, and competes more effectively. PowerToFly delivers the right talent for the job.</h2>
 </section>
 
 <!-- BUSINESS OUTCOMES -->
@@ -1876,7 +1581,7 @@ h1.hero-headline {
         <div class="oc-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path fill="url(#og1)" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+            <path fill="url(#og1)" stroke="url(#og1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1891,7 +1596,7 @@ h1.hero-headline {
         <div class="oc-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path fill="url(#og2)" d="M7 2v11h3v9l7-12h-4l4-8z"/>
+            <path fill="url(#og2)" stroke="url(#og2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M14.69 2.21L4.33 11.49c-.64.58-.28 1.65.58 1.73L13 14l-4.85 6.76c-.22.31-.19.74.08 1.01.3.3.77.31 1.08.02l10.36-9.28c.64-.58.28-1.65-.58-1.73L11 10l4.85-6.76c.22-.31.19-.74-.08-1.01-.3-.3-.77-.31-1.08-.02z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1906,7 +1611,7 @@ h1.hero-headline {
         <div class="oc-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path fill="url(#og3)" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+            <path fill="url(#og3)" stroke="url(#og3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -1921,7 +1626,7 @@ h1.hero-headline {
         <div class="oc-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <defs><linearGradient id="og4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-            <path fill="url(#og4)" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+            <path fill="url(#og4)" stroke="url(#og4)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
           </svg>
         </div>
         <div class="oc-float-vline"></div>
@@ -2037,12 +1742,12 @@ h1.hero-headline {
 </section>
 
 <!-- BOOK A CALL -->
-<section class="section-book">
-  <div class="book-inner">
-    <p class="book-eyebrow">Let's talk</p>
-    <h2 class="book-headline">Ready to move faster<br>on AI?</h2>
-    <p class="book-sub">30 minutes with a team that has spent a decade connecting companies with the domain-qualified experts no one else can find.</p>
-    <a href="../book/" class="btn btn-book">Book a discovery call →</a>
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow eyebrow-on-dark">Let's talk</span>
+    <h2>Ready to move faster <br>on AI?</h2>
+    <p>30 minutes with a team that has spent a decade connecting companies with the domain-qualified experts no one else can find.</p>
+    <a href="../book/" class="btn btn-cta">Book a discovery call →</a>
   </div>
 </section>
 

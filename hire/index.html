@@ -73,7 +73,7 @@
 .fly-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; margin-bottom: 10px; }
 .mega-items { display: flex; flex-direction: column; gap: 4px; }
 .fly-item { display: block; padding: 11px 12px; margin: 0 -12px; border-radius: 8px; text-decoration: none; color: inherit; cursor: pointer; transition: background .12s; }
-.fly-item:hover { background: var(--bg-soft); }
+.fly-item:hover .fly-title { color: var(--green); } /* hover = green text, no bg */
 .fly-title { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; line-height: 1.2; display: flex; align-items: center; gap: 6px; }
 .fly-desc  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 .fly-badge { display: inline-flex; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; font-family: 'Inter', sans-serif; }
@@ -106,17 +106,7 @@
 @media (max-width: 900px) { .nav-items { display: none; } .nav-cta { display: none; } }
 
 /* ── Hero eyebrow ── */
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #0A8C66;
-  margin-bottom: 20px;
-}
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: '';
-  display: block; width: 18px; height: 1.5px;
-  background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
-}
+/* hero eyebrow now uses the shared .eyebrow (ds/ptf.css) */
 
 /* ── Hero ── */
 .hero {
@@ -149,7 +139,8 @@ h1.hero-headline {
 /* ── Hire types ── */
 /* Pinned scroll section: extra BOTTOM clearance so the animated cards don't crowd
    the next section's title (documented exception to the 100/100 rule). */
-.hire-scroll-outer { background: var(--bg); padding: 100px 32px 160px; overflow: hidden; }
+/* the floating "project-to-hire" card hangs below the portrait, so this scene needs extra bottom room (intentional exception to the even --section-y rhythm) */
+.hire-scroll-outer { background: var(--bg); padding: var(--section-y) var(--gutter) 160px; overflow: hidden; }
 .hire-sticky-scene {
   display: flex; flex-direction: column; align-items: center;
   gap: 0; max-width: 1400px; margin: 0 auto;
@@ -191,100 +182,19 @@ h1.hero-headline {
 .hire-float p { font-size: 13px; color: var(--ink-3); line-height: 1.55; }
 
 /* ── Experts list ── */
-.section-experts { background: var(--bg); padding: 100px 32px; }
-.experts-inner { max-width: 1200px; margin: 0 auto; }
-.experts-list { display: flex; flex-direction: column; gap: 80px; }
-.expert-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  min-height: 360px; gap: 60px; align-items: stretch; /* illustration fills row — no phantom centering gap */
-}
-.sc-right { border-radius: 20px; min-height: 360px; }
-.sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-/* Plain green uppercase label — NO pill (matches train's proper treatment) */
-.sc-tag { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #0A8C66; }
-.sc-left h3 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.22; letter-spacing: -0.025em; color: var(--ink); }
-.sc-body { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
-/* Alternate the middle row — illustration LEFT, text RIGHT (matches the train page) */
-.experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: 1; }
-.experts-list .expert-row:nth-child(2) .sc-left  { grid-column: 2; grid-row: 1; padding: 4rem 60px 4rem 40px; }
-.sc-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.sc-title-chip { font-size: 12px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
-.sc-more { font-size: 14px; font-weight: 600; color: #0A8C66; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; transition: gap 200ms ease; margin-top: 4px; }
-.sc-more:hover { gap: 11px; }
-.sc-right { position: relative; overflow: hidden; }
-.sc-right-domain   { background: #E8EFF5; }
-.sc-right-function { background: #EAFAF2; }
-.sc-right-ai       { background: #FAF1E8; }
-.sc-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
-.sc-person-card { position: absolute; bottom: 28px; left: 28px; background: #fff; border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 28px rgba(0,0,0,0.15); min-width: 190px; }
-.sc-person-name { font-size: 14px; font-weight: 700; color: var(--ink); }
-.sc-person-role { font-size: 12px; color: #0A8C66; font-weight: 500; margin-top: 2px; }
-.sc-person-sep { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
-.sc-person-verify { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: var(--ink-3); font-weight: 500; }
-.sc-verify-dot { width: 14px; height: 14px; border-radius: 50%; background: rgba(79,232,169,0.2); display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.sc-mock-stack { position: relative; width: 78%; }
-.sc-mock-peek-card { display: none; }
-.sc-mock { position: relative; z-index: 1; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 18px; }
-.sc-mock-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
-.sc-mock-icon-box { width: 30px; height: 30px; border-radius: 8px; background: rgba(79,232,169,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.sc-mock-title { font-size: 13px; font-weight: 700; color: var(--ink); }
-.sc-mock-sub { font-size: 11.5px; color: var(--ink-3); margin: 2px 0 10px 40px; }
-.sc-mock-hr { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
-.sc-mock-rows { display: flex; flex-direction: column; gap: 5px; }
-.sc-mock-row { display: flex; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
-.sc-mock-row.active { border-color: #4FE8A9; }
-.sc-mock-row-lbl { flex: 1; min-width: 0; font-size: 11.5px; font-weight: 500; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sc-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.sc-badge-green { background: rgba(79,232,169,0.2); color: #0A8C66; }
-.sc-badge-amber { background: rgba(245,166,35,0.15); color: #A85E00; }
-.sc-badge-gray  { background: var(--bg-soft); color: var(--ink-3); }
-.sc-row-av { width: 18px; height: 18px; border-radius: 50%; background: #ddd; overflow: hidden; flex-shrink: 0; }
-.sc-row-av img { width: 100%; height: 100%; object-fit: cover; }
-.sc-status-done { font-size: 10px; color: #0A8C66; font-weight: 600; flex-shrink: 0; }
-.sc-status-prog { font-size: 10px; color: var(--ink-3); font-weight: 500; flex-shrink: 0; }
+.section-experts { background: var(--bg); padding: var(--section-y) var(--gutter); }
+/* expert rows (.experts-list/.expert-row/.sc-*) now come from ds/ptf.css; panel tints use .sc-tint-* */
 
 /* ── How it works — exact talents layout ── */
-.section-how { background: var(--bg); padding: 100px 32px; }
-.how-outer { max-width: 1200px; margin: 0 auto; }
-.how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
-.how-portrait-card { border-radius: 28px; overflow: hidden; aspect-ratio: 3/4; background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=1200&fit=crop&q=80'); background-size: cover; background-position: center top; position: relative; }
-.how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
-.steps {
-  position: relative;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-}
-.steps::before {
-  content: '';
-  position: absolute;
-  left: 23px; top: 44px; bottom: 44px;
-  width: 1px; border-left: 2px dashed rgba(10,10,10,0.12);
-  z-index: 0;
-}
-.step {
-  display: flex; gap: 24px; align-items: flex-start;
-  padding: 40px 0;
-  opacity: 0; transform: translateY(20px);
-  transition: opacity 500ms ease, transform 500ms ease;
-}
-.step.visible { opacity: 1; transform: translateY(0); }
-.step-num {
-  width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%;
-  background: var(--bg); border: 1.5px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Inter Tight', sans-serif; font-weight: 800;
-  font-size: 12px; letter-spacing: 0.04em; color: var(--ink-3);
-  position: relative; z-index: 1;
-}
-.step-content { padding-top: 12px; }
-.step-content h4 { font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
-.step-content p { font-size: 17px; color: var(--ink-3); line-height: 1.6; }
+.section-how { background: var(--bg); padding: var(--section-y) var(--gutter); }
+.how-outer { max-width: var(--content-body); margin: 0 auto; }
+/* .how-inner / .how-portrait-card / .steps / .step come from ds/ptf.css; keep only the page's photo */
+.how-portrait-card { background-image: url('https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=1200&fit=crop&q=80'); background-position: center top; }
 .how-admin { margin-top: 48px; padding: 28px 32px; border-radius: var(--r-xl); background: var(--ink); color: rgba(255,255,255,0.65); font-size: 15px; line-height: 1.6; }
 .how-admin strong { color: #4FE8A9; font-weight: 600; }
 
 /* ── Stats — dark 2×2 contained card ── */
-.section-stats { background: var(--bg); padding: 100px 32px; }
+.section-stats { background: var(--bg); padding: var(--section-y) var(--gutter); }
 .stats-grid { max-width: 680px; margin: 0 auto; display: grid; grid-template-columns: repeat(2, 1fr); border-radius: var(--r-2xl); overflow: hidden; background: var(--ink); }
 .stat-block { padding: 52px 44px; border-right: 1px solid rgba(255,255,255,0.08); border-bottom: 1px solid rgba(255,255,255,0.08); }
 .stat-block:nth-child(2n) { border-right: none; }
@@ -292,60 +202,19 @@ h1.hero-headline {
 .stat-block-num { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(48px, 6vw, 80px); line-height: 1; letter-spacing: -0.04em; color: #fff; }
 .stat-block-label { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 
-/* ── Stats band ── */
-.section-statband { background: transparent; padding: 0 32px; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
-.statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid var(--line); }
-.statband-item:last-child { border-right: none; }
-.statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-.statband-icon svg { width: 15px; height: 15px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.statband-text { display: flex; align-items: baseline; gap: 6px; }
-.statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
-.statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-2); }
+/* ── Stats band → now from ds/ptf.css ── */
 
-/* ── Final CTA ── */
-.section-book { background: #000; padding: 100px 32px; text-align: center; }
-.book-inner { max-width: 900px; margin: 0 auto; }
-.book-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px; }
-.book-headline { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
-.book-sub { font-size: 18px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0 auto 40px; }
-.btn-book {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #ffffff; color: #0A0A0A;
-  font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700;
-  padding: 16px 32px; border-radius: 100px; border: none; cursor: pointer;
-  text-decoration: none;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
-}
-.btn-book:hover { background: rgba(255,255,255,0.88); color: #0A0A0A; box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3); transform: translateY(-1px); }
-.section-narrow { max-width: 1400px; }
+/* Final CTA → shared .section-cta in ds/ptf.css */
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  /* Hire animation — stack vertically */
-  .hire-scroll-outer { padding: 60px 20px; }
+  /* Hire animation — stack vertically; reset the desktop overflow padding to the even token (cards stack here, no overflow) */
+  .hire-scroll-outer { padding: var(--section-y) var(--gutter); }
   .hire-sticky-scene { padding: 0; }
   .hire-around-wrap { height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 32px; }
   .hire-center-portrait { position: static; width: 100%; max-width: 400px; aspect-ratio: 1/1; transform: none; }
   .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; margin: 0 !important; }
-  /* Experts */
-  .section-experts { padding: 60px 20px; }
-  .expert-row { grid-template-columns: 1fr; gap: 0; }
-  /* reset the alternated middle row so it stacks in normal order on mobile */
-  .experts-list .expert-row:nth-child(2) .sc-left,
-  .experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: auto; }
-  .experts-list .expert-row:nth-child(2) .sc-left { padding: 32px 20px; }
-  .sc-right { height: 300px; border-radius: 16px; }
-  .sc-left { padding: 32px 20px; }
-  /* How it works */
-  .section-how { padding: 60px 20px; }
-  .how-inner { grid-template-columns: 1fr; gap: 40px; }
-  .how-portrait-card { height: 260px; min-height: 0; width: 100%; }
-  /* Stats band */
-  .statband-inner { flex-wrap: wrap; }
-  .statband-item { flex: 0 0 50%; border-bottom: 1px solid var(--line); }
-  .statband-item:nth-child(2) { border-right: none; }
-  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
+  /* section padding (experts/how/etc.) → even via the responsive --section-y token */
   /* Top alert */
   /* .top-alert responsive handled by ds/ptf.css */
   /* Mobile drawer */
@@ -379,30 +248,8 @@ h1.hero-headline {
   h1, h2, h3 { text-wrap: pretty; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; text-wrap: pretty; }
-  .section-experts, .section-how { padding: 48px 20px; }
-  .section-book { padding: 80px 20px; }
-  .hire-scroll-outer { padding: 48px 20px; }
   .hire-around-wrap { margin-top: 48px; }
-  .section-statband { padding: 0 20px; }
-  /* Stats band — 2×2 grid on mobile */
-  .statband-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
-  .statband-item:nth-child(odd) { border-right: 1px solid var(--line); }
-  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
-  .statband-icon { display: none; }
-  .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
-  .statband-num { font-size: 32px; letter-spacing: -0.04em; }
-  .statband-lbl { font-size: 13px; font-weight: 500; color: var(--ink-2); }
-  /* How it works — steps always visible, no entrance animation on mobile */
-  .steps::before { left: 20px; }
-  .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
-  /* Expert rows — remove fixed height, tighten text padding */
-  .expert-row { min-height: 0; }
-  .sc-left { padding: 32px 0 24px; }
-  /* Illustration panels — auto-height, card dictates size */
-  .sc-right { height: auto; min-height: 0; padding: 28px 16px; }
-  .sc-mock-wrap { position: static; padding: 0; display: block; }
-  .sc-mock-stack { width: 100%; }
+  /* stat-band / steps / expert-row mobile responsive → from ds/ptf.css */
 }
 </style>
 </head>
@@ -633,7 +480,7 @@ h1.hero-headline {
 <!-- 01. HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-eyebrow">Hire AI experts</div>
+    <div class="eyebrow">Hire AI experts</div>
     <h1 class="hero-headline">Find the expert who moves your business <em class="italic-plain">forward.</em></h1>
     <p class="hero-sub">One great hire changes what's possible. PowerToFly connects you with AI-native professionals who come with the tools, skills, and knowledge to hit the ground running.</p>
     <div class="hero-ctas">
@@ -665,7 +512,7 @@ h1.hero-headline {
       <div class="hire-float hire-float-1">
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="url(#ptf-grad)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -679,7 +526,7 @@ h1.hero-headline {
       <div class="hire-float hire-float-2">
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="url(#ptf-grad)" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -693,7 +540,7 @@ h1.hero-headline {
       <div class="hire-float hire-float-3">
         <div class="hire-float-spark-col">
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="url(#ptf-grad)" d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+            <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
           </svg>
         </div>
         <div class="hire-float-vline"></div>
@@ -731,7 +578,7 @@ h1.hero-headline {
           </div>
           <a href="../book/" class="sc-more">Find your domain expert →</a>
         </div>
-        <div class="sc-right sc-right-domain">
+        <div class="sc-right sc-tint-blue">
           <div class="sc-mock-wrap">
             <div class="sc-mock-stack">
               <div class="sc-mock-peek-card"></div>
@@ -784,7 +631,7 @@ h1.hero-headline {
           </div>
           <a href="../book/" class="sc-more">Find your functional expert →</a>
         </div>
-        <div class="sc-right sc-right-function">
+        <div class="sc-right sc-tint-green">
           <div class="sc-mock-wrap">
             <div class="sc-mock-stack">
               <div class="sc-mock-peek-card"></div>
@@ -836,7 +683,7 @@ h1.hero-headline {
           </div>
           <a href="../book/" class="sc-more">Find your AI professional →</a>
         </div>
-        <div class="sc-right sc-right-ai">
+        <div class="sc-right sc-tint-amber">
           <div class="sc-mock-wrap">
             <div class="sc-mock-stack">
               <div class="sc-mock-peek-card"></div>
@@ -921,10 +768,10 @@ h1.hero-headline {
 -->
 
 <!-- 07. FINAL CTA -->
-<section class="section-book">
-  <div class="book-inner">
-    <h2 class="book-headline">One conversation to find the person who changes everything.</h2>
-    <a href="../book/" class="btn btn-book">Book a discovery call →</a>
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <h2>One conversation to find the person who changes everything.</h2>
+    <a href="../book/" class="btn btn-cta">Book a discovery call →</a>
   </div>
 </section>
 

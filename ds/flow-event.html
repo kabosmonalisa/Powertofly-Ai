@@ -15,26 +15,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../ds/ptf.css">
-<style>
-/* PAGE-ONLY layout — components (reg-layout, event-*, fields, etc.) come from ptf.css */
-body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%); background-attachment: fixed; min-height: 100vh; display: flex; flex-direction: column; }
-.flow-nav { position: relative; z-index: 10; padding: 18px 40px 0; }
-.flow-nav-inner { display: flex; align-items: center; justify-content: space-between; }
-.flow-step[hidden] { display: none; }
-</style>
 </head>
-<body>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for icons (referenced by .event-ico svg etc.) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
 
 <div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
 
-<nav class="flow-nav">
-  <div class="flow-nav-inner">
-    <a class="nav-brand" href="../employers/">
-      <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
-      <span class="brand-ai">AI</span>
-    </a>
-    <a class="nav-back" href="https://powertofly.com/browse-events">← All events</a>
-  </div>
+<nav class="auth-nav">
+  <a class="nav-brand" href="../employers/">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="https://powertofly.com/browse-events">← All events</a>
 </nav>
 
 <main class="reg-wrap">
@@ -68,18 +62,40 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
     <!-- ══════ RIGHT — form card (steps) + social login OUTSIDE the card ══════ -->
     <div class="reg-form">
       <div class="auth-card" id="card">
-        <!-- Step 1 — info -->
+        <!-- Sign in / Sign up toggle — visible on the auth step only -->
+        <div class="auth-toggle" id="authToggle">
+          <button id="tabSignIn" type="button" onclick="showAuth('signin')">Sign in</button>
+          <button class="active" id="tabSignUp" type="button" onclick="showAuth('signup')">Sign up</button>
+        </div>
+        <!-- Sign in -->
+        <div class="flow-step" data-step="signin" hidden>
+          <h1 class="auth-heading">Welcome back</h1><!-- COPY: confirm -->
+          <p class="auth-sub">Sign in to register for this event.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+            <button class="btn-auth" type="submit">Sign in</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Don't have an account? <a href="#" onclick="showAuth('signup');return false">Sign up free</a></p>
+        </div>
+        <!-- Step 1 — create account + register -->
         <div class="flow-step" data-step="1">
           <div class="step-indicator">Step 1 of 4</div>
           <h1 class="auth-heading">Save your seat</h1><!-- COPY: confirm -->
-          <p class="auth-sub">Free to attend, virtually.</p><!-- COPY: confirm -->
+          <p class="auth-sub">Create your account to register — free to attend, virtually.</p><!-- COPY: confirm -->
           <form class="auth-form" onsubmit="return goToStep(2)">
             <div class="field-row">
               <div class="field"><label>First name</label><input type="text" required></div>
               <div class="field"><label>Last name</label><input type="text" required></div>
             </div>
             <div class="field"><label>Work email</label><input type="email" required></div>
-            <button class="btn-auth" type="submit">Continue →</button>
+            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" required></div>
+            <button class="btn-auth" type="submit">Create my account →</button>
           </form>
           <!-- Social login — inside the card, with the small terms text under it (faithful to event-register.html) -->
           <div class="auth-divider">or</div>
@@ -87,7 +103,7 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
             <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
             <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
           </div>
-          <p class="auth-note" style="margin-top:14px;font-size:12px">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+          <p class="auth-fineprint">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
         <!-- Step 2 — resume + LinkedIn -->
         <div class="flow-step" data-step="2" hidden>
@@ -152,18 +168,17 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
         <!-- Step 5 — thank you -->
         <div class="flow-step" data-step="5" hidden>
           <div class="thanks-icon">
-            <!-- Bold Material-style check, filled with the iridescent gradient (no bubble) -->
-            <svg width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <defs><linearGradient id="ptf-check" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
-              <path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="url(#ptf-check)"/>
+            <!-- Bold Material-style check, thick iridescent-gradient stroke -->
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
             </svg>
           </div>
           <div class="thanks-eyebrow">You're registered</div><!-- COPY: confirm -->
           <h1 class="auth-heading">See you at the summit</h1><!-- COPY: confirm -->
           <p class="thanks-body">A calendar invite and joining link are on their way to your inbox.</p><!-- COPY: confirm -->
-          <a class="btn-dashboard" href="https://powertofly.com/browse-events">Browse more events →</a>
+          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse more events →</a>
           <div class="thanks-divider"></div>
-          <p style="font-size:12px;color:var(--ink-3)">Questions? <a href="https://powertofly.com/about/contact-us" style="color:var(--ink-3)">Contact us</a></p>
+          <p class="auth-fineprint">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>
       </div>
     </div>
@@ -174,8 +189,16 @@ body { background: linear-gradient(150deg, #E6F6FF 0%, #E4FAEF 46%, #F4FFDD 100%
 <script src="../ds/ptf.js"></script>
 <script>
   function goToStep(n) {
-    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (+s.dataset.step !== n); });
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    // Toggle is only relevant on the auth step (sign in / sign up = step 1)
+    document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
     window.scrollTo(0, 0);
+    return false;
+  }
+  function showAuth(which) {
+    goToStep(which === 'signin' ? 'signin' : 1);
+    document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
+    document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
     return false;
   }
   document.querySelectorAll('.id-chip').forEach(function (c) { c.addEventListener('click', function () { c.classList.toggle('selected'); }); });

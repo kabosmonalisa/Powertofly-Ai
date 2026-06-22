@@ -72,7 +72,6 @@
 .fly-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; margin-bottom: 10px; }
 .mega-items { display: flex; flex-direction: column; gap: 4px; }
 .fly-item { display: block; padding: 11px 12px; margin: 0 -12px; border-radius: 8px; text-decoration: none; color: inherit; cursor: pointer; transition: background .12s; }
-.fly-item:hover { background: var(--bg-soft); }
 .fly-title { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; line-height: 1.2; display: flex; align-items: center; gap: 6px; }
 .fly-desc  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
 .fly-badge { display: inline-flex; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; font-family: 'Inter', sans-serif; }
@@ -105,17 +104,7 @@
 @media (max-width: 900px) { .nav-items { display: none; } .nav-cta { display: none; } }
 
 /* ── Hero eyebrow — white on dark ── */
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #4FE8A9;
-  margin-bottom: 20px;
-}
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: '';
-  display: block; width: 18px; height: 1.5px;
-  background: #4FE8A9; border-radius: 2px; flex-shrink: 0;
-}
+/* hero eyebrow now uses the shared .eyebrow + .eyebrow-on-dark (ds/ptf.css) */
 
 /* ── Hero — flat dark, no gradients ── */
 .hero {
@@ -182,7 +171,7 @@ h1.hero-headline {
 
 /* ── Stats band — dark, original small style, with top divider ── */
 .section-statband { background: #0A0A0A !important; margin-top: 56px; padding: 0 32px; border-top: none; border-bottom: none; }
-.statband-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: stretch; }
+.statband-inner { max-width: var(--content-body); margin: 0 auto; display: flex; align-items: stretch; }
 .statband-item { flex: 1; padding: 28px 16px; display: flex; align-items: center; justify-content: center; gap: 10px; border-right: 1px solid rgba(255,255,255,0.1); }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
@@ -193,10 +182,10 @@ h1.hero-headline {
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.45); }
 
 /* ── Use cases — benefit-card style, dark ── */
-.use-cases-section { background: #0A0A0A; padding: 100px 32px; }
-.use-cases-inner { max-width: 1200px; margin: 0 auto; }
+.use-cases-section { background: #0A0A0A; padding: var(--section-y) var(--gutter); }
+.use-cases-inner { max-width: var(--content-body); margin: 0 auto; }
 .use-cases-inner .section-head { margin-bottom: 48px; }
-.benefits-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 0 auto; }
+.benefits-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: var(--content); margin: 0 auto; }
 @media (max-width: 900px) { .benefits-row { grid-template-columns: 1fr; } }
 .use-card-dark { background: #141414 !important; border-color: rgba(255,255,255,0.08) !important; box-shadow: none !important; }
 .use-card-dark h3 { color: #fff !important; }
@@ -276,44 +265,17 @@ h1.hero-headline {
 }
 
 /* ── Expert types — sc-stack layout ── */
-.section-experts { background: var(--bg); padding: 100px 32px; }
-.experts-inner { max-width: 1200px; margin: 0 auto; }
-.experts-list { display: flex; flex-direction: column; gap: 80px; }
-.expert-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  min-height: 360px; gap: 60px; align-items: stretch; /* deterministic: illustration fills row, gap between subsections is always the fixed 80px (matches hire) */
-}
-.sc-left { padding: 4rem 40px 4rem 60px; display: flex; flex-direction: column; justify-content: center; gap: 16px; }
-.sc-right { border-radius: 20px; min-height: 360px; }
-/* Plain green uppercase label — NO pill */
-.sc-tag { display: block; margin-bottom: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #4FE8A9; }
-.sc-left h3 { font-family: 'Inter Tight', 'Inter', sans-serif; font-size: clamp(20px, 2vw, 26px); font-weight: 700; line-height: 1.22; letter-spacing: -0.025em; color: var(--ink); }
-.sc-body { font-size: 15px; color: var(--ink-3); line-height: 1.65; }
-.sc-titles { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.sc-title-chip { font-size: 12px; font-weight: 500; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 4px 10px; border-radius: 999px; }
-.sc-right { position: relative; overflow: hidden; }
-.sc-right-domain   { background: #E8EFF5; }
-.sc-right-function { background: #EAFAF2; }
-.sc-right-ai       { background: #FAF1E8; }
-.sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.sc-mock-stack { position: relative; width: 78%; }
-.sc-mock-peek-card { position: absolute; top: 8px; right: -6px; bottom: -8px; left: 6px; background: rgba(210,218,222,0.75); border-radius: 16px; z-index: 0; }
-.sc-mock { position: relative; z-index: 1; background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 18px; }
-.sc-mock-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
-.sc-mock-title { font-size: 13px; font-weight: 700; color: var(--ink); }
-.sc-mock-hr { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
-.sc-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
-.sc-badge-green { background: rgba(79,232,169,0.2); color: #0A8C66; }
-.sc-badge-amber { background: rgba(245,166,35,0.15); color: #A85E00; }
-.sc-badge-gray  { background: var(--bg-soft); color: var(--ink-3); }
-.sc-badge-red   { background: rgba(220,53,69,0.12); color: #9c0a16; }
+.section-experts { background: var(--bg); padding: var(--section-y) var(--gutter); }
+/* expert-row STRUCTURE (.experts-inner/.experts-list/.expert-row/.sc-left/.sc-right/.sc-tag/.sc-titles/.sc-title-chip/.sc-mock*/.sc-badge*) → ds/ptf.css.
+   Train keeps ONLY its dark colors (below, ~line 500s) + this page-specific red badge. */
+.sc-badge-red { background: rgba(220,53,69,0.12); color: #9c0a16; }
 
 /* experts section mid-CTA */
 .experts-cta { text-align: center; margin-top: 64px; }
 
 /* ── Why it matters — 2×2 benefit grid on dark card ── */
-.section-why { background: var(--bg); padding: 100px 32px; }
-.why-inner { max-width: 1200px; margin: 0 auto; }
+.section-why { background: var(--bg); padding: var(--section-y) var(--gutter); }
+.why-inner { max-width: var(--content-body); margin: 0 auto; }
 .why-lead { max-width: 700px; margin: 0 auto 64px; text-align: center; }
 .why-lead h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
 .why-lead p { margin-top: 16px; font-size: 17px; color: var(--ink-2); line-height: 1.6; }
@@ -330,8 +292,8 @@ h1.hero-headline {
 .why-card p { font-size: 14.5px; color: var(--ink-3); line-height: 1.6; }
 
 /* ── How it works ── */
-.section-how { background: var(--bg); padding: 100px 32px; }
-.how-outer { max-width: 1200px; margin: 0 auto; }
+.section-how { background: var(--bg); padding: var(--section-y) var(--gutter); }
+.how-outer { max-width: var(--content-body); margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
 .how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.pexels.com/photos/5244032/pexels-photo-5244032.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-size: cover; background-position: center 65%; position: relative; }
 .how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
@@ -366,21 +328,7 @@ h1.hero-headline {
 .step-content h4 { font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
 .step-content p { font-size: 17px; color: var(--ink-3); line-height: 1.6; }
 
-/* ── Final CTA ── */
-.section-book { background: #0A0A0A; padding: 100px 32px; text-align: center; }
-.book-inner { max-width: 900px; margin: 0 auto; }
-.book-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 24px; }
-.book-headline { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 68px); letter-spacing: -0.04em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
-.book-sub { font-size: 18px; color: rgba(255,255,255,0.5); line-height: 1.6; margin: 0 auto 40px; max-width: 56ch; }
-.btn-book {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: #ffffff; color: #0A0A0A;
-  font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700;
-  padding: 16px 32px; border-radius: 100px; border: none; cursor: pointer;
-  text-decoration: none;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
-}
-.btn-book:hover { background: rgba(255,255,255,0.88); color: #0A0A0A; box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3); transform: translateY(-1px); }
+/* Final CTA → shared .section-cta in ds/ptf.css */
 
 /* ══════════════════════════════════════════
    FULL DARK MODE — train page only
@@ -398,9 +346,7 @@ h1.hero-headline {
 .fly-eyebrow { color: #4FE8A9 !important; }
 .fly-title { color: #fff !important; }
 .fly-desc  { color: rgba(255,255,255,0.5) !important; }
-.fly-item:hover { background: #1e1e1e !important; }
-.fly-item:hover .fly-title { color: #fff !important; }
-.fly-item:hover .fly-desc { color: rgba(255,255,255,0.6) !important; }
+.fly-item:hover .fly-title { color: var(--green-mid) !important; } /* hover = green text, no bg */
 .fly-rule  { border-top-color: rgba(255,255,255,0.1) !important; }
 .ind-name  { color: rgba(255,255,255,0.65) !important; }
 .ind-desc  { color: rgba(255,255,255,0.35) !important; }
@@ -417,6 +363,8 @@ h1.hero-headline {
 html, body { background: #0A0A0A !important; }
 /* Footer same black */
 .footer { background: #0A0A0A !important; border-top: none !important; }
+/* train exception: CTA band matches train's footer (#0A0A0A), not the shared #000, so they blend */
+.section-cta { background: #0A0A0A !important; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08) !important; }
 
 /* Section rhythm — subtle dark variations so eye can navigate */
@@ -425,9 +373,7 @@ html, body { background: #0A0A0A !important; }
 .section-why        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
 .section-how        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
 
-/* Expert row 2: flip illustration to left, text to right — Andela alternating pattern */
-.experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: 1; }
-.experts-list .expert-row:nth-child(2) .sc-left  { grid-column: 2; grid-row: 1; padding: 4rem 60px 4rem 40px; }
+/* expert-row alternation → ds/ptf.css */
 
 /* Section heading sizes — bigger, more editorial */
 .section-head h2 { font-size: clamp(32px, 4vw, 52px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
@@ -572,44 +518,20 @@ html, body { background: #0A0A0A !important; }
 .why-lead h2 { color: #fff !important; }
 .why-lead p { color: rgba(255,255,255,0.5) !important; }
 
-/* oc-float card base — copied from employers, dark overrides */
-.oc-float {
-  position: absolute;
-  background: #141414;
-  border: 1px solid rgba(255,255,255,0.09);
-  border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-  width: 400px; height: 160px;
-  display: flex; align-items: stretch;
-  opacity: 0;
-  transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
-}
-.oc-float-spark-col { display: flex; align-items: center; justify-content: center; padding: 20px 18px; flex-shrink: 0; }
-.oc-float-spark-col svg { width: 64px; height: 64px; }
+/* oc-float STRUCTURE + positions + animation → ds/ptf.css.
+   Train keeps ONLY its dark colors here (page is dark, not .theme-dark) — these override the shared light defaults. */
+.oc-float { background: #141414; border-color: rgba(255,255,255,0.09); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
 .oc-float-spark-col svg path { paint-order: stroke; }
-.oc-float-vline { width: 2px; background: rgba(255,255,255,0.08); flex-shrink: 0; margin: 16px 0; }
-.oc-float-body { padding: 20px 20px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
-.oc-float h4 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: #fff; margin-bottom: 6px; }
-.oc-float p  { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
-
-/* Positions — 2 left, 2 right */
-.oc-float-1 { top: 50%; margin-top: -176px; left: calc(50% - 412px); transform: translateX(-900px); }
-.oc-float-2 { top: 50%; margin-top:   16px; left: calc(50% - 412px); transform: translateX(-900px); }
-.oc-float-3 { top: 50%; margin-top: -176px; left: calc(50% + 12px);  transform: translateX( 900px); }
-.oc-float-4 { top: 50%; margin-top:   16px; left: calc(50% + 12px);  transform: translateX( 900px); }
-
-/* Animate in */
-.outcomes-wrap.cards-in .oc-float-1 { transform: translateX(0); opacity: 1; }
-.outcomes-wrap.cards-in .oc-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
-.outcomes-wrap.cards-in .oc-float-3 { transform: translateX(0); opacity: 1; transition-delay: 0.08s; }
-.outcomes-wrap.cards-in .oc-float-4 { transform: translateX(0); opacity: 1; transition-delay: 0.20s; }
-
+.oc-float-vline { background: rgba(255,255,255,0.08); }
+.oc-float h4 { color: #fff; }
+.oc-float p  { color: rgba(255,255,255,0.5); }
 .why-outcomes-wrap { position: relative; width: 100%; height: 400px; }
 
 /* Stack the floating outcome cards below 1080px (two 400px cards can't fit side-by-side) */
 @media (max-width: 1080px) {
   .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 16px !important; align-items: center !important; margin-top: 8px !important; }
   .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
+  .oc-float-1, .oc-float-2, .oc-float-3, .oc-float-4 { margin-top: 0 !important; left: auto !important; }
 }
 
 /* How it works section */
@@ -637,18 +559,13 @@ html, body { background: #0A0A0A !important; }
   .hire-around-wrap { height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 32px; }
   .hire-center-orb { position: static; transform: none; width: 260px; height: 260px; margin: 0 auto; }
   .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; margin: 0 !important; }
-  .section-experts { padding: 60px 20px; }
-  .expert-row { grid-template-columns: 1fr; gap: 0; }
-  .experts-list .expert-row:nth-child(2) .sc-left,
-  .experts-list .expert-row:nth-child(2) .sc-right { grid-column: 1; grid-row: auto; }
-  .experts-list .expert-row:nth-child(2) .sc-left { padding: 32px 20px; }
-  .sc-right { height: 300px; border-radius: 16px; }
-  .sc-left { padding: 32px 20px; }
-  .section-how { padding: 60px 20px; }
+  /* expert-row stacking + body size (mobile) → ds/ptf.css */
+  /* .section-how padding → responsive --section-y token */
   .how-inner { grid-template-columns: 1fr; gap: 40px; }
   .how-portrait-card { height: 440px; min-height: 0; width: 100%; aspect-ratio: unset; }
   .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: center !important; }
   .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
+  .oc-float-1, .oc-float-2, .oc-float-3, .oc-float-4 { margin-top: 0 !important; left: auto !important; }
   .statband-inner { flex-wrap: wrap; }
   .statband-item { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.08); }
   .statband-item:nth-child(2) { border-right: none; }
@@ -684,9 +601,7 @@ html, body { background: #0A0A0A !important; }
   h1, h2, h3 { text-wrap: pretty; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; text-wrap: pretty; }
-  .section-experts, .section-how { padding: 48px 20px; }
-  .section-why { padding: 60px 20px; }
-  .section-book { padding: 80px 20px; }
+  /* section padding → responsive --section-y token; statband stays flush */
   .section-statband { padding: 0 20px; }
   .statband-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
   .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
@@ -699,11 +614,7 @@ html, body { background: #0A0A0A !important; }
   .statband-lbl { font-size: 16px !important; font-weight: 500; color: rgba(255,255,255,0.7) !important; }
   .steps::before { left: 20px; }
   .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
-  .expert-row { min-height: 0; }
-  .sc-left { padding: 32px 0 24px; }
-  .sc-right { height: auto; min-height: 0; padding: 28px 16px; }
-  .sc-mock-wrap { position: static; padding: 0; display: block; }
-  .sc-mock-stack { width: 100%; }
+  /* expert-row mobile (min-height/padding/mock) → ds/ptf.css */
   .why-card { padding: 28px 24px; }
 }
 </style>
@@ -936,7 +847,7 @@ html, body { background: #0A0A0A !important; }
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-text">
-      <div class="hero-eyebrow">Train AI models</div>
+      <div class="eyebrow eyebrow-on-dark">Train AI models</div>
       <h1 class="hero-headline">Better AI models start with <em class="italic-plain">better&nbsp;experts.</em></h1>
       <p class="hero-sub">PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it's being built to serve.</p>
       <div class="hero-ctas">
@@ -1250,7 +1161,7 @@ html, body { background: #0A0A0A !important; }
       <!-- Top left -->
       <div class="oc-float oc-float-1">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg1)" stroke="url(#wg1)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/><path d="M7.5 12.3l2.55 2.55 5.9-6" fill="none" stroke="#0A0A0A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg1)" stroke="url(#wg1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/><path d="M7.5 12.3l2.55 2.55 5.9-6" fill="none" stroke="#0A0A0A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </div>
         <div class="oc-float-vline"></div>
         <div class="oc-float-body">
@@ -1262,7 +1173,7 @@ html, body { background: #0A0A0A !important; }
       <!-- Bottom left -->
       <div class="oc-float oc-float-2">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg2)" stroke="url(#wg2)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg2)" stroke="url(#wg2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
         </div>
         <div class="oc-float-vline"></div>
         <div class="oc-float-body">
@@ -1274,7 +1185,7 @@ html, body { background: #0A0A0A !important; }
       <!-- Top right -->
       <div class="oc-float oc-float-3">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg3)" stroke="url(#wg3)" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg3)" stroke="url(#wg3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         </div>
         <div class="oc-float-vline"></div>
         <div class="oc-float-body">
@@ -1286,7 +1197,7 @@ html, body { background: #0A0A0A !important; }
       <!-- Bottom right -->
       <div class="oc-float oc-float-4">
         <div class="oc-float-spark-col">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg4)" stroke="url(#wg4)" stroke-width="1.9" stroke-linejoin="round" stroke-linecap="round" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg4)" stroke="url(#wg4)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
         </div>
         <div class="oc-float-vline"></div>
         <div class="oc-float-body">
@@ -1337,12 +1248,12 @@ html, body { background: #0A0A0A !important; }
 </section>
 
 <!-- 06. CLOSING CTA -->
-<section class="section-book">
-  <div class="book-inner">
-    <div class="book-eyebrow">Get started</div>
-    <h2 class="book-headline">Better models start with the right people.</h2>
-    <p class="book-sub">30 minutes with a team that has spent a decade building the expert network your model needs.</p>
-    <a href="../book/" class="btn-book">Talk to our team →</a>
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow eyebrow-on-dark">Get started</span>
+    <h2>Better models start with the right people.</h2>
+    <p>30 minutes with a team that has spent a decade building the expert network your model needs.</p>
+    <a href="../book/" class="btn btn-cta">Talk to our team →</a>
   </div>
 </section>
 
