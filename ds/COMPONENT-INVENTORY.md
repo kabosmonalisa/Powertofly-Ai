@@ -42,6 +42,8 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 
 ### Page chrome
 - **Mega-flyout nav** — `.nav .nav-inner .nav-items .nav-drop .nav-btn .nav-chev .nav-fly .mega-inner .mega-items .mega-left .mega-right .mega-right-dark .fly-item .fly-title .fly-desc .fly-eyebrow .fly-rule .fly-badge .fly-badge-soon .fly-cta .ind-grid .ind-item .ind-name .ind-desc .nav-cta .brand .brand-ai .hamburger` → copy from `top-alerts.html`. Behavior: `PTF.initMegaNav()` + `PTF.initHeader()`.
+  - ❗ **A clickable item inside ANY dropdown is ALWAYS `.fly-item`** (`> .fly-title` + optional `.fly-desc`), separated by `.fly-rule`. Never build a custom row class (no `.login-row`, no `.xyz-card`). This guarantees the one dropdown-item hover: **`.fly-title` turns green, NO background fill.** A dropdown row hover NEVER gets a background.
+  - A dark right panel in a dropdown = `.mega-right` (CTA: `.fly-eyebrow` + `.proof-item`s + `.fly-cta`) or `.mega-right-dark` (featured: `.event-ey` + `.event-hl` + `.event-date` + `.event-reg`). Reuse one of these — don't invent a panel.
 - **Mobile drawer** — `.mobile-drawer .drawer-group .drawer-cat .drawer-links .drawer-badge .nav-overlay` → from `top-alerts.html`. Behavior: `PTF.initNav()`.
 - **Top alert bar** — `.top-alert .top-alert-close .ta-box .ta-badge .ta-dot .ta-thumb .ta-title .ta-count` → from `top-alerts.html`.
 - **Footer** — `.footer .footer-inner .footer-cols .footer-col .footer-brand .footer-bio .footer-social .footer-bottom` → from `ds/template.html`. (Footer h5/links are always dark — it's an always-dark block.)

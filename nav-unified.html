@@ -22,14 +22,12 @@
   /* Login flyout = small panel anchored UNDER the Log in trigger */
   #loginDrop { position: relative; }
   #fly-login { left: auto; right: 0; width: 340px; padding: 8px 0 0; }
-  #fly-login .mega-inner { grid-template-columns: 1fr; max-width: none; padding: 8px; border-radius: var(--r-lg); }
+  /* compact sizing ONLY — login rows are the shared .fly-item (green-text/no-bg hover inherited) */
+  #fly-login .mega-inner { grid-template-columns: 1fr; max-width: none; padding: 14px 18px; border-radius: var(--r-lg); }
   #fly-login .mega-left { padding: 0; }
-  .login-row { display:block; padding:12px 12px; border-radius: var(--r-md); text-decoration:none; transition:background .15s; }
-  .login-row:hover { background: var(--bg-soft); }
-  .login-txt .lc-title { display:block; font-family:'Inter Tight'; font-weight:700; font-size:15px; letter-spacing:-0.01em; color:var(--ink); }
-  .login-txt .lc-sub { display:block; font-size:12.5px; color:var(--ink-3); margin-top:2px; }
-  .login-div { border:none; border-top:1px solid var(--line); margin: 2px 12px; }
-  .login-signup { font-size:12px; color:var(--ink-3); padding: 8px 12px 4px; line-height:1.5; }
+  #fly-login .fly-item { margin: 0; }          /* neutralise the wide-flyout negative margin in this tight panel */
+  #fly-login .fly-rule { margin: 8px 0; }
+  .login-signup { font-size:12px; color:var(--ink-3); padding: 6px 0 2px; line-height:1.5; }
   .login-signup a { color:var(--accent); font-weight:600; text-decoration:none; }
 </style>
 </head>
@@ -167,14 +165,16 @@
           <div class="nav-fly" id="fly-login">
             <div class="mega-inner">
               <div class="mega-left">
-                <a class="login-row" href="#">
-                  <span class="login-txt"><span class="lc-title">Employer portal</span><span class="lc-sub">Manage hires and projects</span></span>
+                <a class="fly-item" href="#">
+                  <div class="fly-title">Employer portal</div>
+                  <div class="fly-desc">Manage hires and projects</div>
                 </a>
-                <hr class="login-div">
-                <a class="login-row" href="#">
-                  <span class="login-txt"><span class="lc-title">Professional portal</span><span class="lc-sub">Browse jobs and opportunities</span></span>
+                <hr class="fly-rule">
+                <a class="fly-item" href="#">
+                  <div class="fly-title">Professional portal</div>
+                  <div class="fly-desc">Browse jobs and opportunities</div>
                 </a>
-                <hr class="login-div">
+                <hr class="fly-rule">
                 <p class="login-signup">No account? Sign up as an <a href="#">employer</a> or an <a href="#">expert</a>.</p>
               </div>
             </div>
