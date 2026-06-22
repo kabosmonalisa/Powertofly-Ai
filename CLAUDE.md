@@ -1,7 +1,10 @@
 # PowerToFly AI — Design rules for Claude Code and Cowork
 
-## 📖 Read the design system first
-**Before building or editing any page, read [`ds/DESIGN-SYSTEM.md`](ds/DESIGN-SYSTEM.md).** It is the single source of truth — the full component inventory, which class to use when, and the new-page / new-flow checklists. This file is only the hard rules; that file is the detail. When the two ever disagree, `DESIGN-SYSTEM.md` wins.
+## 📖 Read these first — EVERY time you start or edit a page
+1. **[`ds/COMPONENT-INVENTORY.md`](ds/COMPONENT-INVENTORY.md) — READ IN FULL, NO EXCEPTIONS.** The closed list of every component + the strict build contract. When Lizu gives you copy for a page, you **map her copy to components in that inventory and copy their markup — you never invent, rebuild, or write component CSS.** If a block of copy has no matching component, you STOP and ask her — you do not improvise. If a class isn't in that file, it doesn't exist.
+2. **[`ds/DESIGN-SYSTEM.md`](ds/DESIGN-SYSTEM.md)** — the rules & detail behind the inventory (spacing law, widths, eyebrow rule, icon recipe, dark theme). When docs disagree, DESIGN-SYSTEM wins on rules; COMPONENT-INVENTORY wins on "what exists."
+
+This file is only the hard rules; those two are the detail.
 
 The system lives in three files — **reuse them, never rebuild them:**
 - `ds/ptf.css` — all shared styling (tokens, type, buttons, nav, footer, alert, forms, cards, sections, dark theme)
