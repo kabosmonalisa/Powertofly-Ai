@@ -115,7 +115,73 @@ window.PTF = (function () {
     syncOffset();
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader };
+  /**
+   * initIllustrations()  — the declarative cursor driver for interactive illustrations.
+   * For each `.sci` scene: animate the `.sci-cursor` to each `[data-sci-step]` target
+   * in ascending step order, "click" it (toggling `.is-on` on the target), hold, then
+   * loop. No per-card keyframes or magic pixel numbers — the path is computed from each
+   * target's live position. Style each target's `.is-on` state to react (fill, ring, etc).
+   *   Scene opts (data-attrs on .sci): data-sci-hold (ms per step, default 1300),
+   *   data-sci-glide (ms travel, default 520 — keep in sync with the CSS transition).
+   * Honors prefers-reduced-motion (shows the final state, no motion). Starts on scroll-in.
+   */
+  function initIllustrations(root) {
+    var scenes = (root || document).querySelectorAll('.sci');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    scenes.forEach(function (scene) {
+      var cursor = scene.querySelector('.sci-cursor');
+      // Group targets by step number — all targets sharing a step light on the same click.
+      var map = {};
+      Array.prototype.slice.call(scene.querySelectorAll('[data-sci-step]')).forEach(function (el) {
+        var n = +el.dataset.sciStep; (map[n] = map[n] || []).push(el);
+      });
+      var order = Object.keys(map).map(Number).sort(function (a, b) { return a - b; });
+      function setOn(n, on) { map[n].forEach(function (e) { e.classList.toggle('is-on', on); }); }
+      if (!order.length) return;
+      if (reduce || !cursor) { order.forEach(function (n) { setOn(n, true); }); return; }
+
+      var hold = +scene.dataset.sciHold || 1300;
+      var glide = +scene.dataset.sciGlide || 520;
+      var i = -1, running = false;
+
+      function park() {
+        cursor.style.transform = 'translate(' + (scene.clientWidth * 0.5) + 'px,' + (scene.clientHeight - 16) + 'px)';
+      }
+      function moveTo(el) {
+        var s = scene.getBoundingClientRect(), r = el.getBoundingClientRect();
+        cursor.style.transform = 'translate(' + (r.left - s.left + r.width / 2) + 'px,' + (r.top - s.top + r.height / 2) + 'px)';
+      }
+      function step() {
+        i++;
+        if (i >= order.length) { // end of cycle: reset, park, loop
+          setTimeout(function () {
+            order.forEach(function (n) { setOn(n, false); });
+            park();
+            i = -1;
+            setTimeout(step, 700);
+          }, hold);
+          return;
+        }
+        moveTo(map[order[i]][0]);                       // glide to the step's primary target
+        setTimeout(function () {                         // arrived → click
+          cursor.classList.add('is-click');
+          setOn(order[i], true);                         // light all targets in this step
+          setTimeout(function () { cursor.classList.remove('is-click'); }, 190);
+          setTimeout(step, hold);
+        }, glide);
+      }
+      function start() { if (running) return; running = true; park(); setTimeout(step, 700); }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) { if (e.isIntersecting) { io.disconnect(); start(); } });
+        }, { threshold: 0.3 });
+        io.observe(scene);
+      } else { start(); }
+    });
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -124,4 +190,5 @@ window.PTF = (function () {
 // (Existing pages wire these inline; new pages should use the shared ones.)
 document.addEventListener('DOMContentLoaded', function () {
   PTF.initNav();
+  PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
 });

@@ -1,0 +1,1410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Train AI models — PowerToFly AI</title>
+<meta property="og:title"       content="Better AI models start with better experts — PowerToFly AI">
+<meta property="og:description" content="80K+ domain experts for RLHF, evaluation, red teaming, and QA.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY
+ */
+
+/* ── Fixed site header (alert + nav) ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Top alert bar ── */
+/* .top-alert base styles now come from ds/ptf.css (single source) */
+/* all .top-alert styles come from ds/ptf.css */
+
+/* ── Employers-style mega nav ── */
+.nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
+.nav-drop  { position: static; }
+.nav-btn {
+  background: none; border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px; font-weight: 400;
+  color: var(--ink); cursor: pointer;
+  padding: 7px 11px; border-radius: 8px;
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap; line-height: 1;
+  text-decoration: none;
+  transition: background .12s, color .12s;
+}
+.nav-btn:hover, .nav-btn.open { background: transparent; color: var(--ink); opacity: 0.65; }
+.nav-chev {
+  width: 12px; height: 12px; flex-shrink: 0;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  transition: transform .18s ease;
+}
+.nav-btn.open .nav-chev { transform: rotate(180deg); }
+.nav-fly {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: transparent; border: none; box-shadow: none;
+  overflow: visible; z-index: 200;
+  padding: 0 32px; padding-top: 2px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s .2s;
+  pointer-events: none;
+}
+.nav-fly.open {
+  opacity: 1; visibility: visible; transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s 0s;
+  pointer-events: auto;
+}
+.mega-inner {
+  max-width: 780px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 260px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.10);
+  overflow: hidden;
+}
+.mega-left  { padding: 32px 44px 32px 36px; }
+.fly-eyebrow { font-size: 10.5px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #0A8C66; margin-bottom: 10px; }
+.mega-items { display: flex; flex-direction: column; gap: 4px; }
+.fly-item { display: block; padding: 11px 12px; margin: 0 -12px; border-radius: 8px; text-decoration: none; color: inherit; cursor: pointer; transition: background .12s; }
+.fly-title { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 5px; line-height: 1.2; display: flex; align-items: center; gap: 6px; }
+.fly-desc  { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+.fly-badge { display: inline-flex; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: 2px 6px; border-radius: 4px; font-family: 'Inter', sans-serif; }
+.fly-badge-soon { background: var(--purple-light); color: var(--purple); }
+.fly-rule { border: none; border-top: 1px solid var(--line); margin: 20px 0 16px; }
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+.ind-item { padding: 6px 8px; border-radius: 6px; }
+.ind-name { font-size: 12px; font-weight: 500; color: var(--ink-3); }
+.ind-desc  { font-size: 11px; color: var(--ink-3); opacity: 0.7; margin-top: 1px; }
+.mega-right { padding: 32px 28px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+.mega-right .fly-eyebrow { color: rgba(255,255,255,0.5); }
+.stat-item { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-num { font-family: 'Inter Tight', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1; margin-bottom: 5px; }
+.stat-lbl { font-size: 12.5px; color: rgba(255,255,255,0.78); line-height: 1.4; }
+.proof-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 12px; line-height: 1.4; }
+.proof-desc { font-size: 12px; color: rgba(255,255,255,0.7); line-height:1.55; margin-bottom:16px; }
+.proof-check { width: 16px; height: 16px; border-radius: 50%; background: #4FE8A9; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; }
+.proof-check svg { width: 8px; height: 8px; stroke: #0A0A0A; }
+.fly-cta { display: block; background: #4FE8A9; color: var(--ink); font-family: inherit; font-size: 12.5px; font-weight: 600; padding: 11px 16px; border-radius: 999px; text-align: center; text-decoration: none; transition: opacity .15s; margin-top: 24px; }
+.fly-cta:hover { opacity: 0.85; }
+.mega-right-dark { padding: 28px 32px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
+.event-ey { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 8px; }
+.event-hl { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: #fff; line-height: 1.25; margin-bottom: 6px; }
+.event-date { font-size: 12px; color: #888; margin-bottom: 20px; }
+.event-reg { display: block; background: #4FE8A9; color: var(--ink); font-family: inherit; font-size: 12px; font-weight: 600; padding: 9px 14px; border-radius: 999px; text-align: center; text-decoration: none; transition: opacity .12s; }
+.event-reg:hover { opacity: 0.85; }
+.nav-overlay { position: fixed; inset: 0; z-index: 190; display: none; }
+.nav-overlay.on { display: block; }
+@media (max-width: 900px) { .nav-items { display: none; } .nav-cta { display: none; } }
+
+/* ── Hero eyebrow — white on dark ── */
+/* hero eyebrow now uses the shared .eyebrow + .eyebrow-on-dark (ds/ptf.css) */
+
+/* ── Hero — flat dark, no gradients ── */
+.hero {
+  position: relative;
+  padding: 0;
+  background: #0A0A0A;
+  overflow: hidden;
+}
+.hero-inner {
+  position: relative; z-index: 2; max-width: none; margin: 0;
+  display: grid; grid-template-columns: 1.05fr 0.85fr;
+  align-items: center; gap: 0;
+}
+.hero-text {
+  align-self: center;
+  text-align: left;
+  /* left edge aligns to the nav logo (the --container box), video stays full-bleed right */
+  padding: 172px 72px 104px max(var(--gutter), calc((100vw - var(--container)) / 2));
+}
+.hero-media {
+  align-self: start;
+  position: relative; width: 100%;
+  height: 82vh; min-height: 560px; max-height: 840px;
+  border-radius: 0 0 0 28px; overflow: hidden; background: #000;
+  -webkit-mask-image: -webkit-radial-gradient(white, black); /* force Safari to clip rounded corners */
+}
+.hero-vid-toggle {
+  position: absolute; bottom: 20px; right: 40px; z-index: 5;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(0,0,0,0.45); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.28); color: #fff;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; line-height: 1; transition: background .15s ease;
+}
+@media (max-width: 860px) { .hero-vid-toggle { right: 16px; bottom: 16px; } }
+.hero-vid-toggle:hover { background: rgba(0,0,0,0.72); }
+.hero-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 38%;
+  pointer-events: none;
+  border-radius: 0 0 0 28px;
+}
+h1.hero-headline {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 80px);
+  line-height: 0.95; letter-spacing: -0.04em;
+  max-width: 16ch; margin: 0;
+  color: #fff;
+}
+.hero-sub { max-width: 52ch; margin: 24px 0 0; font-size: 18px; line-height: 1.55; color: rgba(255,255,255,0.6); }
+.hero-ctas { display: flex; gap: 12px; justify-content: flex-start; margin-top: 36px; flex-wrap: wrap; }
+@media (max-width: 860px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 0; }
+  .hero-text { text-align: center; padding: 72px 24px 48px; }
+  h1.hero-headline { max-width: 22ch; margin: 0 auto; }
+  .hero-sub { margin: 24px auto 0; }
+  .hero-ctas { justify-content: center; }
+  .hero-media { height: 60vh; min-height: 380px; border-radius: 0 0 0 28px; margin: 0 0 48px; width: 100%; }
+}
+.hero .italic-plain,
+.section-why .italic-plain { color: #fff !important; }
+
+/* Stat band — structure, colors and the fat-gradient icons all come from ds/ptf.css tokens.
+   Train keeps only its own top spacing. */
+.section-statband { margin-top: 56px; }
+
+/* ── Use cases — benefit-card style, dark ── */
+.use-cases-section { background: #0A0A0A; padding: var(--section-y) var(--gutter); }
+.use-cases-inner { max-width: var(--content-body); margin: 0 auto; }
+.use-cases-inner .section-head { margin-bottom: 48px; }
+.benefits-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: var(--content); margin: 0 auto; }
+@media (max-width: 900px) { .benefits-row { grid-template-columns: 1fr; } }
+.use-card-dark { background: #141414 !important; border-color: rgba(255,255,255,0.08) !important; box-shadow: none !important; }
+.use-card-dark h3 { color: #fff !important; }
+.use-card-dark p  { color: rgba(255,255,255,0.5) !important; }
+.use-card-dark .benefit-eyebrow { color: #4FE8A9 !important; }
+.use-card-photo { margin: -32px -28px 22px -28px; aspect-ratio: 4 / 3; border-radius: 20px 20px 0 0; overflow: hidden; background: #0A0A0A; }
+.use-card-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 42%; display: block; }
+.hire-sticky-scene .section-head { margin-bottom: 16px; }
+.hire-around-wrap { position: relative; width: 100%; height: 440px; }
+.hire-center-portrait {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 340px; height: 340px;
+  border-radius: 20px; background-size: cover; background-position: center 15%;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55); z-index: 1;
+}
+.hire-float {
+  position: absolute; z-index: 3;
+  background: #141414; border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-xl); box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  width: 400px; height: 160px; display: flex; align-items: stretch;
+  opacity: 0;
+  transition: transform 1s cubic-bezier(0.16,1,0.3,1), opacity 0.7s ease;
+}
+.hire-float-spark-col {
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px 18px; flex-shrink: 0;
+}
+.hire-float-spark-col svg { width: 88px; height: 88px; }
+.hire-float-vline {
+  width: 2px; background: rgba(255,255,255,0.08); flex-shrink: 0; margin: 16px 0;
+}
+.hire-float-body { padding: 20px 20px; flex: 1; }
+.hire-float-1 { top: 50%; margin-top: -90px; left: calc(50% - 550px); transform: translateX(-900px); }
+.hire-float-2 { top: 50%; margin-top: -90px; right: calc(50% - 550px); transform: translateX( 900px); }
+.hire-float-3 { top: calc(50% + 150px); left: 50%; margin-left: -200px; transform: translateY(400px); }
+.hire-around-wrap.cards-in .hire-float-1 { transform: translateX(0); opacity: 1; }
+.hire-around-wrap.cards-in .hire-float-2 { transform: translateX(0); opacity: 1; transition-delay: 0.12s; }
+.hire-around-wrap.cards-in .hire-float-3 { transform: translateY(0); opacity: 1; transition-delay: 0.24s; }
+.hire-float .fly-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #4FE8A9; margin-bottom: 6px; }
+.hire-float h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.025em; line-height: 1.2; color: #fff; margin-bottom: 6px; }
+.hire-float p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.55; }
+
+/* ══ Living AI Organism ══════════════════════════════════════════ */
+.hire-center-orb {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 320px; height: 320px; z-index: 1;
+}
+/* Core organism — morphing + breathing */
+.orb-core {
+  position: absolute; top: 50%; left: 50%;
+  width: 150px; height: 150px; margin: -75px 0 0 -75px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #c8fff0 0%, #4FE8A9 18%, #22a87a 42%, #0b4530 68%, #040e09 100%);
+  box-shadow:
+    0 0 48px rgba(79,232,169,0.7),
+    0 0 96px rgba(79,232,169,0.32),
+    0 0 180px rgba(79,232,169,0.14),
+    inset 0 0 32px rgba(91,207,255,0.22);
+  animation: orb-breathe 3.8s ease-in-out infinite, orb-morph 12s ease-in-out infinite;
+  z-index: 3;
+}
+
+@keyframes orb-breathe {
+  0%, 100% { box-shadow: 0 0 48px rgba(79,232,169,0.7), 0 0 96px rgba(79,232,169,0.32), 0 0 180px rgba(79,232,169,0.14), inset 0 0 32px rgba(91,207,255,0.22); }
+  50%       { box-shadow: 0 0 72px rgba(79,232,169,0.9), 0 0 140px rgba(79,232,169,0.48), 0 0 260px rgba(79,232,169,0.2), inset 0 0 52px rgba(91,207,255,0.32); }
+}
+@keyframes orb-morph {
+  0%   { border-radius: 78% 22% 62% 38% / 35% 65% 28% 72%; }
+  12%  { border-radius: 22% 78% 38% 62% / 72% 28% 65% 35%; }
+  24%  { border-radius: 68% 32% 74% 26% / 22% 78% 34% 66%; }
+  36%  { border-radius: 30% 70% 22% 78% / 66% 34% 72% 28%; }
+  48%  { border-radius: 82% 18% 30% 70% / 28% 72% 62% 38%; }
+  60%  { border-radius: 18% 82% 68% 32% / 74% 26% 22% 78%; }
+  72%  { border-radius: 72% 28% 18% 82% / 32% 68% 78% 22%; }
+  84%  { border-radius: 26% 74% 76% 24% / 78% 22% 26% 74%; }
+  100% { border-radius: 78% 22% 62% 38% / 35% 65% 28% 72%; }
+}
+
+/* ── Expert types — sc-stack layout ── */
+.section-experts { background: var(--bg); padding: var(--section-y) var(--gutter); }
+/* expert-row STRUCTURE (.experts-inner/.experts-list/.expert-row/.sc-left/.sc-right/.sc-tag/.sc-titles/.sc-title-chip/.sc-mock*/.sc-badge*) → ds/ptf.css.
+   Train keeps ONLY its dark colors (below, ~line 500s) + this page-specific red badge. */
+.sc-badge-red { background: rgba(220,53,69,0.12); color: #9c0a16; }
+
+/* experts section mid-CTA */
+.experts-cta { text-align: center; margin-top: 64px; }
+
+/* ── Why it matters — 2×2 benefit grid on dark card ── */
+.section-why { background: var(--bg); padding: var(--section-y) var(--gutter); }
+.why-inner { max-width: var(--content-body); margin: 0 auto; }
+.why-lead { max-width: 700px; margin: 0 auto 64px; text-align: center; }
+.why-lead h2 { font-family: 'Inter Tight', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; letter-spacing: -0.035em; line-height: 1.1; color: var(--ink); }
+.why-lead p { margin-top: 16px; font-size: 17px; color: var(--ink-2); line-height: 1.6; }
+.why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; background: var(--line); border-radius: var(--r-xl); overflow: hidden; }
+.why-card { background: #fff; padding: 40px 44px; }
+.why-card-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: rgba(79,232,169,0.14);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.why-card-icon svg { width: 20px; height: 20px; stroke: #0A8C66; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.why-card h4 { font-family: 'Inter Tight', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 8px; }
+.why-card p { font-size: 14.5px; color: var(--ink-3); line-height: 1.6; }
+
+/* ── How it works ── */
+.section-how { background: var(--bg); padding: var(--section-y) var(--gutter); }
+.how-outer { max-width: var(--content-body); margin: 0 auto; }
+.how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
+.how-portrait-card { border-radius: 28px; overflow: hidden; min-height: 540px; background-image: url('https://images.pexels.com/photos/5244032/pexels-photo-5244032.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-size: cover; background-position: center 65%; position: relative; }
+.how-portrait-icon { position: absolute; top: 20px; left: 20px; width: 48px; height: 48px; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4)); }
+.steps {
+  position: relative;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 23px; top: 44px; bottom: 44px;
+  width: 1px; border-left: 2px dashed rgba(10,10,10,0.12);
+  z-index: 0;
+}
+.step {
+  display: flex; gap: 24px; align-items: flex-start;
+  padding: 40px 0;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 500ms ease, transform 500ms ease;
+}
+.step.visible { opacity: 1; transform: translateY(0); }
+.step-num {
+  width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%;
+  background: var(--bg); border: 1.5px solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif; font-weight: 800;
+  font-size: 12px; letter-spacing: 0.04em; color: var(--ink-3);
+  position: relative; z-index: 1;
+}
+.step-content { padding-top: 12px; }
+.step-content h4 { font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.025em; line-height: 1.2; color: var(--ink); margin-bottom: 8px; }
+.step-content p { font-size: 17px; color: var(--ink-3); line-height: 1.6; }
+
+/* Final CTA → shared .section-cta in ds/ptf.css */
+
+/* ══════════════════════════════════════════
+   FULL DARK MODE — train page only
+   ══════════════════════════════════════════ */
+
+/* Nav */
+.nav { background: transparent !important; border: none !important; box-shadow: none !important; border-bottom: none !important; transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease; }
+.nav.scrolled { background: transparent !important; backdrop-filter: none !important; }
+.nav.nav-solid { background: rgba(10,10,10,0.9) !important; backdrop-filter: saturate(140%) blur(12px) !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+.nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.site-header { box-shadow: none !important; border-bottom: none !important; }
+.nav, .nav-inner, .nav-fly { border-bottom: none !important; box-shadow: none !important; }
+/* Dropdown panel — dark with green border */
+.mega-inner { background: #141414 !important; border: 1px solid rgba(79,232,169,0.55) !important; }
+.fly-eyebrow { color: #4FE8A9 !important; }
+.fly-title { color: #fff !important; }
+.fly-desc  { color: rgba(255,255,255,0.5) !important; }
+.fly-item:hover .fly-title { color: var(--green-mid) !important; } /* hover = green text, no bg */
+.fly-rule  { border-top-color: rgba(255,255,255,0.1) !important; }
+.ind-name  { color: rgba(255,255,255,0.65) !important; }
+.ind-desc  { color: rgba(255,255,255,0.35) !important; }
+.fly-badge-soon { background: #7B00FF !important; color: #fff !important; }
+.fly-badge { color: rgba(255,255,255,0.7) !important; }
+.nav-cta .btn:not(.btn-primary) { background: transparent !important; color: rgba(255,255,255,0.85) !important; border: 1.5px solid rgba(255,255,255,0.55) !important; }
+.nav-cta .btn:not(.btn-primary):hover { color: #fff !important; border-color: #fff !important; }
+.nav-btn { color: rgba(255,255,255,0.85) !important; }
+.brand svg { filter: brightness(0) invert(1); }
+.brand-ai { color: #0A0A0A !important; background: #4FE8A9 !important; }
+.hamburger span { background: rgba(255,255,255,0.85) !important; }
+
+/* page background now comes from .theme-dark (--bg) */
+/* Footer same black */
+.footer { background: #0A0A0A !important; border-top: none !important; }
+/* train exception: CTA band matches train's footer (#0A0A0A), not the shared #000, so they blend */
+.section-cta { background: #0A0A0A !important; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08) !important; }
+
+/* Section rhythm — subtle dark variations so eye can navigate */
+.hire-scroll-outer  { background: #060606 !important; }
+.section-experts    { background: #0A0A0A !important; border-top: 1px solid rgba(255,255,255,0.05) !important; }
+.section-why        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
+.section-how        { border-top: 1px solid rgba(255,255,255,0.05) !important; }
+
+/* expert-row alternation → ds/ptf.css */
+
+/* Section heading sizes — bigger, more editorial */
+.section-head h2 { font-size: clamp(32px, 4vw, 52px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
+.why-lead h2     { font-size: clamp(32px, 4vw, 52px) !important; letter-spacing: -0.04em !important; line-height: 1.08 !important; }
+
+/* Statband — keep top divider only */
+.section-statband { border-bottom: none !important; }
+
+/* ── 2D cursor animations per card ── */
+/* =====================================================
+   ILLUSTRATION CURSOR ANIMATIONS
+   Interactions planned per card:
+   Card 1 (RLHF):   cursor (bottom-center) → clicks "Response A" tab (up-left)
+                     → A tab turns green + response highlights
+                     → cursor glides to annotation box (down) → clicks → box gets focus ring
+   Card 2 (Eval):   cursor (mid-right) → clicks 5th dot on Accuracy row (up-left)
+                     → all 5 dots fill → cursor drops to Clarity row → clicks 4th dot
+                     → 4 dots fill → Submit pulses active
+   Card 3 (Red team): cursor (mid-bottom) → clicks CRITICAL row (up)
+                     → row expands to reveal detail + Flag button
+                     → cursor glides to Flag button → clicks → "Flagged ✓" green state
+   All cycle: 8s for more comfortable pacing
+   ===================================================== */
+
+/* --- Card 1 --- */
+/* Cursor: starts bottom-center of card */
+@keyframes cur1 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(-44px,-98px) scale(1); }    /* arrive at tab A */
+  20%       { transform:translate(-44px,-98px) scale(0.72); } /* click */
+  23%,44%   { transform:translate(-44px,-98px) scale(1); }    /* hold — reading */
+  56%       { transform:translate(4px,-38px) scale(1); }      /* glide to annotation */
+  59%       { transform:translate(4px,-38px) scale(0.72); }   /* click */
+  62%,80%   { transform:translate(4px,-38px) scale(1); }      /* hold */
+  92%,100%  { transform:translate(0,0) scale(1); }            /* return */
+}
+/* Tab A active state: turns green on click at 20% */
+@keyframes tab-a-active {
+  0%,17%,82%,100% { background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.38); border-color:rgba(255,255,255,0.1); }
+  20%,80%         { background:#4FE8A9; color:#0a0a0a; border-color:#4FE8A9; }
+}
+/* Response A card: gets selected green border at same time as tab click */
+@keyframes resp-a-selected {
+  0%,17%,82%,100% { border-color:rgba(255,255,255,0.07); box-shadow:none; }
+  20%,80%         { border-color:#4FE8A9; box-shadow:0 0 0 1px rgba(79,232,169,0.25), 0 0 20px rgba(79,232,169,0.15); }
+}
+/* Annotation box: gets focus ring when cursor clicks it at 59% */
+@keyframes annot-focus {
+  0%,56%,82%,100% { border-color:rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); }
+  59%,80%         { border-color:rgba(79,232,169,0.5); background:rgba(79,232,169,0.04); box-shadow:0 0 0 2px rgba(79,232,169,0.12); }
+}
+
+/* --- Card 2 --- */
+/* Cursor: starts mid-right of card */
+@keyframes cur2 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  15%       { transform:translate(-28px,-62px) scale(1); }    /* arrive at Accuracy 5th dot */
+  18%       { transform:translate(-28px,-62px) scale(0.72); } /* click */
+  21%,42%   { transform:translate(-28px,-62px) scale(1); }    /* hold */
+  54%       { transform:translate(-28px,-14px) scale(1); }    /* drop to Clarity 4th dot */
+  57%       { transform:translate(-28px,-14px) scale(0.72); } /* click */
+  60%,78%   { transform:translate(-28px,-14px) scale(1); }    /* hold */
+  90%,100%  { transform:translate(0,0) scale(1); }
+}
+/* Accuracy dots: all 5 fill green at 18% */
+@keyframes dot-acc {
+  0%,15%    { background:rgba(255,255,255,0.14); }
+  18%,100%  { background:#4FE8A9; }
+}
+/* Clarity dots 1-4 fill at 57% (5th stays empty) */
+@keyframes dot-cla {
+  0%,54%    { background:rgba(255,255,255,0.14); }
+  57%,100%  { background:#4FE8A9; }
+}
+/* Submit button activates after second click */
+@keyframes submit-active {
+  0%,54%,100% { opacity:0.3; }
+  60%,92%     { opacity:1; box-shadow:0 0 0 1px rgba(79,232,169,0.4); }
+}
+
+/* --- Card 3 --- */
+/* Cursor: starts mid-bottom-center */
+@keyframes cur3 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(0,-78px) scale(1); }        /* arrive at CRITICAL row */
+  20%       { transform:translate(0,-78px) scale(0.72); }     /* click */
+  23%,44%   { transform:translate(0,-78px) scale(1); }        /* hold — row expands */
+  56%       { transform:translate(62px,-60px) scale(1); }     /* glide to Flag button */
+  59%       { transform:translate(62px,-60px) scale(0.72); }  /* click */
+  62%,80%   { transform:translate(62px,-60px) scale(1); }     /* hold */
+  92%,100%  { transform:translate(0,0) scale(1); }
+}
+/* CRITICAL row expands on click at 20% */
+@keyframes crit-expand {
+  0%,17%    { max-height:42px; overflow:hidden; }
+  20%,100%  { max-height:140px; }
+}
+/* CRITICAL row border pulses when clicked */
+@keyframes crit-pulse {
+  0%,17%,82%,100% { border-left-color:#4FE8A9; box-shadow:none; }
+  20%,45%          { border-left-color:#4FE8A9; box-shadow:0 0 14px rgba(79,232,169,0.2); }
+}
+/* Flag button: appears in expanded row, gets clicked at 59% */
+@keyframes flag-btn {
+  0%,17%    { opacity:0; }          /* hidden until row expands */
+  22%,56%   { opacity:1; background:transparent; color:rgba(255,255,255,0.35); border-color:rgba(255,255,255,0.12); }
+  59%,80%   { opacity:1; background:rgba(79,232,169,0.15); color:#4FE8A9; border-color:rgba(79,232,169,0.5); }
+  83%,100%  { opacity:0; }          /* reset for next cycle */
+}
+/* "Flagged" label: appears after click at 59% */
+@keyframes flagged-lbl {
+  0%,58%   { opacity:0; transform:translateY(4px); }
+  62%,80%  { opacity:1; transform:translateY(0); }
+  83%,100% { opacity:0; }
+}
+
+.ai-cursor { position:absolute; pointer-events:none; z-index:10; }
+.ai-cursor svg { display:block; }
+.avatar-row { display:flex; align-items:center; margin-bottom:10px; }
+.av { width:36px; height:36px; border-radius:50%; border:2px solid; flex-shrink:0; overflow:hidden; }
+.av img { width:100%; height:100%; object-fit:cover; }
+.av+.av { margin-left:-10px; }
+.av-lbl { font-size:10px; color:rgba(255,255,255,0.38); margin-left:8px; }
+/* expert-row dark treatment (h3/body/tag/more text, sc-right-domain/function/ai panels,
+   sc-mock-dark-* cards, sc-title-chip) all come from ds/ptf.css tokens now. */
+.sc-mock-stack { width: 90%; }   /* train-specific: slightly wider mock stack */
+
+/* Why it matters section — oc-float dark layout */
+.section-why { background: #0A0A0A !important; overflow: hidden !important; }
+.why-lead h2 { color: #fff !important; }
+.why-lead p { color: rgba(255,255,255,0.5) !important; }
+
+/* oc-float STRUCTURE + positions + animation → ds/ptf.css.
+   Train keeps ONLY its dark colors here (page is dark, not .theme-dark) — these override the shared light defaults. */
+.oc-float { background: #141414; border-color: rgba(255,255,255,0.09); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+.oc-float-spark-col svg path { paint-order: stroke; }
+.oc-float-vline { background: rgba(255,255,255,0.08); }
+.oc-float h4 { color: #fff; }
+.oc-float p  { color: rgba(255,255,255,0.5); }
+.why-outcomes-wrap { position: relative; width: 100%; height: 400px; }
+
+/* Stack the floating outcome cards below 1080px (two 400px cards can't fit side-by-side) */
+@media (max-width: 1080px) {
+  .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 16px !important; align-items: center !important; margin-top: 8px !important; }
+  .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
+  .oc-float-1, .oc-float-2, .oc-float-3, .oc-float-4 { margin-top: 0 !important; left: auto !important; }
+}
+
+/* How it works section */
+.section-how { background: #0A0A0A !important; }
+.section-how .section-head h2 { color: #fff; }
+.steps::before { border-color: rgba(255,255,255,0.1) !important; }
+.step-num { background: #0A0A0A !important; border-color: rgba(255,255,255,0.15) !important; color: #fff !important; }
+.step-content h4 { color: #fff !important; }
+.step-content p { color: rgba(255,255,255,0.5) !important; }
+
+/* Section heads used everywhere */
+.section-head h2 { color: #fff; }
+.section-head p  { color: rgba(255,255,255,0.5); }
+
+/* All btn-primary white on dark page */
+.btn-primary { background: #fff !important; color: #0A0A0A !important; }
+.btn-primary:hover { background: rgba(255,255,255,0.88) !important; color: #0A0A0A !important; }
+
+/* ══════════════════════════════════════════ */
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hire-scroll-outer { padding: 60px 20px 80px; }
+  .hire-sticky-scene { padding: 0; }
+  .hire-around-wrap { height: auto; display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 32px; }
+  .hire-center-orb { position: static; transform: none; width: 260px; height: 260px; margin: 0 auto; }
+  .hire-float { position: static; width: 100%; max-width: 400px; height: auto; transform: none !important; opacity: 1 !important; margin: 0 !important; }
+  /* expert-row stacking + body size (mobile) → ds/ptf.css */
+  /* .section-how padding → responsive --section-y token */
+  .how-inner { grid-template-columns: 1fr; gap: 40px; }
+  .how-portrait-card { height: 440px; min-height: 0; width: 100%; aspect-ratio: unset; }
+  .why-outcomes-wrap { height: auto !important; display: flex !important; flex-direction: column !important; gap: 14px !important; align-items: center !important; }
+  .oc-float { position: static !important; opacity: 1 !important; transform: none !important; width: 100% !important; max-width: 460px !important; height: auto !important; }
+  .oc-float-1, .oc-float-2, .oc-float-3, .oc-float-4 { margin-top: 0 !important; left: auto !important; }
+  .statband-inner { flex-wrap: wrap; }
+  .statband-item { flex: 0 0 50%; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .statband-item:nth-child(2) { border-right: none; }
+  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
+  /* .top-alert responsive handled by ds/ptf.css */
+  .mobile-drawer { display: none; }
+  .mobile-drawer.open { display: flex; }
+  .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+  .mobile-drawer .drawer-cta { gap: 12px; }
+  .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .drawer-group:last-of-type { border-bottom: none; }
+  .drawer-cat {
+    font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #0A8C66;
+    padding: 0; margin-bottom: 8px; display: block;
+    border-bottom: none !important;
+  }
+  .drawer-group a {
+    font-size: 15px; font-weight: 500; color: var(--ink);
+    padding: 8px 0 8px 12px; border-bottom: none !important;
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .drawer-group a:hover { opacity: 0.65; }
+  .drawer-badge {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+    text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
+    background: var(--purple-light); color: var(--purple);
+  }
+}
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  h1, h2, h3 { text-wrap: pretty; }
+  h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
+  .hero-sub { font-size: 16px; text-wrap: pretty; }
+  /* section padding → responsive --section-y token; statband stays flush */
+  .section-statband { padding: 0 20px; }
+  .statband-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .statband-item { flex: unset; border-right: none; border-bottom: 1px solid var(--line); padding: 20px 16px; }
+  .statband-item:nth-child(odd) { border-right: 1px solid var(--line); }
+  .statband-item:nth-child(3), .statband-item:nth-child(4) { border-bottom: none; }
+  .statband-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); }
+  .statband-icon { display: none; }
+  .statband-text { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .statband-num { font-size: 40px !important; letter-spacing: -0.04em; color: #fff !important; }
+  .statband-lbl { font-size: 16px !important; font-weight: 500; color: rgba(255,255,255,0.7) !important; }
+  .steps::before { left: 20px; }
+  .step { gap: 16px; padding: 24px 0; opacity: 1; transform: none; }
+  /* expert-row mobile (min-height/padding/mock) → ds/ptf.css */
+  .why-card { padding: 28px 24px; }
+}
+</style>
+</head>
+<body class="theme-dark">
+
+<div class="site-header" id="siteHeader">
+<!-- ═══ TOP ALERT ═══ -->
+<div class="top-alert" id="topAlert">
+  AI &amp; Emerging Tech Summit 2026 &nbsp;· &nbsp;Sept 16–17 · Virtual
+  <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register now →</a>
+  <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav" id="mainNav">
+  <div class="nav-inner">
+    <a class="brand" href="../employers/">
+      <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+      <span class="brand-ai">AI</span>
+    </a>
+
+    <div class="nav-items">
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-build">Build better AI <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-build">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Services</div>
+              <div class="mega-items">
+                <a class="fly-item" href="../hire/">
+                  <div class="fly-title">Hire AI experts</div>
+                  <div class="fly-desc">Staff your team with domain-qualified &amp; functional experts, ready from day one.</div>
+                </a>
+                <a class="fly-item" href="../employers/#services">
+                  <div class="fly-title">Improve AI performance</div>
+                  <div class="fly-desc">Get better training data with verified domain experts for RLHF, evaluation, red teaming, and QA.</div>
+                </a>
+              </div>
+              <hr class="fly-rule">
+              <div class="fly-eyebrow">Industries we serve</div>
+              <div class="ind-grid">
+                <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
+                <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
+                <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
+                <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                <div class="ind-item"><div class="ind-name">Industrial &amp; Mfg</div><div class="ind-desc">Predictive model QA</div></div>
+                <div class="ind-item"><div class="ind-name">Retail &amp; Ecommerce</div><div class="ind-desc">Multilingual eval</div></div>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div>
+                <div class="fly-eyebrow">Get started</div>
+                <p class="proof-desc">Tell us what you're building and we'll match you with verified domain experts.</p>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>80K+ functional &amp; domain experts</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>6,500 AI professionals</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Global talent pool</div>
+              </div>
+              <a href="../book/" class="fly-cta">Book a discovery call →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-experts">Meet our experts <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-experts">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">The community</div>
+              <div class="mega-items">
+                <a class="fly-item" href="../expert-finder/">
+                  <div class="fly-title">Expert Finder <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Browse 80K+ domain &amp; functional experts by role, domain, and industry.</div>
+                </a>
+                <a class="fly-item" href="../how-we-verify/">
+                  <div class="fly-title">How we verify <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Identity, credentials, and domain expertise — all confirmed.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">By the numbers</div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Functional &amp; domain experts</div></div>
+              <div class="stat-item"><div class="stat-num">6,500</div><div class="stat-lbl">AI professionals</div></div>
+              <div class="stat-item"><div class="stat-num">190</div><div class="stat-lbl">Countries represented</div></div>
+              <div class="stat-item"><div class="stat-num">75%+</div><div class="stat-lbl">Women &amp; BIPOC in our network</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-diff">The PTF difference <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-diff">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Our case</div>
+              <div class="mega-items">
+                <a class="fly-item" href="../why-powertofly/">
+                  <div class="fly-title">Why PowerToFly <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Representative AI talent is no longer a nice-to-have.</div>
+                </a>
+                <a class="fly-item" href="../compare/">
+                  <div class="fly-title">Compare us <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">PTF vs Scale AI, Andela, Mercor, and LinkedIn.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">The numbers</div>
+              <div class="stat-item"><div class="stat-num">~78%</div><div class="stat-lbl">of AI researchers are male — Stanford HAI 2023</div></div>
+              <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">competitors addressing this at the talent layer</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-events">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Events</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/browse-events">
+                  <div class="fly-title">All upcoming events</div>
+                  <div class="fly-desc">Hiring summits, AI talent showcases, virtual and in-person.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right-dark">
+              <div>
+                <div class="event-ey">Featured event</div>
+                <div class="event-hl">AI &amp; Emerging Tech Summit 2026</div>
+                <div class="event-date">Sept 16–17 · Virtual</div>
+              </div>
+              <a href="https://powertofly.com/browse-events" class="event-reg">Register now →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-company">Company <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-company">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">PowerToFly</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/about">
+                  <div class="fly-title">About</div>
+                  <div class="fly-desc">Our mission, team, and 12-year story.</div>
+                </a>
+                <a class="fly-item" href="https://powertofly.com/up">
+                  <div class="fly-title">Resources &amp; blog</div>
+                  <div class="fly-desc">AI talent guides, benchmarks, thought leadership.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">Our network</div>
+              <div class="stat-item"><div class="stat-num">12 <span style="font-size:0.52em;font-weight:700">years</span></div><div class="stat-lbl">Building the most diverse AI talent network</div></div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Skilled professionals ready to work</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-cta">
+      <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+      <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+</div><!-- /site-header -->
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-links">
+    <div class="drawer-group">
+      <span class="drawer-cat">Build better AI</span>
+      <a href="../hire/">Hire AI experts</a>
+      <a href="../employers/#services">Improve AI performance</a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Meet our experts</span>
+      <a href="../expert-finder/">Expert Finder <span class="drawer-badge">Coming soon</span></a>
+      <a href="../how-we-verify/">How we verify <span class="drawer-badge">Coming soon</span></a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">The PTF difference</span>
+      <a href="../why-powertofly/">Why PowerToFly <span class="drawer-badge">Coming soon</span></a>
+      <a href="../compare/">Compare us <span class="drawer-badge">Coming soon</span></a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Events</span>
+      <a href="https://powertofly.com/browse-events">All upcoming events</a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Company</span>
+      <a href="https://powertofly.com/about">About</a>
+      <a href="https://powertofly.com/up">Resources &amp; blog</a>
+    </div>
+  </div>
+  <div class="drawer-cta">
+    <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+    <a href="../book/" class="btn btn-primary btn-sm">Book a call →</a>
+  </div>
+</div>
+
+<main>
+<!-- Shared gradient defs -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5BCFFF"/>
+      <stop offset="50%" stop-color="#4FE8A9"/>
+      <stop offset="100%" stop-color="#D5FF66"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<!-- 01. HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="eyebrow eyebrow-on-dark">Train AI models</div>
+      <h1 class="hero-headline">Better AI models start with <em class="italic-plain">better&nbsp;experts.</em></h1>
+      <p class="hero-sub">PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it's being built to serve.</p>
+      <div class="hero-ctas">
+        <a href="../book/" class="btn btn-primary">Talk to our team →</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+        <source src="hero-side.mp4?v=2" type="video/mp4">
+      </video>
+      <button class="hero-vid-toggle" id="heroVidToggle" aria-label="Pause video">&#10074;&#10074;</button>
+    </div>
+  </div>
+</section>
+
+<!-- Stat bar -->
+<section class="section-statband">
+  <div class="statband-inner">
+    <div class="statband-item">
+      <!-- Star icon replaces people icon -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div>
+    </div>
+    <div class="statband-item">
+      <!-- Robot/AI chip icon -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M15 9H9v6h6V9zm-2 4h-2v-2h2v2zm8-2V9h-2V7c0-1.1-.9-2-2-2h-2V3h-2v2h-2V3H9v2H7C5.9 5 5 5.9 5 7v2H3v2h2v2H3v2h2v2c0 1.1.9 2 2 2h2v2h2v-2h2v2h2v-2h2c1.1 0 2-.9 2-2v-2h2v-2h-2v-2h2zm-4 6H7V7h10v10z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI professionals</span></div>
+    </div>
+    <div class="statband-item">
+      <div class="statband-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div>
+    </div>
+    <div class="statband-item">
+      <!-- Female / Venus symbol (MUI Female icon) -->
+      <div class="statband-icon"><svg viewBox="0 0 24 24" style="fill:#4FE8A9;stroke:none;"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2zm0 8c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm1 2h-2v2H9v2h2v4h2v-4h2v-2h-2v-2z"/></svg></div>
+      <div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 02. WHAT YOU CAN USE THEM FOR -->
+<section class="use-cases-section">
+  <div class="use-cases-inner">
+    <div class="section-head">
+      <h2>Where our experts make the difference</h2>
+    </div>
+    <div class="benefits-row">
+
+      <div class="benefit-card use-card-dark">
+        <div class="use-card-photo"><img src="person-1.jpg" alt="" loading="lazy"></div>
+        <div class="benefit-eyebrow">RLHF &amp; human feedback</div>
+        <h3>Feedback that actually makes your model better.</h3>
+        <p>Domain experts provide the nuanced signal that generalist crowds can't — rated, ranked, and explained in context.</p>
+      </div>
+
+      <div class="benefit-card use-card-dark">
+        <div class="use-card-photo"><img src="person-2.jpg" alt="" loading="lazy"></div>
+        <div class="benefit-eyebrow">Evaluation &amp; QA</div>
+        <h3>Test against real-world expectations, not benchmarks.</h3>
+        <p>Domain-matched experts evaluate outputs across languages and edge cases your team would never think to test.</p>
+      </div>
+
+      <div class="benefit-card use-card-dark">
+        <div class="use-card-photo"><img src="person-3.jpg" alt="" loading="lazy"></div>
+        <div class="benefit-eyebrow">Red teaming</div>
+        <h3>Find the failures before your users do.</h3>
+        <p>Adversarial testing by people who know your industry — they probe where your model is most likely to fail in production.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- 03. EXPERT TYPES -->
+<section class="section-experts" id="expert-types">
+  <div class="experts-inner">
+    <div class="section-head">
+      <h2>The experts behind your training&nbsp;data</h2>
+    </div>
+    <div class="experts-list">
+
+      <!-- Domain experts -->
+      <div class="expert-row">
+        <div class="sc-left">
+          <span class="sc-tag">Domain experts</span>
+          <h3>The people whose subject-matter knowledge is what your model learns from</h3>
+          <p class="sc-body">Professionals with real industry depth — physicians, lawyers, financial analysts, paralegals, compliance officers, nurses, and specialists across every industry we serve.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">Physician</span>
+            <span class="sc-title-chip">Lawyer</span>
+            <span class="sc-title-chip">Financial analyst</span>
+            <span class="sc-title-chip">Paralegal</span>
+            <span class="sc-title-chip">Compliance officer</span>
+            <span class="sc-title-chip">Nurse</span>
+          </div>
+        </div>
+        <div class="sc-right sc-right-domain">
+          <div class="sc-mock-wrap">
+            <div class="sc-mock-stack">
+              <!-- Card 1: RLHF — cursor clicks "Response A" tab (tab activates green,
+                   response card gets green border), then clicks annotation box (focus ring) -->
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur1 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Dr. Rania K.</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">Cardiology</div>
+                  </div>
+                  <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">RLHF</div>
+                </div>
+                <!-- Tabs: Response A activates on click -->
+                <div style="display:flex;gap:5px;margin-bottom:9px;">
+                  <div style="flex:1;padding:5px 0;border-radius:6px;border:1.5px solid;font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;cursor:default;animation:tab-a-active 8s ease-in-out infinite;">Response A</div>
+                  <div style="flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);font-size:9px;font-weight:700;color:rgba(255,255,255,0.28);text-align:center;">Response B</div>
+                </div>
+                <!-- Response content: green border appears when A is selected -->
+                <div style="padding:10px 11px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.07);margin-bottom:7px;animation:resp-a-selected 8s ease-in-out infinite;">
+                  <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.55;">The standard dosage is 500 mg twice daily with meals — adjusted for renal function in patients with CrCl &lt;30.</div>
+                </div>
+                <!-- Annotation box: focus ring on cursor click -->
+                <div style="padding:8px 10px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.06);animation:annot-focus 8s ease-in-out infinite;">
+                  <div style="font-size:9px;color:rgba(255,255,255,0.26);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.07em;">Annotation</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.52);line-height:1.4;">More precise — includes dosing route &amp; renal caveat</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Functional specialists -->
+      <div class="expert-row">
+        <div class="sc-left">
+          <span class="sc-tag">Functional specialists</span>
+          <h3>Experts in the work your model is being built to support</h3>
+          <p class="sc-body">People who know what good output looks like in practice — writers, educators, customer service leads, HR professionals, linguists, and operators across the functions your model serves.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">Content writer</span>
+            <span class="sc-title-chip">Educator</span>
+            <span class="sc-title-chip">HR professional</span>
+            <span class="sc-title-chip">Linguist</span>
+            <span class="sc-title-chip">Customer service lead</span>
+          </div>
+        </div>
+        <div class="sc-right sc-right-function">
+          <div class="sc-mock-wrap">
+            <div class="sc-mock-stack">
+              <!-- Card 2: Eval scoring — cursor (mid-right) clicks last dot on Accuracy row
+                   (all 5 fill green), then drops to Clarity row (4 fill), Submit activates -->
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="top:50%;right:14px;margin-top:-8px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur2 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Josephine M.</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">Legal writer</div>
+                  </div>
+                  <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">EVAL</div>
+                </div>
+                <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:9px;text-transform:uppercase;letter-spacing:0.07em;">HR policy assistant · Quality rubric</div>
+                <!-- Dot-rating rows -->
+                <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px;">
+                  <!-- Row: Accuracy — 5 dots, all fill on click -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Accuracy</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.24s;"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Tone — static 3/5 filled -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Tone</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Completeness — static 4/5 -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Completeness</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                  <!-- Row: Clarity — 4 dots fill on second click -->
+                  <div style="display:flex;align-items:center;justify-content:space-between;">
+                    <span style="font-size:11px;color:rgba(255,255,255,0.65);">Clarity</span>
+                    <div style="display:flex;gap:4px;">
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                      <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Submit — dims until second click activates it -->
+                <div style="padding:7px 0;text-align:center;border-radius:7px;border:1.5px solid rgba(79,232,169,0.2);font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:submit-active 8s ease-in-out infinite;">Submit eval →</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Technical reviewers -->
+      <div class="expert-row">
+        <div class="sc-left">
+          <span class="sc-tag">Technical reviewers</span>
+          <h3>Professionals who evaluate model behavior at the technical layer</h3>
+          <p class="sc-body">The people who stress-test your model against real-world edge cases — ML engineers, data scientists, prompt engineers, QA analysts, and LLM evaluators.</p>
+          <div class="sc-titles">
+            <span class="sc-title-chip">ML engineer</span>
+            <span class="sc-title-chip">Data scientist</span>
+            <span class="sc-title-chip">Prompt engineer</span>
+            <span class="sc-title-chip">QA analyst</span>
+            <span class="sc-title-chip">LLM evaluator</span>
+          </div>
+        </div>
+        <div class="sc-right sc-right-ai">
+          <div class="sc-mock-wrap">
+            <div class="sc-mock-stack">
+              <!-- Card 3: Red team — cursor (bottom-center) clicks CRITICAL row
+                   → row expands revealing detail + Flag button
+                   → cursor glides to Flag → "Flagged ✓" green state -->
+              <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+                <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                  <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur3 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+                </div>
+                <!-- Header -->
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                  <div style="display:flex;">
+                    <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                    <div class="av" style="width:32px;height:32px;border-color:#060e09;margin-left:-10px;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  </div>
+                  <div>
+                    <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Red team · Finance LLM</div>
+                    <div style="font-size:9px;color:rgba(255,255,255,0.36);">2 of 5 active</div>
+                  </div>
+                  <div style="margin-left:auto;display:flex;align-items:center;gap:4px;">
+                    <div style="width:6px;height:6px;border-radius:50%;background:#4FE8A9;animation:livepulse 1.6s ease-in-out infinite;"></div>
+                    <span style="font-size:8px;color:rgba(255,255,255,0.4);">LIVE</span>
+                  </div>
+                </div>
+                <!-- Finding rows -->
+                <div style="display:flex;flex-direction:column;gap:5px;">
+                  <!-- TOP finding: expands on click, shows Flag button -->
+                  <div style="background:rgba(79,232,169,0.05);border-left:1.5px solid #4FE8A9;border-radius:0 7px 7px 0;overflow:hidden;animation:crit-expand 8s ease-in-out infinite, crit-pulse 8s ease-in-out infinite;">
+                    <div style="padding:9px 10px;">
+                      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                        <div style="font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.1em;">FLAGGED</div>
+                        <div style="font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;border:1px solid;cursor:default;white-space:nowrap;animation:flag-btn 8s ease-in-out infinite;">Flag →</div>
+                      </div>
+                      <div style="font-size:10px;color:rgba(255,255,255,0.75);">Jailbreak via role-play → exposes user PII</div>
+                      <div style="margin-top:7px;font-size:9px;color:rgba(255,255,255,0.4);line-height:1.45;border-top:1px solid rgba(79,232,169,0.1);padding-top:7px;">Probe #47: role-play as "no-filter mode" bypasses system prompt.</div>
+                      <div style="margin-top:6px;font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:flagged-lbl 8s ease-in-out infinite;">✓ Flagged for fix</div>
+                    </div>
+                  </div>
+                  <!-- Row 2 — static -->
+                  <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:1.5px solid rgba(79,232,169,0.4);border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.7);letter-spacing:0.1em;margin-bottom:3px;">REVIEW</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.55);">Prompt injection bypasses compliance rules</div>
+                  </div>
+                  <!-- Row 3 — static -->
+                  <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:1.5px solid rgba(79,232,169,0.2);border-radius:0 7px 7px 0;">
+                    <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.45);letter-spacing:0.1em;margin-bottom:3px;">MONITOR</div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.55);">Inconsistent output on edge-case queries</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /experts-list -->
+
+    <div class="experts-cta">
+      <a href="../book/" class="btn btn-primary">Find your expert →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 04. WHY IT MATTERS -->
+<section class="section-why">
+  <div class="why-inner">
+    <div class="why-lead">
+      <h2>Better inputs make <em class="italic-plain">better models.</em></h2>
+      <p>Representative domain experts who understand your industry produce more accurate outputs, so your AI works for more of the people it's built to serve.</p>
+    </div>
+    <div class="outcomes-wrap why-outcomes-wrap" id="whyOutcomes">
+
+      <!-- Top left -->
+      <div class="oc-float oc-float-1">
+        <div class="oc-float-spark-col">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg1)" stroke="url(#wg1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82L8.6 22.5l3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12zm-12.91 4.72-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z"/><path d="M7.5 12.3l2.55 2.55 5.9-6" fill="none" stroke="#0A0A0A" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="oc-float-vline"></div>
+        <div class="oc-float-body">
+          <h4>More accurate outputs</h4>
+          <p>Experts who understand your use case catch errors that generic annotators miss.</p>
+        </div>
+      </div>
+
+      <!-- Bottom left -->
+      <div class="oc-float oc-float-2">
+        <div class="oc-float-spark-col">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg2)" stroke="url(#wg2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <div class="oc-float-vline"></div>
+        <div class="oc-float-body">
+          <h4>Defensible by design</h4>
+          <p>Verified identities and credentials mean you can explain who trained your model to your regulators, your legal team, and your board.</p>
+        </div>
+      </div>
+
+      <!-- Top right -->
+      <div class="oc-float oc-float-3">
+        <div class="oc-float-spark-col">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg3)" stroke="url(#wg3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        </div>
+        <div class="oc-float-vline"></div>
+        <div class="oc-float-body">
+          <h4>Fewer blind spots</h4>
+          <p>A representative expert pool catches edge cases a homogenous team won't see before they hit production.</p>
+        </div>
+      </div>
+
+      <!-- Bottom right -->
+      <div class="oc-float oc-float-4">
+        <div class="oc-float-spark-col">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="wg4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#wg4)" stroke="url(#wg4)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46C19.54 15.03 20 13.57 20 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74C4.46 8.97 4 10.43 4 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z"/></svg>
+        </div>
+        <div class="oc-float-vline"></div>
+        <div class="oc-float-body">
+          <h4>Consistent across releases</h4>
+          <p>Work with the same experts across model versions. Familiarity with your data compounds over time.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 05. HOW IT WORKS -->
+<section class="section-how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>How it works</h2>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps" id="stepsContainer">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Tell us what you're building</h4>
+            <p>Walk us through your model, your industry, your use case, and what good output looks like for you. The more we understand, the better the match.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>We match the right experts</h4>
+            <p>We curate a list of verified domain experts who already understand your space and the work you need them to do.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Your experts get to work</h4>
+            <p>Your cohort delivers structured feedback your team, your regulators, and your board can stand behind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. CLOSING CTA -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow eyebrow-on-dark">Get started</span>
+    <h2>Better models start with the right people.</h2>
+    <p>30 minutes with a team that has spent a decade building the expert network your model needs.</p>
+    <a href="../book/" class="btn btn-cta">Talk to our team →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-brand">
+          <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="white"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="white"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="white"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="white"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="white"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="white"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="white"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="white"/></svg>
+          <span class="brand-ai">AI</span>
+        </div>
+        <p class="footer-bio">The training network powering production AI.</p>
+      </div>
+      <div class="footer-col">
+        <h5>For Talent</h5>
+        <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Jobs</a>
+        <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Events</a>
+        <a href="https://powertofly.com/companies/all" target="_blank" rel="noopener">Companies</a>
+        <a href="https://powertofly.com/up" target="_blank" rel="noopener">Blog</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Employers</h5>
+        <a href="../hire/">Hire</a>
+        <a href="../train/">Train</a>
+        <a href="../expert-finder/">Expert Finder</a>
+        <a href="../how-we-verify/">How We Verify</a>
+        <a href="../why-powertofly/">Why PowerToFly</a>
+        <a href="../compare/">Compare</a>
+        <a href="../book/">Book a call</a>
+      </div>
+      <div class="footer-col">
+        <h5>Our Company</h5>
+        <a href="https://powertofly.com/about" target="_blank" rel="noopener">About Us</a>
+        <a href="https://powertofly.com/about/contact-us" target="_blank" rel="noopener">Contact Us</a>
+        <a href="https://powertofly.com/" target="_blank" rel="noopener">PowerToFly</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PowerToFly.</span>
+      <span class="links"><a href="https://powertofly.com/about/legal" target="_blank" rel="noopener">Legal &amp; Privacy</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="../ds/ptf.js"></script>
+<script>
+/* ── Sync body padding to fixed header height ── */
+function syncHeaderOffset() {
+  /* Only offset by the purple top-alert height so the hero video sits behind the transparent nav */
+  var alert = document.getElementById('topAlert');
+  var alertH = (alert && !alert.classList.contains('hidden')) ? alert.offsetHeight : 0;
+  document.body.style.paddingTop = alertH + 'px';
+}
+syncHeaderOffset();
+window.addEventListener('resize', syncHeaderOffset);
+
+/* ── Nav is transparent only at the very top; gains solid bg the moment you scroll ── */
+(function(){
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  function onScroll(){
+    nav.classList.toggle('nav-solid', window.scrollY > 4);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+}());
+
+/* ── Hero video play/pause (stop function) ── */
+(function(){
+  var t = document.getElementById('heroVidToggle');
+  var v = document.querySelector('.hero-video');
+  if (t && v) {
+    t.addEventListener('click', function(){
+      if (v.paused) { v.play(); t.innerHTML = '&#10074;&#10074;'; t.setAttribute('aria-label','Pause video'); }
+      else { v.pause(); t.innerHTML = '&#9658;'; t.setAttribute('aria-label','Play video'); }
+    });
+  }
+}());
+
+/* ── Top alert close ── */
+(function(){
+  var btn = document.getElementById('topAlertClose');
+  if (btn) btn.addEventListener('click', function(){
+    document.getElementById('topAlert').classList.add('hidden');
+    syncHeaderOffset();
+    positionDrawer();
+  });
+}());
+
+/* ── Fix drawer top to sit flush below the nav ── */
+function positionDrawer() {
+  var h      = document.getElementById('siteHeader');
+  var drawer = document.getElementById('mobileDrawer');
+  if (!h || !drawer) return;
+  var bottom = h.getBoundingClientRect().bottom;
+  drawer.style.top    = bottom + 'px';
+  drawer.style.height = (window.innerHeight - bottom) + 'px';
+}
+document.getElementById('hamburger').addEventListener('click', positionDrawer);
+window.addEventListener('resize', positionDrawer);
+
+/* ── Mega nav flyouts ── */
+(function () {
+  var btns    = document.querySelectorAll('.nav-btn[data-fly]');
+  var overlay = document.getElementById('navOverlay');
+  var timer;
+  function closeAll() {
+    document.querySelectorAll('.nav-fly').forEach(function(f){ f.classList.remove('open'); });
+    btns.forEach(function(b){ b.classList.remove('open'); });
+    if (overlay) overlay.classList.remove('on');
+  }
+  function scheduleClose() { timer = setTimeout(closeAll, 220); }
+  function cancelClose()   { clearTimeout(timer); }
+  btns.forEach(function (btn) {
+    var drop = btn.closest('.nav-drop');
+    var fly  = document.getElementById(btn.dataset.fly);
+    drop.addEventListener('mouseenter', function(){ cancelClose(); closeAll(); fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); });
+    drop.addEventListener('mouseleave', scheduleClose);
+    fly.addEventListener('mouseenter', cancelClose);
+    fly.addEventListener('mouseleave', scheduleClose);
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var isOpen = fly.classList.contains('open'); closeAll(); if (!isOpen){ fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); } });
+  });
+  if (overlay) overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+}());
+
+/* ── Timeline scroll fade-in — staggered ── */
+(function () {
+  var steps = document.querySelectorAll('.step');
+  if (!steps.length) return;
+  if (!('IntersectionObserver' in window)) { steps.forEach(function(s){ s.classList.add('visible'); }); return; }
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var delay = parseInt(el.dataset.delay || 0);
+        setTimeout(function(){ el.classList.add('visible'); }, delay);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+  steps.forEach(function(s, i){
+    s.dataset.delay = i * 110;
+    obs.observe(s);
+  });
+}());
+
+/* ── Float cards — slide in on scroll-into-view ── */
+(function () {
+  var wrap = document.querySelector('.hire-around-wrap');
+  if (!wrap) return;
+  if (!('IntersectionObserver' in window)) { wrap.classList.add('cards-in'); return; }
+  var obs = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) { wrap.classList.add('cards-in'); obs.disconnect(); }
+  }, { threshold: 0.1 });
+  obs.observe(wrap);
+}());
+
+/* ── Why section float cards ── */
+(function () {
+  var wrap = document.querySelector('#whyOutcomes');
+  if (!wrap) return;
+  if (!('IntersectionObserver' in window)) { wrap.classList.add('cards-in'); return; }
+  var obs = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) { wrap.classList.add('cards-in'); obs.disconnect(); }
+  }, { threshold: 0.15 });
+  obs.observe(wrap);
+}());
+</script>
+</body>
+</html>

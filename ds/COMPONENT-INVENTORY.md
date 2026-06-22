@@ -45,6 +45,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 
 ### Layout & headings
 - **Section wrappers** — `.section` (standard `--section-y`), `.section-tight`, `.section-loose`, `.section-narrow`. ONE spacing token; never hand-pad.
+- **Hero (first section under the nav)** — `.section-hero`: tighter TOP (`--hero-top`, 56px) so it sits close to the nav (like the hire page), standard `--section-y` bottom, and a wider headline column (its inner `.section-head` is `--content`, not the 720 narrow). Use it for the first section of a page. Composition inside (centered text, text+image, video) is page-specific.
 - **Content widths** — `.content` (`--content`), `.content-narrow` (`--content-narrow`). Content sits *inside* the nav/footer edge.
 - **Section heading** — `.section-head` → `h2` + `p`. Flips dark via tokens.
 - **Eyebrow** — `.eyebrow` (+ inner `.dot`). Plain green uppercase, NEVER a pill. `.eyebrow-on-dark` for an ad-hoc dark block on a light page.

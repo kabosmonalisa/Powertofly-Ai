@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  PowerToFly AI — Nav + Footer Complete Handoff                  ║
+║  For RebelMouse implementation                                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  WHAT'S IN THIS FILE                                             ║
+║  ─────────────────────────────────────────────────────────────  ║
+║  1. ALL CSS — inline in <style>, nothing external needed         ║
+║     except Google Fonts (free CDN link included)                 ║
+║  2. NAV A — Employers / B2B pages                                ║
+║     5 mega-flyout dropdowns, "Book a call" CTA                   ║
+║  3. NAV B — Talents / Job-seeker pages                           ║
+║     1 flyout + plain links, "Hire an expert" CTA                 ║
+║     + frosted glass style override                               ║
+║  4. FOOTER — same on all pages                                   ║
+║  5. ALL JS — inline in <script>, nothing external needed         ║
+║                                                                  ║
+║  HOW TO USE IN REBELMOUSE                                        ║
+║  ─────────────────────────────────────────────────────────────  ║
+║  • Put the <style> block in your global CSS or page <head>       ║
+║  • Put the chosen <nav> + mobile-drawer in your header template  ║
+║  • Put <footer> in your footer template                          ║
+║  • Put the <script> block at the bottom of your body template    ║
+║  • Update all hrefs marked [UPDATE HREF] to your real URLs       ║
+║  • The Google Fonts <link> must be in <head>                     ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PTF AI — Nav & Footer Handoff</title>
+
+<!-- ═══════════════════════════════════════════════
+     FONTS — paste into <head> on every page
+     ═══════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════
+     ALL CSS — paste into your global stylesheet
+     or a <style> block in <head>
+     ═══════════════════════════════════════════════ -->
+<style>
+
+/* ─────────────────────────────────────────────────────
+   DESIGN TOKENS
+   ───────────────────────────────────────────────────── */
+:root {
+  --ink:         #0A0A0A;
+  --ink-2:       #2A2A2A;
+  --ink-3:       #5C6F69;
+  --bg:          #ffffff;
+  --bg-soft:     #FAFAF6;
+  --line:        rgba(10, 10, 10, 0.08);
+  --shadow-card: 0 1px 2px rgba(15,30,26,0.04), 0 8px 28px rgba(15,30,26,0.08);
+  --green:       #0A8C66;
+  --purple:      #5B4FCF;
+  --purple-light:#EEEBFF;
+}
+
+/* ─────────────────────────────────────────────────────
+   RESET
+   ───────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: var(--ink); background: var(--bg);
+  font-size: 16px; line-height: 1.55;
+}
+img { display: block; max-width: 100%; }
+
+/* ─────────────────────────────────────────────────────
+   BRAND AI BADGE (next to logo)
+   ───────────────────────────────────────────────────── */
+.brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; color: var(--ink);
+}
+.brand-ai {
+  display: inline-flex; align-items: center;
+  padding: 3px 10px; border-radius: 999px;
+  background: linear-gradient(135deg, #5BCFFF 0%, #4FE8A9 55%, #D5FF66 100%);
+  color: var(--ink);
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 800; font-size: 12px;
+  letter-spacing: 0.02em; line-height: 1.4;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 14px rgba(79,232,169,0.32);
+}
+
+/* ─────────────────────────────────────────────────────
+   BUTTONS
+   ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 26px; border-radius: 999px;
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
+  text-decoration: none; cursor: pointer;
+  border: 1.5px solid var(--ink);
+  background: #ffffff; color: var(--ink);
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+}
+.btn:hover { transform: translateY(-1px); background: var(--ink); color: #fff; }
+.btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn-primary:hover {
+  background: #1a1a1a; color: #fff;
+  box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
+}
+.btn-sm { padding: 10px 18px; font-size: 14px; }
+.btn-light { background: #ffffff; color: #0A0A0A; border-color: #ffffff; }
+.btn-light:hover {
+  background: rgba(255,255,255,0.88); color: #0A0A0A;
+  box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);
+  transform: translateY(-1px);
+}
+
+/* ─────────────────────────────────────────────────────
+   NAV — BASE (shared by both variants)
+   ───────────────────────────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  padding: 0 32px;
+  transition: background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease;
+}
+.nav.scrolled {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: saturate(140%) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+/* NAV B (Talents) — always frosted: add this class to <nav> OR use the override below */
+.nav.nav-frosted {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: saturate(140%) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-inner {
+  max-width: 1400px; margin: 0 auto;
+  padding: 16px 0;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px;
+}
+.nav-cta { display: flex; gap: 10px; }
+
+/* ─────────────────────────────────────────────────────
+   NAV — MEGA FLYOUT SYSTEM (both variants)
+   ───────────────────────────────────────────────────── */
+.nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
+.nav-drop  { position: static; }
+.nav-btn {
+  background: none; border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px; font-weight: 400;
+  color: var(--ink); cursor: pointer;
+  padding: 7px 11px; border-radius: 8px;
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap; line-height: 1;
+  text-decoration: none;
+  transition: background .12s, color .12s;
+}
+.nav-btn:hover, .nav-btn.open { background: transparent; color: var(--ink); opacity: 0.65; }
+.nav-chev {
+  width: 12px; height: 12px; flex-shrink: 0;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  transition: transform .18s ease;
+}
+.nav-btn.open .nav-chev { transform: rotate(180deg); }
+
+/* Flyout panel */
+.nav-fly {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: transparent; border: none; box-shadow: none;
+  overflow: visible; z-index: 200;
+  padding: 0 32px; padding-top: 2px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s .2s;
+  pointer-events: none;
+}
+.nav-fly.open {
+  opacity: 1; visibility: visible; transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s 0s;
+  pointer-events: auto;
+}
+
+/* Flyout card */
+.mega-inner {
+  max-width: 780px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 260px;
+  background: #fff; border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.10);
+  overflow: hidden;
+}
+.mega-left { padding: 32px 44px 32px 36px; }
+.fly-eyebrow {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: #0A8C66; margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; gap: 4px; }
+.fly-item {
+  display: block; padding: 11px 12px; margin: 0 -12px;
+  border-radius: 8px; text-decoration: none; color: inherit; cursor: pointer;
+  transition: background .12s;
+}
+.fly-item:hover .fly-title { color: var(--green); } /* hover = green text, no bg */
+.fly-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 5px; line-height: 1.2;
+  display: flex; align-items: center; gap: 6px;
+}
+.fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+.fly-badge {
+  display: inline-flex; align-items: center;
+  font-size: 9px; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+}
+.fly-badge-soon { background: var(--purple-light); color: var(--purple); }
+.fly-rule { border: none; border-top: 1px solid var(--line); margin: 20px 0 16px; }
+
+/* Industries grid (in Build better AI flyout) */
+.ind-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; }
+.ind-item { padding: 6px 8px; border-radius: 6px; }
+.ind-name { font-size: 12px; font-weight: 500; color: var(--ink-3); }
+.ind-desc  { font-size: 11px; color: var(--ink-3); opacity: 0.7; margin-top: 1px; }
+
+/* Right dark panel */
+.mega-right {
+  padding: 32px 28px; background: var(--ink);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.mega-right .fly-eyebrow { color: rgba(255,255,255,0.5); }
+.stat-item { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 32px; font-weight: 800; letter-spacing: -0.04em;
+  color: #fff; line-height: 1; margin-bottom: 5px;
+}
+.stat-lbl { font-size: 12.5px; color: rgba(255,255,255,0.78); line-height: 1.4; }
+.proof-desc { font-size: 12px; color: rgba(255,255,255,0.7); line-height:1.55; margin-bottom:16px; }
+.proof-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: rgba(255,255,255,0.9); margin-bottom: 12px; line-height: 1.4;
+}
+.proof-check {
+  width: 16px; height: 16px; border-radius: 50%;
+  background: #4FE8A9; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+.proof-check svg { width: 8px; height: 8px; stroke: #0A0A0A; }
+
+/* Flyout CTA button (green pill) */
+.fly-cta {
+  display: block; background: #4FE8A9; color: var(--ink);
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  padding: 11px 16px; border-radius: 999px;
+  text-align: center; text-decoration: none;
+  transition: opacity .15s; margin-top: 24px;
+}
+.fly-cta:hover { opacity: 0.85; }
+
+/* Flyout stats (used in Talents "Find work" flyout) */
+.fly-stat { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.fly-stat:last-child { border-bottom: none; }
+.fly-stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px; font-weight: 800; letter-spacing: -0.04em;
+  color: #fff; line-height: 1; margin-bottom: 3px; white-space: nowrap;
+}
+.fly-stat-unit { font-size: 0.5em; font-weight: 700; color: rgba(255,255,255,0.6); margin-left: 2px; }
+.fly-stat-lbl { font-size: 11.5px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+/* Events dark right panel */
+.mega-right-dark {
+  padding: 28px 32px; background: var(--ink);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.event-ey {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: #4FE8A9; margin-bottom: 8px;
+}
+.event-hl {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 20px; font-weight: 700; letter-spacing: -0.02em;
+  color: #fff; line-height: 1.25; margin-bottom: 6px;
+}
+.event-date { font-size: 12px; color: #888; margin-bottom: 20px; }
+.event-reg {
+  display: block; background: #4FE8A9; color: var(--ink);
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  padding: 9px 14px; border-radius: 999px;
+  text-align: center; text-decoration: none; transition: opacity .12s;
+}
+.event-reg:hover { opacity: 0.85; }
+
+/* Overlay (closes flyout on outside click) */
+.nav-overlay { position: fixed; inset: 0; z-index: 190; display: none; }
+.nav-overlay.on { display: block; }
+
+/* ─────────────────────────────────────────────────────
+   HAMBURGER
+   ───────────────────────────────────────────────────── */
+.hamburger {
+  display: none;
+  flex-direction: column; justify-content: center; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  padding: 8px; margin-left: auto; border-radius: 8px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--ink); border-radius: 2px;
+  transition: transform 220ms ease, opacity 220ms ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ─────────────────────────────────────────────────────
+   MOBILE DRAWER (shared by both nav variants)
+   ───────────────────────────────────────────────────── */
+.mobile-drawer {
+  display: none;
+  position: fixed; top: 57px; left: 0; right: 0;
+  max-height: calc(100vh - 57px);
+  background: #fff; border-bottom: 1px solid var(--line);
+  z-index: 49; flex-direction: column; gap: 0;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+  transform: translateY(-8px); opacity: 0;
+  transition: transform 200ms ease, opacity 200ms ease;
+  pointer-events: none;
+}
+.mobile-drawer.open {
+  display: flex; transform: translateY(0); opacity: 1; pointer-events: all;
+}
+.drawer-links { overflow-y: auto; flex: 1 1 0; min-height: 0; padding: 20px 24px 0; }
+.drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.drawer-group:last-of-type { border-bottom: none; }
+.drawer-cat {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #0A8C66;
+  padding: 0; margin-bottom: 8px; display: block;
+}
+.drawer-group a {
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  padding: 8px 0 8px 12px;
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.drawer-group a:hover { opacity: 0.65; }
+.drawer-badge {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.05em;
+  text-transform: uppercase; padding: 2px 6px; border-radius: 4px;
+  background: var(--purple-light); color: var(--purple);
+}
+.mobile-drawer .drawer-cta {
+  padding: 16px 24px 24px; border-top: 1px solid var(--line);
+  background: #fff; flex-shrink: 0;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.mobile-drawer .btn { justify-content: center; width: 100%; padding: 13px 26px; }
+.mobile-drawer .btn-primary { color: #fff; }
+.mobile-drawer .btn-primary:hover { color: #fff; }
+
+/* ─────────────────────────────────────────────────────
+   FOOTER
+   ───────────────────────────────────────────────────── */
+.footer { background: #000000; color: #C8D2CE; padding: 24px 32px 36px; }
+.footer-inner {
+  max-width: 1400px; margin: 0 auto;
+  border-top: 1px solid rgba(255,255,255,0.12); padding-top: 56px;
+}
+.footer-cols {
+  display: grid; grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 32px; padding-bottom: 40px;
+}
+.footer-brand { display: flex; align-items: center; gap: 8px; }
+.footer-brand .brand-ai { font-size: 11px; padding: 3px 9px; }
+.footer-bio { margin-top: 14px; font-size: 13.5px; line-height: 1.5; max-width: 30ch; color: #97A8A2; }
+.footer-social { display: flex; gap: 14px; margin-top: 20px; flex-wrap: wrap; }
+.footer-social a { color: #97A8A2; transition: color 200ms; display: flex; align-items: center; }
+.footer-social a:hover { color: #4FE8A9; }
+.footer-col h5 { font-size: 13px; color: #fff; font-weight: 600; margin-bottom: 14px; }
+.footer-col a { display: block; font-size: 13.5px; color: #97A8A2; text-decoration: none; margin-bottom: 10px; }
+.footer-col a:hover { color: #4FE8A9; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1); padding-top: 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; color: #758682;
+}
+.footer-bottom .links a { color: inherit; text-decoration: none; margin-left: 20px; }
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE
+   ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .nav-items { display: none; }
+}
+@media (max-width: 768px) {
+  .nav-cta    { display: none; }
+  .hamburger  { display: flex; }
+  .footer-cols { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 480px) {
+  .nav { padding: 0 20px; }
+  .footer { padding-left: 0; padding-right: 0; }
+  .footer-inner { padding: 56px 20px 32px; }
+  .footer-cols { grid-template-columns: 1fr; gap: 40px; }
+}
+
+</style>
+</head>
+<body>
+
+
+<!-- ╔══════════════════════════════════════════════════════════════
+     ║  NAV A — EMPLOYERS / B2B
+     ║
+     ║  Use on: employers, hire, compare, why-powertofly,
+     ║          how-we-verify, expert-finder, book pages
+     ║
+     ║  The nav starts transparent and gets a frosted glass
+     ║  background when the user scrolls (handled by JS below).
+     ╚══════════════════════════════════════════════════════════════ -->
+
+<nav class="nav" id="siteNav">
+  <div class="nav-inner">
+
+    <!-- Logo -->
+    <a class="brand" href="https://powertofly.com"><!-- [UPDATE HREF] -->
+      <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+      <span class="brand-ai">AI</span>
+    </a>
+
+    <!-- Desktop nav items -->
+    <div class="nav-items">
+
+      <!-- 1. Build better AI -->
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-build">Build better AI <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-build">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Services</div>
+              <div class="mega-items">
+                <a class="fly-item" href="#services"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">Build your AI capability</div>
+                  <div class="fly-desc">Staff your team with domain-qualified & functional experts, ready from day one. Full-time, contract, or project-to-hire.</div>
+                </a>
+                <a class="fly-item" href="#services"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">Improve AI performance</div>
+                  <div class="fly-desc">Get better training data with verified domain experts for RLHF, model evaluation, red teaming, and QA.</div>
+                </a>
+              </div>
+              <hr class="fly-rule">
+              <div class="fly-eyebrow">Industries we serve</div>
+              <div class="ind-grid">
+                <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
+                <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
+                <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
+                <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                <div class="ind-item"><div class="ind-name">Industrial &amp; Mfg</div><div class="ind-desc">Predictive model QA</div></div>
+                <div class="ind-item"><div class="ind-name">Retail &amp; Ecommerce</div><div class="ind-desc">Multilingual eval</div></div>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div>
+                <div class="fly-eyebrow">Get started</div>
+                <p class="proof-desc">Tell us what you're building and we'll match you with verified domain experts.</p>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>80K+ functional & domain experts</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>6,500 AI professionals</div>
+                <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>Global talent pool</div>
+              </div>
+              <a href="/book/" class="fly-cta">Book a discovery call →</a><!-- [UPDATE HREF] -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Meet our experts -->
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-experts">Meet our experts <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-experts">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">The community</div>
+              <div class="mega-items">
+                <a class="fly-item" href="/expert-finder/"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">Expert Finder <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Browse 80K+ domain & functional experts by role, domain, and industry.</div>
+                </a>
+                <a class="fly-item" href="/how-we-verify/"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">How we verify <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Identity, credentials, and domain expertise — all confirmed.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">By the numbers</div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Functional & domain experts</div></div>
+              <div class="stat-item"><div class="stat-num">6,500</div><div class="stat-lbl">AI professionals</div></div>
+              <div class="stat-item"><div class="stat-num">190</div><div class="stat-lbl">Countries represented</div></div>
+              <div class="stat-item"><div class="stat-num">75%+</div><div class="stat-lbl">Women &amp; BIPOC in our network</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. The PTF difference -->
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-diff">The PTF difference <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-diff">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Our case</div>
+              <div class="mega-items">
+                <a class="fly-item" href="/why-powertofly/"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">Why PowerToFly <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">Representative AI talent is no longer a nice-to-have.</div>
+                </a>
+                <a class="fly-item" href="/compare/"><!-- [UPDATE HREF] -->
+                  <div class="fly-title">Compare us <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                  <div class="fly-desc">PTF vs Scale AI, Andela, Mercor, and LinkedIn.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">The numbers</div>
+              <div class="stat-item"><div class="stat-num">~78%</div><div class="stat-lbl">of AI researchers are male — Stanford HAI 2023</div></div>
+              <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">competitors addressing this at the talent layer</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Events -->
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-events">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Events</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/browse-events">
+                  <div class="fly-title">All upcoming events</div>
+                  <div class="fly-desc">Hiring summits, AI talent showcases, virtual and in-person.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right-dark">
+              <div>
+                <div class="event-ey">Featured event</div>
+                <div class="event-hl">AI Talent Summit 2026</div>
+                <div class="event-date">June 18 · New York &amp; Virtual</div>
+              </div>
+              <a href="https://powertofly.com/browse-events" class="event-reg">Register now →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Company -->
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-company">Company <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-company">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">PowerToFly</div>
+              <div class="mega-items">
+                <a class="fly-item" href="https://powertofly.com/about">
+                  <div class="fly-title">About</div>
+                  <div class="fly-desc">Our mission, team, and 12-year story.</div>
+                </a>
+                <a class="fly-item" href="https://powertofly.com/up">
+                  <div class="fly-title">Resources &amp; blog</div>
+                  <div class="fly-desc">AI talent guides, benchmarks, thought leadership.</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div class="fly-eyebrow">Our network</div>
+              <div class="stat-item"><div class="stat-num">12 <span style="font-size:0.52em;font-weight:700;">years</span></div><div class="stat-lbl">Building the most diverse AI talent network</div></div>
+              <div class="stat-item"><div class="stat-num">80K+</div><div class="stat-lbl">Skilled professionals ready to work</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /nav-items -->
+
+    <!-- Desktop CTAs -->
+    <div class="nav-cta">
+      <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+      <a href="/book/" class="btn btn-primary btn-sm">Book a call →</a><!-- [UPDATE HREF] -->
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</nav>
+
+<!-- Overlay (must be outside nav) -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Mobile drawer (must be outside nav, sibling to it) -->
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-links">
+    <div class="drawer-group">
+      <span class="drawer-cat">Build better AI</span>
+      <a href="#services">Build your AI capability</a><!-- [UPDATE HREF] -->
+      <a href="#services">Improve AI performance</a><!-- [UPDATE HREF] -->
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Meet our experts</span>
+      <a href="/expert-finder/">Expert Finder <span class="drawer-badge">Coming soon</span></a><!-- [UPDATE HREF] -->
+      <a href="/how-we-verify/">How we verify <span class="drawer-badge">Coming soon</span></a><!-- [UPDATE HREF] -->
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">The PTF difference</span>
+      <a href="/why-powertofly/">Why PowerToFly <span class="drawer-badge">Coming soon</span></a><!-- [UPDATE HREF] -->
+      <a href="/compare/">Compare us <span class="drawer-badge">Coming soon</span></a><!-- [UPDATE HREF] -->
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Events</span>
+      <a href="https://powertofly.com/browse-events">All upcoming events</a>
+    </div>
+    <div class="drawer-group">
+      <span class="drawer-cat">Company</span>
+      <a href="https://powertofly.com/about">About</a>
+      <a href="https://powertofly.com/up">Resources &amp; blog</a>
+    </div>
+  </div>
+  <div class="drawer-cta">
+    <a href="https://powertofly.com/talent" class="btn btn-sm">Find work</a>
+    <a href="/book/" class="btn btn-primary btn-sm">Book a call →</a><!-- [UPDATE HREF] -->
+  </div>
+</div>
+<!-- ║ END NAV A — EMPLOYERS ║ -->
+
+
+<!-- ╔══════════════════════════════════════════════════════════════
+     ║  NAV B — TALENTS / JOB SEEKER
+     ║
+     ║  Use on: talents, join, job board pages
+     ║
+     ║  Key differences from Nav A:
+     ║    • add class "nav-frosted" to <nav> for always-on glass
+     ║    • only 1 mega flyout (Find work), rest are plain links
+     ║    • CTAs: Log in + Hire an expert
+     ║    • mobile drawer has no <div class="drawer-links"> wrapper
+     ╚══════════════════════════════════════════════════════════════ -->
+
+<!--
+<nav class="nav nav-frosted" id="siteNav">
+  <div class="nav-inner">
+
+    <a class="brand" href="https://powertofly.com">
+      [SAME LOGO SVG AS ABOVE — copy it here]
+      <span class="brand-ai">AI</span>
+    </a>
+
+    <div class="nav-items">
+      <div class="nav-drop">
+        <button class="nav-btn" data-fly="fly-work">Find work <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+        <div class="nav-fly" id="fly-work">
+          <div class="mega-inner">
+            <div class="mega-left">
+              <div class="fly-eyebrow">Opportunities</div>
+              <div class="mega-items">
+                <a class="fly-item" href="/join/">
+                  <div class="fly-title">Train AI models</div>
+                  <div class="fly-desc">Get paid to put your expertise to work on AI projects</div>
+                </a>
+                <a class="fly-item" href="https://powertofly.com/jobs/" target="_blank" rel="noopener">
+                  <div class="fly-title">Job board</div>
+                  <div class="fly-desc">Full-time and contract roles across every function</div>
+                </a>
+              </div>
+            </div>
+            <div class="mega-right">
+              <div>
+                <div class="fly-eyebrow">By the numbers</div>
+                <div class="fly-stat"><div class="fly-stat-num">13M</div><div class="fly-stat-lbl">New AI jobs expected annually by 2030</div></div>
+                <div class="fly-stat"><div class="fly-stat-num">$65–130<span class="fly-stat-unit">/hr</span></div><div class="fly-stat-lbl">What domain experts earn on PTF</div></div>
+              </div>
+              <a href="/join/" class="fly-cta">Start earning →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="https://powertofly.com/browse-events" class="nav-btn">Events</a>
+      <a href="https://powertofly.com/up" class="nav-btn">Blog</a>
+      <a href="https://powertofly.com/about" class="nav-btn">About</a>
+    </div>
+
+    <div class="nav-cta">
+      <a href="/join/" class="btn btn-sm">Log in</a>
+      <a href="/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+  </div>
+</nav>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+  <div class="drawer-group">
+    <span class="drawer-cat">Find work</span>
+    <a href="/join/">Train AI models</a>
+    <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Job board</a>
+  </div>
+  <div class="drawer-group">
+    <span class="drawer-cat">Events</span>
+    <a href="https://powertofly.com/browse-events">All upcoming events</a>
+  </div>
+  <div class="drawer-group">
+    <span class="drawer-cat">Company</span>
+    <a href="https://powertofly.com/up">Blog</a>
+    <a href="https://powertofly.com/about">About</a>
+  </div>
+  <div class="drawer-cta">
+    <a href="/join/" class="btn btn-sm">Log in</a>
+    <a href="/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
+  </div>
+</div>
+-->
+<!-- ║ END NAV B — TALENTS ║ -->
+
+
+<!-- ╔══════════════════════════════════════════════════════════════
+     ║  FOOTER — SAME ON ALL PAGES
+     ║
+     ║  Logo uses fill="white" here (dark background).
+     ╚══════════════════════════════════════════════════════════════ -->
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-cols">
+
+      <!-- Column 1: Brand + social -->
+      <div>
+        <div class="footer-brand">
+          <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="white"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="white"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="white"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="white"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="white"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="white"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="white"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="white"/></svg>
+          <span class="brand-ai">AI</span>
+        </div>
+        <p class="footer-bio">The training network powering production AI.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/powertofly" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/company/powertofly/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.youtube.com/channel/UCctuKkuo6wcKmwBQyHs2I7w" target="_blank" rel="noopener" aria-label="YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a href="https://instagram.com/powertofly" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          </a>
+          <a href="https://www.threads.net/@powertofly" target="_blank" rel="noopener" aria-label="Threads">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.028-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.357 3.616 8.74 3.594 12c.022 3.262.713 5.645 2.051 7.161 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.642-2.045 1.47-1.63 1.937-4.017 1.398-7.136-.308-1.815-1.045-3.143-2.802-3.919-1.287 4.572-4.434 6.214-8.427 5.54-.99-.163-1.856-.525-2.573-1.075-1.495-1.135-2.023-2.893-1.476-4.716.536-1.79 1.968-2.983 3.959-3.349 1.918-.35 3.77.001 5.186.97.247.166.478.351.69.554a5.88 5.88 0 0 0-.247-1.11c-.52-1.74-1.847-2.73-3.727-2.79-1.232-.04-2.308.378-2.911 1.13l-1.63-1.254c.94-1.222 2.498-1.954 4.46-1.954h.107c3.266.103 5.245 2.017 5.748 5.39.064.858.586.402 1.116.861 1.58 1.375 2.256 2.529 2.72 5.961 2.188 9.003C21.137 21.97 17.767 23.98 12.186 24zm-.056-11.02c-.11 0-.219.004-.328.012-1.198.084-2.065.573-2.308 1.295-.236.702.057 1.439.768 1.961.454.33 1.038.533 1.737.657 2.96.516 5.12-.455 5.835-3.783-.52-.254-1.068-.427-1.623-.504a7.56 7.56 0 0 0-1.03-.073c-.836 0-1.726.17-2.418.435z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: For Talent -->
+      <div class="footer-col">
+        <h5>For Talent</h5>
+        <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Jobs</a>
+        <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Events</a>
+        <a href="https://powertofly.com/companies/all" target="_blank" rel="noopener">Companies</a>
+        <a href="https://powertofly.com/up" target="_blank" rel="noopener">Blog</a>
+        <a href="https://skillcrush.com/tech-jobs" target="_blank" rel="noopener">Tech Jobs Database</a>
+      </div>
+
+      <!-- Column 3: For Employers -->
+      <div class="footer-col">
+        <h5>For Employers</h5>
+        <a href="/employers/#services">Hire</a><!-- [UPDATE HREF] -->
+        <a href="/employers/#services">Train</a><!-- [UPDATE HREF] -->
+        <a href="/expert-finder/">Expert Finder</a><!-- [UPDATE HREF] -->
+        <a href="/how-we-verify/">How We Verify</a><!-- [UPDATE HREF] -->
+        <a href="/why-powertofly/">Why PowerToFly</a><!-- [UPDATE HREF] -->
+        <a href="/compare/">Compare</a><!-- [UPDATE HREF] -->
+        <a href="/book/">Book a call</a><!-- [UPDATE HREF] -->
+      </div>
+
+      <!-- Column 4: Our Company -->
+      <div class="footer-col">
+        <h5>Our Company</h5>
+        <a href="https://powertofly.com/about" target="_blank" rel="noopener">About Us</a>
+        <a href="https://powertofly.com/about/contact-us" target="_blank" rel="noopener">Contact Us</a>
+        <a href="https://powertofly.com/" target="_blank" rel="noopener">PowerToFly</a>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 PowerToFly.</span>
+      <span class="links"><a href="https://powertofly.com/about/legal" target="_blank" rel="noopener">Legal &amp; Privacy</a></span>
+    </div>
+  </div>
+</footer>
+<!-- ║ END FOOTER ║ -->
+
+
+<!-- ═══════════════════════════════════════════════
+     ALL JS — paste just before </body> on every page
+     ═══════════════════════════════════════════════ -->
+<script>
+(function () {
+
+  /* ── Hamburger / mobile drawer ── */
+  var btn    = document.getElementById('hamburger');
+  var drawer = document.getElementById('mobileDrawer');
+  if (btn && drawer) {
+    btn.addEventListener('click', function () {
+      var open = drawer.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open);
+      drawer.setAttribute('aria-hidden', !open);
+    });
+    document.addEventListener('click', function (e) {
+      if (!btn.contains(e.target) && !drawer.contains(e.target)) {
+        drawer.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        drawer.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  /* ── Scroll-based nav frosting ── */
+  var nav = document.querySelector('.nav');
+  if (nav && !nav.classList.contains('nav-frosted')) {
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 20); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  /* ── Mega flyout open/close ── */
+  var overlay = document.getElementById('navOverlay');
+  var currentFly = null;
+
+  function closeFly() {
+    if (currentFly) {
+      currentFly.classList.remove('open');
+      var btn = document.querySelector('[data-fly="' + currentFly.id + '"]');
+      if (btn) btn.classList.remove('open');
+      currentFly = null;
+    }
+    if (overlay) overlay.classList.remove('on');
+  }
+
+  document.querySelectorAll('.nav-btn[data-fly]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var id  = btn.getAttribute('data-fly');
+      var fly = document.getElementById(id);
+      if (!fly) return;
+      if (fly === currentFly) { closeFly(); return; }
+      closeFly();
+      fly.classList.add('open');
+      btn.classList.add('open');
+      if (overlay) overlay.classList.add('on');
+      currentFly = fly;
+    });
+  });
+
+  if (overlay) {
+    overlay.addEventListener('click', closeFly);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeFly();
+  });
+
+})();
+</script>
+
+</body>
+</html>

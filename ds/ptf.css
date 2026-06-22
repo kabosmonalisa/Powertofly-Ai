@@ -68,11 +68,12 @@
   --section-y:       100px; /* standard half-gap, top & bottom of every section */
   --section-y-tight:  80px; /* denser rhythm (one-line statements) */
   --section-y-loose: 140px; /* generous: hero / final-CTA closer */
+  --hero-top:         56px; /* TOP padding of the first section under the nav (.section-hero) — tighter than --section-y because the sticky nav already adds breathing room */
 }
 /* One token drives mobile too — shrink it here and EVERY section follows (don't add
  * per-section mobile padding overrides; that's what broke the even rhythm before). */
 @media (max-width: 768px) {
-  :root { --section-y: 60px; --section-y-tight: 48px; --section-y-loose: 84px; --gutter: 20px; }
+  :root { --section-y: 60px; --section-y-tight: 48px; --section-y-loose: 84px; --gutter: 20px; --hero-top: 32px; }
 }
 
 /* ===== Reset ===== */
@@ -342,6 +343,12 @@ img { display: block; max-width: 100%; }
  * Horizontal: .section-narrow centers content to the shared --container so it
  * lines up with the nav and footer. .content / .content-narrow go narrower. */
 .section { padding: var(--section-y) var(--gutter); }
+/* Hero — the FIRST section under the nav. Tighter top (--hero-top) so it sits close to the
+ * nav like the hire page; standard --section-y bottom so the rhythm below stays even. Its
+ * .section-head headline column is wider than the default 720 narrow. Composition inside
+ * (centered text, text+image, video) stays page-specific. */
+.section-hero { padding: var(--hero-top) var(--gutter) var(--section-y); }
+.section-hero .section-head { max-width: var(--content); margin-bottom: 40px; }
 .section-narrow { max-width: var(--content-wide); margin: 0 auto; }
 .content        { max-width: var(--content); margin-left: auto; margin-right: auto; }
 .content-narrow { max-width: var(--content-narrow); margin-left: auto; margin-right: auto; }
