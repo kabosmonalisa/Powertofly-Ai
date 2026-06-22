@@ -489,19 +489,13 @@
     </div>
   </section>
 
-  <!-- LOGO STRIP — directly after hero for instant credibility; moved from after stats -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="about-col">
-        <span class="eyebrow">Trusted by teams at</span>
-      </div>
-    </div>
-    <div class="logo-strip" style="margin-top:24px">
-      <div class="logo-strip-track" id="aboutLogos"></div>
-    </div>
-  </section>
+  <!-- LOGO STRIP — flush under hero, no eyebrow, minimal top gap -->
+  <!-- spacing exception: half section-y top so it reads as part of the hero block -->
+  <div class="logo-strip" style="margin-top:40px">
+    <div class="logo-strip-track" id="aboutLogos"></div>
+  </div>
 
-  <!-- ② FOUNDING THESIS — centered blog column, left-aligned text within it -->
+  <!-- ②+③+④ FOUNDING THESIS + WHY IT MATTERS + PULL-QUOTE — one section, no inter-gaps -->
   <section class="section">
     <div class="section-narrow">
       <div class="about-col">
@@ -511,29 +505,16 @@
           <p>That's where PowerToFly's mission was born. Teams that reflect the world around them get better results — so we set out to close that gap, connecting global professionals with companies ready to put their experience to work.</p>
           <p>Now we're applying that same idea to AI.</p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ③ WHY THIS MATTERS NOW — same centered blog column -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="about-col">
-        <span class="eyebrow">Why this matters now</span>
+        <span class="eyebrow" style="margin-top:48px;display:block">Why this matters now</span>
         <h2 class="about-h2">The best AI will be built by people who <em class="italic-plain">reflect the world</em> it serves.</h2>
         <div class="about-body">
           <p>AI learns from human input: the data it's trained on, the feedback that shapes it, the people who define what "good" looks like. <strong>The more those people reflect the world the AI is built for, the better it works for everyone.</strong></p>
           <p>That's the opportunity we've spent 12 years preparing for. Our community already represents the breadth of perspective, expertise, and experience AI needs to get this right.</p>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ④ PULL-QUOTE CARD — dark card in blog column; replaces full-bleed .section-mission -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="about-col">
-        <div class="about-pullquote">
+        <!-- Pull-quote — tighter vertical rhythm, stays inside the editorial column -->
+        <div class="about-pullquote" style="margin-top:48px">
           <span class="about-pullquote-mark" aria-hidden="true">"</span>
           <p class="about-pullquote-text">Your AI is only as good as the humans behind it.</p>
         </div>
@@ -547,7 +528,7 @@
       <div class="about-col">
         <span class="eyebrow">Our community</span>
         <h2 class="about-h2">A global community, <em class="italic-plain">ready for what's next.</em></h2>
-        <div class="about-stat-grid">
+        <div class="about-stat-grid" style="margin-top:40px">
 
           <div class="about-stat-card">
             <span class="about-stat-lbl">Our community</span>
@@ -653,10 +634,8 @@
   <!-- Page-specific: no matching inventory component; uses --surface cards -->
   <section class="section">
     <div class="section-narrow">
-      <div class="about-col">
-        <span class="eyebrow">What we do</span>
-        <h2 class="about-h2">Explore what's<br><em class="italic-plain">possible with us.</em></h2>
-      </div>
+      <span class="eyebrow">What we do</span>
+      <h2 class="about-h2" style="margin:20px 0 40px">Explore what's <em class="italic-plain">possible with us.</em></h2>
       <div class="about-pages-grid">
         <a href="../hire/" class="about-pages-card">
           <img
