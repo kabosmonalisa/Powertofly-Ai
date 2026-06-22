@@ -22,6 +22,9 @@
  */
 
 /* ── Hero image ── */
+/* About page: slightly more breathing room than the system default */
+main { --section-y: 96px; }
+
 .about-hero-img {
   width: 100%;
   aspect-ratio: 16 / 6;
@@ -41,26 +44,24 @@
   margin: 0 auto;
 }
 
-/* Large lede opening sentence */
+/* Large lede opening sentence — deliberately bigger than body to act as an opener */
 .about-lede {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(20px, 2.2vw, 26px);
-  font-weight: 500;
+  font-size: 21px;
   line-height: 1.55;
-  color: var(--ink);
-  letter-spacing: -0.01em;
+  color: var(--ink-3);
   margin: 20px 0 24px;
 }
+.about-lede strong { color: var(--ink); font-weight: 700; }
 
 /* Body prose */
 .about-body {
-  font-size: 17px;
-  line-height: 1.8;
-  color: var(--ink-2);
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--ink-3);
 }
 .about-body p { margin: 0 0 20px; }
 .about-body p:last-child { margin-bottom: 0; }
-.about-body strong { color: var(--ink); font-weight: 600; }
+.about-body strong { color: var(--ink-3); font-weight: 700; }
 
 /* Left-aligned section h2 — fills the blog column naturally */
 .about-h2 {
@@ -125,31 +126,27 @@
   transform: translateY(-1px);
 }
 
-/* ── Pull-quote card — dark card inside blog column, replaces .section-mission ── */
-/* page-specific because it's a narrower card, not the full-bleed shared component */
+/* ── Pull-quote card — editorial: green rules + centered text on dark card ── */
 .about-pullquote {
   background: var(--ink);
   border-radius: var(--r-xl);
-  padding: 44px 48px 52px;
+  padding: 40px 48px 44px;
+  text-align: center;
 }
-.about-pullquote-mark {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 72px;
-  line-height: 0.75;
-  font-weight: 800;
-  color: var(--accent);
-  display: block;
-  margin-bottom: 16px;
-  letter-spacing: -0.04em;
+.about-pullquote-rule {
+  height: 1.5px;
+  background: var(--accent);
+  border: none;
+  margin: 0;
 }
 .about-pullquote-text {
   font-family: 'Inter Tight', sans-serif;
   font-size: clamp(22px, 2.8vw, 34px);
   font-weight: 700;
   letter-spacing: -0.03em;
-  line-height: 1.12;
-  color: var(--bg); /* white on dark card — bg token inverts correctly */
-  margin: 0;
+  line-height: 1.15;
+  color: var(--bg);
+  margin: 28px 0;
 }
 
 /* ── Leadership — 2-col: text left, 2×2 portraits right ── */
@@ -159,7 +156,7 @@
   grid-template-columns: 1fr 1.6fr;
   gap: 48px;
   align-items: start;
-  margin-top: var(--section-y);
+  margin-top: calc(var(--section-y) * 1.5);
 }
 .about-leaders-portraits {
   display: grid;
@@ -204,9 +201,11 @@
   overflow: hidden;
   text-decoration: none;
   display: block;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.09);
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
-.about-pages-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.09); }
+.about-pages-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.13); }
 /* Page thumbnails — CSS mini-renderings of the actual page look, not stock photos */
 .about-pages-thumb {
   width: 100%;
@@ -220,6 +219,8 @@
 }
 .about-pages-thumb--hire {
   background: linear-gradient(145deg, #ddf2ea 0%, #f2fcf7 100%);
+  justify-content: center;
+  padding: 20px 18px;
 }
 .about-pages-thumb--train {
   background: #0d0d0d;
@@ -249,41 +250,74 @@
 }
 .about-pages-thumb--train .apt-hed { color: #fff; }
 .apt-hed em { font-style: italic; }
-/* mini stat row for hire */
-.apt-stats {
-  display: flex;
-  gap: 10px;
-  margin-top: 14px;
-  flex-wrap: wrap;
+/* ── Hire thumbnail: single featured expert card ── */
+.about-pages-thumb--hire {
+  background: #eaecf4;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
-.apt-stat {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--ink-2);
-  background: rgba(255,255,255,0.7);
-  border-radius: 99px;
-  padding: 3px 10px;
+.apt-hire-single {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+  padding: 14px 16px 16px;
+  width: 100%;
 }
-/* video split for train */
-.apt-video {
-  position: absolute;
-  top: 0; right: 0;
-  width: 40%;
-  height: 100%;
-  background: #1a1a1a;
-  border-left: 1px solid #2a2a2a;
+.apt-hire-header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
 }
-.apt-play {
-  width: 32px; height: 32px;
+.apt-hire-avatar {
+  width: 40px; height: 40px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
+  object-fit: cover;
+  object-position: center top;
+  flex-shrink: 0;
+  display: block;
 }
-.apt-play svg { margin-left: 2px; }
-/* form columns for book */
+.apt-hire-meta { flex: 1; min-width: 0; }
+.apt-hire-name {
+  font-size: 11px; font-weight: 700; color: var(--ink);
+  margin: 0 0 2px; letter-spacing: -0.01em; line-height: 1.2;
+}
+.apt-hire-role { font-size: 10px; color: var(--ink-3); margin: 0; }
+.apt-hire-badge {
+  font-size: 9px; font-weight: 600; color: #0f6e56;
+  white-space: nowrap; flex-shrink: 0;
+}
+.apt-hire-hr { border: none; border-top: 1px solid var(--line); margin: 0 0 10px; }
+.apt-hire-creds { display: flex; flex-direction: column; gap: 7px; }
+.apt-hire-cred {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 10px; color: var(--ink-2); line-height: 1.2;
+}
+.apt-hire-cred::before {
+  content: '✓';
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; flex-shrink: 0;
+  background: #ddf2ea; border-radius: 50%;
+  color: #0f6e56; font-size: 8px; font-weight: 700;
+}
+/* ── Train thumbnail: full-bleed photo + gradient overlay ── */
+.apt-train-img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  opacity: 0.55;
+}
+.apt-train-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to top, rgba(13,13,13,0.92) 45%, rgba(13,13,13,0.25) 100%);
+}
+.about-pages-thumb--train .apt-eye,
+.about-pages-thumb--train .apt-hed { position: relative; z-index: 1; }
+/* ── Book thumbnail: real calendar UI ── */
 .apt-book-inner {
   display: flex;
   gap: 12px;
@@ -291,7 +325,7 @@
   height: 100%;
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  padding: 24px 26px;
+  padding: 24px 20px;
 }
 .apt-book-left {
   flex: 1;
@@ -300,17 +334,49 @@
   justify-content: flex-end;
 }
 .apt-book-right {
-  width: 44%;
+  width: 48%;
   background: #fff;
   border-radius: 10px;
+  padding: 10px 10px 8px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow: hidden;
 }
-.apt-cal-lines { display: flex; flex-direction: column; gap: 8px; padding: 16px; width: 100%; }
-.apt-cal-line { height: 7px; background: #eee; border-radius: 4px; }
-.apt-cal-line:nth-child(2) { width: 70%; }
-.apt-cal-line:nth-child(3) { width: 55%; }
+.apt-cal { width: 100%; }
+.apt-cal-hdr {
+  font-size: 8px; font-weight: 700; color: var(--ink);
+  margin-bottom: 6px; letter-spacing: -0.01em;
+}
+.apt-cal-dow {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  font-size: 7px; color: var(--ink-3); font-weight: 600;
+  text-align: center; margin-bottom: 4px; gap: 2px;
+}
+.apt-cal-grid {
+  display: grid; grid-template-columns: repeat(5,1fr);
+  gap: 2px;
+}
+.apt-cal-grid span {
+  font-size: 7px; color: var(--ink-2);
+  text-align: center;
+  padding: 2px 0;
+  border-radius: 3px;
+}
+.apt-cal-grid .apt-sel {
+  background: var(--ink); color: #fff; border-radius: 3px;
+}
+.apt-slots {
+  display: flex; gap: 4px; margin-top: 7px;
+}
+.apt-slot {
+  flex: 1; font-size: 7px; font-weight: 600; text-align: center;
+  padding: 3px 2px; border-radius: 4px;
+  border: 1px solid var(--line); color: var(--ink-2);
+}
+.apt-slot--sel {
+  background: var(--ink); color: #fff; border-color: var(--ink);
+}
 .about-pages-body { padding: 24px 24px 28px; }
 .about-pages-title {
   font-family: 'Inter Tight', sans-serif;
@@ -589,7 +655,7 @@
           <p>Now we're applying that same idea to AI.</p>
         </div>
 
-        <span class="eyebrow" style="margin-top:64px;display:block">Why this matters now</span>
+        <span class="eyebrow" style="margin-top:var(--section-y);display:block">Why this matters now</span>
         <h2 class="about-h2">The best AI will be built by people who <em class="italic-plain">reflect the world</em> it serves.</h2>
         <div class="about-body">
           <p>AI learns from human input: the data it's trained on, the feedback that shapes it, the people who define what "good" looks like. <strong>The more those people reflect the world the AI is built for, the better it works for everyone.</strong></p>
@@ -598,14 +664,15 @@
 
         <!-- Pull-quote — tighter vertical rhythm, stays inside the editorial column -->
         <div class="about-pullquote" style="margin-top:64px">
-          <span class="about-pullquote-mark" aria-hidden="true">"</span>
+          <hr class="about-pullquote-rule">
           <p class="about-pullquote-text">Your AI is only as good as the humans behind it.</p>
+          <hr class="about-pullquote-rule">
         </div><!-- /about-pullquote -->
 
         <!-- ⑤ OUR COMMUNITY — merged into same section for even 64px rhythm -->
-        <span class="eyebrow" style="margin-top:64px;display:block">Our community</span>
+        <span class="eyebrow" style="margin-top:var(--section-y);display:block">Our community</span>
         <h2 class="about-h2">A global community, <em class="italic-plain">ready for what's next.</em></h2>
-        <div class="about-stat-grid" style="margin-top:40px">
+        <div class="about-stat-grid" style="margin-top:32px">
 
           <div class="about-stat-card">
             <span class="about-stat-lbl">Our community</span>
@@ -652,7 +719,7 @@
         </div><!-- /about-stat-grid -->
 
         <!-- ⑥ THE SHIFT — merged into editorial block for even 64px rhythm -->
-        <span class="eyebrow" style="margin-top:64px;display:block">The shift</span>
+        <span class="eyebrow" style="margin-top:var(--section-y);display:block">The shift</span>
         <h2 class="about-h2">AI is where some of the biggest decisions about <em class="italic-plain">access and representation</em> are being made today.</h2>
         <div class="about-body">
           <p>From the start, we set out to close the gap between talent and opportunity. Now we're bringing that work to where it matters most: <strong>helping companies build AI with the people who reflect the world it serves.</strong></p>
@@ -666,7 +733,7 @@
         <div class="about-leaders-text">
           <span class="eyebrow">Leadership</span>
           <h2 class="about-h2">The humans behind PowerToFly AI.</h2>
-          <p class="about-body" style="margin-top:20px">Two co-founders who felt the problem before they named it. A sales leader who's spent a decade turning that belief into partnerships. An engineering director who makes the whole thing real, every day. They didn't set out to build an AI company — they set out to fix something broken, and AI turned out to be where that work matters most right now.</p>
+          <p class="about-body" style="margin-top:20px">Four people with one conviction: who builds it determines what it becomes.</p>
         </div>
         <div class="about-leaders-portraits">
           <div class="about-leader-card">
@@ -692,24 +759,28 @@
         </div><!-- /about-leaders-portraits -->
       </div><!-- /about-leaders-2col -->
 
-    </div><!-- /section-narrow -->
-  </section>
-
-  <!-- ⑧ PAGES SECTION — 3-card nav to hire / train / book pages (like Andela) -->
-  <!-- Page-specific: no matching inventory component; uses --surface cards -->
-  <section class="section">
-    <div class="section-narrow">
-      <span class="eyebrow">What we do</span>
+      <!-- ⑧ PAGES SECTION — merged for even spacing, no extra section gap above cards -->
+      <span class="eyebrow" style="margin-top:var(--section-y);display:block">What we do</span>
       <h2 class="about-h2" style="margin:20px 0 40px">Explore what's <em class="italic-plain">possible with us.</em></h2>
       <div class="about-pages-grid">
         <a href="../hire/" class="about-pages-card">
           <div class="about-pages-thumb about-pages-thumb--hire">
-            <span class="apt-eye">Hire AI experts</span>
-            <p class="apt-hed">Find the expert who moves your business <em>forward.</em></p>
-            <div class="apt-stats">
-              <span class="apt-stat">80K+ experts</span>
-              <span class="apt-stat">190 countries</span>
-              <span class="apt-stat">75%+ women &amp; BIPOC</span>
+            <div class="apt-hire-single">
+              <div class="apt-hire-header">
+                <img src="../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg" alt="" class="apt-hire-avatar">
+                <div class="apt-hire-meta">
+                  <p class="apt-hire-name">Dr. Amara O.</p>
+                  <p class="apt-hire-role">Clinical AI evaluator</p>
+                </div>
+                <span class="apt-hire-badge">● Verified</span>
+              </div>
+              <hr class="apt-hire-hr">
+              <div class="apt-hire-creds">
+                <div class="apt-hire-cred">Medical degree · Johns Hopkins</div>
+                <div class="apt-hire-cred">12 yrs clinical oncology</div>
+                <div class="apt-hire-cred">AI evaluation certified</div>
+                <div class="apt-hire-cred">Background check cleared</div>
+              </div>
             </div>
           </div>
           <div class="about-pages-body">
@@ -720,8 +791,9 @@
         </a>
         <a href="../train/index-tokens.html" class="about-pages-card">
           <div class="about-pages-thumb about-pages-thumb--train">
-            <div class="apt-video">
-              <div class="apt-play">
+            <img src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="" class="apt-train-img">
+            <div class="apt-train-overlay"></div>
+            <div class="apt-video" style="display:none"><div class="apt-play">
                 <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1 1l8 5-8 5V1z" fill="rgba(255,255,255,0.7)"/></svg>
               </div>
             </div>
@@ -742,10 +814,20 @@
                 <p class="apt-hed">Book a discovery call</p>
               </div>
               <div class="apt-book-right">
-                <div class="apt-cal-lines">
-                  <div class="apt-cal-line"></div>
-                  <div class="apt-cal-line"></div>
-                  <div class="apt-cal-line"></div>
+                <div class="apt-cal">
+                  <div class="apt-cal-hdr">July 2026</div>
+                  <div class="apt-cal-dow">
+                    <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span>
+                  </div>
+                  <div class="apt-cal-grid">
+                    <span>1</span><span>2</span><span class="apt-sel">3</span><span>4</span><span>5</span>
+                    <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span>
+                    <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span>
+                  </div>
+                  <div class="apt-slots">
+                    <div class="apt-slot apt-slot--sel">10:00 AM</div>
+                    <div class="apt-slot">2:30 PM</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -756,8 +838,8 @@
             <span class="about-pages-link">Book a call →</span>
           </div>
         </a>
-      </div>
-    </div>
+      </div><!-- /about-pages-grid -->
+    </div><!-- /section-narrow -->
   </section>
 
   <!-- ⑨ FINAL CTA BAND — always-dark closer, blends into footer -->
