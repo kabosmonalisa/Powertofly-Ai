@@ -173,10 +173,10 @@ img { display: block; max-width: 100%; }
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
   text-decoration: none; cursor: pointer; border: none;
-  background: #ffffff; color: var(--ink);
+  background: #ffffff; color: #0A0A0A;  /* CTA band is always dark → button is always white-on-dark with black label (fixed, not token, so it never goes white-on-white) */
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
-.btn-cta:hover { transform: translateY(-1px); background: #f2f2f2; box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
+.btn-cta:hover { transform: translateY(-1px); background: #4FE8A9; color: #0A0A0A; box-shadow: 0 10px 30px rgba(79,232,169,0.35); }  /* hover: iridescent green fill, label stays black */
 
 /* ===== Nav ===== */
 .nav {
