@@ -521,6 +521,9 @@ main { --section-y: 96px; }
 }
 
 @media (max-width: 768px) {
+  /* Shrink the rhythm token on mobile — the desktop 96px override was defeating the
+     system's mobile shrink, leaving every section gap and inter-block margin too tall. */
+  main { --section-y: 56px; }
   .about-hero-img  { aspect-ratio: 3 / 2; }
   .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .about-stat-num  { font-size: clamp(40px, 10vw, 60px); }
@@ -528,6 +531,14 @@ main { --section-y: 96px; }
   .about-leaders-2col { grid-template-columns: 1fr; gap: 32px; }
   /* Pages: single column on tablet */
   .about-pages-grid { grid-template-columns: 1fr; gap: 16px; }
+  /* Hero: let the headline flow naturally — the desktop <br> breaks read awkwardly narrow */
+  .about-hero-title br { display: none; }
+  /* Pull-quote: drop the desktop column-breakout margins so nothing extends off-screen */
+  .about-pullquote { margin-left: 0; margin-right: 0; }
+  /* CTA buttons: full-width stacked so they don't crowd */
+  .about-cta-btns { flex-direction: column; align-items: stretch; }
+  .about-cta-btns .btn-cta,
+  .about-cta-btns .about-btn-secondary { width: 100%; justify-content: center; }
 }
 @media (max-width: 480px) {
   .about-hero-img  { aspect-ratio: 4 / 3; }
@@ -624,6 +635,32 @@ main { --section-y: 96px; }
                 <div class="stat-item"><div class="stat-num">6,500</div><div class="stat-lbl">AI professionals</div></div>
                 <div class="stat-item"><div class="stat-num">190</div><div class="stat-lbl">Countries represented</div></div>
                 <div class="stat-item"><div class="stat-num">75%+</div><div class="stat-lbl">Women &amp; BIPOC in our network</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-drop">
+          <button class="nav-btn" data-fly="fly-diff">The PTF difference <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+          <div class="nav-fly" id="fly-diff">
+            <div class="mega-inner">
+              <div class="mega-left">
+                <div class="fly-eyebrow">Our case</div>
+                <div class="mega-items">
+                  <a class="fly-item" href="../why-powertofly/">
+                    <div class="fly-title">Why PowerToFly <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                    <div class="fly-desc">Representative AI talent is no longer a nice-to-have.</div>
+                  </a>
+                  <a class="fly-item" href="../compare/">
+                    <div class="fly-title">Compare us <span class="fly-badge fly-badge-soon">Coming soon</span></div>
+                    <div class="fly-desc">PTF vs Scale AI, Andela, Mercor, and LinkedIn.</div>
+                  </a>
+                </div>
+              </div>
+              <div class="mega-right">
+                <div class="fly-eyebrow">The numbers</div>
+                <div class="stat-item"><div class="stat-num">~78%</div><div class="stat-lbl">of AI researchers are male — Stanford HAI 2023</div></div>
+                <div class="stat-item"><div class="stat-num">0</div><div class="stat-lbl">competitors addressing this at the talent layer</div></div>
               </div>
             </div>
           </div>
@@ -731,7 +768,7 @@ main { --section-y: 96px; }
     <div class="section-narrow">
       <div class="section-head">
         <span class="eyebrow">About PowerToFly AI</span>
-        <h1 class="display about-hero-title">Connecting the world's<br>talent to the work that<br><em class="italic-plain">matters most.</em></h1>
+        <h1 class="display about-hero-title">Connecting the world's <br>talent to the work that <br><em class="italic-plain">matters most.</em></h1>
         <p>For over a decade, we've built one of the world's largest professional communities of over 1.1M people spanning every industry, domain, and background. Today, that community is powering a new mission: making sure AI is built by the people it's meant to serve.</p>
       </div>
       <!-- Hero image — real, diverse professionals (Pexels) -->
