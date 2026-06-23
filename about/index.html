@@ -176,8 +176,11 @@ main { --section-y: 96px; }
   grid-template-columns: 1fr 1.6fr;
   gap: 48px;
   align-items: start;
-  margin-top: calc(var(--section-y) * 1.5);
+  margin-top: var(--section-y);
 }
+/* Match the eyebrow→title gap of the other sections: a block eyebrow lets its
+   margin collapse with the h2 (20px) instead of inline-flex stacking (36px). */
+.about-leaders-text .eyebrow { display: block; }
 .about-leaders-portraits {
   display: grid;
   grid-template-columns: 1fr 1fr;
