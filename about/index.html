@@ -333,12 +333,12 @@ main { --section-y: 96px; }
 .apt-hed em { font-style: italic; }
 /* ── Hire thumbnail: single featured expert card ── */
 .about-pages-thumb--hire {
-  background: #eaecf4;
+  background: linear-gradient(160deg, #cdcdf0 0%, #bcbce8 100%);
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 20px 20px 44px;
 }
-/* Stack wrapper — two ghost cards peek out behind the main one */
+/* Stack wrapper — two ghost cards peek out from under the main one (full-width deck) */
 .apt-hire-stack {
   position: relative;
   width: 100%;
@@ -347,25 +347,19 @@ main { --section-y: 96px; }
 .apt-hire-stack::after {
   content: '';
   position: absolute;
-  left: 50%;
-  top: 0;
-  height: 100%;
+  inset: 0;
   border-radius: 14px;
   z-index: 0;
 }
 .apt-hire-stack::before {
-  width: 90%;
   background: #fff;
-  border: 1px solid rgba(0,0,0,0.06);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.10);
-  transform: translate(-50%, 26px);
+  box-shadow: 0 10px 22px rgba(30,30,70,0.12);
+  transform: translateY(18px);
 }
 .apt-hire-stack::after {
-  width: 80%;
-  background: #f4f5fa;
-  border: 1px solid rgba(0,0,0,0.05);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-  transform: translate(-50%, 52px);
+  background: #eef0f8;
+  box-shadow: 0 10px 22px rgba(30,30,70,0.10);
+  transform: translateY(36px);
 }
 .apt-hire-single {
   position: relative;
