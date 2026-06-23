@@ -336,9 +336,9 @@ main { --section-y: 96px; }
   background: linear-gradient(160deg, #cdcdf0 0%, #bcbce8 100%);
   justify-content: center;
   align-items: center;
-  padding: 20px 20px 44px;
+  padding: 16px 20px 56px;
 }
-/* Stack wrapper — two ghost cards peek out from under the main one (full-width deck) */
+/* Stack — three tapering layers: top card biggest, each one behind is narrower + lower */
 .apt-hire-stack {
   position: relative;
   width: 100%;
@@ -347,23 +347,30 @@ main { --section-y: 96px; }
 .apt-hire-stack::after {
   content: '';
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 0;
+  height: 100%;
   border-radius: 14px;
-  z-index: 0;
 }
+/* middle card */
 .apt-hire-stack::before {
+  width: 90%;
   background: #fff;
-  box-shadow: 0 10px 22px rgba(30,30,70,0.12);
-  transform: translateY(18px);
+  box-shadow: 0 12px 26px rgba(40,40,90,0.14);
+  transform: translate(-50%, 24px);
+  z-index: 1;
 }
+/* bottom card — smallest */
 .apt-hire-stack::after {
-  background: #eef0f8;
-  box-shadow: 0 10px 22px rgba(30,30,70,0.10);
-  transform: translateY(36px);
+  width: 80%;
+  background: #eceef7;
+  box-shadow: 0 12px 24px rgba(40,40,90,0.12);
+  transform: translate(-50%, 48px);
+  z-index: 0;
 }
 .apt-hire-single {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.09);
@@ -860,7 +867,7 @@ main { --section-y: 96px; }
             <p class="about-leader-role">Director of Content Marketing</p>
           </div>
           <div class="about-leader-card">
-            <img src="../photos/dina-noufal.jpg" alt="Dina Noufal" class="about-leader-img" style="object-position: 50% 8%;">
+            <img src="../photos/dina-noufal.jpg" alt="Dina Noufal" class="about-leader-img" style="object-position: 50% 38%;">
             <p class="about-leader-name">Dina Noufal</p>
             <p class="about-leader-role">Director of Engineering</p>
           </div>
