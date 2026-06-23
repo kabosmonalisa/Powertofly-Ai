@@ -44,15 +44,35 @@ window.PTF = (function () {
   }
 
   /**
+   * LOGOS — the canonical client-logo list (single source of truth).
+   * Add or remove a client HERE and every page's logo band updates.
+   * Each entry maps to logos/<name>.png at the site root.
+   */
+  var LOGOS = [
+    'avery-dennison', 'expedia', 'google', 'nestle', 'shure', 'sp-global',
+    'stryker', 'veracode', 'visa', 'zapier', 'zillow',
+    'reddit', 'plaid', 'lattice', 'karat', 'justworks'
+  ];
+
+  /**
    * initMarquee(trackEl, items)
-   * Fills a marquee track element with items (strings of HTML) duplicated for seamless loop.
+   * Fills a marquee track element with items duplicated for a seamless loop.
+   * Called with NO items, it builds the default band from the canonical LOGOS
+   * list above (img tags pointing at ../logos/<name>.png — pages live one level
+   * deep). Pass items only to customise (e.g. a different img class).
    *
    * @param {HTMLElement|string} trackEl  - The track element or its ID
-   * @param {string[]}           items    - Array of HTML strings (e.g. '<img src="..." alt="...">')
+   * @param {string[]}          [items]   - Optional HTML strings; defaults to LOGOS
    */
   function initMarquee(trackEl, items) {
     if (typeof trackEl === 'string') trackEl = document.getElementById(trackEl);
-    if (!trackEl || !items || !items.length) return;
+    if (!trackEl) return;
+    if (!items || !items.length) {
+      items = LOGOS.map(function (n) {
+        return '<img src="../logos/' + n + '.png" alt="' + n + '" loading="lazy">';
+      });
+    }
+    if (!items.length) return;
     const html = items.join('');
     trackEl.innerHTML = html + html; // duplicate for seamless loop
   }
@@ -181,7 +201,7 @@ window.PTF = (function () {
     });
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations };
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.

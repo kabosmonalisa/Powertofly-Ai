@@ -904,9 +904,8 @@ main { --section-y: 96px; }
 <script>
   PTF.initMegaNav();
   PTF.initHeader();
-  PTF.initMarquee(document.getElementById('aboutLogos'), [
-    'google','visa','expedia','zillow','zapier','sp-global','stryker','avery-dennison','nestle','veracode','shure'
-  ].map(n => `<img src="../logos/${n}.png" alt="${n}" loading="lazy">`));
+  // Logos come from the shared canonical list (PTF.LOGOS in ds/ptf.js) — no per-page array.
+  PTF.initMarquee(document.getElementById('aboutLogos'));
 </script>
 </body>
 </html>

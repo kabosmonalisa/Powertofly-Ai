@@ -1933,18 +1933,9 @@ h1.hero-headline {
   tick();
 })();
 
-/* (4) Marquee — company logos */
-(function(){
-  const track = document.getElementById('marquee');
-  if (!track) return;
-  const logos = [
-    'avery-dennison','expedia','google','nestle','shure',
-    'sp-global','stryker','veracode','visa','zapier','zillow'
-  ];
-  const buildOne = (name) => `<img class="logo-img" src="logos/${name}.png" alt="${name}">`;
-  const html = logos.map(buildOne).join('');
-  track.innerHTML = html + html;
-})();
+/* (4) Marquee — company logos: now handled by the #fhLogosTrack band below,
+   sourced from the shared PTF.LOGOS list. (Old #marquee block removed — its
+   element no longer exists and it duplicated the canonical logo list.) */
 
 // Hamburger handled by ../ds/ptf.js
 
@@ -2139,11 +2130,11 @@ h1.hero-headline {
     pauseBtn.textContent = paused ? '▶' : '⏸';
   });
 
-  // Logo strip
+  // Logo strip — names come from the shared canonical list (PTF.LOGOS in ds/ptf.js).
+  // This page keeps its own .fh-logo-img markup; only the list is centralised.
   const fhLogoTrack = document.getElementById('fhLogosTrack');
   if (fhLogoTrack) {
-    const logos = ['avery-dennison','expedia','google','nestle','shure','sp-global','stryker','veracode','visa','zapier','zillow'];
-    PTF.initMarquee(fhLogoTrack, logos.map(n => `<img class="fh-logo-img" src="logos/${n}.png" alt="${n}">`));
+    PTF.initMarquee(fhLogoTrack, PTF.LOGOS.map(n => `<img class="fh-logo-img" src="../logos/${n}.png" alt="${n}">`));
   }
 })();
 </script>

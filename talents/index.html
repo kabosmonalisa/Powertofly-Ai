@@ -501,44 +501,8 @@ background: transparent;
 }
 .opp-card .btn:hover { background: var(--ink); color: #fff; }
 
-/* ===== Logo Strip ===== */
-.logo-strip {
-  padding: 36px 0;
-  background: var(--bg);
-  text-align: center;
-  overflow: hidden;
-  border: none;
-}
-.logo-strip-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  margin-bottom: 36px;
-}
-.logo-strip-viewport {
-  overflow: hidden;
-  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-}
-.logo-strip-track {
-  display: flex;
-  align-items: center;
-  gap: 64px;
-  width: max-content;
-  animation: marquee 28s linear infinite;
-}
-.logo-strip-track:hover { animation-play-state: paused; }
-.logo-strip-track img {
-  height: 28px;
-  width: auto;
-  flex-shrink: 0;
-  object-fit: contain;
-  filter: grayscale(1) opacity(0.45);
-  transition: filter 220ms ease;
-}
-.logo-strip-track img:hover { filter: grayscale(0) opacity(1); }
+/* ===== Logo Strip — now the shared .logo-strip component (ds/ptf.css). ===== */
+/* Custom CSS removed: greyscale + opacity + animation come from ptf.css. */
 
 /* ===== Testimonials ===== */
 .section-proof { background: var(--bg); padding-bottom: var(--section-y); }
@@ -801,9 +765,6 @@ h1.display br { display: none; }
 .hero-match-card { width: 230px; font-size: 13px; }
 .hmc-float-wrap { bottom: 16px; left: auto; right: 12px; transform: none; }
 .stat-big-num { font-size: clamp(44px, 12vw, 72px); }
-.logo-strip { padding: 36px 0; }
-.logo-strip-viewport { mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%); }
-.logo-strip-track img { height: 36px; }
 .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
 .drawer-group:last-of-type { border-bottom: none; }
 .drawer-cat {
@@ -974,31 +935,10 @@ h1.display br { display: none; }
 </div>
 </section>
 
-<!-- LOGO STRIP -->
-<section class="logo-strip">
-  <div class="logo-strip-viewport">
-    <div class="logo-strip-track" aria-hidden="false">
-      <img src="../logos/google.png" alt="Google">
-      <img src="../logos/visa.png" alt="Visa">
-      <img src="../logos/expedia.png" alt="Expedia">
-      <img src="../logos/zapier.png" alt="Zapier">
-      <img src="../logos/zillow.png" alt="Zillow">
-      <img src="../logos/nestle.png" alt="Nestlé">
-      <img src="../logos/stryker.png" alt="Stryker">
-      <img src="../logos/sp-global.png" alt="S&P Global">
-      <img src="../logos/veracode.png" alt="Veracode">
-      <img src="../logos/avery-dennison.png" alt="Avery Dennison">
-      <img src="../logos/google.png" alt="" aria-hidden="true">
-      <img src="../logos/visa.png" alt="" aria-hidden="true">
-      <img src="../logos/expedia.png" alt="" aria-hidden="true">
-      <img src="../logos/zapier.png" alt="" aria-hidden="true">
-      <img src="../logos/zillow.png" alt="" aria-hidden="true">
-      <img src="../logos/nestle.png" alt="" aria-hidden="true">
-      <img src="../logos/stryker.png" alt="" aria-hidden="true">
-      <img src="../logos/sp-global.png" alt="" aria-hidden="true">
-      <img src="../logos/veracode.png" alt="" aria-hidden="true">
-      <img src="../logos/avery-dennison.png" alt="" aria-hidden="true">
-    </div>
+<!-- LOGO STRIP — shared .logo-strip component (ds/ptf.css), filled by PTF.initMarquee() -->
+<section style="padding:36px 0">
+  <div class="logo-strip">
+    <div class="logo-strip-track" id="talentLogos"></div>
   </div>
 </section>
 
@@ -1458,6 +1398,9 @@ h1.display br { display: none; }
 
 <script src="../ds/ptf.js"></script>
 <script>
+/* ===== Client logo band — shared canonical list (PTF.LOGOS in ds/ptf.js) ===== */
+PTF.initMarquee('talentLogos');
+
 /* ===== Match card cycler — true two-face flip ===== */
 (function() {
   var matches = [
