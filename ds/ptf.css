@@ -563,7 +563,7 @@ img { display: block; max-width: 100%; }
 .ind-name { font-size: 12px; font-weight: 500; color: var(--ink-3); transition: color .12s; }
 .ind-desc  { font-size: 11px; color: var(--ink-3); opacity: 0.7; margin-top: 1px; }
 .mega-right { padding: 32px 28px; background: var(--ink); display: flex; flex-direction: column; justify-content: space-between; }
-.mega-right .fly-eyebrow { color: rgba(255,255,255,0.5); }
+.mega-right .fly-eyebrow { color: var(--green-mid); }  /* dark panel eyebrow = green, consistent with .event-ey on the other dropdowns' dark panels */
 .stat-item { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
 .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
 .stat-num { font-family: 'Inter Tight', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: #fff; line-height: 1; margin-bottom: 5px; }
