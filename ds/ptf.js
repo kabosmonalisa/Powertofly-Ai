@@ -48,10 +48,13 @@ window.PTF = (function () {
    * Add or remove a client HERE and every page's logo band updates.
    * Each entry maps to logos/<name>.png at the site root.
    */
+  // Interleaved on purpose: big recognizable name, then a smaller one, repeating —
+  // so the band reads varied. The newer/smaller logos are spread evenly through the
+  // loop (~every 3rd slot), never grouped together. Keep this rhythm when adding more.
   var LOGOS = [
-    'avery-dennison', 'expedia', 'google', 'nestle', 'shure', 'sp-global',
-    'stryker', 'veracode', 'visa', 'zapier', 'zillow',
-    'reddit', 'plaid', 'lattice', 'karat', 'justworks'
+    'google', 'avery-dennison', 'plaid', 'visa', 'shure', 'lattice',
+    'expedia', 'sp-global', 'karat', 'nestle', 'veracode', 'justworks',
+    'zillow', 'stryker', 'reddit', 'zapier'
   ];
 
   /**
