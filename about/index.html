@@ -347,19 +347,23 @@ main { --section-y: 96px; }
 .apt-hire-stack::after {
   content: '';
   position: absolute;
-  inset: 0;
+  left: 50%;
+  top: 0;
+  height: 100%;
   border-radius: 14px;
   z-index: 0;
 }
 .apt-hire-stack::before {
+  width: 92%;
   background: #fff;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-  transform: translateY(9px) scale(0.93);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transform: translate(-50%, 16px);
 }
 .apt-hire-stack::after {
-  background: #f1f2f8;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
-  transform: translateY(18px) scale(0.86);
+  width: 84%;
+  background: #e4e7f2;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  transform: translate(-50%, 32px);
 }
 .apt-hire-single {
   position: relative;
@@ -912,12 +916,6 @@ main { --section-y: 96px; }
         <a href="../train/index-tokens.html" class="about-pages-card">
           <div class="about-pages-thumb about-pages-thumb--train">
             <img src="../photos/train-card-sphere.webp" alt="" class="apt-train-img" style="object-position:center center;opacity:1;filter:brightness(1.35) saturate(1.1);">
-            <div class="apt-video" style="display:none"><div class="apt-play">
-                <svg width="10" height="12" viewBox="0 0 10 12" fill="none"><path d="M1 1l8 5-8 5V1z" fill="rgba(255,255,255,0.7)"/></svg>
-              </div>
-            </div>
-            <span class="apt-eye">Train AI models</span>
-            <p class="apt-hed">Better AI models start with <em>better experts.</em></p>
           </div>
           <div class="about-pages-body">
             <p class="about-pages-title">Train your models</p>
