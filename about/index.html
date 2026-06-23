@@ -25,6 +25,22 @@
 /* About page: slightly more breathing room than the system default */
 main { --section-y: 96px; }
 
+/* Hero ambient glow — reuses the soft-green idea from the other pages but flips the
+   geometry: two glows bleed in from the LEFT and RIGHT edges and fade toward the
+   centre, instead of the single centred top radial everyone else uses. */
+.section-hero { position: relative; overflow: hidden; }
+.section-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 38% 70% at -5% 18%, rgba(79,232,169,0.20) 0%, transparent 62%),
+    radial-gradient(ellipse 38% 70% at 105% 18%, rgba(91,207,255,0.16) 0%, transparent 62%);
+}
+.section-hero > .section-narrow { position: relative; z-index: 1; }
+
 .about-hero-img {
   width: 100%;
   aspect-ratio: 16 / 6;
