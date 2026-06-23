@@ -322,7 +322,32 @@ main { --section-y: 96px; }
   align-items: center;
   padding: 20px;
 }
+/* Stack wrapper — two ghost cards peek out behind the main one */
+.apt-hire-stack {
+  position: relative;
+  width: 100%;
+}
+.apt-hire-stack::before,
+.apt-hire-stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  z-index: 0;
+}
+.apt-hire-stack::before {
+  background: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transform: translateY(9px) scale(0.93);
+}
+.apt-hire-stack::after {
+  background: #f1f2f8;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+  transform: translateY(18px) scale(0.86);
+}
 .apt-hire-single {
+  position: relative;
+  z-index: 1;
   background: #fff;
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.09);
@@ -842,6 +867,7 @@ main { --section-y: 96px; }
       <div class="about-pages-grid">
         <a href="../hire/" class="about-pages-card">
           <div class="about-pages-thumb about-pages-thumb--hire">
+            <div class="apt-hire-stack">
             <div class="apt-hire-single">
               <div class="apt-hire-header">
                 <img src="../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg" alt="" class="apt-hire-avatar">
@@ -859,6 +885,7 @@ main { --section-y: 96px; }
                 <div class="apt-hire-cred">Background check cleared</div>
               </div>
             </div>
+            </div><!-- /apt-hire-stack -->
           </div>
           <div class="about-pages-body">
             <p class="about-pages-title">Hire AI experts</p>
