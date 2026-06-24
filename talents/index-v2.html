@@ -824,6 +824,8 @@ background: transparent;
 .opp-grid { grid-template-columns: repeat(2, 1fr); }
 .benefits-row { grid-template-columns: 1fr 1fr; }
 /* how-inner / how-portrait-card responsive → from ds/ptf.css */
+/* mobile-only: card becomes a short wide box — drop the crop so we see the people/desk, not the background above them */
+.how-portrait-card { background-position: center 70%; }
 /* hero centered on mobile (matches the train page) */
 .hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
 .hero-text { align-items: center; text-align: center; }
