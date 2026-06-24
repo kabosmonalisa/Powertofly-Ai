@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign up — PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for icons (the thank-you check + any MUI icon) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg">
+  <div class="auth-bg-blob b1"></div>
+  <div class="auth-bg-blob b2"></div>
+  <div class="auth-bg-blob b3"></div>
+</div>
+
+<nav class="auth-nav">
+  <a href="../index.html" class="nav-brand">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a href="../index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+
+    <div class="auth-toggle">
+      <button id="tabSignIn" onclick="showPanel('signin')">Sign in</button>
+      <button class="active" id="tabSignUp" onclick="showPanel('signup')">Sign up</button>
+    </div>
+
+    <!-- SIGN IN -->
+    <div class="auth-panel" id="panelSignin">
+      <h1 class="auth-heading">Welcome back</h1>
+      <p class="auth-sub">Sign in to your PowerToFly AI account.</p>
+      <form class="auth-form" onsubmit="return false">
+        <div class="field" id="si-email-field">
+          <label for="si-email">Email</label>
+          <input type="email" id="si-email" placeholder="you@example.com" autocomplete="email" onblur="validateEmail('si-email','si-email-field','si-email-msg')">
+          <div class="field-msg" id="si-email-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Enter a valid email address</div>
+        </div>
+        <div class="field" id="si-password-field">
+          <label for="si-password">Password</label>
+          <input type="password" id="si-password" placeholder="••••••••" autocomplete="current-password" onblur="validateRequired('si-password','si-password-field','si-password-msg')">
+          <div class="field-msg" id="si-password-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Password is required</div>
+        </div>
+        <button class="btn-auth" type="submit">Sign in</button>
+      </form>
+      <div class="auth-divider">or</div>
+      <div class="social-btns">
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+        <button class="btn-social">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>
+          Continue with LinkedIn
+        </button>
+      </div>
+      <p class="auth-note">Don't have an account? <a href="#" onclick="showPanel('signup');return false">Sign up free</a></p>
+      <p class="auth-note" style="margin-top:10px"><a href="#">Forgot password?</a></p>
+    </div>
+
+    <!-- SIGN UP -->
+    <div class="auth-panel active" id="panelSignup">
+
+      <!-- Step 1 -->
+      <div id="signupStep1">
+        <div class="step-indicator">Step 1 of 3</div>
+        <h1 class="auth-heading">Join a community of experts like you</h1>
+        <p class="auth-sub">Tell us more about you and we'll help you find the right fit.</p>
+        <form class="auth-form" onsubmit="goToStep2();return false">
+          <div class="field-row">
+            <div class="field"><label for="su-first">First name</label><input type="text" id="su-first" placeholder="Amara" autocomplete="given-name"></div>
+            <div class="field"><label for="su-last">Last name</label><input type="text" id="su-last" placeholder="Osei" autocomplete="family-name"></div>
+          </div>
+          <div class="field" id="su-email-field">
+            <label for="su-email">Email</label>
+            <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email" onblur="validateEmail('su-email','su-email-field','su-email-msg')">
+            <div class="field-msg" id="su-email-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Enter a valid email address</div>
+          </div>
+          <div class="field" id="su-password-field">
+            <label for="su-password">Password</label>
+            <input type="password" id="su-password" placeholder="Min. 8 characters" autocomplete="new-password" onblur="validatePassword('su-password','su-password-field','su-password-msg')">
+            <div class="field-msg" id="su-password-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Use at least 8 characters</div>
+          </div>
+          <button class="btn-auth" type="submit">Continue →</button>
+        </form>
+        <div class="auth-divider">or</div>
+        <div class="social-btns">
+          <button class="btn-social">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>
+            Continue with Google
+          </button>
+          <button class="btn-social">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>
+            Continue with LinkedIn
+          </button>
+        </div>
+        <p class="auth-note">Already have an account? <a href="#" onclick="showPanel('signin');return false">Sign in</a></p>
+        <p class="auth-fineprint">By creating an account you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div id="signupStep2" style="display:none">
+        <div class="step-indicator">Step 2 of 3</div>
+        <h1 class="auth-heading">Work experience</h1>
+        <p class="auth-sub">This helps us match you to roles that fit your background.</p>
+        <form class="auth-form" onsubmit="return false">
+          <div class="field"><label for="su-linkedin">LinkedIn profile</label><input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off"></div>
+          <div class="field">
+            <label>Resume or CV</label>
+            <div class="upload-area">
+              <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
+              <div class="upload-icon">📄</div>
+              <p><strong>Click to upload</strong> or drag and drop</p>
+              <p>PDF, DOC, DOCX — max 5MB</p>
+              <div class="upload-name" id="uploadName"></div>
+            </div>
+          </div>
+          <div class="nav-row">
+            <button class="btn-skip" type="button" onclick="goToStep1()">← Back</button>
+            <button class="btn-auth" type="submit" onclick="goToStep3();return false">Continue →</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Step 3 -->
+      <div id="signupStep3" style="display:none">
+        <div class="step-indicator">Step 3 of 3</div>
+        <h1 class="auth-heading">A bit more about you</h1>
+        <p class="auth-sub">Tell us how you identify so we can personalize your experience. This never affects your eligibility for a role. We use it only internally to support our community — it's never shown on your public profile. <strong>Pick what applies</strong> — or skip.</p>
+        <div class="id-grid">
+          <div class="id-section">
+            <div class="id-section-label">Pronouns</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">she/her</span><span class="id-chip" onclick="toggleChip(this)">he/him</span><span class="id-chip" onclick="toggleChip(this)">they/them</span><span class="id-chip" onclick="toggleChip(this)">ze/hir</span><span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span><span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
+          </div>
+          <div class="id-section">
+            <div class="id-section-label">Gender identity</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Woman</span><span class="id-chip" onclick="toggleChip(this)">Man</span><span class="id-chip" onclick="toggleChip(this)">Transgender</span><span class="id-chip" onclick="toggleChip(this)">Non-binary</span><span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span><span class="id-chip" onclick="toggleChip(this)">Other</span>
+            </div>
+          </div>
+          <div class="id-section">
+            <div class="id-section-label">Ethnicity</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">Asian</span><span class="id-chip" onclick="toggleChip(this)">Pacific Islander</span><span class="id-chip" onclick="toggleChip(this)">Black / African diaspora</span><span class="id-chip" onclick="toggleChip(this)">Hispanic or Latino</span><span class="id-chip" onclick="toggleChip(this)">Indigenous</span><span class="id-chip" onclick="toggleChip(this)">MENA</span><span class="id-chip" onclick="toggleChip(this)">White or European</span><span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            </div>
+          </div>
+          <div class="id-section">
+            <div class="id-section-label">Community</div>
+            <div class="id-chips">
+              <span class="id-chip" onclick="toggleChip(this)">LGBTQIA+</span><span class="id-chip" onclick="toggleChip(this)">Disabled</span><span class="id-chip" onclick="toggleChip(this)">Neurodivergent</span><span class="id-chip" onclick="toggleChip(this)">Parent or caregiver</span><span class="id-chip" onclick="toggleChip(this)">Military service</span><span class="id-chip" onclick="toggleChip(this)">Ally</span><span class="id-chip" onclick="toggleChip(this)">Prefer not to say</span>
+            </div>
+          </div>
+        </div>
+        <div class="id-actions">
+          <button class="btn-skip" type="button" onclick="goToStep2()">← Back</button>
+          <div class="id-actions-right">
+            <button class="id-skip" onclick="goToThankYou()">Skip for now</button>
+            <button class="btn-auth" onclick="goToThankYou()">Save &amp; finish</button>
+          </div>
+        </div>
+        <p class="id-privacy">By saving you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
+      </div>
+
+      <!-- Thank you -->
+      <div id="signupThanks" style="display:none">
+        <div class="thanks-icon">
+          <svg width="60" height="60" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+        <div class="thanks-eyebrow">Profile received</div>
+        <h1 class="auth-heading">Welcome to the PTF community.</h1>
+        <p class="thanks-body">While our team works on finding the right fit for you, feel free to explore open roles and projects on our job board. We'll reach out personally if there's a match.</p>
+        <div class="thanks-actions">
+          <a href="#" class="btn-dashboard btn-block">Explore open roles →</a>
+          <a href="#" class="btn btn-block">Explore more of PowerToFly →</a>
+        </div>
+        <div class="thanks-divider"></div>
+        <p class="auth-note" style="margin-top:0">Keep an eye on your inbox. We'll be in touch soon.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+if (new URLSearchParams(window.location.search).get('mode') === 'signin') showPanel('signin');
+function showPanel(panel) {
+  document.getElementById('panelSignin').classList.toggle('active', panel === 'signin');
+  document.getElementById('panelSignup').classList.toggle('active', panel === 'signup');
+  document.getElementById('tabSignIn').classList.toggle('active', panel === 'signin');
+  document.getElementById('tabSignUp').classList.toggle('active', panel === 'signup');
+  if (panel === 'signup') goToStep1();
+}
+function showStep(id) {
+  ['signupStep1','signupStep2','signupStep3','signupThanks'].forEach(function(s){ document.getElementById(s).style.display = (s === id) ? 'block' : 'none'; });
+  document.querySelector('.auth-toggle').style.display = (id === 'signupStep1') ? 'flex' : 'none';
+  document.querySelector('.auth-card').classList.toggle('wide', id === 'signupStep3');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function goToStep1(){ showStep('signupStep1'); }
+function goToStep2(){ showStep('signupStep2'); }
+function goToStep3(){ showStep('signupStep3'); }
+function goToThankYou(){ showStep('signupThanks'); document.querySelector('.auth-toggle').style.display='none'; }
+function toggleChip(el){ el.classList.toggle('selected'); }
+function setFieldState(fieldId, msgId, isError){ var f=document.getElementById(fieldId), m=document.getElementById(msgId); if(!f||!m)return; f.classList.toggle('has-error',isError); f.classList.toggle('is-valid',!isError); m.classList.toggle('visible',isError); }
+function validateEmail(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)); }
+function validatePassword(i,f,m){ var v=document.getElementById(i).value; if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,v.length<8); }
+function validateRequired(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.add('has-error');document.getElementById(m).classList.add('visible');document.getElementById(f).classList.remove('is-valid');return;} setFieldState(f,m,false); }
+function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; }
+</script>
+
+</body>
+</html>
