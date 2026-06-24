@@ -1,0 +1,1650 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerToFly — Find your next remote role</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<meta property="og:url" content="https://kabosmonalisa.github.io/Powertofly-Ai/talents/">
+<style>
+
+/* ===== Hero headline ===== */
+h1.hero-headline {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(44px, 7vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  margin: 0 auto;
+  max-width: 16ch;
+}
+
+/* ===== Buttons (page-specific) ===== */
+.btn-hero { padding: 16px 32px; font-size: 16px; font-weight: 700; }
+
+/* ===== Nav override — talents nav is always frosted glass ===== */
+/* ===== Max-width: 1600px ===== */
+.nav-inner, .footer-inner { max-width: 1400px; }
+
+.nav { background: rgba(255,255,255,0.85); backdrop-filter: saturate(140%) blur(10px); border-bottom: 1px solid var(--line); }
+
+/* ===== Nav — mega flyout (same system as employers page) ===== */
+.nav-links { display: none !important; }
+.nav-items { display: flex; align-items: center; flex: 1; gap: 1px; justify-content: center; }
+.nav-drop  { position: static; }
+.nav-btn {
+  background: none; border: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px; font-weight: 400;
+  color: var(--ink); cursor: pointer;
+  padding: 7px 11px; border-radius: 8px;
+  display: flex; align-items: center; gap: 4px;
+  white-space: nowrap; line-height: 1;
+  text-decoration: none;
+  transition: background .12s, color .12s;
+}
+.nav-btn:hover, .nav-btn.open { background: transparent; color: var(--ink); opacity: 0.65; }
+.nav-chev {
+  width: 12px; height: 12px; flex-shrink: 0;
+  stroke: currentColor; fill: none; stroke-width: 1.8;
+  transition: transform .18s ease;
+}
+.nav-btn.open .nav-chev { transform: rotate(180deg); }
+.nav-fly {
+  position: absolute; left: 0; right: 0; top: 100%;
+  background: transparent; border: none; box-shadow: none;
+  overflow: visible; z-index: 200;
+  padding: 0 32px; padding-top: 2px;
+  opacity: 0; visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s .2s;
+  pointer-events: none;
+}
+.nav-fly.open {
+  opacity: 1; visibility: visible;
+  transform: translateY(0);
+  transition: opacity .2s ease, transform .2s ease, visibility 0s 0s;
+  pointer-events: auto;
+}
+.mega-inner {
+  max-width: 680px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 240px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.10);
+  overflow: hidden;
+}
+.mega-left { padding: 28px 36px 28px 30px; }
+.fly-eyebrow {
+  font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
+  text-transform: uppercase; color: #0A8C66; margin-bottom: 10px;
+}
+.mega-items { display: flex; flex-direction: column; gap: 4px; }
+.fly-item {
+  display: block; padding: 11px 12px;
+  margin: 0 -12px;
+  border-radius: 8px;
+  text-decoration: none; color: inherit; cursor: pointer;
+  transition: background .12s;
+}
+.fly-item:hover .fly-title { color: var(--green); } /* hover = green text, no bg */
+.fly-title {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 5px; line-height: 1.2;
+}
+.fly-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; }
+.mega-right {
+  padding: 28px 24px;
+  background: var(--ink);
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.mega-right .fly-eyebrow { color: rgba(255,255,255,0.5); }
+.fly-stat { padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.12); }
+.fly-stat:last-child { border-bottom: none; }
+.fly-stat-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 26px; font-weight: 800; letter-spacing: -0.04em;
+  color: #fff; line-height: 1; margin-bottom: 3px;
+  white-space: nowrap;
+}
+.fly-stat-unit {
+  font-size: 0.5em; font-weight: 700;
+  color: rgba(255,255,255,0.6);
+  margin-left: 2px; vertical-align: baseline;
+}
+.fly-stat-lbl { font-size: 11.5px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+.fly-cta {
+  display: block; background: #4FE8A9; color: var(--ink);
+  font-family: inherit; font-size: 12.5px; font-weight: 600;
+  padding: 11px 16px; border-radius: 999px;
+  text-align: center; text-decoration: none;
+  transition: opacity .15s; margin-top: 20px;
+}
+.fly-cta:hover { opacity: 0.85; }
+.nav-overlay { position: fixed; inset: 0; z-index: 190; display: none; }
+.nav-overlay.on { display: block; }
+@media (max-width: 900px) { .nav-items { display: none; } }
+
+/* ===== Sections → even via the responsive --section-y token ===== */
+.section {
+padding: var(--section-y) var(--gutter);
+}
+/* .section-narrow inherits its --content-wide (1180) token from ptf.css — inset, not as wide as the bar */
+.section-head {
+text-align: center; margin-bottom: 56px;
+}
+.section-head h2 {
+font-family: 'Inter Tight', sans-serif;
+font-size: clamp(32px, 4vw, 52px);
+font-weight: 700;
+letter-spacing: -0.03em;
+line-height: 1.05;
+margin-bottom: 16px;
+}
+.section-head p {
+font-size: 16.5px; color: var(--ink-2);
+max-width: 48ch; margin: 0 auto;
+}
+
+/* ===== Hero ===== */
+.hero {
+position: relative;
+min-height: 75vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 100px 48px 80px;
+overflow: hidden;
+}
+.hero-glow {
+position: absolute;
+top: -120px;
+left: 30%;
+transform: translateX(-50%);
+width: 900px;
+height: 600px;
+background: radial-gradient(ellipse at 50% 30%,
+  rgba(91,207,255,0.13) 0%,
+  rgba(79,232,169,0.10) 40%,
+  rgba(213,255,102,0.06) 70%,
+  transparent 100%);
+pointer-events: none;
+z-index: 0;
+}
+.hero-inner {
+position: relative;
+z-index: 1;
+max-width: 1400px;
+width: 100%;
+margin: 0 auto;
+display: grid;
+grid-template-columns: 1fr 1fr;
+align-items: center;
+gap: 64px;
+}
+.hero-text {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 24px;
+text-align: left;
+}
+
+/* ===== Hero visual (photo + match card) ===== */
+.hero-visual {
+position: relative;
+}
+.hero-photo-wrap {
+position: relative;
+border-radius: 28px;
+overflow: visible;
+}
+.hero-photo {
+width: 100%;
+height: 100%;
+min-height: 560px;
+object-fit: cover;
+object-position: 35% 10%;
+border-radius: 28px;
+display: block;
+}
+/* Float wrapper handles positioning + bobbing animation */
+.hmc-float-wrap {
+position: absolute;
+bottom: 6%;
+left: -32px;
+z-index: 10;
+animation: floatY 5s ease-in-out infinite;
+}
+/* Card itself handles the 3D flip */
+.hero-match-card {
+background: #fff;
+border: 1px solid var(--line);
+border-radius: 18px;
+box-shadow: 0 8px 32px rgba(15,30,26,0.14), 0 2px 8px rgba(15,30,26,0.06);
+width: 320px;
+transform-style: preserve-3d;
+transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hmc-badge {
+display: inline-flex;
+align-items: center;
+gap: 5px;
+font-size: 11px;
+font-weight: 600;
+letter-spacing: 0.04em;
+text-transform: uppercase;
+color: #0A8C66;
+background: rgba(79,232,169,0.16);
+padding: 4px 10px;
+border-radius: 999px;
+margin-bottom: 8px;
+}
+.hmc-badge .dot {
+width: 6px; height: 6px;
+border-radius: 50%;
+background: #4FE8A9;
+flex-shrink: 0;
+}
+.hmc-role {
+font-family: 'Inter Tight', sans-serif;
+font-size: 15px;
+font-weight: 700;
+letter-spacing: -0.02em;
+color: var(--ink);
+line-height: 1.2;
+margin-bottom: 4px;
+}
+.hmc-rate {
+font-family: 'Inter Tight', sans-serif;
+font-size: 18px;
+font-weight: 700;
+letter-spacing: -0.02em;
+color: var(--ink);
+margin-bottom: 8px;
+}
+.hmc-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+}
+.hero-visual {
+perspective: 1200px;
+}
+/* Two-face flip — rotate the whole card */
+#hmcWrap.flipped {
+transform: rotateY(180deg);
+}
+/* Each face: hidden when facing away */
+.hmc-face {
+padding: 14px 18px;
+backface-visibility: hidden;
+-webkit-backface-visibility: hidden;
+}
+/* Back face pre-rotated 180° so it starts hidden */
+.hmc-back {
+position: absolute;
+inset: 0;
+background: #fff;
+border-radius: 18px;
+transform: rotateY(180deg);
+}
+.hmc-tag {
+font-size: 11px;
+font-weight: 500;
+color: var(--ink-3);
+background: var(--bg-soft);
+border: 1px solid var(--line);
+border-radius: 999px;
+padding: 3px 9px;
+}
+/* removed dead .hero-eyebrow pill (unused; pills on labels are banned — use .eyebrow) */
+.hero h1 {
+font-family: 'Inter Tight', sans-serif;
+font-size: clamp(44px, 7vw, 80px);
+font-weight: 800;
+letter-spacing: -0.04em;
+line-height: 0.95;
+color: var(--ink);
+}
+.hero-sub {
+font-size: 17px;
+color: var(--ink-2);
+line-height: 1.55;
+}
+.hero-cta {
+margin-top: 4px;
+}
+.hero-stats {
+display: flex;
+flex-wrap: nowrap;
+justify-content: flex-start;
+gap: 10px;
+margin-top: 8px;
+}
+.stat-chip {
+display: inline-flex;
+align-items: center;
+gap: 6px;
+padding: 7px 14px;
+border-radius: 999px;
+border: 1px solid var(--line);
+font-size: 13px;
+font-weight: 500;
+color: var(--ink-3);
+white-space: nowrap;
+}
+.stat-chip-val {
+font-family: 'Inter Tight', sans-serif;
+font-weight: 700;
+font-size: 13px;
+color: var(--ink);
+}
+.hero-domains {
+display: flex;
+flex-wrap: wrap;
+justify-content: flex-start;
+gap: 8px;
+max-width: 520px;
+margin-top: 4px;
+}
+.domain-pill {
+display: inline-block;
+padding: 5px 13px;
+border-radius: 999px;
+border: 1px solid var(--line);
+font-size: 12.5px;
+font-weight: 500;
+color: var(--ink-3);
+white-space: nowrap;
+}
+
+/* ===== Hero job search (v2 — talent-focused) ===== */
+.hero-search {
+display: flex;
+align-items: center;
+gap: 6px;
+width: 100%;
+max-width: 540px;
+background: #fff;
+border: 1px solid var(--line);
+border-radius: 999px;
+box-shadow: 0 8px 32px rgba(15,30,26,0.10), 0 2px 8px rgba(15,30,26,0.05);
+padding: 6px 6px 6px 18px;
+}
+.hero-search-ico { width: 20px; height: 20px; flex-shrink: 0; color: var(--ink-3); }
+.hero-search-input {
+flex: 1;
+min-width: 0;
+border: none;
+background: none;
+outline: none;
+font-family: 'Inter', sans-serif;
+font-size: 15px;
+color: var(--ink);
+padding: 12px 8px 12px 12px;
+}
+.hero-search-input::placeholder { color: var(--ink-3); }
+.hero-search .btn-search { flex-shrink: 0; padding: 12px 24px; font-size: 15px; font-weight: 700; }
+/* Quick-search pills — links into the job board */
+.search-quick {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+justify-content: flex-start;
+gap: 8px;
+max-width: 540px;
+margin-top: 4px;
+}
+.search-quick-lbl { font-size: 13px; color: var(--ink-3); margin-right: 2px; }
+.search-pill {
+display: inline-block;
+padding: 6px 14px;
+border-radius: 999px;
+border: 1px solid var(--line);
+font-size: 13px;
+font-weight: 500;
+color: var(--ink-2);
+text-decoration: none;
+white-space: nowrap;
+transition: border-color .12s, color .12s, background .12s;
+}
+.search-pill:hover { border-color: var(--ink); color: var(--ink); background: var(--bg-soft); }
+
+/* ===== Hero avatar stack + live match toast ===== */
+.av-stack {
+  display: inline-flex;
+  align-items: center;
+}
+.av {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 9px; font-weight: 700;
+  color: #0A0A0A;
+  margin-left: -7px;
+  flex-shrink: 0;
+  background: var(--av-bg, #ccc);
+}
+.av:first-child { margin-left: 0; }
+.stat-chip--av { gap: 10px; }
+.match-toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 16px 9px 12px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  transition: opacity 0.28s ease, transform 0.28s ease;
+  margin-top: 8px;
+}
+.match-toast.fading { opacity: 0; transform: translateY(5px); }
+.match-live-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #4FE8A9;
+  flex-shrink: 0;
+  animation: pulse-live 2s ease-out infinite;
+}
+@keyframes pulse-live {
+  0%   { box-shadow: 0 0 0 0   rgba(79,232,169,0.55); }
+  60%  { box-shadow: 0 0 0 5px rgba(79,232,169,0);    }
+  100% { box-shadow: 0 0 0 0   rgba(79,232,169,0);    }
+}
+.match-av-sm {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 8px; font-weight: 700;
+  color: #0A0A0A;
+  flex-shrink: 0;
+}
+.match-name { color: var(--ink); font-weight: 600; }
+.match-sep  { color: var(--ink-3); margin: 0 2px; }
+.match-logo-sm {
+  height: 14px; width: auto;
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.6);
+  flex-shrink: 0;
+}
+
+/* ===== Opportunities Grid ===== */
+.opp-grid {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: 24px;
+max-width: var(--content);
+margin: 0 auto;
+}
+.opp-card {
+background: var(--bg-soft);
+border: 1px solid var(--line);
+border-radius: 16px;
+padding: 24px;
+box-shadow: var(--shadow-card);
+display: flex;
+flex-direction: column;
+gap: 14px;
+transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.opp-card:hover {
+transform: translateY(-2px);
+box-shadow: 0 2px 4px rgba(15,30,26,0.05), 0 16px 40px rgba(15,30,26,0.12);
+}
+.opp-badge {
+display: inline-flex;
+align-items: center;
+align-self: flex-start;
+color: #0A8C66;
+font-family: 'Inter Tight', sans-serif;
+font-weight: 700;
+font-size: 11px;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+line-height: 1.5;
+}
+.opp-title {
+font-family: 'Inter Tight', sans-serif;
+font-size: 17px;
+font-weight: 700;
+letter-spacing: -0.02em;
+line-height: 1.2;
+color: var(--ink);
+}
+.opp-rate {
+font-family: 'Inter Tight', sans-serif;
+font-size: 22px;
+font-weight: 800;
+letter-spacing: -0.03em;
+color: var(--ink);
+line-height: 1;
+}
+.opp-tags {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+}
+.req-tag {
+display: inline-block;
+padding: 4px 10px;
+border-radius: 999px;
+border: 1px solid var(--line);
+font-size: 12px;
+font-weight: 500;
+color: var(--ink-3);
+}
+.opp-card .btn {
+margin-top: auto;
+justify-content: center;
+width: 100%;
+background: transparent;
+}
+.opp-card .btn:hover { background: var(--ink); color: #fff; }
+
+/* ===== Logo Strip — now the shared .logo-strip component (ds/ptf.css). ===== */
+/* Custom CSS removed: greyscale + opacity + animation come from ptf.css. */
+
+/* ===== Testimonials ===== */
+.section-proof { background: var(--bg); padding-bottom: var(--section-y); }
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.t-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.t-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+.t-stars { color: #F5A623; font-size: 14px; letter-spacing: 2px; }
+.t-quote {
+  margin-top: 14px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  flex: 1;
+}
+.t-meta {
+  margin-top: 22px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+.t-meta-info { display: flex; flex-direction: column; min-width: 0; }
+.t-author { font-size: 14px; font-weight: 600; color: var(--ink); }
+.t-company { font-size: 13px; font-weight: 500; color: var(--ink-2); margin-top: 3px; }
+.t-role { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+.t-logo {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.t-logo img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+.t-logo-init {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--ink-3);
+}
+.t-li {
+  display: inline-flex; align-items: center;
+  margin-top: 8px; text-decoration: none;
+  transition: opacity .15s;
+}
+.t-li:hover { opacity: 0.7; }
+.t-li svg { width: 18px; height: 18px; fill: #0A66C2; flex-shrink: 0; }
+
+@media (max-width: 1000px) { .testimonials { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .testimonials { grid-template-columns: 1fr; } }
+
+/* ===== Footer override — 5-column layout ===== */
+.footer-cols { grid-template-columns: 1.4fr repeat(4, 1fr); }
+
+/* ===== Float animations ===== */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-14px); }
+}
+@keyframes floatY-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+/* ===== Mission Statement ===== */
+/* mission now uses the shared .section-mission / .mission-statement (ds/ptf.css) */
+
+/* ===== Benefits (sticky scroll stack) ===== */
+/* ===== Benefit cards — 3-col row ===== */
+.benefits-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: var(--content);
+  margin: 0 auto;
+}
+/* benefit cards → ds/ptf.css; page keeps below (bigger static sparkle, lighter body, insight) */
+.benefit-sparkle { width: 64px; height: 64px; margin-bottom: 4px; animation: none !important; }
+.benefit-card:nth-child(2) .benefit-sparkle,
+.benefit-card:nth-child(3) .benefit-sparkle { animation: none !important; }
+.benefit-card p { color: var(--ink-3); }
+.benefit-insight {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 14px !important;
+  font-weight: 600;
+  color: var(--ink-2) !important;
+  letter-spacing: -0.01em;
+  line-height: 1.45 !important;
+}
+
+/* ===== How It Works → structure from ds/ptf.css; page keeps below ===== */
+.how-inner { max-width: var(--content); margin: 0 auto; }
+.how-portrait-card { background-image: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?w=900&h=1200&fit=crop&q=80'); background-position: center top; }
+.how-stat-chip {
+  position: absolute;
+  background: rgba(10,10,10,0.80);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.how-stat-chip .chip-num {
+  font-family: 'Inter Tight', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #fff;   /* solid — no gradient on text */
+}
+.how-stat-chip .chip-label {
+  font-size: 11px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.02em;
+}
+.how-chip-1 { bottom: 28px; left: 20px; }
+.how-chip-2 { bottom: 28px; right: 20px; }
+.how-chip-3 { top: 84px; right: 20px; }
+
+.how-sparkle-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.how-sparkle {
+  width: 360px;
+  height: 360px;
+  animation: floatY-slow 7s ease-in-out infinite;
+}
+/* .steps / .step / .step-num / .step-content → from ds/ptf.css */
+
+/* ===== Stats → structure from ds/ptf.css; page keeps below (light photo → inverted P, nowrap nums) ===== */
+.stats-portrait { background-image: url('https://plus.unsplash.com/premium_photo-1686244745019-b8d2be4dc066?w=900&h=1200&fit=crop&q=80'); background-position: center top; }
+.stats-portrait-icon { filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.45)); }
+.stat-big-num { white-space: nowrap; }
+.stat-unit { margin-left: 2px; }
+/* stats-card-wrap responsive → from ds/ptf.css */
+
+/* ===== FAQ ===== */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.faq-item {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: box-shadow 180ms ease;
+}
+.faq-item.open { box-shadow: var(--shadow-card); }
+.faq-q {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.faq-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 280ms ease, background 180ms ease, border-color 180ms ease;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+.faq-icon svg { display: block; }
+.faq-item.open .faq-icon line { stroke: #fff; }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 320ms ease;
+}
+.faq-item.open .faq-a { max-height: 240px; }
+.faq-a-inner {
+  padding: 0 24px 22px;
+  font-size: 15px;
+  color: var(--ink-3);
+  line-height: 1.65;
+}
+
+/* Closing CTA → shared .section-cta + .btn-cta in ds/ptf.css */
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+.opp-grid { grid-template-columns: repeat(2, 1fr); }
+.benefits-row { grid-template-columns: 1fr 1fr; }
+/* how-inner / how-portrait-card responsive → from ds/ptf.css */
+/* hero centered on mobile (matches the train page) */
+.hero-inner { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+.hero-text { align-items: center; text-align: center; }
+.hero-headline, .hero-sub { text-align: center; }
+.hero-stats { justify-content: center; }
+.hero-domains { justify-content: center; max-width: 100%; }
+.hmc-float-wrap { left: 20px; transform: none; bottom: 20px; }
+}
+@media (max-width: 600px) {
+h1.display br { display: none; }
+/* .section padding → responsive --section-y token */
+.hero { padding: 64px 20px 48px; min-height: auto; }
+.hero-glow { width: 500px; height: 400px; }
+.hero-photo { height: 300px; object-fit: cover; object-position: 35% 20%; }
+.opp-grid { grid-template-columns: 1fr; }
+.hero-stats { gap: 8px; flex-wrap: wrap; }
+.hero-domains { gap: 8px; }
+.benefits-row { grid-template-columns: 1fr; }
+.hero-match-card { width: 230px; font-size: 13px; }
+.hmc-float-wrap { bottom: 16px; left: auto; right: 12px; transform: none; }
+.stat-big-num { font-size: clamp(44px, 12vw, 72px); }
+.drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.drawer-group:last-of-type { border-bottom: none; }
+.drawer-cat {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #0A8C66;
+  padding: 0; margin-bottom: 8px; display: block;
+  border-bottom: none !important;
+}
+.drawer-group a {
+  font-size: 15px; font-weight: 500; color: var(--ink);
+  padding: 8px 0 8px 12px; border-bottom: none !important;
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.drawer-group a:hover { opacity: 0.65; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+<div class="nav-inner">
+<a class="brand" href="#">
+<svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+<span class="brand-ai">AI</span>
+</a>
+<div class="nav-items">
+  <div class="nav-drop">
+    <button class="nav-btn" data-fly="fly-work">Find work <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+    <div class="nav-fly" id="fly-work">
+      <div class="mega-inner">
+        <div class="mega-left">
+          <div class="fly-eyebrow">Opportunities</div>
+          <div class="mega-items">
+            <a class="fly-item" href="join.html">
+              <div class="fly-title">Train AI models</div>
+              <div class="fly-desc">Get paid to put your expertise to work on AI projects</div>
+            </a>
+            <a class="fly-item" href="https://powertofly.com/jobs/" target="_blank" rel="noopener">
+              <div class="fly-title">Job board</div>
+              <div class="fly-desc">Full-time and contract roles across every function</div>
+            </a>
+          </div>
+        </div>
+        <div class="mega-right">
+          <div>
+            <div class="fly-eyebrow">By the numbers</div>
+            <div class="fly-stat"><div class="fly-stat-num">13M</div><div class="fly-stat-lbl">New AI jobs expected annually by 2030</div></div>
+            <div class="fly-stat"><div class="fly-stat-num">$65–130<span class="fly-stat-unit">/hr</span></div><div class="fly-stat-lbl">What domain experts earn on PTF</div></div>
+          </div>
+          <a href="join.html" class="fly-cta">Start earning →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="https://powertofly.com/browse-events" class="nav-btn">Events</a>
+  <a href="https://powertofly.com/up" class="nav-btn">Blog</a>
+  <a href="https://powertofly.com/about" class="nav-btn">About</a>
+</div>
+<div class="nav-cta">
+  <a href="join.html" class="btn btn-sm">Log in</a>
+  <a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
+</div>
+<button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="nav-overlay" id="navOverlay"></div>
+<div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Find work</span>
+    <a href="join.html">Train AI models</a>
+    <a href="https://powertofly.com/jobs/" target="_blank" rel="noopener">Job board</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Events</span>
+    <a href="https://powertofly.com/browse-events">All upcoming events</a>
+  </div>
+
+  <div class="drawer-group">
+    <span class="drawer-cat">Company</span>
+    <a href="https://powertofly.com/up">Blog</a>
+    <a href="https://powertofly.com/about">About</a>
+  </div>
+
+  <div class="drawer-cta">
+    <a href="join.html" class="btn btn-sm">Log in</a>
+    <a href="https://kabosmonalisa.github.io/Powertofly-Ai/employers/" class="btn btn-primary btn-sm">Hire an expert →</a>
+  </div>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-glow" aria-hidden="true"></div>
+<div class="hero-inner">
+
+  <!-- LEFT: text -->
+  <div class="hero-text">
+    <h1 class="display">
+      Find your next<br>
+      <em class="italic-plain">remote role</em>
+    </h1>
+
+    <p class="hero-sub">
+      Thousands of remote and hybrid jobs at companies that value women and underrepresented talent. Search the board and apply today.
+    </p>
+
+    <!-- Job search → redirects to the PowerToFly job board -->
+    <form class="hero-search" action="https://powertofly.com/jobs" method="get" role="search" aria-label="Search jobs">
+      <svg class="hero-search-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input class="hero-search-input" type="text" name="keywords" placeholder="Search by role, skill, or keyword" aria-label="Search by role, skill, or keyword">
+      <button type="submit" class="btn btn-primary btn-search">Search jobs</button>
+    </form>
+
+    <!-- Quick-search pills — popular job categories -->
+    <div class="search-quick" aria-label="Popular categories">
+      <span class="search-quick-lbl">Popular:</span>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Engineering">Engineering</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Data%20Science">Data Science</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Product">Product</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Design">Design</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Marketing">Marketing</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Sales">Sales</a>
+    </div>
+  </div>
+
+  <!-- RIGHT: photo + match card -->
+  <div class="hero-visual">
+    <div class="hero-photo-wrap">
+      <img
+        src="https://images.unsplash.com/photo-1664575603992-0f17b771dd91?w=1400&h=900&fit=crop&crop=center&q=85"
+        alt="Financial analyst working at laptop"
+        class="hero-photo"
+      >
+      <div class="hmc-float-wrap">
+        <div class="hero-match-card" id="hmcWrap" aria-live="polite">
+          <!-- FRONT FACE -->
+          <div class="hmc-face hmc-front" id="hmcFront">
+            <div class="hmc-badge"><span class="dot"></span> New match</div>
+            <div class="hmc-role">Earnings Analysis Trainer</div>
+            <div class="hmc-rate">$70–90 / hr</div>
+            <div class="hmc-tags">
+              <span class="hmc-tag">Financial AI</span>
+              <span class="hmc-tag">CFA or MBA</span>
+              <span class="hmc-tag">Remote</span>
+            </div>
+          </div>
+          <!-- BACK FACE (pre-loaded with next card) -->
+          <div class="hmc-face hmc-back" id="hmcBack">
+            <div class="hmc-badge"><span class="dot"></span> New match</div>
+            <div class="hmc-role">Investment Research Reviewer</div>
+            <div class="hmc-rate">$80–100 / hr</div>
+            <div class="hmc-tags">
+              <span class="hmc-tag">Financial AI</span>
+              <span class="hmc-tag">Finance degree</span>
+              <span class="hmc-tag">Remote</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- LOGO STRIP — shared .logo-strip component (ds/ptf.css), filled by PTF.initMarquee() -->
+<section style="padding:36px 0">
+  <div class="logo-strip">
+    <div class="logo-strip-track" id="talentLogos"></div>
+  </div>
+</section>
+
+<!-- WHAT YOU CAN EXPECT -->
+<section class="section" style="background: var(--bg);">
+<div class="section-narrow">
+  <div class="section-head">
+    <h2>What you can expect</h2>
+  </div>
+  <div class="benefits-row">
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="sg1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+        <path fill="url(#sg1)" stroke="url(#sg1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+      </svg>
+      <h3>Work from anywhere</h3>
+      <p class="benefit-insight">Building AI that works for everyone starts with experts from everywhere.</p>
+      <p>Every project is fully remote. Your geography, cultural context, and lived experience are exactly what clients are looking for.</p>
+    </div>
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="sg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+        <path fill="url(#sg2)" stroke="url(#sg2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/>
+      </svg>
+      <h3>Earn what your expertise is worth</h3>
+      <p class="benefit-insight">Your knowledge has real market value — and now there's a direct way to cash in on it.</p>
+      <p>Get paid for what you already know. Our experts earn $65–130/hr contributing to real AI projects, with payments landing in your account every week.</p>
+    </div>
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="sg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs>
+        <path fill="url(#sg3)" stroke="url(#sg3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/>
+      </svg>
+      <h3>Build real AI experience</h3>
+      <p class="benefit-insight">Do work that matters beyond the paycheck.</p>
+      <p>Every project you contribute to makes AI a little more accurate, a little less biased, and a little more useful for everyone. You build experience — and the world gets better AI.</p>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="background: var(--bg);">
+<div class="section-narrow">
+  <div class="section-head">
+    <h2>How it works</h2>
+  </div>
+  <div class="how-inner">
+
+    <div class="how-portrait-card">
+      <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+    </div>
+
+    <div class="steps" id="stepsContainer">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Apply and verify</h4>
+          <p>Create your profile and verify your credentials — takes under 10 minutes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Get matched to a project or role</h4>
+          <p>We match you with projects and roles that fit your expertise, schedule, and rate.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Take a short training</h4>
+          <p>Learn everything you need to know before starting with a short orientation. No prior AI experience needed.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Contribute your expertise</h4>
+          <p>Review, annotate, or generate content in your field at your own pace, on your schedule.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div class="step-content">
+          <h4>Get paid weekly</h4>
+          <p>You get paid every week, automatically. No invoices to send, no payments to follow up on.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- TRENDING OPPORTUNITIES -->
+<section class="section" id="opportunities" style="background: var(--bg-soft);">
+<div class="section-narrow">
+  <div class="section-head">
+    <h2>Trending opportunities</h2>
+    <p>High-demand roles across industries. Your background qualifies you for more than you think.</p>
+  </div>
+
+  <div class="opp-grid">
+
+    <article class="opp-card">
+      <span class="opp-badge">Clinical AI</span>
+      <div class="opp-title">Medical Content Reviewer</div>
+      <div class="opp-rate">$80–110 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">RN, NP, or MD</span>
+        <span class="req-tag">Clinical exp 3+ yrs</span>
+        <span class="req-tag">English native/fluent</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Legal AI</span>
+      <div class="opp-title">Contract Annotation Specialist</div>
+      <div class="opp-rate">$75–100 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">JD or paralegal cert</span>
+        <span class="req-tag">Contract law exp</span>
+        <span class="req-tag">Detail oriented</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Code Review AI</span>
+      <div class="opp-title">Senior Code Auditor</div>
+      <div class="opp-rate">$90–130 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">5+ yrs engineering</span>
+        <span class="req-tag">Python or TypeScript</span>
+        <span class="req-tag">Code review exp</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Financial AI</span>
+      <div class="opp-title">Earnings Analysis Trainer</div>
+      <div class="opp-rate">$65–90 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">CFA or CPA</span>
+        <span class="req-tag">Equity research exp</span>
+        <span class="req-tag">Financial modeling</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Language AI</span>
+      <div class="opp-title">Multilingual Prompt Evaluator</div>
+      <div class="opp-rate">$55–80 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">C2 in 2+ languages</span>
+        <span class="req-tag">Translation exp</span>
+        <span class="req-tag">Linguistics background</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Research AI</span>
+      <div class="opp-title">Scientific Fact Checker</div>
+      <div class="opp-rate">$70–95 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">PhD or MS</span>
+        <span class="req-tag">Peer review exp</span>
+        <span class="req-tag">STEM field</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Operations AI</span>
+      <div class="opp-title">Process Documentation Expert</div>
+      <div class="opp-rate">$60–85 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">Ops or PM background</span>
+        <span class="req-tag">SOP writing exp</span>
+        <span class="req-tag">Lean / Six Sigma</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Creative AI</span>
+      <div class="opp-title">Brand Voice Evaluator</div>
+      <div class="opp-rate">$55–75 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">Copywriting exp</span>
+        <span class="req-tag">Brand strategy</span>
+        <span class="req-tag">Editorial background</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Education AI</span>
+      <div class="opp-title">Curriculum Quality Reviewer</div>
+      <div class="opp-rate">$65–85 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">Teaching credential</span>
+        <span class="req-tag">Curriculum design</span>
+        <span class="req-tag">K–12 or higher ed</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+    <article class="opp-card">
+      <span class="opp-badge">Legal AI</span>
+      <div class="opp-title">Regulatory Compliance Trainer</div>
+      <div class="opp-rate">$80–105 / hr</div>
+      <div class="opp-tags">
+        <span class="req-tag">Compliance cert</span>
+        <span class="req-tag">FDA / SEC / GDPR</span>
+        <span class="req-tag">Policy writing exp</span>
+      </div>
+      <a href="#" class="btn btn-sm">Apply now</a>
+    </article>
+
+  </div>
+</div>
+</section>
+
+<!-- MISSION STATEMENT -->
+<section class="section-mission">
+  <p class="mission-statement">Your perspective is your superpower. Put it to work, get paid for it, and help build AI that actually works for everyone.</p>
+</section>
+
+<!-- STATS -->
+<section class="section-stats">
+  <div class="stats-card-wrap">
+    <div class="stats-portrait">
+      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
+    </div>
+    <div class="stats-card-dark">
+      <div>
+        <div class="stat-big-num" data-count="56" data-suffix="%">56%</div>
+        <div class="stat-big-label">More what workers with AI skills earn compared to peers without them</div>
+      </div>
+      <div>
+        <div class="stat-big-num" data-count="13" data-suffix="M">13M</div>
+        <div class="stat-big-label">New AI-related jobs expected to be created annually by 2030</div>
+      </div>
+      <div>
+        <div class="stat-big-num">$65–130<span class="stat-unit">/hr</span></div>
+        <div class="stat-big-label">What domain experts earn on PTF projects</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- JOB BOARD -->
+<section class="section" style="background: var(--bg);">
+<div class="section-narrow" style="max-width: var(--content); margin: 0 auto; text-align: center;">
+  <div class="section-head">
+    <h2>Not looking for AI work<br><em class="italic-plain">right now?</em></h2>
+    <p>Browse thousands of jobs across every industry and function on our job board.</p>
+  </div>
+  <a href="https://powertofly.com/jobs" target="_blank" rel="noopener" class="btn btn-primary">Browse the job board →</a>
+</div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background: var(--bg-soft);">
+<div class="section-narrow">
+  <div class="section-head">
+    <h2>FAQ's</h2>
+  </div>
+  <div class="faq-list" id="faqList">
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What is PowerToFly AI?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">PowerToFly AI connects domain experts like you with AI companies that need real-world knowledge to build better products. Whether you're a nurse, lawyer, engineer, or translator — your expertise is exactly what these companies are paying for.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do I need a technical background?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">No. We match you based on your domain expertise, not your tech skills. No coding or AI experience required. Before your first project, a short orientation walks you through everything you need to know — usually 30 to 60 minutes.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How much does it pay?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Rates vary by domain and project, typically $65–130 per hour. You'll see the exact pay range on every listing before you apply — no surprises. Payments land in your account automatically every week.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How much time do I need to commit?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Most projects require 5–20 hours per week, and you choose which ones to take on. Everything is async — no set meeting times, no fixed schedule. You work at your own pace and can step away between projects as needed.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I work from my country?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Yes — all work is fully remote and open to experts in most countries. Some projects require English fluency; others are specifically looking for speakers of other languages and regional expertise.</div></div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I know this is legitimate?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">PowerToFly has been connecting professionals with leading companies for over a decade. The companies you'll work with are real, the projects are live, and your credentials are verified before you start. You can browse open opportunities and see exactly who's hiring before you apply.</div></div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section section-proof">
+<div class="section-narrow">
+  <div class="section-head">
+    <h2>What experts say<br>about the work</h2>
+  </div>
+  <div class="testimonials">
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"Being a new single parent, I was desperately looking for a remote opportunity. I got hired based on my skills, and no one judged me on anything else. PowerToFly will always have a special place in my heart."</p>
+      <div class="t-meta">
+        <div class="t-meta-info">
+          <div class="t-author">Ashvini T.</div>
+          <div class="t-company">Assent</div>
+          <div class="t-role">QA Engineer</div>
+        </div>
+        <div class="t-logo">
+          <img src="photos/ashvini.jpg" alt="Ashvini">
+        </div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I hadn't even applied for a role when PowerToFly reached out to me proactively. The whole process was exactly as described, and I'm thrilled to say I landed a C-suite position I credit entirely to their support."</p>
+      <div class="t-meta">
+        <div class="t-meta-info">
+          <div class="t-author">Billie W.</div>
+          <div class="t-company">The Recycling Partnership</div>
+          <div class="t-role">Chief People Officer</div>
+        </div>
+        <div class="t-logo">
+          <img src="photos/billie.jpg" alt="Billie">
+        </div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I attended a PowerToFly hiring event with a major financial services firm, networked, and was invited to apply for several postings. I ended up interviewing for three roles and got hired for one."</p>
+      <div class="t-meta">
+        <div class="t-meta-info">
+          <div class="t-author">Maria C.</div>
+          <div class="t-company">American Express</div>
+          <div class="t-role">Software Engineer</div>
+        </div>
+        <div class="t-logo">
+          <img src="photos/maria.jpg" alt="Maria">
+        </div>
+      </div>
+    </div>
+
+    <div class="t-card">
+      <div class="t-stars">★★★★★</div>
+      <p class="t-quote">"I've met so many transactional tech bros in my field, so it's refreshing to be in a space where people are open and intentional. PowerToFly connected me with networking opportunities and roles I wouldn't have found elsewhere."</p>
+      <div class="t-meta">
+        <div class="t-meta-info">
+          <div class="t-author">Brent M.</div>
+          <div class="t-company">Apex Risk Advisory</div>
+          <div class="t-role">Principal, Security Risk Management</div>
+        </div>
+        <div class="t-logo">
+          <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=200&h=200&fit=crop&crop=face&q=80" alt="Brent">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="section-cta">
+<div class="section-cta-inner">
+  <span class="eyebrow">Get started</span><!-- COPY: confirm -->
+  <h2>Start earning from what you already know.</h2>
+  <p>Your first match is one application away. It takes under 10 minutes.</p>
+  <a href="join.html" class="btn btn-cta">Find your first opportunity →</a>
+
+</div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-inner">
+<div class="footer-cols">
+<div>
+<div class="footer-brand">
+<svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="white"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="white"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="white"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="white"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="white"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="white"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="white"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="white"/></svg>
+<span class="brand-ai">AI</span>
+</div>
+<p class="footer-bio">The training network powering production AI.</p>
+</div>
+<div class="footer-col">
+<h5>For talents</h5>
+<a href="#">Browse roles</a>
+<a href="#">Get certified</a>
+<a href="#">AI training</a>
+<a href="#">Community</a>
+</div>
+<div class="footer-col">
+<h5>Skills</h5>
+<a href="#">LLM engineering</a>
+<a href="#">Agentic AI</a>
+<a href="#">AI in production</a>
+</div>
+<div class="footer-col">
+<h5>Companies</h5>
+<a href="#">Browse employers</a>
+<a href="#">Events</a>
+<a href="#">Resources</a>
+</div>
+<div class="footer-col">
+<h5>About</h5>
+<a href="#">About us</a>
+<a href="#">Careers</a>
+<a href="#">Contact</a>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 PowerToFly.</span>
+<span class="links"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></span>
+</div>
+</div>
+</footer>
+
+<script src="../ds/ptf.js"></script>
+<script>
+/* ===== Client logo band — shared canonical list (PTF.LOGOS in ds/ptf.js) ===== */
+PTF.initMarquee('talentLogos');
+
+/* ===== Match card cycler — true two-face flip ===== */
+(function() {
+  var matches = [
+    { role: 'Earnings Analysis Trainer',    rate: '$70–90 / hr',  tags: ['Financial AI', 'CFA or MBA', 'Remote'] },
+    { role: 'Investment Research Reviewer', rate: '$80–100 / hr', tags: ['Financial AI', 'Finance degree', 'Remote'] },
+    { role: 'Financial Model Validator',    rate: '$75–95 / hr',  tags: ['Financial AI', 'Excel / Python', 'Remote'] },
+  ];
+  var idx = 0;           // index currently visible
+  var flipped = false;   // false = front visible, true = back visible
+
+  var wrap  = document.getElementById('hmcWrap');
+  var front = document.getElementById('hmcFront');
+  var back  = document.getElementById('hmcBack');
+  if (!wrap || !front || !back) return;
+
+  function renderFace(face, match) {
+    face.innerHTML =
+      '<div class="hmc-badge"><span class="dot"></span> New match</div>' +
+      '<div class="hmc-role">' + match.role + '</div>' +
+      '<div class="hmc-rate">' + match.rate + '</div>' +
+      '<div class="hmc-tags">' + match.tags.map(function(t){ return '<span class="hmc-tag">' + t + '</span>'; }).join('') + '</div>';
+  }
+
+  // Back face is pre-loaded in HTML with match[1] — keep in sync with idx=1
+  var preloaded = 1;
+
+  function nextMatch() {
+    var nextIdx = (idx + 1) % matches.length;
+    var afterIdx = (nextIdx + 1) % matches.length;
+
+    // The hidden face should already have nextIdx loaded — flip to reveal it
+    flipped = !flipped;
+    wrap.classList.toggle('flipped', flipped);
+    idx = nextIdx;
+
+    // After the transition completes (650ms), load afterIdx into the now-hidden face
+    setTimeout(function() {
+      var hiddenFace = flipped ? front : back;
+      renderFace(hiddenFace, matches[afterIdx]);
+    }, 700);
+  }
+
+  setInterval(nextMatch, 3500);
+})();
+
+// Scroll fade-in for How It Works steps
+(function() {
+  var steps = document.querySelectorAll('.step');
+  if (!steps.length) return;
+  if (!('IntersectionObserver' in window)) {
+    steps.forEach(function(s) { s.classList.add('visible'); });
+    return;
+  }
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var delay = parseInt(el.dataset.delay || 0);
+        setTimeout(function() { el.classList.add('visible'); }, delay);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+  steps.forEach(function(s, i) {
+    s.dataset.delay = i * 110;
+    obs.observe(s);
+  });
+})();
+
+// FAQ accordion
+(function() {
+  var list = document.getElementById('faqList');
+  if (!list) return;
+  list.addEventListener('click', function(e) {
+    var btn = e.target.closest('.faq-q');
+    if (!btn) return;
+    var item = btn.closest('.faq-item');
+    var isOpen = item.classList.contains('open');
+    list.querySelectorAll('.faq-item.open').forEach(function(i) {
+      i.classList.remove('open');
+      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+})();
+
+// Live match toast cycler
+(function(){
+  const matches = [
+    { initials:'DO', bg:'#5BCFFF', name:'Danielle O.', role:'Clinical AI',  logo:'logos/google.png',  co:'Google'  },
+    { initials:'MT', bg:'#4FE8A9', name:'Marcus T.',   role:'Legal AI',     logo:'logos/zapier.png',  co:'Zapier'  },
+    { initials:'SR', bg:'#D5FF66', name:'Sofia R.',    role:'Language AI',  logo:'logos/zillow.png',  co:'Zillow'  },
+    { initials:'KA', bg:'#FFB86C', name:'Kwame A.',    role:'Code AI',      logo:'logos/visa.png',    co:'Visa'    },
+    { initials:'JL', bg:'#c4b5fd', name:'Jamie L.',    role:'Finance AI',   logo:'logos/nestle.png',  co:'Nestlé'  },
+  ];
+  const toast  = document.getElementById('matchToast');
+  const avEl   = document.getElementById('matchAv');
+  const nameEl = document.getElementById('matchName');
+  const roleEl = document.getElementById('matchRole');
+  const logoEl = document.getElementById('matchLogo');
+  if (!toast) return;
+  let idx = 0;
+
+  function show(m) {
+    avEl.style.background = m.bg;
+    avEl.textContent      = m.initials;
+    nameEl.textContent    = m.name;
+    roleEl.textContent    = m.role;
+    logoEl.src            = m.logo;
+    logoEl.alt            = m.co;
+  }
+
+  function cycle() {
+    toast.classList.add('fading');
+    setTimeout(function() {
+      idx = (idx + 1) % matches.length;
+      show(matches[idx]);
+      toast.classList.remove('fading');
+    }, 280);
+  }
+
+  show(matches[0]);
+  setInterval(cycle, 3500);
+})();
+
+/* ===== Count-up animation for stats ===== */
+(function(){
+  var nums = document.querySelectorAll('.stat-big-num[data-count]');
+  if (!nums.length) return;
+  var easeOut = function(t){ return 1 - Math.pow(1 - t, 3); };
+  function animate(el) {
+    var target = parseFloat(el.dataset.count);
+    var suffix = el.dataset.suffix || '';
+    var isDecimal = target % 1 !== 0;
+    var duration = 1800;
+    var start = performance.now();
+    function step(now) {
+      var elapsed = now - start;
+      var progress = Math.min(elapsed / duration, 1);
+      var val = easeOut(progress) * target;
+      el.textContent = (isDecimal ? val.toFixed(1) : Math.floor(val)) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = (isDecimal ? target.toFixed(1) : target) + suffix;
+    }
+    requestAnimationFrame(step);
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  nums.forEach(function(el){ observer.observe(el); });
+})();
+// Nav mega flyout (same system as employers page)
+(function(){
+  var overlay = document.getElementById('navOverlay');
+  var closeTimer = null;
+  function closeAll() {
+    document.querySelectorAll('.nav-fly').forEach(function(f){ f.classList.remove('open'); });
+    document.querySelectorAll('.nav-btn[data-fly]').forEach(function(b){ b.classList.remove('open'); });
+    if (overlay) overlay.classList.remove('on');
+  }
+  function scheduleClose() { closeTimer = setTimeout(closeAll, 150); }
+  function cancelClose() { clearTimeout(closeTimer); }
+  document.querySelectorAll('.nav-btn[data-fly]').forEach(function(btn){
+    var drop = btn.closest('.nav-drop');
+    var fly = document.getElementById(btn.dataset.fly);
+    drop.addEventListener('mouseenter', function(){ cancelClose(); closeAll(); fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); });
+    drop.addEventListener('mouseleave', scheduleClose);
+    fly.addEventListener('mouseenter', cancelClose);
+    fly.addEventListener('mouseleave', scheduleClose);
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var isOpen = fly.classList.contains('open');
+      closeAll();
+      if (!isOpen) { fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); }
+    });
+  });
+  if (overlay) overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+})();
+</script>
+</body>
+</html>
