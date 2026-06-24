@@ -415,6 +415,32 @@ transition: border-color .12s, color .12s, background .12s;
 }
 .search-pill:hover { border-color: var(--ink); color: var(--ink); background: var(--bg-soft); }
 
+/* Hero search — mobile: stack a full-width input over a full-width button (placeholder no longer truncates) */
+@media (max-width: 600px) {
+  .hero-search {
+    flex-wrap: wrap;
+    border-radius: 22px;
+    padding: 8px;
+    gap: 8px;
+  }
+  .hero-search-ico { margin-left: 8px; }
+  .hero-search-input {
+    flex: 1 1 0;
+    padding: 12px 4px;
+    font-size: 16px; /* 16px keeps iOS from zooming the page on focus */
+  }
+  .hero-search .btn-search {
+    flex: 1 0 100%;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 14px 24px;
+    border-radius: 999px;
+  }
+  /* center the quick pills under the stacked search */
+  .search-quick { justify-content: center; }
+}
+
 /* ===== Hero avatar stack + live match toast ===== */
 .av-stack {
   display: inline-flex;
