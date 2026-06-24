@@ -635,8 +635,10 @@ background: transparent;
 @media (max-width: 1000px) { .testimonials { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .testimonials { grid-template-columns: 1fr; } }
 
-/* ===== Footer override — 5-column layout ===== */
-.footer-cols { grid-template-columns: 1.4fr repeat(4, 1fr); }
+/* ===== Footer override — 5-column layout (desktop only; ≤768px falls back to ptf.css's 2-col→1-col collapse) ===== */
+@media (min-width: 769px) {
+  .footer-cols { grid-template-columns: 1.4fr repeat(4, 1fr); }
+}
 
 /* ===== Float animations ===== */
 @keyframes floatY {
@@ -957,7 +959,7 @@ h1.display br { display: none; }
     <div class="hero-photo-wrap">
       <img
         src="https://images.unsplash.com/photo-1664575603992-0f17b771dd91?w=1400&h=900&fit=crop&crop=center&q=85"
-        alt="Financial analyst working at laptop"
+        alt="Data analyst working at laptop"
         class="hero-photo"
       >
       <div class="hmc-float-wrap">
@@ -965,23 +967,23 @@ h1.display br { display: none; }
           <!-- FRONT FACE -->
           <div class="hmc-face hmc-front" id="hmcFront">
             <div class="hmc-badge"><span class="dot"></span> New match</div>
-            <div class="hmc-role">Earnings Analysis Trainer</div>
-            <div class="hmc-rate">$70–90 / hr</div>
+            <div class="hmc-role">Senior Data Analyst</div>
+            <div class="hmc-rate">$115–140K</div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Financial AI</span>
-              <span class="hmc-tag">CFA or MBA</span>
               <span class="hmc-tag">Remote</span>
+              <span class="hmc-tag">SQL + Python</span>
+              <span class="hmc-tag">Full-time</span>
             </div>
           </div>
           <!-- BACK FACE (pre-loaded with next card) -->
           <div class="hmc-face hmc-back" id="hmcBack">
             <div class="hmc-badge"><span class="dot"></span> New match</div>
-            <div class="hmc-role">Investment Research Reviewer</div>
-            <div class="hmc-rate">$80–100 / hr</div>
+            <div class="hmc-role">Analytics Engineer</div>
+            <div class="hmc-rate">$130–160K</div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Financial AI</span>
-              <span class="hmc-tag">Finance degree</span>
-              <span class="hmc-tag">Remote</span>
+              <span class="hmc-tag">Hybrid</span>
+              <span class="hmc-tag">dbt + SQL</span>
+              <span class="hmc-tag">Full-time</span>
             </div>
           </div>
         </div>
@@ -1314,7 +1316,7 @@ h1.display br { display: none; }
 <section class="section-cta">
 <div class="section-cta-inner">
   <span class="eyebrow">Get started</span>
-  <h2>Your expertise belongs in AI.<br><em class="italic-plain">Let's make it official.</em></h2>
+  <h2>Your expertise belongs in AI. <br><em class="italic-plain">Let's make it official.</em></h2>
   <p>Sign up now and we'll match you with opportunities in your field as soon as they're available.</p>
   <a href="join.html" class="btn btn-cta">Apply to be an expert →</a>
 
@@ -1375,9 +1377,9 @@ PTF.initMarquee('talentLogos');
 /* ===== Match card cycler — true two-face flip ===== */
 (function() {
   var matches = [
-    { role: 'Earnings Analysis Trainer',    rate: '$70–90 / hr',  tags: ['Financial AI', 'CFA or MBA', 'Remote'] },
-    { role: 'Investment Research Reviewer', rate: '$80–100 / hr', tags: ['Financial AI', 'Finance degree', 'Remote'] },
-    { role: 'Financial Model Validator',    rate: '$75–95 / hr',  tags: ['Financial AI', 'Excel / Python', 'Remote'] },
+    { role: 'Senior Data Analyst', rate: '$115–140K', tags: ['Remote', 'SQL + Python', 'Full-time'] },
+    { role: 'Analytics Engineer',  rate: '$130–160K', tags: ['Hybrid', 'dbt + SQL', 'Full-time'] },
+    { role: 'Marketing Data Scientist', rate: '$140–175K', tags: ['Remote', 'ML / Python', 'Full-time'] },
   ];
   var idx = 0;           // index currently visible
   var flipped = false;   // false = front visible, true = back visible

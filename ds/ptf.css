@@ -120,7 +120,7 @@ img { display: block; max-width: 100%; }
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-style: italic;
   font-weight: 700;
-  color: var(--ink);
+  color: inherit; /* match the headline's ink — stays dark on light, white on dark sections (e.g. .section-cta) */
   letter-spacing: -0.025em;
 }
 
