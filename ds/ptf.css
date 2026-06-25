@@ -310,7 +310,7 @@ img { display: block; max-width: 100%; }
 }
 .footer-cols {
   display: grid;
-  grid-template-columns: 1.4fr repeat(3, 1fr); /* override per-page for more cols */
+  grid-template-columns: 1.4fr repeat(5, 1fr); /* brand + the 5 nav sections (Solutions/For talent/Events/Resources/Company) */
   gap: 32px;
   padding-bottom: 40px;
 }
