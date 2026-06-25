@@ -221,7 +221,18 @@ img { display: block; max-width: 100%; }
   font-size: 13.5px; font-weight: 400;
 }
 .nav-links a:hover { opacity: 0.65; }
-.nav-cta { display: flex; gap: 10px; }
+.nav-cta { display: flex; align-items: center; gap: 10px; }
+/* ===== Unified nav extras (audience sections + the Log-in portal dropdown) ===== */
+.nav-aud + .nav-aud { margin-top: 18px; }   /* two audience sections stacked in a dropdown's left panel */
+/* Log-in trigger is the system .btn; its dropdown is a small panel anchored UNDER the trigger (not full-width) */
+#loginDrop { position: relative; }
+#fly-login { left: auto; right: 0; width: 340px; padding: 8px 0 0; }
+#fly-login .mega-inner { grid-template-columns: 1fr; max-width: none; padding: 14px 18px; border-radius: var(--r-lg); }
+#fly-login .mega-left { padding: 0; }
+#fly-login .fly-item { margin: 0; }          /* neutralise the wide-flyout negative margin in this tight panel */
+#fly-login .fly-rule { margin: 8px 0; }
+.login-signup { font-size: 12px; color: var(--ink-3); padding: 6px 12px 2px; line-height: 1.5; text-align: left; }
+.login-signup a { color: var(--accent); font-weight: 600; text-decoration: none; }
 
 /* ===== Hamburger ===== */
 .hamburger {
