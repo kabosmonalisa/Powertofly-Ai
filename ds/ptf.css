@@ -267,7 +267,7 @@ img { display: block; max-width: 100%; }
 }
 .drawer-links {
   overflow-y: auto;
-  flex: 1 1 0;
+  flex: 0 1 auto;   /* size to content (the drawer is auto-height, capped by max-height); was 1 1 0 which collapsed to 0 */
   min-height: 0;
   padding: 20px 24px 0;
 }
