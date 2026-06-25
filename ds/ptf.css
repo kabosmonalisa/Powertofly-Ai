@@ -1045,25 +1045,33 @@ img { display: block; max-width: 100%; }
 .sc-mock-dark-blue .sc-mock-row, .sc-mock-dark-green .sc-mock-row, .sc-mock-dark-red .sc-mock-row { background: rgba(255,255,255,0.04); border-color: rgba(255,255,255,0.1); }
 .sc-mock-dark-blue .sc-mock-hr, .sc-mock-dark-green .sc-mock-hr, .sc-mock-dark-red .sc-mock-hr { border-top-color: rgba(255,255,255,0.1); }
 
-/* Nav: transparent over the dark page; solid dark glass once scrolled (matches train).
- * Text/borders flip via tokens — only the genuinely-special bits are overridden here. */
-.theme-dark .nav { background: transparent; border-color: transparent; }
-.theme-dark .nav.scrolled { background: rgba(10,10,10,0.9); border-bottom-color: rgba(255,255,255,0.08); }
-.theme-dark .brand svg { filter: brightness(0) invert(1); }   /* logo: tokens can't recolor an SVG asset */
-.theme-dark .hamburger span { background: var(--ink); }
-.theme-dark .nav-cta .btn:not(.btn-primary) { background: transparent; color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.2); }
-.theme-dark .nav-cta .btn:not(.btn-primary):hover { color: #fff; border-color: rgba(255,255,255,0.5); }
-/* .btn-primary inverts via --btn-* tokens — no override needed. .nav-btn / .fly-title /
- * .fly-desc / .fly-rule / .ind-* / .fly-badge all flip via --ink / --ink-3 / --line. */
-/* Mega-flyout dropdown in dark — dark surface + the signature green border (brand accent). */
-.theme-dark .nav-fly { box-shadow: none; }
-.theme-dark .mega-inner { background: var(--surface); border: 1px solid rgba(79,232,169,0.55); box-shadow: 0 20px 60px rgba(0,0,0,.5); }
-.theme-dark .fly-item:hover .fly-title,
-.theme-dark .ind-item:hover .ind-name { color: var(--green-mid); }
-/* Coming-soon pill: SOLID on dark (transparent purple looks bad on a dark panel) */
-.theme-dark .fly-badge-soon,
-.theme-dark .drawer-badge { background: var(--purple-bright); color: #fff; }
-/* Mobile drawer flips via tokens (bg/--bg, borders/--line, links/--ink) — no overrides */
+/* ===== Dark top-nav — ported VERBATIM from the train page's inline dark CSS, scoped to .theme-dark.
+ * (Not reconstructed — these are train's exact rules, the gold dark nav.) ===== */
+.theme-dark .nav { background: transparent !important; border: none !important; box-shadow: none !important; border-bottom: none !important; transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease; }
+.theme-dark .nav.scrolled { background: transparent !important; backdrop-filter: none !important; }
+.theme-dark .nav.nav-solid { background: rgba(10,10,10,0.9) !important; backdrop-filter: saturate(140%) blur(12px) !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; }
+.theme-dark .nav-inner { border: none !important; box-shadow: none !important; border-bottom: none !important; }
+.theme-dark .site-header { box-shadow: none !important; border-bottom: none !important; }
+.theme-dark .nav, .theme-dark .nav-inner, .theme-dark .nav-fly { border-bottom: none !important; box-shadow: none !important; }
+/* Dropdown panel — dark with green border */
+.theme-dark .mega-inner { background: #141414 !important; border: 1px solid rgba(79,232,169,0.55) !important; }
+.theme-dark .fly-eyebrow { color: #4FE8A9 !important; }
+.theme-dark .fly-title { color: #fff !important; }
+.theme-dark .fly-desc  { color: rgba(255,255,255,0.5) !important; }
+.theme-dark .fly-item:hover .fly-title { color: var(--green-mid) !important; } /* hover = green text, no bg */
+.theme-dark .fly-rule  { border-top-color: rgba(255,255,255,0.1) !important; }
+.theme-dark .ind-name  { color: rgba(255,255,255,0.65) !important; }
+.theme-dark .ind-desc  { color: rgba(255,255,255,0.35) !important; }
+.theme-dark .fly-badge-soon { background: #7B00FF !important; color: #fff !important; }
+.theme-dark .fly-badge { color: rgba(255,255,255,0.7) !important; }
+.theme-dark .nav-cta .btn:not(.btn-primary) { background: transparent !important; color: rgba(255,255,255,0.85) !important; border: 1.5px solid rgba(255,255,255,0.55) !important; }
+.theme-dark .nav-cta .btn:not(.btn-primary):hover { color: #fff !important; border-color: #fff !important; }
+.theme-dark .nav-btn { color: rgba(255,255,255,0.85) !important; }
+.theme-dark .brand svg { filter: brightness(0) invert(1); }
+.theme-dark .brand-ai { color: #0A0A0A !important; background: #4FE8A9 !important; }
+.theme-dark .hamburger span { background: rgba(255,255,255,0.85) !important; }
+.theme-dark .btn-primary { background: #fff !important; color: #0A0A0A !important; }
+.theme-dark .btn-primary:hover { background: rgba(255,255,255,0.88) !important; color: #0A0A0A !important; }
 
 /* ===== Responsive for promoted chrome (mega-nav needs more room → 900px) ===== */
 @media (max-width: 900px) {
