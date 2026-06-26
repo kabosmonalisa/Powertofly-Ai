@@ -49,6 +49,22 @@
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
+  /* Option 3 — redesigned For employers dropdown (single column, no black panel) */
+  .emp-mega { grid-template-columns: 1fr !important; max-width: 660px; }
+  .emp-mega .mega-left { padding: 22px 24px; }
+  .emp-home { display:flex; align-items:center; gap:14px; padding:13px 15px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(135deg, rgba(79,232,169,.13), rgba(213,255,102,.06)); text-decoration:none; }
+  .emp-home:hover { border-color: var(--green-mid); }
+  .emp-home-ic { width:42px; height:42px; flex-shrink:0; border-radius:11px; background:#fff; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+  .emp-home-ic svg { width:24px; height:24px; }
+  .emp-home-tx { display:flex; flex-direction:column; gap:2px; }
+  .emp-home .fly-title { font-size:15px; }
+  .emp-home-arrow { margin-left:auto; color:var(--ink-3); font-size:18px; line-height:1; }
+  .emp-cols { display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; margin:16px 0 6px; }
+  .emp-cols .fly-eyebrow { margin-bottom:6px; }
+  .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:18px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); }
+  .emp-foot p { font-size:12px; color:var(--ink-3); line-height:1.45; margin:0; max-width:300px; }
+  .emp-foot .fly-cta { margin:0; width:auto; display:inline-block; white-space:nowrap; }
+
   .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
 
   /* this is a desktop decision tool — collapse the rows on small screens with a note */
@@ -328,22 +344,36 @@
           <div class="nav-drop">
             <button class="nav-btn" data-fly="c-fly-employers">For employers <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
             <div class="nav-fly" id="c-fly-employers">
-              <div class="mega-inner">
+              <div class="mega-inner emp-mega">
                 <div class="mega-left">
-                  <a class="fly-item fly-feature" href="employers/index.html"><div class="fly-title">PowerToFly for employers</div><div class="fly-desc">The home for teams hiring and deploying AI talent.</div></a>
-                  <hr class="fly-rule">
-                  <div class="fly-eyebrow">Services</div>
-                  <div class="mega-items">
-                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract, or project-to-hire.</div></a>
-                    <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">AI experts for model training, evaluation, red teaming, and QA.</div></a>
+                  <a class="emp-home" href="employers/index.html">
+                    <span class="emp-home-ic">
+                      <svg viewBox="0 0 24 24" fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"><path d="M17 11V3H7v4H3v14h8v-4h2v4h8V11h-4zM7 19H5v-2h2v2zm0-4H5v-2h2v2zm0-4H5V9h2v2zm4 4H9v-2h2v2zm0-4H9V9h2v2zm0-4H9V5h2v2zm4 8h-2v-2h2v2zm0-4h-2V9h2v2zm0-4h-2V5h2v2zm4 12h-2v-2h2v2zm0-4h-2v-2h2v2z"/></svg>
+                    </span>
+                    <span class="emp-home-tx">
+                      <span class="fly-title">PowerToFly for employers</span>
+                      <span class="fly-desc">The home for teams hiring and deploying AI talent.</span>
+                    </span>
+                    <span class="emp-home-arrow">→</span>
+                  </a>
+
+                  <div class="emp-cols">
+                    <div>
+                      <div class="fly-eyebrow">Services</div>
+                      <div class="mega-items">
+                        <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Qualified experts, ready from day one — full-time, contract, or project.</div></a>
+                        <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">Model training, evaluation, red teaming, and QA.</div></a>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="fly-eyebrow">Resources &amp; events</div>
+                      <div class="mega-items">
+                        <a class="fly-item" href="#"><div class="fly-title">Insights &amp; case studies</div><div class="fly-desc">Research, guides, and B2B editorial.</div></a>
+                        <a class="fly-item" href="#"><div class="fly-title">Webinars &amp; summits</div><div class="fly-desc">Events for leaders and hiring teams.</div></a>
+                      </div>
+                    </div>
                   </div>
-                  <hr class="fly-rule">
-                  <div class="fly-eyebrow">Resources &amp; events</div>
-                  <div class="mega-items">
-                    <a class="fly-item" href="#"><div class="fly-title">Insights &amp; case studies</div><div class="fly-desc">Research, guides, and B2B editorial.</div></a>
-                    <a class="fly-item" href="#"><div class="fly-title">Webinars &amp; summits</div><div class="fly-desc">Events for leaders and hiring teams.</div></a>
-                  </div>
-                  <hr class="fly-rule">
+
                   <div class="fly-eyebrow">Industries we serve</div>
                   <div class="ind-grid">
                     <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
@@ -351,15 +381,11 @@
                     <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
                     <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
                   </div>
-                </div>
-                <div class="mega-right">
-                  <div>
-                    <div class="fly-eyebrow">Get started</div>
-                    <p class="proof-desc">Tell us what you're building and we'll match you with the right experts.</p>
-                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>1.1M+ professionals</div>
-                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>190 countries</div>
+
+                  <div class="emp-foot">
+                    <p>Tell us what you're building and we'll match you with the right experts.</p>
+                    <a href="#" class="fly-cta">Book a discovery call →</a>
                   </div>
-                  <a href="#" class="fly-cta">Book a discovery call →</a>
                 </div>
               </div>
             </div>
