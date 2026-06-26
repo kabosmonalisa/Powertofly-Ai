@@ -61,10 +61,11 @@
   .emp-body { padding:18px 24px; }
   .emp-cols { display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; margin-bottom:6px; }
   .emp-cols .fly-eyebrow { margin-bottom:6px; }
-  .emp-body > .fly-eyebrow { margin-top:14px; }
-  .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:16px 24px; background:var(--ink); }
-  .emp-foot p { font-size:12px; color:rgba(255,255,255,.72); line-height:1.45; margin:0; max-width:320px; }
-  .emp-foot .fly-cta { margin:0; width:auto; display:inline-block; white-space:nowrap; }
+  .emp-body > .fly-eyebrow { margin-top:16px; }
+  .ind-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+  .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:24px; background:var(--ink); }
+  .emp-foot p { font-family:'Inter Tight', sans-serif; font-size:16px; font-weight:600; letter-spacing:-0.01em; color:#fff; line-height:1.3; margin:0; max-width:360px; }
+  .emp-foot .fly-cta { margin:0; width:auto; display:inline-block; white-space:nowrap; flex-shrink:0; }
 
   .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
 
@@ -374,11 +375,13 @@
                     </div>
                   </div>
                   <div class="fly-eyebrow">Industries we serve</div>
-                  <div class="ind-grid">
-                    <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
-                    <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
-                    <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
-                    <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                  <div class="ind-chips">
+                    <span class="sc-title-chip">Healthcare</span>
+                    <span class="sc-title-chip">Financial Services</span>
+                    <span class="sc-title-chip">Legal</span>
+                    <span class="sc-title-chip">Business Services</span>
+                    <span class="sc-title-chip">Industrial &amp; Mfg</span>
+                    <span class="sc-title-chip">Retail &amp; Ecommerce</span>
                   </div>
                 </div>
                 <div class="emp-foot">
