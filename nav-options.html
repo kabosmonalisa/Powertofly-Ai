@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unified nav — two options for review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds/ptf.css">
+<style>
+  /* ── page chrome (review-tool only; NOT design-system) ───────────────── */
+  body { background: var(--surface, #f6f7f9); }
+  .opt-wrap { max-width: var(--container); margin: 0 auto; padding: 64px 32px 24px; }
+  .opt-intro h1 { font-family:'Inter Tight'; font-size: clamp(30px,4vw,46px); letter-spacing:-.03em; line-height:1.06; color:var(--ink); margin:0; max-width:18ch; }
+  .opt-intro p { color:var(--ink-3); margin:16px 0 0; max-width:64ch; font-size:16px; line-height:1.6; }
+  .opt-meta { margin-top:14px; font-size:12.5px; color:var(--ink-3); }
+
+  /* each option = a labelled card; the nav renders STATIC inside it (not fixed) */
+  .opt-card { max-width: var(--container); margin: 28px auto; background:#fff; border:1px solid var(--line); border-radius: 20px; overflow:hidden; box-shadow: 0 10px 40px rgba(0,0,0,.05); }
+  .opt-head { padding: 22px 28px; border-bottom:1px solid var(--line); background: #fbfcfd; }
+  .opt-tag-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .opt-kicker { font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--green); }
+  .opt-pill { font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 9px; border-radius:999px; }
+  .opt-pill-rec { background: var(--green-light, #e6fbf1); color:#0f6e56; }
+  .opt-pill-as { background:#eef0f3; color:var(--ink-3); }
+  .opt-head h2 { font-family:'Inter Tight'; font-size:23px; font-weight:700; letter-spacing:-.02em; color:var(--ink); margin:8px 0 0; }
+  .opt-head ul { margin:12px 0 0; padding:0; list-style:none; display:grid; gap:6px; }
+  .opt-head li { font-size:13.5px; color:var(--ink-2); line-height:1.5; padding-left:20px; position:relative; }
+  .opt-head li::before { content:""; position:absolute; left:4px; top:8px; width:6px; height:6px; border-radius:50%; background:var(--green-mid,#4FE8A9); }
+  .opt-head li.minus::before { background:#d8a; }
+
+  /* the live nav, de-stickied for in-page preview */
+  .navdemo { position: relative; }
+  .navdemo .nav { position: relative; top:auto; background:#fff; padding:0 28px; }
+  .navstage { position: relative; min-height: 360px; }   /* reserves room for an open flyout */
+  .navstage-hint { position:absolute; top:30px; left:0; right:0; text-align:center; color:var(--ink-3); font-size:13px; pointer-events:none; }
+  .navstage-hint strong { color:var(--ink-2); }
+
+  /* SOLUTIONS: featured employer-home item sitting above Services */
+  .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
+
+  /* LOG IN flyout (Option B) — compact two-portal panel, ported from nav-unified.html */
+  #b-loginDrop { position: relative; }
+  #b-fly-login { left:auto; right:0; width:340px; padding:8px 0 0; }
+  #b-fly-login .mega-inner { grid-template-columns:1fr; max-width:none; padding:14px 18px; border-radius:var(--r-lg); }
+  #b-fly-login .mega-left { padding:0; }
+  #b-fly-login .fly-item { margin:0; }
+  #b-fly-login .fly-rule { margin:8px 0; }
+  .login-signup { font-size:12px; color:var(--ink-3); padding:6px 12px 2px; line-height:1.5; text-align:left; }
+  .login-signup a { color:var(--accent,#0f6e56); font-weight:600; text-decoration:none; }
+
+  .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
+
+  /* this is a desktop decision tool — collapse the rows on small screens with a note */
+  .mobile-note { display:none; }
+  @media (max-width: 860px) {
+    .navdemo .nav-items, .navdemo .nav-cta { display:none; }
+    .navstage { min-height:0; }
+    .navstage-hint { display:none; }
+    .mobile-note { display:block; padding:26px 28px; font-size:13px; color:var(--ink-3); }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="opt-wrap">
+  <div class="opt-intro">
+    <h1>Unified top nav — two options to choose from</h1>
+    <p>Both keep one nav for both audiences (no toggle), flatten <strong>Jobs</strong> to a direct link, keep <strong>Events</strong> and <strong>Resources</strong> dual-audience, and add the <strong>employers home page</strong> to the top of the <strong>Solutions</strong> dropdown. The logo always returns to the talent (professionals) home. They differ in one thing: <strong>how loudly the nav points at employers.</strong></p>
+    <p class="opt-meta">Hover any menu item to preview its dropdown. Live components from the design system — nothing is wired site-wide yet.</p>
+  </div>
+</div>
+
+<!-- ════════════════ OPTION A — Mara's proposal ════════════════ -->
+<div class="opt-card">
+  <div class="opt-head">
+    <div class="opt-tag-row">
+      <span class="opt-kicker">Option A</span>
+      <span class="opt-pill opt-pill-as">As proposed</span>
+    </div>
+    <h2>Mara's proposal — employer home gets a dedicated button</h2>
+    <ul>
+      <li>Jobs is a direct link; Events &amp; Resources stay dual-audience.</li>
+      <li>Solutions gains <strong>PowerToFly for employers</strong> as its top item.</li>
+      <li class="minus">A standalone <strong>For employers</strong> button sits top-right, and <strong>Sign up</strong> replaces the Log-in control.</li>
+      <li class="minus">Talent home is reachable only by clicking the logo — employers get a labelled door, professionals don't.</li>
+    </ul>
+  </div>
+  <div class="navdemo">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#" title="Logo → talent (professionals) home">
+          <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+          <span class="brand-ai">AI</span>
+        </a>
+
+        <div class="nav-items">
+          <!-- JOBS — flat link -->
+          <a class="nav-btn" href="#">Jobs</a>
+
+          <!-- EVENTS — dual audience -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="a-fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="a-fly-events">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="nav-aud"><div class="fly-eyebrow">For employers</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Webinars &amp; summits</div><div class="fly-desc">Events for leaders and hiring teams.</div></a></div></div>
+                  <hr class="fly-rule">
+                  <div class="nav-aud"><div class="fly-eyebrow">For professionals</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Community events</div><div class="fly-desc">Summits, workshops, and networking.</div></a></div></div>
+                </div>
+                <div class="mega-right-dark">
+                  <div><div class="event-ey">Featured event</div><div class="event-hl">AI &amp; Emerging Tech Summit 2026</div><div class="event-date">Sept 16–17 · Virtual</div></div>
+                  <a href="#" class="event-reg">Register now →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESOURCES — dual audience -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="a-fly-resources">Resources <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="a-fly-resources">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="nav-aud"><div class="fly-eyebrow">For employers</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Insights &amp; case studies</div><div class="fly-desc">Research, guides, and B2B editorial.</div></a></div></div>
+                  <hr class="fly-rule">
+                  <div class="nav-aud"><div class="fly-eyebrow">For professionals</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Career blog</div><div class="fly-desc">Stories, advice, and career resources.</div></a></div></div>
+                </div>
+                <div class="mega-right-dark">
+                  <div><div class="event-ey">Featured report</div><div class="event-hl">The Human Gap</div><div class="event-date">Where AI initiatives break down — and who closes them.</div></div>
+                  <a href="#" class="event-reg">Read the report →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ABOUT — flat link -->
+          <a class="nav-btn" href="about/index.html">About</a>
+
+          <!-- SOLUTIONS — employer home added on top -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="a-fly-solutions">Solutions <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="a-fly-solutions">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <a class="fly-item fly-feature" href="employers/index.html"><div class="fly-title">PowerToFly for employers</div><div class="fly-desc">The home for teams hiring and deploying AI talent.</div></a>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Services</div>
+                  <div class="mega-items">
+                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract, or project-to-hire.</div></a>
+                    <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">AI experts for model training, evaluation, red teaming, and QA.</div></a>
+                  </div>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Industries we serve</div>
+                  <div class="ind-grid">
+                    <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
+                    <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
+                    <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
+                    <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                  </div>
+                </div>
+                <div class="mega-right">
+                  <div>
+                    <div class="fly-eyebrow">Get started</div>
+                    <p class="proof-desc">Tell us what you're building and we'll match you with the right experts.</p>
+                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>1.1M+ professionals</div>
+                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>190 countries</div>
+                  </div>
+                  <a href="#" class="fly-cta">Book a discovery call →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-cta">
+          <a href="#" class="btn btn-sm">Sign up</a>
+          <a href="employers/index.html" class="btn btn-primary btn-sm">For employers →</a>
+        </div>
+      </div>
+    </nav>
+    <div class="navstage"><div class="navstage-hint"><strong>Hover</strong> Events · Resources · Solutions to preview the dropdowns</div></div>
+    <p class="mobile-note">This nav is best reviewed on a desktop-width screen — the full menu collapses into a mobile drawer below this width.</p>
+  </div>
+</div>
+
+<!-- ════════════════ OPTION B — recommended ════════════════ -->
+<div class="opt-card">
+  <div class="opt-head">
+    <div class="opt-tag-row">
+      <span class="opt-kicker">Option B</span>
+      <span class="opt-pill opt-pill-rec">Recommended · talent-first</span>
+    </div>
+    <h2>Talent-first — employer home lives inside Solutions only</h2>
+    <ul>
+      <li>Identical to A on Jobs, Events, Resources, and the employer home inside Solutions.</li>
+      <li><strong>No standalone employer button</strong> — the nav stays talent-first, matching the strategy that employers come through sales, not the nav.</li>
+      <li>Keeps a single audience-aware <strong>Log in</strong> (employer / professional portals) plus <strong>Sign up</strong> — nothing lost from today.</li>
+      <li>Logo → talent home reads cleanly: neither audience gets a special button, so there's no lopsidedness to explain.</li>
+    </ul>
+  </div>
+  <div class="navdemo">
+    <nav class="nav">
+      <div class="nav-inner">
+        <a class="brand" href="#" title="Logo → talent (professionals) home">
+          <svg width="160" height="22" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="black"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="black"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="black"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="black"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="black"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="black"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="black"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="black"/></svg>
+          <span class="brand-ai">AI</span>
+        </a>
+
+        <div class="nav-items">
+          <!-- JOBS — flat link, surfaces AI roles first -->
+          <a class="nav-btn" href="#">Jobs</a>
+
+          <!-- EVENTS — dual audience -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="b-fly-events">Events <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="b-fly-events">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="nav-aud"><div class="fly-eyebrow">For employers</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Webinars &amp; summits</div><div class="fly-desc">Events for leaders and hiring teams.</div></a></div></div>
+                  <hr class="fly-rule">
+                  <div class="nav-aud"><div class="fly-eyebrow">For professionals</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Community events</div><div class="fly-desc">Summits, workshops, and networking.</div></a></div></div>
+                </div>
+                <div class="mega-right-dark">
+                  <div><div class="event-ey">Featured event</div><div class="event-hl">AI &amp; Emerging Tech Summit 2026</div><div class="event-date">Sept 16–17 · Virtual</div></div>
+                  <a href="#" class="event-reg">Register now →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RESOURCES — dual audience, AI-skills learning surfaced -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="b-fly-resources">Resources <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="b-fly-resources">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <div class="nav-aud"><div class="fly-eyebrow">For employers</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Insights &amp; case studies</div><div class="fly-desc">Research, guides, and B2B editorial.</div></a></div></div>
+                  <hr class="fly-rule">
+                  <div class="nav-aud"><div class="fly-eyebrow">For professionals</div><div class="mega-items"><a class="fly-item" href="#"><div class="fly-title">Career blog &amp; AI skills</div><div class="fly-desc">Stories, advice, and the new AI skills to get the new AI jobs.</div></a></div></div>
+                </div>
+                <div class="mega-right-dark">
+                  <div><div class="event-ey">Featured report</div><div class="event-hl">The Human Gap</div><div class="event-date">Where AI initiatives break down — and who closes them.</div></div>
+                  <a href="#" class="event-reg">Read the report →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ABOUT — flat link -->
+          <a class="nav-btn" href="about/index.html">About</a>
+
+          <!-- SOLUTIONS — employer home added on top (same as A) -->
+          <div class="nav-drop">
+            <button class="nav-btn" data-fly="b-fly-solutions">Solutions <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly" id="b-fly-solutions">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <a class="fly-item fly-feature" href="employers/index.html"><div class="fly-title">PowerToFly for employers</div><div class="fly-desc">The home for teams hiring and deploying AI talent.</div></a>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Services</div>
+                  <div class="mega-items">
+                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract, or project-to-hire.</div></a>
+                    <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">AI experts for model training, evaluation, red teaming, and QA.</div></a>
+                  </div>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Industries we serve</div>
+                  <div class="ind-grid">
+                    <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
+                    <div class="ind-item"><div class="ind-name">Financial Services</div><div class="ind-desc">Risk &amp; compliance AI</div></div>
+                    <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
+                    <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
+                  </div>
+                </div>
+                <div class="mega-right">
+                  <div>
+                    <div class="fly-eyebrow">Get started</div>
+                    <p class="proof-desc">Tell us what you're building and we'll match you with the right experts.</p>
+                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>1.1M+ professionals</div>
+                    <div class="proof-item"><div class="proof-check"><svg viewBox="0 0 9 9" fill="none" stroke="#0f6e56" stroke-width="1.8"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg></div>190 countries</div>
+                  </div>
+                  <a href="#" class="fly-cta">Book a discovery call →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-cta">
+          <!-- LOG IN — two-portal dropdown; sign-up link preserved inside -->
+          <div class="nav-drop" id="b-loginDrop">
+            <button class="btn btn-sm" data-fly="b-fly-login">Log in</button>
+            <div class="nav-fly" id="b-fly-login">
+              <div class="mega-inner">
+                <div class="mega-left">
+                  <a class="fly-item" href="#"><div class="fly-title">Employer portal</div><div class="fly-desc">Manage hires and projects</div></a>
+                  <hr class="fly-rule">
+                  <a class="fly-item" href="#"><div class="fly-title">Professional portal</div><div class="fly-desc">Browse jobs and opportunities</div></a>
+                  <hr class="fly-rule">
+                  <p class="login-signup">No account? Sign up as an <a href="#">employer</a> or a <a href="#">professional</a>.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="btn btn-primary btn-sm">Sign up</a>
+        </div>
+      </div>
+    </nav>
+    <div class="navstage"><div class="navstage-hint"><strong>Hover</strong> Events · Resources · Solutions · Log in to preview the dropdowns</div></div>
+    <p class="mobile-note">This nav is best reviewed on a desktop-width screen — the full menu collapses into a mobile drawer below this width.</p>
+  </div>
+</div>
+
+<p class="opt-foot"><strong>Why B is recommended:</strong> the team aligned that the unified nav stays talent-first — talent is the primary organic channel; employers come through outbound sales and partnerships, so the nav doesn't need an employer-acquisition button. B adds the employer home (so it's discoverable) without tilting the whole bar toward employers, and it keeps the Log-in portal split we already built. Once a direction is chosen, the winning nav gets promoted into <code>ds/</code> (ptf.css / ptf.js / template) so every page inherits it.</p>
+
+<script src="ds/ptf.js"></script>
+<script>
+  window.PTF && PTF.initMegaNav && PTF.initMegaNav();
+</script>
+</body>
+</html>
