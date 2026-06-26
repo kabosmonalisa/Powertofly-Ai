@@ -59,7 +59,7 @@
 <div class="opt-wrap">
   <div class="opt-intro">
     <h1>Unified top nav — three options to choose from</h1>
-    <p>All three keep one nav for both audiences (no toggle) and weave the AI story in. <strong>Options 1 &amp; 2</strong> keep today's structure — Jobs flat, Events &amp; Resources dual-audience, employer home added atop Solutions — and differ only in who gets the one dedicated button — employers (Option 1) or talent (Option 2). <strong>Option 3</strong> goes further: it <strong>restructures the bar to put talent first</strong> — the whole bar becomes talent, and the employer offering collapses into a single door on the right.</p>
+    <p>All three keep one nav for both audiences (no toggle) and weave the AI story in. <strong>Options 1 &amp; 2</strong> keep today's structure — Jobs flat, Events &amp; Resources dual-audience, employer home added atop Solutions — and differ only in the top-right corner: Option 1 keeps an adaptive <strong>For employers</strong> button (click it and it flips to <strong>For talent</strong>, mimicking the employer home); Option 2 drops audience buttons entirely for the leanest talent-first bar. <strong>Option 3</strong> goes further: it <strong>restructures the bar to put talent first</strong> — the whole bar becomes talent, and the employer offering collapses into a single door on the right.</p>
     <p class="opt-meta">Hover any menu item to preview its dropdown. Live components from the design system — nothing is wired site-wide yet.</p>
   </div>
 </div>
@@ -167,11 +167,11 @@
 
         <div class="nav-cta">
           <a href="#" class="btn btn-sm">Sign up</a>
-          <a href="employers/index.html" class="btn btn-primary btn-sm">For employers →</a>
+          <a href="employers/index.html" class="btn btn-primary btn-sm" data-aud-toggle data-state="talent">For employers →</a>
         </div>
       </div>
     </nav>
-    <div class="navstage"><div class="navstage-hint"><strong>Hover</strong> Events · Resources · Solutions to preview the dropdowns</div></div>
+    <div class="navstage"><div class="navstage-hint"><strong>Click "For employers"</strong> to see the CTA flip to "For talent" (mimicking being on the employer home) · hover the menus for dropdowns</div></div>
     <p class="mobile-note">This nav is best reviewed on a desktop-width screen — the full menu collapses into a mobile drawer below this width.</p>
   </div>
 </div>
@@ -183,12 +183,12 @@
       <span class="opt-kicker">Option 2</span>
       <span class="opt-pill opt-pill-as">My take</span>
     </div>
-    <h2>Talent gets the button — employer home stays inside Solutions</h2>
+    <h2>Clean — no audience buttons, just a talent-first CTA</h2>
     <ul>
-      <li>Everything in Option 1's structure is unchanged — Jobs, Events, Resources, and the employer home atop Solutions.</li>
-      <li class="plus">Adds <strong>one</strong> button — <strong>For professionals</strong> — so the talent home has a visible, labelled door instead of being buried in the logo.</li>
-      <li class="plus"><strong>No standalone employer button.</strong> The employer home is already at the top of Solutions, so the nav stays talent-first — no second door competing for the bar.</li>
-      <li class="plus">The logo still goes to the talent home — now it's the backup, not the only path.</li>
+      <li>Today's structure unchanged — Jobs, Events, Resources, and the employer home atop Solutions.</li>
+      <li class="plus"><strong>No audience buttons in the bar at all</strong> — just <strong>Log in</strong> and a talent-first <strong>Get matched</strong> CTA.</li>
+      <li class="plus">The employer home stays discoverable at the top of Solutions; talent home is the logo and the Get matched CTA.</li>
+      <li class="plus">Leanest of the three — closest to today, just re-pointed talent-first.</li>
     </ul>
   </div>
   <div class="navdemo">
@@ -279,8 +279,7 @@
         </div>
 
         <div class="nav-cta">
-          <!-- TALENT-FIRST — talent gets the one labelled door; employer home lives inside Solutions -->
-          <a href="talents/index.html" class="btn btn-sm">For professionals</a>
+          <!-- TALENT-FIRST — no audience buttons; just auth + the talent CTA. Logo = talent home -->
           <a href="#" class="nav-btn">Log in</a>
           <a href="#" class="btn btn-primary btn-sm">Get matched</a>
         </div>
@@ -427,11 +426,28 @@
   </div>
 </div>
 
-<p class="opt-foot"><strong>Where I land:</strong> Options 1 &amp; 2 decide one small thing — does talent get a button. <strong>Option 3 is the one I'd ship.</strong> It's the only version that actually <em>reads</em> talent-first: the whole bar is talent, the AI story rides on Jobs and Resources where talent will see it, and the employer offering is fully present behind a single clean door instead of taking two slots in the centre. It's also <em>less</em> cluttered than 1 or 2, not more. Once a direction is chosen, the winning nav gets promoted into <code>ds/</code> (ptf.css / ptf.js / template) so every page inherits it.</p>
+<p class="opt-foot"><strong>Where I land:</strong> Options 1 &amp; 2 are small variations on today's bar — what sits in the top-right corner. <strong>Option 3 is the one I'd ship.</strong> It's the only version that actually <em>reads</em> talent-first: the whole bar is talent, the AI story rides on Jobs and Resources where talent will see it, and the employer offering is fully present behind a single clean door instead of taking two slots in the centre. It's also <em>less</em> cluttered than 1 or 2, not more. Once a direction is chosen, the winning nav gets promoted into <code>ds/</code> (ptf.css / ptf.js / template) so every page inherits it.</p>
 
 <script src="ds/ptf.js"></script>
 <script>
   window.PTF && PTF.initMegaNav && PTF.initMegaNav();
+
+  /* Option 1: adaptive audience CTA — clicking "For employers" mimics landing on
+     the employer home, where the same button now offers the way back: "For talent". */
+  document.querySelectorAll('[data-aud-toggle]').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (btn.dataset.state === 'talent') {
+        btn.textContent = 'For talent →';
+        btn.setAttribute('href', 'talents/index.html');
+        btn.dataset.state = 'employer';
+      } else {
+        btn.textContent = 'For employers →';
+        btn.setAttribute('href', 'employers/index.html');
+        btn.dataset.state = 'talent';
+      }
+    });
+  });
 </script>
 </body>
 </html>
