@@ -49,22 +49,24 @@
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
-  /* Option 3 — For employers dropdown: full gradient header + black CTA footer */
-  .emp-mega { grid-template-columns: 1fr !important; max-width: 660px; }
-  .emp-head { display:flex; align-items:center; gap:14px; padding:18px 24px; text-decoration:none; background:linear-gradient(120deg, rgba(91,207,255,.9), rgba(79,232,169,.9) 52%, rgba(213,255,102,.9)); }
-  .emp-head-ic { width:44px; height:44px; flex-shrink:0; border-radius:50%; background:rgba(255,255,255,.92); display:flex; align-items:center; justify-content:center; }
-  .emp-head-ic svg { width:24px; height:24px; }
-  .emp-head-tx { display:flex; flex-direction:column; gap:2px; }
-  .emp-head .fly-title { font-size:16px; color:var(--ink); }
-  .emp-head .fly-desc { color:var(--ink); opacity:.72; }
-  .emp-head-arrow { margin-left:auto; color:var(--ink); font-size:18px; line-height:1; }
-  .emp-body { padding:18px 24px; }
+  /* Option 3 — For employers dropdown: clean, left-aligned, black CTA footer */
+  .emp-mega { grid-template-columns: 1fr !important; max-width: 620px; }
+  .emp-body { padding:22px 24px; }
+  .emp-home { display:flex; align-items:center; gap:14px; text-decoration:none; padding-bottom:16px; margin-bottom:14px; border-bottom:1px solid var(--line); }
+  .emp-home-tx { display:flex; flex-direction:column; gap:3px; }
+  .emp-home .fly-title { font-family:'Inter Tight', sans-serif; font-size:18px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); }
+  .emp-home .fly-desc { color:var(--ink-3); }
+  .emp-home:hover .fly-title { color:var(--green); }
+  .emp-home-ic { margin-left:auto; flex-shrink:0; }
+  .emp-home-ic svg { width:30px; height:30px; display:block; }
   .emp-cols { display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; margin-bottom:6px; }
   .emp-cols .fly-eyebrow { margin-bottom:6px; }
   .emp-body > .fly-eyebrow { margin-top:16px; }
   .ind-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
-  .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:24px; background:var(--ink); }
-  .emp-foot p { font-family:'Inter Tight', sans-serif; font-size:16px; font-weight:600; letter-spacing:-0.01em; color:#fff; line-height:1.3; margin:0; max-width:360px; }
+  .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:22px 24px; background:var(--ink); }
+  .emp-foot-tx { display:flex; flex-direction:column; gap:5px; }
+  .emp-foot-title { font-family:'Inter Tight', sans-serif; font-size:16px; font-weight:700; letter-spacing:-0.01em; color:#fff; line-height:1.25; }
+  .emp-foot-body { font-size:12.5px; color:rgba(255,255,255,.62); line-height:1.45; margin:0; max-width:330px; }
   .emp-foot .fly-cta { margin:0; width:auto; display:inline-block; white-space:nowrap; flex-shrink:0; }
 
   .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
@@ -347,17 +349,16 @@
             <button class="nav-btn" data-fly="c-fly-employers">For employers <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
             <div class="nav-fly" id="c-fly-employers">
               <div class="mega-inner emp-mega">
-                <a class="emp-head" href="employers/index.html">
-                  <span class="emp-head-ic">
-                    <svg viewBox="0 0 24 24" fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55l1.33.26zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83L11.17 17zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81l-.26-1.33zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12C4.42 15.34 5.17 15 6 15c1.66 0 3 1.34 3 3zm4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"/></svg>
-                  </span>
-                  <span class="emp-head-tx">
-                    <span class="fly-title">PowerToFly for employers</span>
-                    <span class="fly-desc">The home for teams hiring and deploying AI talent.</span>
-                  </span>
-                  <span class="emp-head-arrow">→</span>
-                </a>
                 <div class="emp-body">
+                  <a class="emp-home" href="employers/index.html">
+                    <span class="emp-home-tx">
+                      <span class="fly-title">PowerToFly for employers</span>
+                      <span class="fly-desc">The home for teams hiring and deploying AI talent.</span>
+                    </span>
+                    <span class="emp-home-ic">
+                      <svg viewBox="0 0 24 24" fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55l1.33.26zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83L11.17 17zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81l-.26-1.33zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12C4.42 15.34 5.17 15 6 15c1.66 0 3 1.34 3 3zm4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"/></svg>
+                    </span>
+                  </a>
                   <div class="emp-cols">
                     <div>
                       <div class="fly-eyebrow">Services</div>
@@ -385,7 +386,10 @@
                   </div>
                 </div>
                 <div class="emp-foot">
-                  <p>Tell us what you're building and we'll match you with the right experts.</p>
+                  <div class="emp-foot-tx">
+                    <div class="emp-foot-title">Tell us what you're building</div>
+                    <p class="emp-foot-body">We'll match you with the right AI experts — full-time, contract, or project.</p>
+                  </div>
                   <a href="#" class="fly-cta">Book a discovery call →</a>
                 </div>
               </div>
