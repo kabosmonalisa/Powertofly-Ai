@@ -40,16 +40,6 @@
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
-  /* LOG IN flyout (Option B) — compact two-portal panel, ported from nav-unified.html */
-  #b-loginDrop { position: relative; }
-  #b-fly-login { left:auto; right:0; width:340px; padding:8px 0 0; }
-  #b-fly-login .mega-inner { grid-template-columns:1fr; max-width:none; padding:14px 18px; border-radius:var(--r-lg); }
-  #b-fly-login .mega-left { padding:0; }
-  #b-fly-login .fly-item { margin:0; }
-  #b-fly-login .fly-rule { margin:8px 0; }
-  .login-signup { font-size:12px; color:var(--ink-3); padding:6px 12px 2px; line-height:1.5; text-align:left; }
-  .login-signup a { color:var(--accent,#0f6e56); font-weight:600; text-decoration:none; }
-
   .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
 
   /* this is a desktop decision tool — collapse the rows on small screens with a note */
@@ -69,7 +59,7 @@
 <div class="opt-wrap">
   <div class="opt-intro">
     <h1>Unified top nav — two options to choose from</h1>
-    <p>Both keep one nav for both audiences (no toggle), flatten <strong>Jobs</strong> to a direct link, keep <strong>Events</strong> and <strong>Resources</strong> dual-audience, and add the <strong>employers home page</strong> to the top of the <strong>Solutions</strong> dropdown. The logo always returns to the talent (professionals) home. They differ in one thing: <strong>how loudly the nav points at employers.</strong></p>
+    <p>Both keep one nav for both audiences (no toggle), flatten <strong>Jobs</strong> to a direct link, keep <strong>Events</strong> and <strong>Resources</strong> dual-audience, and add the <strong>employers home page</strong> to the top of the <strong>Solutions</strong> dropdown. In both, the logo also returns to the talent (professionals) home. They differ in <strong>one thing only</strong>: <strong>whether the talent home gets its own labelled button, or is left to the logo alone.</strong></p>
     <p class="opt-meta">Hover any menu item to preview its dropdown. Live components from the design system — nothing is wired site-wide yet.</p>
   </div>
 </div>
@@ -81,12 +71,11 @@
       <span class="opt-kicker">Option A</span>
       <span class="opt-pill opt-pill-as">As proposed</span>
     </div>
-    <h2>Mara's proposal — employer home gets a dedicated button</h2>
+    <h2>Mara's proposal — only employers get a labelled button</h2>
     <ul>
-      <li>Jobs is a direct link; Events &amp; Resources stay dual-audience.</li>
-      <li>Solutions gains <strong>PowerToFly for employers</strong> as its top item.</li>
-      <li class="minus">A standalone <strong>For employers</strong> button sits top-right, and <strong>Sign up</strong> replaces the Log-in control.</li>
-      <li class="minus">Talent home is reachable only by clicking the logo — employers get a labelled door, professionals don't.</li>
+      <li>Jobs is a direct link; Events &amp; Resources stay dual-audience; Solutions gains <strong>PowerToFly for employers</strong> as its top item.</li>
+      <li>Top-right: a standalone <strong>For employers</strong> button + <strong>Sign up</strong>.</li>
+      <li class="minus"><strong>Talent home is reachable only by clicking the logo.</strong> Employers get a labelled door; professionals don't — most people won't know the logo is the way back.</li>
     </ul>
   </div>
   <div class="navdemo">
@@ -192,14 +181,14 @@
   <div class="opt-head">
     <div class="opt-tag-row">
       <span class="opt-kicker">Option B</span>
-      <span class="opt-pill opt-pill-rec">Recommended · talent-first</span>
+      <span class="opt-pill opt-pill-rec">Recommended · balanced</span>
     </div>
-    <h2>Talent-first — employer home lives inside Solutions only</h2>
+    <h2>Balanced — talent gets its own button too, not just the logo</h2>
     <ul>
-      <li>Identical to A on Jobs, Events, Resources, and the employer home inside Solutions.</li>
-      <li><strong>No standalone employer button</strong> — the nav stays talent-first, matching the strategy that employers come through sales, not the nav.</li>
-      <li>Keeps a single audience-aware <strong>Log in</strong> (employer / professional portals) plus <strong>Sign up</strong> — nothing lost from today.</li>
-      <li>Logo → talent home reads cleanly: neither audience gets a special button, so there's no lopsidedness to explain.</li>
+      <li>Everything in A is unchanged — Jobs, Events, Resources, and the employer home atop Solutions.</li>
+      <li class="plus">Adds a <strong>For professionals</strong> button right next to <strong>For employers</strong>, so <strong>both audiences have a visible, labelled home</strong>. Talent isn't buried in the logo.</li>
+      <li class="plus">The logo still goes to the talent home — but now it's the backup, not the only path.</li>
+      <li class="plus">Symmetric and self-explanatory: neither audience reads as an afterthought.</li>
     </ul>
   </div>
   <div class="navdemo">
@@ -290,31 +279,19 @@
         </div>
 
         <div class="nav-cta">
-          <!-- LOG IN — two-portal dropdown; sign-up link preserved inside -->
-          <div class="nav-drop" id="b-loginDrop">
-            <button class="btn btn-sm" data-fly="b-fly-login">Log in</button>
-            <div class="nav-fly" id="b-fly-login">
-              <div class="mega-inner">
-                <div class="mega-left">
-                  <a class="fly-item" href="#"><div class="fly-title">Employer portal</div><div class="fly-desc">Manage hires and projects</div></a>
-                  <hr class="fly-rule">
-                  <a class="fly-item" href="#"><div class="fly-title">Professional portal</div><div class="fly-desc">Browse jobs and opportunities</div></a>
-                  <hr class="fly-rule">
-                  <p class="login-signup">No account? Sign up as an <a href="#">employer</a> or a <a href="#">professional</a>.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <!-- BALANCED — both audiences get a labelled home button -->
+          <a href="talents/index.html" class="btn btn-sm">For professionals</a>
+          <a href="employers/index.html" class="btn btn-sm">For employers</a>
           <a href="#" class="btn btn-primary btn-sm">Sign up</a>
         </div>
       </div>
     </nav>
-    <div class="navstage"><div class="navstage-hint"><strong>Hover</strong> Events · Resources · Solutions · Log in to preview the dropdowns</div></div>
+    <div class="navstage"><div class="navstage-hint"><strong>Hover</strong> Events · Resources · Solutions to preview the dropdowns</div></div>
     <p class="mobile-note">This nav is best reviewed on a desktop-width screen — the full menu collapses into a mobile drawer below this width.</p>
   </div>
 </div>
 
-<p class="opt-foot"><strong>Why B is recommended:</strong> the team aligned that the unified nav stays talent-first — talent is the primary organic channel; employers come through outbound sales and partnerships, so the nav doesn't need an employer-acquisition button. B adds the employer home (so it's discoverable) without tilting the whole bar toward employers, and it keeps the Log-in portal split we already built. Once a direction is chosen, the winning nav gets promoted into <code>ds/</code> (ptf.css / ptf.js / template) so every page inherits it.</p>
+<p class="opt-foot"><strong>The one decision:</strong> does the talent (professionals) home get its own labelled button, or only the logo? <strong>A</strong> gives employers a button and leaves talent to the logo. <strong>B</strong> gives both a button so neither audience is hidden — which fits our talent-first stance better, since talent is the primary organic channel and shouldn't be the only one without a visible front door. Login isn't shown here — it can live as a small text link or inside Sign up once we pick a structure. Once a direction is chosen, the winning nav gets promoted into <code>ds/</code> (ptf.css / ptf.js / template) so every page inherits it.</p>
 
 <script src="ds/ptf.js"></script>
 <script>
