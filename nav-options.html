@@ -33,41 +33,86 @@
   /* the live nav, de-stickied for in-page preview */
   .navdemo { position: relative; }
   .navdemo .nav { position: relative; top:auto; background:#fff; padding:0 28px; }
+  /* active "you are here" indicator on a nav item */
+  .navdemo .nav-btn { position: relative; }
+  .navdemo .nav-btn.is-active { color: var(--ink); opacity: 1; }
+  .navdemo .nav-btn.is-active::after { content:""; position:absolute; left:11px; right:11px; bottom:-2px; height:1.5px; border-radius:2px; background:var(--green-mid); }
   .navstage { position: relative; min-height: 740px; }   /* reserves room for the tallest open flyout so it's never clipped */
   .navstage-hint { position:absolute; top:30px; left:0; right:0; text-align:center; color:var(--ink-3); font-size:13px; pointer-events:none; }
   .navstage-hint strong { color:var(--ink-2); }
   /* Login flyout — EXACT original from nav-unified.html (small panel under the Log in trigger) */
   .login-drop { position: relative; }
-  .login-fly { left: auto; right: 0; width: 340px; padding: 8px 0 0; }
+  .login-drop > .btn { display:inline-flex; align-items:center; gap:6px; }
+  .login-drop > .btn .nav-chev { transition: transform .18s ease; }
+  .login-drop > .btn.open .nav-chev { transform: rotate(180deg); }
+  .login-fly { left: auto; right: 0; width: 346px; padding: 20px 0 0; }
   .login-fly .mega-inner { grid-template-columns: 1fr; max-width: none; padding: 14px 18px; border-radius: var(--r-lg); }
   .login-fly .mega-left { padding: 0; }
-  .login-fly .fly-item { margin: 0; }
+  .login-fly .fly-item { margin: 0; display:flex; align-items:center; gap:12px; }
+  .login-tx { display:flex; flex-direction:column; gap:3px; flex:1; }
+  .login-arrow { color:var(--ink-3); font-size:16px; line-height:1; flex-shrink:0; transition:transform .15s ease, color .15s ease; }
+  .login-fly .fly-item:hover .login-arrow { transform:translateX(3px); color:var(--green); }
   .login-fly .fly-rule { margin: 8px 0; }
-  .login-signup { font-size:12px; color:var(--ink-3); padding: 6px 12px 2px; line-height:1.5; text-align:left; }
+  .login-signup { font-size:12px; color:var(--ink-3); padding: 6px 12px 2px; line-height:1.5; text-align:left; white-space:nowrap; }
   .login-signup a { color:var(--accent); font-weight:600; text-decoration:none; }
 
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
   /* Option 3 — For employers dropdown: clean, left-aligned, black CTA footer */
-  .emp-mega { grid-template-columns: 1fr !important; max-width: 620px; }
-  .emp-body { padding:22px 24px; }
-  .emp-home { display:flex; align-items:center; gap:14px; text-decoration:none; padding-bottom:16px; margin-bottom:14px; border-bottom:1px solid var(--line); }
+  .emp-mega { grid-template-columns: 1fr 300px; max-width: 780px; }
+  .emp-body { padding:30px 34px; }
+  .emp-home { display:flex; align-items:center; gap:14px; text-decoration:none; }
   .emp-home-tx { display:flex; flex-direction:column; gap:3px; }
-  .emp-home .fly-title { font-family:'Inter Tight', sans-serif; font-size:18px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); }
+  .emp-home .fly-title { font-family:'Inter Tight', sans-serif; font-size:16px; font-weight:700; letter-spacing:-0.02em; color:var(--ink); }
   .emp-home .fly-desc { color:var(--ink-3); }
   .emp-home:hover .fly-title { color:var(--green); }
   .emp-home-ic { margin-left:auto; flex-shrink:0; }
   .emp-home-ic svg { width:30px; height:30px; display:block; }
   .emp-cols { display:grid; grid-template-columns:1fr 1fr; gap:6px 30px; margin-bottom:6px; }
   .emp-cols .fly-eyebrow { margin-bottom:6px; }
-  .emp-body > .fly-eyebrow { margin-top:16px; }
+  .emp-body > .fly-eyebrow { margin-top:20px; }
+  .emp-body .fly-rule { margin:20px 0; }
+  .emp-body .fly-rule + .fly-eyebrow { margin-top:0; }
+  .emp-svc { display:flex; flex-direction:column; gap:2px; margin-top:2px; }
+  .emp-svc-item { display:block; padding:10px 12px; margin:0 -12px; border-radius:8px; text-decoration:none; }
+  .emp-svc-item:hover .fly-title { color:var(--green); }
+  /* Train-page style: pastel panel + mini dark UI card */
+  .emp-svc-art { width:92px; height:64px; border-radius:12px; flex-shrink:0; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+  .emp-svc-art.art-blue { background:#cfe1ff; }
+  .emp-svc-art.art-mint { background:#c6f3df; }
+  .emp-svc-art.art-cream { background:#f7e7cf; }
+  .emp-svc-card { width:64px; height:44px; border-radius:7px; background:#fff; padding:8px; display:flex; flex-direction:column; gap:5px; box-shadow:0 6px 14px rgba(0,0,0,.12); }
+  .emp-svc-card i { height:4px; border-radius:2px; background:#e3e7ea; display:block; }
+  .emp-svc-card i.acc { width:54%; background:var(--green-mid); }
+  .emp-svc-card i.l1 { width:90%; }
+  .emp-svc-card i.l2 { width:70%; }
+  .emp-home .fly-eyebrow { margin-bottom:2px; }
+  .emp-svc-tx { display:flex; flex-direction:column; gap:3px; }
+  .emp-re { display:grid; grid-template-columns:1fr 1fr; gap:2px 30px; margin-top:8px; }
+  .emp-re .fly-item { padding:5px 0; margin:0; display:flex; align-items:center; gap:8px; }
+  .emp-re-ic { flex-shrink:0; color:var(--ink-3); display:flex; }
+  .emp-re-ic svg { width:16px; height:16px; fill:currentColor; display:block; }
+  .emp-re .fly-title { font-size:13px; font-weight:500; color:var(--ink-2); margin:0; }
+  .emp-re .fly-item:hover .fly-title { color:var(--green); }
+  .emp-re .fly-item:hover .emp-re-ic { color:var(--green); }
   .ind-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
   .emp-foot { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:22px 24px; background:var(--ink); }
   .emp-foot-tx { display:flex; flex-direction:column; gap:5px; }
   .emp-foot-title { font-family:'Inter Tight', sans-serif; font-size:16px; font-weight:700; letter-spacing:-0.01em; color:#fff; line-height:1.25; }
   .emp-foot-body { font-size:12.5px; color:rgba(255,255,255,.62); line-height:1.45; margin:0; max-width:330px; }
   .emp-foot .fly-cta { margin:0; width:auto; display:inline-block; white-space:nowrap; flex-shrink:0; }
+  /* dark right-side rail: industries (top) + CTA (bottom) */
+  .emp-side { background:var(--ink); padding:30px 26px; display:flex; flex-direction:column; justify-content:flex-start; gap:12px; }
+  .emp-side .emp-foot-title { font-size:17px; }
+  .emp-side-head { display:flex; flex-direction:column; gap:4px; }
+  .emp-side .fly-eyebrow { color:var(--green-mid); margin:0; }
+  .emp-side .emp-foot-body { margin:0 0 4px; max-width:none; }
+  .emp-side .ind-chips { margin:0; }
+  .emp-side .sc-title-chip { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); color:rgba(255,255,255,.82); font-size:11px; padding:3px 9px; }
+  .emp-side .ind-chips { gap:6px; }
+  .emp-side .fly-cta { display:block; width:100%; margin:0; }
+  .emp-side-foot { margin-top:auto; padding-top:18px; border-top:1px solid rgba(255,255,255,.12); }
 
   .opt-foot { max-width:760px; margin:8px auto 80px; padding:0 32px; font-size:12.5px; color:var(--ink-3); line-height:1.6; }
 
@@ -100,7 +145,7 @@
 
         <div class="nav-items">
           <!-- JOBS — flat link -->
-          <a class="nav-btn" href="#">Jobs</a>
+          <a class="nav-btn is-active" href="#">Jobs</a>
 
           <!-- EVENTS — dual audience -->
           <div class="nav-drop">
@@ -151,7 +196,7 @@
                   <hr class="fly-rule">
                   <div class="fly-eyebrow">Services</div>
                   <div class="mega-items">
-                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract, or project-to-hire.</div></a>
+                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract,<br>or project-to-hire.</div></a>
                     <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">AI experts for model training, evaluation, red teaming, and QA.</div></a>
                   </div>
                   <hr class="fly-rule">
@@ -206,7 +251,7 @@
           <!-- Mara's items, talent-first: Jobs flat link -->
 
           <!-- JOBS — flat link (no dropdown), like Mara -->
-          <a class="nav-btn" href="#">Jobs</a>
+          <a class="nav-btn is-active" href="#">Jobs</a>
 
           <!-- EVENTS — professionals first -->
           <div class="nav-drop">
@@ -265,7 +310,7 @@
                   <hr class="fly-rule">
                   <div class="fly-eyebrow">Services</div>
                   <div class="mega-items">
-                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract, or project-to-hire.</div></a>
+                    <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Staff your team with qualified experts, ready from day one. Full-time, contract,<br>or project-to-hire.</div></a>
                     <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">AI experts for model training, evaluation, red teaming, and QA.</div></a>
                   </div>
                   <hr class="fly-rule">
@@ -297,18 +342,24 @@
         <div class="nav-cta">
           <!-- talent-first CTA: Login dropdown (two portals) + black primary Get matched -->
           <div class="nav-drop login-drop">
-            <button class="btn btn-sm" data-fly="b-fly-login">Log in</button>
+            <button class="btn btn-sm" data-fly="b-fly-login">Log in <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
             <div class="nav-fly login-fly" id="b-fly-login">
               <div class="mega-inner">
                 <div class="mega-left">
                   <a class="fly-item" href="#">
-                    <div class="fly-title">For employers</div>
-                    <div class="fly-desc">Manage hires and projects</div>
+                    <span class="login-tx">
+                      <span class="fly-title">For employers</span>
+                      <span class="fly-desc">Manage hires and projects</span>
+                    </span>
+                    <span class="login-arrow">→</span>
                   </a>
                   <hr class="fly-rule">
                   <a class="fly-item" href="#">
-                    <div class="fly-title">For professionals</div>
-                    <div class="fly-desc">Browse jobs and opportunities</div>
+                    <span class="login-tx">
+                      <span class="fly-title">For professionals</span>
+                      <span class="fly-desc">Browse jobs and opportunities</span>
+                    </span>
+                    <span class="login-arrow">→</span>
                   </a>
                   <hr class="fly-rule">
                   <p class="login-signup">No account? Sign up as an <a href="#">employer</a> or an <a href="#">expert</a>.</p>
@@ -340,7 +391,7 @@
 
         <div class="nav-items">
           <!-- Same as Option 2, but Events & Resources are direct links (no dropdown) -->
-          <a class="nav-btn" href="#">Jobs</a>
+          <a class="nav-btn is-active" href="#">Jobs</a>
           <a class="nav-btn" href="#">Events</a>
           <a class="nav-btn" href="#">Resources</a>
 
@@ -352,30 +403,34 @@
                 <div class="emp-body">
                   <a class="emp-home" href="employers/index.html">
                     <span class="emp-home-tx">
+                      <span class="fly-eyebrow">Home</span>
                       <span class="fly-title">PowerToFly for employers</span>
                       <span class="fly-desc">The home for teams hiring and deploying AI talent.</span>
                     </span>
-                    <span class="emp-home-ic">
-                      <svg viewBox="0 0 24 24" fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"><path d="M9.19 6.35c-2.04 2.29-3.44 5.58-3.57 5.89L2 10.69l4.05-4.05c.47-.47 1.15-.68 1.81-.55l1.33.26zM11.17 17s3.74-1.55 5.89-3.7c5.4-5.4 4.5-9.62 4.21-10.57-.95-.3-5.17-1.19-10.57 4.21C8.55 9.09 7 12.83 7 12.83L11.17 17zm6.48-2.19c-2.29 2.04-5.58 3.44-5.89 3.57L13.31 22l4.05-4.05c.47-.47.68-1.15.55-1.81l-.26-1.33zM9 18c0 .83-.34 1.58-.88 2.12C6.94 21.3 2 22 2 22s.7-4.94 1.88-6.12C4.42 15.34 5.17 15 6 15c1.66 0 3 1.34 3 3zm4-9c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z"/></svg>
-                    </span>
                   </a>
-                  <div class="emp-cols">
-                    <div>
-                      <div class="fly-eyebrow">Services</div>
-                      <div class="mega-items">
-                        <a class="fly-item" href="#"><div class="fly-title">Hire AI experts</div><div class="fly-desc">Qualified experts, ready from day one — full-time, contract, or project.</div></a>
-                        <a class="fly-item" href="#"><div class="fly-title">Improve AI performance</div><div class="fly-desc">Model training, evaluation, red teaming, and QA.</div></a>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="fly-eyebrow">Resources &amp; events</div>
-                      <div class="mega-items">
-                        <a class="fly-item" href="#"><div class="fly-title">Insights &amp; case studies</div><div class="fly-desc">Research, guides, and B2B editorial.</div></a>
-                        <a class="fly-item" href="#"><div class="fly-title">Webinars &amp; summits</div><div class="fly-desc">Events for leaders and hiring teams.</div></a>
-                      </div>
-                    </div>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Solutions</div>
+                  <div class="emp-svc">
+                    <a class="emp-svc-item" href="#">
+                      <span class="emp-svc-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one — full-time, contract,<br>or project.</span></span>
+                    </a>
+                    <a class="emp-svc-item" href="#">
+                      <span class="emp-svc-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span>
+                    </a>
                   </div>
-                  <div class="fly-eyebrow">Industries we serve</div>
+                  <hr class="fly-rule">
+                  <div class="fly-eyebrow">Resources &amp; events</div>
+                  <div class="emp-re">
+                    <a class="fly-item" href="#"><span class="emp-re-ic"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg></span><div class="fly-title">Insights &amp; case studies</div></a>
+                    <a class="fly-item" href="#"><span class="emp-re-ic"><svg viewBox="0 0 24 24"><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg></span><div class="fly-title">Webinars &amp; summits</div></a>
+                  </div>
+                </div>
+                <div class="emp-side">
+                  <div class="emp-side-head">
+                    <div class="fly-eyebrow">Get started</div>
+                    <div class="emp-foot-title">Tell us what you're building</div>
+                  </div>
+                  <p class="emp-foot-body">We'll match you with the right AI experts, across every industry.</p>
                   <div class="ind-chips">
                     <span class="sc-title-chip">Healthcare</span>
                     <span class="sc-title-chip">Financial Services</span>
@@ -384,13 +439,7 @@
                     <span class="sc-title-chip">Industrial &amp; Mfg</span>
                     <span class="sc-title-chip">Retail &amp; Ecommerce</span>
                   </div>
-                </div>
-                <div class="emp-foot">
-                  <div class="emp-foot-tx">
-                    <div class="emp-foot-title">Tell us what you're building</div>
-                    <p class="emp-foot-body">We'll match you with the right AI experts — full-time, contract, or project.</p>
-                  </div>
-                  <a href="#" class="fly-cta">Book a discovery call →</a>
+                  <div class="emp-side-foot"><a href="#" class="fly-cta">Book a discovery call →</a></div>
                 </div>
               </div>
             </div>
@@ -403,18 +452,24 @@
         <div class="nav-cta">
           <!-- talent-first CTA: Login dropdown (two portals) + black primary Get matched -->
           <div class="nav-drop login-drop">
-            <button class="btn btn-sm" data-fly="c-fly-login">Log in</button>
+            <button class="btn btn-sm" data-fly="c-fly-login">Log in <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
             <div class="nav-fly login-fly" id="c-fly-login">
               <div class="mega-inner">
                 <div class="mega-left">
                   <a class="fly-item" href="#">
-                    <div class="fly-title">For employers</div>
-                    <div class="fly-desc">Manage hires and projects</div>
+                    <span class="login-tx">
+                      <span class="fly-title">For employers</span>
+                      <span class="fly-desc">Manage hires and projects</span>
+                    </span>
+                    <span class="login-arrow">→</span>
                   </a>
                   <hr class="fly-rule">
                   <a class="fly-item" href="#">
-                    <div class="fly-title">For professionals</div>
-                    <div class="fly-desc">Browse jobs and opportunities</div>
+                    <span class="login-tx">
+                      <span class="fly-title">For professionals</span>
+                      <span class="fly-desc">Browse jobs and opportunities</span>
+                    </span>
+                    <span class="login-arrow">→</span>
                   </a>
                   <hr class="fly-rule">
                   <p class="login-signup">No account? Sign up as an <a href="#">employer</a> or an <a href="#">expert</a>.</p>
@@ -434,6 +489,29 @@
 <script src="ds/ptf.js"></script>
 <script>
   window.PTF && PTF.initMegaNav && PTF.initMegaNav();
+
+  /* Active "you are here" indicator */
+  document.querySelectorAll('.navdemo').forEach(function (demo) {
+    function setActive(btn) {
+      demo.querySelectorAll('.nav-btn.is-active').forEach(b => b.classList.remove('is-active'));
+      if (btn) btn.classList.add('is-active');
+    }
+    // flat top-level links
+    demo.querySelectorAll('a.nav-btn').forEach(function (link) {
+      link.addEventListener('click', function (e) { e.preventDefault(); setActive(link); });
+    });
+    // a link inside a dropdown → that section's trigger stays active (you're now on a page within it)
+    demo.querySelectorAll('.nav-items .nav-fly a').forEach(function (item) {
+      item.addEventListener('click', function (e) {
+        e.preventDefault();
+        var fly = item.closest('.nav-fly');
+        var trigger = demo.querySelector('[data-fly="' + fly.id + '"]');
+        if (!trigger) return;
+        setActive(trigger);
+        fly.classList.remove('open'); trigger.classList.remove('open');
+      });
+    });
+  });
 
   /* Option 1: adaptive audience CTA — clicking "For employers" mimics landing on
      the employer home, where the same button now offers the way back: "For talent". */
