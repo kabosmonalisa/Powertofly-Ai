@@ -137,8 +137,9 @@ main { --section-y: 96px; }
   transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
 }
 .about-btn-secondary:hover {
-  background: rgba(255,255,255,0.1);
+  /* DS hover language: lift + soft glow, never a colour swap (matches .btn-light / .btn-cta) */
   border-color: rgba(255,255,255,0.75);
+  box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);
   transform: translateY(-1px);
 }
 
