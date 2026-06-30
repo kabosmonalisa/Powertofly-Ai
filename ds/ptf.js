@@ -280,16 +280,52 @@ window.PTF = (function () {
   <div class="drawer-cta"><a href="#" class="btn btn-sm">Log in</a><a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get matched</a></div>\
 </div>';
 
+  /* Logged-in nav CTA — replaces "Log in" + "Get matched" when data-auth="in".
+     {{INI}} {{NAME}} {{FULL}} are filled from data-initials / data-user / data-user-full
+     (defaults below). Reuses the .login-fly flyout + .fly-item rows + the .avatar chip. */
+  var NAV_CTA_IN = '\
+<div class="nav-drop login-drop">\
+  <button class="btn btn-sm" data-fly="fly-account"><span class="avatar">{{INI}}</span> {{NAME}} <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
+  <div class="nav-fly login-fly" id="fly-account">\
+    <div class="mega-inner"><div class="mega-left">\
+      <a class="fly-item" href="#"><span class="avatar">{{INI}}</span><span class="login-tx"><span class="fly-title">{{FULL}}</span><span class="fly-desc">View profile</span></span><span class="login-arrow">→</span></a>\
+      <hr class="fly-rule">\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Dashboard</span></span></a>\
+      <hr class="fly-rule">\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">My applications</span></span></a>\
+      <hr class="fly-rule">\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Saved jobs</span></span></a>\
+      <hr class="fly-rule">\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Account settings</span></span></a>\
+      <hr class="fly-rule">\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Log out</span></span></a>\
+    </div></div>\
+  </div>\
+</div>';
+  // Mobile drawer CTA when logged in (replaces Log in / Get matched).
+  var DRAWER_CTA_IN = '<a href="#" class="btn btn-primary btn-sm">Dashboard</a><a href="#" class="btn btn-sm">Log out</a>';
+
   function renderNav(mount) {
     if (!mount) return;
     var theme  = mount.getAttribute('data-theme');
     var active = mount.getAttribute('data-active');
+    var auth   = mount.getAttribute('data-auth');
     mount.insertAdjacentHTML('beforebegin', NAV_HTML);
     var nav = mount.previousElementSibling;
     while (nav && !(nav.classList && nav.classList.contains('nav'))) nav = nav.previousElementSibling;
     if (nav) {
       if (theme === 'dark') nav.classList.add('nav-dark');
       if (active) { var a = nav.querySelector('.nav-btn[data-nav="' + active + '"]'); if (a) a.classList.add('is-active'); }
+      if (auth === 'in') {
+        var ini  = mount.getAttribute('data-initials')  || 'AO';
+        var name = mount.getAttribute('data-user')       || 'Amara';
+        var full = mount.getAttribute('data-user-full')  || 'Amara Okafor';
+        var ctaHTML = NAV_CTA_IN.replace(/{{INI}}/g, ini).replace(/{{NAME}}/g, name).replace(/{{FULL}}/g, full);
+        var cta = nav.querySelector('.nav-cta');
+        if (cta) cta.innerHTML = ctaHTML;
+        var drawerCta = mount.parentNode.querySelector('.mobile-drawer .drawer-cta');
+        if (drawerCta) drawerCta.innerHTML = DRAWER_CTA_IN;
+      }
     }
     mount.parentNode.removeChild(mount);
   }

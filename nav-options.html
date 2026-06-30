@@ -56,10 +56,6 @@
   .login-signup { font-size:12px; color:var(--ink-3); padding: 6px 12px 2px; line-height:1.5; text-align:left; white-space:nowrap; }
   .login-signup a { color:var(--accent); font-weight:600; text-decoration:none; }
 
-  /* Account initials avatar (logged-in nav) — solid brand green, NO blue, no gradient.
-     Page-specific: the DS has no initials-avatar component yet (candidate to promote). */
-  .acct-ini { display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; border-radius:var(--r-pill); background:var(--green-mid); color:var(--ink); font-family:'Inter Tight',sans-serif; font-weight:700; font-size:11px; letter-spacing:.02em; flex-shrink:0; }
-
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
@@ -462,12 +458,12 @@
           <!-- LOGGED IN: account menu — same login-flyout component as logged-out
                (a .btn + data-fly trigger opening a .nav-fly of .fly-item rows). -->
           <div class="nav-drop login-drop">
-            <button class="btn btn-sm" data-fly="c2-fly-acct"><span class="acct-ini">AO</span> Amara <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <button class="btn btn-sm" data-fly="c2-fly-acct"><span class="avatar">AO</span> Amara <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
             <div class="nav-fly login-fly" id="c2-fly-acct">
               <div class="mega-inner">
                 <div class="mega-left">
                   <a class="fly-item" href="#">
-                    <span class="acct-ini">AO</span>
+                    <span class="avatar">AO</span>
                     <span class="login-tx">
                       <span class="fly-title">Amara Okafor</span>
                       <span class="fly-desc">View profile</span>
