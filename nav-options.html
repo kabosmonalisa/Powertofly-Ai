@@ -56,30 +56,6 @@
   .login-signup { font-size:12px; color:var(--ink-3); padding: 6px 12px 2px; line-height:1.5; text-align:left; white-space:nowrap; }
   .login-signup a { color:var(--accent); font-weight:600; text-decoration:none; }
 
-  /* Logged-in CTA cluster (Option 2 — logged in): notification bell + account menu */
-  .nav-icon-btn { position:relative; display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px; border-radius:999px; border:1.5px solid var(--line); background:#fff; color:var(--ink-2); cursor:pointer; transition:background .15s ease, border-color .15s ease; }
-  .nav-icon-btn:hover { background:var(--surface); border-color:var(--ink-3); }
-  .nav-icon-btn svg { width:19px; height:19px; }
-  .nav-icon-btn .notif-dot { position:absolute; top:7px; right:8px; width:8px; height:8px; border-radius:999px; background:var(--green); border:2px solid #fff; }
-  .acct-drop { position:relative; }
-  .acct-trigger { display:inline-flex; align-items:center; gap:8px; padding:4px 9px 4px 5px; border-radius:999px; border:1.5px solid var(--line); background:#fff; cursor:pointer; transition:background .15s ease, border-color .15s ease; }
-  .acct-trigger:hover, .acct-trigger.open { background:var(--surface); border-color:var(--ink-3); }
-  .acct-avatar { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:999px; background:linear-gradient(135deg,#4FE8A9,#5BCFFF); color:#06281c; font-family:'Inter Tight',sans-serif; font-weight:700; font-size:12px; letter-spacing:.01em; }
-  .acct-name { font-size:14px; font-weight:600; color:var(--ink); }
-  .acct-trigger .nav-chev { transition:transform .18s ease; color:var(--ink-3); }
-  .acct-trigger.open .nav-chev { transform:rotate(180deg); }
-  .acct-fly { left:auto; right:0; width:288px; padding:20px 0 0; }
-  .acct-fly .mega-inner { grid-template-columns:1fr; max-width:none; padding:12px 14px; border-radius:var(--r-lg); }
-  .acct-fly .mega-left { padding:0; }
-  .acct-head { display:flex; align-items:center; gap:11px; padding:4px 10px 12px; }
-  .acct-head .acct-avatar { width:40px; height:40px; font-size:14px; }
-  .acct-head-tx { display:flex; flex-direction:column; gap:1px; min-width:0; }
-  .acct-head-name { font-family:'Inter Tight',sans-serif; font-size:14px; font-weight:700; letter-spacing:-0.01em; color:var(--ink); }
-  .acct-head-email { font-size:12px; color:var(--ink-3); overflow:hidden; text-overflow:ellipsis; }
-  .acct-fly .fly-item { margin:0; display:block; padding:9px 12px; border-radius:var(--r-md); font-size:14px; font-weight:500; color:var(--ink-2); }
-  .acct-fly .fly-item:hover { background:var(--surface); color:var(--ink); }
-  .acct-fly .fly-rule { margin:8px 0; }
-
   /* SOLUTIONS: featured employer-home item sitting above Services */
   .fly-feature .fly-title { display:flex; align-items:center; gap:7px; }
 
@@ -411,7 +387,7 @@
   <div class="opt-head">
     <span class="opt-kicker">Option 2 — logged in</span>
   </div>
-  <p style="margin:6px 0 18px; font-size:13px; color:var(--ink-3); max-width:60ch;">Same nav as Option 2 — only the right side changes: the “Log in” + “Get matched” pair becomes a notification bell and an account menu (avatar → dropdown).</p>
+  <p style="margin:6px 0 18px; font-size:13px; color:var(--ink-3); max-width:60ch;">Same nav as Option 2 — only the right side changes: the “Log in” + “Get matched” pair becomes the signed-in account menu (the same login dropdown component, now listing the member’s name, dashboard, applications, saved jobs, settings and log out).</p>
   <div class="navdemo">
     <nav class="nav">
       <div class="nav-inner">
@@ -480,34 +456,30 @@
         </div>
 
         <div class="nav-cta">
-          <!-- LOGGED IN: notification bell + account menu (replaces Log in / Get matched) -->
-          <button class="nav-icon-btn" aria-label="Notifications" title="Notifications">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-            <span class="notif-dot"></span>
-          </button>
-          <div class="nav-drop acct-drop">
-            <button class="acct-trigger" data-fly="c2-fly-acct">
-              <span class="acct-avatar">AO</span>
-              <span class="acct-name">Amara</span>
-              <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg>
-            </button>
-            <div class="nav-fly acct-fly" id="c2-fly-acct">
+          <!-- LOGGED IN: account menu — same login-flyout component as logged-out
+               (a .btn + data-fly trigger opening a .nav-fly of .fly-item rows). -->
+          <div class="nav-drop login-drop">
+            <button class="btn btn-sm" data-fly="c2-fly-acct">Amara <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"/></svg></button>
+            <div class="nav-fly login-fly" id="c2-fly-acct">
               <div class="mega-inner">
                 <div class="mega-left">
-                  <div class="acct-head">
-                    <span class="acct-avatar">AO</span>
-                    <span class="acct-head-tx">
-                      <span class="acct-head-name">Amara Okafor</span>
-                      <span class="acct-head-email">amara.okafor@gmail.com</span>
+                  <a class="fly-item" href="#">
+                    <span class="login-tx">
+                      <span class="fly-title">Amara Okafor</span>
+                      <span class="fly-desc">View profile</span>
                     </span>
-                  </div>
+                    <span class="login-arrow">→</span>
+                  </a>
                   <hr class="fly-rule">
-                  <a class="fly-item" href="#">Dashboard</a>
-                  <a class="fly-item" href="#">My applications</a>
-                  <a class="fly-item" href="#">Saved jobs</a>
-                  <a class="fly-item" href="#">Account settings</a>
+                  <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Dashboard</span></span></a>
                   <hr class="fly-rule">
-                  <a class="fly-item" href="#">Log out</a>
+                  <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">My applications</span></span></a>
+                  <hr class="fly-rule">
+                  <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Saved jobs</span></span></a>
+                  <hr class="fly-rule">
+                  <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Account settings</span></span></a>
+                  <hr class="fly-rule">
+                  <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Log out</span></span></a>
                 </div>
               </div>
             </div>
