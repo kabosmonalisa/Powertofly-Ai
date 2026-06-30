@@ -177,7 +177,7 @@ img { display: block; max-width: 100%; }
   background: #ffffff; color: #0A0A0A;  /* CTA band is always dark → button is always white-on-dark with black label (fixed, not token, so it never goes white-on-white) */
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
-.btn-cta:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }  /* hover = same subtle lift + green-glow shadow as .btn-primary (NO green fill). The button hover language is consistent everywhere: lift + soft glow, never a colour swap. */
+.btn-cta:hover { transform: translateY(-1px); background: #ffffff; color: #0A0A0A; box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }  /* hover = same subtle lift + green-glow shadow as .btn-primary. MUST re-assert white-on-dark fill so the shared .btn:hover (background:var(--ink)) can't swap it dark. NO colour change, ever. */
 
 /* ===== Nav ===== */
 .nav {
