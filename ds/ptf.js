@@ -306,6 +306,11 @@ document.addEventListener('DOMContentLoaded', function () {
   var navMounts = document.querySelectorAll('[data-ptf-nav]');
   navMounts.forEach(PTF.renderNav);
   PTF.initNav();
-  if (navMounts.length) PTF.initMegaNav();  // only shared-nav pages; inline-nav pages still wire their own
+  if (navMounts.length) {
+    PTF.initMegaNav();  // only shared-nav pages; inline-nav pages still wire their own
+    // The nav was just injected — let any page-level fixed-header offset logic
+    // (which listens for resize) recompute now that the real header height exists.
+    window.dispatchEvent(new Event('resize'));
+  }
   PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
 });
