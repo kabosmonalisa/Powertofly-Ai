@@ -285,10 +285,10 @@ window.PTF = (function () {
      (defaults below). Reuses the .login-fly flyout + .fly-item rows + the .avatar chip. */
   var NAV_CTA_IN = '\
 <div class="nav-drop login-drop">\
-  <button class="btn btn-sm" data-fly="fly-account"><span class="avatar">{{INI}}</span> {{NAME}} <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
+  <button class="btn btn-sm" data-fly="fly-account">{{NAME}} <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
   <div class="nav-fly login-fly" id="fly-account">\
     <div class="mega-inner"><div class="mega-left">\
-      <a class="fly-item" href="#"><span class="avatar">{{INI}}</span><span class="login-tx"><span class="fly-title">{{FULL}}</span><span class="fly-desc">View profile</span></span><span class="login-arrow">→</span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">{{FULL}}</span><span class="fly-desc">View profile</span></span><span class="login-arrow">→</span></a>\
       <hr class="fly-rule">\
       <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Dashboard</span></span></a>\
       <hr class="fly-rule">\
@@ -317,10 +317,9 @@ window.PTF = (function () {
       if (theme === 'dark') nav.classList.add('nav-dark');
       if (active) { var a = nav.querySelector('.nav-btn[data-nav="' + active + '"]'); if (a) a.classList.add('is-active'); }
       if (auth === 'in') {
-        var ini  = mount.getAttribute('data-initials')  || 'AO';
         var name = mount.getAttribute('data-user')       || 'Amara';
         var full = mount.getAttribute('data-user-full')  || 'Amara Okafor';
-        var ctaHTML = NAV_CTA_IN.replace(/{{INI}}/g, ini).replace(/{{NAME}}/g, name).replace(/{{FULL}}/g, full);
+        var ctaHTML = NAV_CTA_IN.replace(/{{NAME}}/g, name).replace(/{{FULL}}/g, full);
         var cta = nav.querySelector('.nav-cta');
         if (cta) cta.innerHTML = ctaHTML;
         var drawerCta = mount.parentNode.querySelector('.mobile-drawer .drawer-cta');
