@@ -301,16 +301,20 @@ window.PTF = (function () {
 // Mega-flyout nav and the fixed site-header are opt-in — call
 // PTF.initMegaNav() and/or PTF.initHeader() from the page if it uses them.
 // (Existing pages wire these inline; new pages should use the shared ones.)
+// Inject the shared nav SYNCHRONOUSLY the moment ptf.js runs (it loads before a
+// page's own inline <script>), so the nav already exists when that script measures
+// the header height or references nav elements (e.g. #hamburger). Doing this later,
+// on DOMContentLoaded, made those references throw and killed the rest of the page JS.
+var _ptfNavRendered = false;
+(function () {
+  var mounts = document.querySelectorAll('[data-ptf-nav]');
+  if (!mounts.length) return;
+  mounts.forEach(PTF.renderNav);
+  _ptfNavRendered = true;
+})();
+
 document.addEventListener('DOMContentLoaded', function () {
-  // Inject the shared nav into any <div data-ptf-nav> placeholder, then wire it.
-  var navMounts = document.querySelectorAll('[data-ptf-nav]');
-  navMounts.forEach(PTF.renderNav);
   PTF.initNav();
-  if (navMounts.length) {
-    PTF.initMegaNav();  // only shared-nav pages; inline-nav pages still wire their own
-    // The nav was just injected — let any page-level fixed-header offset logic
-    // (which listens for resize) recompute now that the real header height exists.
-    window.dispatchEvent(new Event('resize'));
-  }
+  if (_ptfNavRendered) PTF.initMegaNav();  // only shared-nav pages; inline-nav pages wire their own
   PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
 });
