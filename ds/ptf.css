@@ -1213,3 +1213,30 @@ img { display: block; max-width: 100%; }
 .emp-side .sc-title-chip { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.16); color:rgba(255,255,255,.82); font-size:11px; padding:3px 9px; }
 .emp-side .fly-cta { display:block; width:100%; margin:0; }
 .emp-side-foot { margin-top:auto; padding-top:18px; border-top:1px solid rgba(255,255,255,.12); }
+
+/* ── Dark nav variant — for dark-hero pages (e.g. Train). Add .nav-dark to the .nav.
+ *    Reproduces the exact dark palette so the look is unchanged. ── */
+.nav.nav-dark { background: transparent; border-bottom-color: transparent; }
+.nav.nav-dark.scrolled, .nav.nav-dark.nav-solid { background: rgba(10,10,10,0.9); backdrop-filter: saturate(140%) blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+.nav-dark .nav-btn { color: rgba(255,255,255,0.85); }
+.nav-dark .nav-btn:hover, .nav-dark .nav-btn.open { color: #fff; opacity: 0.85; }
+.nav-dark .brand svg { filter: brightness(0) invert(1); }
+.nav-dark .nav-cta .btn:not(.btn-primary) { background: transparent; color: rgba(255,255,255,0.85); border: 1.5px solid rgba(255,255,255,0.55); }
+.nav-dark .nav-cta .btn:not(.btn-primary):hover { color:#fff; border-color:#fff; }
+/* dropdown panels → dark with green hairline border */
+.nav-dark .mega-inner { background: #141414; border: 1px solid rgba(79,232,169,0.55); }
+.nav-dark .fly-eyebrow { color: #4FE8A9; }
+.nav-dark .fly-title { color: #fff; }
+.nav-dark .fly-desc { color: rgba(255,255,255,0.5); }
+.nav-dark .fly-rule { border-top-color: rgba(255,255,255,0.1); }
+.nav-dark .fly-item:hover .fly-title,
+.nav-dark .emp-svc-item:hover .fly-title { color: var(--green-mid); }
+.nav-dark .emp-home:hover .fly-title { color: var(--green-mid); }
+.nav-dark .emp-re .fly-title { color: rgba(255,255,255,0.65); }
+.nav-dark .emp-re-ic { color: rgba(255,255,255,0.5); }
+.nav-dark .emp-re .fly-item:hover .fly-title,
+.nav-dark .emp-re .fly-item:hover .emp-re-ic { color: var(--green-mid); }
+.nav-dark .login-arrow { color: rgba(255,255,255,0.5); }
+.nav-dark .login-signup { color: rgba(255,255,255,0.55); }
+.nav-dark .login-signup a { color: var(--green-mid); }
+.nav-dark .hamburger span { background: rgba(255,255,255,0.85); }
