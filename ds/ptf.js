@@ -251,7 +251,7 @@ window.PTF = (function () {
           </div>\
         </div>\
       </div>\
-      <a class="nav-btn" data-nav="about" href="https://powertofly.com/about">About</a>\
+      <a class="nav-btn" data-nav="about" href="../about/">About</a>\
     </div>\
     <div class="nav-cta">\
       <div class="nav-drop login-drop">\
@@ -276,7 +276,7 @@ window.PTF = (function () {
   <a href="https://powertofly.com/browse-events">Events</a>\
   <a href="https://powertofly.com/up">Resources</a>\
   <a href="../employers/">For employers</a>\
-  <a href="https://powertofly.com/about">About</a>\
+  <a href="../about/">About</a>\
   <div class="drawer-cta"><a href="#" class="btn btn-sm">Log in</a><a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get matched</a></div>\
 </div>';
 
