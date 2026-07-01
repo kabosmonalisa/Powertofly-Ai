@@ -864,6 +864,105 @@ h1.display br { display: none; }
 .drawer-group a:hover { opacity: 0.65; }
 }
 
+/* ===== AI TRANSITION — animated demo card (art reused from train/index.html) =====
+   Structure (.expert-row / .sc-right / .sc-mock*) is the shared showcase component in
+   ds/ptf.css. Only the cursor + card-1 keyframes live page-local, copied verbatim from train. */
+.ai-cursor { position:absolute; pointer-events:none; z-index:10; }
+.ai-cursor svg { display:block; }
+.av { width:36px; height:36px; border-radius:50%; border:2px solid; flex-shrink:0; overflow:hidden; }
+.av img { width:100%; height:100%; object-fit:cover; }
+.av+.av { margin-left:-10px; }
+/* CTA shouldn't stretch in the flex column */
+.ai-next-cta { margin-top: 8px; }
+
+/* The whole section becomes one special blue feature panel (colour on an inner
+   element, so it never bleeds into the neutral section gap). */
+.ai-next-feature {
+  position: relative;
+  border-radius: var(--r-2xl);
+  overflow: hidden;
+  background:
+    radial-gradient(120% 130% at 90% 0%, rgba(139,124,255,0.55), rgba(139,124,255,0) 58%),
+    linear-gradient(135deg, #E2E0F8 0%, #C9C4F0 100%);
+  box-shadow: 0 30px 80px -44px rgba(56,40,120,0.5);
+}
+/* card sits directly on the unified blue — its own tint panel is removed */
+.ai-next-feature .sc-right { background: transparent; }
+
+/* Cursor: starts bottom-center of card → clicks tab A → glides to annotation */
+@keyframes cur1 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(-44px,-98px) scale(1); }
+  20%       { transform:translate(-44px,-98px) scale(0.72); }
+  23%,44%   { transform:translate(-44px,-98px) scale(1); }
+  56%       { transform:translate(4px,-38px) scale(1); }
+  59%       { transform:translate(4px,-38px) scale(0.72); }
+  62%,80%   { transform:translate(4px,-38px) scale(1); }
+  92%,100%  { transform:translate(0,0) scale(1); }
+}
+@keyframes tab-a-active {
+  0%,17%,82%,100% { background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.38); border-color:rgba(255,255,255,0.1); }
+  20%,80%         { background:#4FE8A9; color:#0a0a0a; border-color:#4FE8A9; }
+}
+@keyframes resp-a-selected {
+  0%,17%,82%,100% { border-color:rgba(255,255,255,0.07); box-shadow:none; }
+  20%,80%         { border-color:#4FE8A9; box-shadow:0 0 0 1px rgba(79,232,169,0.25), 0 0 20px rgba(79,232,169,0.15); }
+}
+@keyframes annot-focus {
+  0%,56%,82%,100% { border-color:rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); }
+  59%,80%         { border-color:rgba(79,232,169,0.5); background:rgba(79,232,169,0.04); box-shadow:0 0 0 2px rgba(79,232,169,0.12); }
+}
+/* --- Card 2 (Eval scoring) --- */
+@keyframes cur2 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  15%       { transform:translate(-28px,-62px) scale(1); }
+  18%       { transform:translate(-28px,-62px) scale(0.72); }
+  21%,42%   { transform:translate(-28px,-62px) scale(1); }
+  54%       { transform:translate(-28px,-14px) scale(1); }
+  57%       { transform:translate(-28px,-14px) scale(0.72); }
+  60%,78%   { transform:translate(-28px,-14px) scale(1); }
+  90%,100%  { transform:translate(0,0) scale(1); }
+}
+@keyframes dot-acc { 0%,15% { background:rgba(255,255,255,0.14); } 18%,100% { background:#4FE8A9; } }
+@keyframes dot-cla { 0%,54% { background:rgba(255,255,255,0.14); } 57%,100% { background:#4FE8A9; } }
+@keyframes submit-active {
+  0%,54%,100% { opacity:0.3; }
+  60%,92%     { opacity:1; box-shadow:0 0 0 1px rgba(79,232,169,0.4); }
+}
+/* --- Card 3 (Red team) --- */
+@keyframes cur3 {
+  0%,5%     { transform:translate(0,0) scale(1); }
+  17%       { transform:translate(0,-78px) scale(1); }
+  20%       { transform:translate(0,-78px) scale(0.72); }
+  23%,44%   { transform:translate(0,-78px) scale(1); }
+  56%       { transform:translate(62px,-60px) scale(1); }
+  59%       { transform:translate(62px,-60px) scale(0.72); }
+  62%,80%   { transform:translate(62px,-60px) scale(1); }
+  92%,100%  { transform:translate(0,0) scale(1); }
+}
+@keyframes crit-expand { 0%,17% { max-height:42px; overflow:hidden; } 20%,100% { max-height:140px; } }
+@keyframes crit-pulse {
+  0%,17%,82%,100% { border-left-color:#4FE8A9; box-shadow:none; }
+  20%,45%          { border-left-color:#4FE8A9; box-shadow:0 0 14px rgba(79,232,169,0.2); }
+}
+@keyframes flag-btn {
+  0%,17%    { opacity:0; }
+  22%,56%   { opacity:1; background:transparent; color:rgba(255,255,255,0.35); border-color:rgba(255,255,255,0.12); }
+  59%,80%   { opacity:1; background:rgba(79,232,169,0.15); color:#4FE8A9; border-color:rgba(79,232,169,0.5); }
+  83%,100%  { opacity:0; }
+}
+@keyframes flagged-lbl {
+  0%,58%   { opacity:0; transform:translateY(4px); }
+  62%,80%  { opacity:1; transform:translateY(0); }
+  83%,100% { opacity:0; }
+}
+@keyframes livepulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+
+/* --- Cycler: the 3 demo cards share one cell and cross-fade one at a time --- */
+.sc-mock-stack.cycler { display:grid; }
+.sc-mock-stack.cycler > .sc-mock { grid-area:1 / 1; opacity:0; pointer-events:none; transition:opacity .5s ease; }
+.sc-mock-stack.cycler > .sc-mock.is-active { opacity:1; pointer-events:auto; z-index:2; }
+
 </style>
 </head>
 <body>
@@ -1030,14 +1129,164 @@ h1.display br { display: none; }
 </section>
 
 <!-- AI TRANSITION — bridge from the job board into the AI opportunity -->
+<!-- Reuses the shared expert-showcase component (.expert-row / .sc-right / .sc-mock) +
+     the animated RLHF demo card art from train/index.html, so the copy now SHOWS the work. -->
 <section class="section" style="background: var(--bg);">
-<div class="section-narrow" style="max-width: var(--content); margin: 0 auto; text-align: center;">
-  <div class="section-head">
-    <span class="eyebrow"><span class="dot"></span> What's next</span>
-    <h2>Be part of what comes <em class="italic-plain">next</em>.</h2>
-    <p>PowerToFly is expanding into AI model training, and we're looking for professionals from every field to help train, evaluate, and improve AI models. We're assembling our first cohort now. Sign up to be considered when projects go live.</p>
+<div class="section-narrow">
+  <div class="ai-next-feature">
+  <div class="experts-list">
+    <div class="expert-row">
+
+      <!-- LEFT: the pitch -->
+      <div class="sc-left">
+        <span class="eyebrow"><span class="dot"></span> Applications open</span>
+        <h2>Get paid to train AI in <em class="italic-plain">your field</em>.</h2>
+        <p class="sc-body">PowerToFly is expanding into AI model training, and we're looking for professionals from every field to help train, evaluate, and improve AI models. We're assembling our first cohort now. Sign up to be considered when projects go live.</p>
+        <div class="ai-next-cta">
+          <a href="../auth.html" class="btn btn-primary">Apply to be an expert →</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: animated demo — review & rate a model response (art from train page) -->
+      <div class="sc-right">
+        <div class="sc-mock-wrap">
+          <div class="sc-mock-stack cycler">
+            <!-- Card 1: RLHF — cursor clicks "Response A" tab (tab + response turn green),
+                 then clicks annotation box (focus ring) -->
+            <div class="sc-mock sc-mock-dark-green is-active" style="position:relative;overflow:hidden;">
+              <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur1 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </div>
+              <!-- Header -->
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div>
+                  <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Dr. Rania K.</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,0.36);">Cardiology</div>
+                </div>
+                <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">RLHF</div>
+              </div>
+              <!-- Tabs: Response A activates on click -->
+              <div style="display:flex;gap:5px;margin-bottom:9px;">
+                <div style="flex:1;padding:5px 0;border-radius:6px;border:1.5px solid;font-size:9px;font-weight:700;letter-spacing:0.04em;text-align:center;cursor:default;animation:tab-a-active 8s ease-in-out infinite;">Response A</div>
+                <div style="flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);font-size:9px;font-weight:700;color:rgba(255,255,255,0.28);text-align:center;">Response B</div>
+              </div>
+              <!-- Response content: green border appears when A is selected -->
+              <div style="padding:10px 11px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.07);margin-bottom:7px;animation:resp-a-selected 8s ease-in-out infinite;">
+                <div style="font-size:11px;color:rgba(255,255,255,0.7);line-height:1.55;">The standard dosage is 500 mg twice daily with meals — adjusted for renal function in patients with CrCl &lt;30.</div>
+              </div>
+              <!-- Annotation box: focus ring on cursor click -->
+              <div style="padding:8px 10px;border-radius:7px;border:1.5px solid rgba(255,255,255,0.06);animation:annot-focus 8s ease-in-out infinite;">
+                <div style="font-size:9px;color:rgba(255,255,255,0.26);margin-bottom:3px;text-transform:uppercase;letter-spacing:0.07em;">Annotation</div>
+                <div style="font-size:10px;color:rgba(255,255,255,0.52);line-height:1.4;">More precise — includes dosing route &amp; renal caveat</div>
+              </div>
+            </div>
+            <!-- Card 2: Eval scoring — cursor clicks last Accuracy dot (all fill), drops to Clarity, Submit activates -->
+            <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+              <div class="ai-cursor" style="top:50%;right:14px;margin-top:-8px;">
+                <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur2 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                <div>
+                  <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Josephine M.</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,0.36);">Legal writer</div>
+                </div>
+                <div style="margin-left:auto;font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.08em;border:1px solid rgba(79,232,169,0.3);border-radius:4px;padding:2px 6px;">EVAL</div>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.3);margin-bottom:9px;text-transform:uppercase;letter-spacing:0.07em;">HR policy assistant · Quality rubric</div>
+              <div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:rgba(255,255,255,0.65);">Accuracy</span>
+                  <div style="display:flex;gap:4px;">
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-acc 8s ease-in-out infinite;animation-delay:0.24s;"></div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:rgba(255,255,255,0.65);">Tone</span>
+                  <div style="display:flex;gap:4px;">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:rgba(255,255,255,0.65);">Completeness</span>
+                  <div style="display:flex;gap:4px;">
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:#4FE8A9;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:rgba(255,255,255,0.65);">Clarity</span>
+                  <div style="display:flex;gap:4px;">
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.06s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.12s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;animation:dot-cla 8s ease-in-out infinite;animation-delay:0.18s;"></div>
+                    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.14);"></div>
+                  </div>
+                </div>
+              </div>
+              <div style="padding:7px 0;text-align:center;border-radius:7px;border:1.5px solid rgba(79,232,169,0.2);font-size:10px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:submit-active 8s ease-in-out infinite;">Submit eval →</div>
+            </div>
+            <!-- Card 3: Red team — cursor clicks CRITICAL row (expands + reveals Flag), glides to Flag, "Flagged ✓" -->
+            <div class="sc-mock sc-mock-dark-green" style="position:relative;overflow:hidden;">
+              <div class="ai-cursor" style="bottom:14px;left:50%;margin-left:-7px;">
+                <svg width="14" height="17" viewBox="0 0 16 20" style="animation:cur3 8s ease-in-out infinite;filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));"><path d="M1 1L1 16L5 12.5L7.5 18L10 17L7.5 11.5H14Z" fill="white" stroke="#0A0A0A" stroke-width="1.4" stroke-linejoin="round"/></svg>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:11px;">
+                <div style="display:flex;">
+                  <div class="av" style="width:32px;height:32px;border-color:#060e09;"><img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                  <div class="av" style="width:32px;height:32px;border-color:#060e09;margin-left:-10px;"><img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=40&h=40&fit=crop&crop=faces" alt=""></div>
+                </div>
+                <div>
+                  <div style="font-size:10px;font-weight:700;color:#fff;line-height:1.1;">Red team · Finance LLM</div>
+                  <div style="font-size:9px;color:rgba(255,255,255,0.36);">2 of 5 active</div>
+                </div>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:4px;">
+                  <div style="width:6px;height:6px;border-radius:50%;background:#4FE8A9;animation:livepulse 1.6s ease-in-out infinite;"></div>
+                  <span style="font-size:8px;color:rgba(255,255,255,0.4);">LIVE</span>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px;">
+                <div style="background:rgba(79,232,169,0.05);border-left:1.5px solid #4FE8A9;border-radius:0 7px 7px 0;overflow:hidden;animation:crit-expand 8s ease-in-out infinite, crit-pulse 8s ease-in-out infinite;">
+                  <div style="padding:9px 10px;">
+                    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+                      <div style="font-size:8px;font-weight:700;color:#4FE8A9;letter-spacing:0.1em;">FLAGGED</div>
+                      <div style="font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;border:1px solid;cursor:default;white-space:nowrap;animation:flag-btn 8s ease-in-out infinite;">Flag →</div>
+                    </div>
+                    <div style="font-size:10px;color:rgba(255,255,255,0.75);">Jailbreak via role-play → exposes user PII</div>
+                    <div style="margin-top:7px;font-size:9px;color:rgba(255,255,255,0.4);line-height:1.45;border-top:1px solid rgba(79,232,169,0.1);padding-top:7px;">Probe #47: role-play as "no-filter mode" bypasses system prompt.</div>
+                    <div style="margin-top:6px;font-size:9px;font-weight:700;color:#4FE8A9;letter-spacing:0.04em;animation:flagged-lbl 8s ease-in-out infinite;">✓ Flagged for fix</div>
+                  </div>
+                </div>
+                <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:1.5px solid rgba(79,232,169,0.4);border-radius:0 7px 7px 0;">
+                  <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.7);letter-spacing:0.1em;margin-bottom:3px;">REVIEW</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.55);">Prompt injection bypasses compliance rules</div>
+                </div>
+                <div style="padding:8px 10px;background:rgba(255,255,255,0.03);border-left:1.5px solid rgba(79,232,169,0.2);border-radius:0 7px 7px 0;">
+                  <div style="font-size:8px;font-weight:700;color:rgba(79,232,169,0.45);letter-spacing:0.1em;margin-bottom:3px;">MONITOR</div>
+                  <div style="font-size:10px;color:rgba(255,255,255,0.55);">Inconsistent output on edge-case queries</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-  <a href="../auth.html" class="btn btn-primary">Apply to be an expert →</a>
+  </div>
 </div>
 </section>
 
@@ -1588,6 +1837,20 @@ PTF.initMarquee('talentLogos');
   });
   if (overlay) overlay.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+})();
+
+// Cycler: play one demo card's 8s animation, then flip to the next (loops 1 → 2 → 3 → 1)
+(function () {
+  var stack = document.querySelector('.sc-mock-stack.cycler');
+  if (!stack) return;
+  var cards = stack.querySelectorAll(':scope > .sc-mock');
+  if (cards.length < 2) return;
+  var i = 0;
+  setInterval(function () {
+    cards[i].classList.remove('is-active');
+    i = (i + 1) % cards.length;
+    cards[i].classList.add('is-active');
+  }, 8000);   // matches the 8s card animation — flip happens as each cycle completes
 })();
 </script>
 </body>
