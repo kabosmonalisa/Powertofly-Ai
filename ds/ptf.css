@@ -689,7 +689,7 @@ img { display: block; max-width: 100%; }
 /* Inline validation — a warm orange outline marks the areas still to complete (no text) */
 .field.invalid input, input.invalid { border-color: #E8843C; }
 .upload-area.invalid { border-color: #E8843C; border-style: solid; }
-.id-section.invalid { outline: 1.5px solid #E8843C; outline-offset: 6px; border-radius: 12px; }
+.id-section.invalid .id-section-label { color: #E8843C; }   /* step 3: tint the label, not a crowded ring around the chips */
 .agree-row.invalid { outline: 1.5px solid #E8843C; outline-offset: 6px; border-radius: 10px; }
 @keyframes ptf-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-4px)} 40%,80%{transform:translateX(4px)} }
 .btn-auth.shake { animation: ptf-shake .34s ease; }
