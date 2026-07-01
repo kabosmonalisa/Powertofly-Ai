@@ -881,6 +881,24 @@ h1.display br { display: none; }
     radial-gradient(120% 130% at 90% 0%, rgba(139,124,255,0.55), rgba(139,124,255,0) 58%),
     linear-gradient(135deg, #E2E0F8 0%, #C9C4F0 100%);
 }
+/* Headline uses the site's standard display typography (same as .section-head h2),
+   left-aligned — the bare h2 in .sc-left was falling back to a small default. */
+.sc-left h2 {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+/* Flip this row: art on the LEFT, copy on the RIGHT (mirrors the DS nth-child(2) flip). */
+.expert-row.flip .sc-right { grid-column: 1; grid-row: 1; }
+.expert-row.flip .sc-left  { grid-column: 2; grid-row: 1; padding: 4rem 60px 4rem 40px; }
+@media (max-width: 900px) {
+  .expert-row.flip .sc-left,
+  .expert-row.flip .sc-right { grid-column: 1; grid-row: auto; }
+  .expert-row.flip .sc-left { padding: 32px 20px; }
+}
 
 /* Cursor: starts bottom-center of card → clicks tab A → glides to annotation */
 @keyframes cur1 {
@@ -1056,9 +1074,9 @@ h1.display br { display: none; }
 <section class="section" style="background: var(--bg);">
 <div class="section-narrow">
   <div class="experts-list">
-    <div class="expert-row">
+    <div class="expert-row flip">
 
-      <!-- LEFT: the pitch -->
+      <!-- COPY (renders on the RIGHT via .flip; stays first in DOM so mobile stacks copy-first) -->
       <div class="sc-left">
         <span class="eyebrow"><span class="dot"></span> Applications open</span>
         <h2>Get paid to train AI in <em class="italic-plain">your field</em>.</h2>
