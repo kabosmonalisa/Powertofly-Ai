@@ -1308,7 +1308,7 @@ img { display: block; max-width: 100%; }
 
 /* List rows */
 .ev-list { display: flex; flex-direction: column; }
-.ev-row { display: grid; grid-template-columns: 118px 1fr 176px; gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: center; }
+.ev-row { display: grid; grid-template-columns: 118px 1fr 176px; gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: start; }
 .ev-row:last-child { border-bottom: 1px solid var(--line); }
 @media (max-width: 700px) { .ev-row { grid-template-columns: 1fr; gap: 12px; align-items: start; } .ev-row > .ev-thumb { order: -1; width: 100%; height: 190px; } }
 .ev-row.is-hidden { display: none !important; }
@@ -1316,7 +1316,7 @@ img { display: block; max-width: 100%; }
 /* Event thumbnail + speaker faces / company logos (Mara feedback) */
 .ev-thumb { overflow: hidden; border-radius: var(--r-lg); background: var(--surface-2); }
 .ev-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.ev-row > .ev-thumb { width: 176px; height: 118px; }
+.ev-row > .ev-thumb { width: 176px; height: 118px; align-self: start; }
 .ev-people { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 2px 0 14px; }
 .ev-faces { display: flex; }
 .ev-faces img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); margin-left: -10px; }

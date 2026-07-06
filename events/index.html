@@ -57,11 +57,11 @@ h1.hero-headline {
   box-shadow: var(--shadow-card); text-align: left;
 }
 .hero-feature-text {
-  padding: 44px 46px; display: flex; flex-direction: column;
-  align-items: flex-start; gap: 14px; justify-content: center;
+  padding: 58px 48px; display: flex; flex-direction: column;
+  align-items: flex-start; gap: 22px; justify-content: center;
 }
 /* CTA row: Register button + minimalist countdown beside it */
-.hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 14px; }
+.hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 24px; }
 .hf-countdown { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; font-variant-numeric: tabular-nums; }
 .hf-cd-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .hf-cd-units { display: inline-flex; align-items: baseline; }
@@ -81,13 +81,16 @@ h1.hero-headline {
 }
 /* Summit-style meta facts — text only, 2-column (date · participants · speakers · format · duration) */
 .hf-meta { display: grid; grid-template-columns: repeat(2, max-content); justify-content: start;
-  gap: 8px 36px; width: 100%; margin: 2px 0; }
-.hf-meta-item { font-size: 14px; color: var(--ink-2); line-height: 1.4; }
+  gap: 15px 40px; width: 100%; margin: 6px 0; }
+.hf-meta-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink-2); line-height: 1.4; }
+/* summit stat icons — small MUI Outlined, plain single-color ink (no gradient at this size) */
+.mi { flex: none; fill: var(--ink-3); }
+.hf-meta-item .mi { width: 16px; height: 16px; }
 @media (max-width: 460px) { .hf-meta { grid-template-columns: 1fr; } }
 .hf-cta-row .btn { margin: 0; }
 /* Companies-hiring logo marquee — its own compact band (less padding than a normal section), no label */
 .logo-band { padding: 40px var(--gutter); }
-.hero-feature-media { position: relative; min-height: 340px; background: var(--surface-2); }
+.hero-feature-media { position: relative; min-height: 440px; background: var(--surface-2); }
 .hero-feature-media video, .hero-feature-media img {
   position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
 }
@@ -107,6 +110,38 @@ h1.hero-headline {
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; text-wrap: pretty; }
 }
+
+/* ── Full-page live event hero — takes over the first screen while an event is live; all info above the fold ── */
+.live-hero { display: none; }
+.live-hero.is-open { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 100vh; animation: ltFade 0.4s ease; }
+.live-hero.is-open + .hero { display: none; }   /* the marketing hero steps aside while live */
+@keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
+.live-hero-media { position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; }
+.live-hero-media img, .live-hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.live-badge {
+  position: absolute; top: 104px; left: 32px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px; padding: 7px 15px 7px 12px; border-radius: 999px;
+  background: #E5372F; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 4px 16px rgba(229,55,47,0.45);
+}
+.live-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: livepulse 1.4s ease-in-out infinite; }
+.live-hero-content { display: flex; flex-direction: column; justify-content: center; padding: 96px clamp(40px, 6vw, 88px); background: var(--surface); }
+.live-hero-content .sc-tag { margin: 0 0 16px; }
+.live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 22px; }
+.live-hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr)); gap: 18px 30px; max-width: 520px; margin: 0 0 36px; padding-top: 26px; border-top: 1px solid var(--line); }
+.lh-stat { display: flex; align-items: center; gap: 11px; }
+.lh-stat .mi { width: 19px; height: 19px; fill: var(--ink-3); }
+.lh-stat-value { font-size: 16px; font-weight: 400; color: var(--ink); line-height: 1.3; }
+.live-hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+@media (max-width: 860px) {
+  .live-hero.is-open { grid-template-columns: 1fr; min-height: 0; }
+  .live-hero-media { min-height: 44vh; }
+  .live-badge { top: 88px; left: 20px; }
+  .live-hero-content { padding: 40px 26px 48px; }
+}
+/* PROTOTYPE-ONLY: preview trigger so the live state can be seen before it's wired to real live data */
+.live-preview-trigger { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
+.live-preview-trigger:hover { color: var(--ink); border-color: var(--ink); }
 </style>
 </head>
 <body>
@@ -127,6 +162,25 @@ h1.hero-headline {
 
 
 <main>
+
+<!-- ═══ FULL-PAGE LIVE EVENT — takes over the first screen while an event is live; everything above the fold. Shown by JS during the live window (and via the preview button). Hides the marketing hero while active. ═══ -->
+<section class="live-hero" id="liveHero" aria-hidden="true">
+  <div class="live-hero-media">
+    <span class="live-badge"><span class="live-badge-dot"></span>Live now</span>
+    <!-- AI & emerging tech + PowerToFly diversity — static image (no live stream embed here) -->
+    <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop" alt="Professionals at glowing futuristic data screens — AI and emerging tech shaping tomorrow">
+  </div>
+  <div class="live-hero-content">
+    <span class="sc-tag" id="ltTag">Summit</span>
+    <h2 class="live-hero-title" id="ltTitle">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h2>
+    <div class="live-hero-stats" id="ltMeta"></div>
+    <div class="live-hero-ctas">
+      <!-- COPY: confirm — Join target (live platform URL) -->
+      <a class="btn btn-primary" id="ltJoin" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Join live event →</a>
+      <button class="btn" type="button" data-live-explore>See upcoming events</button>
+    </div>
+  </div>
+</section>
 
 <!-- 01. HERO -->
 <section class="hero">
@@ -168,7 +222,7 @@ h1.hero-headline {
 </section>
 
 <!-- 02. UPCOMING EVENTS — date-sorted list, filter + pagination -->
-<section class="section">
+<section class="section" id="upcoming">
   <div class="ev-head">
     <h2>Upcoming events</h2>
   </div>
@@ -198,7 +252,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=12" alt="" loading="lazy"></div><span class="ev-people-label">Rob Ribar</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7295483/pexels-photo-7295483.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="meet">
@@ -210,7 +264,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-orgs"><img src="../logos/visa.png" alt="Visa"></div><span class="ev-people-label">Hosted by Visa</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/6331256/pexels-photo-6331256.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="chat-learn">
@@ -222,7 +276,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=51" alt="" loading="lazy"></div><span class="ev-people-label">Joseph S. Moore</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8872643/pexels-photo-8872643.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="chat-learn">
@@ -234,7 +288,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=45" alt="" loading="lazy"></div><span class="ev-people-label">Luis E. Mojica</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8728285/pexels-photo-8728285.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="meet">
@@ -246,7 +300,7 @@ h1.hero-headline {
             <div class="ev-people"><span class="ev-people-label">Hosted by Mitsubishi Power</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="summit">
@@ -258,7 +312,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=5" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=26" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=32" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=47" alt="" loading="lazy"></div><span class="ev-people-label">25+ speakers</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8438940/pexels-photo-8438940.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="job-fair">
@@ -270,7 +324,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-orgs"><img src="../logos/visa.png" alt="Visa"><img src="../logos/google.png" alt="Google"><img src="../logos/zapier.png" alt="Zapier"></div><span class="ev-people-label">Companies hiring</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3865639/pexels-photo-3865639.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="summit">
@@ -282,7 +336,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=20" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=9" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=68" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=45" alt="" loading="lazy"></div><span class="ev-people-label">25+ speakers</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/15177076/pexels-photo-15177076.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="job-fair">
@@ -294,7 +348,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-orgs"><img src="../logos/shure.png" alt="Shure"><img src="../logos/lattice.png" alt="Lattice"><img src="../logos/plaid.png" alt="Plaid"></div><span class="ev-people-label">Companies hiring</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7108700/pexels-photo-7108700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="summit">
@@ -306,7 +360,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=60" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=33" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=12" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=26" alt="" loading="lazy"></div><span class="ev-people-label">25+ speakers</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7467857/pexels-photo-7467857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
         <article class="ev-row" data-type="job-fair">
@@ -318,7 +372,7 @@ h1.hero-headline {
             <div class="ev-people"><div class="ev-orgs"><img src="../logos/nestle.png" alt="Nestlé"><img src="../logos/stryker.png" alt="Stryker"><img src="../logos/reddit.png" alt="Reddit"></div><span class="ev-people-label">Companies hiring</span></div>
             <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           </div>
-          <div class="ev-thumb"><img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=400&h=300&fit=crop&q=80" alt="" loading="lazy"></div>
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7468063/pexels-photo-7468063.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
         </article>
 
       </div><!-- /.ev-list -->
@@ -377,6 +431,9 @@ h1.hero-headline {
 
 <!-- ═══ FOOTER — shared injected footer ═══ -->
 <div data-ptf-footer></div>
+
+<!-- PROTOTYPE-ONLY preview trigger — delete this button once the live page is wired to real live event data -->
+<button class="live-preview-trigger" id="livePreviewTrigger" type="button">⚡ Preview live page</button>
 
 <script src="../ds/ptf.js"></script>
 <script>
@@ -498,10 +555,23 @@ h1.hero-headline {
     // Next flagship = first whose end is still in the future (falls back to the last one).
     var now = Date.now();
     var ev = flagships.filter(function (f) { return new Date(f.end).getTime() > now; })[0] || flagships[flagships.length - 1];
+    // Genuine MUI Outlined paths (from ds/_icons.html) — rendered plain ink at small size.
+    var ICON_PATHS = {
+      date:  'M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z',
+      people:'M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z',
+      mic:   'M12 15c1.66 0 3-1.34 3-3V6c0-1.66-1.34-3-3-3S9 4.34 9 6v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V6zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V22h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z',
+      globe: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z',
+      clock: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z'
+    };
+    function metaIcon(k) {
+      var d = ICON_PATHS[k] || ICON_PATHS.date;
+      return '<svg class="mi" viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>';
+    }
+
     tagEl.textContent = ev.tag;
     titleEl.textContent = ev.title;
     metaEl.innerHTML = ev.meta.map(function (m) {
-      return '<span class="hf-meta-item">' + m.v + '</span>';
+      return '<span class="hf-meta-item">' + metaIcon(m.k) + '<span>' + m.v + '</span></span>';
     }).join('');
     cta.href = ev.href;
 
@@ -527,6 +597,35 @@ h1.hero-headline {
     }
     render();
     setInterval(render, 1000);
+
+    /* ── Full-page live event: take over the first screen while live; scroll / "See upcoming events" reveals the normal page below ── */
+    var lh = document.getElementById('liveHero');
+    if (lh) {
+      document.getElementById('ltTag').textContent = ev.tag;
+      document.getElementById('ltTitle').textContent = ev.title;
+      document.getElementById('ltMeta').innerHTML = ev.meta.map(function (m) {
+        return '<div class="lh-stat">' + metaIcon(m.k) + '<span class="lh-stat-value">' + m.v + '</span></div>';
+      }).join('');
+      document.getElementById('ltJoin').href = ev.href;
+
+      function openLive() { lh.classList.add('is-open'); lh.setAttribute('aria-hidden', 'false'); window.scrollTo(0, 0); }
+      function hideLive() { lh.classList.remove('is-open'); lh.setAttribute('aria-hidden', 'true'); }
+
+      // "See upcoming events" scrolls down to the list, leaving the live screen at the top.
+      lh.addEventListener('click', function (e) {
+        if (!(e.target.closest && e.target.closest('[data-live-explore]'))) return;
+        var up = document.getElementById('upcoming');
+        if (up) up.scrollIntoView({ behavior: 'smooth' });
+      });
+
+      // Auto-show while genuinely live.
+      var nowTs = Date.now();
+      if (nowTs >= start && nowTs <= end) openLive();
+
+      // PROTOTYPE-ONLY: preview trigger toggles the full-page live state.
+      var trg = document.getElementById('livePreviewTrigger');
+      if (trg) trg.addEventListener('click', function () { lh.classList.contains('is-open') ? hideLive() : openLive(); });
+    }
   })();
 </script>
 </body>
