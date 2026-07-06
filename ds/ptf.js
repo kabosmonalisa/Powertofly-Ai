@@ -389,7 +389,59 @@ window.PTF = (function () {
     mount.parentNode.removeChild(mount);
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, renderNav, renderFooter, LOGOS };
+  /**
+   * initEventList() — date-sorted event list(s) with a category filter, optional text
+   * search, pagination, and an empty state. Runs for EVERY [data-ev-list] on the page
+   * (e.g. an "Upcoming events" list + a "Past events" archive).
+   * Per container: .ev-filter-btn[data-filter], .ev-row[data-type], optional
+   * [data-ev-search] input, optional [data-ev-empty] element, and a .ev-pager
+   * (.ev-pager-status + [data-ev-prev]/[data-ev-next]). data-ev-per = page size.
+   */
+  function initEventList(root) {
+    [].slice.call((root || document).querySelectorAll('[data-ev-list]')).forEach(setupEventList);
+  }
+  function setupEventList(wrap) {
+    var rows   = [].slice.call(wrap.querySelectorAll('.ev-row'));
+    var btns   = [].slice.call(wrap.querySelectorAll('.ev-filter-btn'));
+    var search = wrap.querySelector('[data-ev-search]');
+    var empty  = wrap.querySelector('[data-ev-empty]');
+    var pager  = wrap.querySelector('.ev-pager');
+    var per    = parseInt(wrap.getAttribute('data-ev-per'), 10) || 6;
+    var filter = 'all', term = '', page = 1;
+    function matches(r) {
+      if (filter !== 'all' && r.getAttribute('data-type') !== filter) return false;
+      return !term || r.textContent.toLowerCase().indexOf(term) !== -1;
+    }
+    function render() {
+      var visible = rows.filter(matches);
+      var pages = Math.max(1, Math.ceil(visible.length / per));
+      if (page > pages) page = pages;
+      rows.forEach(function (r) { r.classList.add('is-hidden'); });
+      visible.forEach(function (r, i) { if (i >= (page - 1) * per && i < page * per) r.classList.remove('is-hidden'); });
+      if (empty) empty.hidden = visible.length > 0;
+      if (pager) {
+        if (pages > 1) {
+          var html = '';
+          for (var i = 1; i <= pages; i++) html += '<button class="ev-page' + (i === page ? ' is-active' : '') + '" data-ev-page="' + i + '">' + i + '</button>';
+          pager.innerHTML = html;
+          pager.style.display = 'flex';
+        } else {
+          pager.innerHTML = '';
+          pager.style.display = 'none';
+        }
+      }
+      btns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-filter') === filter); });
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; render(); }); });
+    if (search) search.addEventListener('input', function () { term = search.value.trim().toLowerCase(); page = 1; render(); });
+    if (pager) pager.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-ev-page]');
+      if (b) { page = parseInt(b.getAttribute('data-ev-page'), 10); render(); }
+    });
+    render();
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, renderNav, renderFooter, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -412,4 +464,5 @@ document.addEventListener('DOMContentLoaded', function () {
   PTF.initNav();
   if (_ptfNavRendered) PTF.initMegaNav();  // only shared-nav pages; inline-nav pages wire their own
   PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
+  PTF.initEventList();  // no-ops unless the page has a [data-ev-list] container
 });

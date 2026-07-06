@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Events — PowerToFly AI</title>
+<!-- OG -->
+<meta property="og:title"       content="Events — PowerToFly AI">
+<meta property="og:description" content="Connect with professionals across the globe. Browse upcoming job fairs, summits, and Chat & Learns — or apply to speak.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY.
+ * The event list itself is the shared .ev-* component (ptf.css) — see events/_pending-ds-changes.md
+ * for the CSS + JS that must be applied to ds/ptf.css and ds/ptf.js.
+ * The two blocks below are the sanctioned page-unique exceptions (COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"): the fixed site-header wiring and the hero composition,
+ * both matching the hire page so every rebranded page shares one hero recipe.
+ */
+
+/* ── Fixed site header (alert + nav) ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Hero (page-unique composition, tokens only) ── */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 48px var(--gutter) 56px;
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
+  text-align: center;
+}
+.hero-inner { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto; }
+h1.hero-headline {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(36px, 5.5vw, 68px);
+  line-height: 1.0; letter-spacing: -0.04em;
+  max-width: 20ch; margin: 0 auto;
+}
+.hero-sub { max-width: 60ch; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+
+/* ── Featured "happening now / up next" event promo (Handshake-style 2-col) ── */
+.hero-feature {
+  max-width: var(--content-body); margin: 48px auto 0;
+  display: grid; grid-template-columns: 1fr 1.15fr;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-2xl); overflow: hidden;
+  box-shadow: var(--shadow-card); text-align: left;
+}
+.hero-feature-text {
+  padding: 44px 46px; display: flex; flex-direction: column;
+  align-items: flex-start; gap: 14px; justify-content: center;
+}
+/* CTA row: Register button + minimalist countdown beside it */
+.hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 14px; }
+.hf-countdown { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; font-variant-numeric: tabular-nums; }
+.hf-cd-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
+.hf-cd-units { display: inline-flex; align-items: baseline; }
+.hf-cd-unit { display: inline-flex; align-items: baseline; gap: 2px; padding: 0 10px;
+  border-left: 1px solid var(--line); font-size: 11px; color: var(--ink-3); }
+.hf-cd-unit:first-child { border-left: none; padding-left: 0; }
+.hf-cd-unit b { font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 700;
+  color: var(--ink); letter-spacing: -0.02em; }
+.hf-cd-live { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+.hf-cd-dot { width: 8px; height: 8px; border-radius: 50%; background: #00C47A; animation: livepulse 2s ease-in-out infinite; }
+@keyframes livepulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.85); } }
+.hero-feature-text .sc-tag { margin: 4px 0 0; }
+.hero-feature-title {
+  font-family: 'Inter Tight', sans-serif; font-size: clamp(24px, 2.6vw, 34px);
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.12; color: var(--ink); margin: 0;
+}
+/* Summit-style meta facts — text only, 2-column (date · participants · speakers · format · duration) */
+.hf-meta { display: grid; grid-template-columns: repeat(2, max-content); justify-content: start;
+  gap: 8px 36px; width: 100%; margin: 2px 0; }
+.hf-meta-item { font-size: 14px; color: var(--ink-2); line-height: 1.4; }
+@media (max-width: 460px) { .hf-meta { grid-template-columns: 1fr; } }
+.hf-cta-row .btn { margin: 0; }
+/* Companies-hiring logo marquee — its own compact band (less padding than a normal section), no label */
+.logo-band { padding: 40px var(--gutter); }
+.hero-feature-media { position: relative; min-height: 340px; background: var(--surface-2); }
+.hero-feature-media video, .hero-feature-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* Two videos (event + topic) crossfade */
+.hero-feature-media video { opacity: 0; transition: opacity 1.1s ease; }
+.hero-feature-media video.is-active { opacity: 1; }
+
+@media (max-width: 760px) {
+  .hero-feature { grid-template-columns: 1fr; margin-top: 36px; }
+  .hero-feature-media { order: -1; min-height: 220px; }
+  .hero-feature-text { padding: 30px 26px; }
+}
+
+@media (max-width: 600px) {
+  .hero { padding: 48px 20px 40px; }
+  h1, h2, h3 { text-wrap: pretty; }
+  h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
+  .hero-sub { font-size: 16px; text-wrap: pretty; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-header" id="siteHeader">
+<!-- ═══ TOP ALERT ═══ -->
+<div class="top-alert" id="topAlert">
+  Join our AI &amp; Emerging Tech Summit + Job Fair &nbsp;· &nbsp;Sept 16–17
+  <a href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register now →</a>
+  <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<!-- ═══ NAV — shared injected nav ═══ -->
+<div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+
+<main>
+
+<!-- 01. HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Events</div>
+    <h1 class="hero-headline">Connect with professionals <em class="italic-plain">across the globe.</em></h1>
+    <p class="hero-sub">Join one of our virtual events as an attendee and learn from top leaders and industry experts, or host your own event to tap into our community.</p>
+
+    <!-- Featured "happening now / up next" event promo — filled by JS (next flagship + live countdown) -->
+    <div class="hero-feature" id="hfFeature">
+      <div class="hero-feature-text">
+        <span class="sc-tag" id="hfTag">Summit</span>
+        <h2 class="hero-feature-title" id="hfTitle">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h2>
+        <div class="hf-meta" id="hfMeta"><!-- filled by JS: date · participants · speakers · format · duration --></div>
+        <div class="hf-cta-row">
+          <!-- COPY: confirm — featured event register target -->
+          <a class="btn btn-primary" id="hfCta" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          <div class="hf-countdown" id="hfCountdown"><!-- filled by JS: minimalist live countdown --></div>
+        </div>
+      </div>
+      <div class="hero-feature-media">
+        <!-- COPY: confirm — two featured videos crossfade: the EVENT (people in a virtual conference, Pexels 4316385)
+             and the TOPIC (human vs. AI robotic arm — AI & emerging tech, Pexels 8328040). -->
+        <video class="is-active" autoplay muted loop playsinline
+               poster="https://images.unsplash.com/photo-1587560699334-cc4ff634909a?w=900&h=700&fit=crop&q=80">
+          <source src="https://videos.pexels.com/video-files/4316385/4316385-hd_1920_1080_24fps.mp4" type="video/mp4">
+        </video>
+        <video autoplay muted loop playsinline>
+          <source src="https://videos.pexels.com/video-files/8328040/8328040-hd_1920_1080_25fps.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 01b. Companies-hiring logo band — its own compact section, no label (shared marquee) -->
+<section class="logo-band">
+  <div class="logo-strip"><div class="logo-strip-track" id="eventLogos"></div></div>
+</section>
+
+<!-- 02. UPCOMING EVENTS — date-sorted list, filter + pagination -->
+<section class="section">
+  <div class="ev-head">
+    <h2>Upcoming events</h2>
+  </div>
+
+  <div class="ev-listing" data-ev-list data-ev-per="6">
+
+    <!-- Category filter (by event type) -->
+    <div class="ev-filter">
+      <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+      <button class="ev-filter-btn" data-filter="job-fair">Virtual job fairs</button>
+      <button class="ev-filter-btn" data-filter="summit">Summits</button>
+      <button class="ev-filter-btn" data-filter="meet">Meet with companies</button>
+      <button class="ev-filter-btn" data-filter="chat-learn">Chat &amp; Learns</button>
+    </div>
+
+    <!-- The list (sorted by date, soonest first) + pager -->
+    <div>
+      <div class="ev-list">
+
+        <article class="ev-row" data-type="chat-learn">
+          <div class="ev-row-date">July 7, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Chat &amp; learn</span>
+            <h3 class="ev-row-title">Leading Under Pressure: Strengthening Team Mental Health</h3>
+            <p class="ev-row-desc">PowerToFly's Director of Events &amp; Marketing Rob Ribar will share the real challenges mental health and external pressures create for performance, culture, and trust.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="meet">
+          <div class="ev-row-date">July 8, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Meet with companies</span>
+            <h3 class="ev-row-title">Code, Connect, Create: Powering the Future of Payments</h3>
+            <p class="ev-row-desc">Join Visa and PowerToFly for an exclusive, invite-only, in-person hiring and networking event in Austin designed to connect you directly with Visa's technical leaders and teams.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="chat-learn">
+          <div class="ev-row-date">July 15, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Chat &amp; learn</span>
+            <h3 class="ev-row-title">History's Richest Secrets: How America's Past Can Build Your Financial Future</h3>
+            <p class="ev-row-desc">In this candid conversation, historian and accidental millionaire Joseph S. Moore, PhD, the best-selling author of "Founding Sins" and the new book "How to Get Rich in American History," draws on three centuries of American financial history to separate timeless money wisdom from the noise.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="chat-learn">
+          <div class="ev-row-date">July 16, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Chat &amp; learn</span>
+            <h3 class="ev-row-title">Productividad con IA: De la Adopción al Impacto / AI-Powered Productivity: From Adoption to Impact</h3>
+            <p class="ev-row-desc">En esta charla, Luis E. Mojica, Líder del Equipo de Preventas para Centroamérica y el Caribe en SoftwareONE, compartirá su experiencia de casi una década trabajando en IT, ciberseguridad, nube y Modern Workplace, en una conversación abierta sobre cómo la IA está transformando la productividad dentro de las organizaciones.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="meet">
+          <div class="ev-row-date">July 22, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Meet with companies</span>
+            <h3 class="ev-row-title">Powering What's Next: A Virtual Career Event with Mitsubishi Power</h3>
+            <p class="ev-row-desc">Join Mitsubishi Power and PowerToFly on Tuesday, July 22nd from 5:30–7:00 PM ET for an invite-only virtual career event designed specifically for mid-to-senior engineering and project professionals — nationally, with a strong presence in Orlando and Lake Mary.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="summit">
+          <div class="ev-row-date">September 16–17, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Summit</span>
+            <h3 class="ev-row-title">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h3>
+            <p class="ev-row-desc">Join us for The Next Wave, a virtual summit exploring how AI and emerging technologies are transforming the future of work, innovation, and inclusion.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="job-fair">
+          <div class="ev-row-date">September 17, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Virtual job fair</span>
+            <h3 class="ev-row-title">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h3>
+            <p class="ev-row-desc">Join us for the virtual job fair focusing on AI, emerging tech and the future of work.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="summit">
+          <div class="ev-row-date">October 21–22, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Summit</span>
+            <h3 class="ev-row-title">Beyond Boundaries: Voices of Latinidad</h3>
+            <p class="ev-row-desc">Join us for Beyond Boundaries: Voices of Latinidad, a two-day virtual summit celebrating Latin American heritage and its impact on the global workplace.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="job-fair">
+          <div class="ev-row-date">October 22, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Virtual job fair</span>
+            <h3 class="ev-row-title">Beyond Boundaries: Voices of Latinidad</h3>
+            <p class="ev-row-desc">Join us for a groundbreaking Virtual Job Fair that celebrates the vibrant tapestry of Latinidad!</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="summit">
+          <div class="ev-row-date">November 18–19, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Summit</span>
+            <h3 class="ev-row-title">Supporting Veterans, Active Service Members and Military Spouses</h3>
+            <p class="ev-row-desc">Calling all veterans, military spouses, allies, and active duty service members preparing for the next chapter in their careers! Join us for an exclusive event tailored just for you.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="job-fair">
+          <div class="ev-row-date">November 19, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Virtual job fair</span>
+            <h3 class="ev-row-title">Supporting Veterans, Active Service Members and Military Spouses</h3>
+            <p class="ev-row-desc">Welcome to Our Virtual Job Fair: Honoring Veterans, Active Service Members, and Military Spouses.</p>
+            <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+          </div>
+        </article>
+
+      </div><!-- /.ev-list -->
+
+      <div class="ev-pager" data-ev-pages></div>
+    </div>
+
+  </div><!-- /.ev-listing -->
+</section>
+
+<!-- 02b. PAST EVENTS — archive: search by topic + filter by type + pagination -->
+<!-- COPY: confirm — past-event entries below are placeholders (real archive to be populated). -->
+<section class="section" style="background: var(--bg-soft)">
+  <div class="ev-head">
+    <h2>Past events</h2>
+  </div>
+
+  <div class="ev-listing ev-listing--grid" data-ev-list data-ev-per="9">
+
+    <div class="ev-filter">
+      <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+      <button class="ev-filter-btn" data-filter="job-fair">Virtual job fairs</button>
+      <button class="ev-filter-btn" data-filter="summit">Summits</button>
+      <button class="ev-filter-btn" data-filter="meet">Meet with companies</button>
+      <button class="ev-filter-btn" data-filter="chat-learn">Chat &amp; Learns</button>
+    </div>
+
+    <div>
+      <div class="ev-search-wrap">
+        <input class="ev-search" data-ev-search type="search" placeholder="Search past events by topic…" aria-label="Search past events">
+        <button class="ev-search-clear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      </div>
+      <!-- COPY: confirm — past events are generated placeholders (see the pastList generator script below) -->
+      <div class="ev-list" id="pastList"></div>
+
+      <p class="ev-empty" data-ev-empty hidden>No past events match your search.</p>
+
+      <div class="ev-pager" data-ev-pages></div>
+    </div>
+
+  </div><!-- /.ev-listing -->
+</section>
+
+<!-- 03. BECOME A SPEAKER — reuse the shared dark CTA band (.section-cta) -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Become a speaker</span>
+    <h2>Share your expertise with our community</h2>
+    <p>Have insight the PowerToFly community should hear? Apply to speak at an upcoming event and reach professionals across 190 countries.</p>
+    <!-- COPY: confirm — speaker application target -->
+    <a href="https://powertofly.com/browse-events" class="btn btn-cta" target="_blank" rel="noopener">Apply to speak →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  window.PTF && PTF.initHeader && PTF.initHeader();
+  window.PTF && PTF.initMarquee && PTF.initMarquee('eventLogos');  // companies-hiring logo strip
+
+  /* ── Past-events archive — generate a large recurring-events backlog so pagination spans ~10 pages.
+     COPY: confirm — these are placeholders. Runs before PTF.initEventList() reads the rows. ── */
+  (function () {
+    var list = document.getElementById('pastList');
+    if (!list) return;
+    var TYPE = { 'job-fair': 'Virtual job fair', 'summit': 'Summit', 'meet': 'Meet with companies', 'chat-learn': 'Chat & learn' };
+    var series = [
+      { t: 'Insights: AI-Powered Analytics for Career Services', k: 'summit', d: 'A deep dive into how AI-native analytics are reshaping how career teams measure, report, and act on their programs.' },
+      { t: 'Women Shaping the Future of Product', k: 'chat-learn', d: 'Product leaders share how they broke in, leveled up, and are building the next generation of AI-native products.' },
+      { t: 'Cybersecurity & Cloud Careers', k: 'job-fair', d: 'A virtual job fair connecting security and cloud professionals with teams hiring for the roles defining the next decade.' },
+      { t: 'Celebrating Black Innovators in Tech', k: 'summit', d: 'A two-day summit honoring Black leaders shaping AI, engineering, and the future of inclusive technology.' },
+      { t: 'Building Inclusive Engineering Teams', k: 'meet', d: 'Engineering leaders share how they hire, grow, and retain diverse technical teams that ship.' },
+      { t: 'The Future of Work in the AI Economy', k: 'chat-learn', d: 'What changes, what lasts, and how to stay ready — a candid conversation on careers in an AI-first world.' },
+      { t: 'Code, Connect, Create: Powering the Future of Payments', k: 'meet', d: 'An invite-only hiring and networking event connecting engineers with fintech leaders and teams.' },
+      { t: 'Data Science & Machine Learning Careers', k: 'job-fair', d: 'A virtual job fair connecting data scientists and ML engineers with teams building AI at scale.' },
+      { t: 'Pride: Championing LGBTQIA+ Leaders and Allies', k: 'summit', d: 'A summit spotlighting LGBTQIA+ leaders and allies building more inclusive workplaces.' },
+      { t: 'Negotiating Your Next Role', k: 'chat-learn', d: 'Practical tactics for negotiating offers, leveling, and compensation with confidence.' },
+      { t: 'Product Management Career Fair', k: 'job-fair', d: 'Meet product teams hiring PMs across every stage, from startups to the enterprise.' },
+      { t: 'From Bootcamp to Big Tech', k: 'chat-learn', d: 'Engineers share the honest path from bootcamp to landing and thriving in big-tech roles.' },
+      { t: 'Designing for Accessibility', k: 'chat-learn', d: 'How product and design teams build accessible, inclusive experiences from the ground up.' },
+      { t: 'Meet the Founders: AI Startups Hiring', k: 'meet', d: 'Founders of fast-growing AI startups share what they are building and who they are hiring.' },
+      { t: 'Women in Cybersecurity Summit', k: 'summit', d: 'A summit celebrating and connecting women defining the future of security.' },
+      { t: 'Breaking Into Tech Sales', k: 'chat-learn', d: 'How to move into high-growth tech sales roles and what hiring teams look for.' },
+      { t: 'The Future of Consulting: A Morning of Insight and Exchange', k: 'meet', d: 'A session for senior consulting professionals on how AI is reshaping the industry and the work ahead.' },
+      { t: 'Engineering Leadership Forum', k: 'summit', d: 'Engineering leaders on scaling teams, culture, and technical strategy in the AI era.' },
+      { t: 'Global Talent, Remote-First', k: 'job-fair', d: 'A virtual job fair connecting global talent with remote-first teams hiring worldwide.' },
+      { t: 'Leading Under Pressure: Strengthening Team Mental Health', k: 'chat-learn', d: 'The real challenges mental health and external pressures create for performance, culture, and trust.' },
+      { t: 'Beyond Boundaries: Voices of Latinidad', k: 'summit', d: 'A two-day virtual summit celebrating Latin American heritage and its impact on the global workplace.' },
+      { t: 'Honoring Veterans in Tech', k: 'job-fair', d: 'A virtual job fair connecting veterans, active service members, and military spouses with inclusive employers.' },
+      { t: 'The Next Wave: AI & Emerging Tech Shaping Tomorrow', k: 'summit', d: 'A virtual summit exploring how AI and emerging technologies are transforming the future of work, innovation, and inclusion.' },
+      { t: "Powering What's Next: A Virtual Career Event", k: 'meet', d: 'An invite-only virtual career event for mid-to-senior engineering and project professionals.' }
+    ];
+    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    var TOTAL = 86, anchor = 2026 * 12 + 4, html = '';   // start at May 2026, ~2 events per month going back
+    function esc(s) { return s.replace(/&/g, '&amp;'); }
+    for (var i = 0; i < TOTAL; i++) {
+      var s = series[i % series.length];
+      var tm = anchor - Math.floor(i / 2);
+      var y = Math.floor(tm / 12), mo = tm % 12, day = (i % 2 === 0) ? 12 : 24;
+      html += '<article class="ev-row" data-type="' + s.k + '">'
+        + '<div class="ev-row-date">' + months[mo] + ' ' + day + ', ' + y + '</div>'
+        + '<div class="ev-row-body"><span class="sc-tag">' + TYPE[s.k] + '</span>'
+        + '<h3 class="ev-row-title">' + esc(s.t) + '</h3>'
+        + '<p class="ev-row-desc">' + esc(s.d) + '</p>'
+        + '<a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Watch recording →</a></div></article>';
+    }
+    list.innerHTML = html;
+  })();
+
+  window.PTF && PTF.initEventList && PTF.initEventList();  // paginate both listings (now incl. the generated archive)
+
+  /* ── Search clear (×) button: show when non-empty, clear on click ── */
+  (function () {
+    var wrap = document.querySelector('.ev-search-wrap');
+    if (!wrap) return;
+    var input = wrap.querySelector('.ev-search'), clear = wrap.querySelector('.ev-search-clear');
+    function sync() { wrap.classList.toggle('has-value', !!input.value); }
+    input.addEventListener('input', sync);
+    clear.addEventListener('click', function () {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+    });
+    sync();
+  })();
+
+  /* ── Featured media: crossfade between the event video and the topic (AI) video ── */
+  (function () {
+    var vids = document.querySelectorAll('.hero-feature-media video');
+    if (vids.length < 2) return;
+    var i = 0;
+    setInterval(function () {
+      vids[i].classList.remove('is-active');
+      i = (i + 1) % vids.length;
+      vids[i].classList.add('is-active');
+    }, 6000);
+  })();
+
+  /* ── Featured event promo: pick the next flagship (job fair / summit) + live countdown ── */
+  (function () {
+    var wrap = document.getElementById('hfFeature');
+    if (!wrap) return;
+    // COPY: confirm — start/end date-times (assumed 09:00 ET start; summit ends next day 17:00 ET) + participant/speaker counts.
+    var SUMMIT_META = function (dateLabel) { return [ {k:'date',v:dateLabel}, {k:'people',v:'5,000+ Participants'}, {k:'mic',v:'25+ Speakers'}, {k:'globe',v:'Virtual'}, {k:'clock',v:'Lasts for 2 Days'} ]; };
+    var FAIR_META   = function (dateLabel) { return [ {k:'date',v:dateLabel}, {k:'people',v:'3,000+ Attendees'}, {k:'globe',v:'Virtual'}, {k:'clock',v:'Lasts for 1 Day'} ]; };
+    var flagships = [
+      { tag: 'Summit',           title: 'The Next Wave: AI & Emerging Tech Shaping Tomorrow',                 meta: SUMMIT_META('Sep 16–17, 2026'), start: '2026-09-16T09:00:00-04:00', end: '2026-09-17T17:00:00-04:00', href: 'https://powertofly.com/browse-events' },
+      { tag: 'Virtual job fair', title: 'The Next Wave: AI & Emerging Tech Shaping Tomorrow',                 meta: FAIR_META('Sep 17, 2026'),      start: '2026-09-17T09:00:00-04:00', end: '2026-09-17T17:00:00-04:00', href: 'https://powertofly.com/browse-events' },
+      { tag: 'Summit',           title: 'Beyond Boundaries: Voices of Latinidad',                             meta: SUMMIT_META('Oct 21–22, 2026'),   start: '2026-10-21T09:00:00-04:00', end: '2026-10-22T17:00:00-04:00', href: 'https://powertofly.com/browse-events' },
+      { tag: 'Virtual job fair', title: 'Beyond Boundaries: Voices of Latinidad',                             meta: FAIR_META('Oct 22, 2026'),        start: '2026-10-22T09:00:00-04:00', end: '2026-10-22T17:00:00-04:00', href: 'https://powertofly.com/browse-events' },
+      { tag: 'Summit',           title: 'Supporting Veterans, Active Service Members and Military Spouses',    meta: SUMMIT_META('Nov 18–19, 2026'),   start: '2026-11-18T09:00:00-05:00', end: '2026-11-19T17:00:00-05:00', href: 'https://powertofly.com/browse-events' },
+      { tag: 'Virtual job fair', title: 'Supporting Veterans, Active Service Members and Military Spouses',    meta: FAIR_META('Nov 19, 2026'),        start: '2026-11-19T09:00:00-05:00', end: '2026-11-19T17:00:00-05:00', href: 'https://powertofly.com/browse-events' }
+    ];
+    var countdownEl = document.getElementById('hfCountdown');
+    var tagEl  = document.getElementById('hfTag');
+    var titleEl= document.getElementById('hfTitle');
+    var metaEl = document.getElementById('hfMeta');
+    var cta    = document.getElementById('hfCta');
+
+    // Next flagship = first whose end is still in the future (falls back to the last one).
+    var now = Date.now();
+    var ev = flagships.filter(function (f) { return new Date(f.end).getTime() > now; })[0] || flagships[flagships.length - 1];
+    tagEl.textContent = ev.tag;
+    titleEl.textContent = ev.title;
+    metaEl.innerHTML = ev.meta.map(function (m) {
+      return '<span class="hf-meta-item">' + m.v + '</span>';
+    }).join('');
+    cta.href = ev.href;
+
+    var start = new Date(ev.start).getTime();
+    var end = new Date(ev.end).getTime();
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+    function unit(n, s) { return '<span class="hf-cd-unit"><b>' + n + '</b>' + s + '</span>'; }
+    function render() {
+      var t = Date.now();
+      if (t >= start && t <= end) {
+        cta.textContent = 'Join now →';
+        countdownEl.innerHTML = '<span class="hf-cd-live"><span class="hf-cd-dot"></span>Live now</span>';
+        return;
+      }
+      cta.textContent = 'Register →';
+      var d = Math.max(0, start - t);
+      var days = Math.floor(d / 86400000);
+      var hrs  = Math.floor((d % 86400000) / 3600000);
+      var mins = Math.floor((d % 3600000) / 60000);
+      var secs = Math.floor((d % 60000) / 1000);
+      countdownEl.innerHTML = '<span class="hf-cd-label">Starts in</span><span class="hf-cd-units">'
+        + unit(days, 'd') + unit(pad(hrs), 'h') + unit(pad(mins), 'm') + unit(pad(secs), 's') + '</span>';
+    }
+    render();
+    setInterval(render, 1000);
+  })();
+</script>
+</body>
+</html>
