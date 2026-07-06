@@ -1308,10 +1308,22 @@ img { display: block; max-width: 100%; }
 
 /* List rows */
 .ev-list { display: flex; flex-direction: column; }
-.ev-row { display: grid; grid-template-columns: 132px 1fr; gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); }
+.ev-row { display: grid; grid-template-columns: 118px 1fr 176px; gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: center; }
 .ev-row:last-child { border-bottom: 1px solid var(--line); }
-@media (max-width: 560px) { .ev-row { grid-template-columns: 1fr; gap: 10px; } }
+@media (max-width: 700px) { .ev-row { grid-template-columns: 1fr; gap: 12px; align-items: start; } .ev-row > .ev-thumb { order: -1; width: 100%; height: 190px; } }
 .ev-row.is-hidden { display: none !important; }
+
+/* Event thumbnail + speaker faces / company logos (Mara feedback) */
+.ev-thumb { overflow: hidden; border-radius: var(--r-lg); background: var(--surface-2); }
+.ev-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ev-row > .ev-thumb { width: 176px; height: 118px; }
+.ev-people { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 2px 0 14px; }
+.ev-faces { display: flex; }
+.ev-faces img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); margin-left: -10px; }
+.ev-faces img:first-child { margin-left: 0; }
+.ev-orgs { display: flex; align-items: center; gap: 18px; }
+.ev-orgs img { height: 19px; width: auto; max-width: 78px; object-fit: contain; filter: grayscale(1); opacity: .8; }
+.ev-people-label { font-size: 13px; color: var(--ink-3); }
 .ev-row-date { font-size: 14px; color: var(--ink-3); line-height: 1.4; padding-top: 2px; }
 .ev-row .sc-tag { margin-bottom: 8px; }
 .ev-row-title { font-family: 'Inter Tight', sans-serif; font-size: 20px; font-weight: 700;
@@ -1355,3 +1367,6 @@ img { display: block; max-width: 100%; }
 .ev-listing--grid .ev-row-desc { font-size: 14px; margin: 0 0 16px; max-width: none;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .ev-listing--grid .ev-row-link { margin-top: auto; }
+.ev-listing--grid .ev-row > .ev-thumb { order: -1; width: auto; height: 152px; margin: -22px -22px 16px; border-radius: var(--r-xl) var(--r-xl) 0 0; }
+.ev-listing--grid .ev-faces img { width: 26px; height: 26px; border-color: var(--bg-soft); }
+.ev-listing--grid .ev-people { margin-bottom: 16px; }
