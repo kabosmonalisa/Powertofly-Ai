@@ -626,11 +626,16 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
         var lb = loginBtn(); if (lb) lb.style.removeProperty('background');
       }
 
-      // "See upcoming events" scrolls down to the list, leaving the live screen at the top.
+      // "See upcoming events" scrolls the Upcoming title to just below the fixed header (not under it).
       lh.addEventListener('click', function (e) {
         if (!(e.target.closest && e.target.closest('[data-live-explore]'))) return;
         var up = document.getElementById('upcoming');
-        if (up) up.scrollIntoView({ behavior: 'smooth' });
+        if (!up) return;
+        var title = up.querySelector('h2') || up;
+        var header = document.querySelector('.site-header');
+        var offset = (header ? header.getBoundingClientRect().height : 126) + 28;
+        var target = title.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: Math.max(0, target), behavior: 'smooth' });
       });
 
       // Auto-show while genuinely live.
