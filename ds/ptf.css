@@ -783,7 +783,7 @@ img { display: block; max-width: 100%; }
 .event-meta { display: flex; flex-direction: column; gap: 10px; }
 .event-meta-row { display: flex; align-items: center; gap: 12px; }
 .event-ico { width: 36px; height: 36px; border-radius: 11px; background: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 1px 2px rgba(15,30,26,0.06); }
-.event-ico svg { stroke: url(#ptf-grad); stroke-width: 4; stroke-linejoin: miter; stroke-linecap: square; }  /* fat + gradient + squared corners (needs #ptf-grad def on page) */
+.event-ico svg { fill: var(--ink); stroke: none; }  /* small icon (<40px) — plain ink MUI Outlined, no gradient (size rule 2026-07-04: gradient only ≥40px) */
 .event-meta-text { display: flex; flex-direction: column; line-height: 1.3; }
 .event-meta-text strong { font-size: 14.5px; font-weight: 600; color: var(--ink); }
 .event-meta-text span { font-size: 12.5px; color: var(--ink-3); }
