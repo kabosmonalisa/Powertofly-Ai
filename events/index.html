@@ -115,7 +115,7 @@ h1.hero-headline {
 /* ── Full-page live event hero — takes over the first screen while an event is live; all info above the fold ── */
 .live-hero { display: none; }
 /* Pull up under the fixed header (body has 126px top padding) so the image bleeds to the very top, under the transparent nav — like the train hero. */
-.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 100vh; margin-top: -126px; animation: ltFade 0.4s ease; }
+.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 82vh; max-height: 900px; margin-top: -126px; animation: ltFade 0.4s ease; }
 .live-hero.is-open + .hero { display: none; }   /* the marketing hero steps aside while live */
 @keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
 .live-hero-media { order: 2; position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; border-radius: 0 0 0 28px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
@@ -127,19 +127,23 @@ h1.hero-headline {
   box-shadow: 0 4px 14px rgba(229,55,47,0.32);
 }
 .live-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: livepulse 1.4s ease-in-out infinite; }
-.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 96px clamp(48px, 5vw, 72px) 96px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
+.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 148px clamp(48px, 5vw, 72px) 64px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
 .live-hero-content .sc-tag { margin: 0; }
 .live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.0; font-weight: 700; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 24px; }
 .live-hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr)); gap: 18px 30px; max-width: 520px; margin: 0 0 36px; padding-top: 26px; border-top: 1px solid var(--line); }
 .lh-stat { display: flex; align-items: center; gap: 11px; }
 .lh-stat .mi { width: 19px; height: 19px; fill: var(--ink-3); }
 .lh-stat-value { font-size: 16px; font-weight: 400; color: var(--ink); line-height: 1.3; }
+/* Live state only: the nav's Log in button drops its white fill so it doesn't sit as a white block over the image (Get matched, the dark primary, is unchanged) */
+body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { background: transparent !important; }
 .live-hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 @media (max-width: 860px) {
   .live-hero.is-open { grid-template-columns: 1fr; min-height: 0; }
   .live-hero-media { order: -1; min-height: 44vh; border-radius: 0 0 0 28px; }
   .live-hero-content { order: 0; padding: 40px 26px 48px; }
 }
+/* "See upcoming events" scrolls here — offset so the title clears the fixed header (alert + nav) */
+#upcoming { scroll-margin-top: 140px; }
 /* PROTOTYPE-ONLY: preview trigger so the live state can be seen before it's wired to real live data */
 .live-preview-trigger { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
 .live-preview-trigger:hover { color: var(--ink); border-color: var(--ink); }
@@ -167,8 +171,8 @@ h1.hero-headline {
 <!-- ═══ FULL-PAGE LIVE EVENT — takes over the first screen while an event is live; everything above the fold. Shown by JS during the live window (and via the preview button). Hides the marketing hero while active. ═══ -->
 <section class="live-hero" id="liveHero" aria-hidden="true">
   <div class="live-hero-media">
-    <!-- AI & emerging tech + PowerToFly diversity — static image (no live stream embed here) -->
-    <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop" alt="Professionals at glowing futuristic data screens — AI and emerging tech shaping tomorrow">
+    <!-- Full-frame diverse event scene (fills the frame — no white studio void when it bleeds under the nav) -->
+    <img src="https://images.pexels.com/photos/1181745/pexels-photo-1181745.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop" alt="A diverse team at a virtual-event summit">
   </div>
   <div class="live-hero-content">
     <div class="live-hero-eyebrows">
@@ -611,8 +615,16 @@ h1.hero-headline {
       }).join('');
       document.getElementById('ltJoin').href = ev.href;
 
-      function openLive() { lh.classList.add('is-open'); lh.setAttribute('aria-hidden', 'false'); window.scrollTo(0, 0); }
-      function hideLive() { lh.classList.remove('is-open'); lh.setAttribute('aria-hidden', 'true'); }
+      function loginBtn() { return document.querySelector('#mainNav .nav-cta .btn:not(.btn-primary)'); }
+      function openLive() {
+        lh.classList.add('is-open'); lh.setAttribute('aria-hidden', 'false');
+        var lb = loginBtn(); if (lb) lb.style.setProperty('background', 'transparent', 'important'); // drop the white fill over the image
+        window.scrollTo(0, 0);
+      }
+      function hideLive() {
+        lh.classList.remove('is-open'); lh.setAttribute('aria-hidden', 'true');
+        var lb = loginBtn(); if (lb) lb.style.removeProperty('background');
+      }
 
       // "See upcoming events" scrolls down to the list, leaving the live screen at the top.
       lh.addEventListener('click', function (e) {
