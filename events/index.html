@@ -120,13 +120,9 @@ h1.hero-headline {
 @keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
 .live-hero-media { order: 2; position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; border-radius: 0 0 0 28px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
 .live-hero-media img, .live-hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.live-hero-eyebrows { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 20px; }
-.live-badge {
-  display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 11px; border-radius: 999px;
-  background: #E5372F; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  box-shadow: 0 4px 14px rgba(229,55,47,0.32);
-}
-.live-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: livepulse 1.4s ease-in-out infinite; }
+.live-hero-eyebrows { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin: 0 0 20px; }
+/* elegant "live" cue: just a small pulsing red dot next to the green eyebrow — no pill */
+.live-dot { width: 7px; height: 7px; border-radius: 50%; background: #E5372F; flex: none; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: livepulse 1.6s ease-in-out infinite; }
 .live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 148px clamp(48px, 5vw, 72px) 64px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
 .live-hero-content .sc-tag { margin: 0; }
 .live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.0; font-weight: 700; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 24px; }
@@ -176,8 +172,8 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
   </div>
   <div class="live-hero-content">
     <div class="live-hero-eyebrows">
-      <span class="live-badge"><span class="live-badge-dot"></span>Live now</span>
-      <span class="sc-tag" id="ltTag">Summit</span>
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="sc-tag" id="ltTag">Live summit</span>
     </div>
     <h2 class="live-hero-title" id="ltTitle">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h2>
     <div class="live-hero-stats" id="ltMeta"></div>
@@ -601,7 +597,7 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
     /* ── Full-page live event: take over the first screen while live; scroll / "See upcoming events" reveals the normal page below ── */
     var lh = document.getElementById('liveHero');
     if (lh) {
-      document.getElementById('ltTag').textContent = ev.tag;
+      document.getElementById('ltTag').textContent = 'Live ' + ev.tag;
       document.getElementById('ltTitle').textContent = ev.title;
       document.getElementById('ltMeta').innerHTML = ev.meta.map(function (m) {
         return '<div class="lh-stat">' + metaIcon(m.k) + '<span class="lh-stat-value">' + m.v + '</span></div>';
