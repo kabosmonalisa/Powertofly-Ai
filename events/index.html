@@ -113,21 +113,21 @@ h1.hero-headline {
 
 /* ── Full-page live event hero — takes over the first screen while an event is live; all info above the fold ── */
 .live-hero { display: none; }
-.live-hero.is-open { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 100vh; animation: ltFade 0.4s ease; }
+.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 100vh; animation: ltFade 0.4s ease; }
 .live-hero.is-open + .hero { display: none; }   /* the marketing hero steps aside while live */
 @keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
-.live-hero-media { position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; }
+.live-hero-media { order: 2; position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; border-radius: 0 0 0 28px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
 .live-hero-media img, .live-hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.live-hero-eyebrows { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin: 0 0 20px; }
 .live-badge {
-  position: absolute; top: 104px; left: 32px; z-index: 2;
-  display: inline-flex; align-items: center; gap: 8px; padding: 7px 15px 7px 12px; border-radius: 999px;
-  background: #E5372F; color: #fff; font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
-  box-shadow: 0 4px 16px rgba(229,55,47,0.45);
+  display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px 6px 11px; border-radius: 999px;
+  background: #E5372F; color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(229,55,47,0.32);
 }
 .live-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; animation: livepulse 1.4s ease-in-out infinite; }
-.live-hero-content { display: flex; flex-direction: column; justify-content: center; padding: 96px clamp(40px, 6vw, 88px); background: var(--surface); }
-.live-hero-content .sc-tag { margin: 0 0 16px; }
-.live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(30px, 3.4vw, 46px); line-height: 1.08; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); margin: 0 0 22px; }
+.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 96px clamp(48px, 5vw, 72px) 96px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
+.live-hero-content .sc-tag { margin: 0; }
+.live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.0; font-weight: 700; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 24px; }
 .live-hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr)); gap: 18px 30px; max-width: 520px; margin: 0 0 36px; padding-top: 26px; border-top: 1px solid var(--line); }
 .lh-stat { display: flex; align-items: center; gap: 11px; }
 .lh-stat .mi { width: 19px; height: 19px; fill: var(--ink-3); }
@@ -135,9 +135,8 @@ h1.hero-headline {
 .live-hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
 @media (max-width: 860px) {
   .live-hero.is-open { grid-template-columns: 1fr; min-height: 0; }
-  .live-hero-media { min-height: 44vh; }
-  .live-badge { top: 88px; left: 20px; }
-  .live-hero-content { padding: 40px 26px 48px; }
+  .live-hero-media { order: -1; min-height: 44vh; border-radius: 0 0 0 28px; }
+  .live-hero-content { order: 0; padding: 40px 26px 48px; }
 }
 /* PROTOTYPE-ONLY: preview trigger so the live state can be seen before it's wired to real live data */
 .live-preview-trigger { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
@@ -166,12 +165,14 @@ h1.hero-headline {
 <!-- ═══ FULL-PAGE LIVE EVENT — takes over the first screen while an event is live; everything above the fold. Shown by JS during the live window (and via the preview button). Hides the marketing hero while active. ═══ -->
 <section class="live-hero" id="liveHero" aria-hidden="true">
   <div class="live-hero-media">
-    <span class="live-badge"><span class="live-badge-dot"></span>Live now</span>
     <!-- AI & emerging tech + PowerToFly diversity — static image (no live stream embed here) -->
     <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1200&h=1500&fit=crop" alt="Professionals at glowing futuristic data screens — AI and emerging tech shaping tomorrow">
   </div>
   <div class="live-hero-content">
-    <span class="sc-tag" id="ltTag">Summit</span>
+    <div class="live-hero-eyebrows">
+      <span class="live-badge"><span class="live-badge-dot"></span>Live now</span>
+      <span class="sc-tag" id="ltTag">Summit</span>
+    </div>
     <h2 class="live-hero-title" id="ltTitle">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h2>
     <div class="live-hero-stats" id="ltMeta"></div>
     <div class="live-hero-ctas">
