@@ -155,14 +155,17 @@
 
 /* ── success screen ── */
 .jb-success{max-width:640px;margin:0 auto;text-align:center;}
-.jb-success-ic{width:96px;height:96px;border-radius:var(--r-pill);
-  background:color-mix(in srgb,var(--green-mid) 18%,#fff);display:grid;place-items:center;margin:0 auto 32px;}
+.jb-success .thanks-icon{margin-bottom:26px;}
 .jb-success h1{margin-bottom:14px;}
 .jb-success-sub{font-size:18px;color:var(--ink-3);line-height:1.6;max-width:520px;margin:0 auto 40px;}
 .jb-nextsteps{text-align:left;margin:0 auto 32px;}
 .jb-nextsteps h3{font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:14px;}
-.jb-nsrow{display:flex;gap:16px;padding:14px 0;}
-.jb-nsnum{width:30px;height:30px;border-radius:var(--r-pill);background:var(--surface-2);display:grid;place-items:center;
+.jb-nsrow{display:flex;gap:16px;padding:14px 0;position:relative;}
+/* subtle timeline connector between the numbered steps (1→2→3). Runs from this
+   circle's centre to the next; the opaque circles mask the ends, leaving a
+   clean line only in the gaps. */
+.jb-nsrow:not(:last-child)::before{content:'';position:absolute;left:15px;top:29px;height:100%;width:2px;transform:translateX(-50%);background:var(--line-2);z-index:0;}
+.jb-nsnum{position:relative;z-index:1;width:30px;height:30px;border-radius:var(--r-pill);background:var(--surface-2);display:grid;place-items:center;
   font-size:14px;font-weight:700;color:var(--ink-3);flex-shrink:0;}
 .jb-nsrow.is-active .jb-nsnum{background:var(--green-mid);color:var(--ink);}
 .jb-nstitle{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ink);}
@@ -180,6 +183,14 @@
    screen keeps the #ptf-grad gradient. ── */
 .jb-plan-feats svg,.jb-chip svg,.jb-plan-icon svg,.jb-fcard-ic svg,.jb-nstitle svg,.jb-toggle-title svg{fill:var(--ink);}
 .jb-input-wrap svg,.jb-secure svg,.jb-stripe svg{fill:var(--ink-3);}
+
+/* ── PAGE-SPECIFIC hero balance (this page's hero has no media, so the stock
+   56/100 top/bottom left the content stuck high with a ~200px void before
+   "Choose your package"). Drop the hero content down and pull the package
+   section up so the two read as one balanced unit. Scoped to #screen-package
+   only — does not touch the shared .section-hero elsewhere. ── */
+#screen-package .section-hero{padding-top:88px;padding-bottom:44px;}
+#screen-package .section-hero + .section{padding-top:44px;}
 </style>
 </head>
 <body>
@@ -268,7 +279,6 @@
 
     <!-- REUSED: logo-strip marquee -->
     <section class="section-tight">
-      <p style="text-align:center;font-size:14px;color:var(--ink-3);margin-bottom:32px">Trusted by leading companies worldwide</p>
       <div class="logo-strip"><div class="logo-strip-track" id="jbLogos"></div></div>
     </section>
   </section>
@@ -440,11 +450,10 @@
   <section class="jb-screen" id="screen-success" hidden>
     <section class="section">
       <div class="jb-success">
-        <!-- REUSED: gradient thank-you check, inside a soft-green disc -->
-        <div class="jb-success-ic">
-          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/>
-            <circle cx="12" cy="12" r="10" stroke="url(#ptf-grad)" stroke-width="1.4"/>
+        <!-- REUSED: the design-system thank-you check — bold fat gradient stroke, no disc/ring -->
+        <div class="thanks-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
           </svg>
         </div>
         <h1 class="display">Payment successful</h1>
