@@ -112,21 +112,26 @@
         <div class="step-indicator">Step 2 of 3</div>
         <h1 class="auth-heading">Work experience</h1>
         <p class="auth-sub">This helps us match you to roles that fit your background.</p>
-        <form class="auth-form" onsubmit="return false">
-          <div class="field"><label for="su-linkedin">LinkedIn profile</label><input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off"></div>
+        <form class="auth-form" onsubmit="return validateStep2()">
+          <div class="field" id="su-linkedin-field">
+            <label for="su-linkedin">LinkedIn profile <span class="req">*</span></label>
+            <input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off" oninput="clearField('su-linkedin-field','su-linkedin-msg')">
+            <div class="field-msg" id="su-linkedin-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Add your LinkedIn profile URL</div>
+          </div>
           <div class="field">
-            <label>Resume or CV</label>
-            <div class="upload-area">
+            <label>Resume or CV <span class="req">*</span></label>
+            <div class="upload-area" id="su-resume-area">
               <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
               <div class="upload-icon">📄</div>
               <p><strong>Click to upload</strong> or drag and drop</p>
               <p>PDF, DOC, DOCX — max 5MB</p>
               <div class="upload-name" id="uploadName"></div>
             </div>
+            <div class="field-msg" id="su-resume-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Upload your resume to continue</div>
           </div>
           <div class="nav-row">
             <button class="btn-skip" type="button" onclick="goToStep1()">← Back</button>
-            <button class="btn-auth" type="submit" onclick="goToStep3();return false">Continue →</button>
+            <button class="btn-auth" type="submit">Continue →</button>
           </div>
         </form>
       </div>
@@ -135,7 +140,7 @@
       <div id="signupStep3" style="display:none">
         <div class="step-indicator">Step 3 of 3</div>
         <h1 class="auth-heading">A bit more about you</h1>
-        <p class="auth-sub">Tell us how you identify so we can personalize your experience. This never affects your eligibility for a role. We use it only internally to support our community — it's never shown on your public profile. <strong>Pick what applies</strong> — or skip.</p>
+        <p class="auth-sub">Tell us how you identify so we can personalize your experience. This never affects your eligibility for a role. We use it only internally to support our community — it's never shown on your public profile. <strong>Pick at least one in each.</strong></p>
         <div class="id-grid stacked">
           <div class="id-section">
             <div class="id-section-label">Area of experience</div>
@@ -153,8 +158,7 @@
         <div class="id-actions">
           <button class="btn-skip" type="button" onclick="goToStep2()">← Back</button>
           <div class="id-actions-right">
-            <button class="id-skip" onclick="goToThankYou()">Skip for now</button>
-            <button class="btn-auth" onclick="goToThankYou()">Save &amp; finish</button>
+            <button class="btn-auth" onclick="validateStep3()">Save &amp; finish</button>
           </div>
         </div>
         <p class="id-privacy">By saving you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
@@ -182,6 +186,15 @@
   </div>
 </div>
 
+<!-- DEV ONLY — click to jump between screens without filling anything in. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
+  <button type="button" onclick="goToStep1()" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+  <button type="button" onclick="goToStep2()" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+  <button type="button" onclick="goToStep3()" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+  <button type="button" onclick="goToThankYou()" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">✓</button>
+</div>
+
 <script src="../ds/ptf.js"></script>
 <script>
 if (new URLSearchParams(window.location.search).get('mode') === 'signin') showPanel('signin');
@@ -202,12 +215,36 @@ function goToStep1(){ showStep('signupStep1'); }
 function goToStep2(){ showStep('signupStep2'); }
 function goToStep3(){ showStep('signupStep3'); }
 function goToThankYou(){ showStep('signupThanks'); document.querySelector('.auth-toggle').style.display='none'; }
-function toggleChip(el){ el.classList.toggle('selected'); }
+function toggleChip(el){ el.classList.toggle('selected'); var sec = el.closest('.id-section'); if (sec) sec.classList.remove('invalid'); }
+// Step 3 — both demographic sections are required; block Save & finish until each has a pick.
+function validateStep3(){
+  var ok = true, first = null;
+  document.querySelectorAll('#signupStep3 .id-section').forEach(function(sec){
+    if (!sec.querySelector('.id-chip.selected')) { sec.classList.add('invalid'); ok = false; first = first || sec; }
+    else sec.classList.remove('invalid');
+  });
+  if (!ok) { if (first) first.scrollIntoView({ block: 'center' }); return false; }
+  goToThankYou();
+  return false;
+}
 function setFieldState(fieldId, msgId, isError){ var f=document.getElementById(fieldId), m=document.getElementById(msgId); if(!f||!m)return; f.classList.toggle('has-error',isError); f.classList.toggle('is-valid',!isError); m.classList.toggle('visible',isError); }
 function validateEmail(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)); }
 function validatePassword(i,f,m){ var v=document.getElementById(i).value; if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,v.length<8); }
 function validateRequired(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.add('has-error');document.getElementById(m).classList.add('visible');document.getElementById(f).classList.remove('is-valid');return;} setFieldState(f,m,false); }
-function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; }
+function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; if(n){ document.getElementById('su-resume-area').classList.remove('invalid'); document.getElementById('su-resume-msg').classList.remove('visible'); } }
+function clearField(fieldId,msgId){ document.getElementById(fieldId).classList.remove('has-error'); document.getElementById(msgId).classList.remove('visible'); }
+// Step 2 — LinkedIn URL and resume are both required; block Continue until filled.
+function validateStep2(){
+  var ok=true;
+  var li=document.getElementById('su-linkedin');
+  if(!li.value.trim()){ document.getElementById('su-linkedin-field').classList.add('has-error'); document.getElementById('su-linkedin-msg').classList.add('visible'); ok=false; }
+  else { document.getElementById('su-linkedin-field').classList.remove('has-error'); document.getElementById('su-linkedin-msg').classList.remove('visible'); }
+  var hasFile=document.querySelector('#signupStep2 input[type=file]').files.length>0;
+  if(!hasFile){ document.getElementById('su-resume-area').classList.add('invalid'); document.getElementById('su-resume-msg').classList.add('visible'); ok=false; }
+  else { document.getElementById('su-resume-area').classList.remove('invalid'); document.getElementById('su-resume-msg').classList.remove('visible'); }
+  if(ok) goToStep3();
+  return false;
+}
 </script>
 
 </body>
