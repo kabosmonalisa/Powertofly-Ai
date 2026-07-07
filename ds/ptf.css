@@ -688,6 +688,7 @@ img { display: block; max-width: 100%; }
 .upload-area input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
 /* Inline validation — a warm orange outline marks the areas still to complete (no text) */
 .field.invalid input, input.invalid { border-color: #E8843C; }
+.field.invalid input:focus { border-color: #E8843C; box-shadow: 0 0 0 3px rgba(232,132,60,0.15); }  /* keep the orange on focus, not the green ring */
 .upload-area.invalid { border-color: #E8843C; border-style: solid; }
 .id-section.invalid .id-section-label { color: #E8843C; }   /* step 3: tint the label, not a crowded ring around the chips */
 .agree-row.invalid { outline: 1.5px solid #E8843C; outline-offset: 6px; border-radius: 10px; }
