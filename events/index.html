@@ -115,7 +115,7 @@ h1.hero-headline {
 /* ── Full-page live event hero — takes over the first screen while an event is live; all info above the fold ── */
 .live-hero { display: none; }
 /* Pull up under the fixed header (body has 126px top padding) so the image bleeds to the very top, under the transparent nav — like the train hero. */
-.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 82vh; max-height: 900px; margin-top: -126px; animation: ltFade 0.4s ease; }
+.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 88vh; max-height: 940px; margin-top: -126px; animation: ltFade 0.4s ease; }
 .live-hero.is-open + .hero { display: none; }   /* the marketing hero steps aside while live */
 @keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
 .live-hero-media { order: 2; position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; border-radius: 0 0 0 28px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
@@ -123,7 +123,7 @@ h1.hero-headline {
 .live-hero-eyebrows { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin: 0 0 20px; }
 /* elegant "live" cue: just a small pulsing red dot next to the green eyebrow — no pill */
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #E5372F; flex: none; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: livepulse 1.6s ease-in-out infinite; }
-.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 148px clamp(48px, 5vw, 72px) 64px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
+.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 226px clamp(48px, 5vw, 72px) 64px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
 .live-hero-content .sc-tag { margin: 0; }
 .live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.0; font-weight: 700; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 24px; }
 .live-hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr)); gap: 18px 30px; max-width: 520px; margin: 0 0 36px; padding-top: 26px; border-top: 1px solid var(--line); }
