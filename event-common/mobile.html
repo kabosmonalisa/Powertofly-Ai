@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Register — Chat &amp; Learn — PowerToFly AI</title>
+<title>Register — Chat &amp; Learn (mobile) — PowerToFly AI</title>
 <!--
   CHAT & LEARN (common event) registration flow.
   This is a FAITHFUL copy of the golden ds/flow-event.html — only the copy changed
@@ -108,12 +108,12 @@
         <div class="flow-step" data-step="2" hidden>
           <div class="step-indicator">Step 2 of 4</div>
           <h1 class="auth-heading">A bit about you</h1>
-          <p class="auth-sub">Helps our panelists tailor the session — both are required to register.</p>
+          <p class="auth-sub">Helps our panelists tailor the session. LinkedIn is required; your resume is optional.</p>
           <form class="auth-form" onsubmit="return validateStep2()" novalidate>
             <label class="upload-area">
-              <input type="file" accept=".pdf,.doc,.docx" required>
+              <input type="file" accept=".pdf,.doc,.docx">
               <div class="upload-icon">📄</div>
-              <p><strong>Click to upload</strong> your resume <span class="req">*</span></p>
+              <p><strong>Click to upload</strong> your resume <span style="font-weight:500;color:var(--ink-3)">(optional)</span></p>
               <p style="font-size:13px;color:var(--ink-3)">PDF, DOC, DOCX — max 5MB</p>
               <div class="upload-name"></div>
             </label>
@@ -223,12 +223,9 @@
   }
 
   function validateStep2() {
-    var file = document.querySelector('[data-step="2"] input[type=file]');
-    var li   = document.querySelector('[data-step="2"] input[type=url]');
-    var ok = true, firstBad = null;
-    if (!file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; firstBad = firstBad || file; }
-    if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; firstBad = firstBad || li; }
-    if (!ok) { shake(2); firstBad.focus(); return false; }
+    // Mobile variant: resume optional — only LinkedIn is required.
+    var li = document.querySelector('[data-step="2"] input[type=url]');
+    if (!li.value.trim()) { setError(li.closest('.field'), 'Required'); shake(2); li.focus(); return false; }
     return goToStep(3);
   }
   function validateStep3() {
