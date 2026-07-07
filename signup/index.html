@@ -75,20 +75,18 @@
         <div class="step-indicator">Step 1 of 3</div>
         <h1 class="auth-heading">Join a community of experts like you</h1>
         <p class="auth-sub">Tell us more about you and we'll help you find the right fit.</p>
-        <form class="auth-form" onsubmit="goToStep2();return false">
+        <form class="auth-form" onsubmit="return validateStep1()">
           <div class="field-row">
-            <div class="field"><label for="su-first">First name</label><input type="text" id="su-first" placeholder="Amara" autocomplete="given-name"></div>
-            <div class="field"><label for="su-last">Last name</label><input type="text" id="su-last" placeholder="Osei" autocomplete="family-name"></div>
+            <div class="field"><label for="su-first">First name</label><input type="text" id="su-first" placeholder="Amara" autocomplete="given-name" oninput="clearErr(this.closest('.field'))"></div>
+            <div class="field"><label for="su-last">Last name</label><input type="text" id="su-last" placeholder="Osei" autocomplete="family-name" oninput="clearErr(this.closest('.field'))"></div>
           </div>
           <div class="field" id="su-email-field">
             <label for="su-email">Email</label>
-            <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email" onblur="validateEmail('su-email','su-email-field','su-email-msg')">
-            <div class="field-msg" id="su-email-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Enter a valid email address</div>
+            <input type="email" id="su-email" placeholder="you@example.com" autocomplete="email" oninput="clearErr(this.closest('.field'))">
           </div>
           <div class="field" id="su-password-field">
             <label for="su-password">Password</label>
-            <input type="password" id="su-password" placeholder="Min. 8 characters" autocomplete="new-password" onblur="validatePassword('su-password','su-password-field','su-password-msg')">
-            <div class="field-msg" id="su-password-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Use at least 8 characters</div>
+            <input type="password" id="su-password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearErr(this.closest('.field'))">
           </div>
           <button class="btn-auth" type="submit">Continue →</button>
         </form>
@@ -237,6 +235,18 @@ function validateEmail(i,f,m){ var v=document.getElementById(i).value.trim(); if
 function validatePassword(i,f,m){ var v=document.getElementById(i).value; if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,v.length<8); }
 function validateRequired(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.add('has-error');document.getElementById(m).classList.add('visible');document.getElementById(f).classList.remove('is-valid');return;} setFieldState(f,m,false); }
 function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; if(n) clearErr(document.getElementById('su-resume-area')); }
+// Step 1 — all fields required; block Continue until name, a valid email, and an 8+ char password are given.
+function validateStep1(){
+  var ok = true, firstBad = null;
+  function check(id, valid){ var input = document.getElementById(id), field = input.closest('.field'); if (valid) { clearErr(field); } else { setErr(field); ok = false; firstBad = firstBad || input; } }
+  check('su-first', document.getElementById('su-first').value.trim() !== '');
+  check('su-last',  document.getElementById('su-last').value.trim() !== '');
+  check('su-email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('su-email').value.trim()));
+  check('su-password', document.getElementById('su-password').value.length >= 8);
+  if (!ok) { shakeBtn(document.querySelector('#signupStep1 button[type=submit]')); if (firstBad) firstBad.focus(); return false; }
+  goToStep2();
+  return false;
+}
 // Step 2 — LinkedIn URL and resume are both required; block Continue until filled.
 function validateStep2(){
   var ok=true, firstBad=null;
