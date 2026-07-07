@@ -108,12 +108,12 @@
         <div class="flow-step" data-step="2" hidden>
           <div class="step-indicator">Step 2 of 4</div>
           <h1 class="auth-heading">A bit about you</h1>
-          <p class="auth-sub">Helps our panelists tailor the session — both are required to register.</p>
+          <p class="auth-sub" id="step2Sub">Helps our panelists tailor the session — both are required to register.</p>
           <form class="auth-form" onsubmit="return validateStep2()" novalidate>
             <label class="upload-area">
               <input type="file" accept=".pdf,.doc,.docx" required>
               <div class="upload-icon">📄</div>
-              <p><strong>Click to upload</strong> your resume <span class="req">*</span></p>
+              <p><strong>Click to upload</strong> your resume <span class="req" id="resumeReqMark">*</span></p>
               <p style="font-size:13px;color:var(--ink-3)">PDF, DOC, DOCX — max 5MB</p>
               <div class="upload-name"></div>
             </label>
@@ -225,10 +225,12 @@
   function validateStep2() {
     var file = document.querySelector('[data-step="2"] input[type=file]');
     var li   = document.querySelector('[data-step="2"] input[type=url]');
-    var ok = true;
-    if (!file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; }
-    if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; }
-    if (!ok) { shake(2); (file.files.length ? li : file).focus(); return false; }
+    // Desktop → resume required; mobile (≤768px) → resume optional. LinkedIn always required.
+    var resumeRequired = !window.matchMedia('(max-width: 768px)').matches;
+    var ok = true, firstBad = null;
+    if (resumeRequired && !file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; firstBad = firstBad || file; }
+    if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; firstBad = firstBad || li; }
+    if (!ok) { shake(2); firstBad.focus(); return false; }
     return goToStep(3);
   }
   function validateStep3() {
@@ -251,6 +253,29 @@
   document.querySelectorAll('.id-chip').forEach(function (c) {
     c.addEventListener('click', function () { c.classList.toggle('selected'); clearError(c.closest('.id-section')); });
   });
+  // Desktop/mobile split: resume required on desktop, optional on mobile (≤768px).
+  // Keep the label mark, sub copy, and native required attr in sync with the viewport.
+  (function () {
+    var mq = window.matchMedia('(max-width: 768px)');
+    function sync() {
+      var mobile = mq.matches;
+      var file = document.querySelector('[data-step="2"] input[type=file]');
+      var mark = document.getElementById('resumeReqMark');
+      var sub  = document.getElementById('step2Sub');
+      if (file) { mobile ? file.removeAttribute('required') : file.setAttribute('required', ''); }
+      if (mark) {
+        mark.textContent = mobile ? '(optional)' : '*';
+        mark.className = mobile ? '' : 'req';
+        mark.style.cssText = mobile ? 'font-weight:500;color:var(--ink-3)' : '';
+      }
+      if (sub) sub.textContent = mobile
+        ? 'Helps our panelists tailor the session. LinkedIn is required; your resume is optional.'
+        : 'Helps our panelists tailor the session — both are required to register.';
+    }
+    sync();
+    mq.addEventListener ? mq.addEventListener('change', sync) : mq.addListener(sync);
+  })();
+
   // Resume: show file name + clear error
   document.querySelectorAll('.upload-area input[type=file]').forEach(function (inp) {
     inp.addEventListener('change', function () {
