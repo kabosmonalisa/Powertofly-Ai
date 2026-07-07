@@ -932,8 +932,7 @@ img { display: block; max-width: 100%; }
 .statband-item:last-child { border-right: none; }
 .statband-icon { width: 30px; height: 30px; flex-shrink: 0; background: rgba(79,232,169,0.15); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
 /* outline icons: fat (weight 4) + iridescent gradient stroke (needs a #ptf-grad def on the page) */
-.statband-icon svg { width: 15px; height: 15px; stroke: url(#ptf-grad); fill: none; stroke-width: 4; stroke-linecap: square; stroke-linejoin: miter; }
-.statband-icon svg[style*="fill:#4FE8A9"] { stroke: none; fill: url(#ptf-grad); }
+.statband-icon svg { width: 16px; height: 16px; fill: var(--ink); stroke: none; }  /* small icon — plain ink MUI Outlined, no gradient */
 .statband-text { display: flex; align-items: baseline; gap: 6px; }
 .statband-num { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
 .statband-lbl { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 400; color: var(--ink-2); }
