@@ -722,7 +722,8 @@ img { display: block; max-width: 100%; }
 .btn-skip:hover { color: var(--ink); }
 /* Full-width block button (thank-you actions) + the stacked action column + tiny legal print */
 .btn-block { width: 100%; justify-content: center; padding: 18px 26px; }
-.thanks-actions { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+.thanks-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.thanks-actions > a { flex: 1 1 210px; justify-content: center; padding: 18px 26px; }  /* two CTAs side by side; wrap to stacked on narrow screens */
 .auth-fineprint { margin-top: 12px; font-size: 12px; color: var(--ink-3); text-align: center; line-height: 1.5; }
 .auth-fineprint a { color: var(--ink-3); }
 /* Hide inactive flow steps (belt-and-suspenders alongside the native [hidden]) */
