@@ -360,6 +360,9 @@ img { display: block; max-width: 100%; }
  * (centered text, text+image, video) stays page-specific. */
 .section-hero { padding: var(--hero-top) var(--gutter) var(--section-y); }
 .section-hero .section-head { max-width: var(--content); margin-bottom: 40px; }
+/* Hero glow — iridescent radial wash behind a hero (add `hero-glow` to the hero section).
+   Promoted from the identical inline copies on hire/ + employers/ + job-board/ (2026-07-07). */
+.hero-glow { background: radial-gradient(ellipse 1100px 720px at 50% -10%, color-mix(in srgb, var(--iri-green) 22%, transparent) 0%, color-mix(in srgb, var(--iri-lime) 12%, transparent) 35%, var(--bg) 70%); }
 .section-narrow { max-width: var(--content-wide); margin: 0 auto; }
 .content        { max-width: var(--content); margin-left: auto; margin-right: auto; }
 .content-narrow { max-width: var(--content-narrow); margin-left: auto; margin-right: auto; }

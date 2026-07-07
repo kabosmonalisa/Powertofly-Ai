@@ -184,17 +184,10 @@
 .jb-plan-feats svg,.jb-chip svg,.jb-plan-icon svg,.jb-fcard-ic svg,.jb-nstitle svg,.jb-toggle-title svg{fill:var(--ink);}
 .jb-input-wrap svg,.jb-secure svg,.jb-stripe svg{fill:var(--ink-3);}
 
-/* ── Employer-hero glow — the iridescent radial wash on the hire/ and employers/
-   heroes (identical string there). job-board is the 3rd page to use it, so per the
-   DS "3rd use → promote" rule this belongs in ptf.css as a shared class (e.g.
-   .hero-glow); flagged. Values copied VERBATIM from hire/ so the look matches.
-   Padding also matched to hire (96/72) — more top than before, per feedback — and
-   the package section is pulled up so the two read as one balanced unit. Scoped to
-   #screen-package; does not touch the shared .section-hero elsewhere. ── */
-#screen-package .section-hero{
-  padding-top:96px;padding-bottom:72px;
-  background:radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
-}
+/* Hero glow now comes from the shared .hero-glow class in ptf.css. Page keeps only
+   its spacing: more top padding (per feedback), package section pulled up so the two
+   read as one balanced unit. Scoped to #screen-package. */
+#screen-package .section-hero{padding-top:96px;padding-bottom:72px;}
 #screen-package .section-hero + .section{padding-top:40px;}
 </style>
 </head>
@@ -215,7 +208,7 @@
   <!-- ════════════════ SCREEN 1 — SELECT PACKAGE ════════════════ -->
   <section class="jb-screen" id="screen-package">
 
-    <section class="section-hero">
+    <section class="section-hero hero-glow">
       <div class="section-head">
         <h1 class="display">Post jobs. Find talent.<br>Build your team.</h1>
         <p>Connect with qualified candidates through PowerToFly's trusted job board. Simple pricing, powerful results.</p>
