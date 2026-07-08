@@ -189,6 +189,31 @@
    read as one balanced unit. Scoped to #screen-package. */
 #screen-package .section-hero{padding-top:96px;padding-bottom:72px;}
 #screen-package .section-hero + .section{padding-top:40px;}
+
+/* ── Account-validation state screens (Cases 2/4/5/6) — centered "state card".
+   New page-specific component: bordered card, centered green-tint icon tile (icon
+   <40px → plain ink), heading, muted sub, optional left-aligned fields, full-width
+   button. Reuses .field / .btn-primary / .jb-back. ── */
+.jb-statecard{max-width:520px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:36px 32px;box-shadow:var(--shadow-card);text-align:center;}
+.jb-statecard-ic{width:56px;height:56px;border-radius:var(--r-md);background:color-mix(in srgb,var(--green-mid) 16%,#fff);display:grid;place-items:center;margin:0 auto 22px;}
+.jb-statecard-ic svg{width:28px;height:28px;fill:var(--ink);}   /* <40px → plain ink, no gradient */
+.jb-statecard h2{font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin-bottom:10px;}
+.jb-statecard-sub{font-size:15px;color:var(--ink-3);line-height:1.6;margin-bottom:24px;}
+.jb-statecard-sub b{color:var(--ink);font-weight:600;}
+.jb-statecard .jb-fcard-body{text-align:left;margin-bottom:22px;}
+.jb-statecard .btn{width:100%;justify-content:center;}
+.jb-statecard-msg{font-size:13px;color:var(--green);font-weight:600;margin-top:14px;min-height:18px;}
+.jb-state-back{text-align:center;margin-top:28px;}
+
+/* Prototype-only demo case-picker + sentinel-email hint on the Company Info screen. */
+.jb-demo{max-width:720px;margin:0 auto 28px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:var(--r-md);padding:14px 18px;}
+.jb-demo-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;font-size:13px;color:var(--ink-2);}
+.jb-demo select{font-family:inherit;font-size:13px;padding:6px 10px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:var(--surface);color:var(--ink);}
+.jb-hint{font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.5;text-align:center;}
+.jb-hint code{background:var(--surface);border:1px solid var(--line);padding:1px 5px;border-radius:4px;font-size:11.5px;}
+
+/* Company-context note on checkout (Cases 3 & 7). */
+.jb-conote{max-width:1120px;margin:0 auto 20px;background:color-mix(in srgb,var(--green-mid) 12%,#fff);border:1px solid color-mix(in srgb,var(--green-mid) 40%,#fff);border-radius:var(--r-md);padding:12px 16px;font-size:13.5px;color:var(--ink-2);text-align:center;}
 </style>
 </head>
 <body>
@@ -302,6 +327,23 @@
         <p>Set up your company profile to get started.</p>
       </div>
 
+      <!-- PROTOTYPE-ONLY: demo case-picker + sentinel-email hint. Remove for production. -->
+      <div class="jb-demo">
+        <div class="jb-demo-row">🧪 <b>Prototype — preview a validation case:</b>
+          <select onchange="demoCase(this)">
+            <option value="">Choose a case…</option>
+            <option value="1">1 · New company → checkout</option>
+            <option value="2">2 · Existing co. + verified client → log in</option>
+            <option value="3">3 · Existing co. + new client → checkout</option>
+            <option value="4">4 · Account not verified → verify</option>
+            <option value="5">5 · Suspended / blocked → contact</option>
+            <option value="6">6 · Talent account → contact</option>
+            <option value="7">7 · Existing co. + active jobs → checkout</option>
+          </select>
+        </div>
+        <div class="jb-hint">Or type a sentinel email on the form: <code>verified@</code> (log in) · <code>talent@</code> / <code>suspended@</code> (contact) · <code>pending@</code> (verify) · <code>active@</code> / <code>newclient@</code> (checkout) — anything else = new company.</div>
+      </div>
+
       <div class="jb-stack">
         <div class="jb-fcard">
           <div class="jb-fcard-hd">
@@ -331,9 +373,74 @@
         <div class="jb-note">Your company account will be created as pending and activated after payment is completed.</div>
 
         <div class="jb-flow-actions">
-          <button class="btn btn-primary" type="button" onclick="showScreen('screen-checkout')">Continue to checkout →</button>
+          <button class="btn btn-primary" type="button" onclick="continueFromCompany()">Continue to checkout →</button>
         </div>
       </div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASE 2 — LOG IN TO CONTINUE (email = existing verified client) ════════════════ -->
+  <section class="jb-screen" id="screen-login" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg></div>
+        <h2>Log in to continue</h2>
+        <p class="jb-statecard-sub">An account already exists for <b id="loginEmailLabel">verified@acme.com</b>. Log in to continue with your selected package.</p>
+        <div class="jb-fcard-body">
+          <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" readonly></div>
+          <div class="field"><label for="login-password">Password</label><input type="password" id="login-password" placeholder="Enter your password"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="button" onclick="showScreen('screen-checkout')">Log in and continue →</button>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASE 4 — VERIFY YOUR ACCOUNT (existing client, not verified) ════════════════ -->
+  <section class="jb-screen" id="screen-verify" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div>
+        <h2>Verify your account</h2>
+        <p class="jb-statecard-sub">We sent a verification link to <b id="verifyEmailLabel">jane@acme.com</b>. Verify your account, then come back to finish checkout.</p>
+        <button class="btn btn-primary btn-block" type="button" onclick="resendVerify()">Resend verification email</button>
+        <div class="jb-statecard-msg" id="verifyMsg"></div>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASES 5 & 6 — CONTACT OUR TEAM (suspended / talent account) ════════════════ -->
+  <section class="jb-screen" id="screen-contact" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div>
+        <h2>Contact our team</h2>
+        <p class="jb-statecard-sub" id="contactBody">This email is already associated with a Talent account. Please contact our team to enable employer access.</p>
+        <a class="btn btn-primary btn-block" href="../book/">Contact sales →</a>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
     </section>
   </section>
 
@@ -355,6 +462,8 @@
           <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
           Job Board
         </span></div>
+
+        <p class="jb-conote" id="jbCaseNote" hidden></p>
 
         <div class="jb-checkout">
           <!-- LEFT: order summary + promo -->
@@ -524,6 +633,59 @@
     document.querySelectorAll('.jb-screen').forEach(function(s){ s.hidden = (s.id !== id); });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  /* ── Mock account/company validation (front-end prototype). Maps the entered email
+     to one of the PO's 7 cases and routes accordingly. Real validation would run
+     server-side BEFORE Stripe checkout; here sentinel local-parts trigger each case. ── */
+  var CASES = {
+    1: { email: 'newco@acme.com',     target: 'screen-checkout', note: '' },
+    2: { email: 'verified@acme.com',  target: 'screen-login',    note: '' },
+    3: { email: 'newclient@acme.com', target: 'screen-checkout', note: "New contact — you'll be added to your company's existing account. No duplicate company is created." },
+    4: { email: 'pending@acme.com',   target: 'screen-verify',   note: '' },
+    5: { email: 'suspended@acme.com', target: 'screen-contact',  note: '' },
+    6: { email: 'talent@acme.com',    target: 'screen-contact',  note: '' },
+    7: { email: 'active@acme.com',    target: 'screen-checkout', note: 'This company already has active postings — these credits are added to its existing account.' }
+  };
+  function caseForEmail(email){
+    var lp = (email || '').trim().toLowerCase().split('@')[0];
+    if (lp === 'verified') return 2;
+    if (lp === 'newclient') return 3;
+    if (lp === 'pending' || lp === 'unverified') return 4;
+    if (lp === 'suspended' || lp === 'blocked') return 5;
+    if (lp === 'talent') return 6;
+    if (lp === 'active') return 7;
+    return 1; // new company / new client → straight to checkout
+  }
+  function setText(id, t){ var e = document.getElementById(id); if (e) e.textContent = t; }
+  function routeCase(n, email){
+    var c = CASES[n];
+    // prefill the email onto the relevant screens
+    var le = document.getElementById('login-email'); if (le) le.value = email;
+    setText('loginEmailLabel', email);
+    setText('verifyEmailLabel', email);
+    // contact-copy variant (5 suspended / 6 talent)
+    if (n === 5) setText('contactBody', "This account is currently suspended and can't purchase job postings. Please contact our team to restore access.");
+    if (n === 6) setText('contactBody', 'This email is already associated with a Talent account. Please contact our team to enable employer access.');
+    // company-context note on checkout (cases 3 & 7)
+    var note = document.getElementById('jbCaseNote');
+    if (note){ note.textContent = c.note; note.hidden = !c.note; }
+    setText('verifyMsg', ''); // reset resend confirmation
+    showScreen(c.target);
+  }
+  function continueFromCompany(){
+    var email = (document.getElementById('co-email').value || '').trim() || 'jane@acme.com';
+    routeCase(caseForEmail(email), email);
+  }
+  function resendVerify(){ setText('verifyMsg', '✓ Verification email sent.'); }
+  // prototype-only demo case-picker
+  function demoCase(sel){
+    var n = parseInt(sel.value, 10); if (!n) return;
+    var email = CASES[n].email;
+    var f = document.getElementById('co-email'); if (f) f.value = email;
+    routeCase(n, email);
+    sel.value = '';
+  }
+
   recompute();
 </script>
 </body>

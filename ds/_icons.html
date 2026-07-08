@@ -16,9 +16,13 @@
   .cell{border:1px solid var(--line);border-radius:16px;padding:22px 12px 14px;display:flex;flex-direction:column;align-items:center;gap:12px;background:#fff}
   .cell.dark{background:#0A0A0A;border-color:rgba(255,255,255,.1)}
   .cell svg{width:46px;height:46px;display:block}
+  .cell.sm svg{width:22px;height:22px;fill:var(--ink);stroke:none}   /* small = plain ink, no gradient */
   .cap{font-size:11.5px;color:var(--ink-3);text-align:center;line-height:1.3}
   .cap b{color:var(--ink);font-weight:700}
   .cell.dark .cap{color:rgba(255,255,255,.6)}
+  .cell.dark.sm svg{fill:#fff}
+  .rule{border:1px solid var(--line);border-left:3px solid #0A8C66;border-radius:12px;padding:16px 18px;margin:24px 0 8px;font-size:14px;line-height:1.6;color:var(--ink)}
+  .rule b{font-weight:700}
 </style>
 </head>
 <body>
@@ -27,11 +31,13 @@
   <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient>
 </defs></svg>
 
-<h1>Icon gallery — MUI Outlined, gradient</h1>
-<p class="lead">One genuine MUI family: the <b>Outlined</b> variant, every icon gradient-filled. All the same outline style and weight — no more mixing filled and outline. MUI icon name under each. (MUI Outlined is a fixed medium weight — if you want them fatter than this, that's the Material Symbols set with a heavier weight axis, which I can switch to.)</p>
+<h1>Icon gallery — MUI Outlined, treatment by size</h1>
+<p class="lead">One genuine MUI family: the <b>Outlined</b> variant. All the same outline style — no more mixing filled and outline. What changes is the <b>treatment, by size</b>: gradient only when big, plain ink when small.</p>
 
-<h2>1 · MUI Outlined — gradient</h2>
-<p class="sub">Stat-band, event-meta, illustration headers, benefit rows, cards. One MUI Outlined family, gradient fill, uniform weight.</p>
+<div class="rule"><b>THE SIZE RULE (2026-07-04):</b> gradient <b>only at ≥40px</b> — big feature/hero icons &amp; the thank-you check. <b>Under 40px</b> (list bullets, chips, inline labels, fields, buttons, stepper marks — anything repeated) icons are <b>plain, single-color ink</b>, no gradient. A gradient icon at 16–24px is mush.</div>
+
+<h2>1 · Big (≥40px) — MUI Outlined, gradient</h2>
+<p class="sub">Feature/hero "moment" icons. Gradient fill + matching stroke, uniform weight. MUI icon name under each.</p>
 <div class="grid" id="outline">
   <div class="cell"><svg viewBox="0 0 24 24"><path fill="url(#g)" stroke="url(#g)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><span class="cap">people_outline</span></div>
   <div class="cell"><svg viewBox="0 0 24 24"><path fill="url(#g)" stroke="url(#g)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg><span class="cap">lightbulb_outlined</span></div>
@@ -53,11 +59,22 @@
   <div class="cell"><svg viewBox="0 0 24 24"><path fill="url(#g)" stroke="url(#g)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="m19 9 1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg><span class="cap">auto_awesome</span></div>
 </div>
 
-<h2>3 · Thank-you check</h2>
-<p class="sub">The fat confirmation mark from the flows — square corners, stroke 6.5. Big single gesture, its own thing.</p>
+<h2>3 · Thank-you check (big — always gradient)</h2>
+<p class="sub">The fat confirmation mark from the flows — square corners, stroke 6.5. Always a big single gesture, so always gradient.</p>
 <div class="grid">
   <div class="cell"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#g)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="cap">Check (light)</span></div>
   <div class="cell dark"><svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#g)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg><span class="cap">Check (dark)</span></div>
+</div>
+
+<h2>4 · Small (&lt;40px) — plain ink, NO gradient</h2>
+<p class="sub">Same MUI Outlined paths, but at list/chip/inline size they're plain single-color ink — the gradient is stripped. Colour via a token in CSS (<code>fill: var(--ink)</code>), never inline hex, never a gradient. This is how list bullets, chips, field icons, stepper marks and buttons render.</p>
+<div class="grid">
+  <div class="cell sm"><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg><span class="cap">check_circle (bullet)</span></div>
+  <div class="cell sm"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg><span class="cap">work_outline</span></div>
+  <div class="cell sm"><svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg><span class="cap">mail_outline</span></div>
+  <div class="cell sm"><svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg><span class="cap">lock_outline</span></div>
+  <div class="cell sm"><svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg><span class="cap">login</span></div>
+  <div class="cell dark sm"><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg><span class="cap">on dark → white</span></div>
 </div>
 
 </body>
