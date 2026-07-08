@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register — Meet with the Company — PowerToFly AI</title>
+<!--
+  MEET WITH THE COMPANY registration flow.
+  Duplicated from the Common Event flow (event-common/index.html) — same layout,
+  components, interactions, validation and styling; shared ds/ptf.css + ds/ptf.js.
+  DIFFERENCES vs common: (1) "Meet with the Company" eyebrow above the title;
+  (2) step 4 supports up to 3 custom questions; (3) resume required on ALL widths
+  (so there is no separate mobile file — one responsive page).
+  Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 questions + more events · 5 thanks.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for icons (referenced by .event-ico svg etc.) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a class="nav-brand" href="../index.html">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="https://powertofly.com/browse-events">← All events</a>
+</nav>
+
+<main class="reg-wrap">
+  <div class="reg-layout">
+
+    <!-- ══════ LEFT — event-info panel (change copy per event) ══════ -->
+    <aside class="event-card">
+      <div class="event-top">
+        <span class="eyebrow">Meet with the Company</span>
+      </div>
+      <h1 class="event-title">Building on AI: a <em class="italic-plain">Chat &amp; Learn</em></h1><!-- COPY: confirm -->
+      <div class="event-host">
+        <img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host"><!-- COPY: confirm host -->
+        <div class="event-host-text">
+          <span class="event-host-name">Hosted by PowerToFly</span><!-- COPY: confirm -->
+          <span class="event-host-role">+ 4 industry panelists</span><!-- COPY: confirm -->
+        </div>
+      </div>
+      <div class="event-meta">
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg></span>
+          <span class="event-meta-text"><strong>July 23, 2026</strong><span>1:00 – 2:00 PM ET</span></span>
+        </div>
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></span>
+          <span class="event-meta-text"><strong>Virtual</strong></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══════ RIGHT — form card (steps) ══════ -->
+    <div class="reg-form">
+      <div class="auth-card" id="card">
+        <!-- Sign in / Sign up toggle — visible on the auth step only -->
+        <div class="auth-toggle" id="authToggle">
+          <button id="tabSignIn" type="button" onclick="showAuth('signin')">Sign in</button>
+          <button class="active" id="tabSignUp" type="button" onclick="showAuth('signup')">Sign up</button>
+        </div>
+        <!-- Sign in -->
+        <div class="flow-step" data-step="signin" hidden>
+          <h1 class="auth-heading">Welcome back</h1>
+          <p class="auth-sub">Sign in to register for this event.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+            <button class="btn-auth" type="submit">Sign in</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Don't have an account? <a href="#" onclick="showAuth('signup');return false">Sign up free</a></p>
+        </div>
+        <!-- Step 1 — create account + register -->
+        <div class="flow-step" data-step="1">
+          <div class="step-indicator">Step 1 of 4</div>
+          <h1 class="auth-heading">Save your seat</h1>
+          <p class="auth-sub">Create your account to register — free to attend, virtually.</p>
+          <form class="auth-form" onsubmit="return validateStep1()" novalidate>
+            <div class="field-row">
+              <div class="field"><label>First name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field"><label>Last name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+            </div>
+            <div class="field"><label>Work email</label><input type="email" oninput="clearError(this.closest('.field'))"></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
+            <button class="btn-auth" type="submit">Create my account →</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Already have an account? <a href="#" onclick="showAuth('signin');return false">Sign in</a></p>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 2 — resume + LinkedIn (golden: one step) -->
+        <div class="flow-step" data-step="2" hidden>
+          <div class="step-indicator">Step 2 of 4</div>
+          <h1 class="auth-heading">A bit about you</h1>
+          <p class="auth-sub">Helps us connect you with the right people and opportunities.</p>
+          <form class="auth-form" onsubmit="return validateStep2()" novalidate>
+            <label class="upload-area">
+              <input type="file" accept=".pdf,.doc,.docx" required>
+              <div class="upload-icon">📄</div>
+              <p><strong>Click to upload</strong> your resume <span class="req">*</span></p>
+              <p style="font-size:13px;color:var(--ink-3)">PDF, DOC, DOCX — max 5MB</p>
+              <div class="upload-name"></div>
+            </label>
+            <div class="field"><label>LinkedIn <span class="req">*</span></label><input type="url" placeholder="linkedin.com/in/…" required></div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 3 — demographics (golden: chips in columns) -->
+        <div class="flow-step" data-step="3" hidden>
+          <div class="step-indicator">Step 3 of 4</div>
+          <h1 class="auth-heading">Tell us a little more about you</h1>
+          <p class="auth-sub">Choose all that apply — none of it affects your eligibility. We use it only internally and never show it publicly.</p>
+          <div class="id-grid stacked">
+            <div class="id-section">
+              <div class="id-section-label">Area of experience</div>
+              <div class="id-chips"><button type="button" class="id-chip">Data</button><button type="button" class="id-chip">Design</button><button type="button" class="id-chip">Engineering</button><button type="button" class="id-chip">Product</button><button type="button" class="id-chip">Marketing</button><button type="button" class="id-chip">Operations</button><button type="button" class="id-chip">Other</button></div>
+            </div>
+            <div class="id-section">
+              <div class="id-section-label">Self-identification</div>
+              <div class="id-chips"><button type="button" class="id-chip">Woman</button><button type="button" class="id-chip">Man</button><button type="button" class="id-chip">Non-binary</button><button type="button" class="id-chip">Latinx</button><button type="button" class="id-chip">Black</button><button type="button" class="id-chip">White</button><button type="button" class="id-chip">Asian</button><button type="button" class="id-chip">Native American / Indigenous</button><button type="button" class="id-chip">Multiracial</button><button type="button" class="id-chip">LGBTQIA+</button><button type="button" class="id-chip">Caregiver</button><button type="button" class="id-chip">Veteran, Military Spouse, or Active Service Member</button><button type="button" class="id-chip">Disabled</button><button type="button" class="id-chip">Prefer not to say</button><button type="button" class="id-chip">Other</button></div>
+            </div>
+          </div>
+          <form class="auth-form" onsubmit="return validateStep3()">
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(2)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By continuing you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 4 — questions for panelists + register for more events + agreement -->
+        <div class="flow-step" data-step="4" hidden>
+          <div class="step-indicator">Step 4 of 4</div>
+          <h1 class="auth-heading">A couple last things</h1>
+          <p class="auth-sub">Tell us what you want from the session, then confirm to lock in your spot.</p>
+          <form class="auth-form" onsubmit="return validateStep4()">
+            <div class="field" id="questionsBlock">
+              <label>Questions for the company <span style="font-weight:500;color:var(--ink-3)">(optional — up to 3)</span></label>
+              <textarea placeholder="e.g. What does the team structure look like?"></textarea>
+              <button type="button" class="btn btn-sm" id="addQuestionBtn" onclick="addQuestion()" style="margin-top:10px">+ Add another question</button>
+            </div>
+            <div class="q-group" style="margin:6px 0 0">
+              <div class="q-label">Register for more events <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+              <div class="event-list">
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AI talent showcase</span><span class="event-opt-date">Oct 8, 2026 · Virtual</span></span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Summit: scaling AI teams</span><span class="event-opt-date">Nov 12, 2026 · Virtual</span></span></label>
+              </div>
+            </div>
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox"><span>I accept the event <a href="#">waiver</a> and code of conduct, and agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">You can unsubscribe from event emails anytime.</p>
+        </div>
+        <!-- Step 5 — thank you -->
+        <div class="flow-step" data-step="5" hidden>
+          <div class="thanks-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="thanks-eyebrow">You're registered</div>
+          <h1 class="auth-heading">See you there</h1>
+          <p class="thanks-body">A calendar invite and joining link are on their way to your inbox.</p>
+          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse more events →</a>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- DEV ONLY — click to jump between screens without filling anything in. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
+  <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+  <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+  <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+  <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
+  <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  function goToStep(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
+    window.scrollTo(0, 0);
+    return false;
+  }
+  function showAuth(which) {
+    goToStep(which === 'signin' ? 'signin' : 1);
+    document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
+    document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
+    return false;
+  }
+  // ── Inline validation: button stays active; on click we check, show an error, and focus the gap ──
+  function setError(host) {
+    if (!host) return;
+    host.classList.add('invalid');
+    host.setAttribute('aria-invalid', 'true');
+  }
+  function clearError(host) {
+    if (!host) return;
+    host.classList.remove('invalid');
+    host.removeAttribute('aria-invalid');
+  }
+  function shake(step) {
+    var btn = document.querySelector('[data-step="' + step + '"] button[type=submit]');
+    if (!btn) return;
+    btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+  }
+
+  function validateStep1() {
+    var s = document.querySelector('[data-step="1"]');
+    var rowInputs = s.querySelectorAll('.field-row input');
+    var first = rowInputs[0], last = rowInputs[1];
+    var email = s.querySelector('input[type=email]');
+    var pass  = s.querySelector('input[type=password]');
+    var ok = true, firstBad = null;
+    function chk(input, valid) { var f = input.closest('.field'); if (valid) { clearError(f); } else { setError(f); ok = false; firstBad = firstBad || input; } }
+    chk(first, first.value.trim() !== '');
+    chk(last,  last.value.trim() !== '');
+    chk(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+    chk(pass,  pass.value.length >= 8);
+    if (!ok) { shake(1); if (firstBad) firstBad.focus(); return false; }
+    return goToStep(2);
+  }
+  function validateStep2() {
+    var file = document.querySelector('[data-step="2"] input[type=file]');
+    var li   = document.querySelector('[data-step="2"] input[type=url]');
+    var ok = true, firstBad = null;
+    if (!file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; firstBad = firstBad || file; }
+    if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; firstBad = firstBad || li; }
+    if (!ok) { shake(2); firstBad.focus(); return false; }
+    return goToStep(3);
+  }
+  function validateStep3() {
+    var ok = true, first = null;
+    document.querySelectorAll('[data-step="3"] .id-section').forEach(function (sec) {
+      clearError(sec);
+      if (!sec.querySelector('.id-chip.selected')) { setError(sec, 'Pick at least one'); ok = false; first = first || sec; }
+    });
+    if (!ok) { shake(3); first.scrollIntoView({ block: 'center' }); return false; }
+    return goToStep(4);
+  }
+  function validateStep4() {
+    var agree = document.getElementById('agreeBox'), row = agree.closest('.agree-row');
+    clearError(row);
+    if (!agree.checked) { setError(row, 'Please confirm to continue'); shake(4); return false; }
+    return goToStep(5);
+  }
+
+  // Step 4 — let attendees add up to 3 questions for the company; hide the button at 3.
+  function addQuestion() {
+    var block = document.getElementById('questionsBlock');
+    var btn = document.getElementById('addQuestionBtn');
+    if (block.querySelectorAll('textarea').length >= 3) return;
+    var ta = document.createElement('textarea');
+    ta.placeholder = 'Another question (optional)';
+    ta.style.marginTop = '10px';
+    block.insertBefore(ta, btn);
+    if (block.querySelectorAll('textarea').length >= 3) btn.style.display = 'none';
+  }
+
+  // Chips toggle + clear their section's error on change
+  document.querySelectorAll('.id-chip').forEach(function (c) {
+    c.addEventListener('click', function () { c.classList.toggle('selected'); clearError(c.closest('.id-section')); });
+  });
+  // Resume: show file name + clear error
+  document.querySelectorAll('.upload-area input[type=file]').forEach(function (inp) {
+    inp.addEventListener('change', function () {
+      var n = inp.closest('.upload-area').querySelector('.upload-name'); if (n) n.textContent = inp.files[0] ? inp.files[0].name : '';
+      clearError(inp.closest('.upload-area'));
+    });
+  });
+  // Clear text/url field errors as the user types, and the waiver error when ticked
+  document.querySelectorAll('[data-step="2"] input[type=url]').forEach(function (inp) {
+    inp.addEventListener('input', function () { clearError(inp.closest('.field')); });
+  });
+  var agreeBox = document.getElementById('agreeBox');
+  if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
+
+  // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
+  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
+  jumpFromHash();
+  window.addEventListener('hashchange', jumpFromHash);
+</script>
+</body>
+</html>
