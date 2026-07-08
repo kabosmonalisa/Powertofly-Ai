@@ -273,16 +273,32 @@
     return goToStep(5);
   }
 
-  // Step 4 — let attendees add up to 3 questions for the company; hide the button at 3.
+  // Step 4 — up to 3 questions for the company; each added one can be removed.
+  function syncAddBtn() {
+    var block = document.getElementById('questionsBlock');
+    document.getElementById('addQuestionBtn').style.display =
+      block.querySelectorAll('textarea').length >= 3 ? 'none' : '';
+  }
   function addQuestion() {
     var block = document.getElementById('questionsBlock');
     var btn = document.getElementById('addQuestionBtn');
     if (block.querySelectorAll('textarea').length >= 3) return;
+    var row = document.createElement('div');
+    row.className = 'q-added-row';
+    row.style.cssText = 'display:flex;gap:10px;align-items:flex-start;margin-top:10px';
     var ta = document.createElement('textarea');
     ta.placeholder = 'Another question (optional)';
-    ta.style.marginTop = '10px';
-    block.insertBefore(ta, btn);
-    if (block.querySelectorAll('textarea').length >= 3) btn.style.display = 'none';
+    ta.style.flex = '1';
+    var rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'btn-skip';
+    rm.textContent = 'Remove';
+    rm.style.marginTop = '12px';
+    rm.onclick = function () { row.remove(); syncAddBtn(); };
+    row.appendChild(ta);
+    row.appendChild(rm);
+    block.insertBefore(row, btn);
+    syncAddBtn();
   }
 
   // Chips toggle + clear their section's error on change
