@@ -205,12 +205,20 @@
 .jb-statecard-msg{font-size:13px;color:var(--green);font-weight:600;margin-top:14px;min-height:18px;}
 .jb-state-back{text-align:center;margin-top:28px;}
 
-/* Prototype-only demo case-picker + sentinel-email hint on the Company Info screen. */
-.jb-demo{max-width:720px;margin:0 auto 28px;background:var(--surface-2);border:1px dashed var(--line-2);border-radius:var(--r-md);padding:14px 18px;}
-.jb-demo-row{display:flex;align-items:center;gap:10px;justify-content:center;flex-wrap:wrap;font-size:13px;color:var(--ink-2);}
-.jb-demo select{font-family:inherit;font-size:13px;padding:6px 10px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:var(--surface);color:var(--ink);}
-.jb-hint{font-size:12px;color:var(--ink-3);margin-top:8px;line-height:1.5;text-align:center;}
-.jb-hint code{background:var(--surface);border:1px solid var(--line);padding:1px 5px;border-radius:4px;font-size:11.5px;}
+/* PROTOTYPE/QA ONLY — floating dev control, deliberately OFF-BRAND (raw colours, not
+   design tokens) so nobody mistakes it for part of the design. Delete this block +
+   the #jbDemoBar markup + the demo JS for production. Collapsible via the header. */
+.jb-demobar{position:fixed;right:16px;bottom:16px;z-index:4000;width:250px;
+  background:#141414;color:#fff;border:1px dashed #4FE8A9;border-radius:12px;
+  padding:12px 14px;box-shadow:0 14px 34px rgba(0,0,0,.32);font-family:'Inter',sans-serif;}
+.jb-demobar-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#4FE8A9;cursor:pointer;}
+.jb-demobar-hd span:last-child{color:rgba(255,255,255,.5);font-size:13px;}
+.jb-demobar-body{margin-top:10px;}
+.jb-demobar.collapsed .jb-demobar-body{display:none;}
+.jb-demobar select{width:100%;font-family:inherit;font-size:13px;padding:7px 9px;border-radius:8px;
+  border:1px solid rgba(255,255,255,.25);background:#1e1e1e;color:#fff;}
+.jb-demobar-hint{font-size:10px;color:rgba(255,255,255,.55);margin-top:9px;line-height:1.55;}
 
 /* Company-context note on checkout (Cases 3 & 7). */
 .jb-conote{max-width:1120px;margin:0 auto 20px;background:color-mix(in srgb,var(--green-mid) 12%,#fff);border:1px solid color-mix(in srgb,var(--green-mid) 40%,#fff);border-radius:var(--r-md);padding:12px 16px;font-size:13.5px;color:var(--ink-2);text-align:center;}
@@ -325,23 +333,6 @@
         </span>
         <h1 class="display">Create your account</h1>
         <p>Set up your company profile to get started.</p>
-      </div>
-
-      <!-- PROTOTYPE-ONLY: demo case-picker + sentinel-email hint. Remove for production. -->
-      <div class="jb-demo">
-        <div class="jb-demo-row">🧪 <b>Prototype — preview a validation case:</b>
-          <select onchange="demoCase(this)">
-            <option value="">Choose a case…</option>
-            <option value="1">1 · New company → checkout</option>
-            <option value="2">2 · Existing co. + verified client → log in</option>
-            <option value="3">3 · Existing co. + new client → checkout</option>
-            <option value="4">4 · Account not verified → verify</option>
-            <option value="5">5 · Suspended / blocked → contact</option>
-            <option value="6">6 · Talent account → contact</option>
-            <option value="7">7 · Existing co. + active jobs → checkout</option>
-          </select>
-        </div>
-        <div class="jb-hint">Or type a sentinel email on the form: <code>verified@</code> (log in) · <code>talent@</code> / <code>suspended@</code> (contact) · <code>pending@</code> (verify) · <code>active@</code> / <code>newclient@</code> (checkout) — anything else = new company.</div>
       </div>
 
       <div class="jb-stack">
@@ -613,6 +604,27 @@
 
 <!-- REUSED: shared site footer -->
 <div data-ptf-footer></div>
+
+<!-- ░░░ PROTOTYPE/QA ONLY — floating validation-case picker. NOT part of the design.
+     Delete this whole block (+ its .jb-demobar CSS + the demo JS) for production. ░░░ -->
+<div id="jbDemoBar" class="jb-demobar">
+  <div class="jb-demobar-hd" onclick="document.getElementById('jbDemoBar').classList.toggle('collapsed')">
+    <span>🧪 Prototype · preview case</span><span>–</span>
+  </div>
+  <div class="jb-demobar-body">
+    <select onchange="demoCase(this)">
+      <option value="">Jump to a case…</option>
+      <option value="1">1 · New company → checkout</option>
+      <option value="2">2 · Existing co. + verified → log in</option>
+      <option value="3">3 · Existing co. + new client → checkout</option>
+      <option value="4">4 · Account not verified → verify</option>
+      <option value="5">5 · Suspended / blocked → contact</option>
+      <option value="6">6 · Talent account → contact</option>
+      <option value="7">7 · Existing co. + active jobs → checkout</option>
+    </select>
+    <div class="jb-demobar-hint">Or type on the form: verified@ · talent@ · suspended@ · pending@ · active@ · newclient@ — else = new company.</div>
+  </div>
+</div>
 
 <script src="../ds/ptf.js"></script>
 <script>
