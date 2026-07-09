@@ -103,6 +103,10 @@ h1.hero-headline {
   .hero-feature { grid-template-columns: 1fr; margin-top: 36px; }
   .hero-feature-media { order: -1; min-height: 220px; }
   .hero-feature-text { padding: 30px 26px; }
+  /* full-width, easy-to-tap CTA on mobile; countdown drops to its own row below */
+  .hf-cta-row { gap: 16px; }
+  .hf-cta-row .btn { width: 100%; justify-content: center; }
+  .hf-countdown { width: 100%; }
 }
 
 @media (max-width: 600px) {
@@ -137,6 +141,9 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
   .live-hero.is-open { grid-template-columns: 1fr; min-height: 0; }
   .live-hero-media { order: -1; min-height: 44vh; border-radius: 0 0 0 28px; }
   .live-hero-content { order: 0; padding: 40px 26px 48px; }
+  /* full-width, stacked CTAs on mobile */
+  .live-hero-ctas { flex-direction: column; align-items: stretch; }
+  .live-hero-ctas .btn { width: 100%; justify-content: center; }
 }
 /* "See upcoming events" scrolls here — offset so the title clears the fixed header (alert + nav) */
 #upcoming { scroll-margin-top: 140px; }
