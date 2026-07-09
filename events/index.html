@@ -150,6 +150,30 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 /* PROTOTYPE-ONLY: preview trigger so the live state can be seen before it's wired to real live data */
 .live-preview-trigger { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
 .live-preview-trigger:hover { color: var(--ink); border-color: var(--ink); }
+
+/* ══ Mobile polish for the event lists — bigger speaker circles/logos + comfier rows ══ */
+@media (max-width: 700px) {
+  /* speaker circles read bigger on phones */
+  .ev-faces img { width: 44px; height: 44px; margin-left: -14px; border-width: 2.5px; }
+  .ev-listing--grid .ev-faces img { width: 38px; height: 38px; }
+  /* company logos bigger + clearer */
+  .ev-orgs { gap: 22px; }
+  .ev-orgs img { height: 26px; max-width: 100px; }
+  .ev-people { gap: 14px; margin: 8px 0 18px; }
+  .ev-people-label { font-size: 15px; color: var(--ink-2); }
+  /* comfier upcoming rows */
+  .ev-row { gap: 16px; padding: 30px 0; }
+  .ev-row > .ev-thumb { height: 210px; }
+  .ev-row-date { font-size: 14.5px; }
+  .ev-row-title { font-size: 22px; line-height: 1.2; }
+  .ev-row-desc { font-size: 15px; line-height: 1.6; }
+  .ev-row-link { font-size: 16px; }
+  /* past-event cards */
+  .ev-listing--grid .ev-row-title { font-size: 19px; }
+  .ev-listing--grid .ev-row-link { font-size: 16px; }
+  /* keep the prototype preview button out of the way of content */
+  .live-preview-trigger { left: auto; right: 12px; bottom: 12px; padding: 8px 13px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
