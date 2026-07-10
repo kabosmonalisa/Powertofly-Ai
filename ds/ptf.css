@@ -454,7 +454,7 @@ img { display: block; max-width: 100%; }
 .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ink); border-color: var(--ink); }
 .faq-item.open .faq-icon line { stroke: var(--bg); }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height 320ms ease; }
-.faq-item.open .faq-a { max-height: 320px; }
+.faq-item.open .faq-a { max-height: 600px; }   /* generous cap so long answers never clip (esp. on mobile) */
 .faq-a-inner { padding: 0 24px 22px; font-size: 15px; color: var(--ink-3); line-height: 1.65; }
 
 /* ===== Benefit cards ===== */
