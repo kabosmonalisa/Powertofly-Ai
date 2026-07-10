@@ -8,16 +8,16 @@
   ════════════════════════════════════════════════════════════════════════════
   VIRTUAL JOB FAIR (VJF) — reusable event-detail template.
   This is the page a member lands on after clicking a "Virtual job fair" tile on
-  events/index.html. It is built ENTIRELY from the shared design system:
+  events/index.html. It mirrors the source page's sections, rebranded, and is
+  built ENTIRELY from the shared design system:
   · nav + footer  → injected (data-ptf-nav / data-ptf-footer)
-  · companies band → .logo-strip marquee
   · how it works   → .section-how / .how-inner / .steps
-  · reach stats    → .section-statband
   · testimonial    → .testimonials / .t-card
   · more events    → .ev-head / .ev-list / .ev-row
+  · FAQ            → .faq-* (shared, PTF.initFaq)
   · closer         → .section-cta
   To spin up a new VJF: copy this file, change ONLY the copy (title, date, host,
-  companies, FAQ) + the hero image. Do not add components or rewrite CSS.
+  FAQ) + the hero image. Do not add components or rewrite CSS.
   Page-specific CSS below is limited to the sanctioned exceptions (COMPONENT-
   INVENTORY "Allowed page-specific CSS"): the fixed-header wiring, the event-hero
   composition (the shared rebranded-hero recipe, mirroring events/index.html),
@@ -77,11 +77,8 @@
 }
 .ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Companies-hiring logo marquee — its own compact band, symmetric tight rhythm (matches events page) */
-.logo-band { padding: var(--section-y-tight) var(--gutter); }
-
 /* "More upcoming job fairs" — hold head + tiles to the shared content column (--content-body),
-   so they align with the hero / how / statband instead of spilling to the nav edge */
+   so they align with the hero / how instead of spilling to the nav edge */
 .ev-more { max-width: var(--content-body); margin: 0 auto; }
 
 /* "View schedule" jumps here — offset so the title clears the fixed header (alert + nav) */
@@ -159,11 +156,6 @@
   </div>
 </section>
 
-<!-- 01b. COMPANIES HIRING — shared logo marquee, no label needed -->
-<section class="logo-band">
-  <div class="logo-strip"><div class="logo-strip-track" id="eventLogos"></div></div>
-</section>
-
 <!-- 02. HOW THE JOB FAIR WORKS — shared how-it-works (portrait + numbered steps) -->
 <section class="section-how" id="how">
   <div class="how-outer">
@@ -209,18 +201,7 @@
   </div>
 </section>
 
-<!-- 03. REACH STATS — shared stat band -->
-<section class="section-statband">
-  <div class="statband-inner">
-    <!-- COPY: confirm — reach numbers -->
-    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div><div class="statband-text"><span class="statband-num">380K+</span><span class="statband-lbl">Community members</span></div></div>
-    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
-    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
-    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div><div class="statband-text"><span class="statband-num">12+</span><span class="statband-lbl">Years connecting talent</span></div></div>
-  </div>
-</section>
-
-<!-- 04. TESTIMONIAL — shared .t-card (single, centered) -->
+<!-- 03. TESTIMONIAL — shared .t-card (single, centered) -->
 <section class="section" style="background: var(--bg-soft)">
   <div class="section-narrow">
     <div class="section-head">
@@ -245,30 +226,12 @@
   </div>
 </section>
 
-<!-- 05. FAQ — established accordion pattern (talents) -->
+<!-- 04. FAQ — shared accordion; only questions the steps section doesn't already answer -->
 <section class="section">
   <div class="section-head">
     <h2>Frequently asked questions</h2>
   </div>
   <div class="faq-list" id="faqList">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How does a virtual job fair work?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">It works much like an in-person job fair, only online. Each participating company hosts a live presentation about its team and open roles, then opens the floor to your questions. You can drop into the sessions that interest you most, all from one virtual room.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">Do I need to turn my camera on?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">No — participating with your camera on is completely optional. You're welcome to attend, listen, and ask questions in the chat without ever being on screen.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">Will the event be recorded?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Yes. The company presentations are recorded and shared afterward, so you can catch anything you missed or revisit a session before you follow up.</div></div>
-    </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Can I attend from my phone?
         <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
@@ -282,12 +245,6 @@
       <div class="faq-a"><div class="faq-a-inner">Casual is perfectly fine. Come as you are — the focus is on the conversations and connections, not a dress code.</div></div>
     </div>
     <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How do I share my resume with companies?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Upload it once during registration and it lives on your PowerToFly profile. Tap "I'm interested" on any company and your profile — resume included — goes straight to their recruiters.</div></div>
-    </div>
-    <div class="faq-item">
       <button class="faq-q" aria-expanded="false">I need an accommodation — who do I contact?
         <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
       </button>
@@ -296,7 +253,7 @@
   </div>
 </section>
 
-<!-- 06. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
+<!-- 05. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
 <section class="section" style="background: var(--bg-soft)">
   <div class="ev-more">
   <div class="ev-head">
@@ -331,7 +288,7 @@
   </div><!-- /.ev-more -->
 </section>
 
-<!-- 07. FINAL CTA — shared dark closer band -->
+<!-- 06. FINAL CTA — shared dark closer band -->
 <section class="section-cta">
   <div class="section-cta-inner">
     <span class="eyebrow">Save your seat</span>
@@ -348,9 +305,8 @@
 
 <script src="../ds/ptf.js"></script>
 <script>
-  PTF.initHeader();                       // fixed alert + nav offset
-  PTF.initMarquee('eventLogos');          // companies-hiring logo strip
-  // FAQ accordion auto-wires via PTF.initFaq() (shared) — no page script needed
+  PTF.initHeader();  // fixed alert + nav offset
+  // FAQ accordion + how-it-works steps auto-wire via PTF.initFaq() / PTF.initSteps() (shared)
 </script>
 </body>
 </html>
