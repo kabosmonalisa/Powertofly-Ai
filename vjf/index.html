@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Virtual job fair — The Next Wave: AI &amp; Emerging Tech — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  VIRTUAL JOB FAIR (VJF) — reusable event-detail template.
+  This is the page a member lands on after clicking a "Virtual job fair" tile on
+  events/index.html. It is built ENTIRELY from the shared design system:
+  · nav + footer  → injected (data-ptf-nav / data-ptf-footer)
+  · companies band → .logo-strip marquee
+  · how it works   → .section-how / .how-inner / .steps
+  · reach stats    → .section-statband
+  · testimonial    → .testimonials / .t-card
+  · more events    → .ev-head / .ev-list / .ev-row
+  · closer         → .section-cta
+  To spin up a new VJF: copy this file, change ONLY the copy (title, date, host,
+  companies, FAQ) + the hero image. Do not add components or rewrite CSS.
+  Page-specific CSS below is limited to the sanctioned exceptions (COMPONENT-
+  INVENTORY "Allowed page-specific CSS"): the fixed-header wiring, the event-hero
+  composition (the shared rebranded-hero recipe, mirroring events/index.html),
+  and the FAQ accordion (the established talents-page pattern — tokens only).
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<!-- OG -->
+<meta property="og:title"       content="Virtual job fair — The Next Wave: AI &amp; Emerging Tech — PowerToFly AI">
+<meta property="og:description" content="Join our virtual job fair on AI, emerging tech, and the future of work. Meet companies hiring, watch live presentations, and connect with recruiters — all online.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY (tokens, never raw hex — see COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"). Everything visual not defined here comes from ptf.css.
+ */
+
+/* ── Fixed site header (alert + nav) — same wiring as events/hire ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Event-detail hero — the reusable VJF hero (page-unique composition).
+      Mirrors the events-page hero so every rebranded event page shares one hero.
+      2-col: event info (left) + media (right). ── */
+.ev-hero {
+  position: relative; overflow: hidden;
+  padding: 48px var(--gutter) var(--section-y);
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%,
+              rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
+}
+.ev-hero-inner {
+  position: relative; z-index: 2; max-width: var(--content-body); margin: 0 auto;
+  display: grid; grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(32px, 5vw, 68px); align-items: center;
+}
+.ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+.ev-hero h1 {
+  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif; font-weight: 700;
+  font-size: clamp(34px, 4.4vw, 56px); line-height: 1.02; letter-spacing: -0.035em;
+  margin: 18px 0 0; max-width: 16ch;
+}
+.ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+/* Meta facts — text only, plain single-color MUI icons (no gradient at this size) */
+.ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 30px 0 0; }
+.ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
+.ev-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+.ev-hero-media {
+  position: relative; border-radius: var(--r-2xl); overflow: hidden;
+  min-height: 460px; background: var(--surface-2); box-shadow: var(--shadow-card);
+}
+.ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Companies-hiring logo marquee — its own compact band, respects the tight-spacing token */
+.logo-band { padding: var(--section-y-tight) var(--gutter) 0; }
+
+/* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
+.how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
+
+/* Single centered testimonial — the shared .t-card, just narrowed for one quote */
+.testimonials.testimonials-solo { max-width: 720px; margin: 0 auto; grid-template-columns: 1fr; }
+
+/* ── FAQ accordion — the established talents-page pattern (tokens only) ── */
+.faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 760px; margin: 0 auto; }
+.faq-item { background: var(--bg); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; transition: box-shadow 180ms ease; }
+.faq-item.open { box-shadow: var(--shadow-card); }
+.faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; background: none; border: none; cursor: pointer; text-align: left; font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.faq-icon { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; transition: transform 280ms ease, background 180ms ease, border-color 180ms ease; }
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ink); border-color: var(--ink); }
+.faq-icon svg { display: block; }
+.faq-item.open .faq-icon line { stroke: #fff; }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 320ms ease; }
+.faq-item.open .faq-a { max-height: 260px; }
+.faq-a-inner { padding: 0 24px 22px; font-size: 15px; color: var(--ink-3); line-height: 1.65; }
+
+/* ── Responsive ── */
+@media (max-width: 820px) {
+  .ev-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .ev-hero-media { order: -1; min-height: 300px; }
+  .ev-hero h1 { max-width: none; }
+}
+@media (max-width: 600px) {
+  .ev-hero { padding: 40px 20px var(--section-y); }
+  h1, h2, h3 { text-wrap: pretty; }
+  .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  .ev-hero-sub { font-size: 16px; }
+  .ev-hero-meta { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for any ≥40px gradient icon (kept for template reuse) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <!-- ═══ TOP ALERT ═══ -->
+  <div class="top-alert" id="topAlert">
+    Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17
+    <a href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- ═══ NAV — shared injected nav ═══ -->
+  <div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — the event, its facts, and the primary register action -->
+<section class="ev-hero">
+  <div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow"><span class="dot"></span>Virtual job fair</div>
+      <h1>The Next Wave: AI &amp; <em class="italic-plain">Emerging Tech</em></h1>
+      <p class="ev-hero-sub">Join our virtual job fair focused on AI, emerging tech, and the future of work — an immersive day connecting you with companies committed to a diverse and equitable digital future.</p>
+
+      <div class="ev-hero-meta">
+        <!-- MUI Outlined paths, plain ink (small = no gradient) -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>September 17, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>12:00 – 2:00 PM EDT</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual · free to attend</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>Companies hiring</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
+        <a class="btn" href="#how">View schedule</a>
+      </div>
+    </div>
+
+    <div class="ev-hero-media">
+      <!-- Diverse professionals at glowing screens — AI & emerging tech (Pexels, Lizu-approved) -->
+      <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop" alt="Professionals collaborating at glowing data screens — AI and emerging tech shaping tomorrow">
+    </div>
+  </div>
+</section>
+
+<!-- 01b. COMPANIES HIRING — shared logo marquee, no label needed -->
+<section class="logo-band">
+  <div class="logo-strip"><div class="logo-strip-track" id="eventLogos"></div></div>
+</section>
+
+<!-- 02. HOW THE JOB FAIR WORKS — shared how-it-works (portrait + numbered steps) -->
+<section class="section-how" id="how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>How the job fair works</h2>
+      <p>It runs like an in-person job fair — just online. Here's what to expect on the day.</p>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Register and upload your resume</h4>
+            <p>Create your free account and add your resume — it uploads straight to your PowerToFly profile so recruiters can find you.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>Explore the companies hiring</h4>
+            <p>See who's attending and the roles they're filling before the doors open, so you can plan the sessions that matter most to you.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Join the live presentations</h4>
+            <p>Each company presents its team, culture, and open roles, then takes your questions live. Cameras are optional, and every session is recorded.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>Connect and get noticed</h4>
+            <p>Tap "I'm interested" on any company's profile to raise your hand — recruiters follow up with the people who stood out.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. REACH STATS — shared stat band -->
+<section class="section-statband">
+  <div class="statband-inner">
+    <!-- COPY: confirm — reach numbers -->
+    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div><div class="statband-text"><span class="statband-num">380K+</span><span class="statband-lbl">Community members</span></div></div>
+    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><div class="statband-text"><span class="statband-num">190</span><span class="statband-lbl">Countries</span></div></div>
+    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
+    <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></div><div class="statband-text"><span class="statband-num">12+</span><span class="statband-lbl">Years connecting talent</span></div></div>
+  </div>
+</section>
+
+<!-- 04. TESTIMONIAL — shared .t-card (single, centered) -->
+<section class="section" style="background: var(--bg-soft)">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>What attendees say</h2>
+    </div>
+    <div class="testimonials testimonials-solo">
+      <div class="t-card">
+        <div class="t-stars">★★★★★</div>
+        <!-- COPY: confirm — quote from powertofly.com VJF testimonial -->
+        <p class="t-quote">"I loved getting to hear company recruiters speak about their openings and hiring processes directly. Every company showed a real commitment to workplace wellness and inclusion — it made the whole experience feel welcoming."</p>
+        <div class="t-meta">
+          <div class="t-meta-info">
+            <div class="t-author">Charlene Mendoza</div>
+            <div class="t-role">Product Designer</div>
+          </div>
+          <div class="t-logo">
+            <img src="https://i.pravatar.cc/96?img=32" alt="Charlene Mendoza">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. FAQ — established accordion pattern (talents) -->
+<section class="section">
+  <div class="section-head">
+    <h2>Frequently asked questions</h2>
+  </div>
+  <div class="faq-list" id="faqList">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How does a virtual job fair work?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">It works much like an in-person job fair, only online. Each participating company hosts a live presentation about its team and open roles, then opens the floor to your questions. You can drop into the sessions that interest you most, all from one virtual room.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Do I need to turn my camera on?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">No — participating with your camera on is completely optional. You're welcome to attend, listen, and ask questions in the chat without ever being on screen.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Will the event be recorded?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Yes. The company presentations are recorded and shared afterward, so you can catch anything you missed or revisit a session before you follow up.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I attend from my phone?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely. You can join and take part from a smartphone, tablet, or computer — whatever's easiest for you on the day.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What should I wear?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Casual is perfectly fine. Come as you are — the focus is on the conversations and connections, not a dress code.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">How do I share my resume with companies?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Upload it once during registration and it lives on your PowerToFly profile. Tap "I'm interested" on any company and your profile — resume included — goes straight to their recruiters.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">I need an accommodation — who do I contact?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">PowerToFly welcomes every member of our community. If you need a specific accommodation to take part, let us know via the details in your event invitation and we'll make sure you're supported.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
+<section class="section" style="background: var(--bg-soft)">
+  <div class="ev-head">
+    <h2>More upcoming job fairs</h2>
+    <a class="ev-head-link" href="../events/index.html">All events →</a>
+  </div>
+  <div class="ev-list">
+    <article class="ev-row" data-type="job-fair">
+      <div class="ev-row-date">October 22, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Virtual job fair</span>
+        <h3 class="ev-row-title">Beyond Boundaries: Voices of Latinidad</h3>
+        <p class="ev-row-desc">Join us for a groundbreaking virtual job fair that celebrates the vibrant tapestry of Latinidad and connects you with companies hiring across tech.</p>
+        <div class="ev-people"><div class="ev-orgs"><img src="../logos/shure.png" alt="Shure"><img src="../logos/lattice.png" alt="Lattice"><img src="../logos/plaid.png" alt="Plaid"></div><span class="ev-people-label">Companies hiring</span></div>
+        <a class="ev-row-link" href="../event-register.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/7108700/pexels-photo-7108700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+
+    <article class="ev-row" data-type="job-fair">
+      <div class="ev-row-date">November 19, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Virtual job fair</span>
+        <h3 class="ev-row-title">Supporting Veterans, Active Service Members &amp; Military Spouses</h3>
+        <p class="ev-row-desc">A virtual job fair honoring veterans, active service members, and military spouses — connecting you with inclusive employers ready to hire.</p>
+        <div class="ev-people"><div class="ev-orgs"><img src="../logos/nestle.png" alt="Nestlé"><img src="../logos/stryker.png" alt="Stryker"><img src="../logos/reddit.png" alt="Reddit"></div><span class="ev-people-label">Companies hiring</span></div>
+        <a class="ev-row-link" href="../event-register.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/7468063/pexels-photo-7468063.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+  </div>
+</section>
+
+<!-- 07. FINAL CTA — shared dark closer band -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Save your seat</span>
+    <h2>Your next role could start here.</h2>
+    <p>Registration is free and takes a minute. Meet the companies hiring in AI and emerging tech — and let them meet you.</p>
+    <a href="../event-register.html" class="btn btn-cta" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();                       // fixed alert + nav offset
+  PTF.initMarquee('eventLogos');          // companies-hiring logo strip
+
+  /* FAQ accordion — established talents pattern */
+  (function () {
+    var list = document.getElementById('faqList');
+    if (!list) return;
+    list.addEventListener('click', function (e) {
+      var btn = e.target.closest('.faq-q');
+      if (!btn) return;
+      var item = btn.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      list.querySelectorAll('.faq-item.open').forEach(function (i) {
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  })();
+</script>
+</body>
+</html>
