@@ -37,10 +37,10 @@
     <!-- ══════ LEFT — event-info panel (change copy per event) ══════ -->
     <aside class="event-card">
       <div class="event-top">
-        <span class="event-pill panel">Chat &amp; Learn</span><!-- COPY: confirm. variants: .webinar/.workshop/.panel -->
+        <span class="eyebrow" id="evEyebrow">Chat &amp; Learn</span><!-- swapped per type by the DEV type switcher -->
       </div>
-      <h1 class="event-title">Building on AI: a <em class="italic-plain">Chat &amp; Learn</em></h1><!-- COPY: confirm -->
-      <div class="event-host">
+      <h1 class="event-title" id="evTitle">Building on AI: a <em class="italic-plain">Chat &amp; Learn</em></h1><!-- COPY: confirm -->
+      <div class="event-host" id="evHost">
         <img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host"><!-- COPY: confirm host -->
         <div class="event-host-text">
           <span class="event-host-name">Hosted by PowerToFly</span><!-- COPY: confirm -->
@@ -189,6 +189,14 @@
   </div>
 </main>
 
+<!-- DEV ONLY — preview how each event type looks (only the left card changes). Remove before launch. -->
+<div id="devTypeNav" style="position:fixed;left:14px;bottom:62px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">TYPE</span>
+  <button type="button" onclick="setEventType('cl')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">C&amp;L</button>
+  <button type="button" onclick="setEventType('vjf')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">VJF</button>
+  <button type="button" onclick="setEventType('summit')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">Summit</button>
+</div>
+
 <!-- DEV ONLY — click to jump between screens without filling anything in. Remove before launch. -->
 <div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
   <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
@@ -287,6 +295,40 @@
   });
   var agreeBox = document.getElementById('agreeBox');
   if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
+
+  // DEV ONLY — event-type preview. The common flow is one reusable thing; only the LEFT card
+  // (eyebrow tag, title, host) changes per type. Remove the TYPE pill + this block before launch.
+  var EVENT_TYPES = {
+    cl: {
+      eyebrow: 'Chat & Learn',
+      title: 'Building on AI: a <em class="italic-plain">Chat &amp; Learn</em>',
+      host: '<img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host">' +
+            '<div class="event-host-text"><span class="event-host-name">Hosted by PowerToFly</span><span class="event-host-role">+ 4 industry panelists</span></div>'
+    },
+    vjf: {
+      eyebrow: 'Virtual Job Fair',
+      title: 'AI Talent <em class="italic-plain">Virtual Job Fair</em>',
+      host: '<div class="event-host-text" style="gap:9px"><span class="event-host-role" style="text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;color:var(--ink-3)">Participating companies</span>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">' +
+            '<img src="../logos/visa.png" alt="Visa" style="height:18px;width:auto">' +
+            '<img src="../logos/plaid.png" alt="Plaid" style="height:16px;width:auto">' +
+            '<img src="../logos/lattice.png" alt="Lattice" style="height:17px;width:auto">' +
+            '<img src="../logos/expedia.png" alt="Expedia" style="height:15px;width:auto">' +
+            '</div></div>'
+    },
+    summit: {
+      eyebrow: 'Summit',
+      title: 'The AI Skills <em class="italic-plain">Summit 2026</em>',
+      host: '<img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host">' +
+            '<div class="event-host-text"><span class="event-host-name">Hosted by PowerToFly</span><span class="event-host-role">+ 12 speakers</span></div>'
+    }
+  };
+  function setEventType(key) {
+    var t = EVENT_TYPES[key]; if (!t) return;
+    document.getElementById('evEyebrow').textContent = t.eyebrow;
+    document.getElementById('evTitle').innerHTML = t.title;
+    document.getElementById('evHost').innerHTML = t.host;
+  }
 
   // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
   function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
