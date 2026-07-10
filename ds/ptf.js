@@ -465,7 +465,47 @@ window.PTF = (function () {
     });
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, renderNav, renderFooter, LOGOS };
+  /**
+   * initSteps()
+   * Reveals `.step` rows (how-it-works timeline) as they scroll into view, with a
+   * small stagger per `.steps` group. Without this, `.step` stays opacity:0 (its
+   * CSS default) and the steps are invisible. Idempotent + auto-run, so a page only
+   * needs the markup. Mobile (≤600px) shows them immediately via CSS regardless.
+   */
+  function initSteps() {
+    var steps = [].slice.call(document.querySelectorAll('.step:not([data-step-wired])'));
+    if (!steps.length) return;
+    steps.forEach(function (s) { s.setAttribute('data-step-wired', '1'); });
+    // stagger each step within its own .steps group
+    document.querySelectorAll('.steps').forEach(function (group) {
+      group.querySelectorAll('.step').forEach(function (s, i) { if (!s.dataset.delay) s.dataset.delay = i * 110; });
+    });
+    function reveal(s) { setTimeout(function () { s.classList.add('visible'); }, parseInt(s.dataset.delay || 0, 10)); }
+    // Primary: reveal on scroll-in for a nice stagger (real browsers).
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { reveal(e.target); obs.unobserve(e.target); } });
+      }, { threshold: 0.2 });
+      steps.forEach(function (s) { obs.observe(s); });
+    }
+    // Safety net: reveal any step already in view now + on scroll, so content is
+    // NEVER stuck at opacity:0 if the observer doesn't fire. Self-detaches when done.
+    var pending = steps.slice();
+    function sweep() {
+      pending = pending.filter(function (s) {
+        if (s.classList.contains('visible')) return false;
+        var r = s.getBoundingClientRect();
+        if (r.top < (window.innerHeight || 800) * 0.95 && r.bottom > 0) { reveal(s); return false; }
+        return true;
+      });
+      if (!pending.length) { window.removeEventListener('scroll', sweep); window.removeEventListener('resize', sweep); }
+    }
+    window.addEventListener('scroll', sweep, { passive: true });
+    window.addEventListener('resize', sweep);
+    sweep();
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, initSteps, renderNav, renderFooter, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -490,4 +530,5 @@ document.addEventListener('DOMContentLoaded', function () {
   PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
   PTF.initEventList();  // no-ops unless the page has a [data-ev-list] container
   PTF.initFaq();  // no-ops unless the page has a .faq-list container
+  PTF.initSteps();  // no-ops unless the page has .step rows (how-it-works reveal)
 });

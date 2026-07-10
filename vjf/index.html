@@ -77,8 +77,15 @@
 }
 .ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* Companies-hiring logo marquee — its own compact band, respects the tight-spacing token */
-.logo-band { padding: var(--section-y-tight) var(--gutter) 0; }
+/* Companies-hiring logo marquee — its own compact band, symmetric tight rhythm (matches events page) */
+.logo-band { padding: var(--section-y-tight) var(--gutter); }
+
+/* "More upcoming job fairs" — hold head + tiles to the shared content column (--content-body),
+   so they align with the hero / how / statband instead of spilling to the nav edge */
+.ev-more { max-width: var(--content-body); margin: 0 auto; }
+
+/* "View schedule" jumps here — offset so the title clears the fixed header (alert + nav) */
+#how { scroll-margin-top: 140px; }
 
 /* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
 .how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
@@ -291,6 +298,7 @@
 
 <!-- 06. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
 <section class="section" style="background: var(--bg-soft)">
+  <div class="ev-more">
   <div class="ev-head">
     <h2>More upcoming job fairs</h2>
     <a class="ev-head-link" href="../events/index.html">All events →</a>
@@ -320,6 +328,7 @@
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/7468063/pexels-photo-7468063.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
   </div>
+  </div><!-- /.ev-more -->
 </section>
 
 <!-- 07. FINAL CTA — shared dark closer band -->

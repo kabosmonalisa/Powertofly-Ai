@@ -932,7 +932,13 @@ img { display: block; max-width: 100%; }
 
 /* ===== How-it-works portrait (the tall photo that sits beside .steps) =====
  * Pair .how-inner (2-up grid) with a .how-portrait-card on one side and .steps on the other.
- * Set the photo via inline background-image; for a dark page, content may override to min-height. */
+ * Set the photo via inline background-image; for a dark page, content may override to min-height.
+ * Wrap the whole thing: <section class="section-how"><div class="how-outer">
+ *   <div class="section-head">…</div><div class="how-inner">…</div></div></section>
+ * .section-how gives the standard section rhythm + gutter; .how-outer holds it to the
+ * content column so it aligns with every other content block (never full-bleed). */
+.section-how { padding: var(--section-y) var(--gutter); }
+.how-outer { max-width: var(--content-body); margin: 0 auto; }
 .how-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: stretch; }
 /* height follows the steps beside it (fewer steps → shorter image, width unchanged) */
 .how-portrait-card { border-radius: var(--r-2xl); overflow: hidden; background-size: cover; background-position: center; position: relative; }
