@@ -50,7 +50,7 @@
       2-col: event info (left) + media (right). ── */
 .ev-hero {
   position: relative; overflow: hidden;
-  padding: 48px var(--gutter) var(--section-y);
+  padding: var(--section-y) var(--gutter);   /* breathing room under the fixed nav, matches the hire hero */
   background: radial-gradient(ellipse 1100px 720px at 50% -10%,
               rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
 }
@@ -60,20 +60,18 @@
   gap: clamp(32px, 5vw, 68px); align-items: center;
 }
 .ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
-.ev-hero h1 {
-  font-family: 'Inter Tight', 'Inter', system-ui, sans-serif; font-weight: 700;
-  font-size: clamp(34px, 4.4vw, 56px); line-height: 1.02; letter-spacing: -0.035em;
-  margin: 18px 0 0; max-width: 16ch;
-}
+/* headline type comes from the shared .display class — only layout here */
+.ev-hero h1 { margin: 18px 0 0; max-width: 18ch; }
 .ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
 /* Meta facts — text only, plain single-color MUI icons (no gradient at this size) */
 .ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 30px 0 0; }
 .ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
 .ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
 .ev-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+/* bare feature image — rounded + clipped, NO shadow (matches .stats-portrait / .how-portrait-card) */
 .ev-hero-media {
   position: relative; border-radius: var(--r-2xl); overflow: hidden;
-  min-height: 460px; background: var(--surface-2); box-shadow: var(--shadow-card);
+  min-height: 460px; background: var(--surface-2);
 }
 .ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -129,7 +127,7 @@
   <div class="ev-hero-inner">
     <div class="ev-hero-text">
       <div class="eyebrow"><span class="dot"></span>Virtual job fair</div>
-      <h1>The Next Wave: AI &amp; <em class="italic-plain">Emerging Tech</em></h1>
+      <h1 class="display">The Next Wave: AI &amp; <em class="italic-plain">Emerging Tech</em></h1>
       <p class="ev-hero-sub">Join our virtual job fair focused on AI, emerging tech, and the future of work — an immersive day connecting you with companies committed to a diverse and equitable digital future.</p>
 
       <div class="ev-hero-meta">
