@@ -87,9 +87,6 @@
 /* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
 .how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
 
-/* Single centered testimonial — the shared .t-card, just narrowed for one quote */
-.testimonials.testimonials-solo { max-width: 720px; margin: 0 auto; grid-template-columns: 1fr; }
-
 /* FAQ accordion → shared component in ds/ptf.css (.faq-*), auto-wired by PTF.initFaq() */
 
 /* ── Responsive ── */
@@ -201,59 +198,7 @@
   </div>
 </section>
 
-<!-- 03. TESTIMONIAL — shared .t-card (single, centered) -->
-<section class="section" style="background: var(--bg-soft)">
-  <div class="section-narrow">
-    <div class="section-head">
-      <h2>What attendees say</h2>
-    </div>
-    <div class="testimonials testimonials-solo">
-      <div class="t-card">
-        <div class="t-stars">★★★★★</div>
-        <!-- COPY: confirm — quote from powertofly.com VJF testimonial -->
-        <p class="t-quote">"I loved getting to hear company recruiters speak about their openings and hiring processes directly. Every company showed a real commitment to workplace wellness and inclusion — it made the whole experience feel welcoming."</p>
-        <div class="t-meta">
-          <div class="t-meta-info">
-            <div class="t-author">Charlene Mendoza</div>
-            <div class="t-role">Product Designer</div>
-          </div>
-          <div class="t-logo">
-            <img src="https://i.pravatar.cc/96?img=32" alt="Charlene Mendoza">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 04. FAQ — shared accordion; only questions the steps section doesn't already answer -->
-<section class="section">
-  <div class="section-head">
-    <h2>Frequently asked questions</h2>
-  </div>
-  <div class="faq-list" id="faqList">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">Can I attend from my phone?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Absolutely. You can join and take part from a smartphone, tablet, or computer — whatever's easiest for you on the day.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What should I wear?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Casual is perfectly fine. Come as you are — the focus is on the conversations and connections, not a dress code.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">I need an accommodation — who do I contact?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">PowerToFly welcomes every member of our community. If you need a specific accommodation to take part, let us know via the details in your event invitation and we'll make sure you're supported.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 05. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
+<!-- 03. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
 <section class="section" style="background: var(--bg-soft)">
   <div class="ev-more">
   <div class="ev-head">
@@ -288,13 +233,41 @@
   </div><!-- /.ev-more -->
 </section>
 
-<!-- 06. FINAL CTA — shared dark closer band -->
+<!-- 04. FAQ — shared accordion; only questions the steps section doesn't already answer -->
+<section class="section">
+  <div class="section-head">
+    <h2>Frequently asked questions</h2>
+  </div>
+  <div class="faq-list" id="faqList">
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">Can I attend from my phone?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Absolutely. You can join and take part from a smartphone, tablet, or computer — whatever's easiest for you on the day.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">What should I wear?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">Casual is perfectly fine. Come as you are — the focus is on the conversations and connections, not a dress code.</div></div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" aria-expanded="false">I need an accommodation — who do I contact?
+        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">PowerToFly welcomes every member of our community. If you need a specific accommodation to take part, let us know via the details in your event invitation and we'll make sure you're supported.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. BECOME A SPONSOR — shared dark closer band (matches the source page's closing CTA) -->
 <section class="section-cta">
   <div class="section-cta-inner">
-    <span class="eyebrow">Save your seat</span>
-    <h2>Your next role could start here.</h2>
-    <p>Registration is free and takes a minute. Meet the companies hiring in AI and emerging tech — and let them meet you.</p>
-    <a href="../event-register.html" class="btn btn-cta" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
+    <span class="eyebrow">For companies</span>
+    <h2>Become a sponsor</h2>
+    <!-- Body copy verbatim from the source event page -->
+    <p>Showcase your company's commitment to building an inclusive workforce by reaching targeted underrepresented groups at scale while amplifying the voices of leaders within your organization.</p>
+    <a href="https://powertofly.com/employers" class="btn btn-cta" target="_blank" rel="noopener">Become a sponsor →</a><!-- COPY: confirm sponsor form target -->
   </div>
 </section>
 
