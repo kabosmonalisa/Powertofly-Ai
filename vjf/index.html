@@ -79,8 +79,16 @@
    so they align with the hero / how instead of spilling to the nav edge */
 .ev-more { max-width: var(--content-body); margin: 0 auto; }
 
-/* "View schedule" jumps here — offset so the title clears the fixed header (alert + nav) */
-#how { scroll-margin-top: 140px; }
+/* "View schedule" / "See upcoming events" jump targets — offset for the fixed header */
+#how, #more { scroll-margin-top: 140px; }
+
+/* ── PROTOTYPE: hero event-state cues (upcoming / live / past) + dev switcher ── */
+.eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: vjfLivePulse 1.6s ease-in-out infinite; }
+.eyebrow.is-past { color: var(--ink-3); }
+.eyebrow .dot.is-past { background: var(--ink-3); }
+@keyframes vjfLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 7px; }
+#devStates button.active { background: #fff; color: #0A0A0A; }
 
 /* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
 .how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
@@ -110,8 +118,8 @@
 <div class="site-header" id="siteHeader">
   <!-- ═══ TOP ALERT ═══ -->
   <div class="top-alert" id="topAlert">
-    Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17
-    <a href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
+    <span id="alertText">Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17</span>
+    <a id="alertCta" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
     <button class="top-alert-close" id="topAlertClose" aria-label="Close">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -126,7 +134,7 @@
 <section class="ev-hero">
   <div class="ev-hero-inner">
     <div class="ev-hero-text">
-      <div class="eyebrow"><span class="dot"></span>Virtual job fair</div>
+      <div class="eyebrow" id="heroEyebrow"><span class="dot"></span>Virtual job fair</div>
       <h1 class="display">The Next Wave: AI &amp; <em class="italic-plain">Emerging Tech</em></h1>
       <p class="ev-hero-sub">Join our virtual job fair focused on AI, emerging tech, and the future of work — an immersive day connecting you with companies committed to a diverse and equitable digital future.</p>
 
@@ -139,8 +147,8 @@
       </div>
 
       <div class="ev-hero-ctas">
-        <a class="btn btn-primary" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm register target -->
-        <a class="btn" href="#how">View schedule</a>
+        <a class="btn btn-primary" id="heroCta1" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+        <a class="btn" id="heroCta2" href="#how">View schedule</a>
       </div>
     </div>
 
@@ -197,7 +205,7 @@
 </section>
 
 <!-- 03. MORE UPCOMING VJFs — shared event tiles (static, no filter/pager) -->
-<section class="section">
+<section class="section" id="more">
   <div class="ev-more">
   <div class="ev-head">
     <h2>More upcoming job fairs</h2>
@@ -232,7 +240,7 @@
 </section>
 
 <!-- 04. FAQ — shared accordion; full source FAQ ("What is a Virtual Job Fair?") -->
-<section class="section">
+<section class="section" style="background: var(--bg-soft)"><!-- grey band: white FAQ cards pop + ramp into the dark sponsor closer -->
   <div class="section-head">
     <h2>Frequently asked questions</h2>
   </div>
@@ -310,10 +318,68 @@
 <!-- ═══ FOOTER — shared injected footer ═══ -->
 <div data-ptf-footer></div>
 
+<!-- PROTOTYPE-ONLY — switch the page between event states. Delete #devStates + its script before launch. -->
+<div id="devStates" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">STATE</span>
+  <button type="button" data-state="upcoming">Upcoming</button>
+  <button type="button" data-state="live">Live</button>
+  <button type="button" data-state="past">Past</button>
+</div>
+
 <script src="../ds/ptf.js"></script>
 <script>
   PTF.initHeader();  // fixed alert + nav offset
   // FAQ accordion + how-it-works steps auto-wire via PTF.initFaq() / PTF.initSteps() (shared)
+
+  /* ── PROTOTYPE: event-state switcher (upcoming / live / past). Also reachable via #live / #past.
+     Only the hero + alert change per state; the rest of the page is state-agnostic. ── */
+  (function () {
+    var STATES = {
+      upcoming: {
+        dot: '', eyebrowCls: '', eyebrow: 'Virtual job fair',
+        cta1: { t: 'Register now →', href: '../event-register.html' },
+        cta2: { t: 'View schedule', href: '#how' },
+        alert: 'Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17',
+        alertCta: { t: 'Register now →', href: '../event-register.html' }
+      },
+      live: {
+        dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
+        cta1: { t: 'Join now →', href: '#' },            // COPY: confirm live/join target
+        cta2: { t: 'View schedule', href: '#how' },
+        alert: 'Live now &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech',
+        alertCta: { t: 'Join now →', href: '#' }
+      },
+      past: {
+        dot: ' is-past', eyebrowCls: ' is-past', eyebrow: 'Past event',
+        cta1: { t: 'Watch the recording →', href: '#' }, // COPY: confirm recording target
+        cta2: { t: 'See upcoming events', href: '#more' },
+        alert: 'This event has ended &nbsp;·&nbsp; Watch the recording',
+        alertCta: { t: 'Watch the recording →', href: '#' }
+      }
+    };
+    var eyebrow = document.getElementById('heroEyebrow');
+    var cta1 = document.getElementById('heroCta1');
+    var cta2 = document.getElementById('heroCta2');
+    var alertText = document.getElementById('alertText');
+    var alertCta = document.getElementById('alertCta');
+    var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
+    function apply(name) {
+      var s = STATES[name]; if (!s) return;
+      eyebrow.className = 'eyebrow' + s.eyebrowCls;
+      eyebrow.innerHTML = '<span class="dot' + s.dot + '"></span>' + s.eyebrow;
+      cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
+      cta2.textContent = s.cta2.t; cta2.setAttribute('href', s.cta2.href);
+      if (alertText) alertText.innerHTML = s.alert;
+      if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
+      btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { var n = b.getAttribute('data-state'); apply(n); history.replaceState(null, '', n === 'upcoming' ? location.pathname : '#' + n); });
+    });
+    var h = (location.hash || '').replace('#', '');
+    apply(STATES[h] ? h : 'upcoming');
+    window.addEventListener('hashchange', function () { var k = (location.hash || '').replace('#', ''); if (STATES[k]) apply(k); });
+  })();
 </script>
 </body>
 </html>
