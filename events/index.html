@@ -151,12 +151,6 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 .live-sim { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
 .live-sim:hover { color: var(--ink); border-color: var(--ink); }
 
-/* Floating "Happening now" button — the real feature. Shows ONLY while an event is live (body.live-active); in production it's site-wide and links to the event page. Pill + pulsing red "live" dot + arrow. */
-.live-fab { position: fixed; right: 22px; bottom: 22px; z-index: 180; display: none; align-items: center; gap: 10px; padding: 13px 22px 13px 20px; border-radius: 999px; background: var(--ink); color: #fff; border: none; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; box-shadow: 0 10px 26px rgba(10,18,15,0.3); transition: transform .15s ease, box-shadow .15s ease; }
-body.live-active .live-fab { display: inline-flex; }   /* only appears when an event is live */
-.live-fab:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(10,18,15,0.36); }
-.live-fab-dot { width: 8px; height: 8px; border-radius: 50%; background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.3); animation: livepulse 1.4s ease-in-out infinite; flex: none; }
-
 /* ══ Mobile polish for the event lists — bigger speaker circles/logos + comfier rows ══ */
 @media (max-width: 700px) {
   /* speaker circles read bigger on phones */
@@ -179,7 +173,6 @@ body.live-active .live-fab { display: inline-flex; }   /* only appears when an e
   .ev-listing--grid .ev-row-link { font-size: 16px; }
   /* keep the prototype preview button out of the way of content */
   .live-sim { left: 12px; bottom: 12px; padding: 8px 13px; font-size: 12px; }
-  .live-fab { right: 14px; bottom: 14px; padding: 12px 18px 12px 15px; font-size: 14px; }
 }
 </style>
 </head>
@@ -469,8 +462,6 @@ body.live-active .live-fab { display: inline-flex; }   /* only appears when an e
 <!-- PROTOTYPE-ONLY preview trigger — delete this button once the live page is wired to real live event data -->
 <!-- PROTOTYPE-ONLY dev toggle: simulate an event being live vs. not (delete for production) -->
 <button class="live-sim" id="liveSim" type="button">⚡ Preview live event</button>
-<!-- Real feature: floating "Happening now" button — only visible while an event is live -->
-<button class="live-fab" id="liveFab" type="button"><span class="live-fab-dot" aria-hidden="true"></span>Happening now →</button>
 
 <script src="../ds/ptf.js"></script>
 <script>
@@ -648,13 +639,11 @@ body.live-active .live-fab { display: inline-flex; }   /* only appears when an e
       function loginBtn() { return document.querySelector('#mainNav .nav-cta .btn:not(.btn-primary)'); }
       function openLive() {
         lh.classList.add('is-open'); lh.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('live-active');   // an event is live → reveal the "Happening now" button
         var lb = loginBtn(); if (lb) lb.style.setProperty('background', 'transparent', 'important'); // drop the white fill over the image
         window.scrollTo(0, 0);
       }
       function hideLive() {
         lh.classList.remove('is-open'); lh.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('live-active');   // back to the regular (no live event) state
         var lb = loginBtn(); if (lb) lb.style.removeProperty('background');
       }
 
@@ -678,14 +667,9 @@ body.live-active .live-fab { display: inline-flex; }   /* only appears when an e
       // since no event is actually live right now. (Delete this control for production.)
       var sim = document.getElementById('liveSim');
       if (sim) sim.addEventListener('click', function () {
-        if (document.body.classList.contains('live-active')) { hideLive(); sim.textContent = '⚡ Preview live event'; }
+        if (lh.classList.contains('is-open')) { hideLive(); sim.textContent = '⚡ Preview live event'; }
         else { openLive(); sim.textContent = '⚡ Exit live preview'; }
       });
-
-      // The real "Happening now" button (only visible while live) → jumps to the event preview (the takeover).
-      // In production it appears site-wide during the live window and links to the event page.
-      var fab = document.getElementById('liveFab');
-      if (fab) fab.addEventListener('click', function () { openLive(); });
     }
   })();
 </script>
