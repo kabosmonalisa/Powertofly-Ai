@@ -78,6 +78,8 @@
 /* "More upcoming job fairs" — hold head + tiles to the shared content column (--content-body),
    so they align with the hero / how instead of spilling to the nav edge */
 .ev-more { max-width: var(--content-body); margin: 0 auto; }
+/* drop the closing hairline under the last tile (this is a short static list, not a full listing) */
+.ev-more .ev-list .ev-row:last-child { border-bottom: none; }
 
 /* "View schedule" / "See upcoming events" jump targets — offset for the fixed header */
 #how, #more { scroll-margin-top: 140px; }
