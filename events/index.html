@@ -6,7 +6,7 @@
 <title>Events — PowerToFly AI</title>
 <!-- OG -->
 <meta property="og:title"       content="Events — PowerToFly AI">
-<meta property="og:description" content="Connect with professionals across the globe. Browse upcoming job fairs, summits, and Chat & Learns — or apply to speak.">
+<meta property="og:description" content="Build connections that move you forward. Browse upcoming job fairs, summits, and Chat & Learns — or apply to speak.">
 <meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
 <meta property="og:type"        content="website">
 <!-- Fonts -->
@@ -147,9 +147,10 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 }
 /* "See upcoming events" scrolls here — offset so the title clears the fixed header (alert + nav) */
 #upcoming { scroll-margin-top: 140px; }
-/* PROTOTYPE-ONLY: preview trigger so the live state can be seen before it's wired to real live data */
-.live-preview-trigger { position: fixed; left: 18px; bottom: 18px; z-index: 150; padding: 10px 16px; border-radius: 999px; border: 1px dashed var(--ink-3); background: var(--surface); color: var(--ink-2); font: 600 13px/1 'Inter Tight', sans-serif; cursor: pointer; box-shadow: var(--shadow-card); }
-.live-preview-trigger:hover { color: var(--ink); border-color: var(--ink); }
+/* Floating "live event" button — in production it's site-wide and appears whenever an event is live at powertofly.com, linking to the event preview page. Here it toggles the live preview. Pill + pulsing red "live" dot + arrow. */
+.live-fab { position: fixed; right: 22px; bottom: 22px; z-index: 180; display: inline-flex; align-items: center; gap: 10px; padding: 13px 22px 13px 20px; border-radius: 999px; background: var(--ink); color: #fff; border: none; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; box-shadow: 0 10px 26px rgba(10,18,15,0.3); transition: transform .15s ease, box-shadow .15s ease; }
+.live-fab:hover { transform: translateY(-1px); box-shadow: 0 14px 32px rgba(10,18,15,0.36); }
+.live-fab-dot { width: 8px; height: 8px; border-radius: 50%; background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.3); animation: livepulse 1.4s ease-in-out infinite; flex: none; }
 
 /* ══ Mobile polish for the event lists — bigger speaker circles/logos + comfier rows ══ */
 @media (max-width: 700px) {
@@ -172,7 +173,7 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
   .ev-listing--grid .ev-row-title { font-size: 19px; }
   .ev-listing--grid .ev-row-link { font-size: 16px; }
   /* keep the prototype preview button out of the way of content */
-  .live-preview-trigger { left: auto; right: 12px; bottom: 12px; padding: 8px 13px; font-size: 12px; }
+  .live-fab { right: 14px; bottom: 14px; padding: 12px 18px 12px 15px; font-size: 14px; }
 }
 </style>
 </head>
@@ -220,8 +221,8 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 <section class="hero">
   <div class="hero-inner">
     <div class="eyebrow">Events</div>
-    <h1 class="hero-headline">Connect with professionals <em class="italic-plain">across the globe.</em></h1>
-    <p class="hero-sub">Join one of our virtual events as an attendee and learn from top leaders and industry experts, or host your own event to tap into our community.</p>
+    <h1 class="hero-headline">Build connections that <em class="italic-plain">move you forward.</em></h1>
+    <p class="hero-sub">Join a virtual event to meet people shaping what's next in tech, learn from their experience, and grow your own.</p>
 
     <!-- Featured "happening now / up next" event promo — filled by JS (next flagship + live countdown) -->
     <div class="hero-feature" id="hfFeature">
@@ -448,7 +449,7 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
   <div class="section-cta-inner">
     <span class="eyebrow">Become a speaker</span>
     <h2>Share your expertise with our community</h2>
-    <p>Have insight the PowerToFly community should hear? Apply to speak at an upcoming event and reach professionals across 190 countries.</p>
+    <p>Every voice in our community has something worth sharing. Apply to speak at an upcoming event.</p>
     <!-- COPY: confirm — speaker application target -->
     <a href="https://powertofly.com/browse-events" class="btn btn-cta" target="_blank" rel="noopener">Apply to speak →</a>
   </div>
@@ -460,7 +461,7 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 <div data-ptf-footer></div>
 
 <!-- PROTOTYPE-ONLY preview trigger — delete this button once the live page is wired to real live event data -->
-<button class="live-preview-trigger" id="livePreviewTrigger" type="button">⚡ Preview live page</button>
+<button class="live-fab" id="liveFab" type="button"><span class="live-fab-dot" aria-hidden="true"></span>Happening now →</button>
 
 <script src="../ds/ptf.js"></script>
 <script>
@@ -662,9 +663,11 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
       var nowTs = Date.now();
       if (nowTs >= start && nowTs <= end) openLive();
 
-      // PROTOTYPE-ONLY: preview trigger toggles the full-page live state.
-      var trg = document.getElementById('livePreviewTrigger');
-      if (trg) trg.addEventListener('click', function () { lh.classList.contains('is-open') ? hideLive() : openLive(); });
+      // Floating "Happening now" button → opens the event preview (the live takeover).
+      // In production it appears site-wide only during the live window and links to the event page;
+      // here it toggles the preview so the state can be seen before it's wired to real live data.
+      var fab = document.getElementById('liveFab');
+      if (fab) fab.addEventListener('click', function () { lh.classList.contains('is-open') ? hideLive() : openLive(); });
     }
   })();
 </script>
