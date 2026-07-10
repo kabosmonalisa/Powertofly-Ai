@@ -441,7 +441,31 @@ window.PTF = (function () {
     render();
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, renderNav, renderFooter, LOGOS };
+  /**
+   * initFaq()
+   * Wires every .faq-list on the page: click a .faq-q to expand its .faq-a,
+   * accordion-style (opening one closes the others). Idempotent + auto-run on
+   * DOMContentLoaded, so a page only needs the markup — no per-page script.
+   */
+  function initFaq() {
+    document.querySelectorAll('.faq-list').forEach(function (list) {
+      if (list.dataset.faqWired) return;   // never wire the same list twice
+      list.dataset.faqWired = '1';
+      list.addEventListener('click', function (e) {
+        var btn = e.target.closest('.faq-q');
+        if (!btn || !list.contains(btn)) return;
+        var item = btn.closest('.faq-item');
+        var isOpen = item.classList.contains('open');
+        list.querySelectorAll('.faq-item.open').forEach(function (i) {
+          i.classList.remove('open');
+          var q = i.querySelector('.faq-q'); if (q) q.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) { item.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+      });
+    });
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, renderNav, renderFooter, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -465,4 +489,5 @@ document.addEventListener('DOMContentLoaded', function () {
   if (_ptfNavRendered) PTF.initMegaNav();  // only shared-nav pages; inline-nav pages wire their own
   PTF.initIllustrations();  // no-ops unless the page has .sci illustration scenes
   PTF.initEventList();  // no-ops unless the page has a [data-ev-list] container
+  PTF.initFaq();  // no-ops unless the page has a .faq-list container
 });

@@ -438,6 +438,25 @@ img { display: block; max-width: 100%; }
 }
 .t-logo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
+/* ===== FAQ accordion — click-to-expand Q&A rows.
+ * Auto-driven by PTF.initFaq() (wires every .faq-list on the page). Theme-aware:
+ * recolors from tokens, so it works unchanged inside a .theme-dark page.
+ * Markup: .faq-list > .faq-item > (button.faq-q [text + span.faq-icon > svg plus])
+ *         + .faq-a > .faq-a-inner. The plus icon is colored by CSS (var(--ink)),
+ *         so the SVG <line>s need no colour attributes. ===== */
+.faq-list { display: flex; flex-direction: column; gap: 12px; max-width: 760px; margin: 0 auto; }
+.faq-item { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; transition: box-shadow 180ms ease; }
+.faq-item.open { box-shadow: var(--shadow-card); }
+.faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 24px; background: none; border: none; cursor: pointer; text-align: left; font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink); }
+.faq-icon { width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--line); display: flex; align-items: center; justify-content: center; transition: transform 280ms ease, background 180ms ease, border-color 180ms ease; }
+.faq-icon svg { display: block; }
+.faq-icon line { stroke: var(--ink); transition: stroke 180ms ease; }   /* CSS governs the plus colour (theme-aware); overrides any stroke attr in markup */
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--ink); border-color: var(--ink); }
+.faq-item.open .faq-icon line { stroke: var(--bg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 320ms ease; }
+.faq-item.open .faq-a { max-height: 320px; }
+.faq-a-inner { padding: 0 24px 22px; font-size: 15px; color: var(--ink-3); line-height: 1.65; }
+
 /* ===== Benefit cards ===== */
 .benefit-card {
   border-radius: var(--r-xl);

@@ -577,69 +577,7 @@ background: transparent;
 .stat-unit { margin-left: 2px; }
 /* stats-card-wrap responsive → from ds/ptf.css */
 
-/* ===== FAQ ===== */
-.faq-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: 760px;
-  margin: 0 auto;
-}
-.faq-item {
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: box-shadow 180ms ease;
-}
-.faq-item.open { box-shadow: var(--shadow-card); }
-.faq-q {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 20px 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  font-family: 'Inter Tight', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: var(--ink);
-}
-.faq-icon {
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  border: 1.5px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 280ms ease, background 180ms ease, border-color 180ms ease;
-}
-.faq-item.open .faq-icon {
-  transform: rotate(45deg);
-  background: var(--ink);
-  border-color: var(--ink);
-}
-.faq-icon svg { display: block; }
-.faq-item.open .faq-icon line { stroke: #fff; }
-.faq-a {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 320ms ease;
-}
-.faq-item.open .faq-a { max-height: 240px; }
-.faq-a-inner {
-  padding: 0 24px 22px;
-  font-size: 15px;
-  color: var(--ink-3);
-  line-height: 1.65;
-}
+/* FAQ accordion → now a shared component in ds/ptf.css (.faq-*), auto-wired by PTF.initFaq() */
 
 /* Closing CTA → shared .section-cta + .btn-cta in ds/ptf.css */
 
@@ -1263,25 +1201,7 @@ PTF.initMarquee('talentLogos');
   });
 })();
 
-// FAQ accordion
-(function() {
-  var list = document.getElementById('faqList');
-  if (!list) return;
-  list.addEventListener('click', function(e) {
-    var btn = e.target.closest('.faq-q');
-    if (!btn) return;
-    var item = btn.closest('.faq-item');
-    var isOpen = item.classList.contains('open');
-    list.querySelectorAll('.faq-item.open').forEach(function(i) {
-      i.classList.remove('open');
-      i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
-    });
-    if (!isOpen) {
-      item.classList.add('open');
-      btn.setAttribute('aria-expanded', 'true');
-    }
-  });
-})();
+// FAQ accordion → shared PTF.initFaq() (auto-runs on DOMContentLoaded); no page script needed
 
 // Live match toast cycler
 (function(){
