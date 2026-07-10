@@ -94,8 +94,8 @@
 #devStates button.active { background: #fff; color: #0A0A0A; }
 #devStates button.active:hover { background: #fff; }
 
-/* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
-.how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
+/* How-it-works portrait photo — generic reusable mockup (only the page's image; layout from ptf.css) */
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
 
 /* FAQ accordion → shared component in ds/ptf.css (.faq-*), auto-wired by PTF.initFaq() */
 
@@ -123,7 +123,7 @@
   <!-- ═══ TOP ALERT ═══ -->
   <div class="top-alert" id="topAlert">
     <span id="alertText">Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17</span>
-    <a id="alertCta" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+    <a id="alertCta" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
     <button class="top-alert-close" id="topAlertClose" aria-label="Close">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
     </button>
@@ -151,7 +151,7 @@
       </div>
 
       <div class="ev-hero-ctas">
-        <a class="btn btn-primary" id="heroCta1" href="../event-register.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+        <a class="btn btn-primary" id="heroCta1" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
         <a class="btn" id="heroCta2" href="#how">See how it works</a>
       </div>
     </div>
@@ -223,7 +223,7 @@
         <h3 class="ev-row-title">Beyond Boundaries: Voices of Latinidad</h3>
         <p class="ev-row-desc">Join us for a groundbreaking virtual job fair that celebrates the vibrant tapestry of Latinidad and connects you with companies hiring across tech.</p>
         <div class="ev-people"><div class="ev-orgs"><img src="../logos/shure.png" alt="Shure"><img src="../logos/lattice.png" alt="Lattice"><img src="../logos/plaid.png" alt="Plaid"></div><span class="ev-people-label">Companies hiring</span></div>
-        <a class="ev-row-link" href="../event-register.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
       </div>
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/7108700/pexels-photo-7108700.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
@@ -235,7 +235,7 @@
         <h3 class="ev-row-title">Supporting Veterans, Active Service Members &amp; Military Spouses</h3>
         <p class="ev-row-desc">A virtual job fair honoring veterans, active service members, and military spouses — connecting you with inclusive employers ready to hire.</p>
         <div class="ev-people"><div class="ev-orgs"><img src="../logos/nestle.png" alt="Nestlé"><img src="../logos/stryker.png" alt="Stryker"><img src="../logos/reddit.png" alt="Reddit"></div><span class="ev-people-label">Companies hiring</span></div>
-        <a class="ev-row-link" href="../event-register.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
       </div>
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/7468063/pexels-photo-7468063.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
@@ -335,10 +335,10 @@
     var STATES = {
       upcoming: {
         dot: '', eyebrowCls: '', eyebrow: 'Virtual job fair',
-        cta1: { t: 'Register now →', href: '../event-register.html' },
+        cta1: { t: 'Register now →', href: '../event-common/index.html' },
         cta2: { t: 'See how it works', href: '#how' },
         alert: 'Virtual job fair &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 17',
-        alertCta: { t: 'Register now →', href: '../event-register.html' }
+        alertCta: { t: 'Register now →', href: '../event-common/index.html' }
       },
       live: {
         dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
