@@ -87,8 +87,10 @@
 .eyebrow.is-past { color: var(--ink-3); }
 .eyebrow .dot.is-past { background: var(--ink-3); }
 @keyframes vjfLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
-#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 7px; }
+#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
+#devStates button:hover { background: rgba(255,255,255,0.12); }
 #devStates button.active { background: #fff; color: #0A0A0A; }
+#devStates button.active:hover { background: #fff; }
 
 /* How-it-works portrait photo (only the page's image; layout comes from ptf.css) */
 .how-portrait-card { background-image: url('https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); }
@@ -175,28 +177,28 @@
           <div class="step-num">01</div>
           <div class="step-content">
             <h4>Register and complete your profile</h4>
-            <p>Create your free account and make sure your PowerToFly profile and resume are up to date — that's how recruiters find you, and how you'll use the one-click "I'm Interested" feature.</p>
+            <p>Create your free account and get your PowerToFly profile and resume ready, so recruiters can find you before the fair even starts.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">02</div>
           <div class="step-content">
-            <h4>Pick the companies you want to meet</h4>
-            <p>Each company has its own time slot. Click a company's logo to see when they're on, so you can plan the sessions that matter most to you.</p>
+            <h4>Explore the companies hiring</h4>
+            <p>See who's attending and the roles they're filling, and plan the sessions that matter most to you.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">03</div>
           <div class="step-content">
-            <h4>Join live on the day</h4>
-            <p>When the fair starts, hit "Join Now" on this page, then "Join Session" to enter a company's Zoom room. Each company presents and takes your questions live.</p>
+            <h4>Join the live sessions</h4>
+            <p>Drop into each company's session to hear about their team, culture, and open roles — and ask your questions live.</p>
           </div>
         </div>
         <div class="step">
           <div class="step-num">04</div>
           <div class="step-content">
             <h4>Raise your hand with "I'm Interested"</h4>
-            <p>Use the one-click "I'm Interested" feature to let companies know you'd like to connect — recruiters follow up with the people who stood out.</p>
+            <p>Let companies know you'd like to connect with one click, and recruiters follow up with the people who stood out.</p>
           </div>
         </div>
       </div>
@@ -245,12 +247,6 @@
     <h2>Frequently asked questions</h2>
   </div>
   <div class="faq-list" id="faqList">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How does it work?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">This event is just like an in-person job fair, but online. Each participating company hosts a presentation and takes questions from attendees — use the time to ask hiring managers and recruiters about their open roles, their culture, and what it's like to work there.</div></div>
-    </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Who is this event for?
         <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
@@ -319,8 +315,8 @@
 <div data-ptf-footer></div>
 
 <!-- PROTOTYPE-ONLY — switch the page between event states. Delete #devStates + its script before launch. -->
-<div id="devStates" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
-  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">STATE</span>
+<div id="devStates" style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.34);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 4px">PREVIEW STATE</span>
   <button type="button" data-state="upcoming">Upcoming</button>
   <button type="button" data-state="live">Live</button>
   <button type="button" data-state="past">Past</button>
