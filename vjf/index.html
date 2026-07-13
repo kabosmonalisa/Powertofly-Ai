@@ -55,7 +55,7 @@
               rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
 }
 .ev-hero-inner {
-  position: relative; z-index: 2; max-width: var(--content-body); margin: 0 auto;
+  position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;  /* hero runs to the container edge, like the train/events heroes */
   display: grid; grid-template-columns: 1fr 1.1fr;   /* media is the larger column (like the events feature) */
   gap: clamp(28px, 4vw, 56px); align-items: stretch;  /* image fills the full height beside the text */
 }
