@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — PowerToFly AI</title>
+<!-- OG -->
+<meta property="og:title"       content="Page not found — PowerToFly AI">
+<meta property="og:description" content="Sorry! We can't find this page for you. Let's point you back toward the work that matters.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC — 404/index.html ONLY
+ * A 404 is a genuinely one-off, full-viewport hero composition (allowed exception
+ * in COMPONENT-INVENTORY → "Allowed page-specific CSS"). Everything else — eyebrow,
+ * display headline, buttons, nav, footer — is a reused component. Tokens only, no
+ * raw hex, no shared-component restyling.
+ */
+
+/* Center the hero content in the space between the nav and footer */
+.err-hero{
+  min-height: calc(100vh - 320px);
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Soft brand-green glow behind the number — same warmth idea used on the About hero */
+.err-hero::before{
+  content:'';
+  position:absolute; inset:0;
+  background: radial-gradient(60% 60% at 50% 38%, rgba(79,232,169,0.14), transparent 70%);
+  pointer-events:none;
+}
+.err-hero > .section-narrow{ position:relative; z-index:1; }
+
+/* The giant 404 numeral — plain ink (no gradient: banned on large display text),
+   sits above the headline as the page's decorative anchor */
+.err-num{
+  font-family:'Inter Tight', sans-serif;
+  font-weight:800;
+  line-height:.9;
+  letter-spacing:-.04em;
+  font-size: clamp(120px, 22vw, 260px);
+  color: var(--ink);
+  margin: 8px 0 4px;
+}
+
+/* Button row — same page-local flex the hire/about heroes use (not a shared class) */
+.hero-ctas{ display:flex; gap:12px; justify-content:center; margin-top:36px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     NAV — shared component (no active section on an error page)
+     ═══════════════════════════════════════ -->
+<div data-ptf-nav data-active=""></div>
+
+
+<!-- ═══════════════════════════════════════
+     404 HERO — reused .section-hero / .section-head / .eyebrow / .display / buttons
+     ═══════════════════════════════════════ -->
+<main>
+  <section class="section-hero err-hero">
+    <div class="section-narrow">
+      <div class="section-head">
+        <div class="err-num">404</div>
+        <h1 class="display">Sorry! We can't find this page <em class="italic-plain">for you.</em></h1>
+        <p>The link may be broken, the page may have moved, or the job you were after has closed. Let's get you back to the work that matters.</p>
+        <div class="hero-ctas">
+          <a href="../" class="btn btn-primary">Go home</a>
+          <a href="../talents/" class="btn">Browse open roles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<!-- ═══════════════════════════════════════
+     FOOTER — shared component
+     ═══════════════════════════════════════ -->
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initMegaNav();
+  PTF.initHeader && PTF.initHeader();
+</script>
+</body>
+</html>
