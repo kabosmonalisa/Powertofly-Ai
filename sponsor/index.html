@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Become a sponsor — PowerToFly AI</title>
+<!--
+  BECOME A SPONSOR — branded lead form. Opens from the "Become a sponsor" CTA on
+  an event page (e.g. vjf/). Built on the shared flow kit (flow-shell / auth-nav /
+  auth-card / field / btn-auth) — NO page components, no image. In production the
+  form posts to HubSpot; here it validates + shows the shared thank-you state.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for the thank-you check -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a href="../index.html" class="nav-brand">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a href="../vjf/index.html" class="nav-back">← Back to event</a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card wide" id="card">
+
+    <!-- ══ FORM ══ -->
+    <div id="sponsorForm">
+      <div class="step-indicator">For companies</div>
+      <h1 class="auth-heading">Become a sponsor</h1>
+      <p class="auth-sub">Showcase your company's commitment to building an inclusive workforce by reaching targeted underrepresented groups at scale while amplifying the voices of leaders within your organization.</p>
+      <form class="auth-form" onsubmit="return submitSponsor()" novalidate>
+        <div class="field-row">
+          <div class="field"><label>First name <span class="req">*</span></label><input type="text" id="sp-first" placeholder="Test" autocomplete="given-name" oninput="clearErr(this)"></div>
+          <div class="field"><label>Last name <span class="req">*</span></label><input type="text" id="sp-last" placeholder="Withus" autocomplete="family-name" oninput="clearErr(this)"></div>
+        </div>
+        <div class="field-row">
+          <div class="field" id="sp-email-field">
+            <label>Work email <span class="req">*</span></label>
+            <input type="email" id="sp-email" placeholder="you@company.com" autocomplete="email">
+            <div class="field-msg" id="sp-email-msg"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Please use your work email — personal addresses aren't accepted.</div>
+          </div>
+          <div class="field"><label>Phone number <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><input type="tel" id="sp-phone" autocomplete="tel"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Job title <span class="req">*</span></label><input type="text" id="sp-title" autocomplete="organization-title" oninput="clearErr(this)"></div>
+          <div class="field"><label>Company name <span class="req">*</span></label><input type="text" id="sp-company" autocomplete="organization" oninput="clearErr(this)"></div>
+        </div>
+        <p class="auth-fineprint" style="text-align:left">PowerToFly needs the contact information you provide to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please review our <a href="#">Privacy Policy</a>.</p>
+        <button class="btn-auth" type="submit">Request a demo →</button>
+      </form>
+    </div>
+
+    <!-- ══ THANK YOU ══ -->
+    <div id="sponsorThanks" style="display:none">
+      <div class="thanks-icon">
+        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+        </svg>
+      </div>
+      <div class="thanks-eyebrow">Request received</div>
+      <h1 class="auth-heading">Thanks — we'll be in touch.</h1>
+      <p class="thanks-body">Our partnerships team will reach out about sponsoring an upcoming event and getting your open roles in front of our community.</p>
+      <a href="../vjf/index.html" class="btn-dashboard btn-block">Back to the event →</a>
+      <div class="thanks-divider"></div>
+      <p class="auth-note" style="margin-top:0">Questions? <a href="mailto:hi@powertofly.com">hi@powertofly.com</a></p>
+    </div>
+
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  // Work-email check: valid format AND not a common personal/free provider (mirrors the HubSpot form).
+  var FREE = /@(gmail|yahoo|ymail|hotmail|outlook|live|msn|icloud|me|mac|aol|proton|protonmail|pm|gmx|zoho|yandex|mail)\./i;
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && !FREE.test(v); }
+  function setErr(fieldEl, msgId, on){ if(fieldEl) fieldEl.classList.toggle('has-error', on); if(msgId){ var m=document.getElementById(msgId); if(m) m.classList.toggle('visible', on); } }
+  function clearErr(input){ input.closest('.field').classList.remove('has-error'); }
+
+  var emailInput = document.getElementById('sp-email');
+  emailInput.addEventListener('input', function(){ this.closest('.field').classList.remove('has-error'); document.getElementById('sp-email-msg').classList.remove('visible'); });
+  emailInput.addEventListener('blur', function(){ var v=this.value.trim(); setErr(this.closest('.field'), 'sp-email-msg', !!v && !validEmail(v)); });
+
+  function submitSponsor(){
+    var ok = true, firstBad = null;
+    ['sp-first','sp-last','sp-title','sp-company'].forEach(function(id){
+      var el = document.getElementById(id), bad = !el.value.trim();
+      el.closest('.field').classList.toggle('has-error', bad);
+      if (bad) { ok = false; firstBad = firstBad || el; }
+    });
+    var em = document.getElementById('sp-email'), emBad = !validEmail(em.value.trim());
+    setErr(em.closest('.field'), 'sp-email-msg', emBad);
+    if (emBad) { ok = false; firstBad = firstBad || em; }
+    if (!ok) { if (firstBad) firstBad.focus(); return false; }
+    document.getElementById('sponsorForm').style.display = 'none';
+    document.getElementById('sponsorThanks').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    return false;
+  }
+</script>
+</body>
+</html>
