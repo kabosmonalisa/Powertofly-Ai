@@ -87,7 +87,6 @@
 /* ── PROTOTYPE: hero event-state cues (upcoming / live / past) + dev switcher ── */
 .eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: vjfLivePulse 1.6s ease-in-out infinite; }
 .eyebrow.is-past { color: var(--ink-3); }
-.eyebrow .dot.is-past { background: var(--ink-3); }
 @keyframes vjfLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
 #devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
 #devStates button:hover { background: rgba(255,255,255,0.12); }
@@ -138,7 +137,7 @@
 <section class="ev-hero">
   <div class="ev-hero-inner">
     <div class="ev-hero-text">
-      <div class="eyebrow" id="heroEyebrow"><span class="dot"></span>Virtual job fair</div>
+      <div class="eyebrow" id="heroEyebrow">Virtual job fair</div>
       <h1 class="display">The Next Wave: AI &amp; <em class="italic-plain">Emerging Tech</em></h1>
       <p class="ev-hero-sub">Join our virtual job fair focused on AI, emerging tech, and the future of work — an immersive day connecting you with companies committed to a diverse and equitable digital future.</p>
 
@@ -346,14 +345,14 @@
         alertCta: { t: 'Register now →', href: '../event-common/index.html' }
       },
       live: {
-        dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
+        dot: '<span class="dot is-live"></span>', eyebrowCls: '', eyebrow: 'Live now',
         cta1: { t: 'Join now →', href: '#' },            // COPY: confirm live/join target
         cta2: { t: 'See how it works', href: '#how' },
         alert: 'Live now &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech',
         alertCta: { t: 'Join now →', href: '#' }
       },
       past: {
-        dot: ' is-past', eyebrowCls: ' is-past', eyebrow: 'Past event',
+        dot: '', eyebrowCls: ' is-past', eyebrow: 'Past event',
         cta1: { t: 'Watch the recording →', href: '#' }, // COPY: confirm recording target
         cta2: { t: 'See upcoming events', href: '#more' },
         alert: 'This event has ended &nbsp;·&nbsp; Watch the recording',
@@ -369,7 +368,7 @@
     function apply(name) {
       var s = STATES[name]; if (!s) return;
       eyebrow.className = 'eyebrow' + s.eyebrowCls;
-      eyebrow.innerHTML = '<span class="dot' + s.dot + '"></span>' + s.eyebrow;
+      eyebrow.innerHTML = s.dot + s.eyebrow;   // dot only for the live state
       cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
       cta2.textContent = s.cta2.t; cta2.setAttribute('href', s.cta2.href);
       if (alertText) alertText.innerHTML = s.alert;
