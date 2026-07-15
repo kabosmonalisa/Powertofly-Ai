@@ -41,10 +41,15 @@
       </div>
       <h1 class="event-title" id="evTitle">Building on AI: a <em class="italic-plain">Chat &amp; Learn</em></h1><!-- COPY: confirm -->
       <div class="event-host" id="evHost">
-        <img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host"><!-- COPY: confirm host -->
         <div class="event-host-text">
-          <span class="event-host-name">Hosted by PowerToFly</span><!-- COPY: confirm -->
-          <span class="event-host-role">+ 4 industry panelists</span><!-- COPY: confirm -->
+          <div style="display:flex;margin-bottom:7px">
+            <img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+          </div>
+          <span class="event-host-name">Hosted by PowerToFly</span>
+          <span class="event-host-role">Priya N., Sofia M., Daniel O. &amp; 1 more</span><!-- COPY: confirm speaker names -->
         </div>
       </div>
       <div class="event-meta">
@@ -305,29 +310,37 @@
 
   // DEV ONLY — event-type preview. The common flow is one reusable thing; only the LEFT card
   // (eyebrow tag, title, host) changes per type. Remove the TYPE pill + this block before launch.
+  // Stacked speaker faces + names — reused across talk-format event types
+  function SPEAKER_FACES(names) {
+    var f = ['07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg','08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg','04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg','12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg'];
+    var imgs = f.map(function (src, i) {
+      return '<img src="../photos/' + src + '" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)' + (i ? ';margin-left:-12px' : '') + '">';
+    }).join('');
+    return '<div class="event-host-text"><div style="display:flex;margin-bottom:7px">' + imgs + '</div>' +
+           '<span class="event-host-name">Hosted by PowerToFly</span>' +
+           '<span class="event-host-role">' + names + '</span></div>';
+  }
   var EVENT_TYPES = {
     cl: {
       eyebrow: 'Chat & Learn',
       title: 'Building on AI: a <em class="italic-plain">Chat &amp; Learn</em>',
-      host: '<img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host">' +
-            '<div class="event-host-text"><span class="event-host-name">Hosted by PowerToFly</span><span class="event-host-role">+ 4 industry panelists</span></div>'
+      host: SPEAKER_FACES('Priya N., Sofia M., Daniel O. &amp; 1 more')
     },
     vjf: {
       eyebrow: 'Virtual Job Fair',
       title: 'AI Talent <em class="italic-plain">Virtual Job Fair</em>',
-      host: '<div class="event-host-text" style="gap:9px"><span class="event-host-role" style="text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;color:var(--ink-3)">Participating companies</span>' +
-            '<div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center">' +
-            '<img src="../logos/visa.png" alt="Visa" style="height:18px;width:auto">' +
-            '<img src="../logos/plaid.png" alt="Plaid" style="height:16px;width:auto">' +
-            '<img src="../logos/lattice.png" alt="Lattice" style="height:17px;width:auto">' +
-            '<img src="../logos/expedia.png" alt="Expedia" style="height:15px;width:auto">' +
+      host: '<div class="event-host-text" style="gap:11px"><span class="event-host-role" style="text-transform:uppercase;letter-spacing:.08em;font-size:11px;font-weight:700;color:var(--ink-3)">Participating companies</span>' +
+            '<div style="display:flex;flex-wrap:wrap;gap:18px 22px;align-items:center">' +
+            '<img src="../logos/visa.png" alt="Visa" style="height:19px;width:auto;filter:grayscale(1);opacity:.5">' +
+            '<img src="../logos/plaid.png" alt="Plaid" style="height:19px;width:auto;filter:grayscale(1);opacity:.5">' +
+            '<img src="../logos/lattice.png" alt="Lattice" style="height:19px;width:auto;filter:grayscale(1);opacity:.5">' +
+            '<img src="../logos/expedia.png" alt="Expedia" style="height:19px;width:auto;filter:grayscale(1);opacity:.5">' +
             '</div></div>'
     },
     summit: {
       eyebrow: 'Summit',
       title: 'The AI Skills <em class="italic-plain">Summit 2026</em>',
-      host: '<img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Host">' +
-            '<div class="event-host-text"><span class="event-host-name">Hosted by PowerToFly</span><span class="event-host-role">+ 12 speakers</span></div>'
+      host: SPEAKER_FACES('12 speakers across 3 tracks')
     }
   };
   function setEventType(key) {
