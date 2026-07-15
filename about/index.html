@@ -90,38 +90,8 @@ main { --section-y: 96px; }
   margin: 20px 0 28px;
 }
 
-/* ── Stat grid — 3-column open layout: label / rule / big number / description ── */
-.about-stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 40px 48px;
-  margin-top: 20px;
-}
-.about-stat-card { display: flex; flex-direction: column; }
-.about-stat-lbl {
-  font-size: 14px;
-  color: var(--ink-2);
-  margin: 0 0 12px;
-}
-.about-stat-rule {
-  border: none;
-  border-top: 1px solid var(--line);
-  margin: 0 0 16px;
-}
-.about-stat-num {
-  font-family: 'Inter Tight', sans-serif;
-  font-size: clamp(44px, 5.5vw, 72px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1;
-  color: var(--ink);
-}
-.about-stat-desc {
-  font-size: 14px;
-  color: var(--ink-2);
-  line-height: 1.55;
-  margin-top: 14px;
-}
+/* Stat-card grid (.about-stat-*) is now a shared component in ds/ptf.css — promoted so
+   summit/ and other pages can reuse it. Do NOT re-add it here. */
 
 /* Secondary CTA button — outlined ghost on the dark CTA band.
    No secondary variant exists in the system for .section-cta; page-specific exception. */
@@ -529,8 +499,7 @@ main { --section-y: 96px; }
      system's mobile shrink, leaving every section gap and inter-block margin too tall. */
   main { --section-y: 56px; }
   .about-hero-img  { aspect-ratio: 3 / 2; }
-  .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .about-stat-num  { font-size: clamp(40px, 10vw, 60px); }
+  /* .about-stat-grid responsive → now in ds/ptf.css (shared component) */
   /* Leadership: stack text above portraits on tablet */
   .about-leaders-2col { grid-template-columns: 1fr; gap: 32px; }
   /* Pages: single column on tablet */
@@ -546,7 +515,7 @@ main { --section-y: 96px; }
 }
 @media (max-width: 480px) {
   .about-hero-img  { aspect-ratio: 4 / 3; }
-  .about-stat-grid { grid-template-columns: 1fr; }
+  /* .about-stat-grid 1-col → now in ds/ptf.css (shared component) */
 }
 </style>
 </head>

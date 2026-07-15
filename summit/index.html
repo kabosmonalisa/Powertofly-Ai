@@ -75,19 +75,18 @@
 }
 .ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* "What to expect" — 4-up benefit cards. Same page-local grid as talents/index.html
-   (the wrapper isn't a named DS class; only the cards inside are). Tokens only. */
-.benefits-row {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
-  max-width: var(--content); margin: 0 auto;
-}
+/* "What to expect" — the how-it-works timeline (portrait + numbered steps with the
+   dashed connector, shared with vjf/). Portrait carries the generic how-it-works
+   mockup, reused across every event page. */
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
 
-/* "About PowerToFly" — pull the intro copy to the shared content column so the
-   section-head sits above the stats card at a comfortable measure */
-.about-head { max-width: var(--content); margin: 0 auto; }
-/* the stats portrait carries the page photo (co-workers meeting); the PTF icon overlays it in white (same as talents/index.html) */
-.stats-portrait { background-image: url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-position: center; }
-.stats-portrait-icon { filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.45)); }
+/* "About PowerToFly" — the wrapper keeps the SAME left edge as the how-it-works +
+   upcoming-summits sections (--content-body, left-aligned), but the readable content
+   sits in a narrower editorial column (--content-narrow) so lines don't run too long.
+   Same measure the about page uses. */
+.about-head { max-width: var(--content-body); margin: 0 auto; }
+.about-head .section-head,
+.about-head .about-stat-grid { max-width: var(--content-narrow); }
 
 /* "More upcoming summits" — hold head + tiles to the shared content column (--content-body),
    so they align with the hero instead of spilling to the nav edge */
@@ -109,9 +108,6 @@
 #devStates button.active:hover { background: #fff; }
 
 /* ── Responsive ── */
-@media (max-width: 1000px) {
-  .benefits-row { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 820px) {
   .ev-hero-inner { grid-template-columns: 1fr; gap: 32px; }
   .ev-hero-media { order: -1; min-height: 300px; }
@@ -123,7 +119,6 @@
   .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
   .ev-hero-sub { font-size: 16px; }
   .ev-hero-meta { grid-template-columns: 1fr; }
-  .benefits-row { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -177,80 +172,90 @@
   </div>
 </section>
 
-<!-- 02. WHAT TO EXPECT — shared benefit cards (big gradient icon + title + copy) -->
+<!-- 02. WHAT TO EXPECT — how-it-works timeline (portrait + numbered steps w/ dashed connector).
+     Same shared component as vjf/'s "How the job fair works". Reveal auto-wires via PTF. -->
+<section class="section-how" id="how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>How the summit works</h2>
+      <p>Two days, four ways to plug in — here's how it unfolds.</p>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Start with the keynotes</h4>
+            <p>Each day opens with tech visionaries and AI experts setting the stage for where work, innovation, and inclusion are heading.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>Go deeper in the panels</h4>
+            <p>From there, dynamic panel discussions dig into the latest trends, challenges, and opportunities across emerging tech.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>Get hands-on in the workshops</h4>
+            <p>Then put it into practice — interactive workshops on leveraging AI and emerging tech for growth, efficiency, and inclusivity.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>Connect and network</h4>
+            <p>Close each day by connecting with the professionals, innovators, and advocates driving the next wave of innovation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. VIRTUAL JOB FAIR — a calm, normal section (eyebrow + heading + one line + link).
+     NOT the giant .mission-statement (that's for a short punchline, not a full sentence). -->
 <section class="section" style="background: var(--bg)">
   <div class="section-head">
-    <h2>What to expect</h2>
-    <p>Two days of learning and connection, built to prepare you for the evolving landscape of tomorrow.</p>
+    <div class="eyebrow" style="justify-content:center; margin-bottom:16px"><span class="dot"></span>Virtual job fair</div>
+    <h2>Close the summit with a virtual job fair</h2>
+    <p>Meet companies at the forefront of AI and emerging tech, and explore career opportunities in innovation-driven industries — free to attend.</p>
   </div>
-  <div class="benefits-row">
-
-    <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
-      </svg>
-      <h3>Inspiring keynotes</h3>
-      <p>Learn from tech visionaries and AI experts shaping the future of work.</p>
-    </div>
-
-    <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
-      </svg>
-      <h3>Dynamic panels</h3>
-      <p>Dive into discussions on the latest trends, challenges, and opportunities in emerging tech.</p>
-    </div>
-
-    <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
-      </svg>
-      <h3>Interactive workshops</h3>
-      <p>Gain hands-on insights into leveraging AI and emerging tech for growth, efficiency, and inclusivity.</p>
-    </div>
-
-    <div class="benefit-card">
-      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/>
-      </svg>
-      <h3>Networking opportunities</h3>
-      <p>Connect with professionals, innovators, and advocates for the next wave of innovation.</p>
-    </div>
-
-  </div>
+  <div style="text-align:center"><a class="btn" href="../vjf/index.html">See the job fair →</a></div>
 </section>
 
-<!-- 03. VIRTUAL JOB FAIR — shared mission statement (a single highlighted line) -->
-<section class="section-mission">
-  <div class="eyebrow" style="justify-content:center; margin-bottom:22px"><span class="dot"></span>Virtual job fair</div>
-  <h2 class="mission-statement">Close the summit with our free virtual job fair — meet companies at the forefront of AI and emerging tech, and explore careers in innovation-driven industries.</h2>
-  <div style="text-align:center; margin-top:34px"><a class="btn" href="../vjf/index.html">See the job fair →</a></div>
-</section>
-
-<!-- 04. ABOUT POWERTOFLY — shared stats card (portrait photo + dark big-number card) -->
-<section class="section-stats">
+<!-- 04. ABOUT POWERTOFLY — editorial header + the shared stat-card grid (.about-stat-*,
+     promoted from the about page). Mirrors the about page's "Our community" treatment. -->
+<section class="section" style="background: var(--bg)">
   <div class="about-head">
-    <div class="section-head" style="text-align:left; max-width:none; margin-bottom:40px">
-      <h2>About PowerToFly</h2>
-      <p style="margin-left:0; margin-right:0">PowerToFly is the bridge between professionals and companies — connecting talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere, and hone your skills through virtual events and exclusive career content.</p>
+    <div class="section-head" style="text-align:left; margin:0 0 40px"><!-- margin:0 left-aligns it (the class centers via margin:0 auto) -->
+      <div class="eyebrow" style="margin-bottom:14px"><span class="dot"></span>About PowerToFly</div>
+      <h2>The bridge between professionals and <em class="italic-plain">the companies building what's next.</em></h2>
+      <p style="margin-left:0; margin-right:0; max-width:62ch">PowerToFly connects talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere — and with our virtual events and exclusive career content, hone your skills and grow your network all in one place.</p>
     </div>
-  </div>
-  <div class="stats-card-wrap">
-    <div class="stats-portrait">
-      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
-    </div>
-    <div class="stats-card-dark">
-      <div>
-        <div class="stat-big-num" data-count="800" data-suffix="K+">800K+</div>
-        <div class="stat-big-label">Active community members you can meet and learn from</div>
+    <div class="about-stat-grid">
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Community</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">800K+</span>
+        <span class="about-stat-desc">Active members across the network — meet hiring managers, recruiters, and peers from anywhere.</span>
       </div>
-      <div>
-        <div class="stat-big-num" data-count="204">204</div>
-        <div class="stat-big-label">Countries represented across the PowerToFly community</div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Countries</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">204</span>
+        <span class="about-stat-desc">A truly global community, so you can connect and grow your network without borders.</span>
       </div>
-      <div>
-        <div class="stat-big-num" data-count="12" data-suffix="+">12+</div>
-        <div class="stat-big-label">Years connecting talent with companies that value it</div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Years building</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">12+</span>
+        <span class="about-stat-desc">Connecting talent with companies that value it, through virtual events and career content.</span>
       </div>
     </div>
   </div>

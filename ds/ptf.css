@@ -1399,3 +1399,15 @@ img { display: block; max-width: 100%; }
 .ev-listing--grid .ev-row > .ev-thumb { order: -1; width: auto; height: 152px; margin: -22px -22px 16px; border-radius: var(--r-xl) var(--r-xl) 0 0; }
 .ev-listing--grid .ev-faces img { width: 26px; height: 26px; border-color: var(--bg-soft); }
 .ev-listing--grid .ev-people { margin-bottom: 16px; }
+
+/* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
+   Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
+   3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */
+.about-stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px 48px; margin-top: 20px; }
+.about-stat-card { display: flex; flex-direction: column; }
+.about-stat-lbl  { font-size: 14px; color: var(--ink-2); margin: 0 0 12px; }
+.about-stat-rule { border: none; border-top: 1px solid var(--line); margin: 0 0 16px; }
+.about-stat-num  { font-family: 'Inter Tight', sans-serif; font-size: clamp(44px, 5.5vw, 72px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+.about-stat-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-top: 14px; }
+@media (max-width: 768px) { .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; } .about-stat-num { font-size: clamp(40px, 10vw, 60px); } }
+@media (max-width: 480px) { .about-stat-grid { grid-template-columns: 1fr; } }
