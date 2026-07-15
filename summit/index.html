@@ -145,7 +145,7 @@
 <section class="ev-hero">
   <div class="ev-hero-inner">
     <div class="ev-hero-text">
-      <div class="eyebrow" id="heroEyebrow"><span class="dot"></span>PowerToFly Summit Series</div>
+      <div class="eyebrow" id="heroEyebrow">PowerToFly Summit Series</div><!-- dot only appears in the live state (set by JS) -->
       <h1 class="display">The Next Wave: AI &amp; Emerging Tech Shaping <em class="italic-plain">Tomorrow</em></h1>
       <p class="ev-hero-sub">Step into the future at The Next Wave, a virtual summit exploring how AI and emerging technologies are redefining work, innovation, and inclusion — and how cutting-edge tools are driving efficiency, creativity, and equity across industries.</p>
 
@@ -221,7 +221,7 @@
      NOT the giant .mission-statement (that's for a short punchline, not a full sentence). -->
 <section class="section" style="background: var(--bg)">
   <div class="section-head">
-    <div class="eyebrow" style="justify-content:center; margin-bottom:16px"><span class="dot"></span>Virtual job fair</div>
+    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Virtual job fair</div>
     <h2>Close the summit with a virtual job fair</h2>
     <p>Meet companies at the forefront of AI and emerging tech, and explore career opportunities in innovation-driven industries — free to attend.</p>
   </div>
@@ -233,7 +233,7 @@
 <section class="section" style="background: var(--bg)">
   <div class="about-head">
     <div class="section-head" style="text-align:left; margin:0 0 40px"><!-- margin:0 left-aligns it (the class centers via margin:0 auto) -->
-      <div class="eyebrow" style="margin-bottom:14px"><span class="dot"></span>About PowerToFly</div>
+      <div class="eyebrow" style="margin-bottom:14px">About PowerToFly</div>
       <h2>The bridge between professionals and <em class="italic-plain">the companies building what's next.</em></h2>
       <p style="margin-left:0; margin-right:0; max-width:62ch">PowerToFly connects talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere — and with our virtual events and exclusive career content, hone your skills and grow your network all in one place.</p>
     </div>
@@ -347,7 +347,7 @@
   (function () {
     var STATES = {
       upcoming: {
-        dot: '', eyebrowCls: '', eyebrow: 'PowerToFly Summit Series',
+        dot: false, eyebrowCls: '', eyebrow: 'PowerToFly Summit Series',
         cta1: { t: 'Register now →', href: '../event-common/index.html' },
         alert: 'Summit &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 16–17',
         alertCta: { t: 'Register now →', href: '../event-common/index.html' }
@@ -359,7 +359,7 @@
         alertCta: { t: 'Join now →', href: '#' }
       },
       past: {
-        dot: ' is-past', eyebrowCls: ' is-past', eyebrow: 'Past event',
+        dot: false, eyebrowCls: ' is-past', eyebrow: 'Past event',
         cta1: { t: 'Watch the recordings →', href: '#' }, // COPY: confirm recording target
         alert: 'This summit has ended &nbsp;·&nbsp; Watch the recordings',
         alertCta: { t: 'Watch the recordings →', href: '#' }
@@ -373,7 +373,8 @@
     function apply(name) {
       var s = STATES[name]; if (!s) return;
       eyebrow.className = 'eyebrow' + s.eyebrowCls;
-      eyebrow.innerHTML = '<span class="dot' + s.dot + '"></span>' + s.eyebrow;
+      // dot only renders when a state opts in (live). upcoming/past have dot:false → no dot.
+      eyebrow.innerHTML = (s.dot === false ? '' : '<span class="dot' + s.dot + '"></span>') + s.eyebrow;
       cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
       if (alertText) alertText.innerHTML = s.alert;
       if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
