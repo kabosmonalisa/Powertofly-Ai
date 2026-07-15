@@ -43,10 +43,10 @@
       <div class="event-host" id="evHost">
         <div class="event-host-text">
           <div style="display:flex;margin-bottom:7px">
-            <img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)">
-            <img src="../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
-            <img src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
-            <img src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/thumbs/spk-07.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/thumbs/spk-08.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/thumbs/spk-04.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
+            <img src="../photos/thumbs/spk-12.jpg" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;margin-left:-12px;box-shadow:0 1px 4px rgba(0,0,0,.14)">
           </div>
           <span class="event-host-name">Hosted by PowerToFly</span>
           <span class="event-host-role">Priya N., Sofia M., Daniel O. &amp; 1 more</span><!-- COPY: confirm speaker names -->
@@ -312,9 +312,9 @@
   // (eyebrow tag, title, host) changes per type. Remove the TYPE pill + this block before launch.
   // Stacked speaker faces + names — reused across talk-format event types
   function SPEAKER_FACES(names) {
-    var f = ['07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg','08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg','04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg','12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg'];
+    var f = ['spk-07.jpg','spk-08.jpg','spk-04.jpg','spk-12.jpg'];
     var imgs = f.map(function (src, i) {
-      return '<img src="../photos/' + src + '" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)' + (i ? ';margin-left:-12px' : '') + '">';
+      return '<img src="../photos/thumbs/' + src + '" alt="" style="width:36px;height:36px;border-radius:50%;border:2px solid #fff;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,.14)' + (i ? ';margin-left:-12px' : '') + '">';
     }).join('');
     return '<div class="event-host-text"><div style="display:flex;margin-bottom:7px">' + imgs + '</div>' +
            '<span class="event-host-name">Hosted by PowerToFly</span>' +
