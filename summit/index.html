@@ -80,12 +80,12 @@
    mockup, reused across every event page. */
 .how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
 
-/* "About PowerToFly" — spans the full --content-body width, aligned with the
-   how-it-works + upcoming-summits sections. The body paragraph keeps a readable
-   max line length (62ch); the headline and stat grid fill the container. */
+/* "About PowerToFly" — left edge aligned with the other sections (--content-body wrapper).
+   The TITLE spans the full width (like the how-it-works steps) so the big headline isn't
+   cramped; the body paragraph and the stat grid sit in a reduced, tidy column. */
 .about-head { max-width: var(--content-body); margin: 0 auto; }
-.about-head .section-head,
-.about-head .about-stat-grid { max-width: var(--content-body); }
+.about-head .section-head { max-width: var(--content-body); }   /* wide headline, not cramped */
+.about-head .about-stat-grid { max-width: var(--content-narrow); } /* stat grid reduced to a tidy column */
 
 /* "More upcoming summits" — hold head + tiles to the shared content column (--content-body),
    so they align with the hero instead of spilling to the nav edge */
