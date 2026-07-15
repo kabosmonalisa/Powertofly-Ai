@@ -714,6 +714,13 @@ img { display: block; max-width: 100%; }
 .upload-area.invalid { border-color: #E8843C; border-style: solid; }
 .id-section.invalid .id-section-label { color: #E8843C; }   /* step 3: tint the label, not a crowded ring around the chips */
 .agree-row.invalid { outline: 1.5px solid #E8843C; outline-offset: 6px; border-radius: 10px; }
+/* Optional resume reveal (Step 2) — quiet icon+text secondary action that expands the upload tile */
+.resume-toggle { display: inline-flex; align-items: center; gap: 7px; margin: 2px 0 0; padding: 7px 0; background: none; border: 0; font-family: inherit; font-size: 13.5px; font-weight: 500; color: var(--ink-3); cursor: pointer; transition: color .15s ease; }
+.resume-toggle svg { fill: currentColor; flex-shrink: 0; }
+.resume-toggle:hover { color: var(--ink); }
+.resume-toggle[hidden] { display: none; }   /* class sets display, so it must opt back out of [hidden] */
+.resume-reveal { max-height: 0; opacity: 0; overflow: hidden; margin-top: 0; transition: max-height .38s cubic-bezier(.4,0,.2,1), opacity .3s ease, margin-top .38s ease; }
+.resume-reveal.open { max-height: 260px; opacity: 1; margin-top: 10px; }
 @keyframes ptf-shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-4px)} 40%,80%{transform:translateX(4px)} }
 .btn-auth.shake { animation: ptf-shake .34s ease; }
 .upload-icon { font-size: 28px; margin-bottom: 8px; }
