@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Summit — The Next Wave: AI &amp; Emerging Tech — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  SUMMIT — reusable summit-detail template (sibling of vjf/index.html).
+  This is the page a member lands on after clicking a "Summit" tile on
+  events/index.html. It mirrors vjf/index.html's structure, rebranded for a
+  multi-day summit, and is built ENTIRELY from the shared design system:
+  · nav + footer   → injected (data-ptf-nav / data-ptf-footer)
+  · hero           → .ev-hero (same shared event-hero composition as the VJF page)
+  · what to expect → .benefits-row / .benefit-card (talents' "What you can expect")
+  · job-fair note  → .section-mission / .mission-statement
+  · about PTF      → .section-stats / .stats-card-wrap (portrait + dark stat card)
+  · more summits   → .ev-head / .ev-list / .ev-row (same summit tiles as events page)
+  · closer         → .section-cta
+  To spin up a new summit: copy this file, change ONLY the copy (title, dates,
+  stats, cards, tiles) + the hero image. Do not add components or rewrite CSS.
+  Page-specific CSS below is limited to the sanctioned exceptions (COMPONENT-
+  INVENTORY "Allowed page-specific CSS"): the fixed-header wiring, the event-hero
+  composition (shared with vjf/), and the benefits-row grid (as talents/index.html).
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<!-- OG -->
+<meta property="og:title"       content="Summit — The Next Wave: AI &amp; Emerging Tech — PowerToFly AI">
+<meta property="og:description" content="A two-day virtual summit exploring how AI and emerging technologies are shaping the future of work, innovation, and inclusion. Keynotes, panels, workshops, and a closing virtual job fair.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY (tokens, never raw hex — see COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"). Everything visual not defined here comes from ptf.css.
+ */
+
+/* ── Fixed site header (alert + nav) — same wiring as events/hire/vjf ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Event-detail hero — the reusable event-hero (page-unique composition,
+      shared verbatim with vjf/index.html so every event/summit page uses one hero).
+      2-col: event info (left) + media (right). ── */
+.ev-hero {
+  position: relative; overflow: hidden;
+  padding: var(--section-y) var(--gutter);   /* breathing room under the fixed nav, matches the hire hero */
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%,
+              rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
+}
+.ev-hero-inner {
+  position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;  /* hero runs to the container edge, like the train/events heroes */
+  display: grid; grid-template-columns: 1fr 1.1fr;   /* media is the larger column (like the events feature) */
+  gap: clamp(28px, 4vw, 56px); align-items: stretch;  /* image fills the full height beside the text */
+}
+.ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+/* headline type comes from the shared .display class — only layout here */
+.ev-hero h1 { margin: 18px 0 0; max-width: 20ch; }
+.ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+/* Meta facts — text only, plain single-color MUI icons (no gradient at this size) */
+.ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 30px 0 0; }
+.ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
+.ev-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+/* bare feature image — rounded + clipped, NO shadow (matches .stats-portrait / .how-portrait-card) */
+.ev-hero-media {
+  position: relative; border-radius: var(--r-2xl); overflow: hidden;
+  min-height: 520px; background: var(--surface-2);
+}
+.ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* "What to expect" — 4-up benefit cards. Same page-local grid as talents/index.html
+   (the wrapper isn't a named DS class; only the cards inside are). Tokens only. */
+.benefits-row {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+  max-width: var(--content); margin: 0 auto;
+}
+
+/* "About PowerToFly" — pull the intro copy to the shared content column so the
+   section-head sits above the stats card at a comfortable measure */
+.about-head { max-width: var(--content); margin: 0 auto; }
+/* the stats portrait carries the page photo (co-workers meeting); the PTF icon overlays it in white (same as talents/index.html) */
+.stats-portrait { background-image: url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop'); background-position: center; }
+.stats-portrait-icon { filter: brightness(0) invert(1) drop-shadow(0 4px 12px rgba(0,0,0,0.45)); }
+
+/* "More upcoming summits" — hold head + tiles to the shared content column (--content-body),
+   so they align with the hero instead of spilling to the nav edge */
+.ev-more { max-width: var(--content-body); margin: 0 auto; }
+/* drop the closing hairline under the last tile (this is a short static list, not a full listing) */
+.ev-more .ev-list .ev-row:last-child { border-bottom: none; }
+
+/* "See upcoming summits" jump target — offset for the fixed header */
+#summits { scroll-margin-top: 140px; }
+
+/* ── PROTOTYPE: hero event-state cues (upcoming / live / past) + dev switcher ── */
+.eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: smtLivePulse 1.6s ease-in-out infinite; }
+.eyebrow.is-past { color: var(--ink-3); }
+.eyebrow .dot.is-past { background: var(--ink-3); }
+@keyframes smtLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
+#devStates button:hover { background: rgba(255,255,255,0.12); }
+#devStates button.active { background: #fff; color: #0A0A0A; }
+#devStates button.active:hover { background: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 1000px) {
+  .benefits-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 820px) {
+  .ev-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .ev-hero-media { order: -1; min-height: 300px; }
+  .ev-hero h1 { max-width: none; }
+}
+@media (max-width: 560px) {
+  .ev-hero { padding: 40px 20px var(--section-y); }
+  h1, h2, h3 { text-wrap: pretty; }
+  .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  .ev-hero-sub { font-size: 16px; }
+  .ev-hero-meta { grid-template-columns: 1fr; }
+  .benefits-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for any ≥40px gradient icon (feature icons) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <!-- ═══ TOP ALERT ═══ -->
+  <div class="top-alert" id="topAlert">
+    <span id="alertText">Summit &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 16–17</span>
+    <a id="alertCta" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- ═══ NAV — shared injected nav ═══ -->
+  <div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — the summit, its facts, and the primary register action -->
+<section class="ev-hero">
+  <div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow" id="heroEyebrow"><span class="dot"></span>PowerToFly Summit Series</div>
+      <h1 class="display">The Next Wave: AI &amp; Emerging Tech Shaping <em class="italic-plain">Tomorrow</em></h1>
+      <p class="ev-hero-sub">Step into the future at The Next Wave, a virtual summit exploring how AI and emerging technologies are redefining work, innovation, and inclusion — and how cutting-edge tools are driving efficiency, creativity, and equity across industries.</p>
+
+      <div class="ev-hero-meta">
+        <!-- MUI Outlined paths, plain ink (small = no gradient) -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>September 16–17, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>2 days</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>25+ speakers</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>5,000+ participants</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual · free to attend</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" id="heroCta1" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+        <a class="btn" id="heroCta2" href="../sponsor/index.html">Become a sponsor</a>
+      </div>
+    </div>
+
+    <div class="ev-hero-media">
+      <!-- Diverse professionals collaborating — AI & emerging tech (Pexels, the approved "Next Wave" image) -->
+      <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop" alt="Professionals collaborating at glowing data screens — AI and emerging tech shaping tomorrow">
+    </div>
+  </div>
+</section>
+
+<!-- 02. WHAT TO EXPECT — shared benefit cards (big gradient icon + title + copy) -->
+<section class="section" style="background: var(--bg)">
+  <div class="section-head">
+    <h2>What to expect</h2>
+    <p>Two days of learning and connection, built to prepare you for the evolving landscape of tomorrow.</p>
+  </div>
+  <div class="benefits-row">
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5-3c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+      </svg>
+      <h3>Inspiring keynotes</h3>
+      <p>Learn from tech visionaries and AI experts shaping the future of work.</p>
+    </div>
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/>
+      </svg>
+      <h3>Dynamic panels</h3>
+      <p>Dive into discussions on the latest trends, challenges, and opportunities in emerging tech.</p>
+    </div>
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/>
+      </svg>
+      <h3>Interactive workshops</h3>
+      <p>Gain hands-on insights into leveraging AI and emerging tech for growth, efficiency, and inclusivity.</p>
+    </div>
+
+    <div class="benefit-card">
+      <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 12.75c1.63 0 3.07.39 4.24.9 1.08.48 1.76 1.56 1.76 2.73V18H6v-1.61c0-1.18.68-2.26 1.76-2.73 1.17-.52 2.61-.91 4.24-.91zM4 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm1.13 1.1c-.37-.06-.74-.1-1.13-.1-.99 0-1.93.21-2.78.58C.48 14.9 0 15.62 0 16.43V18h4.5v-1.61c0-.83.23-1.61.63-2.29zM20 13c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4 3.43c0-.81-.48-1.53-1.22-1.85-.85-.37-1.79-.58-2.78-.58-.39 0-.76.04-1.13.1.4.68.63 1.46.63 2.29V18H24v-1.57zM12 6c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3z"/>
+      </svg>
+      <h3>Networking opportunities</h3>
+      <p>Connect with professionals, innovators, and advocates for the next wave of innovation.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- 03. VIRTUAL JOB FAIR — shared mission statement (a single highlighted line) -->
+<section class="section-mission">
+  <div class="eyebrow" style="justify-content:center; margin-bottom:22px"><span class="dot"></span>Virtual job fair</div>
+  <h2 class="mission-statement">Close the summit with our free virtual job fair — meet companies at the forefront of AI and emerging tech, and explore careers in innovation-driven industries.</h2>
+  <div style="text-align:center; margin-top:34px"><a class="btn" href="../vjf/index.html">See the job fair →</a></div>
+</section>
+
+<!-- 04. ABOUT POWERTOFLY — shared stats card (portrait photo + dark big-number card) -->
+<section class="section-stats">
+  <div class="about-head">
+    <div class="section-head" style="text-align:left; max-width:none; margin-bottom:40px">
+      <h2>About PowerToFly</h2>
+      <p style="margin-left:0; margin-right:0">PowerToFly is the bridge between professionals and companies — connecting talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere, and hone your skills through virtual events and exclusive career content.</p>
+    </div>
+  </div>
+  <div class="stats-card-wrap">
+    <div class="stats-portrait">
+      <img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon" aria-hidden="true">
+    </div>
+    <div class="stats-card-dark">
+      <div>
+        <div class="stat-big-num" data-count="800" data-suffix="K+">800K+</div>
+        <div class="stat-big-label">Active community members you can meet and learn from</div>
+      </div>
+      <div>
+        <div class="stat-big-num" data-count="204">204</div>
+        <div class="stat-big-label">Countries represented across the PowerToFly community</div>
+      </div>
+      <div>
+        <div class="stat-big-num" data-count="12" data-suffix="+">12+</div>
+        <div class="stat-big-label">Years connecting talent with companies that value it</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. MORE UPCOMING SUMMITS — shared event tiles (static, no filter/pager) -->
+<section class="section" id="summits">
+  <div class="ev-more">
+  <div class="ev-head">
+    <h2>Upcoming summits</h2>
+    <a class="ev-head-link" href="../events/index.html">See all events →</a>
+  </div>
+  <div class="ev-list">
+    <article class="ev-row" data-type="summit">
+      <div class="ev-row-date">October 21–22, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Summit</span>
+        <h3 class="ev-row-title">Beyond Boundaries: Voices of Latinidad</h3>
+        <p class="ev-row-desc">A two-day virtual summit celebrating Latin American heritage and its impact on the global workplace — exploring bilingualism, mentorship, and elevating Latinx representation across industries.</p>
+        <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=20" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=9" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=68" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=45" alt="" loading="lazy"></div><span class="ev-people-label">25+ speakers</span></div>
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/15177076/pexels-photo-15177076.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+
+    <article class="ev-row" data-type="summit">
+      <div class="ev-row-date">November 18–19, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Summit</span>
+        <h3 class="ev-row-title">Supporting Veterans, Active Service Members &amp; Military Spouses</h3>
+        <p class="ev-row-desc">A career summit created for veterans, military spouses, allies, and active-duty service members — celebrating service, showcasing skills, and connecting military talent with employers who value it.</p>
+        <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=60" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=33" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=12" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=26" alt="" loading="lazy"></div><span class="ev-people-label">25+ speakers</span></div>
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/7467857/pexels-photo-7467857.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+  </div>
+  </div><!-- /.ev-more -->
+</section>
+
+<!-- 06. JOIN US — shared dark closer band -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Join us</span>
+    <h2>Be part of the next wave</h2>
+    <p>Join a movement shaping the future of work and technology. Explore innovations, exchange ideas, and connect with leaders building a more inclusive, tech-forward world. Don't miss The Next Wave.</p>
+    <a href="../event-common/index.html" class="btn btn-cta">Register now →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<!-- PROTOTYPE-ONLY — switch the page between event states. Delete #devStates + its script before launch. -->
+<div id="devStates" style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.34);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 4px">PREVIEW STATE</span>
+  <button type="button" data-state="upcoming">Upcoming</button>
+  <button type="button" data-state="live">Live</button>
+  <button type="button" data-state="past">Past</button>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed alert + nav offset
+  // benefit-card counters + FAQ etc. auto-wire via shared PTF inits
+
+  /* ── PROTOTYPE: event-state switcher (upcoming / live / past). Also reachable via #live / #past.
+     Only the hero eyebrow + primary CTA + alert change per state; "Become a sponsor" and the rest
+     of the page are state-agnostic. ── */
+  (function () {
+    var STATES = {
+      upcoming: {
+        dot: '', eyebrowCls: '', eyebrow: 'PowerToFly Summit Series',
+        cta1: { t: 'Register now →', href: '../event-common/index.html' },
+        alert: 'Summit &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech &nbsp;·&nbsp; Sept 16–17',
+        alertCta: { t: 'Register now →', href: '../event-common/index.html' }
+      },
+      live: {
+        dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
+        cta1: { t: 'Join now →', href: '#' },            // COPY: confirm live/join target
+        alert: 'Live now &nbsp;·&nbsp; The Next Wave: AI &amp; Emerging Tech',
+        alertCta: { t: 'Join now →', href: '#' }
+      },
+      past: {
+        dot: ' is-past', eyebrowCls: ' is-past', eyebrow: 'Past event',
+        cta1: { t: 'Watch the recordings →', href: '#' }, // COPY: confirm recording target
+        alert: 'This summit has ended &nbsp;·&nbsp; Watch the recordings',
+        alertCta: { t: 'Watch the recordings →', href: '#' }
+      }
+    };
+    var eyebrow = document.getElementById('heroEyebrow');
+    var cta1 = document.getElementById('heroCta1');
+    var alertText = document.getElementById('alertText');
+    var alertCta = document.getElementById('alertCta');
+    var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
+    function apply(name) {
+      var s = STATES[name]; if (!s) return;
+      eyebrow.className = 'eyebrow' + s.eyebrowCls;
+      eyebrow.innerHTML = '<span class="dot' + s.dot + '"></span>' + s.eyebrow;
+      cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
+      if (alertText) alertText.innerHTML = s.alert;
+      if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
+      btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { var n = b.getAttribute('data-state'); apply(n); history.replaceState(null, '', n === 'upcoming' ? location.pathname : '#' + n); });
+    });
+    var h = (location.hash || '').replace('#', '');
+    apply(STATES[h] ? h : 'upcoming');
+    window.addEventListener('hashchange', function () { var k = (location.hash || '').replace('#', ''); if (STATES[k]) apply(k); });
+  })();
+</script>
+</body>
+</html>
