@@ -77,14 +77,22 @@
 }
 .ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* "What you'll get out of this session" — the how-it-works timeline (portrait + check
+   marks), same treatment as summit/. Portrait carries the generic how-it-works mockup,
+   reused across every event page. */
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
+
+/* "About PowerToFly" — same as summit/: left edge aligned with the other sections
+   (--content-body wrapper); title, body and stat grid share ONE width. */
+.about-head { max-width: var(--content-body); margin: 0 auto; }
+.about-head .section-head,
+.about-head .about-stat-grid { max-width: var(--content-narrow); }
+
 /* ── Body copy columns — wrapper shares the hero + tiles' left edge (content-body),
       readable content held to content-narrow and left-aligned ── */
 .cl-copy, .cl-speakers { max-width: var(--content-body); margin: 0 auto; }
 .cl-copy .section-head { text-align: left; max-width: var(--content-narrow); margin: 0 0 20px; }
 .cl-copy .section-head p { margin: 0; max-width: none; }
-.cl-copy .cl-takeaways-label,
-.cl-copy .sc-bullets { max-width: var(--content-narrow); }
-.cl-takeaways-label { display: block; margin: 28px 0 0; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: var(--ink); }
 
 /* ── "Meet the speakers" — page-specific speaker-bio layout (no DS component for this).
       Circular photo + name + role + bio, held to the readable column. Tokens only. ── */
@@ -173,25 +181,57 @@
     </div>
 
     <div class="ev-hero-media">
-      <!-- Diverse professionals in conversation — a Chat & Learn (Pexels, proven) -->
-      <img src="https://images.pexels.com/photos/8438940/pexels-photo-8438940.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop" alt="Professionals in a focused working conversation — a PowerToFly Chat & Learn">
+      <!-- A virtual session in progress — reads as a Chat & Learn (Pexels, verified) -->
+      <img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1000&fit=crop" alt="A professional joining a virtual session from home — a PowerToFly Chat &amp; Learn">
     </div>
   </div>
 </section>
 
-<!-- 02. WHAT THIS SESSION COVERS — prose + shared checklist -->
-<section class="section" style="background: var(--bg)">
-  <div class="cl-copy">
+<!-- 02. WHAT YOU'LL GET — how-it-works timeline (portrait + check marks), same
+     treatment as summit/'s "What you'll get out of the summit". -->
+<section class="section-how" id="covers">
+  <div class="how-outer">
     <div class="section-head">
-      <h2>What this session covers</h2>
-      <p>What if the fastest way to ship better AI isn't a bigger model, but better habits? Our speakers walk through real projects — the false starts, the fixes, and the decisions that actually moved the needle — in an honest, no-jargon conversation you can bring your questions to.</p>
+      <h2>What you'll get out of this session</h2>
+      <p>An honest, no-jargon conversation you can bring your questions to — here's what you'll take away</p>
     </div>
-    <span class="cl-takeaways-label">You'll walk away with</span>
-    <ul class="sc-bullets">
-      <li><span class="sc-ck" style="color:var(--green)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.4 2.4L9.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A clear-eyed view of which AI practices hold up in production — and which hype cycles to skip.</li>
-      <li><span class="sc-ck" style="color:var(--green)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.4 2.4L9.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Practical patterns for evaluation, tooling, and iteration you can apply to your own projects.</li>
-      <li><span class="sc-ck" style="color:var(--green)"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.3l2.4 2.4L9.5 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Honest answers on team habits, tradeoffs, and what it really takes to ship reliable AI.</li>
-    </ul>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <!-- check marks, not numbers: genuine MUI check, plain single-color ink
+           (small <40px = no gradient, per DESIGN-SYSTEM rule #5) -->
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>A clear-eyed view</h4>
+            <p>Which AI practices hold up in production, and which hype cycles to skip.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Practical patterns</h4>
+            <p>Evaluation, tooling, and iteration approaches you can put to work on your own projects.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Honest answers</h4>
+            <p>Team habits, tradeoffs, and what it really takes to ship reliable AI.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>A room to ask in</h4>
+            <p>Bring your own problem — the last stretch is open Q&amp;A with the speakers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -231,7 +271,56 @@
   </div>
 </section>
 
-<!-- 04. MORE CHAT & LEARNS — shared event tiles (static, no filter/pager) -->
+<!-- 04. ABOUT POWERTOFLY — editorial header + shared stat-card grid (identical to summit/) -->
+<section class="section" style="background: var(--bg)">
+  <div class="about-head">
+    <div class="section-head" style="text-align:left; margin:0 0 40px"><!-- margin:0 left-aligns it (the class centers via margin:0 auto) -->
+      <div class="eyebrow" style="margin-bottom:14px">About PowerToFly</div>
+      <h2>The bridge between professionals and <em class="italic-plain">the companies building what's next.</em></h2>
+      <p style="margin-left:0; margin-right:0; max-width:none">PowerToFly connects talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere — and with our virtual events and exclusive career content, hone your skills and grow your network all in one place.</p>
+    </div>
+    <div class="about-stat-grid">
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Community</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">800K+</span>
+        <span class="about-stat-desc">Active members across every industry, domain, and geography — from anywhere in the world.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Verified experts</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">80K+</span>
+        <span class="about-stat-desc">Domain specialists in healthcare, law, finance, and more — vetted and ready.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">AI professionals</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">6,500</span>
+        <span class="about-stat-desc">Annotators, red teamers, and model evaluators who've worked on frontier AI.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Countries</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">204</span>
+        <span class="about-stat-desc">A truly global community, so you can connect and grow your network without borders.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Women &amp; BIPOC</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">75%+</span>
+        <span class="about-stat-desc">The voices most underrepresented in tech are overrepresented here — by design.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Years building</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">12+</span>
+        <span class="about-stat-desc">Connecting talent with companies that value it, since 2014.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. MORE CHAT & LEARNS — shared event tiles (static, no filter/pager) -->
 <section class="section" id="more">
   <div class="ev-more">
   <div class="ev-head">
@@ -279,7 +368,7 @@
   </div><!-- /.ev-more -->
 </section>
 
-<!-- 05. CLOSER — shared dark closer band -->
+<!-- 06. CLOSER — shared dark closer band -->
 <section class="section-cta">
   <div class="section-cta-inner">
     <span class="eyebrow">Save your spot</span>
