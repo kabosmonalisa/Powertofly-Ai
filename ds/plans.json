@@ -1,0 +1,156 @@
+{
+ "_comment": "PLANS — the design thinking behind Step 4 of the Create wizard. These are written by Claude against a real brief; the app only renders them. A plan matches on `when` {type, objective}. Every slot names a pattern from ds/patterns.json, a mode (reuse | adapt | new) and WHY — plus the alternatives that were considered and rejected, so the choice can be compared visually instead of taken on trust. Rule: reuse → adapt → create new. A `new` slot must argue why nothing existing fits, and must produce a reusable Section Pattern rather than a one-off.",
+ "plans": [
+  {
+   "id": "plan-page-new",
+   "when": {
+    "type": "page",
+    "objective": "new"
+   },
+   "title": "A new page, built almost entirely from what you already have",
+   "summary": "Nine sections, and not one of them is new. That's the point — this page is entirely patterns already earning their place elsewhere, so it inherits your spacing, dark theme and hover language for free. The order does the persuading: promise, proof, explanation, evidence, objections, ask.",
+   "note": "This plan is a starting shape for a marketing page, not a law. Bring me your actual brief and I'll re-cut it against your content — the value is in the argument for each slot, not the slot count.",
+   "slots": [
+    {
+     "slot": "Open with the promise",
+     "pattern": "pat-hero",
+     "mode": "reuse",
+     "why": "Reuse it exactly. Your hero already does the three jobs an opening needs — one promise, one sub, one action — and it's the most consistent thing on the site. A new page that opens differently reads as a different product, and you'd be spending your novelty budget in the one place visitors have already learned to read.",
+     "alternatives": [
+      {
+       "pattern": "pat-mission",
+       "why_not": "Beautiful, but it opens with a belief instead of an offer. It earns its place further down, once someone has a reason to care — leading with it asks for patience you haven't been given yet."
+      }
+     ]
+    },
+    {
+     "slot": "Prove it immediately",
+     "pattern": "pat-statband",
+     "mode": "reuse",
+     "why": "Four numbers, hairline-separated, directly under the hero. It's quiet, it's cheap in page height, and it answers the reflex question — is this real? — before any argument starts. You have the numbers already: 80K+ experts, 190 countries, 6,500 AI professionals, 12+ years.",
+     "alternatives": [
+      {
+       "pattern": "pat-logos",
+       "why_not": "Also proof, and worth using — but borrowed credibility lands harder after your own claim, not instead of it. Put it lower."
+      },
+      {
+       "pattern": "pat-testimonials",
+       "why_not": "Too heavy this high. A quote asks for reading time before you've earned it."
+      }
+     ]
+    },
+    {
+     "slot": "Explain the one idea that matters",
+     "pattern": "pat-expertrow",
+     "mode": "reuse",
+     "why": "This is your best explainer: copy on one side, a tinted panel with a mock of the real product on the other. Use one row per idea and resist stacking four — each row is a paragraph, and nobody reads four paragraphs. Two, maybe three.",
+     "alternatives": [
+      {
+       "pattern": "pat-benefit",
+       "why_not": "Benefit cards say what's good; expert rows show it. Cards are the right call when you have three peers of equal weight and nothing to demonstrate."
+      }
+     ]
+    },
+    {
+     "slot": "Answer 'how does this actually work'",
+     "pattern": "pat-how",
+     "mode": "reuse",
+     "why": "Three numbered steps beside a portrait. The moment someone believes you, their next thought is what happens if I say yes — this answers it before the doubt sets in. There's a generic portrait already in photos/ made for exactly this slot.",
+     "alternatives": [
+      {
+       "pattern": "pat-expertrow",
+       "why_not": "Could carry the process too, but it's already used above. Two rows doing different jobs in the same visual language blurs both."
+      }
+     ]
+    },
+    {
+     "slot": "Reasons to believe",
+     "pattern": "pat-benefit",
+     "mode": "reuse",
+     "why": "Three cards, three reasons, equal weight. This is where cards are exactly right: peers, no hierarchy, nothing to demonstrate — just three things that are true. Keep it to three; four turns a rhythm into a list.",
+     "alternatives": [
+      {
+       "pattern": "pat-statband",
+       "why_not": "Already used above. Repeating it would flatten the first one — the second time, numbers stop feeling like proof and start feeling like decoration."
+      }
+     ]
+    },
+    {
+     "slot": "Borrowed credibility",
+     "pattern": "pat-logos",
+     "mode": "reuse",
+     "why": "One line of client logos, low contrast, no explanation. It works here precisely because it asks nothing of the reader — it's a glance, not a section.",
+     "alternatives": []
+    },
+    {
+     "slot": "Someone else says it",
+     "pattern": "pat-testimonials",
+     "mode": "reuse",
+     "why": "Two quotes maximum. By now the reader is deciding rather than learning, and a specific sentence from a real person beats another claim from you. Specific beats glowing — the quote that names a hard thing you solved is worth three that say 'great partner'.",
+     "alternatives": [
+      {
+       "pattern": "pat-mission",
+       "why_not": "A belief statement here would be you talking again, at the exact moment the reader needs to hear from someone who isn't you."
+      }
+     ]
+    },
+    {
+     "slot": "Clear the last objections",
+     "pattern": "pat-faq",
+     "mode": "reuse",
+     "why": "Cheap in height, high in value: it lets you answer the three doubts you already know about without giving them main-stage weight. The accordion is shared now — drop the markup in, no page CSS.",
+     "alternatives": []
+    },
+    {
+     "slot": "Ask",
+     "pattern": "pat-cta",
+     "mode": "reuse",
+     "why": "The always-dark closer that blends into the footer. Every page you have ends here, which is the point — the ending is where consistency is most felt and least noticed. The green eyebrow is a required part of the band, not decoration.",
+     "alternatives": []
+    }
+   ]
+  },
+  {
+   "id": "plan-section-new",
+   "when": {
+    "type": "section",
+    "objective": "new"
+   },
+   "title": "A new section pattern — the bar is higher than a one-off",
+   "summary": "Before building anything: a new section pattern has to be worth its permanent cost. Every pattern you add is one more thing to learn, maintain and keep consistent forever. Here's the test I'd apply, in order.",
+   "note": "If it passes all three, bring me the brief and I'll draft it against your existing components so it inherits the system instead of fighting it. If it fails one, the honest answer is usually to adapt an existing pattern — and that's a good outcome, not a consolation prize.",
+   "slots": [
+    {
+     "slot": "First: does an existing pattern already do this?",
+     "pattern": "pat-expertrow",
+     "mode": "reuse",
+     "why": "Most 'new section' ideas are an expert row with different copy. It carries a tag, a headline, body, bullets, a link and an arbitrary panel — that panel can hold almost anything. If your idea fits inside it, you don't have a new pattern, you have new content. That's the cheapest possible win.",
+     "alternatives": [
+      {
+       "pattern": "pat-benefit",
+       "why_not": "If the content is three peers of equal weight, this is already your answer."
+      },
+      {
+       "pattern": "pat-how",
+       "why_not": "If it's a sequence, this is already your answer."
+      }
+     ]
+    },
+    {
+     "slot": "Second: will it be used three times?",
+     "pattern": "pat-statband",
+     "mode": "adapt",
+     "why": "A pattern used once is a one-off wearing a costume — it adds a permanent concept for a single page's benefit. The stat band earns its place because four pages use it. If you can't name three places yours will live, adapt something existing instead and revisit when the third use appears.",
+     "alternatives": []
+    },
+    {
+     "slot": "Third: can it be built from existing parts?",
+     "pattern": "pat-cta",
+     "mode": "adapt",
+     "why": "The best new patterns are new arrangements, not new atoms. If yours needs a new button, a new radius or a new colour, that's the signal to stop — you're not adding a pattern, you're forking the system. Build it from the closed set and it inherits the dark theme, the spacing law and the hover language for free.",
+     "alternatives": []
+    }
+   ]
+  }
+ ]
+}

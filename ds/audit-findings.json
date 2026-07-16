@@ -1,0 +1,1628 @@
+{
+ "_comment": "VISUAL AUDIT — the Cleanup & unify findings, in designer language. Each finding shows the real variations you have today, rendered LIVE from their measured values (no screenshots to go stale), where each one appears, exactly what differs, and a Keep / Merge / Discuss recommendation. Measured at 1280px across 25 real pages. Prototype-only scaffolding (#devStates, .live-sim) is excluded — it never ships. Specimens stamp their own rendered height/size, so a label can never drift from what you actually see.",
+ "_specimen": "spec = { tag, text, stage:'light'|'dark', css:{…} } → rendered inline with those exact values.",
+ "measured": "2026-07-16 · 25 pages · 1280px · light theme",
+ "findings": [
+  {
+   "id": "f-small-pill",
+   "impact": "high",
+   "title": "The small pill button — two heights, side by side",
+   "question": "Your nav's two buttons sit next to each other but are not the same height. Should they be?",
+   "differs": [
+    "Height: a 5px gap between two buttons that sit side by side and should match",
+    "Everything else is identical: same padding, same 14px type, same pill radius, same border"
+   ],
+   "cause": "Not a design decision. \"Log in\" is written as a <button>, \"Get matched\" as a link. Browsers give buttons a tighter default line-height, so the same button class comes out two heights depending on which tag it happens to be written as.",
+   "recommend": "merge",
+   "reasoning": "There is no design intent here — nobody chose to make them different. The two buttons are meant to be a matched pair in the nav, and today they visibly aren't, on 18 pages. Because the cause is line-height inheritance rather than a style choice, this same bug is what splits your big CTA button into three heights further down. Fixing it once, at the button, fixes the whole family.",
+   "fix": "Add line-height: 1 to .btn so height comes from padding only, never from the surrounding page or the tag.",
+   "variants": [
+    {
+     "label": "Outlined — written as a button",
+     "where": [
+      "404",
+      "About",
+      "Chat & Learn",
+      "Compare",
+      "Employers",
+      "Events",
+      "Expert finder",
+      "Hire",
+      "How we verify",
+      "Job board",
+      "Nav options",
+      "Summit",
+      "Talents",
+      "Talents (v2)",
+      "Top alerts",
+      "Train",
+      "Virtual job fair",
+      "Why PowerToFly"
+     ],
+     "note": "The nav \"Log in\"",
+     "spec": {
+      "tag": "button",
+      "text": "Log in",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "10px 18px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "14px",
+       "font-weight": "600",
+       "letter-spacing": "-0.01em",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "normal",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Filled — written as a link",
+     "where": [
+      "404",
+      "About",
+      "Chat & Learn",
+      "Compare",
+      "Employers",
+      "Events",
+      "Expert finder",
+      "Hire",
+      "How we verify",
+      "Job board",
+      "Nav options",
+      "Summit",
+      "Talents",
+      "Talents (v2)",
+      "Top alerts",
+      "Train",
+      "Virtual job fair",
+      "Why PowerToFly"
+     ],
+     "note": "The nav \"Get matched\" — visibly taller than the Log in beside it",
+     "spec": {
+      "tag": "a",
+      "text": "Get matched",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "10px 18px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "14px",
+       "font-weight": "600",
+       "letter-spacing": "-0.01em",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#ffffff",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Outlined — written as a link",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "note": "Same class as the nav Log in, but taller here — because it's written as a link",
+     "spec": {
+      "tag": "a",
+      "text": "Apply now",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "10px 18px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "14px",
+       "font-weight": "600",
+       "letter-spacing": "-0.01em",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "One height — set by padding, not by the tag",
+     "spec": {
+      "tag": "button",
+      "text": "Log in",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "13px 18px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "14px",
+       "font-weight": "600",
+       "letter-spacing": "-0.01em",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "1",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Matches, whatever tag it's written as",
+     "spec": {
+      "tag": "a",
+      "text": "Get matched",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "13px 18px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "14px",
+       "font-weight": "600",
+       "letter-spacing": "-0.01em",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#ffffff",
+       "line-height": "1",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "stamp": "height",
+   "apply": [
+    {
+     "type": "css-set",
+     "selector": ".btn",
+     "prop": "line-height",
+     "value": "1"
+    },
+    {
+     "type": "css-set",
+     "selector": ".btn",
+     "prop": "padding",
+     "value": "18px 26px"
+    },
+    {
+     "type": "css-set",
+     "selector": ".btn-sm",
+     "prop": "padding",
+     "value": "13px 18px"
+    },
+    {
+     "type": "css-set",
+     "selector": ".btn-cta",
+     "prop": "padding",
+     "value": "20px 32px"
+    }
+   ],
+   "kind": "unify",
+   "impact_note": "Fixes a visible mismatch in the nav on 18 pages, and collapses the big-button group as a side effect. One line of CSS."
+  },
+  {
+   "id": "f-big-pill",
+   "impact": "high",
+   "title": "The big pill button — six different heights",
+   "question": "You have six large pill buttons. Do you need more than one size of \"big button\"?",
+   "differs": [
+    "Height: six values spanning 16px, from the smallest to the largest",
+    "Type size: 15px or 16px; weight 600 or 700",
+    "Padding: 12/24, 14/26, 16/32, 18/26"
+   ],
+   "cause": "Partly the same line-height bug as the nav pair (two of these are identical apart from being a link vs a button; another two are the same class rendering differently on different pages). Partly genuinely different padding chosen page by page.",
+   "recommend": "merge",
+   "reasoning": "A visitor cannot tell these apart — the middle differences carry no meaning, they're accidents of where each button was built. But the jump from the smallest to the largest IS meaningful: a compact button in a search bar should be smaller than the closing call-to-action. So don't collapse to one — collapse to a deliberate scale of two, and delete the rest.",
+   "fix": "Apply the small-pill fix first (it merges the 57/59/61 group on its own), then decide by hand whether you keep one big size or two.",
+   "variants": [
+    {
+     "label": "Search bar — the smallest",
+     "where": [
+      "Talents (v2)"
+     ],
+     "note": "Written as a button",
+     "spec": {
+      "tag": "button",
+      "text": "Search jobs",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "12px 24px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "15px",
+       "font-weight": "700",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#fff",
+       "line-height": "normal",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "The standard — most used",
+     "where": [
+      "404",
+      "Chat & Learn",
+      "Compare",
+      "Events",
+      "Expert finder",
+      "Hire",
+      "How we verify",
+      "Summit",
+      "Talents",
+      "Talents (v2)",
+      "Train",
+      "Virtual job fair",
+      "Why PowerToFly"
+     ],
+     "note": "The most-used large button",
+     "spec": {
+      "tag": "a",
+      "text": "Book a discovery call →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "14px 26px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "15px",
+       "font-weight": "600",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#fff",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "The dark CTA band",
+     "where": [
+      "Chat & Learn",
+      "Employers",
+      "Events",
+      "Hire",
+      "Summit",
+      "Talents",
+      "Talents (v2)",
+      "Train",
+      "Virtual job fair"
+     ],
+     "stage": "dark",
+     "spec": {
+      "tag": "a",
+      "text": "Book a discovery call →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "16px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "The same CTA class, on About",
+     "where": [
+      "About"
+     ],
+     "stage": "dark",
+     "note": "Same class as the one before it — two heights",
+     "spec": {
+      "tag": "a",
+      "text": "Book a discovery call",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "17px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Hero",
+     "where": [
+      "Talents"
+     ],
+     "note": "A hero-only size",
+     "spec": {
+      "tag": "a",
+      "text": "Find your first opportunity →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "16px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#fff",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Pricing card",
+     "where": [
+      "Job board"
+     ],
+     "note": "Sits directly above a shorter button in the same pricing row",
+     "spec": {
+      "tag": "a",
+      "text": "Contact us →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "justify-content": "center",
+       "width": "260px",
+       "padding": "18px 26px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "15px",
+       "font-weight": "600",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#ffffff",
+       "color": "#0A0A0A",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "Default",
+     "spec": {
+      "tag": "a",
+      "text": "Book a discovery call →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "18px 26px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "15px",
+       "font-weight": "600",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#fff",
+       "line-height": "1",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Large — for closers and heroes",
+     "spec": {
+      "tag": "a",
+      "text": "Find your first opportunity →",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "20px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "border": "1.5px solid #0A0A0A",
+       "background": "#0A0A0A",
+       "color": "#fff",
+       "line-height": "1",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "stamp": "height",
+   "apply": [],
+   "kind": "unify",
+   "impact_note": "Six large buttons become two deliberate sizes. Removes 4 one-off button looks from the system."
+  },
+  {
+   "id": "f-eyebrow",
+   "impact": "high",
+   "title": "The little green label — five different versions",
+   "question": "All five say the same thing visually. Should they be one?",
+   "differs": [
+    "Letter-spacing: 1.54, 1.1, 1.68, 1.44px — four different tracking values",
+    "Size: 11px or 12px",
+    "Weight: 700 or 800",
+    "All are plain green uppercase — the pill rule is holding everywhere"
+   ],
+   "cause": "Each page that needed a green label got its own version instead of reusing the one that exists.",
+   "recommend": "merge",
+   "reasoning": "Nobody can see the difference between 1.44 and 1.54 letter-spacing — but the system pays for all five forever, and every new page picks one at random. Two of these (the Coming-soon and Book-a-call labels) are exactly the invented eyebrows your own rules ban. Merging costs you nothing visually and closes the door on a sixth.",
+   "fix": "Merge the two invented eyebrows (Coming-soon, Book-a-call) into .eyebrow and delete their rules. The category tag and benefit-card label carry layout of their own — align those tracking values by hand.",
+   "variants": [
+    {
+     "label": "The standard label",
+     "where": [
+      "About",
+      "Chat & Learn",
+      "Chat & Learn signup",
+      "Company registration",
+      "Events",
+      "Hire",
+      "Summit",
+      "Talents",
+      "Talents (v2)",
+      "Virtual job fair"
+     ],
+     "note": "The one to keep",
+     "spec": {
+      "tag": "span",
+      "text": "Hire AI experts",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "700",
+       "letter-spacing": "1.54px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    },
+    {
+     "label": "The category tag",
+     "where": [
+      "Chat & Learn",
+      "Employers",
+      "Events",
+      "Hire",
+      "Summit",
+      "Train",
+      "Virtual job fair"
+     ],
+     "note": "Tighter tracking than the standard",
+     "spec": {
+      "tag": "span",
+      "text": "Domain expertise",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "700",
+       "letter-spacing": "1.1px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    },
+    {
+     "label": "The benefit-card label",
+     "where": [
+      "Employers",
+      "Train"
+     ],
+     "note": "Tighter tracking than the standard",
+     "spec": {
+      "tag": "span",
+      "text": "Domain experts",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "700",
+       "letter-spacing": "1.1px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    },
+    {
+     "label": "The Coming-soon label",
+     "where": [
+      "Compare",
+      "Expert finder",
+      "How we verify",
+      "Why PowerToFly"
+     ],
+     "note": "An invented eyebrow — the rules ban this",
+     "spec": {
+      "tag": "span",
+      "text": "Coming soon",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "700",
+       "letter-spacing": "1.68px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    },
+    {
+     "label": "The Book-a-call label",
+     "where": [
+      "Book a call"
+     ],
+     "note": "An invented eyebrow — the rules ban this",
+     "spec": {
+      "tag": "span",
+      "text": "Let's talk",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "700",
+       "letter-spacing": "1.44px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "One label, everywhere",
+     "spec": {
+      "tag": "span",
+      "text": "Hire AI experts",
+      "css": {
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "700",
+       "letter-spacing": "1.54px",
+       "text-transform": "uppercase",
+       "color": "#0a8c66"
+      }
+     }
+    }
+   ],
+   "stamp": "type",
+   "apply": [
+    {
+     "type": "replace-class",
+     "from": ".cs-eyebrow",
+     "to": ".eyebrow"
+    },
+    {
+     "type": "replace-class",
+     "from": ".book-eyebrow",
+     "to": ".eyebrow"
+    },
+    {
+     "type": "remove-css-rule",
+     "selector": ".cs-eyebrow"
+    },
+    {
+     "type": "remove-css-rule",
+     "selector": ".book-eyebrow"
+    }
+   ],
+   "kind": "unify",
+   "impact_note": "Five green labels become one. Closes the door on a sixth, and removes two eyebrows your own rules ban."
+  },
+  {
+   "id": "f-tag-pill",
+   "impact": "high",
+   "title": "The muted tag pill — four near-identical versions",
+   "question": "Four grey pills that all label a topic or skill. Is any difference meaningful?",
+   "differs": [
+    "Size: 11, 12, 13px",
+    "Fill: soft off-white on two, transparent on two",
+    "Border: two have a hairline, two don't",
+    "Padding differs by 1–3px on each"
+   ],
+   "cause": "Each illustration was built with its own tag rather than sharing one.",
+   "recommend": "merge",
+   "reasoning": "These do exactly the same job — labelling a skill, a domain, a requirement — and a visitor reads them as the same thing. The variations aren't communicating a difference in meaning; they're four people solving the same problem on four different days. One tag, one look.",
+   "fix": "One tag: 12px / 500 / soft off-white fill / pill. Retire the three others.",
+   "variants": [
+    {
+     "label": "Filled — 12px",
+     "where": [
+      "Employers",
+      "Hire",
+      "Train"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "Physician",
+      "css": {
+       "display": "inline-flex",
+       "padding": "4px 10px",
+       "border-radius": "999px",
+       "background": "#fafaf6",
+       "color": "#2a2a2a",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "500",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Filled — 11px",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "Remote",
+      "css": {
+       "display": "inline-flex",
+       "padding": "3px 9px",
+       "border-radius": "999px",
+       "background": "#fafaf6",
+       "color": "#5c6f69",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "500",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Outlined — 12px",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "RN, NP, or MD",
+      "css": {
+       "display": "inline-flex",
+       "padding": "4px 10px",
+       "border-radius": "999px",
+       "background": "transparent",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "color": "#5c6f69",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "500",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Outlined — 13px",
+     "where": [
+      "Talents"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "Clinical AI",
+      "css": {
+       "display": "inline-flex",
+       "padding": "5px 13px",
+       "border-radius": "999px",
+       "background": "transparent",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "color": "#5c6f69",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "13px",
+       "font-weight": "500",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "One tag",
+     "spec": {
+      "tag": "span",
+      "text": "Physician",
+      "css": {
+       "display": "inline-flex",
+       "padding": "4px 10px",
+       "border-radius": "999px",
+       "background": "#fafaf6",
+       "color": "#2a2a2a",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "500",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "stamp": "height",
+   "apply": [],
+   "kind": "unify",
+   "impact_note": "Four tag styles become one. Every future tag has an obvious answer instead of a coin flip."
+  },
+  {
+   "id": "f-badge",
+   "impact": "medium",
+   "title": "The status badge — three sizes",
+   "question": "These flag status (\"Top match\", \"New match\", \"Best value\"). Should they be one size?",
+   "differs": [
+    "Size: 10px, 11px, 12px",
+    "Weight: 600, 600, 700",
+    "One is uppercase, two are sentence case",
+    "One is a solid green fill, two are tinted green"
+   ],
+   "cause": "Built per illustration.",
+   "recommend": "discuss",
+   "reasoning": "The tinted-green pair are clearly the same thing at two sizes — merge those. But the solid-green \"Best value\" is doing a louder job: it's a sales flag on a pricing card, not a status. That one may deserve to stay different — that's a call about emphasis, not consistency, and it's yours to make.",
+   "fix": "Merge the two tinted badges to 11px / 600. Decide separately whether the solid \"Best value\" flag stays its own thing.",
+   "variants": [
+    {
+     "label": "Tinted — 10px",
+     "where": [
+      "Employers",
+      "Hire"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "Top match",
+      "css": {
+       "display": "inline-flex",
+       "padding": "2px 7px",
+       "border-radius": "999px",
+       "background": "rgba(79,232,169,.2)",
+       "color": "#0a8c66",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "10px",
+       "font-weight": "600",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Tinted — 11px, uppercase",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "spec": {
+      "tag": "span",
+      "text": "New match",
+      "css": {
+       "display": "inline-flex",
+       "padding": "4px 10px",
+       "border-radius": "999px",
+       "background": "rgba(79,232,169,.16)",
+       "color": "#0a8c66",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "600",
+       "text-transform": "uppercase",
+       "letter-spacing": "0.5px",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "Solid — 12px",
+     "where": [
+      "Job board"
+     ],
+     "note": "A sales flag, not a status",
+     "spec": {
+      "tag": "span",
+      "text": "Best value",
+      "css": {
+       "display": "inline-flex",
+       "padding": "5px 14px",
+       "border-radius": "999px",
+       "background": "#4FE8A9",
+       "color": "#0A0A0A",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "12px",
+       "font-weight": "700",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "One status badge — 11px",
+     "spec": {
+      "tag": "span",
+      "text": "Top match",
+      "css": {
+       "display": "inline-flex",
+       "padding": "3px 9px",
+       "border-radius": "999px",
+       "background": "rgba(79,232,169,.18)",
+       "color": "#0a8c66",
+       "font-family": "'Inter', sans-serif",
+       "font-size": "11px",
+       "font-weight": "600",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "stamp": "height",
+   "apply": [],
+   "kind": "unify",
+   "impact_note": "Two of three badges merge; the third is a real decision about emphasis."
+  },
+  {
+   "id": "f-card-radius",
+   "impact": "medium",
+   "title": "Card corners — five different roundings",
+   "question": "Your scale says cards are 20px and feature images are 28px. You're using five values. Do the other three earn their place?",
+   "differs": [
+    "16px, 18px, 20px, 22px, 28px",
+    "16, 18 and 22 are not on your scale at all"
+   ],
+   "cause": "The system is right and the pages disagree with it: ptf.css already says cards are 20px (var(--r-xl)). The 22px comes from pages overriding it locally — employers/index.html and talents/index.html each re-declare border-radius: 22px on the testimonial card. 16px and 18px are likewise set on the page, not in the system.",
+   "recommend": "merge",
+   "reasoning": "Corner radius is one of the strongest signals that things belong to the same family. At these sizes 18 vs 20 vs 22 is invisible one at a time — but side by side it quietly reads as sloppiness, and every new card becomes a guess. What makes this worth fixing: your system already has the right answer. These are pages ignoring it, which is the pattern that will keep reappearing until the overrides are gone.",
+   "fix": "Delete the local border-radius overrides on the pages (employers, talents, talents-v2) so the cards inherit the system's 20px. Hand edit — the storybook won't guess which page overrides are deliberate.",
+   "variants": [
+    {
+     "label": "16px",
+     "where": [
+      "Employers",
+      "Hire"
+     ],
+     "note": "The mock app card — off-scale",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "16px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "box-shadow": "0 4px 24px rgba(0,0,0,.1)"
+      }
+     }
+    },
+    {
+     "label": "18px",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "note": "The hero match card — off-scale",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "18px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "box-shadow": "0 8px 32px rgba(15,30,26,.14)"
+      }
+     }
+    },
+    {
+     "label": "20px",
+     "where": [
+      "Employers",
+      "Events",
+      "Hire",
+      "Talents",
+      "Talents (v2)"
+     ],
+     "note": "Benefit cards, event tiles",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "20px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.09)",
+       "box-shadow": "0 8px 28px rgba(15,30,26,.08)"
+      }
+     }
+    },
+    {
+     "label": "22px",
+     "where": [
+      "Employers",
+      "Talents",
+      "Talents (v2)"
+     ],
+     "note": "The testimonial card — off-scale, 2px from the standard",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "22px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.08)"
+      }
+     }
+    },
+    {
+     "label": "28px",
+     "where": [
+      "Chat & Learn signup",
+      "Company registration",
+      "Employer registration",
+      "Sign in",
+      "Sign up"
+     ],
+     "note": "Feature panels, the flow card",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "28px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "box-shadow": "0 16px 48px rgba(15,30,26,.1)"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "Cards — 20px",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "20px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.09)",
+       "box-shadow": "0 8px 28px rgba(15,30,26,.08)"
+      }
+     }
+    },
+    {
+     "label": "Feature panels — 28px",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "92px",
+       "border-radius": "28px",
+       "background": "#ffffff",
+       "border": "1px solid rgba(10,10,10,.08)",
+       "box-shadow": "0 16px 48px rgba(15,30,26,.1)"
+      }
+     }
+    }
+   ],
+   "stamp": "radius",
+   "apply": [],
+   "kind": "standardize",
+   "impact_note": "Three off-scale radii disappear and cards read as one family. Removes page overrides that fight the system."
+  },
+  {
+   "id": "f-elevation",
+   "impact": "medium",
+   "title": "Card shadows — twelve recipes for one effect",
+   "question": "You have one shadow token. Twelve different shadows are actually on screen. Do you want more than two?",
+   "differs": [
+    "Blur ranges from 4px to 80px",
+    "Opacity ranges from 4% to 18%",
+    "Some are single-layer, some are two-layer",
+    "Only one of the twelve is your token"
+   ],
+   "cause": "Each floating element got a hand-tuned shadow.",
+   "recommend": "merge",
+   "reasoning": "Shadow is how the eye reads depth — inconsistent shadows make things sit at different heights for no reason, which is exactly the \"accidental\" look you're trying to remove. You realistically need two: a resting card, and something genuinely lifted (a floating card, a modal). Everything else is noise.",
+   "fix": "Two elevations: Resting (your existing token) and Lifted. Retire the other ten.",
+   "variants": [
+    {
+     "label": "Resting — your token",
+     "where": [
+      "Employers",
+      "Events",
+      "Hire",
+      "Talents",
+      "Talents (v2)"
+     ],
+     "note": "Used 14× — the one to keep",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 1px 2px rgba(15,30,26,.04), 0 8px 28px rgba(15,30,26,.08)"
+      }
+     }
+    },
+    {
+     "label": "Deeper",
+     "where": [
+      "Chat & Learn signup",
+      "Sign in",
+      "Sign up"
+     ],
+     "note": "Used 7× — the flow card",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 2px 4px rgba(15,30,26,.04), 0 16px 48px rgba(15,30,26,.1)"
+      }
+     }
+    },
+    {
+     "label": "Tight",
+     "where": [
+      "Employers",
+      "Hire"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 1px 4px rgba(10,10,10,.1)"
+      }
+     }
+    },
+    {
+     "label": "Soft & wide",
+     "where": [
+      "Employers",
+      "Hire"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 4px 24px rgba(0,0,0,.1)"
+      }
+     }
+    },
+    {
+     "label": "Diffuse",
+     "where": [
+      "Nav options"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 10px 40px rgba(0,0,0,.05)"
+      }
+     }
+    },
+    {
+     "label": "Heavy",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 8px 32px rgba(15,30,26,.14), 0 2px 8px rgba(15,30,26,.06)"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "Resting",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 1px 2px rgba(15,30,26,.04), 0 8px 28px rgba(15,30,26,.08)"
+      }
+     }
+    },
+    {
+     "label": "Lifted",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "84px",
+       "border-radius": "20px",
+       "background": "#fff",
+       "box-shadow": "0 2px 4px rgba(15,30,26,.04), 0 16px 48px rgba(15,30,26,.1)"
+      }
+     }
+    }
+   ],
+   "stamp": "none",
+   "apply": [],
+   "kind": "standardize",
+   "impact_note": "Twelve shadows become two. Depth starts meaning something."
+  },
+  {
+   "id": "f-hero-headline",
+   "impact": "medium",
+   "title": "The hero headline — the same style at two sizes and two weights",
+   "question": "Your big page headline comes out 68px on some pages and 80px on others. Intentional?",
+   "differs": [
+    "Size: 68px vs 80px — a 12px jump",
+    "Weight: 700 vs 800",
+    "Both use the same headline style name"
+   ],
+   "cause": "Individual pages override the size and weight locally, so the shared headline doesn't actually control it.",
+   "recommend": "discuss",
+   "reasoning": "A hero deliberately sized bigger on a flagship page is a legitimate design decision — but right now it isn't a decision, it's whatever each page did. And the weight difference (700 vs 800) at the same 80px is almost certainly accidental: two pages showing the same headline in different thicknesses. Decide if you want one hero size or a deliberate two, then make the system say so.",
+   "fix": "Either one hero size, or an explicit Hero / Hero-large pair. Pick the weight — 700 or 800 — and apply it to both.",
+   "variants": [
+    {
+     "label": "68px · weight 700",
+     "where": [
+      "404",
+      "Chat & Learn",
+      "Employers",
+      "Events",
+      "Hire",
+      "Job board",
+      "Summit",
+      "Virtual job fair"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "The humans behind better AI",
+      "css": {
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "68px",
+       "font-weight": "700",
+       "letter-spacing": "-2.72px",
+       "line-height": "1",
+       "color": "#0A0A0A"
+      }
+     }
+    },
+    {
+     "label": "80px · weight 800",
+     "where": [
+      "Talents",
+      "Talents (v2)"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "The humans behind better AI",
+      "css": {
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "80px",
+       "font-weight": "800",
+       "letter-spacing": "-3.2px",
+       "line-height": "0.95",
+       "color": "#0A0A0A"
+      }
+     }
+    },
+    {
+     "label": "80px · weight 700",
+     "where": [
+      "Train"
+     ],
+     "note": "Same size as above, thinner",
+     "spec": {
+      "tag": "div",
+      "text": "The humans behind better AI",
+      "css": {
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "80px",
+       "font-weight": "700",
+       "letter-spacing": "-3.2px",
+       "line-height": "0.95",
+       "color": "#0A0A0A"
+      }
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "One hero — 68px · 700",
+     "spec": {
+      "tag": "div",
+      "text": "The humans behind better AI",
+      "css": {
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "68px",
+       "font-weight": "700",
+       "letter-spacing": "-2.72px",
+       "line-height": "1",
+       "color": "#0A0A0A"
+      }
+     }
+    }
+   ],
+   "stamp": "type",
+   "layout": "wide",
+   "apply": [],
+   "kind": "typography",
+   "impact_note": "One hero size instead of whatever each page chose. Also settles a 700-vs-800 weight split."
+  },
+  {
+   "id": "f-filters",
+   "impact": "medium",
+   "title": "Event filters — two looks on the same page",
+   "question": "The Events page filters \"Upcoming\" with an underline list and \"Past\" with pill chips. Should one page have two filter styles?",
+   "differs": [
+    "A left-aligned list with a green/ink left bar vs a horizontal row of bordered pills",
+    "Active state: bold ink text vs a solid ink fill",
+    "31px vs 35px tall"
+   ],
+   "cause": "The archive list uses a grid variant that restyles the filter; the upcoming list uses the sidebar style.",
+   "recommend": "discuss",
+   "reasoning": "This one is genuinely arguable, so I'm not calling it. The layouts differ (a sidebar beside a list vs filters above a grid), and a sidebar filter reasonably looks different from a toolbar filter. But they're the same control doing the same job, twice, on one screen — and a visitor scrolling past may read them as two different mechanisms. Worth a decision either way.",
+   "fix": "If you want one: use the pill chips in both places. If you want two, say so in the system so it's a decision, not a leftover.",
+   "variants": [
+    {
+     "label": "Underline list — \"Upcoming events\"",
+     "where": [
+      "Events"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"display:flex;flex-direction:column;gap:2px;align-items:flex-start\"><span style=\"font-family:'Inter',sans-serif;font-size:14px;font-weight:600;color:#0A0A0A;padding:7px 0 7px 14px;border-left:2px solid #0A0A0A\">Show all</span><span style=\"font-family:'Inter',sans-serif;font-size:14px;color:#5c6f69;padding:7px 0 7px 14px;border-left:2px solid transparent\">Virtual job fairs</span><span style=\"font-family:'Inter',sans-serif;font-size:14px;color:#5c6f69;padding:7px 0 7px 14px;border-left:2px solid transparent\">Summits</span></div>"
+     }
+    },
+    {
+     "label": "Pill chips — \"Past events\"",
+     "where": [
+      "Events"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"display:flex;gap:8px;flex-wrap:wrap\"><span style=\"font-family:'Inter',sans-serif;font-size:14px;font-weight:600;padding:8px 16px;border-radius:999px;background:#0A0A0A;color:#fff;border:1px solid #0A0A0A\">Show all</span><span style=\"font-family:'Inter',sans-serif;font-size:14px;padding:8px 16px;border-radius:999px;color:#2a2a2a;border:1px solid rgba(10,10,10,.08)\">Virtual job fairs</span><span style=\"font-family:'Inter',sans-serif;font-size:14px;padding:8px 16px;border-radius:999px;color:#2a2a2a;border:1px solid rgba(10,10,10,.08)\">Summits</span></div>"
+     }
+    }
+   ],
+   "after": [],
+   "stamp": "none",
+   "layout": "wide",
+   "apply": [],
+   "kind": "unify",
+   "impact_note": "One filter control instead of two on the same screen — or a documented reason for both."
+  },
+  {
+   "id": "f-ghost-dark",
+   "impact": "low",
+   "title": "A secondary button on dark that exists once",
+   "question": "About has a faint outlined button on dark that appears nowhere else. Keep it?",
+   "differs": [
+    "A thin grey outline on dark, vs the white filled button beside it",
+    "It's the only outlined-on-dark button in the whole site"
+   ],
+   "cause": "About needed a second, quieter action and one was invented for it.",
+   "recommend": "discuss",
+   "reasoning": "The need is real — a dark closing band with two actions needs a loud one and a quiet one, and today the system only gives you the loud one. So this isn't drift to delete; it's a gap to fill properly. Either promote it to the system as the official secondary-on-dark, or drop the second action on About.",
+   "fix": "Promote it as a proper secondary-on-dark button, or remove it.",
+   "variants": [
+    {
+     "label": "The one-off",
+     "where": [
+      "About"
+     ],
+     "stage": "dark",
+     "spec": {
+      "tag": "a",
+      "text": "Join our community",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "16px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "border": "1.5px solid rgba(255,255,255,.4)",
+       "background": "transparent",
+       "color": "#fff",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    },
+    {
+     "label": "The system's button, beside it",
+     "where": [
+      "About",
+      "Employers",
+      "Hire",
+      "Talents"
+     ],
+     "stage": "dark",
+     "spec": {
+      "tag": "a",
+      "text": "Book a discovery call",
+      "css": {
+       "display": "inline-flex",
+       "align-items": "center",
+       "padding": "16px 32px",
+       "border-radius": "999px",
+       "font-family": "'Inter Tight', sans-serif",
+       "font-size": "16px",
+       "font-weight": "700",
+       "background": "#fff",
+       "color": "#0A0A0A",
+       "line-height": "1.6",
+       "text-decoration": "none",
+       "white-space": "nowrap"
+      }
+     }
+    }
+   ],
+   "after": [],
+   "stamp": "height",
+   "apply": [],
+   "kind": "gap",
+   "impact_note": "Either fills a real gap in the system (secondary action on dark) or removes a one-off."
+  },
+  {
+   "id": "f-blue-link",
+   "impact": "low",
+   "title": "A default browser-blue link",
+   "question": "This isn't a design decision — it's an unstyled link. Fix?",
+   "differs": [
+    "Browser default blue, underlined — a colour that appears nowhere in your palette"
+   ],
+   "cause": "A plain email link inside a FAQ answer with no styling applied.",
+   "recommend": "merge",
+   "reasoning": "Nothing to weigh — this is a miss, not a variation. It's the only browser-blue on the site.",
+   "fix": "Style links inside FAQ answers with your green link colour.",
+   "variants": [
+    {
+     "label": "Today — in the Virtual job fair FAQ",
+     "where": [
+      "Virtual job fair"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<span style=\"font-family:'Inter',sans-serif;font-size:15px;color:#5c6f69\">If your question wasn't answered here, email the team at <a href=\"#\" style=\"color:#0000EE\">hi@powertofly.com</a>.</span>"
+     }
+    }
+   ],
+   "after": [
+    {
+     "label": "Using your link colour",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<span style=\"font-family:'Inter',sans-serif;font-size:15px;color:#5c6f69\">If your question wasn't answered here, email the team at <a href=\"#\" style=\"color:#0a8c66;font-weight:600;text-decoration:none\">hi@powertofly.com</a>.</span>"
+     }
+    }
+   ],
+   "stamp": "none",
+   "layout": "wide",
+   "apply": [
+    {
+     "type": "css-append",
+     "marker": ".faq-a-inner a",
+     "css": "/* FAQ answers: links use the brand link colour, never the browser default blue. */\n.faq-a-inner a { color: var(--accent); font-weight: 600; text-decoration: none; }\n.faq-a-inner a:hover { text-decoration: underline; }"
+    }
+   ],
+   "kind": "cleanup",
+   "impact_note": "Removes the only browser-blue on the site."
+  },
+  {
+   "id": "o-coming-soon-pattern",
+   "impact": "high",
+   "kind": "pattern",
+   "title": "The same “coming soon” page, built four times",
+   "question": "Four pages share one identical layout that the system has never named. Should it become a Section Pattern?",
+   "differs": [
+    "Nothing — the four are structurally identical: eyebrow, big headline, sub, CTA row",
+    "It exists in ptf.css but appears nowhere in your component inventory",
+    "So the fifth coming-soon page will be rebuilt by hand, not reused"
+   ],
+   "cause": "It was built once for a placeholder page and copied three more times. It works, so nobody promoted it into the system — which means it's a pattern in practice but not on paper.",
+   "recommend": "discuss",
+   "impact_note": "Names a layout you've already reused four times. The next placeholder page becomes copy-and-change instead of build-from-scratch.",
+   "reasoning": "This is the opposite of drift — four pages agreeing perfectly is a pattern proving itself. The problem is only that it's undocumented, so it can't be found or reused deliberately, and each copy is free to wander. Reuse beats adapt beats create: this one is already at reuse, it just needs a name. Promote it to a Section Pattern in the inventory and it stops being an accident.",
+   "fix": "Document it in ds/COMPONENT-INVENTORY.md as the Coming-soon section pattern, and add it to the storybook so it can be found.",
+   "measured_on": [
+    "Compare",
+    "Expert finder",
+    "How we verify",
+    "Why PowerToFly"
+   ],
+   "stamp": "none",
+   "layout": "wide",
+   "apply": [],
+   "variants": [
+    {
+     "label": "Used identically on all four pages",
+     "where": [
+      "Compare",
+      "Expert finder",
+      "How we verify",
+      "Why PowerToFly"
+     ],
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"text-align:center;padding:8px 4px\"><div style=\"font-family:'Inter',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.68px;text-transform:uppercase;color:#0a8c66;margin-bottom:14px\">Coming soon</div><div style=\"font-family:'Inter Tight',sans-serif;font-size:44px;font-weight:800;letter-spacing:-1.7px;line-height:1;color:#0A0A0A;margin-bottom:14px\">Why PowerToFly</div><div style=\"font-family:'Inter',sans-serif;font-size:16px;color:#5c6f69;max-width:44ch;margin:0 auto 20px;line-height:1.6\">We're putting this page together. In the meantime, explore the rest of the playbook.</div><a href=\"javascript:void(0)\" style=\"display:inline-flex;align-items:center;padding:14px 26px;border-radius:999px;background:#0A0A0A;color:#fff;font-family:'Inter Tight',sans-serif;font-size:15px;font-weight:600;text-decoration:none\">Book a discovery call</a></div>"
+     }
+    }
+   ],
+   "after": []
+  },
+  {
+   "id": "o-event-recipe",
+   "impact": "medium",
+   "kind": "recipe",
+   "title": "Three event pages are one recipe wearing three hats",
+   "question": "Virtual job fair, Summit and Chat & Learn share 44 classes and the same skeleton. Should that become a Page Recipe?",
+   "differs": [
+    "The three pages share 44 classes and the same section order",
+    "Hero, facts, people, how-it-works, event list, FAQ — same skeleton every time",
+    "Only the copy, the event type and the imagery change"
+   ],
+   "cause": "They were built as a family on purpose — which is why they agree. But the family only exists in your head and in three HTML files, not in the system.",
+   "recommend": "discuss",
+   "impact_note": "Turns three hand-built siblings into one recipe. The fourth event type becomes an afternoon instead of a rebuild.",
+   "reasoning": "You already made the hard call — these three agreeing is a real design decision, not an accident. The risk is what happens next: the fourth event page gets built from whichever sibling someone copies, and the family quietly splits. Writing it down as a Page Recipe — this hero, then these sections, in this order — locks in the work you've already done and makes the next one reuse instead of re-derive.",
+   "fix": "Document the event-detail Page Recipe (section order + which components fill each slot) and point /new-page at it.",
+   "measured_on": [
+    "Virtual job fair",
+    "Summit",
+    "Chat & Learn"
+   ],
+   "stamp": "none",
+   "layout": "wide",
+   "apply": [],
+   "variants": [
+    {
+     "label": "The shared skeleton",
+     "where": [
+      "Virtual job fair",
+      "Summit",
+      "Chat & Learn"
+     ],
+     "note": "Same order on all three",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"display:flex;gap:6px;align-items:stretch;font-family:'Inter',sans-serif;font-size:10px;color:#5c6f69\"><div style='flex:2;background:#EAFAF2;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>Event hero</div><div style='flex:1;background:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>Facts</div><div style='flex:1;background:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>Speakers</div><div style='flex:1.4;background:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>How it works</div><div style='flex:1.2;background:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>More events</div><div style='flex:1;background:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>FAQ</div><div style='flex:1;background:#0A0A0A;color:#fff;border:1px solid rgba(10,10,10,.08);border-radius:6px;padding:10px 8px;text-align:center'>CTA</div></div>"
+     }
+    }
+   ],
+   "after": []
+  },
+  {
+   "id": "o-undocumented",
+   "impact": "medium",
+   "kind": "gap",
+   "title": "Components your pages use that the system never wrote down",
+   "question": "These are in ptf.css and on real pages, but in no inventory. Adopt them, or remove them?",
+   "differs": [
+    "The event thumbnail, people row and faces strip: 4 pages",
+    "The about-stat card: 3 pages",
+    "None appear in ds/COMPONENT-INVENTORY.md",
+    "So the contract says they don't exist — while the pages use them daily"
+   ],
+   "cause": "They were added straight to ptf.css while building the event pages, and the inventory never caught up.",
+   "recommend": "discuss",
+   "impact_note": "Closes the gap between what the contract says exists and what your pages actually use — the gap that makes the contract ignorable.",
+   "reasoning": "Your build contract says: if it isn't in the inventory, it doesn't exist. These are used on up to four pages each, so right now the contract is quietly false — and a rule that's visibly wrong stops being followed. Either they've earned their place and should be documented, or they're one-offs to fold into existing components. Both are fine; leaving them undocumented isn't.",
+   "fix": "Decide per component: document it in the inventory + add a story, or fold it into an existing component.",
+   "measured_on": [
+    "Virtual job fair",
+    "Summit",
+    "Chat & Learn",
+    "Events",
+    "About"
+   ],
+   "stamp": "none",
+   "apply": [],
+   "variants": [
+    {
+     "label": "Event thumbnail",
+     "where": [
+      "Chat & Learn",
+      "Events",
+      "Summit",
+      "Virtual job fair"
+     ],
+     "note": "21 uses, undocumented",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "css": {
+       "width": "150px",
+       "height": "88px",
+       "border-radius": "16px",
+       "background": "#fafaf6",
+       "border": "1px solid rgba(10,10,10,.08)"
+      }
+     }
+    },
+    {
+     "label": "People row",
+     "where": [
+      "Chat & Learn",
+      "Events",
+      "Summit",
+      "Virtual job fair"
+     ],
+     "note": "23 uses, undocumented",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"display:flex;align-items:center;gap:8px\"><div style='display:flex'><span style='width:26px;height:26px;border-radius:50%;background:#cfd8d4;border:2px solid #fff;margin-left:0'></span><span style='width:26px;height:26px;border-radius:50%;background:#b9c6c1;border:2px solid #fff;margin-left:-8px'></span><span style='width:26px;height:26px;border-radius:50%;background:#a3b4ae;border:2px solid #fff;margin-left:-8px'></span></div><span style=\"font-family:'Inter',sans-serif;font-size:13px;color:#5c6f69\">+ 120 attending</span></div>"
+     }
+    },
+    {
+     "label": "About-stat card",
+     "where": [
+      "About",
+      "Chat & Learn",
+      "Summit"
+     ],
+     "note": "18 uses, undocumented",
+     "spec": {
+      "tag": "div",
+      "text": "",
+      "html": "<div style=\"width:150px;padding:14px;border:1px solid rgba(10,10,10,.08);border-radius:16px;background:#fff;font-family:'Inter',sans-serif\"><div style=\"font-family:'Inter Tight';font-size:26px;font-weight:800;color:#0A0A0A\">80K+</div><div style=\"height:1px;background:rgba(10,10,10,.08);margin:8px 0\"></div><div style=\"font-size:12px;color:#5c6f69\">verified experts</div></div>"
+     }
+    }
+   ],
+   "after": []
+  }
+ ]
+}

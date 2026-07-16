@@ -1,3 +1,9 @@
 .DS_Store
 *.DS_Store
 .claude/
+
+# Storybook local state — machine-specific, regenerated, not for sharing
+ds/.sb-backups/
+ds/.sb-checkpoints/
+ds/approvals.json
+ds/briefs.json

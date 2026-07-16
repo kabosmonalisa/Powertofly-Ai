@@ -1,0 +1,6617 @@
+{
+ "meta": {
+  "generated": "run `python3 ds/usage-scan.py` to refresh",
+  "pageCount": 26,
+  "pages": [
+   "employers/index.html",
+   "talents/index-v2.html",
+   "talents/index.html",
+   "train/index.html",
+   "hire/index.html",
+   "about/index.html",
+   "events/index.html",
+   "job-board/index.html",
+   "not-found/index.html",
+   "vjf/index.html",
+   "summit/index.html",
+   "chat-learn/index.html",
+   "why-powertofly/index.html",
+   "expert-finder/index.html",
+   "how-we-verify/index.html",
+   "compare/index.html",
+   "nav-options.html",
+   "top-alerts.html",
+   "event-common/index.html",
+   "signup/index.html",
+   "auth.html",
+   "sponsor/index.html",
+   "event-company/index.html",
+   "event-employer/index.html",
+   "book/index.html",
+   "ds/ptf.js"
+  ]
+ },
+ "classes": {
+  ".hero": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   }
+  },
+  ".hero-inner": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   }
+  },
+  ".hero-headline": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   }
+  },
+  ".italic-plain": {
+   "total": 27,
+   "files": {
+    "about/index.html": 5,
+    "talents/index-v2.html": 4,
+    "event-common/index.html": 4,
+    "train/index.html": 2,
+    "summit/index.html": 2,
+    "chat-learn/index.html": 2,
+    "employers/index.html": 1,
+    "talents/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "not-found/index.html": 1,
+    "vjf/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".fh-wrap": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-track-container": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-track": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-controls": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-ctrl-btn": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-card-outer": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-card-shadow": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-card": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-card-top": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-suffix": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-card-bottom": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-text-area": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-ghost": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-typed": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-cursor": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-cta": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-below-text": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-logos-strip": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-logos-inner": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-logos-label": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-logos-track-wrap": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-logos-track": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".section": {
+   "total": 35,
+   "files": {
+    "talents/index-v2.html": 7,
+    "job-board/index.html": 7,
+    "talents/index.html": 6,
+    "employers/index.html": 3,
+    "summit/index.html": 3,
+    "chat-learn/index.html": 3,
+    "events/index.html": 2,
+    "vjf/index.html": 2,
+    "hire/index.html": 1,
+    "about/index.html": 1
+   }
+  },
+  ".section-narrow": {
+   "total": 18,
+   "files": {
+    "talents/index-v2.html": 7,
+    "talents/index.html": 6,
+    "employers/index.html": 2,
+    "about/index.html": 2,
+    "not-found/index.html": 1
+   }
+  },
+  ".section-head": {
+   "total": 35,
+   "files": {
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6,
+    "employers/index.html": 4,
+    "hire/index.html": 4,
+    "train/index.html": 3,
+    "summit/index.html": 3,
+    "chat-learn/index.html": 3,
+    "job-board/index.html": 2,
+    "vjf/index.html": 2,
+    "about/index.html": 1,
+    "not-found/index.html": 1
+   }
+  },
+  ".why-row": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".benefit-card": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3,
+    "train/index.html": 3
+   }
+  },
+  ".benefit-sparkle": {
+   "total": 9,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".benefit-eyebrow": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 3,
+    "train/index.html": 3
+   }
+  },
+  ".section-services": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".experts-inner": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  ".experts-list": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  ".expert-row": {
+   "total": 9,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 2,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-left": {
+   "total": 9,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 2,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-tag": {
+   "total": 32,
+   "files": {
+    "events/index.html": 14,
+    "summit/index.html": 5,
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "chat-learn/index.html": 3,
+    "employers/index.html": 2,
+    "vjf/index.html": 2
+   }
+  },
+  ".sc-body": {
+   "total": 9,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 2,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-titles": {
+   "total": 8,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 2
+   }
+  },
+  ".sc-title-chip": {
+   "total": 65,
+   "files": {
+    "hire/index.html": 20,
+    "train/index.html": 17,
+    "nav-options.html": 12,
+    "employers/index.html": 10,
+    "ds/ptf.js": 6
+   }
+  },
+  ".sc-more": {
+   "total": 5,
+   "files": {
+    "hire/index.html": 3,
+    "employers/index.html": 2
+   }
+  },
+  ".sc-right": {
+   "total": 9,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 2,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-right-train": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-wrap": {
+   "total": 8,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-mock-stack": {
+   "total": 8,
+   "files": {
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-mock-peek-card": {
+   "total": 4,
+   "files": {
+    "hire/index.html": 3,
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock": {
+   "total": 10,
+   "files": {
+    "talents/index-v2.html": 3,
+    "train/index.html": 3,
+    "hire/index.html": 3,
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-hd": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-icon-box": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-title": {
+   "total": 4,
+   "files": {
+    "hire/index.html": 3,
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-sub": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-hr": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 2,
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-rows": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-mock-row": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 4
+   }
+  },
+  ".sc-mock-row-lbl": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 4
+   }
+  },
+  ".sc-badge": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".sc-badge-green": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 2,
+    "employers/index.html": 1
+   }
+  },
+  ".sc-row-av": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 4
+   }
+  },
+  ".active": {
+   "total": 29,
+   "files": {
+    "signup/index.html": 6,
+    "auth.html": 6,
+    "top-alerts.html": 3,
+    "event-common/index.html": 3,
+    "event-company/index.html": 3,
+    "event-employer/index.html": 3,
+    "employers/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".sc-badge-amber": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-badge-gray": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 2,
+    "hire/index.html": 2
+   }
+  },
+  ".sc-right-hire": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-photo": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-person-card": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-person-name": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-person-role": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-person-sep": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-person-verify": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".sc-verify-dot": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".section-mission": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".mission-statement": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".outcomes-scene-outer": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".outcomes-scene-inner": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".outcomes-wrap": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".oc-float": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 4
+   }
+  },
+  ".oc-float-1": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".oc-float-spark-col": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 4
+   }
+  },
+  ".oc-float-vline": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 4
+   }
+  },
+  ".oc-float-body": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 4
+   }
+  },
+  ".oc-float-2": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".oc-float-3": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".oc-float-4": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".section-stats": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".stats-card-wrap": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".stats-portrait": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".stats-portrait-icon": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".stats-card-dark": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".stat-big-num": {
+   "total": 9,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".stat-big-label": {
+   "total": 9,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".section-proof": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".testimonials": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".t-card": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-stars": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-quote": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-meta": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-meta-info": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-author": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-company": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-role": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".t-co-logo": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 4
+   }
+  },
+  ".t-li": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 4
+   }
+  },
+  ".t-logo": {
+   "total": 12,
+   "files": {
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4
+   }
+  },
+  ".section-cta": {
+   "total": 10,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".section-cta-inner": {
+   "total": 10,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".eyebrow": {
+   "total": 32,
+   "files": {
+    "about/index.html": 8,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 4,
+    "vjf/index.html": 3,
+    "talents/index-v2.html": 2,
+    "train/index.html": 2,
+    "hire/index.html": 2,
+    "events/index.html": 2,
+    "employers/index.html": 1,
+    "talents/index.html": 1,
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".eyebrow-on-dark": {
+   "total": 5,
+   "files": {
+    "train/index.html": 2,
+    "employers/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1
+   }
+  },
+  ".btn": {
+   "total": 78,
+   "files": {
+    "talents/index.html": 13,
+    "job-board/index.html": 9,
+    "talents/index-v2.html": 7,
+    "ds/ptf.js": 7,
+    "nav-options.html": 5,
+    "events/index.html": 4,
+    "summit/index.html": 4,
+    "top-alerts.html": 4,
+    "train/index.html": 3,
+    "vjf/index.html": 3,
+    "chat-learn/index.html": 3,
+    "hire/index.html": 2,
+    "not-found/index.html": 2,
+    "why-powertofly/index.html": 2,
+    "expert-finder/index.html": 2,
+    "how-we-verify/index.html": 2,
+    "compare/index.html": 2,
+    "employers/index.html": 1,
+    "about/index.html": 1,
+    "signup/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".btn-cta": {
+   "total": 10,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".fh-logo-img": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".swap": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 2
+   }
+  },
+  ".fh-slide": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  ".fh-media": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 2
+   }
+  },
+  ".loaded": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 2
+   }
+  },
+  ".open": {
+   "total": 47,
+   "files": {
+    "ds/ptf.js": 12,
+    "talents/index-v2.html": 8,
+    "employers/index.html": 6,
+    "talents/index.html": 6,
+    "hire/index.html": 6,
+    "top-alerts.html": 6,
+    "nav-options.html": 2,
+    "event-common/index.html": 1
+   }
+  },
+  ".on": {
+   "total": 18,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3,
+    "hire/index.html": 3,
+    "top-alerts.html": 3,
+    "ds/ptf.js": 3
+   }
+  },
+  ".cards-in": {
+   "total": 10,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 4,
+    "hire/index.html": 2
+   }
+  },
+  ".hero-glow": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "job-board/index.html": 1
+   }
+  },
+  ".hero-text": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".display": {
+   "total": 10,
+   "files": {
+    "job-board/index.html": 3,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "about/index.html": 1,
+    "not-found/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".hero-sub": {
+   "total": 5,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   }
+  },
+  ".hero-search": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".hero-search-ico": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".hero-search-input": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".btn-primary": {
+   "total": 32,
+   "files": {
+    "job-board/index.html": 7,
+    "talents/index-v2.html": 3,
+    "ds/ptf.js": 3,
+    "talents/index.html": 2,
+    "train/index.html": 2,
+    "events/index.html": 2,
+    "nav-options.html": 2,
+    "top-alerts.html": 2,
+    "hire/index.html": 1,
+    "not-found/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".btn-search": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".search-quick": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".search-quick-lbl": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".search-pill": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 6
+   }
+  },
+  ".hero-visual": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hero-photo-wrap": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hero-photo": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hmc-float-wrap": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hero-match-card": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hmc-face": {
+   "total": 4,
+   "files": {
+    "talents/index-v2.html": 2,
+    "talents/index.html": 2
+   }
+  },
+  ".hmc-front": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".hmc-badge": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".dot": {
+   "total": 9,
+   "files": {
+    "talents/index-v2.html": 4,
+    "talents/index.html": 3,
+    "vjf/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".hmc-role": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".hmc-rate": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".hmc-tags": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".hmc-tag": {
+   "total": 14,
+   "files": {
+    "talents/index-v2.html": 7,
+    "talents/index.html": 7
+   }
+  },
+  ".hmc-back": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".logo-strip": {
+   "total": 5,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "job-board/index.html": 1
+   }
+  },
+  ".logo-strip-track": {
+   "total": 5,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "job-board/index.html": 1
+   }
+  },
+  ".flip": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".ai-next-cta": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".ai-next-art": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".cycler": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  ".sc-mock-dark-green": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "train/index.html": 3
+   }
+  },
+  ".is-active": {
+   "total": 15,
+   "files": {
+    "nav-options.html": 5,
+    "events/index.html": 4,
+    "talents/index-v2.html": 3,
+    "ds/ptf.js": 2,
+    "job-board/index.html": 1
+   }
+  },
+  ".ai-cursor": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "train/index.html": 3
+   }
+  },
+  ".av": {
+   "total": 8,
+   "files": {
+    "talents/index-v2.html": 4,
+    "train/index.html": 4
+   }
+  },
+  ".benefits-row": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1
+   }
+  },
+  ".benefit-insight": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3
+   }
+  },
+  ".how-inner": {
+   "total": 7,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".how-portrait-card": {
+   "total": 7,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".how-portrait-icon": {
+   "total": 7,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".steps": {
+   "total": 7,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".step": {
+   "total": 26,
+   "files": {
+    "talents/index.html": 5,
+    "vjf/index.html": 4,
+    "summit/index.html": 4,
+    "chat-learn/index.html": 4,
+    "talents/index-v2.html": 3,
+    "train/index.html": 3,
+    "hire/index.html": 3
+   }
+  },
+  ".step-num": {
+   "total": 26,
+   "files": {
+    "talents/index.html": 5,
+    "vjf/index.html": 4,
+    "summit/index.html": 4,
+    "chat-learn/index.html": 4,
+    "talents/index-v2.html": 3,
+    "train/index.html": 3,
+    "hire/index.html": 3
+   }
+  },
+  ".step-content": {
+   "total": 26,
+   "files": {
+    "talents/index.html": 5,
+    "vjf/index.html": 4,
+    "summit/index.html": 4,
+    "chat-learn/index.html": 4,
+    "talents/index-v2.html": 3,
+    "train/index.html": 3,
+    "hire/index.html": 3
+   }
+  },
+  ".opp-grid": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".opp-card": {
+   "total": 13,
+   "files": {
+    "talents/index.html": 10,
+    "talents/index-v2.html": 3
+   }
+  },
+  ".opp-badge": {
+   "total": 13,
+   "files": {
+    "talents/index.html": 10,
+    "talents/index-v2.html": 3
+   }
+  },
+  ".opp-title": {
+   "total": 13,
+   "files": {
+    "talents/index.html": 10,
+    "talents/index-v2.html": 3
+   }
+  },
+  ".opp-rate": {
+   "total": 13,
+   "files": {
+    "talents/index.html": 10,
+    "talents/index-v2.html": 3
+   }
+  },
+  ".opp-tags": {
+   "total": 13,
+   "files": {
+    "talents/index.html": 10,
+    "talents/index-v2.html": 3
+   }
+  },
+  ".req-tag": {
+   "total": 39,
+   "files": {
+    "talents/index.html": 30,
+    "talents/index-v2.html": 9
+   }
+  },
+  ".btn-sm": {
+   "total": 31,
+   "files": {
+    "talents/index.html": 10,
+    "ds/ptf.js": 7,
+    "nav-options.html": 5,
+    "top-alerts.html": 4,
+    "talents/index-v2.html": 3,
+    "job-board/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".stat-unit": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".faq-list": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "vjf/index.html": 1
+   }
+  },
+  ".faq-item": {
+   "total": 21,
+   "files": {
+    "vjf/index.html": 9,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6
+   }
+  },
+  ".faq-q": {
+   "total": 21,
+   "files": {
+    "vjf/index.html": 9,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6
+   }
+  },
+  ".faq-icon": {
+   "total": 21,
+   "files": {
+    "vjf/index.html": 9,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6
+   }
+  },
+  ".faq-a": {
+   "total": 21,
+   "files": {
+    "vjf/index.html": 9,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6
+   }
+  },
+  ".faq-a-inner": {
+   "total": 21,
+   "files": {
+    "vjf/index.html": 9,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 6
+   }
+  },
+  ".footer": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".footer-inner": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".footer-cols": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".footer-brand": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".brand-ai": {
+   "total": 14,
+   "files": {
+    "nav-options.html": 3,
+    "ds/ptf.js": 2,
+    "talents/index-v2.html": 1,
+    "top-alerts.html": 1,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".footer-bio": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".footer-col": {
+   "total": 7,
+   "files": {
+    "talents/index-v2.html": 4,
+    "ds/ptf.js": 3
+   }
+  },
+  ".footer-bottom": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".links": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".flipped": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  ".visible": {
+   "total": 19,
+   "files": {
+    "signup/index.html": 4,
+    "auth.html": 4,
+    "talents/index-v2.html": 2,
+    "talents/index.html": 2,
+    "train/index.html": 2,
+    "hire/index.html": 2,
+    "sponsor/index.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".fading": {
+   "total": 4,
+   "files": {
+    "talents/index-v2.html": 2,
+    "talents/index.html": 2
+   }
+  },
+  ".hero-cta": {
+   "total": 1,
+   "files": {
+    "talents/index.html": 1
+   }
+  },
+  ".btn-hero": {
+   "total": 1,
+   "files": {
+    "talents/index.html": 1
+   }
+  },
+  ".hero-domains": {
+   "total": 1,
+   "files": {
+    "talents/index.html": 1
+   }
+  },
+  ".domain-pill": {
+   "total": 8,
+   "files": {
+    "talents/index.html": 8
+   }
+  },
+  ".site-header": {
+   "total": 8,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "top-alerts.html": 1
+   }
+  },
+  ".top-alert": {
+   "total": 7,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "top-alerts.html": 1
+   }
+  },
+  ".top-alert-close": {
+   "total": 7,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "top-alerts.html": 1
+   }
+  },
+  ".hero-ctas": {
+   "total": 3,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "not-found/index.html": 1
+   }
+  },
+  ".hero-media": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".hero-video": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".hero-vid-toggle": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".section-statband": {
+   "total": 2,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  ".statband-inner": {
+   "total": 2,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  ".statband-item": {
+   "total": 8,
+   "files": {
+    "train/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".statband-icon": {
+   "total": 8,
+   "files": {
+    "train/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".statband-text": {
+   "total": 8,
+   "files": {
+    "train/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".statband-num": {
+   "total": 8,
+   "files": {
+    "train/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".statband-lbl": {
+   "total": 8,
+   "files": {
+    "train/index.html": 4,
+    "hire/index.html": 4
+   }
+  },
+  ".use-cases-section": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".use-cases-inner": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".use-card-dark": {
+   "total": 3,
+   "files": {
+    "train/index.html": 3
+   }
+  },
+  ".use-card-photo": {
+   "total": 3,
+   "files": {
+    "train/index.html": 3
+   }
+  },
+  ".section-experts": {
+   "total": 2,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  ".sc-right-domain": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".sc-right-function": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".sc-right-ai": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".experts-cta": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".section-why": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".why-inner": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".why-lead": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".why-outcomes-wrap": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  ".section-how": {
+   "total": 5,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".how-outer": {
+   "total": 5,
+   "files": {
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".hidden": {
+   "total": 5,
+   "files": {
+    "top-alerts.html": 2,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".hire-scroll-outer": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-sticky-scene": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-around-wrap": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-center-portrait": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-float": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 3
+   }
+  },
+  ".hire-float-1": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-float-spark-col": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 3
+   }
+  },
+  ".hire-float-vline": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 3
+   }
+  },
+  ".hire-float-body": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 3
+   }
+  },
+  ".fly-eyebrow": {
+   "total": 31,
+   "files": {
+    "nav-options.html": 15,
+    "top-alerts.html": 9,
+    "ds/ptf.js": 4,
+    "hire/index.html": 3
+   }
+  },
+  ".hire-float-2": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".hire-float-3": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".sc-tint-blue": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".sc-tint-green": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".sc-tint-amber": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".testi-inner": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".testi-grid": {
+   "total": 1,
+   "files": {
+    "hire/index.html": 1
+   }
+  },
+  ".section-hero": {
+   "total": 3,
+   "files": {
+    "about/index.html": 1,
+    "job-board/index.html": 1,
+    "not-found/index.html": 1
+   }
+  },
+  ".about-hero-title": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-hero-img": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-col": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-lede": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-body": {
+   "total": 4,
+   "files": {
+    "about/index.html": 4
+   }
+  },
+  ".about-h2": {
+   "total": 5,
+   "files": {
+    "about/index.html": 5
+   }
+  },
+  ".about-pullquote": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-pullquote-rule": {
+   "total": 2,
+   "files": {
+    "about/index.html": 2
+   }
+  },
+  ".about-pullquote-text": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-stat-grid": {
+   "total": 3,
+   "files": {
+    "about/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".about-stat-card": {
+   "total": 18,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6
+   }
+  },
+  ".about-stat-lbl": {
+   "total": 18,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6
+   }
+  },
+  ".about-stat-rule": {
+   "total": 18,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6
+   }
+  },
+  ".about-stat-num": {
+   "total": 18,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6
+   }
+  },
+  ".about-stat-desc": {
+   "total": 18,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6
+   }
+  },
+  ".about-leaders-2col": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-leaders-text": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-leaders-portraits": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-leader-card": {
+   "total": 6,
+   "files": {
+    "about/index.html": 6
+   }
+  },
+  ".about-leader-img": {
+   "total": 6,
+   "files": {
+    "about/index.html": 6
+   }
+  },
+  ".about-leader-name": {
+   "total": 6,
+   "files": {
+    "about/index.html": 6
+   }
+  },
+  ".about-leader-role": {
+   "total": 6,
+   "files": {
+    "about/index.html": 6
+   }
+  },
+  ".about-leader-imgwrap": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-grid": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-pages-card": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-thumb": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-thumb--hire": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-stack": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-single": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-header": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-avatar": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-meta": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-name": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-role": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-badge": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-hr": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-creds": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-hire-cred": {
+   "total": 4,
+   "files": {
+    "about/index.html": 4
+   }
+  },
+  ".about-pages-body": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-title": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-desc": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-link": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-pages-thumb--train": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-train-img": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-pages-thumb--talents": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-img": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-match": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-badge": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-role": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-rate": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-tags": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".apt-talents-tag": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  ".about-cta-btns": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".about-btn-secondary": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  ".live-hero": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-media": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-content": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-eyebrows": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-dot": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-title": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-stats": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-hero-ctas": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hero-feature": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hero-feature-text": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hero-feature-title": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-meta": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cta-row": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-countdown": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hero-feature-media": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".logo-band": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".ev-head": {
+   "total": 5,
+   "files": {
+    "events/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-listing": {
+   "total": 2,
+   "files": {
+    "events/index.html": 2
+   }
+  },
+  ".ev-filter": {
+   "total": 2,
+   "files": {
+    "events/index.html": 2
+   }
+  },
+  ".ev-filter-btn": {
+   "total": 10,
+   "files": {
+    "events/index.html": 10
+   }
+  },
+  ".ev-list": {
+   "total": 5,
+   "files": {
+    "events/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-row": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-row-date": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-row-body": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-row-title": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-row-desc": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-people": {
+   "total": 23,
+   "files": {
+    "events/index.html": 13,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-faces": {
+   "total": 16,
+   "files": {
+    "events/index.html": 7,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 4
+   }
+  },
+  ".ev-people-label": {
+   "total": 23,
+   "files": {
+    "events/index.html": 13,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-row-link": {
+   "total": 22,
+   "files": {
+    "events/index.html": 12,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-thumb": {
+   "total": 21,
+   "files": {
+    "events/index.html": 11,
+    "summit/index.html": 5,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-orgs": {
+   "total": 7,
+   "files": {
+    "events/index.html": 5,
+    "vjf/index.html": 2
+   }
+  },
+  ".ev-pager": {
+   "total": 2,
+   "files": {
+    "events/index.html": 2
+   }
+  },
+  ".ev-listing--grid": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".ev-search-wrap": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".ev-search": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".ev-search-clear": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".ev-empty": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".live-sim": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".mi": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-meta-item": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cd-unit": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cd-live": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cd-dot": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cd-label": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".hf-cd-units": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".lh-stat": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".lh-stat-value": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".has-value": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  ".is-open": {
+   "total": 2,
+   "files": {
+    "events/index.html": 2
+   }
+  },
+  ".jb-screen": {
+   "total": 7,
+   "files": {
+    "job-board/index.html": 7
+   }
+  },
+  ".jb-plans": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-plan": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-icon": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-desc": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-price": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-per": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-feats": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-plan-cta": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-qty": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-qty-row": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-qty-label": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-qty-ctrl": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-qty-btn": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-qty-num": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-qty-total": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".btn-block": {
+   "total": 10,
+   "files": {
+    "job-board/index.html": 6,
+    "event-common/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".jb-plan-badge": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".is-text": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".section-tight": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-steps": {
+   "total": 5,
+   "files": {
+    "job-board/index.html": 5
+   }
+  },
+  ".jb-step": {
+   "total": 15,
+   "files": {
+    "job-board/index.html": 15
+   }
+  },
+  ".is-done": {
+   "total": 12,
+   "files": {
+    "job-board/index.html": 12
+   }
+  },
+  ".jb-step-mark": {
+   "total": 15,
+   "files": {
+    "job-board/index.html": 15
+   }
+  },
+  ".jb-step-label": {
+   "total": 15,
+   "files": {
+    "job-board/index.html": 15
+   }
+  },
+  ".jb-step-line": {
+   "total": 10,
+   "files": {
+    "job-board/index.html": 10
+   }
+  },
+  ".is-current": {
+   "total": 5,
+   "files": {
+    "job-board/index.html": 5
+   }
+  },
+  ".jb-flow-head": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-chip": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-stack": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-fcard": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-fcard-hd": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-fcard-ic": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-fcard-body": {
+   "total": 4,
+   "files": {
+    "job-board/index.html": 4
+   }
+  },
+  ".field": {
+   "total": 65,
+   "files": {
+    "event-employer/index.html": 15,
+    "job-board/index.html": 12,
+    "event-common/index.html": 8,
+    "signup/index.html": 8,
+    "auth.html": 8,
+    "event-company/index.html": 8,
+    "sponsor/index.html": 6
+   }
+  },
+  ".field-row": {
+   "total": 10,
+   "files": {
+    "sponsor/index.html": 3,
+    "job-board/index.html": 2,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".jb-note": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-flow-actions": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-statecard": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-statecard-ic": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-statecard-sub": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-state-back": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-back": {
+   "total": 4,
+   "files": {
+    "job-board/index.html": 4
+   }
+  },
+  ".jb-statecard-msg": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".content": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-conote": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-checkout": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-card": {
+   "total": 6,
+   "files": {
+    "job-board/index.html": 6
+   }
+  },
+  ".jb-summary": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-srow": {
+   "total": 6,
+   "files": {
+    "job-board/index.html": 6
+   }
+  },
+  ".jb-slabel": {
+   "total": 5,
+   "files": {
+    "job-board/index.html": 5
+   }
+  },
+  ".jb-sval": {
+   "total": 7,
+   "files": {
+    "job-board/index.html": 7
+   }
+  },
+  ".jb-ssub": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-srow--total": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-stitle": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-promo": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-promo-row": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-stripe": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-pay-hd": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-secure": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-input-wrap": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-toggle": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-toggle-row": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".check-box": {
+   "total": 9,
+   "files": {
+    "event-common/index.html": 3,
+    "event-company/index.html": 3,
+    "job-board/index.html": 2,
+    "event-employer/index.html": 1
+   }
+  },
+  ".jb-toggle-main": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-toggle-title": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-toggle-desc": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-toggle-info": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-agree": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".check-row": {
+   "total": 8,
+   "files": {
+    "event-common/index.html": 3,
+    "event-company/index.html": 3,
+    "job-board/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".jb-paybtn": {
+   "total": 2,
+   "files": {
+    "job-board/index.html": 2
+   }
+  },
+  ".jb-fineprint": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-success": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".thanks-icon": {
+   "total": 7,
+   "files": {
+    "job-board/index.html": 1,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".jb-success-sub": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-nextsteps": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-nsrow": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-nsnum": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-nstitle": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-nsdesc": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   }
+  },
+  ".jb-contact": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-demobar": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-demobar-hd": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-demobar-body": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".jb-demobar-hint": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".collapsed": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  ".err-hero": {
+   "total": 1,
+   "files": {
+    "not-found/index.html": 1
+   }
+  },
+  ".err-num": {
+   "total": 1,
+   "files": {
+    "not-found/index.html": 1
+   }
+  },
+  ".ev-hero": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-hero-inner": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-hero-text": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-hero-sub": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-hero-meta": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-fact": {
+   "total": 13,
+   "files": {
+    "summit/index.html": 5,
+    "vjf/index.html": 4,
+    "chat-learn/index.html": 4
+   }
+  },
+  ".ev-hero-ctas": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-hero-media": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-more": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".ev-head-link": {
+   "total": 3,
+   "files": {
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".is-live": {
+   "total": 1,
+   "files": {
+    "vjf/index.html": 1
+   }
+  },
+  ".about-head": {
+   "total": 2,
+   "files": {
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".dot'": {
+   "total": 2,
+   "files": {
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".+": {
+   "total": 6,
+   "files": {
+    "summit/index.html": 2,
+    "chat-learn/index.html": 2,
+    "ds/ptf.js": 2
+   }
+  },
+  ".s.dot": {
+   "total": 2,
+   "files": {
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".'": {
+   "total": 4,
+   "files": {
+    "ds/ptf.js": 2,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".event-host": {
+   "total": 4,
+   "files": {
+    "chat-learn/index.html": 1,
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-host-text": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 3,
+    "chat-learn/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-host-name": {
+   "total": 5,
+   "files": {
+    "event-common/index.html": 2,
+    "chat-learn/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-host-role": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 3,
+    "chat-learn/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".cl-copy": {
+   "total": 1,
+   "files": {
+    "chat-learn/index.html": 1
+   }
+  },
+  ".cl-speakers": {
+   "total": 1,
+   "files": {
+    "chat-learn/index.html": 1
+   }
+  },
+  ".cl-speaker": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cl-speaker-photo": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cl-speaker-body": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cl-speaker-name": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cl-speaker-role": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cl-speaker-bio": {
+   "total": 3,
+   "files": {
+    "chat-learn/index.html": 3
+   }
+  },
+  ".cs-wrap": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".cs-inner": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".cs-eyebrow": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".cs-headline": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".cs-sub": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".cs-cta-row": {
+   "total": 4,
+   "files": {
+    "why-powertofly/index.html": 1,
+    "expert-finder/index.html": 1,
+    "how-we-verify/index.html": 1,
+    "compare/index.html": 1
+   }
+  },
+  ".opt-card": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 4
+   }
+  },
+  ".opt-head": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 4
+   }
+  },
+  ".opt-kicker": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 4
+   }
+  },
+  ".navdemo": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 3
+   }
+  },
+  ".nav": {
+   "total": 7,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 1,
+    "auth.html": 1,
+    "book/index.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".nav-inner": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".brand": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".nav-items": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".nav-btn": {
+   "total": 25,
+   "files": {
+    "nav-options.html": 15,
+    "top-alerts.html": 5,
+    "ds/ptf.js": 5
+   }
+  },
+  ".nav-drop": {
+   "total": 16,
+   "files": {
+    "nav-options.html": 8,
+    "top-alerts.html": 5,
+    "ds/ptf.js": 3
+   }
+  },
+  ".nav-chev": {
+   "total": 15,
+   "files": {
+    "nav-options.html": 8,
+    "top-alerts.html": 4,
+    "ds/ptf.js": 3
+   }
+  },
+  ".nav-fly": {
+   "total": 16,
+   "files": {
+    "nav-options.html": 8,
+    "top-alerts.html": 5,
+    "ds/ptf.js": 3
+   }
+  },
+  ".mega-inner": {
+   "total": 16,
+   "files": {
+    "nav-options.html": 8,
+    "top-alerts.html": 5,
+    "ds/ptf.js": 3
+   }
+  },
+  ".mega-left": {
+   "total": 13,
+   "files": {
+    "nav-options.html": 6,
+    "top-alerts.html": 5,
+    "ds/ptf.js": 2
+   }
+  },
+  ".nav-aud": {
+   "total": 8,
+   "files": {
+    "nav-options.html": 4,
+    "top-alerts.html": 4
+   }
+  },
+  ".mega-items": {
+   "total": 11,
+   "files": {
+    "top-alerts.html": 6,
+    "nav-options.html": 5
+   }
+  },
+  ".fly-item": {
+   "total": 43,
+   "files": {
+    "nav-options.html": 22,
+    "top-alerts.html": 11,
+    "ds/ptf.js": 10
+   }
+  },
+  ".fly-title": {
+   "total": 52,
+   "files": {
+    "nav-options.html": 28,
+    "ds/ptf.js": 13,
+    "top-alerts.html": 11
+   }
+  },
+  ".fly-desc": {
+   "total": 36,
+   "files": {
+    "nav-options.html": 19,
+    "top-alerts.html": 11,
+    "ds/ptf.js": 6
+   }
+  },
+  ".fly-rule": {
+   "total": 31,
+   "files": {
+    "nav-options.html": 17,
+    "ds/ptf.js": 9,
+    "top-alerts.html": 5
+   }
+  },
+  ".mega-right-dark": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".event-ey": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".event-hl": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".event-date": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".event-reg": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".fly-feature": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  ".ind-grid": {
+   "total": 2,
+   "files": {
+    "nav-options.html": 1,
+    "top-alerts.html": 1
+   }
+  },
+  ".ind-item": {
+   "total": 10,
+   "files": {
+    "top-alerts.html": 6,
+    "nav-options.html": 4
+   }
+  },
+  ".ind-name": {
+   "total": 10,
+   "files": {
+    "top-alerts.html": 6,
+    "nav-options.html": 4
+   }
+  },
+  ".ind-desc": {
+   "total": 10,
+   "files": {
+    "top-alerts.html": 6,
+    "nav-options.html": 4
+   }
+  },
+  ".mega-right": {
+   "total": 3,
+   "files": {
+    "top-alerts.html": 2,
+    "nav-options.html": 1
+   }
+  },
+  ".proof-desc": {
+   "total": 3,
+   "files": {
+    "top-alerts.html": 2,
+    "nav-options.html": 1
+   }
+  },
+  ".proof-item": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".proof-check": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  ".fly-cta": {
+   "total": 6,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".nav-cta": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".login-drop": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "ds/ptf.js": 2
+   }
+  },
+  ".login-fly": {
+   "total": 5,
+   "files": {
+    "nav-options.html": 3,
+    "ds/ptf.js": 2
+   }
+  },
+  ".login-tx": {
+   "total": 18,
+   "files": {
+    "nav-options.html": 10,
+    "ds/ptf.js": 8
+   }
+  },
+  ".login-arrow": {
+   "total": 8,
+   "files": {
+    "nav-options.html": 5,
+    "ds/ptf.js": 3
+   }
+  },
+  ".login-signup": {
+   "total": 4,
+   "files": {
+    "nav-options.html": 2,
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".navstage": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 3
+   }
+  },
+  ".mobile-note": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 3
+   }
+  },
+  ".emp-mega": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-body": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-home": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-home-tx": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-svc": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-svc-item": {
+   "total": 6,
+   "files": {
+    "nav-options.html": 4,
+    "ds/ptf.js": 2
+   }
+  },
+  ".emp-svc-tx": {
+   "total": 6,
+   "files": {
+    "nav-options.html": 4,
+    "ds/ptf.js": 2
+   }
+  },
+  ".emp-re": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-re-ic": {
+   "total": 6,
+   "files": {
+    "nav-options.html": 4,
+    "ds/ptf.js": 2
+   }
+  },
+  ".emp-side": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-side-head": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-foot-title": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-foot-body": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".ind-chips": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".emp-side-foot": {
+   "total": 3,
+   "files": {
+    "nav-options.html": 2,
+    "ds/ptf.js": 1
+   }
+  },
+  ".hamburger": {
+   "total": 2,
+   "files": {
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".nav-overlay": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".mobile-drawer": {
+   "total": 2,
+   "files": {
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".drawer-links": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".drawer-group": {
+   "total": 6,
+   "files": {
+    "top-alerts.html": 6
+   }
+  },
+  ".drawer-cat": {
+   "total": 6,
+   "files": {
+    "top-alerts.html": 6
+   }
+  },
+  ".drawer-cta": {
+   "total": 2,
+   "files": {
+    "top-alerts.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".demo-stage": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".eg": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".demo-controls": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".ta-box": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".ta-count": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".lbl": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".ta-badge": {
+   "total": 4,
+   "files": {
+    "top-alerts.html": 4
+   }
+  },
+  ".ta-dot": {
+   "total": 2,
+   "files": {
+    "top-alerts.html": 2
+   }
+  },
+  ".ta-title": {
+   "total": 4,
+   "files": {
+    "top-alerts.html": 4
+   }
+  },
+  ".ta-thumb": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  ".flow-shell": {
+   "total": 5,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".auth-bg": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".auth-bg-blob": {
+   "total": 21,
+   "files": {
+    "event-common/index.html": 3,
+    "signup/index.html": 3,
+    "auth.html": 3,
+    "sponsor/index.html": 3,
+    "event-company/index.html": 3,
+    "event-employer/index.html": 3,
+    "book/index.html": 3
+   }
+  },
+  ".b1": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".b2": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".b3": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".auth-nav": {
+   "total": 5,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".nav-brand": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".nav-back": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".reg-wrap": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".reg-layout": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-card": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-top": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-title": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-meta": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-meta-row": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  ".event-ico": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  ".event-meta-text": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  ".reg-form": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".auth-card": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".auth-toggle": {
+   "total": 5,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".flow-step": {
+   "total": 18,
+   "files": {
+    "event-common/index.html": 6,
+    "event-company/index.html": 6,
+    "event-employer/index.html": 6
+   }
+  },
+  ".auth-heading": {
+   "total": 30,
+   "files": {
+    "event-common/index.html": 6,
+    "event-company/index.html": 6,
+    "event-employer/index.html": 6,
+    "signup/index.html": 5,
+    "auth.html": 5,
+    "sponsor/index.html": 2
+   }
+  },
+  ".auth-sub": {
+   "total": 24,
+   "files": {
+    "event-common/index.html": 5,
+    "event-company/index.html": 5,
+    "event-employer/index.html": 5,
+    "signup/index.html": 4,
+    "auth.html": 4,
+    "sponsor/index.html": 1
+   }
+  },
+  ".auth-form": {
+   "total": 22,
+   "files": {
+    "event-common/index.html": 5,
+    "event-company/index.html": 5,
+    "event-employer/index.html": 5,
+    "signup/index.html": 3,
+    "auth.html": 3,
+    "sponsor/index.html": 1
+   }
+  },
+  ".btn-auth": {
+   "total": 24,
+   "files": {
+    "event-common/index.html": 5,
+    "event-company/index.html": 5,
+    "event-employer/index.html": 5,
+    "signup/index.html": 4,
+    "auth.html": 4,
+    "sponsor/index.html": 1
+   }
+  },
+  ".auth-divider": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  ".social-btns": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  ".btn-social": {
+   "total": 20,
+   "files": {
+    "event-common/index.html": 4,
+    "signup/index.html": 4,
+    "auth.html": 4,
+    "event-company/index.html": 4,
+    "event-employer/index.html": 4
+   }
+  },
+  ".auth-note": {
+   "total": 28,
+   "files": {
+    "event-common/index.html": 7,
+    "signup/index.html": 7,
+    "event-company/index.html": 7,
+    "auth.html": 5,
+    "sponsor/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".step-indicator": {
+   "total": 19,
+   "files": {
+    "event-common/index.html": 4,
+    "event-company/index.html": 4,
+    "event-employer/index.html": 4,
+    "signup/index.html": 3,
+    "auth.html": 3,
+    "sponsor/index.html": 1
+   }
+  },
+  ".thanks-divider": {
+   "total": 17,
+   "files": {
+    "event-common/index.html": 5,
+    "event-company/index.html": 5,
+    "signup/index.html": 4,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".resume-toggle": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".resume-reveal": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".upload-area": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".upload-icon": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".upload-name": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".nav-row": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 3,
+    "event-company/index.html": 3,
+    "event-employer/index.html": 3,
+    "signup/index.html": 1
+   }
+  },
+  ".btn-skip": {
+   "total": 11,
+   "files": {
+    "event-common/index.html": 3,
+    "event-company/index.html": 3,
+    "event-employer/index.html": 3,
+    "signup/index.html": 2
+   }
+  },
+  ".id-grid": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".stacked": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".id-section": {
+   "total": 10,
+   "files": {
+    "auth.html": 4,
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".id-section-label": {
+   "total": 10,
+   "files": {
+    "auth.html": 4,
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".id-chips": {
+   "total": 10,
+   "files": {
+    "auth.html": 4,
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".id-chip": {
+   "total": 98,
+   "files": {
+    "auth.html": 30,
+    "event-common/index.html": 24,
+    "signup/index.html": 22,
+    "event-company/index.html": 22
+   }
+  },
+  ".q-group": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".q-label": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".event-list": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".event-opt": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".event-opt-title": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".event-opt-date": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".agree-row": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".req": {
+   "total": 12,
+   "files": {
+    "sponsor/index.html": 5,
+    "event-company/index.html": 3,
+    "signup/index.html": 2,
+    "event-common/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".thanks-eyebrow": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".thanks-body": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".btn-dashboard": {
+   "total": 7,
+   "files": {
+    "auth.html": 2,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".invalid": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".shake": {
+   "total": 6,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "event-company/index.html": 2
+   }
+  },
+  ".selected": {
+   "total": 5,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  ".auth-wrap": {
+   "total": 3,
+   "files": {
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1
+   }
+  },
+  ".auth-panel": {
+   "total": 4,
+   "files": {
+    "signup/index.html": 2,
+    "auth.html": 2
+   }
+  },
+  ".field-msg": {
+   "total": 7,
+   "files": {
+    "auth.html": 4,
+    "signup/index.html": 2,
+    "sponsor/index.html": 1
+   }
+  },
+  ".id-actions": {
+   "total": 2,
+   "files": {
+    "signup/index.html": 1,
+    "auth.html": 1
+   }
+  },
+  ".id-actions-right": {
+   "total": 1,
+   "files": {
+    "signup/index.html": 1
+   }
+  },
+  ".thanks-actions": {
+   "total": 1,
+   "files": {
+    "signup/index.html": 1
+   }
+  },
+  ".wide": {
+   "total": 5,
+   "files": {
+    "auth.html": 2,
+    "sponsor/index.html": 2,
+    "signup/index.html": 1
+   }
+  },
+  ".has-error": {
+   "total": 12,
+   "files": {
+    "signup/index.html": 4,
+    "auth.html": 4,
+    "sponsor/index.html": 4
+   }
+  },
+  ".is-valid": {
+   "total": 4,
+   "files": {
+    "signup/index.html": 2,
+    "auth.html": 2
+   }
+  },
+  ".id-privacy": {
+   "total": 1,
+   "files": {
+    "auth.html": 1
+   }
+  },
+  ".id-skip": {
+   "total": 1,
+   "files": {
+    "auth.html": 1
+   }
+  },
+  ".auth-fineprint": {
+   "total": 3,
+   "files": {
+    "event-employer/index.html": 2,
+    "sponsor/index.html": 1
+   }
+  },
+  ".event-host-logo": {
+   "total": 1,
+   "files": {
+    "event-company/index.html": 1
+   }
+  },
+  ".q-added-row": {
+   "total": 1,
+   "files": {
+    "event-company/index.html": 1
+   }
+  },
+  ".event-pill": {
+   "total": 1,
+   "files": {
+    "event-employer/index.html": 1
+   }
+  },
+  ".event-avatar": {
+   "total": 1,
+   "files": {
+    "event-employer/index.html": 1
+   }
+  },
+  ".book-wrap": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-card": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-left": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-eyebrow": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-headline": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-sub": {
+   "total": 2,
+   "files": {
+    "book/index.html": 2
+   }
+  },
+  ".book-meta": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".meta-item": {
+   "total": 3,
+   "files": {
+    "book/index.html": 3
+   }
+  },
+  ".meta-icon": {
+   "total": 3,
+   "files": {
+    "book/index.html": 3
+   }
+  },
+  ".book-footer": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".book-right": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".cal-heading": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".cal-sub": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".meetings-iframe-container": {
+   "total": 1,
+   "files": {
+    "book/index.html": 1
+   }
+  },
+  ".footer-social": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".ev-page'": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".(i": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".===": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".page": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".?": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".is-active'": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".:": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".'')": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".scrolled": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".is-on": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".is-click": {
+   "total": 2,
+   "files": {
+    "ds/ptf.js": 2
+   }
+  },
+  ".nav-dark": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".is-hidden": {
+   "total": 2,
+   "files": {
+    "ds/ptf.js": 2
+   }
+  }
+ },
+ "tokens": {
+  "--ink-2": {
+   "total": 50,
+   "files": {
+    "employers/index.html": 6,
+    "talents/index-v2.html": 6,
+    "talents/index.html": 5,
+    "hire/index.html": 5,
+    "events/index.html": 5,
+    "about/index.html": 4,
+    "job-board/index.html": 3,
+    "chat-learn/index.html": 3,
+    "nav-options.html": 3,
+    "auth.html": 3,
+    "vjf/index.html": 2,
+    "summit/index.html": 2,
+    "book/index.html": 2,
+    "train/index.html": 1
+   },
+   "cssRefs": 13,
+   "defined": true
+  },
+  "--ink-3": {
+   "total": 134,
+   "files": {
+    "job-board/index.html": 25,
+    "auth.html": 14,
+    "talents/index-v2.html": 13,
+    "employers/index.html": 10,
+    "nav-options.html": 10,
+    "hire/index.html": 9,
+    "talents/index.html": 8,
+    "about/index.html": 6,
+    "event-common/index.html": 6,
+    "events/index.html": 5,
+    "event-company/index.html": 5,
+    "book/index.html": 5,
+    "train/index.html": 3,
+    "summit/index.html": 3,
+    "chat-learn/index.html": 3,
+    "top-alerts.html": 3,
+    "event-employer/index.html": 3,
+    "vjf/index.html": 2,
+    "sponsor/index.html": 1
+   },
+   "cssRefs": 47,
+   "defined": true
+  },
+  "--line": {
+   "total": 78,
+   "files": {
+    "talents/index-v2.html": 15,
+    "talents/index.html": 11,
+    "employers/index.html": 10,
+    "job-board/index.html": 9,
+    "auth.html": 8,
+    "hire/index.html": 6,
+    "train/index.html": 5,
+    "book/index.html": 5,
+    "events/index.html": 3,
+    "about/index.html": 2,
+    "nav-options.html": 2,
+    "top-alerts.html": 2
+   },
+   "cssRefs": 35,
+   "defined": true
+  },
+  "--shadow-card": {
+   "total": 17,
+   "files": {
+    "job-board/index.html": 4,
+    "talents/index-v2.html": 3,
+    "employers/index.html": 2,
+    "talents/index.html": 2,
+    "hire/index.html": 2,
+    "events/index.html": 2,
+    "auth.html": 1,
+    "book/index.html": 1
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--ink": {
+   "total": 165,
+   "files": {
+    "job-board/index.html": 28,
+    "employers/index.html": 23,
+    "talents/index-v2.html": 23,
+    "auth.html": 18,
+    "talents/index.html": 11,
+    "hire/index.html": 11,
+    "about/index.html": 11,
+    "top-alerts.html": 8,
+    "events/index.html": 6,
+    "nav-options.html": 6,
+    "chat-learn/index.html": 5,
+    "book/index.html": 5,
+    "train/index.html": 4,
+    "summit/index.html": 4,
+    "not-found/index.html": 1,
+    "event-company/index.html": 1
+   },
+   "cssRefs": 77,
+   "defined": true
+  },
+  "--bg-soft": {
+   "total": 27,
+   "files": {
+    "talents/index-v2.html": 6,
+    "talents/index.html": 5,
+    "auth.html": 5,
+    "employers/index.html": 4,
+    "book/index.html": 3,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "event-company/index.html": 1
+   },
+   "cssRefs": 8,
+   "defined": true
+  },
+  "--section-y": {
+   "total": 38,
+   "files": {
+    "hire/index.html": 7,
+    "about/index.html": 7,
+    "train/index.html": 6,
+    "employers/index.html": 4,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4,
+    "vjf/index.html": 2,
+    "summit/index.html": 2,
+    "chat-learn/index.html": 2
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--gutter": {
+   "total": 21,
+   "files": {
+    "train/index.html": 5,
+    "hire/index.html": 5,
+    "employers/index.html": 3,
+    "events/index.html": 3,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   },
+   "cssRefs": 9,
+   "defined": true
+  },
+  "--content-wide": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 2,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   },
+   "cssRefs": 3,
+   "defined": true
+  },
+  "--bg": {
+   "total": 39,
+   "files": {
+    "talents/index-v2.html": 6,
+    "auth.html": 6,
+    "employers/index.html": 4,
+    "talents/index.html": 4,
+    "train/index.html": 4,
+    "hire/index.html": 4,
+    "book/index.html": 4,
+    "summit/index.html": 3,
+    "chat-learn/index.html": 3,
+    "vjf/index.html": 1
+   },
+   "cssRefs": 18,
+   "defined": true
+  },
+  "--purple-light": {
+   "total": 5,
+   "files": {
+    "top-alerts.html": 2,
+    "employers/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--purple": {
+   "total": 5,
+   "files": {
+    "top-alerts.html": 2,
+    "employers/index.html": 1,
+    "train/index.html": 1,
+    "hire/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--content": {
+   "total": 12,
+   "files": {
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4,
+    "about/index.html": 2,
+    "employers/index.html": 1,
+    "train/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--ti": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--green": {
+   "total": 12,
+   "files": {
+    "nav-options.html": 6,
+    "job-board/index.html": 4,
+    "talents/index-v2.html": 1,
+    "top-alerts.html": 1
+   },
+   "cssRefs": 18,
+   "defined": true
+  },
+  "--av-bg": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--av": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--container": {
+   "total": 9,
+   "files": {
+    "train/index.html": 2,
+    "events/index.html": 2,
+    "nav-options.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--content-body": {
+   "total": 16,
+   "files": {
+    "train/index.html": 4,
+    "summit/index.html": 4,
+    "chat-learn/index.html": 4,
+    "vjf/index.html": 2,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--r-xl": {
+   "total": 11,
+   "files": {
+    "job-board/index.html": 4,
+    "about/index.html": 3,
+    "train/index.html": 2,
+    "hire/index.html": 2
+   },
+   "cssRefs": 7,
+   "defined": true
+  },
+  "--r-2xl": {
+   "total": 6,
+   "files": {
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   },
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--content-narrow": {
+   "total": 8,
+   "files": {
+    "about/index.html": 3,
+    "chat-learn/index.html": 3,
+    "summit/index.html": 2
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--accent": {
+   "total": 4,
+   "files": {
+    "about/index.html": 3,
+    "nav-options.html": 1
+   },
+   "cssRefs": 10,
+   "defined": true
+  },
+  "--surface": {
+   "total": 12,
+   "files": {
+    "job-board/index.html": 5,
+    "about/index.html": 3,
+    "events/index.html": 3,
+    "nav-options.html": 1
+   },
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--hire": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--train": {
+   "total": 5,
+   "files": {
+    "about/index.html": 5
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--talents": {
+   "total": 2,
+   "files": {
+    "about/index.html": 2
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--sel": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--section-y-tight": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--surface-2": {
+   "total": 15,
+   "files": {
+    "job-board/index.html": 9,
+    "events/index.html": 2,
+    "chat-learn/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--grid": {
+   "total": 4,
+   "files": {
+    "events/index.html": 4
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--r-pill": {
+   "total": 6,
+   "files": {
+    "job-board/index.html": 5,
+    "chat-learn/index.html": 1
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--green-mid": {
+   "total": 12,
+   "files": {
+    "job-board/index.html": 8,
+    "nav-options.html": 4
+   },
+   "cssRefs": 24,
+   "defined": true
+  },
+  "--line-2": {
+   "total": 3,
+   "files": {
+    "job-board/index.html": 3
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--r-md": {
+   "total": 6,
+   "files": {
+    "job-board/index.html": 6
+   },
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--total": {
+   "total": 4,
+   "files": {
+    "job-board/index.html": 4
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--r-sm": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": true
+  },
+  "--green-light": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--r-lg": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--iri-cyan": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   },
+   "cssRefs": 3,
+   "defined": true
+  },
+  "--iri-green": {
+   "total": 7,
+   "files": {
+    "auth.html": 6,
+    "book/index.html": 1
+   },
+   "cssRefs": 3,
+   "defined": true
+  },
+  "--iri-lime": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   },
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--btn-fg": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--purple-bright": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--btn-bg": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 7,
+   "defined": true
+  },
+  "--hero-top": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 1,
+   "defined": true
+  },
+  "--btn-bg-hover": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--section-y-loose": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 2,
+   "defined": true
+  }
+ },
+ "hex": {
+  "#ffffff": {
+   "total": 9,
+   "files": {
+    "employers/index.html": 5,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#00c47a": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 5,
+    "events/index.html": 1
+   }
+  },
+  "#fff": {
+   "total": 137,
+   "files": {
+    "train/index.html": 20,
+    "talents/index-v2.html": 15,
+    "employers/index.html": 13,
+    "top-alerts.html": 13,
+    "event-common/index.html": 13,
+    "talents/index.html": 8,
+    "about/index.html": 8,
+    "hire/index.html": 7,
+    "auth.html": 7,
+    "event-company/index.html": 7,
+    "job-board/index.html": 6,
+    "signup/index.html": 6,
+    "nav-options.html": 4,
+    "vjf/index.html": 3,
+    "summit/index.html": 3,
+    "chat-learn/index.html": 3,
+    "sponsor/index.html": 1
+   }
+  },
+  "#eee": {
+   "total": 2,
+   "files": {
+    "employers/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  "#0a8c66": {
+   "total": 23,
+   "files": {
+    "employers/index.html": 6,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 3,
+    "hire/index.html": 3,
+    "train/index.html": 2,
+    "top-alerts.html": 2,
+    "auth.html": 2,
+    "book/index.html": 1
+   }
+  },
+  "#4fe8a9": {
+   "total": 131,
+   "files": {
+    "train/index.html": 38,
+    "talents/index-v2.html": 29,
+    "employers/index.html": 16,
+    "hire/index.html": 14,
+    "talents/index.html": 6,
+    "top-alerts.html": 6,
+    "auth.html": 4,
+    "about/index.html": 3,
+    "job-board/index.html": 3,
+    "book/index.html": 3,
+    "nav-options.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  "#5bcfff": {
+   "total": 43,
+   "files": {
+    "employers/index.html": 12,
+    "train/index.html": 5,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4,
+    "auth.html": 4,
+    "book/index.html": 3,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "job-board/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "nav-options.html": 1,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  "#d5ff66": {
+   "total": 41,
+   "files": {
+    "employers/index.html": 10,
+    "train/index.html": 5,
+    "talents/index-v2.html": 4,
+    "talents/index.html": 4,
+    "auth.html": 4,
+    "book/index.html": 3,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "job-board/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "nav-options.html": 1,
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1,
+    "event-employer/index.html": 1
+   }
+  },
+  "#000": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 4,
+    "train/index.html": 2
+   }
+  },
+  "#0a6e54": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#3a6b00": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#d7dcd9": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#f5a623": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "#0a66c2": {
+   "total": 13,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2,
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "#e8eff5": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#eafaf2": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#faf1e8": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#4fe3ff": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
+  "#0a0a0a": {
+   "total": 91,
+   "files": {
+    "train/index.html": 22,
+    "vjf/index.html": 20,
+    "talents/index-v2.html": 18,
+    "talents/index.html": 14,
+    "top-alerts.html": 6,
+    "summit/index.html": 2,
+    "chat-learn/index.html": 2,
+    "event-common/index.html": 2,
+    "about/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "event-company/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#ccc": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "#e2e0f8": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  "#c9c4f0": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  "#060e09": {
+   "total": 8,
+   "files": {
+    "talents/index-v2.html": 4,
+    "train/index.html": 4
+   }
+  },
+  "#ffb86c": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "#c4b5fd": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "#141414": {
+   "total": 4,
+   "files": {
+    "train/index.html": 3,
+    "job-board/index.html": 1
+   }
+  },
+  "#c8fff0": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#22a87a": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#0b4530": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#040e09": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#9c0a16": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#060606": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#c8dff2": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#b8f0d8": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#f0e0b8": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#10074": {
+   "total": 4,
+   "files": {
+    "train/index.html": 4
+   }
+  },
+  "#9658": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "#ddf2ea": {
+   "total": 2,
+   "files": {
+    "about/index.html": 2
+   }
+  },
+  "#f2fcf7": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#0d0d0d": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#d9d4cd": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#cdcdf0": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#bcbce8": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#eceef7": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "#0f6e56": {
+   "total": 7,
+   "files": {
+    "nav-options.html": 3,
+    "about/index.html": 2,
+    "top-alerts.html": 2
+   }
+  },
+  "#e5372f": {
+   "total": 4,
+   "files": {
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  "#1e1e1e": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  "#8a8a8a": {
+   "total": 7,
+   "files": {
+    "event-common/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "signup/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  "#f6f7f9": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#fbfcfd": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#e6fbf1": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#eef0f3": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#d8a": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#cfe1ff": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#c6f3df": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#f7e7cf": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#e3e7ea": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "#7b00ff": {
+   "total": 4,
+   "files": {
+    "top-alerts.html": 4
+   }
+  },
+  "#888": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  },
+  "#4285f4": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  "#34a853": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  "#fbbc05": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  "#ea4335": {
+   "total": 10,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 2,
+    "auth.html": 2,
+    "event-company/index.html": 2,
+    "event-employer/index.html": 2
+   }
+  },
+  "#c0392b": {
+   "total": 10,
+   "files": {
+    "auth.html": 7,
+    "signup/index.html": 2,
+    "sponsor/index.html": 1
+   }
+  },
+  "#2a2a2a": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#5c6f69": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#fafaf6": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#0a2a1f": {
+   "total": 2,
+   "files": {
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "#fff9f9": {
+   "total": 1,
+   "files": {
+    "auth.html": 1
+   }
+  },
+  "#1a1a1a": {
+   "total": 2,
+   "files": {
+    "auth.html": 2
+   }
+  }
+ },
+ "fonts": {
+  "Inter Tight": {
+   "total": 91,
+   "files": {
+    "talents/index-v2.html": 18,
+    "talents/index.html": 14,
+    "employers/index.html": 8,
+    "job-board/index.html": 8,
+    "train/index.html": 7,
+    "about/index.html": 7,
+    "hire/index.html": 5,
+    "events/index.html": 5,
+    "top-alerts.html": 5,
+    "auth.html": 5,
+    "nav-options.html": 4,
+    "book/index.html": 3,
+    "not-found/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  "Inter": {
+   "total": 31,
+   "files": {
+    "employers/index.html": 5,
+    "auth.html": 5,
+    "talents/index-v2.html": 3,
+    "train/index.html": 2,
+    "hire/index.html": 2,
+    "top-alerts.html": 2,
+    "event-common/index.html": 2,
+    "talents/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "job-board/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "signup/index.html": 1,
+    "event-company/index.html": 1,
+    "book/index.html": 1
+   }
+  }
+ },
+ "fontsize": {
+  "18px": {
+   "total": 16,
+   "files": {
+    "job-board/index.html": 3,
+    "employers/index.html": 2,
+    "train/index.html": 2,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "events/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "12px": {
+   "total": 47,
+   "files": {
+    "event-common/index.html": 8,
+    "hire/index.html": 7,
+    "top-alerts.html": 5,
+    "event-company/index.html": 5,
+    "signup/index.html": 4,
+    "employers/index.html": 3,
+    "auth.html": 3,
+    "talents/index-v2.html": 2,
+    "talents/index.html": 2,
+    "events/index.html": 2,
+    "book/index.html": 2,
+    "train/index.html": 1,
+    "about/index.html": 1,
+    "job-board/index.html": 1,
+    "nav-options.html": 1
+   }
+  },
+  "11px": {
+   "total": 45,
+   "files": {
+    "talents/index-v2.html": 9,
+    "employers/index.html": 7,
+    "train/index.html": 7,
+    "hire/index.html": 6,
+    "talents/index.html": 4,
+    "top-alerts.html": 3,
+    "about/index.html": 2,
+    "nav-options.html": 2,
+    "auth.html": 2,
+    "events/index.html": 1,
+    "event-common/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "14.5px": {
+   "total": 5,
+   "files": {
+    "employers/index.html": 2,
+    "train/index.html": 1,
+    "hire/index.html": 1,
+    "events/index.html": 1
+   }
+  },
+  "13px": {
+   "total": 45,
+   "files": {
+    "talents/index-v2.html": 8,
+    "job-board/index.html": 8,
+    "auth.html": 7,
+    "talents/index.html": 5,
+    "employers/index.html": 3,
+    "nav-options.html": 3,
+    "top-alerts.html": 3,
+    "train/index.html": 2,
+    "hire/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  "10px": {
+   "total": 41,
+   "files": {
+    "train/index.html": 10,
+    "talents/index-v2.html": 9,
+    "employers/index.html": 4,
+    "hire/index.html": 4,
+    "about/index.html": 3,
+    "top-alerts.html": 2,
+    "event-common/index.html": 2,
+    "talents/index.html": 1,
+    "job-board/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "signup/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  "12.5px": {
+   "total": 14,
+   "files": {
+    "employers/index.html": 3,
+    "nav-options.html": 3,
+    "top-alerts.html": 3,
+    "talents/index-v2.html": 2,
+    "talents/index.html": 1,
+    "hire/index.html": 1,
+    "job-board/index.html": 1
+   }
+  },
+  "13.5px": {
+   "total": 8,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 1,
+    "hire/index.html": 1,
+    "job-board/index.html": 1,
+    "nav-options.html": 1,
+    "top-alerts.html": 1
+   }
+  },
+  "16.5px": {
+   "total": 3,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1
+   }
+  },
+  "26px": {
+   "total": 4,
+   "files": {
+    "employers/index.html": 1,
+    "talents/index-v2.html": 1,
+    "job-board/index.html": 1,
+    "auth.html": 1
+   }
+  },
+  "14px": {
+   "total": 38,
+   "files": {
+    "job-board/index.html": 14,
+    "employers/index.html": 6,
+    "auth.html": 4,
+    "talents/index-v2.html": 3,
+    "talents/index.html": 3,
+    "book/index.html": 3,
+    "about/index.html": 2,
+    "hire/index.html": 1,
+    "events/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  "15px": {
+   "total": 37,
+   "files": {
+    "job-board/index.html": 7,
+    "talents/index-v2.html": 6,
+    "auth.html": 4,
+    "talents/index.html": 3,
+    "train/index.html": 3,
+    "employers/index.html": 2,
+    "hire/index.html": 2,
+    "about/index.html": 2,
+    "events/index.html": 2,
+    "chat-learn/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "top-alerts.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "17px": {
+   "total": 11,
+   "files": {
+    "train/index.html": 3,
+    "talents/index-v2.html": 2,
+    "talents/index.html": 2,
+    "employers/index.html": 1,
+    "hire/index.html": 1,
+    "job-board/index.html": 1,
+    "nav-options.html": 1
+   }
+  },
+  "9px": {
+   "total": 28,
+   "files": {
+    "talents/index-v2.html": 10,
+    "train/index.html": 10,
+    "top-alerts.html": 3,
+    "about/index.html": 2,
+    "employers/index.html": 1,
+    "talents/index.html": 1,
+    "hire/index.html": 1
+   }
+  },
+  "16px": {
+   "total": 31,
+   "files": {
+    "talents/index-v2.html": 5,
+    "events/index.html": 5,
+    "nav-options.html": 4,
+    "job-board/index.html": 3,
+    "talents/index.html": 2,
+    "train/index.html": 2,
+    "top-alerts.html": 2,
+    "employers/index.html": 1,
+    "hire/index.html": 1,
+    "about/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "auth.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "10.5px": {
+   "total": 8,
+   "files": {
+    "auth.html": 3,
+    "top-alerts.html": 2,
+    "talents/index-v2.html": 1,
+    "job-board/index.html": 1,
+    "nav-options.html": 1
+   }
+  },
+  "11.5px": {
+   "total": 1,
+   "files": {
+    "talents/index-v2.html": 1
+   }
+  },
+  "8px": {
+   "total": 20,
+   "files": {
+    "talents/index-v2.html": 8,
+    "train/index.html": 7,
+    "about/index.html": 4,
+    "talents/index.html": 1
+   }
+  },
+  "22px": {
+   "total": 5,
+   "files": {
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "train/index.html": 1,
+    "events/index.html": 1,
+    "job-board/index.html": 1
+   }
+  },
+  "20px": {
+   "total": 8,
+   "files": {
+    "job-board/index.html": 3,
+    "talents/index-v2.html": 1,
+    "talents/index.html": 1,
+    "chat-learn/index.html": 1,
+    "top-alerts.html": 1,
+    "book/index.html": 1
+   }
+  },
+  "40px": {
+   "total": 1,
+   "files": {
+    "train/index.html": 1
+   }
+  },
+  "28px": {
+   "total": 3,
+   "files": {
+    "hire/index.html": 2,
+    "auth.html": 1
+   }
+  },
+  "21px": {
+   "total": 1,
+   "files": {
+    "about/index.html": 1
+   }
+  },
+  "7px": {
+   "total": 3,
+   "files": {
+    "about/index.html": 3
+   }
+  },
+  "9.5px": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  "19px": {
+   "total": 1,
+   "files": {
+    "events/index.html": 1
+   }
+  },
+  "24px": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  "44px": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  "30px": {
+   "total": 1,
+   "files": {
+    "job-board/index.html": 1
+   }
+  },
+  "23px": {
+   "total": 1,
+   "files": {
+    "nav-options.html": 1
+   }
+  },
+  "32px": {
+   "total": 1,
+   "files": {
+    "top-alerts.html": 1
+   }
+  }
+ },
+ "cssClasses": [
+  ".about-stat-card",
+  ".about-stat-desc",
+  ".about-stat-grid",
+  ".about-stat-lbl",
+  ".about-stat-num",
+  ".about-stat-rule",
+  ".active",
+  ".agree-row",
+  ".auth-bg",
+  ".auth-bg-blob",
+  ".auth-card",
+  ".auth-divider",
+  ".auth-fineprint",
+  ".auth-form",
+  ".auth-heading",
+  ".auth-nav",
+  ".auth-note",
+  ".auth-panel",
+  ".auth-sub",
+  ".auth-toggle",
+  ".auth-wrap",
+  ".avatar",
+  ".avatar-lg",
+  ".b1",
+  ".b2",
+  ".b3",
+  ".benefit-card",
+  ".benefit-eyebrow",
+  ".benefit-sparkle",
+  ".brand",
+  ".brand-ai",
+  ".btn",
+  ".btn-auth",
+  ".btn-block",
+  ".btn-book",
+  ".btn-cta",
+  ".btn-dashboard",
+  ".btn-hero",
+  ".btn-light",
+  ".btn-primary",
+  ".btn-skip",
+  ".btn-sm",
+  ".btn-social",
+  ".card-title",
+  ".cards-in",
+  ".check-box",
+  ".check-row",
+  ".closing-cta",
+  ".com",
+  ".content",
+  ".content-narrow",
+  ".cs-cta-row",
+  ".cs-eyebrow",
+  ".cs-headline",
+  ".cs-inner",
+  ".cs-sub",
+  ".cs-wrap",
+  ".css",
+  ".display",
+  ".display-lg",
+  ".dot",
+  ".drawer-badge",
+  ".drawer-cat",
+  ".drawer-cta",
+  ".drawer-group",
+  ".drawer-links",
+  ".emp-body",
+  ".emp-foot-body",
+  ".emp-foot-title",
+  ".emp-home",
+  ".emp-home-tx",
+  ".emp-mega",
+  ".emp-re",
+  ".emp-re-ic",
+  ".emp-side",
+  ".emp-side-foot",
+  ".emp-side-head",
+  ".emp-svc",
+  ".emp-svc-item",
+  ".emp-svc-tx",
+  ".ev-",
+  ".ev-empty",
+  ".ev-faces",
+  ".ev-filter",
+  ".ev-filter-btn",
+  ".ev-head",
+  ".ev-head-link",
+  ".ev-list",
+  ".ev-listing",
+  ".ev-listing--grid",
+  ".ev-orgs",
+  ".ev-page",
+  ".ev-pager",
+  ".ev-people",
+  ".ev-people-label",
+  ".ev-row",
+  ".ev-row-body",
+  ".ev-row-date",
+  ".ev-row-desc",
+  ".ev-row-link",
+  ".ev-row-title",
+  ".ev-search",
+  ".ev-search-clear",
+  ".ev-search-wrap",
+  ".ev-thumb",
+  ".event-avatar",
+  ".event-card",
+  ".event-date",
+  ".event-ey",
+  ".event-format",
+  ".event-hl",
+  ".event-host",
+  ".event-host-name",
+  ".event-host-role",
+  ".event-host-text",
+  ".event-ico",
+  ".event-list",
+  ".event-meta",
+  ".event-meta-row",
+  ".event-meta-text",
+  ".event-opt",
+  ".event-opt-date",
+  ".event-opt-title",
+  ".event-pill",
+  ".event-reg",
+  ".event-title",
+  ".event-top",
+  ".expert-row",
+  ".experts-inner",
+  ".experts-list",
+  ".eyebrow",
+  ".eyebrow-on-dark",
+  ".faq-a",
+  ".faq-a-inner",
+  ".faq-icon",
+  ".faq-item",
+  ".faq-list",
+  ".faq-q",
+  ".field",
+  ".field-msg",
+  ".field-row",
+  ".flow-shell",
+  ".flow-step",
+  ".fly-badge",
+  ".fly-badge-soon",
+  ".fly-cta",
+  ".fly-desc",
+  ".fly-eyebrow",
+  ".fly-item",
+  ".fly-rule",
+  ".fly-title",
+  ".footer",
+  ".footer-bio",
+  ".footer-bottom",
+  ".footer-brand",
+  ".footer-col",
+  ".footer-cols",
+  ".footer-inner",
+  ".footer-social",
+  ".g",
+  ".googleapis",
+  ".hamburger",
+  ".has-error",
+  ".has-value",
+  ".hero-glow",
+  ".hidden",
+  ".how-inner",
+  ".how-outer",
+  ".how-portrait-card",
+  ".how-portrait-icon",
+  ".html",
+  ".id-actions",
+  ".id-actions-right",
+  ".id-chip",
+  ".id-chips",
+  ".id-col",
+  ".id-grid",
+  ".id-privacy",
+  ".id-section",
+  ".id-section-label",
+  ".id-skip",
+  ".ind-chips",
+  ".ind-desc",
+  ".ind-grid",
+  ".ind-item",
+  ".ind-name",
+  ".initEventList",
+  ".initFaq",
+  ".initHeader",
+  ".initIllustrations",
+  ".initMarquee",
+  ".initMegaNav",
+  ".invalid",
+  ".is-active",
+  ".is-click",
+  ".is-hidden",
+  ".is-on",
+  ".is-valid",
+  ".italic-plain",
+  ".lbl",
+  ".links",
+  ".login-arrow",
+  ".login-drop",
+  ".login-fly",
+  ".login-signup",
+  ".login-tx",
+  ".logo-strip",
+  ".logo-strip-track",
+  ".md",
+  ".mega-inner",
+  ".mega-items",
+  ".mega-left",
+  ".mega-right",
+  ".mega-right-dark",
+  ".mission-statement",
+  ".mobile-drawer",
+  ".nav",
+  ".nav-aud",
+  ".nav-back",
+  ".nav-brand",
+  ".nav-btn",
+  ".nav-chev",
+  ".nav-cta",
+  ".nav-dark",
+  ".nav-drop",
+  ".nav-fly",
+  ".nav-inner",
+  ".nav-items",
+  ".nav-links",
+  ".nav-overlay",
+  ".nav-row",
+  ".nav-solid",
+  ".oc-float",
+  ".oc-float-1",
+  ".oc-float-2",
+  ".oc-float-3",
+  ".oc-float-4",
+  ".oc-float-body",
+  ".oc-float-spark-col",
+  ".oc-float-vline",
+  ".on",
+  ".open",
+  ".outcomes-wrap",
+  ".panel",
+  ".proof-check",
+  ".proof-desc",
+  ".proof-item",
+  ".q-group",
+  ".q-label",
+  ".reg-layout",
+  ".reg-wrap",
+  ".req",
+  ".resume-reveal",
+  ".resume-toggle",
+  ".sc-",
+  ".sc-badge",
+  ".sc-badge-amber",
+  ".sc-badge-gray",
+  ".sc-badge-green",
+  ".sc-body",
+  ".sc-bullets",
+  ".sc-ck",
+  ".sc-left",
+  ".sc-mock",
+  ".sc-mock-dark-blue",
+  ".sc-mock-dark-green",
+  ".sc-mock-dark-red",
+  ".sc-mock-hd",
+  ".sc-mock-hr",
+  ".sc-mock-icon-box",
+  ".sc-mock-peek-card",
+  ".sc-mock-row",
+  ".sc-mock-row-lbl",
+  ".sc-mock-rows",
+  ".sc-mock-stack",
+  ".sc-mock-sub",
+  ".sc-mock-title",
+  ".sc-mock-wrap",
+  ".sc-more",
+  ".sc-person-card",
+  ".sc-person-name",
+  ".sc-person-role",
+  ".sc-person-sep",
+  ".sc-person-verify",
+  ".sc-photo",
+  ".sc-right",
+  ".sc-right-ai",
+  ".sc-right-domain",
+  ".sc-right-function",
+  ".sc-row-av",
+  ".sc-status-done",
+  ".sc-status-prog",
+  ".sc-tag",
+  ".sc-tint-",
+  ".sc-tint-amber",
+  ".sc-tint-blue",
+  ".sc-tint-green",
+  ".sc-title-chip",
+  ".sc-titles",
+  ".sc-verify-dot",
+  ".sci",
+  ".sci-av",
+  ".sci-av-lbl",
+  ".sci-avatars",
+  ".sci-card",
+  ".sci-card-hd",
+  ".sci-card-icon",
+  ".sci-card-sub",
+  ".sci-card-title",
+  ".sci-chip",
+  ".sci-cursor",
+  ".sci-cursor-tip",
+  ".sci-dot",
+  ".sci-dots",
+  ".sci-reveal",
+  ".sci-row",
+  ".sci-rows",
+  ".scrolled",
+  ".section",
+  ".section-book",
+  ".section-cta",
+  ".section-cta-inner",
+  ".section-head",
+  ".section-hero",
+  ".section-how",
+  ".section-loose",
+  ".section-mission",
+  ".section-narrow",
+  ".section-statband",
+  ".section-stats",
+  ".section-tight",
+  ".selected",
+  ".shake",
+  ".site-header",
+  ".social-btns",
+  ".stacked",
+  ".stat-big-label",
+  ".stat-big-num",
+  ".stat-block",
+  ".stat-block-label",
+  ".stat-block-num",
+  ".stat-item",
+  ".stat-lbl",
+  ".stat-num",
+  ".stat-unit",
+  ".statband-icon",
+  ".statband-inner",
+  ".statband-item",
+  ".statband-lbl",
+  ".statband-num",
+  ".statband-text",
+  ".stats-card-dark",
+  ".stats-card-wrap",
+  ".stats-grid",
+  ".stats-portrait",
+  ".stats-portrait--light",
+  ".stats-portrait-icon",
+  ".step",
+  ".step-content",
+  ".step-indicator",
+  ".step-num",
+  ".steps",
+  ".t-author",
+  ".t-card",
+  ".t-company",
+  ".t-li",
+  ".t-logo",
+  ".t-meta",
+  ".t-meta-info",
+  ".t-quote",
+  ".t-role",
+  ".t-stars",
+  ".ta-badge",
+  ".ta-box",
+  ".ta-count",
+  ".ta-dot",
+  ".ta-thumb",
+  ".ta-title",
+  ".testimonials",
+  ".thanks-actions",
+  ".thanks-body",
+  ".thanks-divider",
+  ".thanks-eyebrow",
+  ".thanks-icon",
+  ".theme-dark",
+  ".top-alert",
+  ".top-alert-close",
+  ".upload-area",
+  ".upload-icon",
+  ".upload-name",
+  ".visible",
+  ".webinar",
+  ".wide",
+  ".workshop",
+  ".x"
+ ]
+}

@@ -1,0 +1,113 @@
+{
+  "_comment": "SECTION PATTERN CATALOGUE — the reusable layouts the Create wizard recommends from. Each thumbnail is REAL markup rendered live with ptf.css and scaled down, never a picture of it, so a pattern can never look like something it isn't. `key` is the class the app counts in usage-data.json to show where it's used today. `intent` tags are what the wizard matches a brief against. Source of truth for what exists: ds/COMPONENT-INVENTORY.md — every pattern here must appear there.",
+  "patterns": [
+    {
+      "id": "pat-hero",
+      "name": "Hero",
+      "key": ".section-hero",
+      "does": "Opens a page: one big promise, a short sub, and the primary action.",
+      "intent": ["page", "landing", "open", "headline", "first impression"],
+      "scale": 0.42,
+      "html": "<div style='width:760px;padding:36px 40px'><span class='eyebrow'><span class='dot'></span>Hire AI experts</span><h1 class='display' style='font-size:52px;margin:12px 0 14px'>The humans behind <em class='italic-plain'>better AI</em></h1><p style='font-size:17px;color:var(--ink-3);max-width:46ch;margin:0 0 22px'>Verified domain experts, matched to the work that needs them.</p><a class='btn btn-primary' href='javascript:void(0)'>Book a discovery call →</a></div>"
+    },
+    {
+      "id": "pat-benefit",
+      "name": "Benefit cards",
+      "key": ".benefit-card",
+      "does": "Three or four reasons to believe, as equal cards with a sparkle icon.",
+      "intent": ["why", "benefits", "reasons", "value", "features", "proof"],
+      "scale": 0.5,
+      "html": "<div style='display:flex;gap:16px;width:900px;padding:20px'><div class='benefit-card' style='flex:1'><span class='benefit-eyebrow'>Domain expertise</span><h3 style='font-size:20px;margin:8px 0 8px'>Real practitioners</h3><p style='font-size:14px;color:var(--ink-3);margin:0'>Nurses, lawyers, engineers — not annotators.</p></div><div class='benefit-card' style='flex:1'><span class='benefit-eyebrow'>Verified</span><h3 style='font-size:20px;margin:8px 0 8px'>Checked by humans</h3><p style='font-size:14px;color:var(--ink-3);margin:0'>Every expert is credential-verified.</p></div><div class='benefit-card' style='flex:1'><span class='benefit-eyebrow'>Ready</span><h3 style='font-size:20px;margin:8px 0 8px'>Working in days</h3><p style='font-size:14px;color:var(--ink-3);margin:0'>Matched and onboarded fast.</p></div></div>"
+    },
+    {
+      "id": "pat-statband",
+      "name": "Stat band",
+      "key": ".statband-inner",
+      "does": "Four proof numbers in a row, hairline-separated. Quiet credibility.",
+      "intent": ["proof", "numbers", "stats", "credibility", "scale", "trust"],
+      "scale": 0.5,
+      "html": "<div style='width:900px;padding:18px'><div class='statband-inner'><div class='statband-item'><div class='statband-text'><div class='statband-num'>80K+</div><div class='statband-lbl'>verified experts</div></div></div><div class='statband-item'><div class='statband-text'><div class='statband-num'>190</div><div class='statband-lbl'>countries</div></div></div><div class='statband-item'><div class='statband-text'><div class='statband-num'>6,500</div><div class='statband-lbl'>AI professionals</div></div></div><div class='statband-item'><div class='statband-text'><div class='statband-num'>12+</div><div class='statband-lbl'>years</div></div></div></div></div>"
+    },
+    {
+      "id": "pat-expertrow",
+      "name": "Expert row + illustration",
+      "key": ".expert-row",
+      "does": "Copy on one side, a tinted panel with a mock UI on the other. Explains one idea at a time.",
+      "intent": ["explain", "how", "capability", "feature", "deep dive", "story"],
+      "scale": 0.46,
+      "html": "<div style='width:900px;padding:18px'><div class='expert-row'><div class='sc-left'><span class='sc-tag'>Domain expertise</span><h3 style='font-size:26px;margin:8px 0 10px'>An expert community you can't find anywhere else</h3><p class='sc-body'>Matched to the work that needs them — across every industry and seniority.</p><a class='sc-more' href='javascript:void(0)'>See how matching works →</a></div><div class='sc-right sc-tint-green'><div class='sc-mock'><div class='sc-mock-hd'><div class='sc-mock-title'>Top matches</div></div><div class='sc-mock-rows'><div class='sc-mock-row'><span class='sc-mock-row-lbl'>Physician · RLHF</span><span class='sc-badge sc-badge-green'>Top match</span></div><div class='sc-mock-row'><span class='sc-mock-row-lbl'>Attorney · Review</span><span class='sc-badge sc-badge-gray'>Shortlisted</span></div></div></div></div></div></div>"
+    },
+    {
+      "id": "pat-how",
+      "name": "How it works",
+      "key": ".how-inner",
+      "does": "A portrait beside numbered steps. Turns a process into three or four beats.",
+      "intent": ["how", "process", "steps", "onboarding", "explain", "journey"],
+      "scale": 0.46,
+      "html": "<div style='width:880px;padding:18px'><div class='steps'><div class='step'><div class='step-num'>1</div><div class='step-content'><h4>Tell us what you're building</h4><p>Share the domain, the task and the timeline.</p></div></div><div class='step'><div class='step-num'>2</div><div class='step-content'><h4>We match verified experts</h4><p>Real practitioners, checked and ready.</p></div></div><div class='step'><div class='step-num'>3</div><div class='step-content'><h4>Work starts in days</h4><p>Onboarded and producing, fast.</p></div></div></div></div>"
+    },
+    {
+      "id": "pat-testimonials",
+      "name": "Testimonials",
+      "key": ".t-card",
+      "does": "Customer quotes as cards, with stars, author and company.",
+      "intent": ["proof", "social proof", "quotes", "trust", "customers"],
+      "scale": 0.5,
+      "html": "<div style='display:flex;gap:16px;width:880px;padding:20px'><div class='t-card' style='flex:1'><div class='t-quote'>“They found us clinical experts in a week. Nobody else could.”</div><div class='t-author'>Dana R.</div><div class='t-role'>Head of AI</div></div><div class='t-card' style='flex:1'><div class='t-quote'>“The quality of feedback changed our model's behaviour.”</div><div class='t-author'>Marcus L.</div><div class='t-role'>ML Lead</div></div></div>"
+    },
+    {
+      "id": "pat-eventlist",
+      "name": "Event listing",
+      "key": ".ev-list",
+      "does": "Date-sorted events as tiles, with filters and pagination.",
+      "intent": ["events", "list", "browse", "archive", "filter", "index"],
+      "scale": 0.48,
+      "html": "<div style='width:900px;padding:18px'><div class='ev-list' style='display:grid;grid-template-columns:repeat(3,1fr);gap:16px'><div class='ev-row'><div class='ev-row-date'>August 20, 2026</div><div class='ev-row-body'><span class='sc-tag'>Virtual job fair</span><div class='ev-row-title'>The Next Wave: AI &amp; Emerging Tech</div><div class='ev-row-desc'>Meet teams hiring AI talent right now.</div></div></div><div class='ev-row'><div class='ev-row-date'>July 7, 2026</div><div class='ev-row-body'><span class='sc-tag'>Chat &amp; Learn</span><div class='ev-row-title'>Building on AI</div><div class='ev-row-desc'>A working session with practitioners.</div></div></div><div class='ev-row'><div class='ev-row-date'>June 16, 2027</div><div class='ev-row-body'><span class='sc-tag'>Summit</span><div class='ev-row-title'>The Next Wave Summit</div><div class='ev-row-desc'>Two days, one question: what's next.</div></div></div></div></div>"
+    },
+    {
+      "id": "pat-faq",
+      "name": "FAQ accordion",
+      "key": ".faq-list",
+      "does": "Answers the objections you already know about, without spending page height.",
+      "intent": ["faq", "questions", "objections", "help", "detail"],
+      "scale": 0.5,
+      "html": "<div style='width:760px;padding:18px'><div class='faq-list'><div class='faq-item'><button class='faq-q' type='button'>Who is this event for?<span class='faq-icon'><svg viewBox='0 0 24 24'><line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/></svg></span></button></div><div class='faq-item'><button class='faq-q' type='button'>What does it cost?<span class='faq-icon'><svg viewBox='0 0 24 24'><line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/></svg></span></button></div><div class='faq-item'><button class='faq-q' type='button'>Still have a question?<span class='faq-icon'><svg viewBox='0 0 24 24'><line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/></svg></span></button></div></div></div>"
+    },
+    {
+      "id": "pat-logos",
+      "name": "Logo strip",
+      "key": ".logo-strip",
+      "does": "Client logos, scrolling. Borrowed credibility in one line.",
+      "intent": ["proof", "logos", "clients", "trust", "brands"],
+      "scale": 0.5,
+      "html": "<div style='width:880px;padding:24px 18px;display:flex;gap:34px;align-items:center;justify-content:center;opacity:.75'><b style='font-family:Inter Tight;font-size:19px'>Autodesk</b><b style='font-family:Inter Tight;font-size:19px'>Bumble</b><b style='font-family:Inter Tight;font-size:19px'>Datadog</b><b style='font-family:Inter Tight;font-size:19px'>Peloton</b><b style='font-family:Inter Tight;font-size:19px'>Reddit</b></div>"
+    },
+    {
+      "id": "pat-mission",
+      "name": "Mission statement",
+      "key": ".mission-statement",
+      "does": "One big centred line. Use it to say the single thing that matters.",
+      "intent": ["belief", "mission", "statement", "positioning", "pause"],
+      "scale": 0.44,
+      "html": "<div style='width:820px;padding:26px 18px'><div class='mission-statement'>AI is only as good as the humans who teach it.</div></div>"
+    },
+    {
+      "id": "pat-cta",
+      "name": "Final CTA band",
+      "key": ".section-cta",
+      "does": "The always-dark closer that hands off to the footer. Every page ends here.",
+      "intent": ["cta", "close", "convert", "ending", "action"],
+      "scale": 0.46,
+      "html": "<div style='width:860px'><div class='section-cta' style='border-radius:16px;overflow:hidden'><div class='section-cta-inner'><span class='eyebrow'>Let's talk</span><h2 style='font-size:38px;margin:10px 0 12px'>Ready when you are.</h2><p style='margin:0 0 20px'>Whether you're hiring AI talent or building your team's capability.</p><a class='btn btn-cta' href='javascript:void(0)'>Book a discovery call →</a></div></div></div>"
+    },
+    {
+      "id": "pat-flow-event",
+      "name": "Event registration flow",
+      "key": ".reg-layout",
+      "does": "Two columns: the event's details on one side, the steps on the other.",
+      "intent": ["flow", "register", "signup", "event", "form", "conversion"],
+      "scale": 0.46,
+      "html": "<div style='width:820px;padding:18px;display:flex;gap:18px'><div class='event-card' style='flex:1;padding:20px;border:1px solid var(--line);border-radius:20px'><span class='event-pill'>Chat &amp; Learn</span><div class='event-title' style='font-size:24px;margin:8px 0'>Building on AI</div><div class='event-meta'><div class='event-meta-row'><span class='event-meta-text'>July 7, 2026 · 12:00 ET</span></div><div class='event-meta-row'><span class='event-meta-text'>Online · free</span></div></div></div><div style='flex:1;border:1px solid var(--line);border-radius:20px;padding:20px;background:var(--surface)'><div class='auth-heading' style='font-size:20px'>Save your seat</div><div class='field' style='margin-top:12px'><label>Work email</label><input type='email' placeholder='you@company.com'></div><a class='btn btn-primary btn-block' style='margin-top:12px' href='javascript:void(0)'>Continue →</a></div></div>"
+    }
+  ]
+}
