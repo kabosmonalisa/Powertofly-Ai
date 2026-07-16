@@ -103,6 +103,7 @@
     if (!ok) { if (firstBad) firstBad.focus(); return false; }
     document.getElementById('sponsorForm').style.display = 'none';
     document.getElementById('sponsorThanks').style.display = 'block';
+    document.getElementById('card').classList.remove('wide');  // confirmation is short — narrow the card back (animates via .auth-card)
     window.scrollTo({ top: 0, behavior: 'smooth' });
     return false;
   }
