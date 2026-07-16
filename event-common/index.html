@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Register — Chat &amp; Learn — PowerToFly AI</title>
+<meta property="og:title"       content="Register — Chat &amp; Learn — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
 <!--
   CHAT & LEARN (common event) registration flow.
   This is a FAITHFUL copy of the golden ds/flow-event.html — only the copy changed
@@ -92,7 +95,7 @@
         <div class="flow-step" data-step="1">
           <div class="step-indicator">Step 1 of 4</div>
           <h1 class="auth-heading">Save your seat</h1>
-          <p class="auth-sub">Create your account to register — free to attend, virtually.</p>
+          <p class="auth-sub">Create your account to register. It's free, and it's virtual.</p>
           <form class="auth-form" onsubmit="return validateStep1()" novalidate>
             <div class="field-row">
               <div class="field"><label>First name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
@@ -114,8 +117,8 @@
         <!-- Step 2 — resume + LinkedIn (golden: one step) -->
         <div class="flow-step" data-step="2" hidden>
           <div class="step-indicator">Step 2 of 4</div>
-          <h1 class="auth-heading">A bit about you</h1>
-          <p class="auth-sub">Helps us connect you with the right people and opportunities.</p>
+          <h1 class="auth-heading">Tell us a bit about you</h1>
+          <p class="auth-sub">Helps us match you with the right people at the event.</p>
           <form class="auth-form" onsubmit="return goToStep(3)">
             <div class="field"><label>LinkedIn <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><input type="url" placeholder="linkedin.com/in/…"></div>
             <!-- Resume: optional secondary path, revealed on tap — keeps mobile signup frictionless (per Milena) -->
@@ -140,8 +143,8 @@
         <!-- Step 3 — demographics (golden: chips in columns) -->
         <div class="flow-step" data-step="3" hidden>
           <div class="step-indicator">Step 3 of 4</div>
-          <h1 class="auth-heading">Tell us a little more about you</h1>
-          <p class="auth-sub">Choose all that apply — none of it affects your eligibility. We use it only internally and never show it publicly.</p>
+          <h1 class="auth-heading">A few more details</h1>
+          <p class="auth-sub">Sharing who you are helps us keep getting better, for you and everyone who comes after you. It's private, self-reported, and never affects your eligibility.</p>
           <div class="id-grid stacked">
             <div class="id-section">
               <div class="id-section-label">Area of experience</div>
@@ -161,7 +164,7 @@
         <!-- Step 4 — questions for panelists + register for more events + agreement -->
         <div class="flow-step" data-step="4" hidden>
           <div class="step-indicator">Step 4 of 4</div>
-          <h1 class="auth-heading">A couple last things</h1>
+          <h1 class="auth-heading">Finishing up</h1>
           <p class="auth-sub">Tell us what you want from the session, then confirm to lock in your spot.</p>
           <form class="auth-form" onsubmit="return validateStep4()">
             <div class="field">
@@ -169,7 +172,7 @@
               <textarea placeholder="e.g. How do small teams measure the ROI of AI tools?"></textarea>
             </div>
             <div class="q-group" style="margin:6px 0 0">
-              <div class="q-label">Register for more events <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+              <div class="q-label">Register for upcoming events <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
               <div class="event-list">
                 <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AI talent showcase</span><span class="event-opt-date">Oct 8, 2026 · Virtual</span></span></label>
                 <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Summit: scaling AI teams</span><span class="event-opt-date">Nov 12, 2026 · Virtual</span></span></label>
@@ -189,11 +192,11 @@
             </svg>
           </div>
           <div class="thanks-eyebrow">You're registered</div>
-          <h1 class="auth-heading">See you there</h1>
-          <p class="thanks-body">A calendar invite and joining link are on their way to your inbox.</p>
+          <h1 class="auth-heading">You're all set!</h1>
+          <p class="thanks-body">We've sent a calendar invite and a link to join, right to your inbox.</p>
           <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse more events →</a>
           <div class="thanks-divider"></div>
-          <p class="auth-note" style="margin-top:0">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
+          <p class="auth-note" style="margin-top:0">Have any questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>
       </div>
     </div>
