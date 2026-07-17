@@ -568,6 +568,15 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-ct-col{ border:1px solid var(--sb-line); border-radius:12px; padding:14px; background:var(--bg); }
 .sb-ct-col-h{ font-family:'Inter'; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
   color:var(--ink-3); margin-bottom:10px; }
+.sb-opt.other .sb-opt-mark{ border-style:dashed; }
+.sb-ask{ width:100%; margin-top:2px; padding:12px 14px; border-radius:10px; resize:vertical;
+  font:inherit; font-size:13px; line-height:1.55; color:var(--sb-txt);
+  background:var(--sb-panel-2); border:1px solid var(--sb-txt-3); }
+.sb-ask::placeholder{ color:var(--sb-txt-3); }
+.sb-ask:focus{ outline:2px solid var(--sb-green); outline-offset:1px; border-color:transparent; }
+.sb-decided-tag.asked{ color:var(--sb-green); }
+.sb-decided-ask{ display:block; width:100%; margin-top:6px; font-size:12.5px; font-style:italic;
+  color:var(--sb-txt-3); }
 .sb-fresher{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60;
   display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; cursor:pointer;
   font:inherit; font-size:12.5px; font-weight:700; color:#0A0A0A; background:var(--sb-green); border:0;
@@ -1292,6 +1301,7 @@ function loadProbe(src){
 let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FINDING=null;   // DECIDED[id] = 'keep' | 'merge'
 let CHOICE={};   // CHOICE[id] = the answer you committed to (saved)
 let PICK={};     // PICK[id]   = the answer selected but not yet applied (this session only)
+let ASKED={};    // ASKED[id]  = what she asked for in her own words, when neither answer fits
 const IMPACT_ORDER={high:0,medium:1,low:2};
 
 /* Copy is plain text and may legitimately mention tags like <button> — escape it.
@@ -1375,9 +1385,12 @@ function findingHTML(f){
     return '<div class="sb-f decided" data-fid="'+f.id+'" data-impact="'+f.impact+'">'
       +'<div class="sb-f-done"><span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
       +'<h2 class="sb-f-title sm">'+esc(f.title)+'</h2>'
-      +'<span class="sb-decided-tag">'+uic('check',13)+(dec==='merge'
-          ? (CHOICE[f.id] ? esc((((f.options||[]).find(o=>o.id===CHOICE[f.id])||{}).label)||'Accepted') : 'Accepted')
+      +'<span class="sb-decided-tag'+(dec==='asked'?' asked':'')+'">'
+        +uic(dec==='asked'?'sparkle':'check',13)
+        +(dec==='asked' ? 'Waiting on me'
+          : dec==='merge' ? (CHOICE[f.id] ? esc((((f.options||[]).find(o=>o.id===CHOICE[f.id])||{}).label)||'Accepted') : 'Accepted')
           : 'Dismissed')+'</span>'
+      +(dec==='asked'&&ASKED[f.id]?'<span class="sb-decided-ask">\u201c'+esc(ASKED[f.id])+'\u201d</span>':'')
       +'<button class="sb-dec keep'+(EDIT_MODE?'':' locked')+'" data-dec="'+dec+'" data-fid="'+f.id+'">'+(EDIT_MODE?'':LOCK_SVG)+'Change</button></div></div>';
   }
   const KIND={unify:'Merge duplicates',standardize:'Standardize',typography:'Simplify type',cleanup:'Remove',
@@ -1445,15 +1458,22 @@ function findingHTML(f){
     /* Deciding and committing are two different things. Picking an answer used to fire
        the change on the spot; now it selects, and the same Accept & apply button that
        every other card has does the committing. */
+    const other = PICK[f.id]==='__other';
+    /* The third answer is "neither of those". Any real choice has one — a menu that
+       only offers my two answers is a menu that assumes I thought of everything. */
     h+='<div class="sb-opts" role="radiogroup" aria-label="'+esc(f.question||'Pick an answer')+'">'
-      + opts.map(o=>{
+      + opts.concat([{id:'__other', label:'Something else — tell me what you want',
+                      note:'Neither of those. Write it in your own words and I pick it up.'}]).map(o=>{
           const sel=PICK[f.id]===o.id;
-          return '<button class="sb-opt'+(sel?' sel':'')+'" role="radio" aria-checked="'+(sel?'true':'false')+'"'
-            + ' data-pick="'+esc(o.id)+'" data-fid="'+f.id+'">'
+          return '<button class="sb-opt'+(sel?' sel':'')+(o.id==='__other'?' other':'')+'" role="radio"'
+            + ' aria-checked="'+(sel?'true':'false')+'" data-pick="'+esc(o.id)+'" data-fid="'+f.id+'">'
             + '<span class="sb-opt-mark" aria-hidden="true"></span>'
             + '<span class="sb-opt-txt"><b>'+esc(o.label)+(o.recommended?'<i class="sb-opt-rec">Recommended</i>':'')+'</b>'
             + (o.note?'<span class="sb-opt-note">'+esc(o.note)+'</span>':'')+'</span></button>';
         }).join('')
+      + (other?'<textarea class="sb-ask" data-ask="'+f.id+'" rows="3" '
+          + 'placeholder="e.g. keep both, but make the outlined one only for the About page \u2014 and shrink it to 14px">'
+          + esc(ASKED[f.id]||'')+'</textarea>':'')
       + '</div>';
   }
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
@@ -1465,9 +1485,18 @@ function findingHTML(f){
       +(open?'Hide the reasoning':'Why this — what differs, and the fix')+'</button>'
     +'<span class="sp"></span>'
     + (opts.length
-        ? '<button class="sb-dec merge'+lk+(PICK[f.id]?'':' off')+'" data-opt="1" data-fid="'+f.id+'"'
-            + (PICK[f.id]?tip:' disabled aria-disabled="true" title="Pick an answer above first"')+'>'
-            + lock+'Accept & apply</button>'
+        ? (function(){
+            const isOther=PICK[f.id]==='__other';
+            /* "Accept & apply" on Other would be a lie: there is nothing built to apply
+               yet. That is exactly the dead button we spent this whole rebuild removing,
+               so the label changes rather than the promise. */
+            const ready = isOther ? !!(ASKED[f.id]||'').trim() : !!PICK[f.id];
+            const label = isOther ? 'Ask me to do it' : 'Accept & apply';
+            const why = isOther ? 'Write what you want first' : 'Pick an answer above first';
+            return '<button class="sb-dec merge'+(isOther?'':lk)+(ready?'':' off')+'" data-opt="1" data-fid="'+f.id+'"'
+              + (ready?(isOther?'':tip):' disabled aria-disabled="true" title="'+why+'"')+'>'
+              + (isOther?'':lock)+label+'</button>';
+          })()
         : '<button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>')
     +'<button class="sb-dec keep'+lk+'" data-dec="keep" data-fid="'+f.id+'"'+tip+'>'+lock+'Dismiss</button>'
     +'</div>';
@@ -2170,6 +2199,13 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+document.getElementById('sbOppsBody').addEventListener('input',e=>{
+  const ta=e.target.closest('[data-ask]');
+  if(!ta) return;
+  ASKED[ta.dataset.ask]=ta.value;                       // hold it; re-rendering here would eat the cursor
+  const btn=document.querySelector('.sb-f[data-fid="'+ta.dataset.ask+'"] .sb-dec.merge');
+  if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
+});
 document.getElementById('sbOppsBody').addEventListener('keydown',e=>{
   const pk=e.target.closest('[data-pick]');
   if(pk&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); pk.click(); return; }
@@ -2186,7 +2222,9 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
     return;
   }
   const pk=e.target.closest('[data-pick]');
-  if(pk){ PICK[pk.dataset.fid] = (PICK[pk.dataset.fid]===pk.dataset.pick ? null : pk.dataset.pick); renderCleanup(); return; }
+  if(pk){ PICK[pk.dataset.fid] = (PICK[pk.dataset.fid]===pk.dataset.pick ? null : pk.dataset.pick); renderCleanup();
+    if(PICK[pk.dataset.fid]==='__other'){ const ta=document.querySelector('[data-ask="'+pk.dataset.fid+'"]'); if(ta) ta.focus(); }
+    return; }
   const dc=e.target.closest('.sb-dec'); if(dc){ if(dc.disabled) return;
     dc.dataset.opt ? chooseOption(dc.dataset.fid, PICK[dc.dataset.fid]) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
@@ -2246,11 +2284,28 @@ async function decide(id,val){
   if(val==='merge'&&f&&!(f.apply||[]).length) toast('Accepted — needs a hand edit: '+esc(f.fix||''),6000);
   else if(val==='keep') toast('Dismissed — it stays as it is.');
 }
+/* Neither answer fits: she writes what she wants, and it's recorded in her words.
+   Nothing in a web page can start a Claude session, so this is the honest handoff —
+   the ask lands in ds/requests.json and I pick it up next time we talk. */
+async function askInstead(id){
+  const f=AUDIT.findings.find(x=>x.id===id); const text=(ASKED[id]||'').trim();
+  if(!text) return;
+  try{
+    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:id, title:f?f.title:id, text})});
+    if(!(await r.json()).ok) throw 0;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
+  DECIDED[id]='asked'; delete PICK[id];
+  renderCleanup(); updateOppsCount(); saveDecision(id,'asked',true);
+  toast(uic('check',13)+' Noted — I\'ll pick this up next time we talk.',5000);
+}
+
 /* Some findings ask a real question — which two sizes, 700 or 800, promote or delete.
    One button called "Accept" cannot carry that answer, so those cards show the answers
    themselves and each one performs its own change. */
 async function chooseOption(id,oid){
   if(!oid) return;                 // the button is disabled until an answer is picked
+  if(oid==='__other') return askInstead(id);      // asking isn't editing — no unlock needed
   if(!await requireUnlock()) return;
   const f=AUDIT&&AUDIT.findings.find(x=>x.id===id); if(!f) return;
   const o=(f.options||[]).find(x=>x.id===oid); if(!o) return;
@@ -2535,7 +2590,7 @@ Promise.all([
   fetch('patterns.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('plans.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('/api/pages',{method:'POST'}).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([ok,d,pj,ap,af,pt,pl,pm])=>{
+]).then(async ([ok,d,pj,ap,af,pt,pl,pm])=>{
   PAGE_META=(pm&&pm.pages)||[];
   API_OK=ok; DATA=d; AUDIT=af;
   PATTERNS=(pt&&pt.patterns)||[]; PLANS=(pl&&pl.plans)||[];
@@ -2544,6 +2599,9 @@ Promise.all([
     APPROVED=new Set(ap.approved.filter(k=>k.indexOf('decide:')!==0&&k.indexOf('choice:')!==0));
     ap.approved.filter(k=>k.indexOf('decide:')===0).forEach(k=>{ const p=k.split(':'); DECIDED[p[1]]=p[2]; });
     ap.approved.filter(k=>k.indexOf('choice:')===0).forEach(k=>{ const p=k.split(':'); CHOICE[p[1]]=p[2]; });
+    try{ const rq=await (await fetch('/api/requests')).json();
+      (rq.requests||[]).forEach(r=>{ if(!r.done) ASKED[r.fid]=r.text; });
+    }catch(e){}
   }
   S.push({g:'Pages', id:'gal-pages', name:'Pages', special:'gallery', galleryOf:'Pages',
           desc:'Every page in the playbook, newest work first. Drafts, then final, then archived.'});

@@ -54,6 +54,7 @@ DOCS = {"ds/COMPONENT-INVENTORY.md": os.path.join(DS, "COMPONENT-INVENTORY.md"),
 CKPTS = os.path.join(DS, ".sb-checkpoints")  # dated restore points: "beginning" + one per day
 APPR  = os.path.join(DS, "approvals.json")   # items Lizu marked "keep as it is"
 BRIEFS = os.path.join(DS, "briefs.json")     # Create-wizard briefs, newest first, for Claude to plan against
+REQS   = os.path.join(DS, "requests.json")   # "Something else" — what she asked for in her own words, newest first
 
 def _snapshot(dirpath):
     os.makedirs(dirpath, exist_ok=True)
@@ -395,6 +396,25 @@ class H(http.server.SimpleHTTPRequestHandler):
             # not judging. It never writes a finding; it only refreshes the data.
             self._json({"ok": True, "data": rescan()})
             return
+        if self.path.rstrip("/") == "/api/request":
+            # An opportunity where neither answer is what she wants. She writes what she
+            # actually wants; it lands here in her own words for me to pick up. Nothing
+            # in a web page can start a Claude session, so this is the honest handoff:
+            # the ask is recorded, and the button says "ask", not "apply".
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            reqs = []
+            if os.path.exists(REQS):
+                try: reqs = json.load(open(REQS)).get("requests", [])
+                except Exception: reqs = []
+            fid = body.get("fid", "")
+            reqs = [r for r in reqs if r.get("fid") != fid]      # newest ask per finding wins
+            if (body.get("text") or "").strip():
+                reqs.insert(0, {"at": datetime.datetime.now().isoformat(timespec="seconds"),
+                                "fid": fid, "title": body.get("title", ""),
+                                "text": body.get("text", "").strip(), "done": False})
+            json.dump({"requests": reqs[:50]}, open(REQS, "w"), indent=1)
+            self._json({"ok": True, "saved": rel(REQS), "open": len([r for r in reqs if not r.get("done")])})
+            return
         if self.path.rstrip("/") == "/api/brief":
             # The Create wizard hands its brief off here so Claude can read it from disk
             # and write a plan into ds/plans.json. Newest brief wins; history is kept.
@@ -429,6 +449,9 @@ class H(http.server.SimpleHTTPRequestHandler):
                 except OSError: pass
             return self._json({"v": round(v, 3)})
         if self.path.rstrip("/") == "/api/approvals": return self._json(load_appr())
+        if self.path.rstrip("/") == "/api/requests":
+            try: return self._json(json.load(open(REQS)))
+            except Exception: return self._json({"requests": []})
         if self.path.rstrip("/") == "/api/checkpoints": return self._json({"checkpoints": list_checkpoints()})
         return super().do_GET()
     def end_headers(self):
