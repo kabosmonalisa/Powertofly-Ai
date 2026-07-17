@@ -1287,6 +1287,11 @@ function specimenHTML(v){
 /* Measure every specimen and stamp what it ACTUALLY renders as, so a label can never
    drift from what you see. The stamp mode is declared per finding (height/type/radius/none)
    rather than guessed — a guessed stamp is how you end up measuring the wrong thing. */
+/* 700 is CSS talking. Nobody looks at a label and thinks "seven hundred". */
+function weightName(w){
+  return ({'100':'Thin','200':'Extra light','300':'Light','400':'Regular','500':'Medium',
+           '600':'Semibold','700':'Bold','800':'Extra bold','900':'Black'})[String(w)] || w;
+}
 function stampSpecimens(root){
   root.querySelectorAll('.sb-f').forEach(card=>{
     const f=AUDIT.findings.find(x=>x.id===card.dataset.fid);
@@ -1301,8 +1306,8 @@ function stampSpecimens(root){
       else if(mode==='radius') badge.textContent=Math.round(parseFloat(cs.borderTopLeftRadius))+'px corners';
       else if(mode==='type'){
         const ls=cs.letterSpacing;
-        badge.textContent=Math.round(parseFloat(cs.fontSize))+'px · '+cs.fontWeight
-          +(ls&&ls!=='normal'?' · '+(Math.round(parseFloat(ls)*100)/100)+' tracking':'');
+        badge.textContent=Math.round(parseFloat(cs.fontSize))+'px · '+weightName(cs.fontWeight)
+          +(ls&&ls!=='normal'?' · '+(Math.round(parseFloat(ls)*100)/100)+'px letter spacing':'');
       }
       else badge.remove();
     });
@@ -1357,21 +1362,27 @@ function findingHTML(f){
   h+='<div class="sb-f-body">';
   h+='<div class="sb-f-lbl">What you have today</div><div class="sb-spx'+wide+'">'+(f.variants||[]).map(specimenHTML).join('')+'</div>';
 
+  /* ── what you'd get: never folded ──
+     The fold used to hide the proposal along with the argument, which asked you to
+     accept something you couldn't see. The split is: everything you need to DECIDE
+     stays open; everything that CONVINCES you it's right folds. */
+  if(f.after&&f.after.length){
+    h+='<div class="sb-arrow-row"><span>What you\'d get</span><span class="ln"></span></div>';
+    h+='<div class="sb-spx'+wide+'">'+f.after.map(specimenHTML).join('')+'</div>';
+  }
+  h+='<div class="sb-f-rec"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span>';
+  if(f.impact_note) h+='<div class="sb-impact-note"><b>Expected impact:</b> '+esc(f.impact_note)+'</div>';
+  h+='</div>';
+
   /* ── the argument, folded ── */
   h+='<div class="sb-more'+(open?' open':'')+'">';
   h+='<div class="sb-f-cols">';
   h+='<div><div class="sb-f-lbl">What differs</div><ul class="sb-f-diff">'+(f.differs||[]).map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul></div>';
   h+='<div><div class="sb-f-lbl">Why it looks like this</div><div class="sb-f-cause">'+esc(f.cause||'')+'</div></div>';
   h+='</div>';
-  if(f.after&&f.after.length){
-    h+='<div class="sb-arrow-row"><span>Recommended</span><span class="ln"></span></div>';
-    h+='<div class="sb-spx'+wide+'">'+f.after.map(specimenHTML).join('')+'</div>';
-  }
-  h+='<div class="sb-f-rec"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span>';
   h+='<div class="sb-f-why">'+esc(f.reasoning||'')+'</div>';
-  if(f.impact_note) h+='<div class="sb-impact-note"><b>Expected impact:</b> '+esc(f.impact_note)+'</div>';
   if(f.fix) h+='<div class="sb-f-fix">'+esc(f.fix)+'</div>';
-  h+='</div></div>';
+  h+='</div>';
 
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
   const tip=EDIT_MODE?'':' title="Locked — needs the edit password"';
