@@ -140,7 +140,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-stagewrap{ max-width:1240px; margin:0 auto; }
 /* Preview controls live ON the canvas, not in the global bar — they only ever change
    what's in the stage below them, and they disappear when they can't do anything. */
-.sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:0; flex-wrap:wrap; }
+.sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:14px; margin:0; flex-wrap:wrap; }
+.sb-seg-g{ display:inline-flex; align-items:center; gap:7px; }
 /* Narrow (side panel): the header stacks — title, description, then the controls.
    Two columns at this width squeezes the title into a 3-line sliver. */
 @media (max-width:1100px){
@@ -803,12 +804,12 @@ button,a,label,summary{ touch-action:manipulation; }
         </div>
         <div class="sb-headside">
           <div class="sb-stagebar" id="sbStageBar">
-            <div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div>
-            <div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div>
+            <span class="sb-seg-g"><span class="sb-flabel">Theme</span><div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div></span>
+            <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
             <div class="sb-seg" id="sbCodeSeg" title="Show markup"><button data-code="toggle" data-ui-icon="code">Code</button></div>
-          <div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
+          <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
-          </div>
+          </div></span>
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -1730,7 +1731,8 @@ function buildSide(){
    no theme toggle on a live page (the page owns its own theme). ── */
 function setTools(s){
   const isAudit=!!(s&&s.special), isFrame=!!(s&&s.iframe);
-  const show=(id,on)=>{ const el=document.getElementById(id); el.style.display=on?'':'none'; return on; };
+  /* hide the label with its control — setTools targets the seg, the label rides along */
+  const show=(id,on)=>{ const el=document.getElementById(id); (el.closest('.sb-seg-g')||el).style.display=on?'':'none'; return on; };
   const theme = show('sbThemeSeg', !isAudit && !isFrame && !(s&&s.theme));  // theme: inline specimens only
   const width = show('sbVwSeg',    !isAudit);                               // width: anything rendered
   const code  = show('sbCodeSeg',  !isAudit && !isFrame);                   // markup: inline specimens only
