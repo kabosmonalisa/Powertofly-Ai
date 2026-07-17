@@ -540,8 +540,8 @@ button,a,label,summary{ touch-action:manipulation; }
 /* A page's workspace */
 /* A page's report — a drawer over the preview, so the page stays visible. Opportunities
    replaces what you're looking at; this is ABOUT what you're looking at. */
-.sb-pw-open{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12.5px; font-weight:600;
-  padding:8px 14px; border-radius:999px; cursor:pointer; color:var(--sb-txt-2);
+.sb-pw-open{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;
+  border-radius:50%; cursor:pointer; color:var(--sb-txt-2); flex:none;
   background:var(--sb-panel-2); border:1px solid var(--sb-line); }
 .sb-pw-open:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-open.on{ color:var(--sb-txt); background:rgba(255,255,255,.06); border-color:var(--sb-txt-3); }
@@ -840,9 +840,9 @@ button,a,label,summary{ touch-action:manipulation; }
             <span class="sb-seg-g"><span class="sb-flabel">Theme</span><div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
-          <button class="sb-pw-open" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">How to use it</span></button><span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
+          <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
-          </div></span>
+          </div></span><button class="sb-pw-open" id="sbPwOpen" hidden aria-label="How to use it"><span id="sbPwOpenIcon"></span></button>
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -1229,7 +1229,7 @@ function renderUse(s){
   const has=!!s.use;
   const btn=document.getElementById('sbPwOpen');
   btn.hidden=!has;
-  document.getElementById('sbPwOpenTxt').textContent='How to use it';
+  pwLabel('How to use it');
   document.getElementById('sbPwTitleTxt').textContent='How to use it — '+s.name;
   if(!has){ pwOpen(false); body.innerHTML=''; return; }
   const notes=s.rule||[];
@@ -1276,7 +1276,7 @@ function renderPageWork(s){
   const file=s.iframe, name=s.name;
   const btn=document.getElementById('sbPwOpen');
   btn.hidden=false;
-  document.getElementById('sbPwOpenTxt').textContent='What’s in this page';
+  pwLabel('What’s in this page');
   document.getElementById('sbPwTitleTxt').textContent='What’s in '+name;
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
@@ -2240,6 +2240,10 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+function pwLabel(t){
+  const b=document.getElementById('sbPwOpen');
+  b.title=t; b.setAttribute('aria-label',t);      // the icon carries it; the words are the tooltip
+}
 function pwOpen(on){
   const d=document.getElementById('sbPwDrawer');
   d.hidden=!on;
@@ -2727,6 +2731,7 @@ Promise.all([
     if(UI[el.dataset.uiIcon]) el.insertAdjacentHTML('afterbegin', uic(el.dataset.uiIcon,14));
   });
   document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',17);
+  document.getElementById('sbPwOpenIcon').innerHTML=uic('info',16);
   document.getElementById('sbA11yTitleIcon').innerHTML=uic('accessibility',19);
   document.getElementById('sbOppsIcon').innerHTML=uic('sparkle',14);
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
