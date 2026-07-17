@@ -408,11 +408,14 @@ button,a,label,summary{ touch-action:manipulation; }
   min-width:18px; padding:1px 6px; text-align:center; font-variant-numeric:tabular-nums; }
 .sb-opps.none .sb-opps-n{ background:var(--sb-panel-2); color:var(--sb-txt-3); }
 .sb-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px); z-index:40; }
-.sb-panel{ position:fixed; top:0; right:0; bottom:0; width:min(940px,94vw); z-index:41; background:#0A0A0A;
-  border-left:1px solid var(--sb-line-2); box-shadow:-24px 0 70px rgba(0,0,0,.55); display:flex; flex-direction:column;
-  animation:sb-slide .22s ease; }
-@keyframes sb-slide{ from{ transform:translateX(24px); opacity:0 } to{ transform:none; opacity:1 } }
+.sb-panel{ position:fixed; inset:0; z-index:41; background:#0A0A0A; display:flex; flex-direction:column;
+  animation:sb-rise .2s ease; }
+/* Opportunities and Accessibility are workspaces, not drawers. A drawer says glance
+   and dismiss; these are where the work happens, so they take the screen and you
+   leave them deliberately. Both behave the same — two top-bar tools, one grammar. */
+@keyframes sb-rise{ from{ transform:translateY(8px); opacity:0 } to{ transform:none; opacity:1 } }
 @media (prefers-reduced-motion:reduce){ .sb-panel{ animation:none } }
+.sb-panel-hd > *{ max-width:1100px; margin-left:auto; margin-right:auto; }
 .sb-panel-hd{ position:relative; padding:22px 26px 16px; border-bottom:1px solid var(--sb-line); background:#0A0A0A; }
 /* Progress is the header's own bottom rule filling in — ambient, no extra height,
    nothing competing with the title. The number carries the detail. */
@@ -447,6 +450,7 @@ button,a,label,summary{ touch-action:manipulation; }
   color:var(--sb-txt-2); background:none; border:0; border-radius:7px; padding:9px 10px; cursor:pointer; white-space:nowrap; }
 .sb-menu-i:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
 .sb-panel-body{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:20px 26px 60px; }
+.sb-panel-body > *{ max-width:1100px; margin-left:auto; margin-right:auto; }
 .sb-panel-body .sb-usage-h{ display:none; }
 .sb-kind{ font-size:9.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; padding:4px 8px; border-radius:6px;
   background:var(--sb-panel-2); color:var(--sb-txt-2); border:1px solid var(--sb-line); flex:none; }
@@ -559,6 +563,16 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-does.note b{ color:var(--sb-txt-2); }
 /* The answers. A radio group, because it IS one — and because two clicks (decide, then
    commit) is the right shape for something that rewrites 18 pages. */
+/* Accessibility: section headers, and the checker's two themes side by side */
+.sb-a11y-h{ display:flex; align-items:baseline; gap:10px; margin:26px 0 12px; }
+.sb-a11y-h:first-child{ margin-top:0; }
+.sb-a11y-h b{ font-family:'Inter Tight'; font-size:15px; font-weight:700; color:var(--sb-txt); }
+.sb-a11y-hint{ font-size:12px; color:var(--sb-txt-3); }
+.sb-ct-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:820px){ .sb-ct-two{ grid-template-columns:1fr; } }
+.sb-ct-col{ border:1px solid var(--sb-line); border-radius:12px; padding:14px; background:var(--bg); }
+.sb-ct-col-h{ font-family:'Inter'; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:10px; }
 .sb-opts{ display:flex; flex-direction:column; gap:8px; margin-top:14px; }
 .sb-opt{ display:flex; align-items:flex-start; gap:11px; width:100%; text-align:left; font:inherit;
   padding:12px 14px; border-radius:10px; cursor:pointer; background:var(--sb-panel-2);
@@ -736,7 +750,7 @@ button,a,label,summary{ touch-action:manipulation; }
 <aside class="sb-panel" id="sbA11yPanel" role="dialog" aria-modal="true" aria-labelledby="sbA11yTitle" hidden>
   <header class="sb-panel-hd">
     <h2 class="sb-panel-title" id="sbA11yTitle"><span id="sbA11yTitleIcon"></span>Accessibility</h2>
-    <p class="sb-panel-sub">Open any page to scan it live — images without alt, form controls without labels, and links or buttons with no accessible name are each outlined in red. Colour contrast lives in Foundations → Contrast checker.</p>
+    <p class="sb-panel-sub">Everything about whether people can actually use this. Scan a page and every problem is outlined in red on the real thing; the contrast checker below computes your token pairs live, in both themes.</p>
     <button class="sb-panel-x" id="sbA11yClose" aria-label="Close Accessibility" data-ui-icon="close"></button>
   </header>
   <div class="sb-panel-body" id="sbA11yBody"></div>
@@ -938,17 +952,6 @@ const S = [
   ${['people','lightbulb','globe','heart','calendar','video','clock','key','bolt','shield','money','star','sparkle'].map(n=>`<div class="sb-iconcell">${ic(n,42)}<span>${n}</span></div>`).join('')}
   <div class="sb-iconcell"><svg width="42" height="42" viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg><span>check</span></div>
 </div>`},
-
-{g:'Foundations', id:'contrast', name:'Contrast checker', tags:['WCAG','AA / AAA'], u:['--ink','--ink-3','--accent'],
-  desc:'WCAG contrast for the key text/background token pairs, computed live. Toggle Dark or Split and the ratios recompute. AA needs 4.5:1 (3:1 for large text); AAA needs 7:1.',
-  html:`<div class="sb-ct">
-  ${[['--ink','--bg','Body text'],['--ink-2','--surface','Secondary text'],['--ink-3','--bg','Muted text'],['--accent','--bg','Link / eyebrow'],['--accent','--surface-2','Accent on inset'],['--btn-fg','--btn-bg','Primary button'],['--ink','--surface-2','Text on inset']].map(function(p){return '<div class="sb-ct-row" data-fg="'+p[0]+'" data-bg="'+p[1]+'"><div class="sb-ct-chip" style="background:var('+p[1]+');color:var('+p[0]+')">Aa</div><div class="sb-ct-meta">'+p[2]+'<br>'+p[0]+' on '+p[1]+'</div><div class="sb-ct-ratio">—</div><div class="sb-ct-wb">—</div></div>';}).join('')}
-</div>`,
-  mount(r){
-    function toRGB(v){ v=(v||'').trim(); if(v[0]==='#'){ v=v.replace('#',''); if(v.length===3) v=v.split('').map(c=>c+c).join(''); return {r:parseInt(v.slice(0,2),16),g:parseInt(v.slice(2,4),16),b:parseInt(v.slice(4,6),16)}; } const m=/rgba?\(([^)]+)\)/.exec(v); if(m){ const p=m[1].split(',').map(parseFloat); return {r:p[0],g:p[1],b:p[2]}; } return null; }
-    function L(c){ const f=x=>{ x/=255; return x<=0.03928? x/12.92 : Math.pow((x+0.055)/1.055,2.4); }; return 0.2126*f(c.r)+0.7152*f(c.g)+0.0722*f(c.b); }
-    r.querySelectorAll('.sb-ct-row').forEach(row=>{ const cs=getComputedStyle(row); const fg=toRGB(cs.getPropertyValue(row.dataset.fg)); const bg=toRGB(cs.getPropertyValue(row.dataset.bg)); if(!fg||!bg) return; const la=L(fg)+.05, lb=L(bg)+.05; const ratio=Math.max(la,lb)/Math.min(la,lb); row.querySelector('.sb-ct-ratio').textContent=(Math.round(ratio*100)/100)+':1'; const b=row.querySelector('.sb-ct-wb'); if(ratio>=7){ b.className='sb-ct-wb pass'; b.textContent='AAA'; } else if(ratio>=4.5){ b.className='sb-ct-wb pass'; b.textContent='AA'; } else if(ratio>=3){ b.className='sb-ct-wb mid'; b.textContent='AA large'; } else { b.className='sb-ct-wb fail'; b.textContent='Fail'; } });
-  }},
 
 /* ══════════ ATOMS ══════════ */
 {g:'Atoms', id:'btn', name:'Buttons — primary & outlined', tags:['.btn','.btn-primary'], u:['.btn','.btn-primary','.btn-sm','.btn-block','.btn-light'],
@@ -1509,16 +1512,70 @@ function renderCleanup(){
     ;
   stampSpecimens(wrap);
 }
+
+/* ── Contrast checker ────────────────────────────────────────────────────────
+   Lives in Accessibility, not Foundations: it isn't a token to look at, it's a
+   check on whether people can read the thing. Both themes are shown at once —
+   a pair only passes if it passes in both, and a toggle would let you forget
+   the half you weren't looking at. ptf.css is loaded here, so the tokens
+   resolve for real; .theme-dark re-scopes them exactly as it does on a page. */
+const CT_PAIRS=[['--ink','--bg','Body text'],['--ink-2','--surface','Secondary text'],
+  ['--ink-3','--bg','Muted text'],['--accent','--bg','Link / eyebrow'],
+  ['--accent','--surface-2','Accent on inset'],['--btn-fg','--btn-bg','Primary button'],
+  ['--ink','--surface-2','Text on inset']];
+function contrastHTML(){
+  const rows=t=>CT_PAIRS.map(p=>'<div class="sb-ct-row" data-fg="'+p[0]+'" data-bg="'+p[1]+'">'
+    + '<div class="sb-ct-chip" style="background:var('+p[1]+');color:var('+p[0]+')">Aa</div>'
+    + '<div class="sb-ct-meta">'+p[2]+'<br>'+p[0]+' on '+p[1]+'</div>'
+    + '<div class="sb-ct-ratio">—</div><div class="sb-ct-wb">—</div></div>').join('');
+  return '<div class="sb-a11y-h"><b>Colour contrast</b>'
+      + '<span class="sb-a11y-hint">AA needs 4.5:1 (3:1 for large text) · AAA needs 7:1</span></div>'
+    + '<div class="sb-ct-two">'
+      + '<div class="sb-ct-col"><div class="sb-ct-col-h">Light</div><div class="sb-ct">'+rows()+'</div></div>'
+      + '<div class="sb-ct-col theme-dark"><div class="sb-ct-col-h">Dark</div><div class="sb-ct">'+rows()+'</div></div>'
+    + '</div>';
+}
+function mountContrast(r){
+  /* Alpha is not optional here. Dark's --ink-2 and --ink-3 are rgba(255,255,255,0.80/0.50);
+     read them as opaque white and you report 19.8:1 AAA for text that is actually a mid
+     grey. A checker that says AAA about a failure is worse than no checker — so a
+     translucent colour gets composited over what's behind it before it's measured. */
+  function toRGB(v){ v=(v||'').trim();
+    if(v[0]==='#'){ v=v.replace('#',''); if(v.length===3) v=v.split('').map(c=>c+c).join('');
+      return {r:parseInt(v.slice(0,2),16),g:parseInt(v.slice(2,4),16),b:parseInt(v.slice(4,6),16),a:1}; }
+    const m=/rgba?\(([^)]+)\)/.exec(v);
+    if(m){ const p=m[1].split(',').map(parseFloat); return {r:p[0],g:p[1],b:p[2],a:p.length>3?p[3]:1}; }
+    return null; }
+  const over=(fg,bg)=> fg.a>=1 ? fg : {r:fg.r*fg.a+bg.r*(1-fg.a), g:fg.g*fg.a+bg.g*(1-fg.a), b:fg.b*fg.a+bg.b*(1-fg.a), a:1};
+  function L(c){ const f=x=>{ x/=255; return x<=0.03928? x/12.92 : Math.pow((x+0.055)/1.055,2.4); }; return 0.2126*f(c.r)+0.7152*f(c.g)+0.0722*f(c.b); }
+  r.querySelectorAll('.sb-ct-row').forEach(row=>{
+    const cs=getComputedStyle(row);
+    let fg=toRGB(cs.getPropertyValue(row.dataset.fg)), bg=toRGB(cs.getPropertyValue(row.dataset.bg));
+    if(!fg||!bg) return;
+    if(bg.a<1) bg=over(bg,toRGB(cs.getPropertyValue('--bg'))||{r:255,g:255,b:255,a:1});
+    fg=over(fg,bg);                                  // what the eye actually sees
+    const la=L(fg)+.05, lb=L(bg)+.05, ratio=Math.max(la,lb)/Math.min(la,lb);
+    row.querySelector('.sb-ct-ratio').textContent=(Math.round(ratio*100)/100)+':1';
+    const b=row.querySelector('.sb-ct-wb');
+    if(ratio>=7){ b.className='sb-ct-wb pass'; b.textContent='AAA'; }
+    else if(ratio>=4.5){ b.className='sb-ct-wb pass'; b.textContent='AA'; }
+    else if(ratio>=3){ b.className='sb-ct-wb mid'; b.textContent='AA large'; }
+    else { b.className='sb-ct-wb fail'; b.textContent='Fail'; }
+  });
+}
 function renderA11y(){
   const wrap=document.getElementById('sbA11yBody');
   if(!DATA){ wrap.innerHTML='<div class="sb-empty">Page data not loaded — start the server and reload.</div>'; return; }
   const named=f=>{ const p=(PAGE_LIST||[]).find(x=>x.file===f); return p?p.name:f; };
-  wrap.innerHTML=(DATA.meta.pages||[]).map(f=>
+  wrap.innerHTML='<div class="sb-a11y-h"><b>Scan a page</b>'
+      + '<span class="sb-a11y-hint">opens the real page and outlines every problem in red</span></div>'
+    + (DATA.meta.pages||[]).map(f=>
       '<button type="button" class="sb-scanrow sb-ufile" data-file="'+f+'" data-a11y="1">'
       + '<span class="sb-scan-name">'+esc(named(f))+'</span>'
       + '<span class="sb-scan-go">scan for issues'+uic('external',11)+'</span></button>').join('')
-    + '<p class="sb-scan-note">Checks images without alt text, form fields with no label, and links or buttons with no name. '
-    + 'Colour contrast lives in Foundations → Contrast checker.</p>';
+    + '<p class="sb-scan-note">Checks images without alt text, form fields with no label, and links or buttons with no name.</p>'
+    + contrastHTML();
+  mountContrast(wrap);
 }
 
 /* ═══════════ APP ═══════════ */
