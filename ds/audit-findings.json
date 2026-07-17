@@ -221,9 +221,9 @@
     "Padding: 12/24, 14/26, 16/32, 18/26"
    ],
    "cause": "Partly the same line-height bug as the nav pair (two of these are identical apart from being a link vs a button; another two are the same class rendering differently on different pages). Partly genuinely different padding chosen page by page.",
-   "recommend": "merge",
+   "recommend": "discuss",
    "reasoning": "A visitor cannot tell these apart — the middle differences carry no meaning, they're accidents of where each button was built. But the jump from the smallest to the largest IS meaningful: a compact button in a search bar should be smaller than the closing call-to-action. So don't collapse to one — collapse to a deliberate scale of two, and delete the rest.",
-   "fix": "Apply the small-pill fix first (it merges the 57/59/61 group on its own), then decide by hand whether you keep one big size or two.",
+   "fix": "You already have the two: .btn (ds/ptf.css:143, 14px 26px) and .btn-cta (ds/ptf.css:171, 16px 32px) — .btn-hero (talents-v2:29) and .fh-cta (employers:859) already match .btn-cta. The strays are .btn-auth and .btn-block (18px 26px), .btn-dashboard (14px 28px in ptf.css but 18px 26px where auth.html overrides it), and .btn-search (12px 24px).",
    "variants": [
     {
      "label": "Search bar — the smallest",
@@ -451,7 +451,96 @@
    "stamp": "height",
    "apply": [],
    "kind": "unify",
-   "impact_note": "Six large buttons become two deliberate sizes. Removes 4 one-off button looks from the system."
+   "impact_note": "Six large buttons become two deliberate sizes. Removes 4 one-off button looks from the system.",
+   "options": [
+    {
+     "id": "two-sizes",
+     "recommended": true,
+     "label": "Two sizes — Default and Large",
+     "note": "Every big button becomes one of the two you already use. The compact search button folds into Default.",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".btn-dashboard",
+       "prop": "padding",
+       "value": "14px 26px",
+       "expect": "14px 28px"
+      },
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".btn-dashboard",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      },
+      {
+       "type": "css-set",
+       "in": "all",
+       "selector": ".btn-auth",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".btn-block",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      },
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".hero-search .btn-search",
+       "prop": "padding",
+       "value": "14px 26px",
+       "expect": "12px 24px"
+      }
+     ]
+    },
+    {
+     "id": "three-sizes",
+     "label": "Two, but keep the compact search button",
+     "note": "Same, except the search bar stays deliberately smaller than a closing call-to-action.",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".btn-dashboard",
+       "prop": "padding",
+       "value": "14px 26px",
+       "expect": "14px 28px"
+      },
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".btn-dashboard",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      },
+      {
+       "type": "css-set",
+       "in": "all",
+       "selector": ".btn-auth",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".btn-block",
+       "prop": "padding",
+       "value": "16px 32px",
+       "expect": "18px 26px"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "f-eyebrow",
@@ -1655,7 +1744,7 @@
    "cause": "The archive list uses a grid variant that restyles the filter; the upcoming list uses the sidebar style.",
    "recommend": "discuss",
    "reasoning": "This one is genuinely arguable, so I'm not calling it. The layouts differ (a sidebar beside a list vs filters above a grid), and a sidebar filter reasonably looks different from a toolbar filter. But they're the same control doing the same job, twice, on one screen — and a visitor scrolling past may read them as two different mechanisms. Worth a decision either way.",
-   "fix": "If you want one: use the pill chips in both places. If you want two, say so in the system so it's a decision, not a leftover.",
+   "fix": "Both rows are the same button (.ev-filter-btn). The look comes from the parent: Upcoming sits in .ev-listing (events/index.html:257) and gets the sticky underline list (ptf.css:1317); Past sits in .ev-listing--grid (:420) and gets pills (ptf.css:1387). Pick which one is the filter.",
    "variants": [
     {
      "label": "Underline list — \"Upcoming events\"",
@@ -1685,7 +1774,119 @@
    "layout": "wide",
    "apply": [],
    "kind": "unify",
-   "impact_note": "One filter control instead of two on the same screen — or a documented reason for both."
+   "impact_note": "One filter control instead of two on the same screen — or a documented reason for both.",
+   "options": [
+    {
+     "id": "pills",
+     "recommended": true,
+     "label": "One look — pill chips",
+     "note": "The sticky list becomes chips, matching the Past events row. It's already what the filters become on mobile.",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter",
+       "prop": "flex-direction",
+       "value": "row",
+       "expect": "column"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter",
+       "prop": "gap",
+       "value": "8px",
+       "expect": "2px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter",
+       "prop": "position",
+       "value": "static",
+       "expect": "sticky"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn",
+       "prop": "text-align",
+       "value": "center",
+       "expect": "left"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn",
+       "prop": "padding",
+       "value": "8px 16px",
+       "expect": "7px 0 7px 14px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn",
+       "prop": "border",
+       "value": "1px solid var(--line-2)",
+       "expect": "none"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn",
+       "prop": "border-left",
+       "value": "none",
+       "expect": "2px solid transparent"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn",
+       "prop": "border-radius",
+       "value": "var(--r-pill)"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn.is-active",
+       "prop": "background",
+       "value": "var(--ink)"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn.is-active",
+       "prop": "color",
+       "value": "#fff",
+       "expect": "var(--ink)"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".ev-filter-btn.is-active",
+       "prop": "border-color",
+       "value": "var(--ink)"
+      }
+     ]
+    },
+    {
+     "id": "list",
+     "label": "One look — the sidebar list",
+     "note": "Past events drops its chips and uses the sticky underline list, like Upcoming.",
+     "apply": [
+      {
+       "type": "remove-css-rule",
+       "in": "css",
+       "selector": ".ev-listing--grid .ev-filter-btn"
+      },
+      {
+       "type": "remove-css-rule",
+       "in": "css",
+       "selector": ".ev-listing--grid .ev-filter"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "f-ghost-dark",
@@ -1875,7 +2076,14 @@
    ],
    "stamp": "none",
    "layout": "wide",
-   "apply": [],
+   "apply": [
+    {
+     "type": "doc-append",
+     "file": "ds/COMPONENT-INVENTORY.md",
+     "marker": "## Section Pattern — Coming soon",
+     "md": "## Section Pattern — Coming soon\nUsed identically on Compare, Expert finder, How we verify and Why PowerToFly. It was built four\ntimes because it was never written down. It is one pattern: nav + a centred `.section-narrow`\nholding an `.eyebrow`, an h1, one line of body, and one `.btn` back to somewhere real, then the\nfooter. No hero, no CTA band. If you need a fifth placeholder, copy an existing one — do not\ndesign it again."
+    }
+   ],
    "variants": [
     {
      "label": "Used identically on all four pages",
@@ -1892,7 +2100,8 @@
      }
     }
    ],
-   "after": []
+   "after": [],
+   "doc": "Writes the coming-soon pattern into ds/COMPONENT-INVENTORY.md so a fifth one gets copied, not designed."
   },
   {
    "id": "o-event-recipe",
@@ -1917,7 +2126,14 @@
    ],
    "stamp": "none",
    "layout": "wide",
-   "apply": [],
+   "apply": [
+    {
+     "type": "doc-append",
+     "file": "ds/COMPONENT-INVENTORY.md",
+     "marker": "## Page Recipe — Event detail",
+     "md": "## Page Recipe — Event detail (Virtual job fair · Summit · Chat & Learn)\nThese three pages are one recipe, not three designs. Build the fourth from this and it inherits\nthe spacing law, the dark theme and the hover language for free.\n\nSection order, top to bottom — every slot is an existing component:\n1. `.ev-hero` — the event hero. Shared by all three; no state toggle.\n2. `.section-how` — how it works, beside `photos/how_it_works.png` (the generic portrait, reused on every event type).\n3. `.section` — who's speaking / who's coming: `.ev-faces` for the people row.\n4. `.section` — the detail body.\n5. `.section-cta` — the always-dark closer. Green `.eyebrow` is part of the band, not decoration.\n\nRules: these siblings share `.ev-hero` — build a new one consistent with THIS system, not the\nlegacy purple design. Signing up goes to the common event flow (`event-common/`), not a new flow."
+    }
+   ],
    "variants": [
     {
      "label": "The shared skeleton",
@@ -1934,7 +2150,8 @@
      }
     }
    ],
-   "after": []
+   "after": [],
+   "doc": "Writes the event-detail recipe into ds/COMPONENT-INVENTORY.md — the section order and which component fills each slot."
   },
   {
    "id": "o-undocumented",
@@ -1961,7 +2178,14 @@
     "About"
    ],
    "stamp": "none",
-   "apply": [],
+   "apply": [
+    {
+     "type": "doc-append",
+     "file": "ds/COMPONENT-INVENTORY.md",
+     "marker": "## Event listing parts",
+     "md": "## Event listing parts (were in use before they were written down)\nThese ship in `ds/ptf.css` and are used across Events, Virtual job fair, Summit and Chat & Learn.\nThey were live for months without being in this file — which is how a fifth copy gets built by hand.\n\n- **Event thumbnail** — `.ev-thumb` (`ds/ptf.css:1354`) + `.ev-thumb img`. A clipped, rounded event image: `--r-lg` corners, `--surface-2` behind it, `object-fit: cover` so any aspect ratio behaves. Use it for every event image in a listing; never re-crop by hand.\n- **People row** — `.ev-faces` (`ds/ptf.css:1358`) + `.ev-faces img`. Overlapping 32px round avatars (`-10px` overlap, 2px `--bg` ring so they read on any background). Use it wherever you show \"who's coming\"; the first face never gets a negative margin.\n- **About-stat card** — `.about-stat-grid` (`ds/ptf.css:1416`) and its `.about-stat-*` parts. A three-up number grid. Shared by About, Summit and Chat & Learn — it is NOT an About-page thing despite the name."
+    }
+   ],
    "variants": [
     {
      "label": "Event thumbnail",
@@ -2014,7 +2238,8 @@
      }
     }
    ],
-   "after": []
+   "after": [],
+   "doc": "Writes the three into ds/COMPONENT-INVENTORY.md — what each is, where it lives, and when to reach for it."
   }
  ],
  "baseline": {

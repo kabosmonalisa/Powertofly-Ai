@@ -45,6 +45,12 @@ def all_targets():       return page_paths() + [CSS]
 
 STYLE_RX = re.compile(r'(<style[^>]*>)(.*?)(</style>)', re.S | re.I)   # CSS edits touch only <style>
 
+# Some opportunities aren't a CSS change at all — the fix is writing the thing down.
+# Those must still DO something when accepted, so doc-append can edit these, and only
+# these: a closed list, so an op can never be talked into writing somewhere else.
+DOCS = {"ds/COMPONENT-INVENTORY.md": os.path.join(DS, "COMPONENT-INVENTORY.md"),
+        "ds/DESIGN-SYSTEM.md":       os.path.join(DS, "DESIGN-SYSTEM.md")}
+
 CKPTS = os.path.join(DS, ".sb-checkpoints")  # dated restore points: "beginning" + one per day
 APPR  = os.path.join(DS, "approvals.json")   # items Lizu marked "keep as it is"
 BRIEFS = os.path.join(DS, "briefs.json")     # Create-wizard briefs, newest first, for Claude to plan against
@@ -247,6 +253,18 @@ def apply(a):
                 return m.group(1) + nb + m.group(3)
             return STYLE_RX.sub(rep, t), cnt[0]
         return run_edit(targets, fn_file)
+    if typ == "doc-append":
+        # Append a section to one of the ds/ docs, once. `marker` makes it idempotent:
+        # accept twice and the second is a no-op rather than a duplicate section.
+        path = DOCS.get(a.get("file"))
+        if not path:
+            return {"ok": False, "error": "doc-append: file must be one of " + ", ".join(sorted(DOCS))}
+        md, marker = a["md"], a.get("marker", "")
+        def fn(t):
+            if marker and marker in t:
+                return t, 0
+            return t.rstrip() + "\n\n" + md.strip() + "\n", 1
+        return run_edit([path], fn)
     if typ == "css-append":
         # Append a raw rule to the end of ptf.css (used to fix things that have no rule yet).
         block, marker = a["css"], a.get("marker", "")
@@ -297,7 +315,11 @@ class H(http.server.SimpleHTTPRequestHandler):
                 if ops is None:
                     res = apply(body)                    # single op — unchanged
                 else:
-                    bkid = backup(all_targets())         # one restore point for the whole batch
+                    # One restore point for the whole batch — and it must cover every file
+                    # the batch can touch, or Undo silently leaves the doc edits behind.
+                    docs = [DOCS[o["file"]] for o in ops
+                            if o.get("type") == "doc-append" and o.get("file") in DOCS]
+                    bkid = backup(all_targets() + sorted(set(docs)))
                     res = {"backup": bkid, "total": 0, "changed": [], "steps": []}
                     agg = {}
                     for op in ops:

@@ -1393,10 +1393,14 @@ function findingHTML(f){
   /* Say plainly what the button will do. "Accept" and "Accept & apply" is far too
      quiet a signal for the difference between "this rewrites your CSS on 18 pages"
      and "this writes down what you decided and nothing else happens." */
+  const isDoc=(f.apply||[]).some(o=>o.type==='doc-append');
   h+=(f.options||[]).length
     ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>This one is a real choice — pick an answer below and it happens.</b> '
       + 'Each answer edits the design system on disk, so every live and draft page changes at once. '
       + 'Archived pages are left alone, and you can undo it.</span></div>'
+    : isDoc
+    ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>Accepting writes this into your playbook.</b> '
+      + esc(f.doc||'')+' No CSS changes — nothing on your pages moves. Undo takes it back out.</span></div>'
     : (f.apply||[]).length
     ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>Accepting makes this change for real.</b> '
       + 'It edits the design system on disk, so every live and draft page changes at once. '
@@ -2099,7 +2103,7 @@ async function chooseOption(id,oid){
   const f=AUDIT&&AUDIT.findings.find(x=>x.id===id); if(!f) return;
   const o=(f.options||[]).find(x=>x.id===oid); if(!o) return;
   const ok=await dlg({ title:esc(o.label),
-    body:'This edits your design system for real:<ul class="sb-dlg-ops"><li>'
+    body:((f.apply||[]).some(o=>o.type==='doc-append')?'This writes into your playbook:':'This edits your design system for real:')+'<ul class="sb-dlg-ops"><li>'
       +(o.apply||[]).map(opLabel).join('</li><li>')+'</li></ul>'
       +'<span class="muted">Backed up first — Undo reverts the whole thing in one step.</span>',
     ok:'Do it' });
@@ -2121,6 +2125,7 @@ function opLabel(o){
       + (o.expect?' <span class="muted">(only where it still says '+esc(o.expect)+')</span>':'');
   }
   if(o.type==='css-append') return 'Add a new rule to ptf.css';
+  if(o.type==='doc-append') return 'Write a new section into <code>'+esc(o.file)+'</code>';
   if(o.type==='replace-class') return 'Rename <code>'+esc(o.from)+'</code> → <code>'+esc(o.to)+'</code> across your pages';
   if(o.type==='remove-css-rule') return 'Delete the <code>'+esc(o.selector)+'</code> rule from ptf.css';
   if(o.type==='remove-token') return 'Delete <code>'+esc(o.token)+'</code> from ptf.css';
@@ -2130,7 +2135,7 @@ function confirmApply(f){
   return dlg({ title:'Accept this opportunity',
     body:'This edits your design system for real:<ul class="sb-dlg-ops"><li>'+(f.apply||[]).map(opLabel).join('</li><li>')+'</li></ul>'
       +'<span class="muted">Backed up first — Undo reverts it, Restore rolls back further.</span>',
-    ok:'Accept & change the code' });
+    ok:(f.apply||[]).some(o=>o.type==='doc-append') ? 'Accept & write it down' : 'Accept & change the code' });
 }
 async function applyOps(f){
   toast('Applying…',60000);
