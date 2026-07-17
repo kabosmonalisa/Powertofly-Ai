@@ -1,11 +1,10 @@
 {
  "meta": {
   "generated": "run `python3 ds/usage-scan.py` to refresh",
-  "pageCount": 26,
+  "pageCount": 19,
   "pages": [
    "employers/index.html",
    "talents/index-v2.html",
-   "talents/index.html",
    "train/index.html",
    "hire/index.html",
    "about/index.html",
@@ -16,39 +15,52 @@
    "vjf/index.html",
    "summit/index.html",
    "chat-learn/index.html",
-   "why-powertofly/index.html",
-   "expert-finder/index.html",
-   "how-we-verify/index.html",
-   "compare/index.html",
    "nav-options.html",
    "top-alerts.html",
    "event-common/index.html",
    "signup/index.html",
    "auth.html",
    "sponsor/index.html",
-   "event-company/index.html",
-   "event-employer/index.html",
    "book/index.html"
-  ]
+  ],
+  "pageCss": {
+   "employers/index.html": 848,
+   "talents/index-v2.html": 880,
+   "train/index.html": 393,
+   "hire/index.html": 118,
+   "about/index.html": 440,
+   "events/index.html": 120,
+   "job-board/index.html": 141,
+   "resources/index.html": 0,
+   "not-found/index.html": 24,
+   "vjf/index.html": 48,
+   "summit/index.html": 52,
+   "chat-learn/index.html": 63,
+   "nav-options.html": 99,
+   "top-alerts.html": 101,
+   "event-common/index.html": 0,
+   "signup/index.html": 0,
+   "auth.html": 424,
+   "sponsor/index.html": 0,
+   "book/index.html": 123
+  }
  },
  "classes": {
   ".hero": {
-   "total": 6,
+   "total": 5,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1
    }
   },
   ".hero-inner": {
-   "total": 6,
+   "total": 5,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1
@@ -64,7 +76,7 @@
    }
   },
   ".italic-plain": {
-   "total": 28,
+   "total": 25,
    "files": {
     "about/index.html": 5,
     "talents/index-v2.html": 4,
@@ -73,14 +85,11 @@
     "summit/index.html": 2,
     "chat-learn/index.html": 2,
     "employers/index.html": 1,
-    "talents/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1,
-    "vjf/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "vjf/index.html": 1
    }
   },
   ".fh-wrap": {
@@ -216,11 +225,10 @@
    }
   },
   ".section": {
-   "total": 36,
+   "total": 30,
    "files": {
     "talents/index-v2.html": 7,
     "job-board/index.html": 7,
-    "talents/index.html": 6,
     "employers/index.html": 3,
     "summit/index.html": 3,
     "chat-learn/index.html": 3,
@@ -232,10 +240,9 @@
    }
   },
   ".section-narrow": {
-   "total": 19,
+   "total": 13,
    "files": {
     "talents/index-v2.html": 7,
-    "talents/index.html": 6,
     "employers/index.html": 2,
     "about/index.html": 2,
     "resources/index.html": 1,
@@ -243,10 +250,9 @@
    }
   },
   ".section-head": {
-   "total": 36,
+   "total": 30,
    "files": {
     "talents/index-v2.html": 6,
-    "talents/index.html": 6,
     "employers/index.html": 4,
     "hire/index.html": 4,
     "train/index.html": 3,
@@ -266,20 +272,18 @@
    }
   },
   ".benefit-card": {
-   "total": 12,
-   "files": {
-    "employers/index.html": 3,
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3,
-    "train/index.html": 3
-   }
-  },
-  ".benefit-sparkle": {
    "total": 9,
    "files": {
     "employers/index.html": 3,
     "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "train/index.html": 3
+   }
+  },
+  ".benefit-sparkle": {
+   "total": 6,
+   "files": {
+    "employers/index.html": 3,
+    "talents/index-v2.html": 3
    }
   },
   ".benefit-eyebrow": {
@@ -497,14 +501,12 @@
    }
   },
   ".active": {
-   "total": 29,
+   "total": 23,
    "files": {
     "signup/index.html": 6,
     "auth.html": 6,
     "top-alerts.html": 3,
     "event-common/index.html": 3,
-    "event-company/index.html": 3,
-    "event-employer/index.html": 3,
     "employers/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -573,19 +575,17 @@
    }
   },
   ".section-mission": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".mission-statement": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".outcomes-scene-outer": {
@@ -664,139 +664,122 @@
    }
   },
   ".section-stats": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".stats-card-wrap": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".stats-portrait": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".stats-portrait-icon": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".stats-card-dark": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".stat-big-num": {
-   "total": 9,
+   "total": 6,
    "files": {
     "employers/index.html": 3,
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".stat-big-label": {
-   "total": 9,
+   "total": 6,
    "files": {
     "employers/index.html": 3,
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".section-proof": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".testimonials": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".t-card": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-stars": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-quote": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-meta": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-meta-info": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-author": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-company": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-role": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".t-co-logo": {
@@ -812,19 +795,17 @@
    }
   },
   ".t-logo": {
-   "total": 12,
+   "total": 8,
    "files": {
     "employers/index.html": 4,
-    "talents/index-v2.html": 4,
-    "talents/index.html": 4
+    "talents/index-v2.html": 4
    }
   },
   ".section-cta": {
-   "total": 11,
+   "total": 10,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "about/index.html": 1,
@@ -836,11 +817,10 @@
    }
   },
   ".section-cta-inner": {
-   "total": 11,
+   "total": 10,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "about/index.html": 1,
@@ -852,7 +832,7 @@
    }
   },
   ".eyebrow": {
-   "total": 34,
+   "total": 32,
    "files": {
     "about/index.html": 8,
     "summit/index.html": 5,
@@ -864,9 +844,7 @@
     "events/index.html": 2,
     "resources/index.html": 2,
     "employers/index.html": 1,
-    "talents/index.html": 1,
-    "event-common/index.html": 1,
-    "event-company/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".eyebrow-on-dark": {
@@ -879,9 +857,8 @@
    }
   },
   ".btn": {
-   "total": 79,
+   "total": 57,
    "files": {
-    "talents/index.html": 13,
     "job-board/index.html": 9,
     "talents/index-v2.html": 7,
     "ds/ptf.js": 7,
@@ -894,23 +871,17 @@
     "chat-learn/index.html": 3,
     "hire/index.html": 2,
     "not-found/index.html": 2,
-    "why-powertofly/index.html": 2,
-    "expert-finder/index.html": 2,
-    "how-we-verify/index.html": 2,
-    "compare/index.html": 2,
     "employers/index.html": 1,
     "about/index.html": 1,
     "resources/index.html": 1,
-    "signup/index.html": 1,
-    "event-company/index.html": 1
+    "signup/index.html": 1
    }
   },
   ".btn-cta": {
-   "total": 11,
+   "total": 10,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "about/index.html": 1,
@@ -952,12 +923,11 @@
    }
   },
   ".open": {
-   "total": 47,
+   "total": 41,
    "files": {
     "ds/ptf.js": 12,
     "talents/index-v2.html": 8,
     "employers/index.html": 6,
-    "talents/index.html": 6,
     "hire/index.html": 6,
     "top-alerts.html": 6,
     "nav-options.html": 2,
@@ -965,11 +935,10 @@
    }
   },
   ".on": {
-   "total": 18,
+   "total": 15,
    "files": {
     "employers/index.html": 3,
     "talents/index-v2.html": 3,
-    "talents/index.html": 3,
     "hire/index.html": 3,
     "top-alerts.html": 3,
     "ds/ptf.js": 3
@@ -984,27 +953,24 @@
    }
   },
   ".hero-glow": {
-   "total": 3,
+   "total": 2,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "job-board/index.html": 1
    }
   },
   ".hero-text": {
-   "total": 3,
+   "total": 2,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1
    }
   },
   ".display": {
-   "total": 11,
+   "total": 10,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "about/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1,
@@ -1014,10 +980,9 @@
    }
   },
   ".hero-sub": {
-   "total": 5,
+   "total": 4,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1
@@ -1042,12 +1007,11 @@
    }
   },
   ".btn-primary": {
-   "total": 32,
+   "total": 26,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 3,
     "ds/ptf.js": 3,
-    "talents/index.html": 2,
     "train/index.html": 2,
     "events/index.html": 2,
     "nav-options.html": 2,
@@ -1056,11 +1020,7 @@
     "not-found/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
-    "chat-learn/index.html": 1,
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
+    "chat-learn/index.html": 1
    }
   },
   ".btn-search": {
@@ -1088,121 +1048,104 @@
    }
   },
   ".hero-visual": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hero-photo-wrap": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hero-photo": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hmc-float-wrap": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hero-match-card": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hmc-face": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "talents/index-v2.html": 2,
-    "talents/index.html": 2
+    "talents/index-v2.html": 2
    }
   },
   ".hmc-front": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".hmc-badge": {
-   "total": 6,
+   "total": 3,
    "files": {
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".dot": {
-   "total": 10,
+   "total": 6,
    "files": {
     "talents/index-v2.html": 4,
-    "talents/index.html": 3,
     "resources/index.html": 1,
-    "vjf/index.html": 1,
-    "event-employer/index.html": 1
+    "vjf/index.html": 1
    }
   },
   ".hmc-role": {
-   "total": 6,
+   "total": 3,
    "files": {
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".hmc-rate": {
-   "total": 6,
+   "total": 3,
    "files": {
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".hmc-tags": {
-   "total": 6,
+   "total": 3,
    "files": {
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".hmc-tag": {
-   "total": 14,
+   "total": 7,
    "files": {
-    "talents/index-v2.html": 7,
-    "talents/index.html": 7
+    "talents/index-v2.html": 7
    }
   },
   ".hmc-back": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".logo-strip": {
-   "total": 5,
+   "total": 4,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1
    }
   },
   ".logo-strip-track": {
-   "total": 5,
+   "total": 4,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1
@@ -1265,25 +1208,22 @@
    }
   },
   ".benefits-row": {
-   "total": 3,
+   "total": 2,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1
    }
   },
   ".benefit-insight": {
-   "total": 6,
+   "total": 3,
    "files": {
-    "talents/index-v2.html": 3,
-    "talents/index.html": 3
+    "talents/index-v2.html": 3
    }
   },
   ".how-inner": {
-   "total": 7,
+   "total": 6,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "vjf/index.html": 1,
@@ -1292,10 +1232,9 @@
    }
   },
   ".how-portrait-card": {
-   "total": 7,
+   "total": 6,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "vjf/index.html": 1,
@@ -1304,10 +1243,9 @@
    }
   },
   ".how-portrait-icon": {
-   "total": 7,
+   "total": 6,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "vjf/index.html": 1,
@@ -1316,10 +1254,9 @@
    }
   },
   ".steps": {
-   "total": 7,
+   "total": 6,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
     "vjf/index.html": 1,
@@ -1328,9 +1265,8 @@
    }
   },
   ".step": {
-   "total": 26,
+   "total": 21,
    "files": {
-    "talents/index.html": 5,
     "vjf/index.html": 4,
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
@@ -1340,9 +1276,8 @@
    }
   },
   ".step-num": {
-   "total": 26,
+   "total": 21,
    "files": {
-    "talents/index.html": 5,
     "vjf/index.html": 4,
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
@@ -1352,9 +1287,8 @@
    }
   },
   ".step-content": {
-   "total": 26,
+   "total": 21,
    "files": {
-    "talents/index.html": 5,
     "vjf/index.html": 4,
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
@@ -1364,119 +1298,103 @@
    }
   },
   ".opp-grid": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".opp-card": {
-   "total": 13,
+   "total": 3,
    "files": {
-    "talents/index.html": 10,
     "talents/index-v2.html": 3
    }
   },
   ".opp-badge": {
-   "total": 13,
+   "total": 3,
    "files": {
-    "talents/index.html": 10,
     "talents/index-v2.html": 3
    }
   },
   ".opp-title": {
-   "total": 13,
+   "total": 3,
    "files": {
-    "talents/index.html": 10,
     "talents/index-v2.html": 3
    }
   },
   ".opp-rate": {
-   "total": 13,
+   "total": 3,
    "files": {
-    "talents/index.html": 10,
     "talents/index-v2.html": 3
    }
   },
   ".opp-tags": {
-   "total": 13,
+   "total": 3,
    "files": {
-    "talents/index.html": 10,
     "talents/index-v2.html": 3
    }
   },
   ".req-tag": {
-   "total": 39,
+   "total": 9,
    "files": {
-    "talents/index.html": 30,
     "talents/index-v2.html": 9
    }
   },
   ".btn-sm": {
-   "total": 31,
+   "total": 20,
    "files": {
-    "talents/index.html": 10,
     "ds/ptf.js": 7,
     "nav-options.html": 5,
     "top-alerts.html": 4,
     "talents/index-v2.html": 3,
-    "job-board/index.html": 1,
-    "event-company/index.html": 1
+    "job-board/index.html": 1
    }
   },
   ".stat-unit": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".faq-list": {
-   "total": 3,
+   "total": 2,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "vjf/index.html": 1
    }
   },
   ".faq-item": {
-   "total": 21,
+   "total": 15,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6,
-    "talents/index.html": 6
+    "talents/index-v2.html": 6
    }
   },
   ".faq-q": {
-   "total": 21,
+   "total": 15,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6,
-    "talents/index.html": 6
+    "talents/index-v2.html": 6
    }
   },
   ".faq-icon": {
-   "total": 21,
+   "total": 15,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6,
-    "talents/index.html": 6
+    "talents/index-v2.html": 6
    }
   },
   ".faq-a": {
-   "total": 21,
+   "total": 15,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6,
-    "talents/index.html": 6
+    "talents/index-v2.html": 6
    }
   },
   ".faq-a-inner": {
-   "total": 21,
+   "total": 15,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6,
-    "talents/index.html": 6
+    "talents/index-v2.html": 6
    }
   },
   ".footer": {
@@ -1508,7 +1426,7 @@
    }
   },
   ".brand-ai": {
-   "total": 14,
+   "total": 12,
    "files": {
     "nav-options.html": 3,
     "ds/ptf.js": 2,
@@ -1518,8 +1436,6 @@
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -1552,19 +1468,17 @@
    }
   },
   ".flipped": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   ".visible": {
-   "total": 19,
+   "total": 17,
    "files": {
     "signup/index.html": 4,
     "auth.html": 4,
     "talents/index-v2.html": 2,
-    "talents/index.html": 2,
     "train/index.html": 2,
     "hire/index.html": 2,
     "sponsor/index.html": 2,
@@ -1572,34 +1486,9 @@
    }
   },
   ".fading": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "talents/index-v2.html": 2,
-    "talents/index.html": 2
-   }
-  },
-  ".hero-cta": {
-   "total": 1,
-   "files": {
-    "talents/index.html": 1
-   }
-  },
-  ".btn-hero": {
-   "total": 1,
-   "files": {
-    "talents/index.html": 1
-   }
-  },
-  ".hero-domains": {
-   "total": 1,
-   "files": {
-    "talents/index.html": 1
-   }
-  },
-  ".domain-pill": {
-   "total": 8,
-   "files": {
-    "talents/index.html": 8
+    "talents/index-v2.html": 2
    }
   },
   ".site-header": {
@@ -2725,13 +2614,11 @@
    }
   },
   ".btn-block": {
-   "total": 10,
+   "total": 8,
    "files": {
     "job-board/index.html": 6,
     "event-common/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".jb-plan-badge": {
@@ -2837,27 +2724,23 @@
    }
   },
   ".field": {
-   "total": 65,
+   "total": 42,
    "files": {
-    "event-employer/index.html": 15,
     "job-board/index.html": 12,
     "event-common/index.html": 8,
     "signup/index.html": 8,
     "auth.html": 8,
-    "event-company/index.html": 8,
     "sponsor/index.html": 6
    }
   },
   ".field-row": {
-   "total": 10,
+   "total": 8,
    "files": {
     "sponsor/index.html": 3,
     "job-board/index.html": 2,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "auth.html": 1
    }
   },
   ".jb-note": {
@@ -3023,12 +2906,10 @@
    }
   },
   ".check-box": {
-   "total": 9,
+   "total": 5,
    "files": {
     "event-common/index.html": 3,
-    "event-company/index.html": 3,
-    "job-board/index.html": 2,
-    "event-employer/index.html": 1
+    "job-board/index.html": 2
    }
   },
   ".jb-toggle-main": {
@@ -3062,12 +2943,10 @@
    }
   },
   ".check-row": {
-   "total": 8,
+   "total": 4,
    "files": {
     "event-common/index.html": 3,
-    "event-company/index.html": 3,
-    "job-board/index.html": 1,
-    "event-employer/index.html": 1
+    "job-board/index.html": 1
    }
   },
   ".jb-paybtn": {
@@ -3089,15 +2968,13 @@
    }
   },
   ".thanks-icon": {
-   "total": 7,
+   "total": 5,
    "files": {
     "job-board/index.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".jb-success-sub": {
@@ -3309,39 +3186,31 @@
    }
   },
   ".event-host": {
-   "total": 4,
+   "total": 2,
    "files": {
     "chat-learn/index.html": 1,
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".event-host-text": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 3,
-    "chat-learn/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "chat-learn/index.html": 1
    }
   },
   ".event-host-name": {
-   "total": 5,
+   "total": 3,
    "files": {
     "event-common/index.html": 2,
-    "chat-learn/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "chat-learn/index.html": 1
    }
   },
   ".event-host-role": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 3,
-    "chat-learn/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "chat-learn/index.html": 1
    }
   },
   ".cl-copy": {
@@ -3390,60 +3259,6 @@
    "total": 3,
    "files": {
     "chat-learn/index.html": 3
-   }
-  },
-  ".cs-wrap": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
-   }
-  },
-  ".cs-inner": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
-   }
-  },
-  ".cs-eyebrow": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
-   }
-  },
-  ".cs-headline": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
-   }
-  },
-  ".cs-sub": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
-   }
-  },
-  ".cs-cta-row": {
-   "total": 4,
-   "files": {
-    "why-powertofly/index.html": 1,
-    "expert-finder/index.html": 1,
-    "how-we-verify/index.html": 1,
-    "compare/index.html": 1
    }
   },
   ".opt-card": {
@@ -3970,323 +3785,259 @@
    }
   },
   ".flow-shell": {
-   "total": 5,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".auth-bg": {
-   "total": 7,
+   "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
   ".auth-bg-blob": {
-   "total": 21,
+   "total": 15,
    "files": {
     "event-common/index.html": 3,
     "signup/index.html": 3,
     "auth.html": 3,
     "sponsor/index.html": 3,
-    "event-company/index.html": 3,
-    "event-employer/index.html": 3,
     "book/index.html": 3
    }
   },
   ".b1": {
-   "total": 7,
+   "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
   ".b2": {
-   "total": 7,
+   "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
   ".b3": {
-   "total": 7,
+   "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
   ".auth-nav": {
-   "total": 5,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".nav-brand": {
-   "total": 7,
+   "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
     "book/index.html": 1
    }
   },
   ".nav-back": {
-   "total": 7,
-   "files": {
-    "event-common/index.html": 1,
-    "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1,
-    "book/index.html": 1
-   }
-  },
-  ".reg-wrap": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".reg-layout": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-card": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-top": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-title": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-meta": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-meta-row": {
-   "total": 6,
-   "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
-   }
-  },
-  ".event-ico": {
-   "total": 6,
-   "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
-   }
-  },
-  ".event-meta-text": {
-   "total": 6,
-   "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
-   }
-  },
-  ".reg-form": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".auth-card": {
-   "total": 6,
-   "files": {
-    "event-common/index.html": 1,
-    "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
-   }
-  },
-  ".auth-toggle": {
    "total": 5,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1,
+    "book/index.html": 1
+   }
+  },
+  ".reg-wrap": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".reg-layout": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".event-card": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".event-top": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".event-title": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".event-meta": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".event-meta-row": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 2
+   }
+  },
+  ".event-ico": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 2
+   }
+  },
+  ".event-meta-text": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 2
+   }
+  },
+  ".reg-form": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".auth-card": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1,
+    "sponsor/index.html": 1
+   }
+  },
+  ".auth-toggle": {
+   "total": 3,
+   "files": {
+    "event-common/index.html": 1,
+    "signup/index.html": 1,
+    "auth.html": 1
    }
   },
   ".flow-step": {
-   "total": 18,
+   "total": 6,
    "files": {
-    "event-common/index.html": 6,
-    "event-company/index.html": 6,
-    "event-employer/index.html": 6
+    "event-common/index.html": 6
    }
   },
   ".auth-heading": {
-   "total": 30,
+   "total": 18,
    "files": {
     "event-common/index.html": 6,
-    "event-company/index.html": 6,
-    "event-employer/index.html": 6,
     "signup/index.html": 5,
     "auth.html": 5,
     "sponsor/index.html": 2
    }
   },
   ".auth-sub": {
-   "total": 24,
+   "total": 14,
    "files": {
     "event-common/index.html": 5,
-    "event-company/index.html": 5,
-    "event-employer/index.html": 5,
     "signup/index.html": 4,
     "auth.html": 4,
     "sponsor/index.html": 1
    }
   },
   ".auth-form": {
-   "total": 22,
+   "total": 12,
    "files": {
     "event-common/index.html": 5,
-    "event-company/index.html": 5,
-    "event-employer/index.html": 5,
     "signup/index.html": 3,
     "auth.html": 3,
     "sponsor/index.html": 1
    }
   },
   ".btn-auth": {
-   "total": 24,
+   "total": 14,
    "files": {
     "event-common/index.html": 5,
-    "event-company/index.html": 5,
-    "event-employer/index.html": 5,
     "signup/index.html": 4,
     "auth.html": 4,
     "sponsor/index.html": 1
    }
   },
   ".auth-divider": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   ".social-btns": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   ".btn-social": {
-   "total": 20,
+   "total": 12,
    "files": {
     "event-common/index.html": 4,
     "signup/index.html": 4,
-    "auth.html": 4,
-    "event-company/index.html": 4,
-    "event-employer/index.html": 4
+    "auth.html": 4
    }
   },
   ".auth-note": {
-   "total": 28,
+   "total": 20,
    "files": {
     "event-common/index.html": 7,
     "signup/index.html": 7,
-    "event-company/index.html": 7,
     "auth.html": 5,
-    "sponsor/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".step-indicator": {
-   "total": 19,
+   "total": 11,
    "files": {
     "event-common/index.html": 4,
-    "event-company/index.html": 4,
-    "event-employer/index.html": 4,
     "signup/index.html": 3,
     "auth.html": 3,
     "sponsor/index.html": 1
    }
   },
   ".thanks-divider": {
-   "total": 17,
+   "total": 11,
    "files": {
     "event-common/index.html": 5,
-    "event-company/index.html": 5,
     "signup/index.html": 4,
     "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".resume-toggle": {
@@ -4302,220 +4053,187 @@
    }
   },
   ".upload-area": {
-   "total": 4,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1
+    "auth.html": 1
    }
   },
   ".upload-icon": {
-   "total": 4,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1
+    "auth.html": 1
    }
   },
   ".upload-name": {
-   "total": 4,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1
+    "auth.html": 1
    }
   },
   ".nav-row": {
-   "total": 10,
+   "total": 4,
    "files": {
     "event-common/index.html": 3,
-    "event-company/index.html": 3,
-    "event-employer/index.html": 3,
     "signup/index.html": 1
    }
   },
   ".btn-skip": {
-   "total": 11,
+   "total": 5,
    "files": {
     "event-common/index.html": 3,
-    "event-company/index.html": 3,
-    "event-employer/index.html": 3,
     "signup/index.html": 2
    }
   },
   ".id-grid": {
-   "total": 4,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1
+    "auth.html": 1
    }
   },
   ".stacked": {
-   "total": 3,
+   "total": 2,
    "files": {
     "event-common/index.html": 1,
-    "signup/index.html": 1,
-    "event-company/index.html": 1
+    "signup/index.html": 1
    }
   },
   ".id-section": {
-   "total": 10,
+   "total": 8,
    "files": {
     "auth.html": 4,
     "event-common/index.html": 2,
-    "signup/index.html": 2,
-    "event-company/index.html": 2
+    "signup/index.html": 2
    }
   },
   ".id-section-label": {
-   "total": 10,
+   "total": 8,
    "files": {
     "auth.html": 4,
     "event-common/index.html": 2,
-    "signup/index.html": 2,
-    "event-company/index.html": 2
+    "signup/index.html": 2
    }
   },
   ".id-chips": {
-   "total": 10,
+   "total": 8,
    "files": {
     "auth.html": 4,
     "event-common/index.html": 2,
-    "signup/index.html": 2,
-    "event-company/index.html": 2
+    "signup/index.html": 2
    }
   },
   ".id-chip": {
-   "total": 98,
+   "total": 76,
    "files": {
     "auth.html": 30,
     "event-common/index.html": 24,
-    "signup/index.html": 22,
-    "event-company/index.html": 22
+    "signup/index.html": 22
    }
   },
   ".q-group": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".q-label": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".event-list": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".event-opt": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2
+    "event-common/index.html": 2
    }
   },
   ".event-opt-title": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2
+    "event-common/index.html": 2
    }
   },
   ".event-opt-date": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "event-common/index.html": 2,
-    "event-company/index.html": 2
+    "event-common/index.html": 2
    }
   },
   ".agree-row": {
-   "total": 3,
+   "total": 1,
    "files": {
-    "event-common/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".req": {
-   "total": 12,
+   "total": 8,
    "files": {
     "sponsor/index.html": 5,
-    "event-company/index.html": 3,
     "signup/index.html": 2,
-    "event-common/index.html": 1,
-    "event-employer/index.html": 1
+    "event-common/index.html": 1
    }
   },
   ".thanks-eyebrow": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".thanks-body": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".btn-dashboard": {
-   "total": 7,
+   "total": 5,
    "files": {
     "auth.html": 2,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   ".invalid": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 2,
-    "signup/index.html": 2,
-    "event-company/index.html": 2
+    "signup/index.html": 2
    }
   },
   ".shake": {
-   "total": 6,
+   "total": 4,
    "files": {
     "event-common/index.html": 2,
-    "signup/index.html": 2,
-    "event-company/index.html": 2
+    "signup/index.html": 2
    }
   },
   ".selected": {
-   "total": 5,
+   "total": 3,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "auth.html": 1
    }
   },
   ".auth-wrap": {
@@ -4596,34 +4314,9 @@
    }
   },
   ".auth-fineprint": {
-   "total": 3,
+   "total": 1,
    "files": {
-    "event-employer/index.html": 2,
     "sponsor/index.html": 1
-   }
-  },
-  ".event-host-logo": {
-   "total": 1,
-   "files": {
-    "event-company/index.html": 1
-   }
-  },
-  ".q-added-row": {
-   "total": 1,
-   "files": {
-    "event-company/index.html": 1
-   }
-  },
-  ".event-pill": {
-   "total": 1,
-   "files": {
-    "event-employer/index.html": 1
-   }
-  },
-  ".event-avatar": {
-   "total": 1,
-   "files": {
-    "event-employer/index.html": 1
    }
   },
   ".book-wrap": {
@@ -4797,11 +4490,10 @@
  },
  "tokens": {
   "--ink-2": {
-   "total": 50,
+   "total": 45,
    "files": {
     "employers/index.html": 6,
     "talents/index-v2.html": 6,
-    "talents/index.html": 5,
     "hire/index.html": 5,
     "events/index.html": 5,
     "about/index.html": 4,
@@ -4818,7 +4510,7 @@
    "defined": true
   },
   "--ink-3": {
-   "total": 134,
+   "total": 118,
    "files": {
     "job-board/index.html": 25,
     "auth.html": 14,
@@ -4826,17 +4518,14 @@
     "employers/index.html": 10,
     "nav-options.html": 10,
     "hire/index.html": 9,
-    "talents/index.html": 8,
     "about/index.html": 6,
     "event-common/index.html": 6,
     "events/index.html": 5,
-    "event-company/index.html": 5,
     "book/index.html": 5,
     "train/index.html": 3,
     "summit/index.html": 3,
     "chat-learn/index.html": 3,
     "top-alerts.html": 3,
-    "event-employer/index.html": 3,
     "vjf/index.html": 2,
     "sponsor/index.html": 1
    },
@@ -4844,10 +4533,9 @@
    "defined": true
   },
   "--line": {
-   "total": 78,
+   "total": 67,
    "files": {
     "talents/index-v2.html": 15,
-    "talents/index.html": 11,
     "employers/index.html": 10,
     "job-board/index.html": 9,
     "auth.html": 8,
@@ -4863,12 +4551,11 @@
    "defined": true
   },
   "--shadow-card": {
-   "total": 17,
+   "total": 15,
    "files": {
     "job-board/index.html": 4,
     "talents/index-v2.html": 3,
     "employers/index.html": 2,
-    "talents/index.html": 2,
     "hire/index.html": 2,
     "events/index.html": 2,
     "auth.html": 1,
@@ -4878,13 +4565,12 @@
    "defined": true
   },
   "--ink": {
-   "total": 165,
+   "total": 153,
    "files": {
     "job-board/index.html": 28,
     "employers/index.html": 23,
     "talents/index-v2.html": 23,
     "auth.html": 18,
-    "talents/index.html": 11,
     "hire/index.html": 11,
     "about/index.html": 11,
     "top-alerts.html": 8,
@@ -4894,37 +4580,33 @@
     "book/index.html": 5,
     "train/index.html": 4,
     "summit/index.html": 4,
-    "not-found/index.html": 1,
-    "event-company/index.html": 1
+    "not-found/index.html": 1
    },
    "cssRefs": 77,
    "defined": true
   },
   "--bg-soft": {
-   "total": 27,
+   "total": 21,
    "files": {
     "talents/index-v2.html": 6,
-    "talents/index.html": 5,
     "auth.html": 5,
     "employers/index.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
     "events/index.html": 1,
-    "vjf/index.html": 1,
-    "event-company/index.html": 1
+    "vjf/index.html": 1
    },
    "cssRefs": 8,
    "defined": true
   },
   "--section-y": {
-   "total": 38,
+   "total": 34,
    "files": {
     "hire/index.html": 7,
     "about/index.html": 7,
     "train/index.html": 6,
     "employers/index.html": 4,
     "talents/index-v2.html": 4,
-    "talents/index.html": 4,
     "vjf/index.html": 2,
     "summit/index.html": 2,
     "chat-learn/index.html": 2
@@ -4933,14 +4615,13 @@
    "defined": true
   },
   "--gutter": {
-   "total": 21,
+   "total": 20,
    "files": {
     "train/index.html": 5,
     "hire/index.html": 5,
     "employers/index.html": 3,
     "events/index.html": 3,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
@@ -4949,22 +4630,20 @@
    "defined": true
   },
   "--content-wide": {
-   "total": 4,
+   "total": 3,
    "files": {
     "employers/index.html": 2,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    },
    "cssRefs": 3,
    "defined": true
   },
   "--bg": {
-   "total": 39,
+   "total": 35,
    "files": {
     "talents/index-v2.html": 6,
     "auth.html": 6,
     "employers/index.html": 4,
-    "talents/index.html": 4,
     "train/index.html": 4,
     "hire/index.html": 4,
     "book/index.html": 4,
@@ -4998,10 +4677,9 @@
    "defined": true
   },
   "--content": {
-   "total": 13,
+   "total": 9,
    "files": {
     "talents/index-v2.html": 4,
-    "talents/index.html": 4,
     "about/index.html": 2,
     "employers/index.html": 1,
     "train/index.html": 1,
@@ -5030,19 +4708,17 @@
    "defined": true
   },
   "--av-bg": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    },
    "cssRefs": 0,
    "defined": false
   },
   "--av": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    },
    "cssRefs": 0,
    "defined": false
@@ -5281,12 +4957,6 @@
    "cssRefs": 4,
    "defined": true
   },
-  "--btn-bg-hover": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 5,
-   "defined": true
-  },
   "--btn-fg": {
    "total": 0,
    "files": {},
@@ -5299,16 +4969,22 @@
    "cssRefs": 7,
    "defined": true
   },
+  "--section-y-loose": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 2,
+   "defined": true
+  },
   "--purple-bright": {
    "total": 0,
    "files": {},
    "cssRefs": 4,
    "defined": true
   },
-  "--section-y-loose": {
+  "--btn-bg-hover": {
    "total": 0,
    "files": {},
-   "cssRefs": 2,
+   "cssRefs": 5,
    "defined": true
   },
   "--hero-top": {
@@ -5337,18 +5013,16 @@
    }
   },
   "#fff": {
-   "total": 137,
+   "total": 122,
    "files": {
     "train/index.html": 20,
     "talents/index-v2.html": 15,
     "employers/index.html": 13,
     "top-alerts.html": 13,
     "event-common/index.html": 13,
-    "talents/index.html": 8,
     "about/index.html": 8,
     "hire/index.html": 7,
     "auth.html": 7,
-    "event-company/index.html": 7,
     "job-board/index.html": 6,
     "signup/index.html": 6,
     "nav-options.html": 4,
@@ -5366,11 +5040,10 @@
    }
   },
   "#0a8c66": {
-   "total": 23,
+   "total": 20,
    "files": {
     "employers/index.html": 6,
     "talents/index-v2.html": 4,
-    "talents/index.html": 3,
     "hire/index.html": 3,
     "train/index.html": 2,
     "top-alerts.html": 2,
@@ -5379,13 +5052,12 @@
    }
   },
   "#4fe8a9": {
-   "total": 131,
+   "total": 123,
    "files": {
     "train/index.html": 38,
     "talents/index-v2.html": 29,
     "employers/index.html": 16,
     "hire/index.html": 14,
-    "talents/index.html": 6,
     "top-alerts.html": 6,
     "auth.html": 4,
     "about/index.html": 3,
@@ -5396,18 +5068,15 @@
     "summit/index.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   "#5bcfff": {
-   "total": 43,
+   "total": 37,
    "files": {
     "employers/index.html": 12,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
-    "talents/index.html": 4,
     "auth.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
@@ -5418,18 +5087,15 @@
     "nav-options.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   "#d5ff66": {
-   "total": 41,
+   "total": 35,
    "files": {
     "employers/index.html": 10,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
-    "talents/index.html": 4,
     "auth.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
@@ -5440,9 +5106,7 @@
     "nav-options.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1,
-    "event-employer/index.html": 1
+    "sponsor/index.html": 1
    }
   },
   "#000": {
@@ -5471,24 +5135,20 @@
    }
   },
   "#f5a623": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "#0a66c2": {
-   "total": 13,
+   "total": 8,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
     "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2,
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "#e8eff5": {
@@ -5516,12 +5176,11 @@
    }
   },
   "#0a0a0a": {
-   "total": 91,
+   "total": 76,
    "files": {
     "train/index.html": 22,
     "vjf/index.html": 20,
     "talents/index-v2.html": 18,
-    "talents/index.html": 14,
     "top-alerts.html": 6,
     "summit/index.html": 2,
     "chat-learn/index.html": 2,
@@ -5529,15 +5188,13 @@
     "about/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1,
-    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
   "#ccc": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "#e2e0f8": {
@@ -5560,17 +5217,15 @@
    }
   },
   "#ffb86c": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "#c4b5fd": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "#141414": {
@@ -5712,14 +5367,13 @@
    }
   },
   "#8a8a8a": {
-   "total": 7,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "signup/index.html": 1,
-    "event-company/index.html": 1
+    "signup/index.html": 1
    }
   },
   "#f6f7f9": {
@@ -5789,43 +5443,35 @@
    }
   },
   "#4285f4": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   "#34a853": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   "#fbbc05": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   "#ea4335": {
-   "total": 10,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
-    "event-company/index.html": 2,
-    "event-employer/index.html": 2
+    "auth.html": 2
    }
   },
   "#c0392b": {
@@ -5879,10 +5525,9 @@
  },
  "fonts": {
   "Inter Tight": {
-   "total": 91,
+   "total": 77,
    "files": {
     "talents/index-v2.html": 18,
-    "talents/index.html": 14,
     "employers/index.html": 8,
     "job-board/index.html": 8,
     "train/index.html": 7,
@@ -5898,7 +5543,7 @@
    }
   },
   "Inter": {
-   "total": 31,
+   "total": 29,
    "files": {
     "employers/index.html": 5,
     "auth.html": 5,
@@ -5907,7 +5552,6 @@
     "hire/index.html": 2,
     "top-alerts.html": 2,
     "event-common/index.html": 2,
-    "talents/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1,
@@ -5915,20 +5559,18 @@
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
     "signup/index.html": 1,
-    "event-company/index.html": 1,
     "book/index.html": 1
    }
   }
  },
  "fontsize": {
   "18px": {
-   "total": 16,
+   "total": 15,
    "files": {
     "job-board/index.html": 3,
     "employers/index.html": 2,
     "train/index.html": 2,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
@@ -5939,17 +5581,15 @@
    }
   },
   "12px": {
-   "total": 47,
+   "total": 40,
    "files": {
     "event-common/index.html": 8,
     "hire/index.html": 7,
     "top-alerts.html": 5,
-    "event-company/index.html": 5,
     "signup/index.html": 4,
     "employers/index.html": 3,
     "auth.html": 3,
     "talents/index-v2.html": 2,
-    "talents/index.html": 2,
     "events/index.html": 2,
     "book/index.html": 2,
     "train/index.html": 1,
@@ -5959,13 +5599,12 @@
    }
   },
   "11px": {
-   "total": 45,
+   "total": 41,
    "files": {
     "talents/index-v2.html": 9,
     "employers/index.html": 7,
     "train/index.html": 7,
     "hire/index.html": 6,
-    "talents/index.html": 4,
     "top-alerts.html": 3,
     "about/index.html": 2,
     "nav-options.html": 2,
@@ -5985,12 +5624,11 @@
    }
   },
   "13px": {
-   "total": 45,
+   "total": 39,
    "files": {
     "talents/index-v2.html": 8,
     "job-board/index.html": 8,
     "auth.html": 7,
-    "talents/index.html": 5,
     "employers/index.html": 3,
     "nav-options.html": 3,
     "top-alerts.html": 3,
@@ -5999,12 +5637,11 @@
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "event-common/index.html": 1,
-    "event-company/index.html": 1
+    "event-common/index.html": 1
    }
   },
   "10px": {
-   "total": 41,
+   "total": 39,
    "files": {
     "train/index.html": 10,
     "talents/index-v2.html": 9,
@@ -6013,23 +5650,20 @@
     "about/index.html": 3,
     "top-alerts.html": 2,
     "event-common/index.html": 2,
-    "talents/index.html": 1,
     "job-board/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "signup/index.html": 1,
-    "event-company/index.html": 1
+    "signup/index.html": 1
    }
   },
   "12.5px": {
-   "total": 14,
+   "total": 13,
    "files": {
     "employers/index.html": 3,
     "nav-options.html": 3,
     "top-alerts.html": 3,
     "talents/index-v2.html": 2,
-    "talents/index.html": 1,
     "hire/index.html": 1,
     "job-board/index.html": 1
    }
@@ -6046,11 +5680,10 @@
    }
   },
   "16.5px": {
-   "total": 3,
+   "total": 2,
    "files": {
     "employers/index.html": 1,
-    "talents/index-v2.html": 1,
-    "talents/index.html": 1
+    "talents/index-v2.html": 1
    }
   },
   "26px": {
@@ -6063,13 +5696,12 @@
    }
   },
   "14px": {
-   "total": 38,
+   "total": 35,
    "files": {
     "job-board/index.html": 14,
     "employers/index.html": 6,
     "auth.html": 4,
     "talents/index-v2.html": 3,
-    "talents/index.html": 3,
     "book/index.html": 3,
     "about/index.html": 2,
     "hire/index.html": 1,
@@ -6078,12 +5710,11 @@
    }
   },
   "15px": {
-   "total": 37,
+   "total": 34,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 6,
     "auth.html": 4,
-    "talents/index.html": 3,
     "train/index.html": 3,
     "employers/index.html": 2,
     "hire/index.html": 2,
@@ -6097,11 +5728,10 @@
    }
   },
   "17px": {
-   "total": 11,
+   "total": 9,
    "files": {
     "train/index.html": 3,
     "talents/index-v2.html": 2,
-    "talents/index.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
     "job-board/index.html": 1,
@@ -6109,25 +5739,23 @@
    }
   },
   "9px": {
-   "total": 28,
+   "total": 27,
    "files": {
     "talents/index-v2.html": 10,
     "train/index.html": 10,
     "top-alerts.html": 3,
     "about/index.html": 2,
     "employers/index.html": 1,
-    "talents/index.html": 1,
     "hire/index.html": 1
    }
   },
   "16px": {
-   "total": 31,
+   "total": 29,
    "files": {
     "talents/index-v2.html": 5,
     "events/index.html": 5,
     "nav-options.html": 4,
     "job-board/index.html": 3,
-    "talents/index.html": 2,
     "train/index.html": 2,
     "top-alerts.html": 2,
     "employers/index.html": 1,
@@ -6157,30 +5785,27 @@
    }
   },
   "8px": {
-   "total": 20,
+   "total": 19,
    "files": {
     "talents/index-v2.html": 8,
     "train/index.html": 7,
-    "about/index.html": 4,
-    "talents/index.html": 1
+    "about/index.html": 4
    }
   },
   "22px": {
-   "total": 5,
+   "total": 4,
    "files": {
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "train/index.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1
    }
   },
   "20px": {
-   "total": 8,
+   "total": 7,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
-    "talents/index.html": 1,
     "chat-learn/index.html": 1,
     "top-alerts.html": 1,
     "book/index.html": 1

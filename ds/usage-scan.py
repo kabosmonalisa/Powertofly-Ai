@@ -48,6 +48,10 @@ hexes   = collections.defaultdict(lambda: collections.defaultdict(int))
 fonts   = collections.defaultdict(lambda: collections.defaultdict(int))
 fontsz  = collections.defaultdict(lambda: collections.defaultdict(int))
 FS_RE   = re.compile(r'font-size\s*:\s*([0-9.]+px)', re.I)
+STYLE_RE = re.compile(r'<style[^>]*>(.*?)</style>', re.S | re.I)
+pagecss = {}   # how many lines of CSS a page writes for itself — the clearest drift signal
+               # we have: the pages with none (Resources, Become a sponsor) have no
+               # opportunities against them; Employers writes 939 lines and has nine.
 
 files = html_files()
 for path in files:
@@ -78,6 +82,13 @@ for path in files:
     # font sizes (typography unification: near-duplicate sizes)
     for fs in FS_RE.findall(txt):
         fontsz[fs.lower()][r] += 1
+    # a page's own CSS — everything inside its <style> blocks, comments and blanks aside
+    if r.endswith(".html"):
+        n = 0
+        for block in STYLE_RE.findall(txt):
+            body = re.sub(r'/\*.*?\*/', '', block, flags=re.S)
+            n += len([l for l in body.split("\n") if l.strip()])
+        pagecss[r] = n
     # font families
     for fam in ("Inter Tight", "JetBrains Mono"):
         n = txt.count("'" + fam + "'") + txt.count('"' + fam + '"')
@@ -116,6 +127,7 @@ data = {
         # counting it would inflate every "used on N pages" number by one.
         "pageCount": len([p for p in files if p.endswith(".html")]),
         "pages": [rel(p) for p in files if p.endswith(".html")],
+        "pageCss": pagecss,
     },
     "classes": pack(classes),
     "tokens":  pack(tokens),

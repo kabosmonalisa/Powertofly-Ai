@@ -560,6 +560,30 @@ button,a,label,summary{ touch-action:manipulation; }
 /* The answers. A radio group, because it IS one — and because two clicks (decide, then
    commit) is the right shape for something that rewrites 18 pages. */
 /* Accessibility: section headers, and the checker's two themes side by side */
+/* A page's workspace */
+.sb-pw-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:4px; }
+@media (max-width:720px){ .sb-pw-stats{ grid-template-columns:1fr; } }
+.sb-pw-stat{ padding:14px 16px; border:1px solid var(--sb-line); border-radius:12px; background:var(--sb-panel); }
+.sb-pw-stat b{ display:block; font-family:'Inter Tight'; font-size:30px; font-weight:800; letter-spacing:-.03em; color:var(--sb-txt); }
+.sb-pw-stat b.good{ color:var(--sb-green); }
+.sb-pw-stat b.mid{ color:#FFCB6B; }
+.sb-pw-stat b.bad{ color:#FF8A8A; }
+.sb-pw-stat span{ display:block; margin-top:2px; font-size:12px; color:var(--sb-txt-3); }
+.sb-pw-stat i{ display:block; margin-top:3px; font-style:italic; font-size:11.5px; color:var(--sb-txt-3); opacity:.8; }
+.sb-pw-chips{ display:flex; flex-wrap:wrap; gap:7px; }
+.sb-pw-chip{ font:inherit; font-size:12.5px; padding:6px 12px; border-radius:999px; cursor:pointer;
+  color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line); }
+.sb-pw-chip:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+.sb-pw-finds{ display:flex; flex-direction:column; gap:7px; }
+.sb-pw-find{ display:flex; align-items:center; gap:11px; width:100%; text-align:left; font:inherit; cursor:pointer;
+  padding:11px 13px; border-radius:10px; background:var(--sb-panel); border:1px solid var(--sb-line); }
+.sb-pw-find:hover{ border-color:var(--sb-txt-3); }
+.sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); }
+.sb-pw-find-go{ margin-left:auto; display:inline-flex; align-items:center; gap:3px; font-size:11.5px; color:var(--sb-txt-3); flex:none; }
+.sb-pw-clean{ display:flex; gap:9px; align-items:flex-start; padding:13px 15px; border-radius:10px; font-size:12.5px; line-height:1.55;
+  color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
+.sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
+.sb-pw-send{ display:flex; justify-content:flex-end; margin-top:10px; }
 .sb-a11y-h{ display:flex; align-items:baseline; gap:10px; margin:26px 0 12px; }
 .sb-a11y-h:first-child{ margin-top:0; }
 .sb-a11y-h b{ font-family:'Inter Tight'; font-size:15px; font-weight:700; color:var(--sb-txt); }
@@ -1137,6 +1161,64 @@ const S = [
 
 /* The colour lookup behind the page-preview highlighter (click a page → every use outlined). */
 const HEXOF = { '--ink':'#0a0a0a','--ink-2':'#2a2a2a','--ink-3':'#5c6f69','--surface-2':'#fafaf6','--accent':'#0a8c66','--green-mid':'#4fe8a9','--purple':'#5b4fcf','--purple-light':'#eeebff','--purple-bright':'#7b00ff','--iri-cyan':'#5bcfff','--iri-lime':'#d5ff66' };
+
+/* ═══════════ A PAGE'S WORKSPACE ═══════════
+   Clicking a page used to give you a preview and a width toggle — a look, not a
+   place to work. The playbook already knew everything needed to answer three
+   questions about a page; it just never showed them: what it's made of, what's
+   wrong with it, and how to change it.
+   The headline number is the page's OWN CSS. It is the clearest signal in the
+   whole system: the pages that write none (Resources, Become a sponsor) have zero
+   opportunities against them; Employers writes 848 lines and has nine. */
+function pageStories(file){
+  return S.filter(st=>(st.u||[]).some(k=>{
+    const e=DATA&&DATA.classes[k]; return e && (e.files||{})[file];
+  })).filter(st=>!st.special && !st.pageId);
+}
+function pageFindings(name){
+  if(!AUDIT) return [];
+  return AUDIT.findings.filter(f=>!findingObsolete(f) && !DECIDED[f.id]
+    && (f.variants||[]).some(v=>(v.where||[]).includes(name)));
+}
+function renderPageWork(s){
+  const wrap=document.getElementById('sbUsage');
+  const file=s.iframe, name=s.name;
+  if(!DATA){ wrap.innerHTML=''; return; }
+  const comps=pageStories(file), finds=pageFindings(name);
+  const css=(DATA.meta.pageCss||{})[file];
+  const cssVerdict = css===0 ? 'good' : css>400 ? 'bad' : 'mid';
+  const cssNote = css===0 ? 'built entirely from the system'
+                : css>400 ? 'this page is its own design system'
+                : 'some of this page is one-offs';
+  let h='<div class="sb-pw-stats">'
+    + '<div class="sb-pw-stat"><b>'+comps.length+'</b><span>components from the system</span></div>'
+    + '<div class="sb-pw-stat"><b class="'+(finds.length?'bad':'good')+'">'+finds.length+'</b><span>opportunities against it</span></div>'
+    + '<div class="sb-pw-stat"><b class="'+cssVerdict+'">'+(css==null?'—':css)+'</b><span>lines of its own CSS<i>'+cssNote+'</i></span></div>'
+    + '</div>';
+
+  h+='<div class="sb-a11y-h"><b>What it’s made of</b><span class="sb-a11y-hint">click one to open it</span></div>'
+    + (comps.length
+        ? '<div class="sb-pw-chips">'+comps.map(c=>'<button class="sb-pw-chip" data-goto="'+c.id+'">'+esc(c.name)+'</button>').join('')+'</div>'
+        : '<p class="sb-scan-note">Nothing here matches a component in the storybook — which usually means the page was hand-built.</p>');
+
+  h+='<div class="sb-a11y-h"><b>What’s off here</b><span class="sb-a11y-hint">'
+    + (finds.length?'the opportunities that touch this page':'')+'</span></div>'
+    + (finds.length
+        ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'">'
+            + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
+            + '<span class="sb-pw-find-t">'+esc(f.title)+'</span>'
+            + '<span class="sb-pw-find-go">fix it'+uic('chevronRight',12)+'</span></button>').join('')+'</div>'
+        : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
+          + 'Every opportunity in the playbook has been checked against it and none of them land here.</span></div>');
+
+  h+='<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">in your words — I pick it up next time we talk</span></div>'
+    + '<textarea class="sb-ask" data-pageask="'+esc(s.pageId)+'" rows="3" '
+    + 'placeholder="e.g. the hero feels too tight on mobile, and the topic filters should match the Events page">'
+    + esc(ASKED['page:'+s.pageId]||'')+'</textarea>'
+    + '<div class="sb-pw-send"><button class="sb-dec merge off" data-pagesend="'+esc(s.pageId)+'" disabled '
+    + 'aria-disabled="true" title="Write what you want first">Ask me to do it</button></div>';
+  wrap.innerHTML=h;
+}
 
 /* ═══════════ WHERE IT LIVES ═══════════
    Not a picture of a page — a picture of the COMPONENT, cropped to where it sits.
@@ -1787,7 +1869,9 @@ function select(id){
       if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
       if(el) el.scrollIntoView({block:'start'});
     }catch(e){} };
-    applyTheme(); WHERE_ALL=false; renderWhere(s); location.hash=id; return;
+    applyTheme(); WHERE_ALL=false;
+    if(s.pageId) renderPageWork(s); else renderWhere(s);   // a page is a place to work; a component is a thing to find
+    location.hash=id; return;
   }
   codeSec.classList.toggle('hidden',!codeOpen);
   stageInner.style.padding='';
@@ -2201,6 +2285,13 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+document.getElementById('sbUsage').addEventListener('input',e=>{
+  const ta=e.target.closest('[data-pageask]');
+  if(!ta) return;
+  ASKED['page:'+ta.dataset.pageask]=ta.value;
+  const btn=document.querySelector('[data-pagesend="'+ta.dataset.pageask+'"]');
+  if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
+});
 document.getElementById('sbOppsBody').addEventListener('input',e=>{
   const ta=e.target.closest('[data-ask]');
   if(!ta) return;
@@ -2238,6 +2329,12 @@ document.getElementById('sbUsage').addEventListener('click',e=>{
   const pv=e.target.closest('[data-preview]');
   if(pv){ openPreview(pv.dataset.preview, pv.dataset.key||null); return; }
   if(e.target.closest('[data-wheremore]')){ WHERE_ALL=true; renderWhere(current); return; }
+  const go=e.target.closest('[data-goto]'); if(go){ select(go.dataset.goto); return; }
+  const ff=e.target.closest('[data-finding]');
+  if(ff){ OPEN_FINDING=ff.dataset.finding; toggleOpps(true);   // hand it to the one place that fixes things
+    setTimeout(()=>{ const c=document.querySelector('.sb-f[data-fid="'+ff.dataset.finding+'"]');
+      if(c) c.scrollIntoView({block:'center'}); }, 260); return; }
+  const ps=e.target.closest('[data-pagesend]'); if(ps){ askAboutPage(ps.dataset.pagesend); return; }
   const sst=e.target.closest('[data-set]');
   if(sst){ e.stopPropagation(); setPageStatus(sst.dataset.pid, sst.dataset.set, ()=>renderGallery(current.galleryOf)); return; }
   const t=e.target.closest('[data-goto]'); if(t){ select(t.dataset.goto); return; }
@@ -2286,6 +2383,17 @@ async function decide(id,val){
   if(val==='merge'&&f&&!(f.apply||[]).length) toast('Accepted — needs a hand edit: '+esc(f.fix||''),6000);
   else if(val==='keep') toast('Dismissed — it stays as it is.');
 }
+async function askAboutPage(pid){
+  const st=S.find(x=>x.pageId===pid); const text=(ASKED['page:'+pid]||'').trim();
+  if(!text) return;
+  try{
+    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:'page:'+pid, title:(st?st.name:pid)+' (page)', text})});
+    if(!(await r.json()).ok) throw 0;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
+  toast(uic('check',13)+' Noted for <b>'+esc(st?st.name:pid)+'</b> — I\'ll pick this up next time we talk.',5000);
+}
+
 /* Neither answer fits: she writes what she wants, and it's recorded in her words.
    Nothing in a web page can start a Claude session, so this is the honest handoff —
    the ask lands in ds/requests.json and I pick it up next time we talk. */
