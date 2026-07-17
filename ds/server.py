@@ -124,50 +124,6 @@ def run_edit(paths, fn, nobackup=False):
 _IN_BATCH = False        # set while a multi-op Accept & apply runs; suppresses per-op backups
 _LAST_PAGES = 0          # newest page mtime we have measured; a jump means re-scan
 
-# ── Running the audit for her ────────────────────────────────────────────────
-# "Find new opportunities" used to hand her a wall of text to paste into a chat. With
-# the Claude command installed, the button can just do it. Only the audit — it measures
-# and writes findings; it never touches her pages, her CSS or her copy. Design work
-# stays a conversation, because the value there is her reacting to it.
-CLI = os.path.expanduser("~/.claude-cli/node_modules/.bin/claude")
-AUDIT_LOG = os.path.join(DS, ".audit-run.log")
-_audit = {"running": False, "ok": None, "error": None, "started": 0, "finished": 0, "lines": 0}
-
-def cli_ready():
-    return os.path.exists(CLI)
-
-def run_audit(prompt):
-    global _audit
-    _audit = {"running": True, "ok": None, "error": None, "started": time.time(), "finished": 0, "lines": 0}
-    try:
-        backup([os.path.join(DS, "audit-findings.json")])   # her findings are backed up first, always
-        with open(AUDIT_LOG, "w") as log:
-            proc = subprocess.Popen(
-                [CLI, "-p", prompt,
-                 "--permission-mode", "acceptEdits",   # write findings without asking; not a blank cheque
-                 "--allowedTools", "Read", "Grep", "Glob", "Edit", "Write",
-                 "Bash(python3 ds/usage-scan.py)"],
-                cwd=ROOT, stdout=log, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL)
-            proc.wait(timeout=1800)
-        out = open(AUDIT_LOG).read()
-        _audit["lines"] = len(out.splitlines())
-        if "Not logged in" in out or "/login" in out:
-            _audit["ok"] = False
-            _audit["error"] = "notloggedin"
-        elif proc.returncode != 0:
-            _audit["ok"] = False
-            _audit["error"] = (out or "").strip()[-400:] or ("exit " + str(proc.returncode))
-        else:
-            _audit["ok"] = True
-        rescan()
-    except subprocess.TimeoutExpired:
-        _audit["ok"] = False; _audit["error"] = "It ran for 30 minutes and I stopped it."
-    except Exception as e:
-        _audit["ok"] = False; _audit["error"] = str(e)
-    finally:
-        _audit["running"] = False; _audit["finished"] = time.time()
-
-
 def apply(a):
     global _IN_BATCH
     _IN_BATCH = bool(a.get("_nobackup"))
@@ -441,18 +397,6 @@ class H(http.server.SimpleHTTPRequestHandler):
             # not judging. It never writes a finding; it only refreshes the data.
             self._json({"ok": True, "data": rescan()})
             return
-        if self.path.rstrip("/") == "/api/audit":
-            if not cli_ready():
-                return self._json({"ok": False, "error": "nocli"})
-            if _audit["running"]:
-                return self._json({"ok": False, "error": "already running"})
-            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
-            prompt = (body.get("prompt") or "").strip()
-            if len(prompt) < 40:
-                return self._json({"ok": False, "error": "no prompt"})
-            import threading
-            threading.Thread(target=run_audit, args=(prompt,), daemon=True).start()
-            return self._json({"ok": True, "started": True})
         if self.path.rstrip("/") == "/api/request":
             # An opportunity where neither answer is what she wants. She writes what she
             # actually wants; it lands here in her own words for me to pick up. Nothing
@@ -522,10 +466,6 @@ class H(http.server.SimpleHTTPRequestHandler):
                 _LAST_PAGES = pv
             return self._json({"v": round(max(v, pv), 3)})
         if self.path.rstrip("/") == "/api/approvals": return self._json(load_appr())
-        if self.path.rstrip("/") == "/api/audit-status":
-            d = dict(_audit); d["cli"] = cli_ready()
-            d["secs"] = round((d["finished"] or time.time()) - d["started"]) if d["started"] else 0
-            return self._json(d)
         if self.path.rstrip("/") == "/api/requests":
             try: return self._json(json.load(open(REQS)))
             except Exception: return self._json({"requests": []})
