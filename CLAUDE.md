@@ -24,7 +24,7 @@ Full detail in `DESIGN-SYSTEM.md` → "The things Lizu keeps repeating."
 2. **Aligned widths.** Nav + footer share `--container`; content sits *inside* it — `.section-narrow`, `.content` (`--content`), `.content-narrow` (`--content-narrow`). Never make text as wide as the bar. (The exact px live in the `:root` tokens in `ptf.css` — read them there, don't hardcode a width here.)
 3. **Eyebrows / small labels are PLAIN green uppercase text — NEVER a pill.** Always `.eyebrow` (a `.dot` is fine; a background/border-radius is not). Same rule for category labels like `.sc-tag`. Never invent `.hero-eyebrow` / `.book-eyebrow` / etc.
 4. **Images & video = real, diverse, professional people** — Pexels preferred (photos + video), or the local `photos/` library for featured faces. Never posed stock models; never all-white / all-male.
-5. **Icons = the ONE approved recipe (no exceptions, existing or new):** genuine **MUI Outlined** path, `fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"` (gradient fill + matching gradient stroke fattens it; square corners like the thank-you check; genuinely round shapes stay round). NOT Feather/Lucide. Proof sheet + copy-paste source = `ds/_icons.html`; full recipe in DESIGN-SYSTEM rule #5. One icon family per page.
+5. **Icons = ONE family (genuine MUI Outlined, NOT Feather/Lucide), treatment by SIZE:** **big ≥40px** (feature/hero icons + thank-you check) → gradient recipe `fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square"`. **Small <40px** (list bullets, chips, inline, fields, buttons, stepper — anything repeated) → **plain single-color ink, NO gradient** (`<path d="…">` coloured with `fill:var(--ink)` in CSS). A gradient icon at 16–24px is mush — never do it. Proof sheet + copy-paste source = `ds/_icons.html`; full recipe in DESIGN-SYSTEM rule #5. One icon family per page.
 
 **Headline italic accent (the one that bites most):** the italic word in any headline uses `<em class="italic-plain">` — bold italic, same ink color, no gradient. The gradient `.italic-accent` is banned from headlines (h1/h2/any display text). Gradient text is only OK on small UI on dark backgrounds.
 
@@ -34,3 +34,16 @@ Full detail in `DESIGN-SYSTEM.md` → "The things Lizu keeps repeating."
 Lizu gives copy + intent. You map it to existing components, reuse them, **say which**, apply rules 1–5 automatically, and verify in the browser at 1280 / 768 / 375px with a screenshot. Lizu should never have to re-specify these — if she does, that's a bug; fix it here or in `DESIGN-SYSTEM.md`.
 
 Copy: sentence case for headlines and buttons; real PowerToFly voice (no Lorem); mark unconfirmed claims `<!-- COPY: confirm -->`. Real numbers: 80K+ experts, 6,500 AI professionals, 190 countries, 75%+ women & BIPOC, 12+ years.
+
+---
+
+## 🔁 Design Opportunities — the rule, every time
+Every opportunity in the storybook **ships with a working Accept & apply.** Lizu looks, decides, clicks — and the code changes on every page. A card that only records a decision is not a card; fix the apply or leave the finding out. "Needs judgement" is never cover for ops you didn't write. This is standing — she must never ask for it again, including for anything from **Find new opportunities**.
+
+To make that true:
+- Record **where the rule lives** per variant (file + line + selector + the literal declaration), not just what it looks like — a look can't be edited. `where` = the pages the look appears on; the rule itself is often `ds/ptf.css`, not the page. Both matter.
+- **Verify every address** by opening the file. Findings hold *computed* values (`#FAFAF6`); the source says `var(--bg-soft)`. Match on meaning, never guess — a wrong guess edits a page that never had the problem.
+- Ops use `css-set` with `in` (`css` | `pages` | `all`) and `expect` (the measured value), so a rule that has changed since is skipped, not clobbered.
+- Real alternatives (which two sizes? 700 or 800?) ship as **`options`**, each with its own apply ops — never one ambiguous Accept.
+- **Prove it:** apply → diff → undo → byte-identical. An unproven apply is a bug with a button on it.
+- One finding = one `/api/apply {"ops":[…]}` = one backup = one undo.
