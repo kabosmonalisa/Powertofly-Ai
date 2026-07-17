@@ -945,7 +945,7 @@ const S = [
 
 /* ══════════ FOUNDATIONS ══════════ */
 {g:'Foundations', id:'brand', name:'Brand & logo',
-  use:"Use the wordmark; the icon mark only where the full one won't fit \u2014 favicons, avatars, tight spaces. It inverts to white on dark, so it never sits black-on-black.", rule:"Careful: the nav and footer don't load this file \u2014 they draw the mark in code (ds/ptf.js), twice. Replacing it here changes the storybook and nothing else.", tags:['.brand','.brand-ai'], u:['.brand','.brand-ai'],
+  use:"Use the wordmark. The icon mark only where the full one won't fit \u2014 favicons, avatars, tight spaces. It inverts to white on dark, so it never sits black on black.", rule:"The nav and footer don't use this file \u2014 their wordmark is drawn in code, twice. Three copies of your logo exist and nothing keeps them in step, so replacing it here changes this page and nothing else.", tags:['.brand','.brand-ai'], u:['.brand','.brand-ai'],
   desc:'The PowerToFly wordmark, the AI sub-brand chip, and the standalone icon mark. Toggle Dark or Split — the wordmark inverts to white so it never sits black-on-black.',
   html:`<div class="sb-variant"><div class="sb-variant-h">Wordmark — .brand</div>
   <img src="../PowerToFly-AI-logo.svg" alt="PowerToFly AI" class="sb-logo-mark" style="height:30px">
@@ -957,7 +957,7 @@ const S = [
   <img src="../PowerToFly-Icon.svg" alt="PowerToFly icon" class="sb-logo-mark" style="height:44px">
   <p class="sb-cap">The standalone glyph — favicons, avatars, social, and tight spaces where the full wordmark won't fit. Inverts on dark too.</p></div>`},
 {g:'Foundations', id:'colors', name:'Color tokens',
-  use:"Reference tokens, never a raw hex. .theme-dark re-defines these same names \u2014 that IS the dark mode, which is why a literal colour can't follow it and a token can.", rule:"--accent is the same hex as --green. \"Change the green\" is ambiguous: brand colours are your identity, roles are where a colour gets used.", tags:['semantic','theme-aware'],
+  use:"These are the colours everything else reads. Change one here and it changes everywhere at once \u2014 that's the whole point of naming them.", rule:"Dark mode is nothing but these same names with different values. So a colour picked by name follows you into dark; a colour typed in by hand can't, and that's how a page ends up broken in dark.", tags:['semantic','theme-aware'],
   u:['--ink','--ink-2','--ink-3','--bg','--surface','--surface-2','--line-2','--accent','--btn-bg','--green-mid','--purple'],
   desc:'The semantic tokens components read. Toggle Dark — every swatch recomputes from .theme-dark, nothing is restyled.',
   html:`<div class="sb-swatches">
@@ -966,7 +966,7 @@ const S = [
 </div>`,
   mount(r){ r.querySelectorAll('[data-var]').forEach(el=>{ el.textContent = getComputedStyle(el).getPropertyValue(el.dataset.var).trim()||'—'; }); }},
 {g:'Foundations', id:'type', name:'Typography',
-  use:"Inter Tight for display, Inter for body. The italic word in a headline is <em class=\"italic-plain\"> \u2014 bold italic, same ink.", rule:"The gradient italic is banned from headlines. Gradient text is only ever OK on small UI on dark.", tags:['Inter Tight','Inter'], u:['font:Inter Tight','font:Inter','.italic-plain'],
+  use:"Inter Tight for headlines, Inter for body. The italic word in a headline is bold italic in the same colour as the rest.", rule:"Never the gradient italic in a headline. Gradient text is only ever OK on small labels sitting on dark.", tags:['Inter Tight','Inter'], u:['font:Inter Tight','font:Inter','.italic-plain'],
   desc:'Inter Tight for display, Inter for body. The italic accent in headlines is <em class="italic-plain"> — bold italic, same ink, never gradient.',
   html:`<div>
   <div class="sb-type-row"><div class="lbl">h1 · hero · 52 / 800</div><div style="font-family:'Inter Tight';font-weight:800;letter-spacing:-.03em;font-size:52px;line-height:1.02;color:var(--ink)">The humans behind <em class="italic-plain">better AI</em></div></div>
@@ -978,7 +978,7 @@ const S = [
   <div class="sb-type-row"><div class="lbl">eyebrow</div><div class="eyebrow"><span class="dot"></span>Why PowerToFly</div></div>
 </div>`},
 {g:'Foundations', id:'spacing', name:'Spacing rhythm',
-  use:"Every section owns half a --section-y top and bottom, so any two stacked sections give the same gap everywhere. One token drives desktop and mobile.", rule:"Never add per-section padding, raw px, margins or spacer divs. A coloured block puts its colour on an inner element so it never bleeds into the gap.", tags:['--section-y'], u:['--section-y','--section-y-tight','--section-y-loose','--hero-top'],
+  use:"One value sets the gap between every section, and it shrinks on mobile on its own. Every section carries half a gap above and half below, so any two that meet give the same space \u2014 everywhere, without you thinking about it.", rule:"Never add space by hand to fix one section. The moment you do, that gap is different from every other gap on the site and only you know why.", tags:['--section-y'], u:['--section-y','--section-y-tight','--section-y-loose','--hero-top'],
   desc:'ONE vertical token. Every section owns a half top & bottom, so every gap = 2×--section-y. Shrinks once at mobile.',
   html:`<div class="sb-space">
   <div class="sb-space-row"><b style="width:var(--section-y)"></b><span>--section-y (100 → 60 mobile)</span></div>
@@ -987,20 +987,20 @@ const S = [
   <div class="sb-space-row"><b style="width:var(--hero-top)"></b><span>--hero-top (56)</span></div>
 </div>`},
 {g:'Foundations', id:'radius', name:'Radius scale',
-  use:"Feature images and portraits 28px (--r-2xl); cards and panels 20px (--r-xl); small UI 12/8px; buttons and avatars fully round.", rule:"Never a raw px. If you're typing border-radius on a card, the scale already has your answer.", tags:['--r-*'], u:['--r-sm','--r-md','--r-lg','--r-xl','--r-2xl','--r-pill'],
+  use:"Feature images and portraits are the roundest at 28. Cards and panels 20. Small things 12 or 8. Buttons and avatars fully round.", rule:"Four roundings, and they mean something: rounder = bigger and softer. Invent a fifth and the scale stops meaning anything.", tags:['--r-*'], u:['--r-sm','--r-md','--r-lg','--r-xl','--r-2xl','--r-pill'],
   desc:'Portraits --r-2xl (28); cards --r-xl (20); small UI --r-md/-sm; buttons & avatars --r-pill. Never a raw px.',
   html:`<div class="sb-radii">
   ${[['--r-sm','8'],['--r-md','12'],['--r-lg','16'],['--r-xl','20'],['--r-2xl','28'],['--r-pill','pill']].map(([v,n])=>`<div class="sb-radius"><b style="border-radius:var(${v})"></b><span>${v} · ${n}</span></div>`).join('')}
 </div>`},
 {g:'Foundations', id:'elevation', name:'Elevation',
-  use:"Two elevations and only two: Resting for a card at rest, Lifted for a panel that is the screen's subject.", rule:"Use the token, not the literal shadow \u2014 .theme-dark re-defines it, and a hardcoded shadow can't follow it into dark.", tags:['--shadow-card'],
+  use:"Two shadows, and only two. Resting is a card sitting there. Lifted is a panel that IS the screen \u2014 a sign-in card, a booking card.", rule:"Pick one of the two rather than dialling a shadow to taste. A shadow chosen by hand can't follow you into dark mode; these two do it for free.", tags:['--shadow-card'],
   desc:'One card shadow token, softened & deepened in dark.',
   html:`<div class="sb-row" style="gap:36px;padding:20px 10px">
   <div style="width:200px;height:120px;border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px">--shadow-card</div>
   <div style="width:200px;height:120px;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px">hairline only</div>
 </div>`},
 {g:'Foundations', id:'icons', name:'Icon library',
-  use:"One family, genuine MUI Outlined. Big (40px+) feature icons take the gradient; anything smaller is plain ink.", rule:"A gradient icon at 16\u201324px turns to mush. List bullets, chips, fields, buttons and steppers are always plain --ink.", tags:['MUI Outlined','#ptf-grad'], u:['.benefit-sparkle','.statband-icon'],
+  use:"One family, one look. Big feature icons (40px and up) get the gradient. Anything smaller is a plain single colour.", rule:"A gradient icon below 40px turns to mush \u2014 you lose the shape and keep the noise. Bullets, chips, fields, buttons and steppers are always plain.", tags:['MUI Outlined','#ptf-grad'], u:['.benefit-sparkle','.statband-icon'],
   desc:'One genuine MUI Outlined family, gradient fill + stroke 1.4, miter/square corners. One family per page. Plus the sparkle accent and the fat thank-you check.',
   html:`<div class="sb-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
   ${['people','lightbulb','globe','heart','calendar','video','clock','key','bolt','shield','money','star','sparkle'].map(n=>`<div class="sb-iconcell">${ic(n,42)}<span>${n}</span></div>`).join('')}
@@ -1009,7 +1009,7 @@ const S = [
 
 /* ══════════ ATOMS ══════════ */
 {g:'Atoms', id:'btn', name:'Buttons — primary & outlined',
-  use:"The closed set. .btn is outlined and fills ink on hover; .btn-primary is the dark fill. .btn-sm for compact, .btn-block for full width.", rule:"If you're typing border or padding on a button, stop \u2014 it's already here. Hover is a lift and a glow, never a colour swap.", tags:['.btn','.btn-primary'], u:['.btn','.btn-primary','.btn-sm','.btn-block','.btn-light'],
+  use:"Your two everyday buttons: the outlined one, and the dark filled one. Plus a small size, and a full-width size.", rule:"This is the whole set. If you're reaching for a new border or new padding, the answer is already one of these. Hover is a lift and a glow \u2014 never a colour change.", tags:['.btn','.btn-primary'], u:['.btn','.btn-primary','.btn-sm','.btn-block','.btn-light'],
   desc:'Closed set. .btn = outlined (fills ink on hover). .btn-primary = dark fill. Modifiers .btn-sm / .btn-block. Hover = subtle lift + green glow, never a colour swap.',
   html:`<div class="sb-row"><span class="sb-lbl">default</span>
   <a href="#" class="btn">Log in</a><a href="#" class="btn btn-primary">Get matched</a></div>
@@ -1018,7 +1018,7 @@ const S = [
 <div class="sb-row"><span class="sb-lbl">full-width · .btn-block</span><a href="#" class="btn btn-primary btn-block">Continue</a></div>
 <div class="sb-row"><span class="sb-lbl">flyout trigger · +data-fly</span><button class="btn btn-sm" data-fly="fly-x" type="button">Solutions ▾</button></div>`},
 {g:'Atoms', id:'btn-cta', name:'Button — CTA band',
-  use:"The white button for the dark closing band. It's the last thing on almost every page, which is exactly why it never varies.", rule:"It must re-assert its white fill on hover or the shared .btn hover swaps it dark.", tags:['.btn-cta','always-dark'], theme:'dark', u:['.btn-cta'],
+  use:"The white button on the dark closing band. It's the last thing on nearly every page, which is exactly why it never varies.", rule:"It never changes colour on hover \u2014 it lifts and glows, like every other button. Colour-swapping on hover is the one thing your buttons never do.", tags:['.btn-cta','always-dark'], theme:'dark', u:['.btn-cta'],
   desc:'Primary for the always-dark closer: white-on-dark, fixed black label. Its only home is a dark band.',
   html:`<a href="#" class="btn btn-cta">Book a discovery call</a>`},
 {g:'Atoms', id:'btn-flow', name:'Buttons — flows',
@@ -1031,12 +1031,12 @@ const S = [
   <button class="btn-skip" style="width:auto">Skip for now</button>
 </div>`},
 {g:'Atoms', id:'links', name:'Links',
-  use:"Inline links in body copy, in --accent.", rule:"Never leave a link browser-blue. If it's a real action, it's a button, not a link.", tags:['.sc-more'], u:['.sc-more'],
+  use:"A link inside a sentence, in your green.", rule:"Never leave a link browser-blue \u2014 that's the default nobody chose. And if it's a real action, it's a button, not a link.", tags:['.sc-more'], u:['.sc-more'],
   desc:'Green text links. Two flavours depending on where they sit.',
   html:`<div class="sb-variant"><div class="sb-variant-h">.sc-more — arrow link</div><a class="sc-more" href="#">Talk to our team →</a><p class="sb-cap">Ends a copy block and points to the next step; trailing arrow, green.</p></div>
 <div class="sb-variant"><div class="sb-variant-h">Accent text link</div><a href="#" style="color:var(--accent);font-weight:600;font-size:14px;text-decoration:none">Accent link →</a><p class="sb-cap">Inline green link inside body copy.</p></div>`},
 {g:'Atoms', id:'eyebrow', name:'Eyebrows',
-  use:"The small green label above a headline. Plain uppercase text, optionally with a dot.", rule:"NEVER a pill. No background, no border-radius, ever. Same rule for category labels.", tags:['.eyebrow','.dot'], u:['.eyebrow','.dot'],
+  use:"The small green label above a headline. Plain uppercase, optionally with a dot.", rule:"Never a pill. No background, no rounded edges, ever. It's text, not a chip \u2014 same for category labels.", tags:['.eyebrow','.dot'], u:['.eyebrow','.dot'],
   desc:'The small green kicker label that sits above a section heading. ALWAYS plain uppercase green — never a pill, never a background.',
   html:`<div class="sb-variant"><div class="sb-variant-h">With dot — .eyebrow + .dot (default)</div>
   <div class="eyebrow"><span class="dot"></span>Why PowerToFly</div>
@@ -1105,7 +1105,7 @@ const S = [
   desc:'The "Step N of M" progress label used in flows.',
   html:`<div class="step-indicator">Step 2 of 4</div>`},
 {g:'Form parts', id:'thanks', name:'Thank-you state',
-  use:"The end of a flow: the big gradient check, what happened, and what happens next.", rule:"The check is the one place a big gradient icon is right \u2014 40px+, so it earns it. Always say what happens next.", tags:['.thanks-icon'], u:['.thanks-icon','.thanks-eyebrow','.thanks-body'],
+  use:"The end of a flow: the big check, what just happened, and what happens next.", rule:"The check is the one place a big gradient icon belongs \u2014 it's large enough to hold it. Always say what happens next; a thank-you that ends the conversation wastes the only moment they're paying attention.", tags:['.thanks-icon'], u:['.thanks-icon','.thanks-eyebrow','.thanks-body'],
   desc:'Flow success — the fat confirmation check (stroke 6.5), eyebrow, body.',
   html:`<div style="max-width:460px;text-align:center;margin:0 auto">
   <div class="thanks-icon"><svg viewBox="0 0 24 24" fill="none" width="56" height="56"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg></div>
@@ -1162,7 +1162,7 @@ const S = [
   desc:'Spark column + copy. (Static here; animates in on scroll on a page.)',
   html:`<div class="oc-float" style="position:static;opacity:1;transform:none;width:100%;max-width:420px;height:auto"><div class="oc-float-spark-col">${ic('shield',26)}</div><div class="oc-float-vline"></div><div class="oc-float-body"><h4>Reduce risk</h4><p>Project-to-hire pathways let you validate fit first.</p></div></div>`},
 {g:'Molecules', id:'howsteps', name:'How-it-works steps',
-  use:"Three numbered steps beside a portrait. The moment someone believes you, they ask what happens if I say yes \u2014 this answers it.", rule:"photos/how_it_works.png is the generic portrait made for this slot. Reuse it on every event type.", tags:['.steps','.step'], u:['.steps','.step','.step-num'],
+  use:"Three numbered steps beside a portrait. The moment someone believes you, they ask what happens if I say yes \u2014 this answers it before the doubt sets in.", rule:"There's a generic portrait in your photos library made for exactly this slot. Reuse it on every event type rather than picking a new face each time.", tags:['.steps','.step'], u:['.steps','.step','.step-num'],
   desc:'Numbered step list.',
   html:`<div class="steps" style="max-width:640px">
   <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Tell us what you're building</h4><p>Your model, industry, use case, and what good output looks like.</p></div></div>
