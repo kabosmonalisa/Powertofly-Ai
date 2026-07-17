@@ -544,14 +544,21 @@ button,a,label,summary{ touch-action:manipulation; }
    appear before you click it. An unlabelled icon in the toolbar was invisible — an
    icon alone only works for an action people already expect, and nobody expects
    this one. */
-/* A handle, not a button in a row of buttons: it sits at the far right, where the
-   drawer comes from, and the chevron points at it. Pull it out. */
-.sb-pw-tab{ display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none;
+/* The drawer's handle, welded to the edge it comes out of. Half a pill: its right
+   side runs off the screen, so it reads as attached rather than floating. Sits at the
+   header's height, not the middle of the page. */
+.sb-pw-tab{ position:fixed; right:0; top:200px; z-index:38;   /* placeTab() sets the real value */
+  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
   font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
-  background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px;
-  padding:7px 9px 7px 13px; transition:color .15s ease, border-color .15s ease, background-color .15s ease; }
-.sb-pw-pull{ display:inline-flex; opacity:.55; margin-left:-2px; transition:transform .15s ease, opacity .15s ease; }
+  background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-right:0;
+  border-radius:999px 0 0 999px; padding:9px 16px 9px 12px;
+  box-shadow:-6px 0 20px rgba(0,0,0,.35);
+  transition:color .15s ease, background-color .15s ease, padding-right .15s ease; }
+.sb-pw-tab:hover{ color:var(--sb-txt); background:var(--sb-panel); padding-right:22px; }
+.sb-pw-pull{ display:inline-flex; opacity:.55; transition:transform .15s ease, opacity .15s ease; }
 .sb-pw-tab:hover .sb-pw-pull{ transform:translateX(-2px); opacity:1; }
+.sb-pw-tab .sb-i{ color:var(--sb-green); }
+.sb-pw-tab.away{ display:none; }
 .sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
 .sb-pw-tab.away{ color:var(--sb-txt); border-color:var(--sb-txt-3); background:rgba(255,255,255,.06); }
@@ -854,9 +861,7 @@ button,a,label,summary{ touch-action:manipulation; }
           <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
-            <!-- Last in the bar: on the side with the controls, but a button, not a
-                 segment. It opens a thing rather than naming a setting. -->
-            <button class="sb-pw-tab" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">System check</span><span class="sb-pw-pull" id="sbPwPull"></span></button>
+            
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -868,6 +873,12 @@ button,a,label,summary{ touch-action:manipulation; }
     <section class="sb-usage" id="sbUsage"></section>
 <!-- A page's report sits BESIDE the page, not under it: Opportunities replaces what
      you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
+<!-- Stuck to the right edge — literally the drawer's handle, hanging half off the
+     screen at the header's height. Not a control in the bar: those name a setting you
+     pick between. This one you pull. -->
+<button class="sb-pw-tab" id="sbPwOpen" hidden>
+  <span class="sb-pw-pull" id="sbPwPull"></span><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">System check</span>
+</button>
 <aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
   <header class="sb-pw-hd">
     <h2 id="sbPwTitle"><span id="sbPwIcon"></span><span id="sbPwTitleTxt">How to use it</span></h2>
@@ -2255,10 +2266,25 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+/* The handle hangs level with the top of the preview, not the header — at header
+   height it sat on top of the Status control. The header stacks at narrow widths, so
+   this is measured, never a magic number. */
+function placeTab(){
+  const t=document.getElementById('sbPwOpen');
+  if(!t||t.hidden) return;
+  /* below the header AND below the frame's own bar — that bar carries the "open" link
+     on the right, and the handle was sitting on top of it. */
+  const st=document.getElementById('sbSticky');
+  const bar=document.querySelector('.sb-frame-bar');
+  const under=Math.max(st?st.getBoundingClientRect().bottom:0, bar?bar.getBoundingClientRect().bottom:0);
+  t.style.top=Math.round(under+14)+'px';
+}
+addEventListener('resize',placeTab);
 function pwLabel(t){
   const b=document.getElementById('sbPwOpen');
   b.setAttribute('aria-label',t);
   document.getElementById('sbPwOpenTxt').textContent=t;   // an icon alone is only readable
+  requestAnimationFrame(placeTab);
 }
 function pwOpen(on){
   document.getElementById('sbPwDrawer').hidden=!on;
