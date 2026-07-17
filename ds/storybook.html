@@ -245,6 +245,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-gal-link .sb-i{ opacity:.55; }
 .sb-gal-link .sb-group-n{ margin-left:auto; }
 .sb-gal-h{ display:flex; align-items:baseline; gap:9px; margin:22px 0 12px; }
+.sb-gal-h b[title]{ cursor:help; }   /* the explanation lives here now, on hover */
 .sb-gal-h:first-child{ margin-top:4px; }
 .sb-gal-h b{ font-family:'Inter Tight'; font-size:14px; font-weight:800; }
 .sb-gal-h > span{ font-size:11px; font-weight:700; color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:999px; padding:2px 7px; }
@@ -2059,7 +2060,7 @@ async function setPageStatus(pid,next,thenFn){
 }
 function gallerySection(title,list,hint){
   if(!list.length) return '';
-  return '<div class="sb-gal-h"><b>'+title+'</b><span>'+list.length+'</span>'+(hint?'<i>'+hint+'</i>':'')+'</div>'
+  return '<div class="sb-gal-h"><b'+(hint?' title="'+esc(hint)+'"':'')+'>'+title+'</b><span>'+list.length+'</span></div>'
     + '<div class="sb-tiles">'+list.map(tileHTML).join('')+'</div>';
 }
 function renderGallery(group){
@@ -2073,9 +2074,9 @@ function renderGallery(group){
   h+=gallerySection('Drafts',drafts,'still being made');
   h+=gallerySection('Done',live,'audited and kept in sync');
   if(arch.length){
-    h+='<div class="sb-gal-h arch"><button class="sb-arch-toggle" data-arch="1">'
+    h+='<div class="sb-gal-h arch"><button class="sb-arch-toggle" data-arch="1" title="Excluded from every scan and edit">'
       + '<span class="sb-f-caret'+(SHOW_ARCH_TILES?' open':'')+'">'+uic('chevronRight',13)+'</span>'
-      + 'Archived</button><span>'+arch.length+'</span><i>excluded from every scan and edit</i></div>'
+      + 'Archived</button><span>'+arch.length+'</span></div>'
       + (SHOW_ARCH_TILES?'<div class="sb-tiles">'+arch.map(tileHTML).join('')+'</div>':'');
   }
   if(!mine.length) h='<div class="sb-empty">Nothing here yet.</div>';
