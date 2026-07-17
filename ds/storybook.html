@@ -112,17 +112,16 @@ button,a,label,summary{ touch-action:manipulation; }
      title ┆ view controls
      desc  ┆ tags
    display:contents lets the existing wrappers hand their children to the grid. */
-/* Two columns: what this IS on the left, what you can DO to it on the right. Each side
-   stacks in its own order.
-   This used to be display:contents with every child pinned to a grid cell by id —
-   including #sbName, the h1. The moment the h1 got wrapped in .sb-titlerow (for the
-   rename button) it stopped being a grid cell, that rule died silently, and the title
-   auto-placed itself into row 3: BELOW its own description. Pinning by id through a
-   display:contents parent breaks the day anyone adds a wrapper, so: real boxes. */
-.sb-sticky-in{ max-width:1240px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) auto;
-  align-items:start; gap:7px 32px; }
-.sb-head{ min-width:0; }
-.sb-headside{ display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+/* What this IS on the left, what you can DO to it on the right — and the controls drop
+   to their own line the moment they'd squeeze the title, rather than at a width I
+   guessed. It was a 2-column grid stacking at 1100px, but the controls alone are ~750px
+   wide: so between 1100 and ~1400 the title got a 110px sliver and wrapped to "Virtual /
+   job fair" while two columns pretended to fit. Any hardcoded breakpoint is wrong at
+   some size; flex-basis lets the layout decide. */
+.sb-sticky-in{ max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap;
+  align-items:flex-start; gap:10px 32px; }
+.sb-head{ flex:1 1 340px; min-width:0; }        /* below 340px of room, the controls wrap away */
+.sb-headside{ flex:0 1 auto; margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
 .sb-crumb{ display:flex; align-items:center; gap:3px; margin:0 0 3px; }
 .sb-crumb button{ font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; color:var(--sb-txt-3);
   background:none; border:0; padding:0; cursor:pointer; }
@@ -146,10 +145,7 @@ button,a,label,summary{ touch-action:manipulation; }
    what's in the stage below them, and they disappear when they can't do anything. */
 .sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:14px; margin:0; flex-wrap:wrap; }
 .sb-seg-g{ display:inline-flex; align-items:center; gap:7px; }
-/* Narrow (side panel): the header stacks — title, description, then the controls.
-   Two columns at this width squeezes the title into a 3-line sliver. */
 @media (max-width:1100px){
-  .sb-sticky-in{ grid-template-columns:1fr; gap:9px; }
   #sbName,#sbDesc,#sbStageBar,#sbTags{ grid-area:auto; }
   #sbStageBar,#sbTags{ justify-content:flex-start; }
   .sb-head p{ -webkit-line-clamp:2; }
