@@ -542,11 +542,6 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-diff li::before{ content:'—'; position:absolute; left:0; color:var(--sb-txt-3); }
 .sb-f-cause{ font-size:13px; color:var(--sb-txt-2); line-height:1.6; background:rgba(255,255,255,.03); border:1px solid var(--sb-line); border-radius:9px; padding:11px 13px; }
 .sb-f-rec{ margin-top:20px; }
-.sb-f-rec .sb-rec-chip{ display:inline-block; margin-bottom:10px; }
-.sb-rec-chip{ font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:5px 11px; border-radius:999px; flex:none; }
-.sb-rec-chip.merge{ background:rgba(79,232,169,.14); color:#4FE8A9; }
-.sb-rec-chip.keep{ background:rgba(255,255,255,.07); color:var(--sb-txt-2); }
-.sb-rec-chip.discuss{ background:rgba(255,193,86,.15); color:#FFCB6B; }
 .sb-f-why{ font-size:13.5px; color:var(--sb-txt-2); line-height:1.65; margin-top:10px; max-width:88ch; }
 .sb-f-fix{ font-size:12.5px; color:var(--sb-green); background:rgba(79,232,169,.07); border:1px solid rgba(79,232,169,.2); border-radius:9px; padding:10px 13px; margin-top:12px; line-height:1.5; }
 .sb-f-fix::before{ content:'→ '; font-weight:700; }
@@ -1375,7 +1370,6 @@ function findingObsolete(f){
 }
 function findingHTML(f){
   const dec=DECIDED[f.id];
-  const recLbl={merge:'Merge into one',keep:'Keep separate',discuss:'Needs discussion'}[f.recommend]||f.recommend;
   /* Once decided, a finding collapses to a one-line receipt — the list shrinks as you work. */
   if(dec){
     return '<div class="sb-f decided" data-fid="'+f.id+'" data-impact="'+f.impact+'">'
@@ -1412,7 +1406,11 @@ function findingHTML(f){
     h+='<div class="sb-arrow-row"><span>What you\'d get</span><span class="ln"></span></div>';
     h+='<div class="sb-spx'+wide+'">'+f.after.map(specimenHTML).join('')+'</div>';
   }
-  h+='<div class="sb-f-rec"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span>';
+  /* No recommendation chip. The card already said MERGE DUPLICATES at the top, then
+     MERGE INTO ONE here, then what the button does, then the button — one idea, four
+     times. On a choice card the recommendation is the "Recommended" tag on the answer;
+     on the others it's the Accept button itself. The chip was decoration. */
+  h+='<div class="sb-f-rec">';
   if(f.impact_note) h+='<div class="sb-impact-note"><b>Expected impact:</b> '+esc(f.impact_note)+'</div>';
   /* Say plainly what the button will do. "Accept" and "Accept & apply" is far too
      quiet a signal for the difference between "this rewrites your CSS on 18 pages"
@@ -2060,7 +2058,7 @@ function freshPrompt(){
     + '2. Look for: duplicate visual styles, near-identical spacing/colour/type, unnecessary variations, repeated layouts that should become Section Patterns, sibling pages that should become a Page Recipe, and components used on pages but missing from ds/COMPONENT-INVENTORY.md.\n'
     + '3. Exclude prototype-only scaffolding (#devStates, .live-sim) and anything I have already decided.\n'
     + '4. ADD findings to ds/audit-findings.json. Existing shape: title, question, kind, impact, differs,\n'
-    + '   cause, recommend, reasoning, impact_note, fix, variants (live specs, not screenshots), after.\n'
+    + '   cause, reasoning, impact_note, fix, variants (live specs, not screenshots), after.\n'
     + '\nAPPEND-ONLY — READ THIS TWICE:\n'
     + 'ds/audit-findings.json is Lizu\'s work, not scratch. Every finding below already exists and MUST\n'
     + 'still exist, with its id, its apply/options ops and its wording intact, when you are done:\n'
