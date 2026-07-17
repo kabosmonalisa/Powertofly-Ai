@@ -221,34 +221,11 @@ button,a,label,summary{ touch-action:manipulation; }
 
 .sb-usage{ max-width:1240px; margin:22px auto 0; }
 /* ══ WHERE IT LIVES — the pages using this component ══ */
-.sb-where-h{ display:flex; align-items:baseline; gap:9px; margin:0 0 12px; }
-.sb-where-h b{ font-family:'Inter Tight'; font-size:14px; font-weight:800; }
-.sb-where-hint{ font-style:normal; font-size:11.5px; color:var(--sb-txt-3); }
-.sb-where-more{ font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2); background:var(--sb-panel);
-  border:1px solid var(--sb-line-2); border-radius:8px; padding:8px 14px; margin-top:10px; cursor:pointer; }
-.sb-where-more:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
-.sb-where-h span{ font-size:11px; font-weight:700; color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:999px; padding:2px 7px; }
-.sb-shots{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
-.sb-shot{ display:flex; flex-direction:column; padding:0; font:inherit; text-align:left; background:var(--sb-panel);
-  border:1px solid var(--sb-line); border-radius:12px; overflow:hidden; cursor:pointer;
-  transition:border-color .15s ease, transform .15s ease; }
-.sb-shot:hover{ border-color:var(--sb-txt-3); transform:translateY(-2px); }
-/* the window onto the real page — the iframe inside is positioned so the component is centred */
-.sb-shot-win{ display:block; position:relative; height:176px; overflow:hidden; background:var(--bg); }
-.sb-shot-win iframe{ position:absolute; width:1280px; height:1400px; /* grown to the full page height by cropShot */ border:0; pointer-events:none; opacity:0;
-  transition:opacity .2s ease; }
-.sb-shot-meta{ display:block; padding:10px 12px 11px; border-top:1px solid var(--sb-line); }
-.sb-shot-meta b{ display:block; font-family:'Inter Tight'; font-size:13px; font-weight:700; color:var(--sb-txt); }
-.sb-shot-sub{ display:block; font-size:11.5px; color:var(--sb-txt-3); margin-top:2px; }
 .sb-tiles-sm{ grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:10px; }
 .sb-tile-sm .sb-tile-shot{ height:96px; }
 .sb-tile-sm .sb-tile-shot iframe{ transform:scale(.122); }
 .sb-tile-sm .sb-tile-meta{ padding:7px 9px; }
 .sb-tile-sm .sb-tile-meta b{ font-size:12px; }
-.sb-nowhere{ display:flex; gap:10px; align-items:flex-start; font-size:12.5px; color:var(--sb-txt-2); line-height:1.55;
-  background:rgba(255,193,86,.06); border:1px solid rgba(255,193,86,.18); border-radius:10px; padding:12px 14px; }
-.sb-nowhere .sb-i{ color:#FFCB6B; margin-top:1px; flex:none; }
-.sb-nowhere b{ color:var(--sb-txt); }
 /* Accessibility panel rows */
 .sb-scanrow{ display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; font:inherit;
   text-align:left; background:var(--sb-panel); border:1px solid var(--sb-line); border-radius:10px;
@@ -561,6 +538,15 @@ button,a,label,summary{ touch-action:manipulation; }
    commit) is the right shape for something that rewrites 18 pages. */
 /* Accessibility: section headers, and the checker's two themes side by side */
 /* A page's workspace */
+/* How to use it */
+.sb-use{ display:flex; flex-direction:column; gap:9px; }
+.sb-use-when, .sb-use-rule{ display:flex; gap:10px; align-items:flex-start; padding:13px 15px;
+  border-radius:10px; font-size:13px; line-height:1.6; }
+.sb-use-when .sb-i, .sb-use-rule .sb-i{ flex:none; margin-top:2px; }
+.sb-use-when{ background:var(--sb-panel); border:1px solid var(--sb-line); color:var(--sb-txt-2); }
+.sb-use-when .sb-i{ color:var(--sb-txt-3); }
+.sb-use-rule{ background:rgba(255,203,107,.07); border:1px solid rgba(255,203,107,.3); color:var(--sb-txt-2); }
+.sb-use-rule .sb-i{ color:#FFCB6B; }
 .sb-pw-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:4px; }
 @media (max-width:720px){ .sb-pw-stats{ grid-template-columns:1fr; } }
 .sb-pw-stat{ padding:14px 16px; border:1px solid var(--sb-line); border-radius:12px; background:var(--sb-panel); }
@@ -830,7 +816,7 @@ button,a,label,summary{ touch-action:manipulation; }
           <div class="sb-stagebar" id="sbStageBar">
             <span class="sb-seg-g"><span class="sb-flabel">Theme</span><div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
-            <div class="sb-seg" id="sbCodeSeg" title="Show markup"><button data-code="toggle" data-ui-icon="code">Code</button></div>
+            <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
           <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
@@ -844,7 +830,7 @@ button,a,label,summary{ touch-action:manipulation; }
     </div>
     <section class="sb-usage" id="sbUsage"></section>
     <section class="sb-code hidden" id="sbCode">
-      <div class="sb-code-bar"><span>Markup — copy verbatim</span><button class="sb-copy" id="sbCopy"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button></div>
+      <div class="sb-code-bar"><span id="sbCodeWhat">Markup — copy verbatim</span><button class="sb-copy" id="sbDl" title="Save it as a file"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Download</button><button class="sb-copy" id="sbCopy"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button></div>
       <pre><code id="sbCodeText"></code></pre>
     </section>
   </main>
@@ -930,7 +916,8 @@ const S = [
 /* ─── AUDIT ─── */
 
 /* ══════════ FOUNDATIONS ══════════ */
-{g:'Foundations', id:'brand', name:'Brand & logo', tags:['.brand','.brand-ai'], u:['.brand','.brand-ai'],
+{g:'Foundations', id:'brand', name:'Brand & logo',
+  use:"Use the wordmark; the icon mark only where the full one won't fit \u2014 favicons, avatars, tight spaces. It inverts to white on dark, so it never sits black-on-black.", rule:"Careful: the nav and footer don't load this file \u2014 they draw the mark in code (ds/ptf.js), twice. Replacing it here changes the storybook and nothing else.", tags:['.brand','.brand-ai'], u:['.brand','.brand-ai'],
   desc:'The PowerToFly wordmark, the AI sub-brand chip, and the standalone icon mark. Toggle Dark or Split — the wordmark inverts to white so it never sits black-on-black.',
   html:`<div class="sb-variant"><div class="sb-variant-h">Wordmark — .brand</div>
   <img src="../PowerToFly-AI-logo.svg" alt="PowerToFly AI" class="sb-logo-mark" style="height:30px">
@@ -941,7 +928,8 @@ const S = [
 <div class="sb-variant"><div class="sb-variant-h">Icon mark</div>
   <img src="../PowerToFly-Icon.svg" alt="PowerToFly icon" class="sb-logo-mark" style="height:44px">
   <p class="sb-cap">The standalone glyph — favicons, avatars, social, and tight spaces where the full wordmark won't fit. Inverts on dark too.</p></div>`},
-{g:'Foundations', id:'colors', name:'Color tokens', tags:['semantic','theme-aware'],
+{g:'Foundations', id:'colors', name:'Color tokens',
+  use:"Reference tokens, never a raw hex. .theme-dark re-defines these same names \u2014 that IS the dark mode, which is why a literal colour can't follow it and a token can.", rule:"--accent is the same hex as --green. \"Change the green\" is ambiguous: brand colours are your identity, roles are where a colour gets used.", tags:['semantic','theme-aware'],
   u:['--ink','--ink-2','--ink-3','--bg','--surface','--surface-2','--line-2','--accent','--btn-bg','--green-mid','--purple'],
   desc:'The semantic tokens components read. Toggle Dark — every swatch recomputes from .theme-dark, nothing is restyled.',
   html:`<div class="sb-swatches">
@@ -949,7 +937,8 @@ const S = [
   <div class="sb-sw"><div class="sb-sw-chip" style="background:linear-gradient(135deg,var(--iri-cyan),var(--iri-green) 55%,var(--iri-lime))"></div><div class="sb-sw-body"><div class="sb-sw-name">iridescent</div><div class="sb-sw-val">cyan→green→lime</div></div></div>
 </div>`,
   mount(r){ r.querySelectorAll('[data-var]').forEach(el=>{ el.textContent = getComputedStyle(el).getPropertyValue(el.dataset.var).trim()||'—'; }); }},
-{g:'Foundations', id:'type', name:'Typography', tags:['Inter Tight','Inter'], u:['font:Inter Tight','font:Inter','.italic-plain'],
+{g:'Foundations', id:'type', name:'Typography',
+  use:"Inter Tight for display, Inter for body. The italic word in a headline is <em class=\"italic-plain\"> \u2014 bold italic, same ink.", rule:"The gradient italic is banned from headlines. Gradient text is only ever OK on small UI on dark.", tags:['Inter Tight','Inter'], u:['font:Inter Tight','font:Inter','.italic-plain'],
   desc:'Inter Tight for display, Inter for body. The italic accent in headlines is <em class="italic-plain"> — bold italic, same ink, never gradient.',
   html:`<div>
   <div class="sb-type-row"><div class="lbl">h1 · hero · 52 / 800</div><div style="font-family:'Inter Tight';font-weight:800;letter-spacing:-.03em;font-size:52px;line-height:1.02;color:var(--ink)">The humans behind <em class="italic-plain">better AI</em></div></div>
@@ -960,7 +949,8 @@ const S = [
   <div class="sb-type-row"><div class="lbl">small · 13</div><p style="font-size:13px;margin:0;color:var(--ink-3)">Helper text, captions, fine print.</p></div>
   <div class="sb-type-row"><div class="lbl">eyebrow</div><div class="eyebrow"><span class="dot"></span>Why PowerToFly</div></div>
 </div>`},
-{g:'Foundations', id:'spacing', name:'Spacing rhythm', tags:['--section-y'], u:['--section-y','--section-y-tight','--section-y-loose','--hero-top'],
+{g:'Foundations', id:'spacing', name:'Spacing rhythm',
+  use:"Every section owns half a --section-y top and bottom, so any two stacked sections give the same gap everywhere. One token drives desktop and mobile.", rule:"Never add per-section padding, raw px, margins or spacer divs. A coloured block puts its colour on an inner element so it never bleeds into the gap.", tags:['--section-y'], u:['--section-y','--section-y-tight','--section-y-loose','--hero-top'],
   desc:'ONE vertical token. Every section owns a half top & bottom, so every gap = 2×--section-y. Shrinks once at mobile.',
   html:`<div class="sb-space">
   <div class="sb-space-row"><b style="width:var(--section-y)"></b><span>--section-y (100 → 60 mobile)</span></div>
@@ -968,18 +958,21 @@ const S = [
   <div class="sb-space-row"><b style="width:var(--section-y-loose)"></b><span>--section-y-loose (140)</span></div>
   <div class="sb-space-row"><b style="width:var(--hero-top)"></b><span>--hero-top (56)</span></div>
 </div>`},
-{g:'Foundations', id:'radius', name:'Radius scale', tags:['--r-*'], u:['--r-sm','--r-md','--r-lg','--r-xl','--r-2xl','--r-pill'],
+{g:'Foundations', id:'radius', name:'Radius scale',
+  use:"Feature images and portraits 28px (--r-2xl); cards and panels 20px (--r-xl); small UI 12/8px; buttons and avatars fully round.", rule:"Never a raw px. If you're typing border-radius on a card, the scale already has your answer.", tags:['--r-*'], u:['--r-sm','--r-md','--r-lg','--r-xl','--r-2xl','--r-pill'],
   desc:'Portraits --r-2xl (28); cards --r-xl (20); small UI --r-md/-sm; buttons & avatars --r-pill. Never a raw px.',
   html:`<div class="sb-radii">
   ${[['--r-sm','8'],['--r-md','12'],['--r-lg','16'],['--r-xl','20'],['--r-2xl','28'],['--r-pill','pill']].map(([v,n])=>`<div class="sb-radius"><b style="border-radius:var(${v})"></b><span>${v} · ${n}</span></div>`).join('')}
 </div>`},
-{g:'Foundations', id:'elevation', name:'Elevation', tags:['--shadow-card'],
+{g:'Foundations', id:'elevation', name:'Elevation',
+  use:"Two elevations and only two: Resting for a card at rest, Lifted for a panel that is the screen's subject.", rule:"Use the token, not the literal shadow \u2014 .theme-dark re-defines it, and a hardcoded shadow can't follow it into dark.", tags:['--shadow-card'],
   desc:'One card shadow token, softened & deepened in dark.',
   html:`<div class="sb-row" style="gap:36px;padding:20px 10px">
   <div style="width:200px;height:120px;border-radius:var(--r-xl);background:var(--surface);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px">--shadow-card</div>
   <div style="width:200px;height:120px;border-radius:var(--r-xl);background:var(--surface);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px">hairline only</div>
 </div>`},
-{g:'Foundations', id:'icons', name:'Icon library', tags:['MUI Outlined','#ptf-grad'], u:['.benefit-sparkle','.statband-icon'],
+{g:'Foundations', id:'icons', name:'Icon library',
+  use:"One family, genuine MUI Outlined. Big (40px+) feature icons take the gradient; anything smaller is plain ink.", rule:"A gradient icon at 16\u201324px turns to mush. List bullets, chips, fields, buttons and steppers are always plain --ink.", tags:['MUI Outlined','#ptf-grad'], u:['.benefit-sparkle','.statband-icon'],
   desc:'One genuine MUI Outlined family, gradient fill + stroke 1.4, miter/square corners. One family per page. Plus the sparkle accent and the fat thank-you check.',
   html:`<div class="sb-grid" style="grid-template-columns:repeat(auto-fill,minmax(120px,1fr))">
   ${['people','lightbulb','globe','heart','calendar','video','clock','key','bolt','shield','money','star','sparkle'].map(n=>`<div class="sb-iconcell">${ic(n,42)}<span>${n}</span></div>`).join('')}
@@ -987,7 +980,8 @@ const S = [
 </div>`},
 
 /* ══════════ ATOMS ══════════ */
-{g:'Atoms', id:'btn', name:'Buttons — primary & outlined', tags:['.btn','.btn-primary'], u:['.btn','.btn-primary','.btn-sm','.btn-block','.btn-light'],
+{g:'Atoms', id:'btn', name:'Buttons — primary & outlined',
+  use:"The closed set. .btn is outlined and fills ink on hover; .btn-primary is the dark fill. .btn-sm for compact, .btn-block for full width.", rule:"If you're typing border or padding on a button, stop \u2014 it's already here. Hover is a lift and a glow, never a colour swap.", tags:['.btn','.btn-primary'], u:['.btn','.btn-primary','.btn-sm','.btn-block','.btn-light'],
   desc:'Closed set. .btn = outlined (fills ink on hover). .btn-primary = dark fill. Modifiers .btn-sm / .btn-block. Hover = subtle lift + green glow, never a colour swap.',
   html:`<div class="sb-row"><span class="sb-lbl">default</span>
   <a href="#" class="btn">Log in</a><a href="#" class="btn btn-primary">Get matched</a></div>
@@ -995,10 +989,12 @@ const S = [
   <a href="#" class="btn btn-sm">Find work</a><a href="#" class="btn btn-primary btn-sm">Apply</a></div>
 <div class="sb-row"><span class="sb-lbl">full-width · .btn-block</span><a href="#" class="btn btn-primary btn-block">Continue</a></div>
 <div class="sb-row"><span class="sb-lbl">flyout trigger · +data-fly</span><button class="btn btn-sm" data-fly="fly-x" type="button">Solutions ▾</button></div>`},
-{g:'Atoms', id:'btn-cta', name:'Button — CTA band', tags:['.btn-cta','always-dark'], theme:'dark', u:['.btn-cta'],
+{g:'Atoms', id:'btn-cta', name:'Button — CTA band',
+  use:"The white button for the dark closing band. It's the last thing on almost every page, which is exactly why it never varies.", rule:"It must re-assert its white fill on hover or the shared .btn hover swaps it dark.", tags:['.btn-cta','always-dark'], theme:'dark', u:['.btn-cta'],
   desc:'Primary for the always-dark closer: white-on-dark, fixed black label. Its only home is a dark band.',
   html:`<a href="#" class="btn btn-cta">Book a discovery call</a>`},
-{g:'Atoms', id:'btn-flow', name:'Buttons — flows', tags:['.btn-auth','.btn-social'], u:['.btn-auth','.btn-social','.btn-dashboard','.btn-skip'],
+{g:'Atoms', id:'btn-flow', name:'Buttons — flows',
+  use:"Inside a signup or registration flow: full width, one action per step.", rule:"A flow button never competes with a marketing CTA \u2014 same family, different job.", tags:['.btn-auth','.btn-social'], u:['.btn-auth','.btn-social','.btn-dashboard','.btn-skip'],
   desc:'The auth/flow button family.',
   html:`<div style="display:flex;flex-direction:column;gap:12px;align-items:flex-start;max-width:340px">
   <button class="btn-auth" style="width:auto">Create my account</button>
@@ -1006,11 +1002,13 @@ const S = [
   <a class="btn-dashboard" href="#">Explore the dashboard →</a>
   <button class="btn-skip" style="width:auto">Skip for now</button>
 </div>`},
-{g:'Atoms', id:'links', name:'Links', tags:['.sc-more'], u:['.sc-more'],
+{g:'Atoms', id:'links', name:'Links',
+  use:"Inline links in body copy, in --accent.", rule:"Never leave a link browser-blue. If it's a real action, it's a button, not a link.", tags:['.sc-more'], u:['.sc-more'],
   desc:'Green text links. Two flavours depending on where they sit.',
   html:`<div class="sb-variant"><div class="sb-variant-h">.sc-more — arrow link</div><a class="sc-more" href="#">Talk to our team →</a><p class="sb-cap">Ends a copy block and points to the next step; trailing arrow, green.</p></div>
 <div class="sb-variant"><div class="sb-variant-h">Accent text link</div><a href="#" style="color:var(--accent);font-weight:600;font-size:14px;text-decoration:none">Accent link →</a><p class="sb-cap">Inline green link inside body copy.</p></div>`},
-{g:'Atoms', id:'eyebrow', name:'Eyebrows', tags:['.eyebrow','.dot'], u:['.eyebrow','.dot'],
+{g:'Atoms', id:'eyebrow', name:'Eyebrows',
+  use:"The small green label above a headline. Plain uppercase text, optionally with a dot.", rule:"NEVER a pill. No background, no border-radius, ever. Same rule for category labels.", tags:['.eyebrow','.dot'], u:['.eyebrow','.dot'],
   desc:'The small green kicker label that sits above a section heading. ALWAYS plain uppercase green — never a pill, never a background.',
   html:`<div class="sb-variant"><div class="sb-variant-h">With dot — .eyebrow + .dot (default)</div>
   <div class="eyebrow"><span class="dot"></span>Why PowerToFly</div>
@@ -1021,7 +1019,8 @@ const S = [
 <div class="sb-variant"><div class="sb-variant-h">On dark — .eyebrow-on-dark</div>
   <div style="background:#0A0A0A;border-radius:10px;padding:18px 20px;display:inline-block"><span class="eyebrow eyebrow-on-dark"><span class="dot"></span>Let's talk</span></div>
   <p class="sb-cap">Variant for an ad-hoc dark block that sits on an otherwise light page (e.g. the CTA band).</p></div>`},
-{g:'Atoms', id:'badges', name:'Badges & pills', tags:['.sc-badge','.fly-badge'], u:['.sc-badge','.sc-badge-green','.sc-badge-amber','.sc-badge-gray','.fly-badge','.fly-badge-soon','.sc-tag'],
+{g:'Atoms', id:'badges', name:'Badges & pills',
+  use:"Flags status on a card \u2014 Top match, New match. Tinted green for status, solid for a promotional flag.", rule:"One size. Three sizes of the same badge is how you know it was built three times.", tags:['.sc-badge','.fly-badge'], u:['.sc-badge','.sc-badge-green','.sc-badge-amber','.sc-badge-gray','.fly-badge','.fly-badge-soon','.sc-tag'],
   desc:'The small status/flag labels used across the system. Three distinct families — do not mix them up.',
   html:`<div class="sb-variant"><div class="sb-variant-h">.sc-badge — status</div>
   <div class="sb-row"><span class="sc-badge sc-badge-green">In review</span><span class="sc-badge sc-badge-amber">In progress</span><span class="sc-badge sc-badge-gray">Queued</span></div>
@@ -1032,27 +1031,33 @@ const S = [
 <div class="sb-variant"><div class="sb-variant-h">.sc-tag — section category</div>
   <span class="sc-tag">Hire</span>
   <p class="sb-cap">The green category label that sits above an expert-row heading.</p></div>`},
-{g:'Atoms', id:'avatar', name:'Avatars', tags:['.avatar','.avatar-lg'], u:['.avatar','.avatar-lg'],
+{g:'Atoms', id:'avatar', name:'Avatars',
+  use:"A person's face, round, at a consistent size. In a group they overlap with a ring so they read on any background.", rule:"Real, diverse, professional people \u2014 Pexels or the local photos/ library. Never posed stock models.", tags:['.avatar','.avatar-lg'], u:['.avatar','.avatar-lg'],
   desc:'Initials chip — solid brand green, pill radius. Standalone only: never inside a button, never a gradient behind the initials.',
   html:`<div class="sb-variant"><div class="sb-variant-h">.avatar — 28px</div><span class="avatar">LP</span><p class="sb-cap">Default size — inline in lists, meta rows, comments.</p></div>
 <div class="sb-variant"><div class="sb-variant-h">.avatar.avatar-lg — 40px</div><span class="avatar avatar-lg">MZ</span><p class="sb-cap">Larger variant for profile rows and card headers.</p></div>`},
-{g:'Atoms', id:'chips', name:'Selectable chips', tags:['.id-chip'], u:['.id-chip'],
+{g:'Atoms', id:'chips', name:'Selectable chips',
+  use:"A choice you can select \u2014 topics, industries, areas of experience. Multiple can be on at once.", rule:"A chip is a control, not a label. If it can't be clicked it's an eyebrow or a tag.", tags:['.id-chip'], u:['.id-chip'],
   desc:'Tap-to-select chips used across the signup identity step.',
   html:`<div class="sb-variant"><div class="sb-variant-h">.id-chip — default & .selected</div>
   <div class="id-chips" style="max-width:460px"><span class="id-chip">Data</span><span class="id-chip selected">Design</span><span class="id-chip">Product</span><span class="id-chip">Engineering</span><span class="id-chip">AI / ML</span></div>
   <p class="sb-cap">Multi-select pills. The <b>.selected</b> state fills with brand green ("Design" here). Default is an outlined pill.</p></div>`},
 
 /* ══════════ FORM PARTS ══════════ */
-{g:'Form parts', id:'field', name:'Text field', tags:['.field'], u:['.field','.auth-form'],
+{g:'Form parts', id:'field', name:'Text field',
+  use:"One input, one label, always. Errors sit under the field, in words, not just a red border.", rule:"A placeholder is not a label \u2014 it disappears exactly when you need it.", tags:['.field'], u:['.field','.auth-form'],
   desc:'Label + input on an inset surface.',
   html:`<div class="auth-form" style="max-width:420px"><div class="field"><label>Work email</label><input type="email" placeholder="you@example.com"></div></div>`},
-{g:'Form parts', id:'textarea', name:'Textarea', tags:['.field textarea'], u:['.field'],
+{g:'Form parts', id:'textarea', name:'Textarea',
+  use:"Free text where the answer is longer than a line. Same field family, taller.", rule:"If you're asking for a paragraph, say why you want it in the helper text.", tags:['.field textarea'], u:['.field'],
   desc:'Multi-line input, same field shell.',
   html:`<div class="auth-form" style="max-width:460px"><div class="field"><label>Your question</label><textarea placeholder="e.g. How do small teams measure the ROI of AI tools?"></textarea></div></div>`},
-{g:'Form parts', id:'upload', name:'Upload area', tags:['.upload-area'], u:['.upload-area'],
+{g:'Form parts', id:'upload', name:'Upload area',
+  use:"Dropping or picking a file \u2014 a CV, a logo. Says what it accepts before it's used.", rule:"Always allow the click as well as the drop. Drag-only excludes anyone not using a mouse.", tags:['.upload-area'], u:['.upload-area'],
   desc:'Dashed drop zone; hover tints green.',
   html:`<div style="max-width:440px"><div class="upload-area"><input type="file" accept=".pdf,.doc,.docx"><div class="upload-icon">📄</div><p><strong>Click to upload</strong> your resume<br>PDF, DOC, DOCX — max 5MB</p><div class="upload-name"></div></div></div>`},
-{g:'Form parts', id:'check', name:'Checkbox & agreement', tags:['.check-row','.check-box'], u:['.check-row','.check-box','.agree-row'],
+{g:'Form parts', id:'check', name:'Checkbox & agreement',
+  use:"Consent and agreement. The label is the hit area, not just the box.", rule:"Never pre-tick consent. The words go beside it in full \u2014 a link alone isn't agreement.", tags:['.check-row','.check-box'], u:['.check-row','.check-box','.agree-row'],
   desc:'Custom checkbox rows and the terms agreement row.',
   html:`<div class="q-group" style="max-width:480px">
   <div class="q-label">What are you open to?</div>
@@ -1060,16 +1065,19 @@ const S = [
   <label class="check-row"><input type="checkbox" class="check-box"><span>Contract &amp; project work</span></label>
   <label class="check-row agree-row" style="margin-top:10px"><input type="checkbox" class="check-box"><span>I agree to the <a href="#">code of conduct</a> and PowerToFly's <a href="#">Terms</a>.</span></label>
 </div>`},
-{g:'Form parts', id:'idgrid', name:'Identity chips grid', tags:['.id-grid','.id-section'], u:['.id-grid','.id-section','.id-chip'],
+{g:'Form parts', id:'idgrid', name:'Identity chips grid',
+  use:"The identity step: pick what describes you, several at once.", rule:"Every option is optional. If it can't be skipped it isn't identity, it's a form field.", tags:['.id-grid','.id-section'], u:['.id-grid','.id-section','.id-chip'],
   desc:'Grouped, labelled chip sections from the signup identity step.',
   html:`<div class="id-grid" style="max-width:520px">
   <div class="id-section"><div class="id-section-label">Field</div><div class="id-chips"><span class="id-chip selected">AI / ML</span><span class="id-chip">Data</span><span class="id-chip">Design</span><span class="id-chip">Product</span></div></div>
   <div class="id-section"><div class="id-section-label">Seniority</div><div class="id-chips"><span class="id-chip">Mid</span><span class="id-chip selected">Senior</span><span class="id-chip">Staff+</span></div></div>
 </div>`},
-{g:'Form parts', id:'stepind', name:'Step indicator', tags:['.step-indicator'], u:['.step-indicator'],
+{g:'Form parts', id:'stepind', name:'Step indicator',
+  use:"Where you are in a flow and how much is left. Small, plain ink, never decorative.", rule:"Only for a flow with real steps. Faking progress to seem shorter is a lie you'll pay for at step 2.", tags:['.step-indicator'], u:['.step-indicator'],
   desc:'The "Step N of M" progress label used in flows.',
   html:`<div class="step-indicator">Step 2 of 4</div>`},
-{g:'Form parts', id:'thanks', name:'Thank-you state', tags:['.thanks-icon'], u:['.thanks-icon','.thanks-eyebrow','.thanks-body'],
+{g:'Form parts', id:'thanks', name:'Thank-you state',
+  use:"The end of a flow: the big gradient check, what happened, and what happens next.", rule:"The check is the one place a big gradient icon is right \u2014 40px+, so it earns it. Always say what happens next.", tags:['.thanks-icon'], u:['.thanks-icon','.thanks-eyebrow','.thanks-body'],
   desc:'Flow success — the fat confirmation check (stroke 6.5), eyebrow, body.',
   html:`<div style="max-width:460px;text-align:center;margin:0 auto">
   <div class="thanks-icon"><svg viewBox="0 0 24 24" fill="none" width="56" height="56"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg></div>
@@ -1078,16 +1086,19 @@ const S = [
 </div>`},
 
 /* ══════════ MOLECULES ══════════ */
-{g:'Molecules', id:'benefit', name:'Benefit card', tags:['.benefit-card'], u:['.benefit-card','.benefit-eyebrow','.benefit-sparkle'],
+{g:'Molecules', id:'benefit', name:'Benefit card',
+  use:"Three reasons of equal weight. Peers, no hierarchy, nothing to demonstrate.", rule:"Three. Four turns a rhythm into a list. If one matters more, it isn't a benefit card.", tags:['.benefit-card'], u:['.benefit-card','.benefit-eyebrow','.benefit-sparkle'],
   desc:'Sparkle + eyebrow + heading + body.',
   html:`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px">
   <div class="benefit-card">${SPARK}<span class="benefit-eyebrow">Domain Expertise</span><h3>An expert community you can't find anywhere else.</h3><p>Mid-to-senior professionals across every industry and function — verified, ready from day one.</p></div>
   <div class="benefit-card"><svg class="benefit-sparkle" viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="${ICON.globe}"/></svg><span class="benefit-eyebrow">Global Reach</span><h3>Built on relationships no algorithm can replicate.</h3><p>Over 75% women &amp; BIPOC — the perspectives your AI needs to work for everyone.</p></div>
 </div>`},
-{g:'Molecules', id:'testimonial', name:'Testimonial card', tags:['.t-card'], u:['.t-card','.t-quote','.t-stars'],
+{g:'Molecules', id:'testimonial', name:'Testimonial card',
+  use:"Someone who isn't you saying it, once the reader is deciding rather than learning.", rule:"Two quotes maximum. The one naming a hard thing you solved beats three saying \"great partner\".", tags:['.t-card'], u:['.t-card','.t-quote','.t-stars'],
   desc:'Stars, quote, author meta + photo.',
   html:`<div class="t-card" style="max-width:460px"><div class="t-stars">★★★★★</div><p class="t-quote">"I got hired based on my skills, and no one judged me on anything else. PowerToFly will always have a special place in my heart."</p><div class="t-meta"><div class="t-meta-info"><div class="t-author">Ashvini T.</div><div class="t-company">Assent</div><div class="t-role">QA Engineer</div></div><div class="t-logo"><img src="../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg" alt="Ashvini"></div></div></div>`},
-{g:'Molecules', id:'statband', name:'Stat band', tags:['.statband-*'], u:['.statband-inner','.statband-item','.statband-icon'],
+{g:'Molecules', id:'statband', name:'Stat band',
+  use:"Four numbers under the hero, hairline-separated. Cheap in height, answers \"is this real?\" before any argument.", rule:"Real numbers only: 80K+ experts, 6,500 AI professionals, 190 countries, 12+ years.", tags:['.statband-*'], u:['.statband-inner','.statband-item','.statband-icon'],
   desc:'4-up icon + number cells, hairline-separated.',
   html:`<div class="statband-inner">
   <div class="statband-item"><div class="statband-icon">${ic('people',30)}</div><div class="statband-text"><span class="statband-num">80K+</span><span class="statband-lbl">Experts</span></div></div>
@@ -1095,14 +1106,16 @@ const S = [
   <div class="statband-item"><div class="statband-icon">${ic('shield',30)}</div><div class="statband-text"><span class="statband-num">75%+</span><span class="statband-lbl">Women &amp; BIPOC</span></div></div>
   <div class="statband-item"><div class="statband-icon">${ic('bolt',30)}</div><div class="statband-text"><span class="statband-num">6,500</span><span class="statband-lbl">AI pros</span></div></div>
 </div>`},
-{g:'Molecules', id:'statgrid', name:'Stat grid', tags:['.stats-grid'], u:['.stats-grid','.stat-block'],
+{g:'Molecules', id:'statgrid', name:'Stat grid',
+  use:"The same proof with room to breathe, when the numbers are the section rather than a strip under it.", rule:"", tags:['.stats-grid'], u:['.stats-grid','.stat-block'],
   desc:'Big-number blocks in a grid.',
   html:`<div class="stats-grid">
   <div class="stat-block"><div class="stat-block-num">80K+</div><div class="stat-block-label">Verified experts</div></div>
   <div class="stat-block"><div class="stat-block-num">190</div><div class="stat-block-label">Countries</div></div>
   <div class="stat-block"><div class="stat-block-num">12+</div><div class="stat-block-label">Years</div></div>
 </div>`},
-{g:'Molecules', id:'statsportrait', name:'Stats + portrait', tags:['.stats-card-wrap'], u:['.stats-card-wrap','.stats-card-dark','.stats-portrait','.stat-big-num'],
+{g:'Molecules', id:'statsportrait', name:'Stats + portrait',
+  use:"Numbers beside a face \u2014 proof with a person attached.", rule:"", tags:['.stats-card-wrap'], u:['.stats-card-wrap','.stats-card-dark','.stats-portrait','.stat-big-num'],
   desc:'Portrait paired with a dark stat card (the dark card is intrinsically dark).',
   html:`<div class="stats-card-wrap">
   <div class="stats-portrait" style="background-image:url(../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg)"><img src="../PowerToFly-Icon.svg" alt="" class="stats-portrait-icon"></div>
@@ -1112,20 +1125,24 @@ const S = [
     <div><div class="stat-big-num">$65–130<span class="stat-unit">/hr</span></div><div class="stat-big-label">What experts earn</div></div>
   </div>
 </div>`},
-{g:'Molecules', id:'mission', name:'Mission statement', tags:['.mission-statement'], u:['.mission-statement'],
+{g:'Molecules', id:'mission', name:'Mission statement',
+  use:"A belief statement. It earns its place once someone has a reason to care.", rule:"Never open with it. Leading with a belief asks for patience you haven't been given yet.", tags:['.mission-statement'], u:['.mission-statement'],
   desc:'One big centered brand line.',
   html:`<div class="mission-statement" style="font-size:34px">AI should be built by the many, not the few.</div>`},
-{g:'Molecules', id:'ocfloat', name:'Outcome float card', tags:['.oc-float'], u:['.oc-float'],
+{g:'Molecules', id:'ocfloat', name:'Outcome float card',
+  use:"A floating card over a dark scene, showing an outcome.", rule:"", tags:['.oc-float'], u:['.oc-float'],
   desc:'Spark column + copy. (Static here; animates in on scroll on a page.)',
   html:`<div class="oc-float" style="position:static;opacity:1;transform:none;width:100%;max-width:420px;height:auto"><div class="oc-float-spark-col">${ic('shield',26)}</div><div class="oc-float-vline"></div><div class="oc-float-body"><h4>Reduce risk</h4><p>Project-to-hire pathways let you validate fit first.</p></div></div>`},
-{g:'Molecules', id:'howsteps', name:'How-it-works steps', tags:['.steps','.step'], u:['.steps','.step','.step-num'],
+{g:'Molecules', id:'howsteps', name:'How-it-works steps',
+  use:"Three numbered steps beside a portrait. The moment someone believes you, they ask what happens if I say yes \u2014 this answers it.", rule:"photos/how_it_works.png is the generic portrait made for this slot. Reuse it on every event type.", tags:['.steps','.step'], u:['.steps','.step','.step-num'],
   desc:'Numbered step list.',
   html:`<div class="steps" style="max-width:640px">
   <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Tell us what you're building</h4><p>Your model, industry, use case, and what good output looks like.</p></div></div>
   <div class="step"><div class="step-num">02</div><div class="step-content"><h4>We match the right experts</h4><p>Verified domain experts who already understand your space.</p></div></div>
   <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Your experts get to work</h4><p>Structured feedback your team and board can stand behind.</p></div></div>
 </div>`},
-{g:'Molecules', id:'industries', name:'Industries grid', tags:['.ind-grid'], u:['.ind-grid','.ind-item'],
+{g:'Molecules', id:'industries', name:'Industries grid',
+  use:"A grid of the fields you cover, when breadth is the point.", rule:"", tags:['.ind-grid'], u:['.ind-grid','.ind-item'],
   desc:'Two-line industry cells (used in the nav mega-panel and pages).',
   html:`<div class="ind-grid" style="max-width:620px">
   <div class="ind-item"><div class="ind-name">Healthcare</div><div class="ind-desc">Clinical AI experts</div></div>
@@ -1133,13 +1150,15 @@ const S = [
   <div class="ind-item"><div class="ind-name">Legal</div><div class="ind-desc">LLM evaluation &amp; QA</div></div>
   <div class="ind-item"><div class="ind-name">Business Services</div><div class="ind-desc">AI transformation</div></div>
 </div>`},
-{g:'Molecules', id:'expertrow', name:'Expert row + mock UI', tags:['.expert-row','.sc-*'], u:['.expert-row','.sc-left','.sc-mock','.sc-right'],
+{g:'Molecules', id:'expertrow', name:'Expert row + mock UI',
+  use:"Your best explainer: copy one side, a tinted panel with real product on the other. One row per idea.", rule:"Two rows, maybe three. Each row is a paragraph, and nobody reads four paragraphs.", tags:['.expert-row','.sc-*'], u:['.expert-row','.sc-left','.sc-mock','.sc-right'],
   desc:'Copy column + tinted panel with a mock-UI card. On dark the panel stays pastel and the mock goes dark with a neon border (train gold). Toggle Dark.',
   html:`<div class="expert-row" style="min-height:280px;gap:32px">
   <div class="sc-left" style="padding:0"><span class="sc-tag">Hire</span><h3>Verified domain experts</h3><p class="sc-body">People who already know your industry.</p><a class="sc-more" href="#">Talk to our team →</a></div>
   <div class="sc-right sc-tint-blue sc-right-domain"><div class="sc-mock-wrap"><div class="sc-mock-stack"><div class="sc-mock sc-mock-dark-blue"><div class="sc-mock-hd"><div class="sc-mock-icon-box"></div><span class="sc-mock-title">Active matches</span></div><div class="sc-mock-sub">3 specialists engaged</div><hr class="sc-mock-hr"><div class="sc-mock-rows"><div class="sc-mock-row"><span class="sc-mock-row-lbl">RAG eval rubric</span><span class="sc-badge sc-badge-green">In review</span></div><div class="sc-mock-row active"><span class="sc-mock-row-lbl">Dataset curation</span><span class="sc-badge sc-badge-amber">In progress</span></div></div></div></div></div></div>
 </div>`},
-{g:'Molecules', id:'sci', name:'Interactive illustration', tags:['.sci','auto-driven'], u:['.sci','.sci-card','.sci-row'],
+{g:'Molecules', id:'sci', name:'Interactive illustration',
+  use:"A scene that animates as you scroll. Use once per page, where the idea is genuinely hard to say in words.", rule:"", tags:['.sci','auto-driven'], u:['.sci','.sci-card','.sci-row'],
   desc:'Cursor auto-glides & clicks; targets sharing data-sci-step light together. Dark canvas by design. NOTE: the audit shows this is defined but not yet used on any page.',
   html:`<div class="sci sci-card" data-sci-hold="1200" style="max-width:420px">
   <div class="sci-card-hd"><div class="sci-card-icon">${ic('people',20)}</div><div><div class="sci-card-title">Match pipeline</div><div class="sci-card-sub">3 specialists engaged</div></div></div>
@@ -1149,11 +1168,14 @@ const S = [
   mount(r){ if(window.PTF&&PTF.initIllustrations) PTF.initIllustrations(r); }},
 
 /* ══════════ ORGANISMS (static) — footer, hero, CTA. Nav/flows/pages come from pages.json ══════════ */
-{g:'Organisms', id:'footer', name:'Footer', tags:['.footer','live'], iframe:'about/index.html', scroll:'.footer', u:['.footer','.footer-cols','.footer-col'],
+{g:'Organisms', id:'footer', name:'Footer',
+  use:"The end of every page. Same everywhere, no exceptions.", rule:"", tags:['.footer','live'], iframe:'about/index.html', scroll:'.footer', u:['.footer','.footer-cols','.footer-col'],
   desc:'The always-dark footer, live at the bottom of the About page.'},
-{g:'Organisms', id:'hero', name:'Hero section', tags:['.section-hero','live'], iframe:'employers/index.html', u:['.section-hero'],
+{g:'Organisms', id:'hero', name:'Hero section',
+  use:"One promise, one sub, one action. The most consistent thing on the site.", rule:"A page that opens differently reads as a different product. Spend your novelty budget lower down.", tags:['.section-hero','live'], iframe:'employers/index.html', u:['.section-hero'],
   desc:'A real hero in context — the top of the Employers page.'},
-{g:'Organisms', id:'cta', name:'Final CTA band', tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
+{g:'Organisms', id:'cta', name:'Final CTA band',
+  use:"The always-dark closer that blends into the footer. Every page ends here \u2014 that's the point.", rule:"The green eyebrow is a required part of the band, not decoration.", tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
   desc:'The always-dark closer that blends into the footer. The green eyebrow is a REQUIRED part of the band.',
   html:`<div class="section-cta" style="border-radius:16px;overflow:hidden"><div class="section-cta-inner"><span class="eyebrow">Let's talk</span><h2>Ready when you are.</h2><p>Whether you're hiring AI talent or building your team's capability — we've spent 12 years preparing for this.</p><a href="#" class="btn btn-cta">Book a discovery call</a></div></div>`}
 ];
@@ -1161,6 +1183,19 @@ const S = [
 
 /* The colour lookup behind the page-preview highlighter (click a page → every use outlined). */
 const HEXOF = { '--ink':'#0a0a0a','--ink-2':'#2a2a2a','--ink-3':'#5c6f69','--surface-2':'#fafaf6','--accent':'#0a8c66','--green-mid':'#4fe8a9','--purple':'#5b4fcf','--purple-light':'#eeebff','--purple-bright':'#7b00ff','--iri-cyan':'#5bcfff','--iri-lime':'#d5ff66' };
+
+/* What it's for, and the rule that's easy to break. Sourced from DESIGN-SYSTEM.md
+   and COMPONENT-INVENTORY.md — her rules written down, not my opinions. The rule
+   is the half that matters: everyone can see what a component looks like; nobody
+   can see that an eyebrow may never be a pill. */
+function renderUse(s){
+  const wrap=document.getElementById('sbUsage');
+  if(!s.use){ wrap.innerHTML=''; return; }
+  wrap.innerHTML='<div class="sb-use">'
+    + '<div class="sb-use-when">'+uic('bulb',15)+'<span>'+esc(s.use)+'</span></div>'
+    + (s.rule?'<div class="sb-use-rule">'+uic('warning',15)+'<span>'+esc(s.rule)+'</span></div>':'')
+    + '</div>';
+}
 
 /* ═══════════ A PAGE'S WORKSPACE ═══════════
    Clicking a page used to give you a preview and a width toggle — a look, not a
@@ -1218,164 +1253,6 @@ function renderPageWork(s){
     + '<div class="sb-pw-send"><button class="sb-dec merge off" data-pagesend="'+esc(s.pageId)+'" disabled '
     + 'aria-disabled="true" title="Write what you want first">Ask me to do it</button></div>';
   wrap.innerHTML=h;
-}
-
-/* ═══════════ WHERE IT LIVES ═══════════
-   Not a picture of a page — a picture of the COMPONENT, cropped to where it sits.
-   The unit is the occurrence, not the page: the wordmark's nav (light) and footer
-   (dark) live on the same page and are completely different situations. So we load
-   the page that uses it most, find every occurrence, and show one per distinct
-   context. Click to open the real page and explore the rest. */
-let WHERE_ALL=false, WHERE_TOKEN=0, WHERE_STORY='';
-
-/* Does this actually draw anything? A class can be on a node that paints nothing —
-   the footer has a .brand-ai with a real 29\u00d721 box and no pixels in it. Centre a
-   crop on that and you frame empty footer and call it the logo. So: only occurrences
-   that render something get to be an example. */
-function paints(el,win){
-  if((el.innerText||'').trim()) return true;
-  if(el.querySelector('svg,img,canvas,video,picture')) return true;
-  const cs=win.getComputedStyle(el);
-  if(cs.backgroundImage && cs.backgroundImage!=='none') return true;
-  const bg=cs.backgroundColor||'';
-  const m=bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
-  if(m && (m[4]===undefined || parseFloat(m[4])>0.05)) return true;
-  if(parseFloat(cs.borderTopWidth)>0 || parseFloat(cs.borderLeftWidth)>0) return true;
-  return false;
-}
-function shotEls(root,win,key){
-  return [...root.querySelectorAll(key)].filter(e=>{
-    const r=e.getBoundingClientRect();
-    return r.width>0 && r.height>0 && paints(e,win);
-  });
-}
-/* Is this sitting on something dark? Walk up for the first painted background. */
-function ctxOf(el,win){
-  /* Start at the PARENT. A black primary button asked about itself answers "dark",
-     which would label a black button on a white nav as a dark-theme example. What we
-     want is what it's sitting ON, not what it is. */
-  let n=el.parentElement;
-  while(n && n!==win.document.documentElement){
-    const bg=win.getComputedStyle(n).backgroundColor;
-    const m=(bg||'').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
-    if(m && (m[4]===undefined || parseFloat(m[4])>0.5)){
-      const lum=(0.2126*+m[1]+0.7152*+m[2]+0.0722*+m[3])/255;
-      return lum<0.5 ? 'dark' : 'light';
-    }
-    n=n.parentElement;
-  }
-  return 'light';
-}
-/* Where on the page is it? Gives the crop an honest caption. */
-function areaOf(el){
-  if(el.closest('.footer')) return 'In the footer';
-  if(el.closest('.nav,.site-header,.top-alert')) return 'In the nav';
-  if(el.closest('.section-cta')) return 'In the closing CTA';
-  if(el.closest('.section-hero,.ev-hero,.hero')) return 'In the hero';
-  if(el.closest('.auth-card,.reg-layout,.flow-shell')) return 'In the signup flow';
-  if(el.closest('.faq-list')) return 'In the FAQ';
-  return 'On the page';
-}
-function whereShot(x){
-  return '<div class="sb-shot" data-preview="'+x.file+'" data-key="'+esc(x.key)+'" role="button" tabindex="0"'
-    + ' title="Open '+esc(x.page)+' and step through all '+x.total+'">'
-    + '<span class="sb-shot-win"><iframe src="../'+x.file+'" scrolling="no" tabindex="-1" aria-hidden="true" title=""'
-    + ' data-crop="'+x.i+'" data-cropkey="'+esc(x.key)+'"></iframe></span>'
-    + '<span class="sb-shot-meta"><b>'+esc(x.area)+'</b>'
-    + '<span class="sb-shot-sub">'+esc(x.page)+' · '+(x.ctx==='dark'?'on dark':'on light')+'</span></span></div>';
-}
-/* Crop each shot to its occurrence once the page inside has loaded. */
-function cropShot(fr){
-  try{
-    const doc=fr.contentDocument, win=fr.contentWindow;
-    /* Never scroll the frame to reach the element. Scrolling an iframe and then
-       positioning by viewport coordinates only holds until the page re-lays out —
-       then the scroll resets, the frame shows page top, and the crop confidently
-       frames the wrong thing. Instead: grow the frame to the whole page height so
-       nothing needs scrolling, and read honest page coordinates. */
-    fr.style.height=Math.max(doc.documentElement.scrollHeight,900)+'px';
-    win.scrollTo(0,0);
-    const els=shotEls(doc,win,fr.dataset.cropkey);
-    const el=els[+fr.dataset.crop]; if(!el) return;
-    const r=el.getBoundingClientRect();
-    const box=fr.parentElement.getBoundingClientRect();
-    /* Frame the NEIGHBOURHOOD, not the element. An eyebrow is 10px tall — fit that and
-       you get a green smudge in an empty field. So we crop a context box around it
-       (never smaller than 560×280) and never zoom past 1:1: you see the component
-       sitting in its surroundings, at the size it really is. */
-    const cw=Math.max(r.width+140,560), ch=Math.max(r.height+110,280);
-    const s=Math.min(box.width/cw, box.height/ch, 1);
-    fr.style.transformOrigin='top left';
-    fr.style.transform='scale('+s+')';
-    fr.style.left=Math.round(box.width/2 - (r.left+r.width/2)*s)+'px';
-    fr.style.top =Math.round(box.height/2 - (r.top+r.height/2)*s)+'px';
-    fr.style.opacity='1';
-    el.style.outline='2px solid #12c98d'; el.style.outlineOffset='2px';
-  }catch(e){}
-}
-async function renderWhere(story){
-  const wrap=document.getElementById('sbUsage');
-  const keys=(story.u||[]).filter(k=>k.charAt(0)==='.');
-  const token=++WHERE_TOKEN;
-  if(WHERE_STORY!==story.id){ WHERE_ALL=false; WHERE_STORY=story.id; }   // "show more" is per story
-  if(!DATA||!keys.length){ wrap.innerHTML=''; return; }
-  const tally={};
-  keys.forEach(k=>{ const e=DATA.classes[k]; if(!e) return;
-    Object.entries(e.files||{}).forEach(([f,n])=>{ if(f.endsWith('.html')) tally[f]=(tally[f]||0)+n; }); });
-  const pages=Object.keys(tally)
-    .map(f=>({file:f,n:tally[f],p:(PAGE_META.find(x=>x.file===f)||PAGE_LIST.find(x=>x.file===f))}))
-    .filter(x=>x.p && (x.p.status||'live')!=='archived')
-    .sort((a,b)=>b.n-a.n);
-  if(!pages.length){
-    wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b></div>'
-      + '<div class="sb-nowhere">'+uic('warning',14)+'<span><b>Nothing uses this yet.</b> '
-      + 'It exists in the system, but no page has taken it. Either it is waiting for its moment, or it is a candidate to retire.</span></div>';
-    return;
-  }
-  wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b><span>'+pages.length+' page'+(pages.length===1?'':'s')+'</span>'
-    +'<i class="sb-where-hint">finding distinct examples…</i></div>';
-  /* Measure the busiest page: find every occurrence and keep one per distinct situation. */
-  const shots=[];
-  for(const cand of pages.slice(0,3)){
-    if(shots.length>=(WHERE_ALL?6:2)) break;
-    const probe=await loadProbe('../'+cand.file);
-    if(!probe) continue;
-    try{
-      for(const key of keys){
-        const els=shotEls(probe.doc,probe.win,key);
-        els.forEach((el,i)=>{
-          const sig=ctxOf(el,probe.win)+'|'+areaOf(el);
-          if(shots.some(sh=>sh.sig===sig)) return;               // already have this situation
-          shots.push({sig,file:cand.file,page:cand.p.name,key,i,
-                      ctx:ctxOf(el,probe.win),area:areaOf(el),total:cand.n});
-        });
-      }
-    }catch(e){}
-    probe.kill();
-    if(token!==WHERE_TOKEN) return;                              // she moved on
-  }
-  if(token!==WHERE_TOKEN) return;
-  const cap=WHERE_ALL?6:2, show=shots.slice(0,cap), rest=shots.length-show.length;
-  wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b><span>'+pages.length+' page'+(pages.length===1?'':'s')+'</span>'
-      +'<i class="sb-where-hint">click a shot to open the page and step through every use</i></div>'
-    + '<div class="sb-shots">'+show.map(whereShot).join('')+'</div>'
-    + (rest>0?'<button class="sb-where-more" data-wheremore="1">Show '+rest+' more example'+(rest===1?'':'s')+'</button>':'');
-  wrap.querySelectorAll('.sb-shot iframe').forEach(fr=>{ fr.addEventListener('load',()=>cropShot(fr)); });
-}
-/* A hidden full-size copy of a page, just to measure where things are. */
-function loadProbe(src){
-  return new Promise(res=>{
-    const fr=document.createElement('iframe');
-    fr.style.cssText='position:fixed;left:-9999px;top:0;width:1280px;height:1400px;border:0;visibility:hidden';
-    fr.src=src;
-    let done=false;
-    const finish=ok=>{ if(done) return; done=true;
-      res(ok?{doc:fr.contentDocument,win:fr.contentWindow,kill:()=>fr.remove()}:null); if(!ok) fr.remove(); };
-    fr.onload=()=>setTimeout(()=>finish(true),260);
-    fr.onerror=()=>finish(false);
-    setTimeout(()=>finish(false),6000);
-    document.body.appendChild(fr);
-  });
 }
 
 /* ═══════════ VISUAL FINDINGS — the audit in designer language ═══════════
@@ -1869,8 +1746,8 @@ function select(id){
       if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
       if(el) el.scrollIntoView({block:'start'});
     }catch(e){} };
-    applyTheme(); WHERE_ALL=false;
-    if(s.pageId) renderPageWork(s); else renderWhere(s);   // a page is a place to work; a component is a thing to find
+    applyTheme();
+    if(s.pageId) renderPageWork(s); else renderUse(s);
     location.hash=id; return;
   }
   codeSec.classList.toggle('hidden',!codeOpen);
@@ -1881,7 +1758,7 @@ function select(id){
   codeText.textContent=html.trim();
   applyTheme();
   if(typeof s.mount==='function'){ try{ s.mount(stageInner); }catch(e){ console.warn(e); } }
-  WHERE_ALL=false; renderWhere(s); location.hash=id;
+  renderUse(s); location.hash=id;
 }
 
 /* ═══════════ PAGES / FLOWS — a gallery, not a list ═══════════
@@ -2328,7 +2205,6 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
 document.getElementById('sbUsage').addEventListener('click',e=>{
   const pv=e.target.closest('[data-preview]');
   if(pv){ openPreview(pv.dataset.preview, pv.dataset.key||null); return; }
-  if(e.target.closest('[data-wheremore]')){ WHERE_ALL=true; renderWhere(current); return; }
   const go=e.target.closest('[data-goto]'); if(go){ select(go.dataset.goto); return; }
   const ff=e.target.closest('[data-finding]');
   if(ff){ OPEN_FINDING=ff.dataset.finding; toggleOpps(true);   // hand it to the one place that fixes things
@@ -2613,7 +2489,25 @@ document.getElementById('sbStatusSeg').addEventListener('click',e=>{
   setPageStatus(current.pageId, b.dataset.statusSet, ()=>{ setTools(current); });
 });
 document.getElementById('sbVwSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; document.querySelectorAll('#sbVwSeg button').forEach(x=>x.classList.toggle('on',x===b)); stage.dataset.vw=b.dataset.vw; stageInner.style.maxWidth=VW[b.dataset.vw]||''; });
-document.getElementById('sbCodeSeg').addEventListener('click',()=>{ codeOpen=!codeOpen; codeSec.classList.toggle('hidden',!codeOpen); document.querySelector('#sbCodeSeg button').classList.toggle('on',codeOpen); });
+/* Preview and Code are two views of one component, so it's a toggle, not a drawer
+   that pushes the preview down the page. */
+function setView(v){
+  codeOpen = v==='code';
+  document.querySelectorAll('#sbCodeSeg button').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
+  codeSec.classList.toggle('hidden', !codeOpen);
+  stagewrap.style.display = codeOpen ? 'none' : '';
+  document.getElementById('sbVwSeg').closest('.sb-seg-g').style.opacity = codeOpen ? '.4' : '';
+}
+document.getElementById('sbCodeSeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(b) setView(b.dataset.view);
+});
+document.getElementById('sbDl').addEventListener('click',()=>{
+  const name=(current&&current.id||'component')+(current&&current.dl==='svg'?'.svg':'.html');
+  const blob=new Blob([codeText.textContent],{type:'text/plain'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=name;
+  a.click(); URL.revokeObjectURL(a.href);
+  toast(uic('check',13)+' Saved <b>'+esc(name)+'</b>',3000);
+});
 document.getElementById('sbCopy').addEventListener('click',async()=>{ const b=document.getElementById('sbCopy'); try{ await navigator.clipboard.writeText(codeText.textContent); b.classList.add('done'); b.lastChild.textContent='Copied!'; setTimeout(()=>{ b.classList.remove('done'); b.lastChild.textContent='Copy'; },1400);}catch(e){} });
 document.getElementById('sbSearch').addEventListener('input',e=>{
   const q=e.target.value.trim().toLowerCase();
