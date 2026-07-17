@@ -616,11 +616,6 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-find:hover{ border-color:var(--sb-txt-3); }
 .sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); }
 .sb-pw-find-go{ margin-left:auto; display:inline-flex; align-items:center; gap:3px; font-size:11.5px; color:var(--sb-txt-3); flex:none; }
-.sb-elsewhere{ display:flex; gap:8px; align-items:flex-start; margin:-4px 0 10px; padding:10px 12px;
-  border-radius:9px; font-size:12px; line-height:1.55; color:var(--sb-txt-3);
-  background:var(--sb-panel-2); border:1px dashed var(--sb-line-2); }
-.sb-elsewhere .sb-i{ flex:none; margin-top:1px; }
-.sb-elsewhere b{ color:var(--sb-txt-2); font-weight:600; }
 .sb-pw-clean{ display:flex; gap:9px; align-items:flex-start; padding:13px 15px; border-radius:10px; font-size:12.5px; line-height:1.55;
   color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
 .sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
@@ -628,6 +623,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-a11y-h{ display:flex; align-items:baseline; gap:10px; margin:26px 0 12px; }
 .sb-a11y-h:first-child{ margin-top:0; }
 .sb-a11y-h b{ font-family:'Inter Tight'; font-size:15px; font-weight:700; color:var(--sb-txt); }
+.sb-a11y-h b[title]{ cursor:help; }   /* the explanation lives on hover, like the gallery headings */
 .sb-a11y-hint{ font-size:12px; color:var(--sb-txt-3); }
 .sb-ct-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 @media (max-width:820px){ .sb-ct-two{ grid-template-columns:1fr; } }
@@ -1474,22 +1470,20 @@ function renderPageWork(s){
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
           + 'Every component on it comes from the system.</span></div>');
 
-  /* Everything above this line is live and hers to act on. This section is neither:
-     it's a snapshot from the last audit, and it's decided in Design Opportunities, not
-     here. Nothing said so — the rows just said "fix it" and jumped her somewhere else
-     without warning. */
+  /* The explanation moved to the heading's tooltip — a paragraph explaining a section
+     sits there forever, and she reads it once. And the rows now wear the same ⧉ the
+     page frame's "open" uses: a chevron means "expand here", which is exactly what
+     these DON'T do. They throw you into another panel. */
   const seen=(AUDIT&&AUDIT.baseline&&AUDIT.baseline.date)||null;
-  h+='<div class="sb-a11y-h"><b>What’s off here</b><span class="sb-a11y-hint">'
-    + (finds.length?'decided in Design Opportunities, not here':'')+'</span></div>'
-    + (finds.length?'<p class="sb-elsewhere">'+uic('info',13)
-        +'<span>Unlike the numbers above, this doesn’t update on its own — it’s what the last audit found'
-        + (seen?' on <b>'+esc(seen)+'</b>':'')+'. Accepting or dismissing happens in <b>Design Opportunities</b>; '
-        + 'once you decide one there, it leaves this list too.</span></p>':'')
+  const why='From the last audit'+(seen?' on '+seen:'')+'. These are accepted or dismissed in '
+    + 'Design Opportunities — decide one there and it leaves this list too. Unlike the numbers '
+    + 'above, this list does not update on its own.';
+  h+='<div class="sb-a11y-h"><b title="'+esc(why)+'">What’s off here</b></div>'
     + (finds.length
-        ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'">'
+        ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'" title="Opens Design Opportunities">'
             + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
             + '<span class="sb-pw-find-t">'+esc(f.title)+'</span>'
-            + '<span class="sb-pw-find-go">fix it'+uic('chevronRight',12)+'</span></button>').join('')+'</div>'
+            + '<span class="sb-pw-find-go">fix it'+uic('external',11)+'</span></button>').join('')+'</div>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
           + 'Every opportunity in the playbook was checked against it and none land here.</span></div>');
 
