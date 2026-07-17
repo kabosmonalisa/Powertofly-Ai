@@ -26,15 +26,20 @@ BK   = os.path.join(DS, ".sb-backups")
 SCAN = os.path.join(DS, "usage-scan.py")
 DATA = os.path.join(DS, "usage-data.json")
 
+PAGES_JSON = os.path.join(DS, "pages.json")
+
 def _load_pages():  # single source of truth: ds/pages.json
+    # Archived pages are never touched by an edit. Drafts ARE — if Accept skipped them
+    # they would keep the old class and break the day you finish them.
     try:
-        return [p["file"] for p in json.load(open(os.path.join(DS, "pages.json")))["pages"]]
+        return [p["file"] for p in json.load(open(PAGES_JSON))["pages"]
+                if p.get("status") != "archived"]
     except Exception:
         return ["employers/index.html","talents/index-v2.html","nav-options.html",
                 "train/index.html","hire/index.html","about/index.html","event-common/index.html"]
 PAGES = _load_pages()
 
-def page_paths():        return [os.path.join(ROOT, p) for p in PAGES if os.path.exists(os.path.join(ROOT, p))]
+def page_paths():        return [os.path.join(ROOT, p) for p in _load_pages() if os.path.exists(os.path.join(ROOT, p))]
 def rel(p):              return os.path.relpath(p, ROOT)
 def all_targets():       return page_paths() + [CSS]
 
@@ -246,6 +251,38 @@ class H(http.server.SimpleHTTPRequestHandler):
             return
         if self.path.rstrip("/") == "/api/checkpoint":
             checkpoint_now(); self._json({"ok": True})
+            return
+        if self.path.rstrip("/") == "/api/pages":
+            # Every page + when it was last worked on. Includes archived (they still have
+            # tiles, just collapsed), which the scan deliberately never sees.
+            d = json.load(open(PAGES_JSON))
+            out = []
+            for pg in d["pages"]:
+                fp = os.path.join(ROOT, pg["file"])
+                item = dict(pg)
+                item["mtime"] = os.path.getmtime(fp) if os.path.exists(fp) else 0
+                item["missing"] = not os.path.exists(fp)
+                out.append(item)
+            self._json({"ok": True, "pages": out})
+            return
+        if self.path.rstrip("/") == "/api/page-status":
+            # Set a page's lifecycle: live | draft | archived
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            pid, status = body.get("id"), body.get("status")
+            if status not in ("live", "draft", "archived"):
+                self._json({"ok": False, "error": "unknown status: %s" % status}); return
+            d = json.load(open(PAGES_JSON))
+            hit = next((p for p in d["pages"] if p.get("id") == pid), None)
+            if not hit:
+                self._json({"ok": False, "error": "no such page: %s" % pid}); return
+            hit["status"] = status
+            json.dump(d, open(PAGES_JSON, "w"), indent=1, ensure_ascii=False)
+            self._json({"ok": True, "id": pid, "status": status, "data": rescan()})
+            return
+        if self.path.rstrip("/") == "/api/rescan":
+            # Re-measure the pages. This is the mechanical half of an audit — counting,
+            # not judging. It never writes a finding; it only refreshes the data.
+            self._json({"ok": True, "data": rescan()})
             return
         if self.path.rstrip("/") == "/api/brief":
             # The Create wizard hands its brief off here so Claude can read it from disk

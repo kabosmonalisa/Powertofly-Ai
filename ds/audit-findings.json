@@ -1,7 +1,7 @@
 {
  "_comment": "VISUAL AUDIT — the Cleanup & unify findings, in designer language. Each finding shows the real variations you have today, rendered LIVE from their measured values (no screenshots to go stale), where each one appears, exactly what differs, and a Keep / Merge / Discuss recommendation. Measured at 1280px across 25 real pages. Prototype-only scaffolding (#devStates, .live-sim) is excluded — it never ships. Specimens stamp their own rendered height/size, so a label can never drift from what you actually see.",
  "_specimen": "spec = { tag, text, stage:'light'|'dark', css:{…} } → rendered inline with those exact values.",
- "measured": "2026-07-16 · 25 pages · 1280px · light theme",
+ "measured": "25 pages · 1280px · light theme · 2026-07-16",
  "findings": [
   {
    "id": "f-small-pill",
@@ -1624,5 +1624,37 @@
    ],
    "after": []
   }
- ]
+ ],
+ "baseline": {
+  "_comment": "What this audit was measured against. The panel compares this to the live scan to tell you when the findings have gone stale. It never invents findings from a diff.",
+  "date": "2026-07-16",
+  "pages": [
+   "about/index.html",
+   "auth.html",
+   "book/index.html",
+   "chat-learn/index.html",
+   "compare/index.html",
+   "employers/index.html",
+   "event-common/index.html",
+   "event-company/index.html",
+   "event-employer/index.html",
+   "events/index.html",
+   "expert-finder/index.html",
+   "hire/index.html",
+   "how-we-verify/index.html",
+   "job-board/index.html",
+   "nav-options.html",
+   "not-found/index.html",
+   "signup/index.html",
+   "sponsor/index.html",
+   "summit/index.html",
+   "talents/index-v2.html",
+   "talents/index.html",
+   "top-alerts.html",
+   "train/index.html",
+   "vjf/index.html",
+   "why-powertofly/index.html"
+  ],
+  "classes": null
+ }
 }

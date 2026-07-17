@@ -11,6 +11,7 @@
    "about/index.html",
    "events/index.html",
    "job-board/index.html",
+   "resources/index.html",
    "not-found/index.html",
    "vjf/index.html",
    "summit/index.html",
@@ -27,8 +28,7 @@
    "sponsor/index.html",
    "event-company/index.html",
    "event-employer/index.html",
-   "book/index.html",
-   "ds/ptf.js"
+   "book/index.html"
   ]
  },
  "classes": {
@@ -64,7 +64,7 @@
    }
   },
   ".italic-plain": {
-   "total": 27,
+   "total": 28,
    "files": {
     "about/index.html": 5,
     "talents/index-v2.html": 4,
@@ -76,6 +76,7 @@
     "talents/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
+    "resources/index.html": 1,
     "not-found/index.html": 1,
     "vjf/index.html": 1,
     "event-company/index.html": 1,
@@ -215,7 +216,7 @@
    }
   },
   ".section": {
-   "total": 35,
+   "total": 36,
    "files": {
     "talents/index-v2.html": 7,
     "job-board/index.html": 7,
@@ -226,21 +227,23 @@
     "events/index.html": 2,
     "vjf/index.html": 2,
     "hire/index.html": 1,
-    "about/index.html": 1
+    "about/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".section-narrow": {
-   "total": 18,
+   "total": 19,
    "files": {
     "talents/index-v2.html": 7,
     "talents/index.html": 6,
     "employers/index.html": 2,
     "about/index.html": 2,
+    "resources/index.html": 1,
     "not-found/index.html": 1
    }
   },
   ".section-head": {
-   "total": 35,
+   "total": 36,
    "files": {
     "talents/index-v2.html": 6,
     "talents/index.html": 6,
@@ -252,6 +255,7 @@
     "job-board/index.html": 2,
     "vjf/index.html": 2,
     "about/index.html": 1,
+    "resources/index.html": 1,
     "not-found/index.html": 1
    }
   },
@@ -327,9 +331,10 @@
    }
   },
   ".sc-tag": {
-   "total": 32,
+   "total": 38,
    "files": {
     "events/index.html": 14,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "train/index.html": 3,
     "hire/index.html": 3,
@@ -815,7 +820,7 @@
    }
   },
   ".section-cta": {
-   "total": 10,
+   "total": 11,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
@@ -824,13 +829,14 @@
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
    }
   },
   ".section-cta-inner": {
-   "total": 10,
+   "total": 11,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
@@ -839,13 +845,14 @@
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
    }
   },
   ".eyebrow": {
-   "total": 32,
+   "total": 34,
    "files": {
     "about/index.html": 8,
     "summit/index.html": 5,
@@ -855,6 +862,7 @@
     "train/index.html": 2,
     "hire/index.html": 2,
     "events/index.html": 2,
+    "resources/index.html": 2,
     "employers/index.html": 1,
     "talents/index.html": 1,
     "event-common/index.html": 1,
@@ -871,7 +879,7 @@
    }
   },
   ".btn": {
-   "total": 78,
+   "total": 79,
    "files": {
     "talents/index.html": 13,
     "job-board/index.html": 9,
@@ -892,12 +900,13 @@
     "compare/index.html": 2,
     "employers/index.html": 1,
     "about/index.html": 1,
+    "resources/index.html": 1,
     "signup/index.html": 1,
     "event-company/index.html": 1
    }
   },
   ".btn-cta": {
-   "total": 10,
+   "total": 11,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
@@ -906,6 +915,7 @@
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
@@ -990,12 +1000,13 @@
    }
   },
   ".display": {
-   "total": 10,
+   "total": 11,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
     "talents/index.html": 1,
     "about/index.html": 1,
+    "resources/index.html": 1,
     "not-found/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -1133,10 +1144,11 @@
    }
   },
   ".dot": {
-   "total": 9,
+   "total": 10,
    "files": {
     "talents/index-v2.html": 4,
     "talents/index.html": 3,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "event-employer/index.html": 1
    }
@@ -1228,13 +1240,14 @@
    }
   },
   ".is-active": {
-   "total": 15,
+   "total": 16,
    "files": {
     "nav-options.html": 5,
     "events/index.html": 4,
     "talents/index-v2.html": 3,
     "ds/ptf.js": 2,
-    "job-board/index.html": 1
+    "job-board/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".ai-cursor": {
@@ -1590,12 +1603,13 @@
    }
   },
   ".site-header": {
-   "total": 8,
+   "total": 9,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -1915,10 +1929,11 @@
    }
   },
   ".section-hero": {
-   "total": 3,
+   "total": 4,
    "files": {
     "about/index.html": 1,
     "job-board/index.html": 1,
+    "resources/index.html": 1,
     "not-found/index.html": 1
    }
   },
@@ -2355,81 +2370,91 @@
    }
   },
   ".ev-head": {
-   "total": 5,
+   "total": 6,
    "files": {
     "events/index.html": 2,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
    }
   },
   ".ev-listing": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "events/index.html": 2
+    "events/index.html": 2,
+    "resources/index.html": 1
    }
   },
   ".ev-filter": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "events/index.html": 2
+    "events/index.html": 2,
+    "resources/index.html": 1
    }
   },
   ".ev-filter-btn": {
-   "total": 10,
+   "total": 17,
    "files": {
-    "events/index.html": 10
+    "events/index.html": 10,
+    "resources/index.html": 7
    }
   },
   ".ev-list": {
-   "total": 5,
+   "total": 6,
    "files": {
     "events/index.html": 2,
+    "resources/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
    }
   },
   ".ev-row": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
    }
   },
   ".ev-row-date": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
    }
   },
   ".ev-row-body": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
    }
   },
   ".ev-row-title": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
    }
   },
   ".ev-row-desc": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
@@ -2462,18 +2487,20 @@
    }
   },
   ".ev-row-link": {
-   "total": 22,
+   "total": 28,
    "files": {
     "events/index.html": 12,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
    }
   },
   ".ev-thumb": {
-   "total": 21,
+   "total": 27,
    "files": {
     "events/index.html": 11,
+    "resources/index.html": 6,
     "summit/index.html": 5,
     "chat-learn/index.html": 3,
     "vjf/index.html": 2
@@ -2487,39 +2514,45 @@
    }
   },
   ".ev-pager": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "events/index.html": 2
+    "events/index.html": 2,
+    "resources/index.html": 1
    }
   },
   ".ev-listing--grid": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".ev-search-wrap": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".ev-search": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".ev-search-clear": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".ev-empty": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".live-sim": {
@@ -2583,9 +2616,10 @@
    }
   },
   ".has-value": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "events/index.html": 1
+    "events/index.html": 1,
+    "resources/index.html": 1
    }
   },
   ".is-open": {
@@ -3138,6 +3172,15 @@
     "job-board/index.html": 1
    }
   },
+  ".ev-head-link": {
+   "total": 4,
+   "files": {
+    "resources/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
   ".err-hero": {
    "total": 1,
    "files": {
@@ -3215,14 +3258,6 @@
    }
   },
   ".ev-more": {
-   "total": 3,
-   "files": {
-    "vjf/index.html": 1,
-    "summit/index.html": 1,
-    "chat-learn/index.html": 1
-   }
-  },
-  ".ev-head-link": {
    "total": 3,
    "files": {
     "vjf/index.html": 1,
@@ -4963,13 +4998,14 @@
    "defined": true
   },
   "--content": {
-   "total": 12,
+   "total": 13,
    "files": {
     "talents/index-v2.html": 4,
     "talents/index.html": 4,
     "about/index.html": 2,
     "employers/index.html": 1,
-    "train/index.html": 1
+    "train/index.html": 1,
+    "resources/index.html": 1
    },
    "cssRefs": 2,
    "defined": true
@@ -5144,9 +5180,10 @@
    "defined": true
   },
   "--grid": {
-   "total": 4,
+   "total": 6,
    "files": {
-    "events/index.html": 4
+    "events/index.html": 4,
+    "resources/index.html": 2
    },
    "cssRefs": 0,
    "defined": false
@@ -5244,16 +5281,16 @@
    "cssRefs": 4,
    "defined": true
   },
-  "--btn-fg": {
+  "--btn-bg-hover": {
    "total": 0,
    "files": {},
    "cssRefs": 5,
    "defined": true
   },
-  "--purple-bright": {
+  "--btn-fg": {
    "total": 0,
    "files": {},
-   "cssRefs": 4,
+   "cssRefs": 5,
    "defined": true
   },
   "--btn-bg": {
@@ -5262,22 +5299,22 @@
    "cssRefs": 7,
    "defined": true
   },
-  "--hero-top": {
+  "--purple-bright": {
    "total": 0,
    "files": {},
-   "cssRefs": 1,
-   "defined": true
-  },
-  "--btn-bg-hover": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 5,
+   "cssRefs": 4,
    "defined": true
   },
   "--section-y-loose": {
    "total": 0,
    "files": {},
    "cssRefs": 2,
+   "defined": true
+  },
+  "--hero-top": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 1,
    "defined": true
   }
  },

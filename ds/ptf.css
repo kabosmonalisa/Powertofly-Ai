@@ -1404,7 +1404,9 @@ img { display: block; max-width: 100%; }
 .ev-listing--grid .ev-row-desc { font-size: 14px; margin: 0 0 16px; max-width: none;
   display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .ev-listing--grid .ev-row-link { margin-top: auto; }
-.ev-listing--grid .ev-row > .ev-thumb { order: -1; width: auto; height: 152px; margin: -22px -22px 16px; border-radius: var(--r-xl) var(--r-xl) 0 0; }
+/* align-self: stretch resets the LIST variant's `align-self: start`, which would otherwise stop
+   the thumb filling the card in this flex-column tile (width:auto → shrink-to-fit the image). */
+.ev-listing--grid .ev-row > .ev-thumb { order: -1; width: auto; align-self: stretch; height: 152px; margin: -22px -22px 16px; border-radius: var(--r-xl) var(--r-xl) 0 0; }
 .ev-listing--grid .ev-faces img { width: 26px; height: 26px; border-color: var(--bg-soft); }
 .ev-listing--grid .ev-people { margin-bottom: 16px; }
 

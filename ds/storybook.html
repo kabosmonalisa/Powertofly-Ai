@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
-<meta name="theme-color" content="#0d1013">
-<title>PowerToFly AI — Storybook</title>
+<meta name="theme-color" content="#0A0A0A">
+<title>PowerToFly AI — Design Playbook</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..700&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="ptf.css">
 <style>
 /* ══════════ STORYBOOK CHROME ONLY — page tooling, NOT design-system. All `sb-` prefixed. ══════════ */
 :root{
   --sb-bar-h:60px; --sb-side-w:272px;
-  --sb-panel:#14181c; --sb-panel-2:#1b2026;
+  --sb-panel:#131313; --sb-panel-2:#1e1e1e;
   --sb-line:rgba(255,255,255,.08); --sb-line-2:rgba(255,255,255,.14);
-  --sb-txt:#E7ECEA; --sb-txt-2:rgba(231,236,234,.58); --sb-txt-3:rgba(231,236,234,.38);
+  --sb-txt:#EDEDED; --sb-txt-2:rgba(237,237,237,.58); --sb-txt-3:rgba(237,237,237,.38);
   --sb-green:#4FE8A9; --sb-mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
 }
 *{box-sizing:border-box}
@@ -23,7 +23,7 @@
 [hidden]{ display:none !important; }
 html{ color-scheme:dark; }   /* native scrollbars, inputs & selects render dark, not light-on-dark */
 html,body{height:100%}
-body{ margin:0; font-family:'Inter',system-ui,sans-serif; background:#0d1013; color:var(--sb-txt); overflow:hidden; }
+body{ margin:0; font-family:'Inter',system-ui,sans-serif; background:#0A0A0A; color:var(--sb-txt); overflow:hidden; }
 
 /* ── Accessibility baseline ──────────────────────────────────────────────
    Every control gets a visible keyboard focus ring. :focus-visible so mouse
@@ -54,11 +54,14 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-seg{ display:flex; background:var(--sb-panel-2); border:1px solid var(--sb-line); border-radius:999px; padding:3px; gap:2px; }
 .sb-seg button{ font:inherit; font-size:12px; font-weight:600; color:var(--sb-txt-2); background:none; border:0; padding:6px 12px; border-radius:999px; cursor:pointer; display:flex; align-items:center; gap:6px; transition:color .15s ease, background-color .15s ease; white-space:nowrap; }
 .sb-seg button:hover{ color:var(--sb-txt); }
-.sb-seg button.on{ color:#08110d; background:var(--sb-green); }
+.sb-seg button.on{ color:var(--sb-green); background:rgba(79,232,169,.09); box-shadow:inset 0 0 0 1px var(--sb-green); }
 
 .sb-body{ display:flex; height:calc(100% - var(--sb-bar-h)); }
 .sb-side{ width:var(--sb-side-w); flex:none; background:var(--sb-panel); border-right:1px solid var(--sb-line); overflow-y:auto; padding:12px 0 60px; }
 /* Collapsible groups — closed by default, so the sidebar is a short menu, not a wall. */
+.sb-supra{ display:flex; align-items:center; gap:10px; margin:18px 12px 4px; padding-top:14px;
+  border-top:1px solid var(--sb-line); font-size:10px; font-weight:800; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sb-txt-3); }
 .sb-group{ display:flex; align-items:center; gap:8px; width:100%; font:inherit; text-align:left; background:none; border:0; cursor:pointer;
   padding:9px 16px; margin-top:4px; font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--sb-txt-3);
   transition:color .12s ease; }
@@ -72,23 +75,70 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-group-items.open{ display:block; }
 .sb-item{ display:flex; align-items:center; gap:9px; width:100%; text-align:left; font:inherit; font-size:13.5px; color:var(--sb-txt-2); background:none; border:0; padding:7px 20px 7px 22px; cursor:pointer; border-left:2px solid transparent; transition:color .12s ease, background-color .12s ease, border-color .12s ease; }
 .sb-item .sb-i{ opacity:.55; }
+.sb-tagm{ margin-left:auto; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:4px; padding:2px 5px; flex:none; }
+.sb-supra{ display:flex; align-items:center; gap:10px; margin:18px 12px 4px; padding-top:14px;
+  border-top:1px solid var(--sb-line); font-size:10px; font-weight:800; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--sb-txt-3); }
+.sb-group{ display:flex; align-items:center; gap:8px; width:100%; font:inherit; text-align:left; background:none; border:0; cursor:pointer;
+  padding:9px 16px; margin-top:4px; font-size:10.5px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--sb-txt-3);
+  transition:color .12s ease; }
+.sb-group:hover{ color:var(--sb-txt-2); }
+.sb-group.open{ color:var(--sb-txt-2); }
+.sb-group > span:first-of-type{ flex:1; }
+.sb-group-caret{ transition:transform .15s ease; opacity:.6; }
+.sb-group.open .sb-group-caret{ transform:rotate(90deg); }
+.sb-group-n{ font-size:10px; font-weight:700; letter-spacing:0; color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:999px; padding:2px 7px; }
+.sb-group-items{ display:none; padding-bottom:4px; }
+.sb-group-items.open{ display:block; }
+.sb-item{ display:flex; align-items:center; gap:9px; width:100%; text-align:left; font:inherit; font-size:13.5px; color:var(--sb-txt-2); background:none; border:0; padding:7px 20px 7px 22px; cursor:pointer; border-left:2px solid transparent; transition:color .12s ease, background-color .12s ease, border-color .12s ease; }
+.sb-item .sb-i{ opacity:.55; }
+.sb-tagm{ margin-left:auto; font-size:9px; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:4px; padding:2px 5px; flex:none; }
 .sb-item.on .sb-i{ opacity:1; color:var(--sb-green); }
 .sb-item:hover{ color:var(--sb-txt); background:rgba(255,255,255,.03); }
 .sb-item.on{ color:var(--sb-txt); border-left-color:var(--sb-green); background:rgba(79,232,169,.08); font-weight:600; }
 .sb-item.hidden,.sb-group.hidden{ display:none; }
 
-.sb-main{ flex:1; overflow-y:auto; padding:28px 32px 90px; }
-.sb-head{ max-width:1240px; margin:0 auto 20px; }
-.sb-head h1{ font-family:'Inter Tight'; font-weight:800; letter-spacing:-.025em; font-size:25px; margin:0 0 6px; }
-.sb-head p{ margin:0; color:var(--sb-txt-2); font-size:14px; line-height:1.55; max-width:78ch; }
-.sb-tags{ display:flex; gap:6px; margin-top:12px; flex-wrap:wrap; }
+.sb-main{ flex:1; overflow-y:auto; padding:0 32px 90px; }
+/* The title and the preview controls pin to the top of the canvas while you scroll —
+   you can always see what you're looking at and change how it's shown.
+   Negative side margins let the background bleed past .sb-main's padding. */
+.sb-sticky{ position:sticky; top:0; z-index:6; background:#0A0A0A; margin:0 -32px 0; padding:18px 32px 14px;
+  border-bottom:1px solid transparent; transition:border-color .15s ease; }
+.sb-sticky.stuck{ border-bottom-color:var(--sb-line); box-shadow:0 8px 20px rgba(0,0,0,.55); }
+/* Two columns, not four stacked rows: what it is on the left, how to view it on the
+   right, baselines aligned. Keeps the pinned header ~half the height it was. */
+/* A real 2×2 grid so the four things line up on two rows:
+     title ┆ view controls
+     desc  ┆ tags
+   display:contents lets the existing wrappers hand their children to the grid. */
+.sb-sticky-in{ max-width:1240px; margin:0 auto; display:grid; grid-template-columns:minmax(0,1fr) auto;
+  align-items:center; gap:7px 32px; }
+.sb-head, .sb-headside{ display:contents; }
+#sbName{ grid-area:1/1; }
+#sbDesc{ grid-area:2/1; }
+#sbStageBar{ grid-area:1/2; }
+#sbTags{ grid-area:2/2; }
+.sb-head h1{ font-family:'Inter Tight'; font-weight:800; letter-spacing:-.025em; font-size:23px; margin:0 0 4px; line-height:1.15; }
+.sb-head p{ margin:0; color:var(--sb-txt-2); font-size:13px; line-height:1.5; max-width:80ch;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.sb-tags{ display:flex; gap:6px; margin:0; flex-wrap:wrap; justify-content:flex-end; }
 .sb-chip{ font-size:11px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--sb-panel-2); border:1px solid var(--sb-line-2); color:var(--sb-txt-2); }
 .sb-chip.code{ font-family:var(--sb-mono); color:var(--sb-green); border-color:rgba(79,232,169,.3); background:rgba(79,232,169,.07); }
 
 .sb-stagewrap{ max-width:1240px; margin:0 auto; }
 /* Preview controls live ON the canvas, not in the global bar — they only ever change
    what's in the stage below them, and they disappear when they can't do anything. */
-.sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:0 0 10px; flex-wrap:wrap; }
+.sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:8px; margin:0; flex-wrap:wrap; }
+/* Narrow (side panel): the header stacks — title, description, then the controls.
+   Two columns at this width squeezes the title into a 3-line sliver. */
+@media (max-width:1100px){
+  .sb-sticky-in{ grid-template-columns:1fr; gap:9px; }
+  #sbName,#sbDesc,#sbStageBar,#sbTags{ grid-area:auto; }
+  #sbStageBar,#sbTags{ justify-content:flex-start; }
+  .sb-head p{ -webkit-line-clamp:2; }
+}
 .sb-stagebar .sb-seg{ background:var(--sb-panel); }
 .sb-stage{ border:1px solid var(--sb-line-2); border-radius:16px; overflow:hidden; background:#fff;
   background-image:linear-gradient(45deg,#f1f2f0 25%,transparent 25%),linear-gradient(-45deg,#f1f2f0 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#f1f2f0 75%),linear-gradient(-45deg,transparent 75%,#f1f2f0 75%);
@@ -210,6 +260,47 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-clean-hint{ font-size:12.5px; color:var(--sb-txt-3); margin:0 0 12px; line-height:1.5; }
 .sb-empty{ font-size:13px; color:var(--sb-txt-3); padding:10px 0; }
 
+/* ══ PAGES / FLOWS — the tile gallery ══ */
+.sb-gal-link{ display:flex; align-items:center; gap:9px; width:100%; font:inherit; text-align:left; background:none;
+  border:0; padding:9px 16px; cursor:pointer; font-size:13.5px; font-weight:600; color:var(--sb-txt-2);
+  border-left:2px solid transparent; transition:color .12s ease, background-color .12s ease; }
+.sb-gal-link:hover{ color:var(--sb-txt); background:rgba(255,255,255,.03); }
+.sb-gal-link.on{ color:var(--sb-txt); border-left-color:var(--sb-green); background:rgba(79,232,169,.08); }
+.sb-gal-link .sb-i{ opacity:.55; }
+.sb-gal-link .sb-group-n{ margin-left:auto; }
+.sb-gal-h{ display:flex; align-items:baseline; gap:9px; margin:22px 0 12px; }
+.sb-gal-h:first-child{ margin-top:4px; }
+.sb-gal-h b{ font-family:'Inter Tight'; font-size:14px; font-weight:800; }
+.sb-gal-h > span{ font-size:11px; font-weight:700; color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:999px; padding:2px 7px; }
+.sb-gal-h i{ font-style:normal; font-size:12px; color:var(--sb-txt-3); }
+.sb-gal-note{ font-size:12px; color:var(--sb-txt-3); display:flex; gap:7px; align-items:center; margin-bottom:12px; }
+.sb-arch-toggle{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-family:'Inter Tight'; font-size:14px;
+  font-weight:800; color:var(--sb-txt-2); background:none; border:0; padding:0; cursor:pointer; }
+.sb-arch-toggle:hover{ color:var(--sb-txt); }
+.sb-tiles{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; }
+.sb-tile{ display:flex; flex-direction:column; padding:0; font:inherit; text-align:left; background:var(--sb-panel);
+  border:1px solid var(--sb-line); border-radius:12px; overflow:hidden; cursor:pointer;
+  transition:border-color .15s ease, transform .15s ease; }
+.sb-tile:hover{ border-color:var(--sb-txt-3); transform:translateY(-2px); }
+/* the tile IS the page, scaled — never a screenshot, so it can never be out of date */
+.sb-tile-shot{ display:block; height:132px; overflow:hidden; position:relative; background:#fff; }
+.sb-tile-shot iframe{ position:absolute; top:0; left:0; width:1280px; height:820px; border:0;
+  transform:scale(.164); transform-origin:top left; pointer-events:none; }
+.sb-tile-meta{ display:flex; align-items:center; gap:8px; padding:9px 10px 9px 12px; border-top:1px solid var(--sb-line); }
+.sb-tile-txt{ min-width:0; flex:1; }
+.sb-tile-acts{ display:flex; gap:4px; flex:none; }
+.sb-tile-ico{ display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; flex:none;
+  border-radius:7px; background:none; border:1px solid transparent; color:var(--sb-txt-3); cursor:pointer;
+  transition:color .15s ease, border-color .15s ease, background-color .15s ease; }
+.sb-tile-ico:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
+.sb-tile-ico.on{ color:var(--sb-green); border-color:rgba(79,232,169,.45); background:rgba(79,232,169,.09); }
+.sb-tile-meta b{ display:block; font-family:'Inter Tight'; font-size:13.5px; font-weight:700; color:var(--sb-txt);
+  overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sb-tile-sub{ display:block; font-size:11.5px; color:var(--sb-txt-3); margin-top:3px; }
+.sb-tile-st{ font-style:normal; font-weight:700; text-transform:uppercase; font-size:9.5px; letter-spacing:.06em; }
+.sb-tile-st.draft{ color:#FFCB6B; }
+.sb-tile-st.archived{ color:var(--sb-txt-3); }
+
 /* ══ CREATE — entry point + guided wizard ══ */
 /* Create lives at the top of the side nav: it's the start of the work, not a tool. */
 .sb-side-create{ display:flex; align-items:center; justify-content:center; gap:8px; width:calc(100% - 24px); margin:10px 12px 6px; font:inherit;
@@ -222,7 +313,7 @@ button,a,label,summary{ touch-action:manipulation; }
   transition:color .15s ease, border-color .15s ease; }
 .sb-tool:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-tool .sb-i{ opacity:.8; }
-.sb-wiz{ position:fixed; inset:0; z-index:45; background:#0d1013; display:flex; flex-direction:column; animation:sb-fade .2s ease; }
+.sb-wiz{ position:fixed; inset:0; z-index:45; background:#0A0A0A; display:flex; flex-direction:column; animation:sb-fade .2s ease; }
 @keyframes sb-fade{ from{opacity:0} to{opacity:1} }
 @media (prefers-reduced-motion:reduce){ .sb-wiz{ animation:none } }
 .sb-wiz-hd{ position:relative; display:flex; align-items:center; justify-content:center; gap:10px; padding:18px 26px; border-bottom:1px solid var(--sb-line); background:var(--sb-panel); }
@@ -231,7 +322,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-wiz-step i{ display:inline-flex; align-items:center; justify-content:center; width:19px; height:19px; border-radius:50%;
   background:var(--sb-panel-2); border:1px solid var(--sb-line-2); font-style:normal; font-size:10px; font-variant-numeric:tabular-nums; }
 .sb-wiz-step.on{ color:var(--sb-txt); background:rgba(79,232,169,.1); }
-.sb-wiz-step.on i{ background:var(--sb-green); border-color:var(--sb-green); color:#08110d; }
+.sb-wiz-step.on i{ background:rgba(79,232,169,.12); border-color:var(--sb-green); color:var(--sb-green); }
 .sb-wiz-step.done{ color:var(--sb-txt-2); }
 .sb-wiz-step.done i{ background:rgba(79,232,169,.22); border-color:transparent; color:var(--sb-green); }
 .sb-wiz-sep{ width:14px; height:1px; background:var(--sb-line-2); }
@@ -319,12 +410,19 @@ button,a,label,summary{ touch-action:manipulation; }
   min-width:18px; padding:1px 6px; text-align:center; font-variant-numeric:tabular-nums; }
 .sb-opps.none .sb-opps-n{ background:var(--sb-panel-2); color:var(--sb-txt-3); }
 .sb-scrim{ position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px); z-index:40; }
-.sb-panel{ position:fixed; top:0; right:0; bottom:0; width:min(940px,94vw); z-index:41; background:#0f1316;
+.sb-panel{ position:fixed; top:0; right:0; bottom:0; width:min(940px,94vw); z-index:41; background:#0A0A0A;
   border-left:1px solid var(--sb-line-2); box-shadow:-24px 0 70px rgba(0,0,0,.55); display:flex; flex-direction:column;
   animation:sb-slide .22s ease; }
 @keyframes sb-slide{ from{ transform:translateX(24px); opacity:0 } to{ transform:none; opacity:1 } }
 @media (prefers-reduced-motion:reduce){ .sb-panel{ animation:none } }
-.sb-panel-hd{ position:relative; padding:22px 26px 16px; border-bottom:1px solid var(--sb-line); background:var(--sb-panel); }
+.sb-panel-hd{ position:relative; padding:22px 26px 16px; border-bottom:1px solid var(--sb-line); background:#0A0A0A; }
+/* Progress is the header's own bottom rule filling in — ambient, no extra height,
+   nothing competing with the title. The number carries the detail. */
+.sb-panel-prog{ position:absolute; left:0; bottom:-1px; height:2px; width:0; border-radius:0 2px 2px 0;
+  background:linear-gradient(90deg,#5BCFFF,#4FE8A9 60%,#D5FF66); transition:width .35s ease; }
+.sb-panel-count{ position:absolute; right:64px; top:24px; font-size:12px; color:var(--sb-txt-3);
+  font-variant-numeric:tabular-nums; white-space:nowrap; }
+.sb-panel-count b{ color:var(--sb-txt); font-weight:700; }
 .sb-panel-title{ display:flex; align-items:center; gap:10px; margin:0 0 6px; font-family:'Inter Tight'; font-size:21px; font-weight:800; letter-spacing:-.02em; }
 .sb-panel-title .sb-i{ color:var(--sb-green); }
 .sb-panel-sub{ margin:0; font-size:13px; color:var(--sb-txt-2); line-height:1.55; max-width:80ch; }
@@ -332,6 +430,24 @@ button,a,label,summary{ touch-action:manipulation; }
   width:32px; height:32px; border-radius:8px; background:var(--sb-panel-2); border:1px solid var(--sb-line-2); color:var(--sb-txt-2); cursor:pointer; }
 .sb-panel-x:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-panel-tools{ display:flex; gap:8px; align-items:center; margin-top:14px; }
+/* The job you came to do */
+.sb-primary{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:800;
+  color:#08110d; background:var(--sb-green); border:1px solid var(--sb-green); border-radius:999px;
+  padding:8px 15px; cursor:pointer; white-space:nowrap; transition:filter .15s ease; }
+.sb-primary:hover{ filter:brightness(1.08); }
+/* Guards and safety nets: present, quiet, out of the way */
+.sb-icon-btn{ display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; flex:none;
+  border-radius:999px; background:var(--sb-panel-2); border:1px solid var(--sb-line-2); color:var(--sb-txt-2);
+  cursor:pointer; transition:color .15s ease, border-color .15s ease, background-color .15s ease; }
+.sb-icon-btn:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+.sb-icon-btn.on{ color:var(--sb-green); background:rgba(79,232,169,.1); border-color:var(--sb-green); }
+.sb-menu-wrap{ position:relative; display:inline-flex; }
+.sb-menu{ position:absolute; top:38px; right:0; z-index:20; min-width:210px; display:flex; flex-direction:column;
+  padding:5px; background:#141414; border:1px solid var(--sb-line-2); border-radius:11px;
+  box-shadow:0 16px 40px rgba(0,0,0,.6); }
+.sb-menu-i{ display:flex; align-items:center; gap:9px; font:inherit; font-size:12.5px; font-weight:600; text-align:left;
+  color:var(--sb-txt-2); background:none; border:0; border-radius:7px; padding:9px 10px; cursor:pointer; white-space:nowrap; }
+.sb-menu-i:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
 .sb-panel-body{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:20px 26px 60px; }
 .sb-panel-body .sb-usage-h{ display:none; }
 .sb-kind{ font-size:9.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; padding:4px 8px; border-radius:6px;
@@ -348,8 +464,12 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-progress-bar i{ display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#5BCFFF,#4FE8A9 60%,#D5FF66); transition:width .3s ease; }
 .sb-progress-lbl{ font-size:12px; color:var(--sb-txt-2); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .sb-progress-lbl b{ color:var(--sb-txt); }
-.sb-filters{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
-.sb-filters .sb-filter{ margin:0; }
+.sb-filters{ display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap; margin:0 0 18px; }
+.sb-fgroup{ display:flex; flex-direction:column; gap:7px; }
+.sb-flabel{ font-size:9.5px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--sb-txt-3); padding-left:3px; }
+.sb-fdiv{ width:1px; height:30px; background:var(--sb-line-2); margin:0 4px; }
+.sb-n{ margin-left:6px; font-variant-numeric:tabular-nums; font-weight:700; opacity:.55; }
+.sb-seg button.on .sb-n{ opacity:.65; }
 /* decided = collapsed one-line receipt */
 .sb-f.decided{ background:transparent; }
 .sb-f-done{ display:flex; align-items:center; gap:12px; padding:12px 16px; }
@@ -362,7 +482,29 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-done-state b{ font-family:'Inter Tight'; font-size:17px; font-weight:800; display:block; margin-bottom:6px; }
 .sb-done-state p{ font-size:13.5px; color:var(--sb-txt-2); margin:0 auto; max-width:52ch; line-height:1.6; }
 .sb-f-hd{ padding:18px 20px 14px; border-bottom:1px solid var(--sb-line); }
-.sb-f-top{ display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+/* collapsed row — the whole finding as one scannable line */
+.sb-more{ display:none; }
+.sb-more.open{ display:block; }
+.sb-more-btn{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:700;
+  color:var(--sb-txt-2); background:none; border:0; padding:8px 2px; cursor:pointer; }
+.sb-more-btn:hover{ color:var(--sb-txt); }
+.sb-f-acts .sp{ flex:1; }
+.sb-f-caret{ display:inline-flex; color:var(--sb-txt-3); flex:none; transition:transform .15s ease; }
+.sb-f-caret.open{ transform:rotate(90deg); }
+.sb-f-rowtitle{ font-family:'Inter Tight'; font-size:15px; font-weight:800; letter-spacing:-.015em; color:var(--sb-txt);
+  flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.sb-f-minis{ display:flex; gap:5px; flex:none; }
+.sb-mini{ width:82px; height:42px; border-radius:7px; overflow:hidden; flex:none; border:1px solid var(--sb-line);
+  background:var(--bg); color:var(--ink); display:flex; align-items:center; justify-content:center; }
+.sb-mini.theme-dark{ background:#0A0A0A; color:#fff; }
+.sb-mini-in{ transform:scale(.42); transform-origin:center; white-space:nowrap; pointer-events:none; flex:none; }
+.sb-f-toggle{ cursor:pointer; }
+.sb-f-toggle:hover .sb-f-title{ color:#fff; }
+@media (max-width:700px){ .sb-f-minis{ display:none; } }
+.sb-f-top{ display:flex; align-items:center; gap:14px; margin-bottom:7px; }
+.sb-f-title{ flex:1; min-width:0; }
+.sb-f-chips{ display:flex; align-items:center; gap:7px; flex:none; margin-left:auto; }
+@media (max-width:760px){ .sb-f-top{ flex-wrap:wrap; } .sb-f-chips{ margin-left:0; } }
 .sb-imp{ font-size:9.5px; font-weight:800; letter-spacing:.09em; text-transform:uppercase; padding:4px 9px; border-radius:6px; flex:none; }
 .sb-imp.high{ background:rgba(255,99,99,.16); color:#FF8A8A; }
 .sb-imp.medium{ background:rgba(255,193,86,.16); color:#FFCB6B; }
@@ -384,7 +526,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-sp-stage.dark{ background:#0A0A0A; background-image:none; }
 .sb-sp-meta{ padding:10px 12px 12px; border-top:1px solid var(--sb-line); }
 .sb-sp-name{ font-size:12.5px; font-weight:700; color:var(--sb-txt); display:flex; align-items:center; gap:7px; }
-.sb-stamp{ font-family:var(--sb-mono); font-size:10px; font-weight:600; color:#08110d; background:var(--sb-green); border-radius:4px; padding:2px 5px; flex:none; }
+.sb-stamp{ font-family:var(--sb-mono); font-size:10px; font-weight:600; color:var(--sb-green); background:transparent;
+  border:1px solid rgba(79,232,169,.42); border-radius:4px; padding:1px 5px; flex:none; }
 .sb-sp-note{ font-size:11.5px; color:var(--sb-txt-3); margin-top:4px; line-height:1.4; }
 .sb-sp-where{ font-size:11.5px; color:var(--sb-txt-2); margin-top:7px; line-height:1.5; }
 .sb-sp-where b{ color:var(--sb-txt); font-weight:600; }
@@ -395,7 +538,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-diff li{ font-size:13px; color:var(--sb-txt-2); line-height:1.5; padding-left:15px; position:relative; margin-bottom:5px; }
 .sb-f-diff li::before{ content:'—'; position:absolute; left:0; color:var(--sb-txt-3); }
 .sb-f-cause{ font-size:13px; color:var(--sb-txt-2); line-height:1.6; background:rgba(255,255,255,.03); border:1px solid var(--sb-line); border-radius:9px; padding:11px 13px; }
-.sb-f-rec{ margin-top:20px; border-top:1px solid var(--sb-line); padding-top:16px; }
+.sb-f-rec{ margin-top:20px; }
+.sb-f-rec .sb-rec-chip{ display:inline-block; margin-bottom:10px; }
 .sb-rec-chip{ font-size:11px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:5px 11px; border-radius:999px; flex:none; }
 .sb-rec-chip.merge{ background:rgba(79,232,169,.14); color:#4FE8A9; }
 .sb-rec-chip.keep{ background:rgba(255,255,255,.07); color:var(--sb-txt-2); }
@@ -403,13 +547,10 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-why{ font-size:13.5px; color:var(--sb-txt-2); line-height:1.65; margin-top:10px; max-width:88ch; }
 .sb-f-fix{ font-size:12.5px; color:var(--sb-green); background:rgba(79,232,169,.07); border:1px solid rgba(79,232,169,.2); border-radius:9px; padding:10px 13px; margin-top:12px; line-height:1.5; }
 .sb-f-fix::before{ content:'→ '; font-weight:700; }
-.sb-f-acts{ display:flex; gap:8px; margin-top:14px; align-items:center; flex-wrap:wrap; }
+.sb-f-acts{ display:flex; gap:8px; margin-top:16px; padding-top:14px; border-top:1px solid var(--sb-line); align-items:center; flex-wrap:wrap; }
 .sb-dec{ font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:8px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
 /* Locked = visible + clickable (it asks for the password), never hidden from a teammate. */
 .sb-lock{ width:12px; height:12px; flex:none; fill:currentColor; opacity:.75; }
-.sb-dec.locked{ opacity:.78; }
-.sb-dec.merge.locked{ background:rgba(79,232,169,.28); color:var(--sb-txt); }
-.sb-dec.merge.locked:hover{ background:rgba(79,232,169,.42); filter:none; }
 .sb-dlg-ops{ margin:12px 0 14px; padding-left:18px; }
 .sb-dlg-ops li{ margin-bottom:6px; line-height:1.5; }
 .sb-dec.merge{ color:#08110d; background:var(--sb-green); border:0; }
@@ -429,7 +570,7 @@ button,a,label,summary{ touch-action:manipulation; }
 /* approve (mark intentional / reviewed) */
 .sb-approve{ font:inherit; font-size:11px; font-weight:700; color:var(--sb-txt-3); background:transparent; border:1px solid var(--sb-line-2); border-radius:7px; padding:6px 10px; cursor:pointer; white-space:nowrap; flex:none; }
 .sb-approve:hover{ color:var(--sb-green); border-color:var(--sb-green); }
-.sb-approve.on{ color:#08110d; background:var(--sb-green); border-color:var(--sb-green); }
+.sb-approve.on{ color:var(--sb-green); background:rgba(79,232,169,.09); border-color:var(--sb-green); }
 .sb-urow.approved{ opacity:.5; }
 .sb-urow.approved .sb-verdict{ background:rgba(79,232,169,.12); color:#4FE8A9; }
 /* inline proposal chip — the suggestion, visible without expanding (read mode scanning) */
@@ -438,7 +579,7 @@ button,a,label,summary{ touch-action:manipulation; }
 /* review filter */
 .sb-filter{ display:flex; gap:6px; margin:2px 0 14px; }
 .sb-filter button{ font:inherit; font-size:11.5px; font-weight:600; color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line); border-radius:999px; padding:6px 12px; cursor:pointer; }
-.sb-filter button.on{ color:#08110d; background:var(--sb-green); border-color:var(--sb-green); }
+.sb-filter button.on{ color:var(--sb-green); background:rgba(79,232,169,.09); border-color:var(--sb-green); }
 /* reset-to-start button */
 .sb-reset{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:700; color:#FFCB6B; background:transparent; border:1px solid rgba(255,193,86,.4); border-radius:999px; padding:7px 13px; cursor:pointer; white-space:nowrap; }
 .sb-reset:hover{ background:rgba(255,193,86,.12); }
@@ -448,7 +589,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-undo:hover{ color:var(--sb-txt); border-color:var(--sb-green); }
 .sb-edit{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px; padding:7px 13px; cursor:pointer; white-space:nowrap; }
 .sb-edit:hover{ color:var(--sb-txt); border-color:var(--sb-green); }
-.sb-edit.on{ color:#08110d; background:var(--sb-green); border-color:var(--sb-green); }
+.sb-edit.on{ color:var(--sb-green); background:rgba(79,232,169,.1); border-color:var(--sb-green); }
 .sb-toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(10px); background:var(--sb-panel); color:var(--sb-txt); border:1px solid var(--sb-line-2); border-radius:10px; padding:12px 18px; font-size:13px; z-index:60; box-shadow:0 10px 34px rgba(0,0,0,.55); opacity:0; pointer-events:none; transition:opacity .2s ease, transform .2s ease; }
 .sb-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 .sb-toast b{ color:var(--sb-green); }
@@ -456,7 +597,7 @@ button,a,label,summary{ touch-action:manipulation; }
 /* on-brand dialog (replaces native confirm/prompt/alert) */
 .sb-dlg{ position:fixed; inset:0; z-index:70; background:rgba(0,0,0,.6); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:24px; }
 .sb-dlg.open{ display:flex; }
-.sb-dlg-card{ width:100%; max-width:448px; background:linear-gradient(180deg,#191e23,#12161a); border:1px solid var(--sb-line-2); border-radius:16px; padding:24px 24px 20px; box-shadow:0 24px 70px rgba(0,0,0,.6); transform:translateY(8px); transition:transform .18s ease; }
+.sb-dlg-card{ width:100%; max-width:448px; background:linear-gradient(180deg,#1c1c1c,#101010); border:1px solid var(--sb-line-2); border-radius:16px; padding:24px 24px 20px; box-shadow:0 24px 70px rgba(0,0,0,.6); transform:translateY(8px); transition:transform .18s ease; }
 .sb-dlg.open .sb-dlg-card{ transform:none; }
 .sb-dlg-title{ font-family:'Inter Tight'; font-weight:800; font-size:18px; letter-spacing:-.01em; color:var(--sb-txt); margin-bottom:10px; display:flex; align-items:center; gap:10px; }
 .sb-dlg-title::before{ content:''; width:9px; height:9px; border-radius:50%; background:linear-gradient(135deg,#5BCFFF,#4FE8A9 55%,#D5FF66); box-shadow:0 0 10px rgba(79,232,169,.6); flex:none; }
@@ -519,9 +660,9 @@ button,a,label,summary{ touch-action:manipulation; }
 /* Narrow laptops: shed the least useful pixels first — the wordmark's caption, then
    the tool labels (icons keep their aria-label), before anything overflows. */
 @media (max-width:1440px){
-  .sb-brand small{ display:none; }
   .sb-tools{ gap:7px; }
 }
+@media (max-width:560px){ .sb-brand small{ display:none; } }   /* only when truly out of room */
 @media (max-width:1320px){
   .sb-search{ flex-basis:150px; }
   .sb-tool .lbl{ display:none; }        /* Accessibility → icon only (aria-label carries the name) */
@@ -532,12 +673,21 @@ button,a,label,summary{ touch-action:manipulation; }
   .sb-opps{ padding:7px 10px; }
 }
 .sb-burger{ display:none; align-items:center; justify-content:center; width:34px; height:34px; border-radius:8px; border:1px solid var(--sb-line-2); background:var(--sb-panel-2); color:var(--sb-txt); cursor:pointer; }
-@media (max-width:900px){
+/* Panel-width (≈800px): keep the sidebar — it IS the playbook. Just make it slimmer. */
+@media (max-width:1000px){
+  :root{ --sb-side-w:186px; }
   .sb-search{ display:none; }
+  .sb-main{ padding:0 18px 60px; }
+  .sb-sticky{ margin:0 -18px 0; padding:16px 18px 12px; }
+  .sb-item{ font-size:12.5px; padding:6px 12px 6px 14px; }
+  .sb-group{ padding:8px 12px; }
+  .sb-side-create{ width:calc(100% - 16px); margin:8px; }
+}
+/* Only genuinely small windows lose the sidebar to the burger. */
+@media (max-width:680px){
   .sb-side{ position:fixed; left:0; top:var(--sb-bar-h); bottom:0; z-index:8; transform:translateX(-100%); transition:transform .2s ease; box-shadow:0 0 40px rgba(0,0,0,.5); }
   .sb-side.open{ transform:none; }
   .sb-burger{ display:inline-flex; }
-  .sb-main{ padding:22px 16px 60px; }
 }
 </style>
 </head>
@@ -550,7 +700,7 @@ button,a,label,summary{ touch-action:manipulation; }
 
 <header class="sb-bar">
   <button class="sb-burger" id="sbBurger" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
-  <div class="sb-brand"><span class="dot"></span>PowerToFly&nbsp;AI <small>Storybook</small></div>
+  <div class="sb-brand"><span class="dot"></span>PowerToFly&nbsp;AI <small>Design&nbsp;Playbook</small></div>
   <label class="sb-search" for="sbSearch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input id="sbSearch" type="search" placeholder="Search…" autocomplete="off" aria-label="Search the storybook"></label>
   <div class="sb-tools">
     <button class="sb-tool" id="sbA11y" title="Accessibility — scan any page live" aria-label="Accessibility"><span id="sbA11yIcon"></span><span class="lbl">Accessibility</span></button>
@@ -584,11 +734,19 @@ button,a,label,summary{ touch-action:manipulation; }
   <header class="sb-panel-hd">
     <h2 class="sb-panel-title" id="sbOppsTitle"><span id="sbOppsTitleIcon"></span>Design Opportunities</h2>
     <p class="sb-panel-sub" id="sbOppsSub"></p>
+    <span class="sb-panel-count" id="sbOppsCount"></span>
     <button class="sb-panel-x" id="sbOppsClose" aria-label="Close Design Opportunities" data-ui-icon="close"></button>
+    <i class="sb-panel-prog" id="sbOppsProg" aria-hidden="true"></i>
     <div class="sb-panel-tools">
-      <button class="sb-undo" id="sbUndo" title="Undo last edit" style="display:none" data-ui-icon="undo">Undo</button>
-      <button class="sb-reset" id="sbReset" title="Restore everything to a saved point (today, earlier days, or the beginning)" style="display:none" data-ui-icon="history">Restore…</button>
-      <button class="sb-edit" id="sbEdit" title="Unlock editing" data-ui-icon="lock">Read only</button>
+      <button class="sb-primary" id="sbFresh" title="Re-measure your pages and ask Claude for a fresh look" data-ui-icon="refresh">Find new opportunities</button>
+      <button class="sb-icon-btn" id="sbEdit" title="Read only — click to unlock editing" aria-label="Read only — click to unlock editing" aria-pressed="false" data-ui-icon="lock"></button>
+      <span class="sb-menu-wrap" id="sbMoreWrap" style="display:none">
+        <button class="sb-icon-btn" id="sbMore" title="Undo and restore" aria-label="Undo and restore" aria-haspopup="true" aria-expanded="false" data-ui-icon="more"></button>
+        <span class="sb-menu" id="sbMoreMenu" hidden role="menu">
+          <button class="sb-menu-i" id="sbUndo" role="menuitem" data-ui-icon="undo">Undo last change</button>
+          <button class="sb-menu-i" id="sbReset" role="menuitem" data-ui-icon="history">Restore a saved point…</button>
+        </span>
+      </span>
     </div>
   </header>
   <div class="sb-panel-body" id="sbOppsBody"></div>
@@ -600,13 +758,25 @@ button,a,label,summary{ touch-action:manipulation; }
 <div class="sb-body">
   <nav class="sb-side" id="sbSide" aria-label="Storybook sections"></nav>
   <main class="sb-main" id="sbMain">
-    <div class="sb-head"><h1 id="sbName">—</h1><p id="sbDesc"></p><div class="sb-tags" id="sbTags"></div></div>
-    <div class="sb-stagewrap">
-      <div class="sb-stagebar" id="sbStageBar">
-        <div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div>
-        <div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div>
-        <div class="sb-seg" id="sbCodeSeg" title="Show markup"><button data-code="toggle" data-ui-icon="code">Code</button></div>
+    <!-- What you're looking at + the controls that change it: one sticky block, so both
+         stay reachable however far you scroll. -->
+    <div class="sb-sticky" id="sbSticky">
+      <div class="sb-sticky-in">
+        <div class="sb-head"><h1 id="sbName">—</h1><p id="sbDesc"></p></div>
+        <div class="sb-headside">
+          <div class="sb-stagebar" id="sbStageBar">
+            <div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div>
+            <div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div>
+            <div class="sb-seg" id="sbCodeSeg" title="Show markup"><button data-code="toggle" data-ui-icon="code">Code</button></div>
+          <div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
+            <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
+          </div>
+          </div>
+          <div class="sb-tags" id="sbTags"></div>
+        </div>
       </div>
+    </div>
+    <div class="sb-stagewrap">
       <div class="sb-stage" id="sbStage" data-vw="full"><div class="sb-stage-inner" id="sbStageInner"></div></div>
     </div>
     <section class="sb-usage" id="sbUsage"></section>
@@ -674,6 +844,9 @@ const UI = {
   bulb:'M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z',
   warning:'M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z',
   add:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z',
+  archive:'M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z',
+  more:'M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
+  refresh:'M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z',
   sparkle:'M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z'
 };
 /* small = plain single-colour ink, never gradient (DESIGN-SYSTEM rule #5) */
@@ -1113,7 +1286,7 @@ function renderUsage(keys){
 /* ═══════════ VISUAL FINDINGS — the audit in designer language ═══════════
    Each finding renders the REAL variations live from their measured values, so a label
    can never drift from what you see. Specimens stamp their own measured size. */
-let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={};   // DECIDED[id] = 'keep' | 'merge'
+let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FINDING=null;   // DECIDED[id] = 'keep' | 'merge'
 const IMPACT_ORDER={high:0,medium:1,low:2};
 
 /* Copy is plain text and may legitimately mention tags like <button> — escape it.
@@ -1162,8 +1335,7 @@ function stampSpecimens(root){
 function findingHTML(f){
   const dec=DECIDED[f.id];
   const recLbl={merge:'Merge into one',keep:'Keep separate',discuss:'Needs discussion'}[f.recommend]||f.recommend;
-  /* Once decided, a finding collapses to a one-line receipt — the list visibly
-     shrinks as she works, and she can always reopen it. */
+  /* Once decided, a finding collapses to a one-line receipt — the list shrinks as you work. */
   if(dec){
     return '<div class="sb-f decided" data-fid="'+f.id+'" data-impact="'+f.impact+'">'
       +'<div class="sb-f-done"><span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
@@ -1171,16 +1343,25 @@ function findingHTML(f){
       +'<span class="sb-decided-tag">'+uic('check',13)+(dec==='merge'?'Accepted':'Dismissed')+'</span>'
       +'<button class="sb-dec keep'+(EDIT_MODE?'':' locked')+'" data-dec="'+dec+'" data-fid="'+f.id+'">'+(EDIT_MODE?'':LOCK_SVG)+'Change</button></div></div>';
   }
-  let h='<div class="sb-f" data-fid="'+f.id+'" data-impact="'+f.impact+'">';
   const KIND={unify:'Merge duplicates',standardize:'Standardize',typography:'Simplify type',cleanup:'Remove',
               pattern:'New section pattern',recipe:'New page recipe',gap:'Fill a gap'};
-  h+='<div class="sb-f-hd"><div class="sb-f-top"><span class="sb-imp '+f.impact+'">'+f.impact+' impact</span>'
-    +(f.kind?'<span class="sb-kind">'+esc(KIND[f.kind]||f.kind)+'</span>':'')
-    +'<h2 class="sb-f-title">'+esc(f.title)+'</h2></div>'
+  /* Every card keeps its presence: title, the question, and the visual evidence.
+     Only the ARGUMENT folds — the part you want when you doubt the recommendation. */
+  const open = OPEN_FINDING===f.id;
+  const wide = f.layout==='wide'?' wide':'';
+  let h='<div class="sb-f'+(open?' open':'')+'" data-fid="'+f.id+'" data-impact="'+f.impact+'">';
+  h+='<div class="sb-f-hd"><div class="sb-f-top">'
+    +'<h2 class="sb-f-title">'+esc(f.title)+'</h2>'
+    +'<span class="sb-f-chips">'
+      +(f.kind?'<span class="sb-kind">'+esc(KIND[f.kind]||f.kind)+'</span>':'')
+      +'<span class="sb-imp '+f.impact+'">'+f.impact+' impact</span>'
+    +'</span></div>'
     +'<div class="sb-f-q">'+esc(f.question)+'</div></div>';
   h+='<div class="sb-f-body">';
-  const wide=f.layout==='wide'?' wide':'';
   h+='<div class="sb-f-lbl">What you have today</div><div class="sb-spx'+wide+'">'+(f.variants||[]).map(specimenHTML).join('')+'</div>';
+
+  /* ── the argument, folded ── */
+  h+='<div class="sb-more'+(open?' open':'')+'">';
   h+='<div class="sb-f-cols">';
   h+='<div><div class="sb-f-lbl">What differs</div><ul class="sb-f-diff">'+(f.differs||[]).map(d=>'<li>'+esc(d)+'</li>').join('')+'</ul></div>';
   h+='<div><div class="sb-f-lbl">Why it looks like this</div><div class="sb-f-cause">'+esc(f.cause||'')+'</div></div>';
@@ -1189,36 +1370,43 @@ function findingHTML(f){
     h+='<div class="sb-arrow-row"><span>Recommended</span><span class="ln"></span></div>';
     h+='<div class="sb-spx'+wide+'">'+f.after.map(specimenHTML).join('')+'</div>';
   }
-  h+='<div class="sb-f-rec"><div class="sb-f-top" style="margin:0"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span></div>';
+  h+='<div class="sb-f-rec"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span>';
   h+='<div class="sb-f-why">'+esc(f.reasoning||'')+'</div>';
   if(f.impact_note) h+='<div class="sb-impact-note"><b>Expected impact:</b> '+esc(f.impact_note)+'</div>';
   if(f.fix) h+='<div class="sb-f-fix">'+esc(f.fix)+'</div>';
+  h+='</div></div>';
+
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
   const tip=EDIT_MODE?'':' title="Locked — needs the edit password"';
   const auto=(f.apply||[]).length;
-  h+='<div class="sb-f-acts"><button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>'
+  h+='<div class="sb-f-acts">'
+    +'<button class="sb-more-btn" data-open="'+f.id+'" aria-expanded="'+(open?'true':'false')+'">'
+      +'<span class="sb-f-caret'+(open?' open':'')+'">'+uic('chevronRight',13)+'</span>'
+      +(open?'Hide the reasoning':'Why this — what differs, and the fix')+'</button>'
+    +'<span class="sp"></span>'
+    +'<button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>'
     +'<button class="sb-dec keep'+lk+'" data-dec="keep" data-fid="'+f.id+'"'+tip+'>'+lock+'Dismiss</button>'
-    +'<span class="sb-dec-hint">'+(EDIT_MODE
-        ? (auto?'Accept rewrites ptf.css for you — backed up, undoable.':'Accept records the call; this one needs a hand edit.')
-        : 'Read-only — unlock to change anything.')+'</span></div>';
-  h+='</div></div></div>';
+    +'</div>';
+  h+='</div></div>';
   return h;
 }
 function impactBar(){
   const all=AUDIT?AUDIT.findings:[];
   const c={high:0,medium:0,low:0}; all.forEach(f=>c[f.impact]++);
   const done=all.filter(f=>DECIDED[f.id]).length, pct=all.length?Math.round(done/all.length*100):0;
-  return '<div class="sb-progress"><div class="sb-progress-bar"><i style="width:'+pct+'%"></i></div>'
-    +'<span class="sb-progress-lbl"><b>'+done+'</b> of '+all.length+' decided</span></div>'
-    +'<div class="sb-filters">'
-    +'<div class="sb-filter" id="sbStatus" role="group" aria-label="Filter by status">'
-      +[['todo','To decide '+(all.length-done)],['done','Decided '+done],['all','Show all']]
-        .map(([k,l])=>'<button data-status="'+k+'"'+(STATUS_FILTER===k?' class="on" aria-pressed="true"':' aria-pressed="false"')+'>'+l+'</button>').join('')
-    +'</div>'
-    +'<div class="sb-filter" id="sbImpact" role="group" aria-label="Filter by impact">'
-      +['all','high','medium','low'].map(k=>'<button data-impact="'+k+'"'+(IMPACT_FILTER===k?' class="on" aria-pressed="true"':' aria-pressed="false"')+'>'
-        +(k==='all'?'Any impact':k[0].toUpperCase()+k.slice(1)+' '+c[k])+'</button>').join('')
-    +'</div></div>';
+  /* Two separate questions — what to show, and how big it is — so they get two
+     labelled groups in the same segmented language as the rest of the app. */
+  const group=(id,label,attr,current,items)=>
+    '<div class="sb-fgroup"><span class="sb-flabel" id="lbl-'+id+'">'+label+'</span>'
+    + '<div class="sb-seg" id="'+id+'" role="group" aria-labelledby="lbl-'+id+'">'
+    + items.map(([k,l,n])=>'<button '+attr+'="'+k+'"'+(current===k?' class="on" aria-pressed="true"':' aria-pressed="false"')+'>'
+        + l + (n==null?'':'<span class="sb-n">'+n+'</span>') + '</button>').join('')
+    + '</div></div>';
+  return '<div class="sb-filters">'
+    + group('sbStatus','Show','data-status',STATUS_FILTER,[['todo','To decide',all.length-done],['done','Decided',done],['all','All',null]])
+    + '<span class="sb-fdiv" aria-hidden="true"></span>'
+    + group('sbImpact','Impact','data-impact',IMPACT_FILTER,[['all','Any',null],['high','High',c.high],['medium','Medium',c.medium],['low','Low',c.low]])
+    + '</div>';
 }
 function renderCleanup(){
   const wrap=document.getElementById('sbOppsBody');
@@ -1227,6 +1415,8 @@ function renderCleanup(){
     .filter(f=>IMPACT_FILTER==='all'||f.impact===IMPACT_FILTER)
     .filter(f=>STATUS_FILTER==='all'||(STATUS_FILTER==='done'?DECIDED[f.id]:!DECIDED[f.id]));
   const allDone=AUDIT.findings.every(f=>DECIDED[f.id]);
+  // one open at a time; default to the first thing you'd act on
+  if(OPEN_FINDING && !list.some(f=>f.id===OPEN_FINDING)) OPEN_FINDING = null;
   const body = list.length
     ? list.map(findingHTML).join('')
     : '<div class="sb-done-state"><div class="sb-done-mark">'+uic('check',22)+'</div><b>'
@@ -1303,9 +1493,35 @@ function buildSide(){
   c.innerHTML=uic('add',16)+'<span>Create</span>';
   c.addEventListener('click',()=>wizOpen(true));
   side.appendChild(c);
-  const groups=[]; S.forEach(s=>{ if(!groups.includes(s.g)) groups.push(s.g); });
+  const VIS=S.filter(x=>x.status!=='archived');   // archived lives in its own gallery section, not the nav
+  /* Ordered by what you do, not by how the system composes: Create, then the things
+     you make, then the vocabulary you make them from. */
+  const GROUP_ORDER=['Pages','Flows','Foundations','Atoms','Form parts','Molecules','Organisms'];
+  const GALLERY=['Pages','Flows'];   // these open as tiles, they don't drop down
+  // Foundations → Organisms ARE the storybook. Pages and Flows are what you make with it.
+  const STORYBOOK_GROUPS=['Foundations','Atoms','Form parts','Molecules','Organisms'];
+  let supraDone=false;
+  const groups=[]; VIS.forEach(s=>{ if(!groups.includes(s.g)) groups.push(s.g); });
+  groups.sort((a,b)=>{
+    const ia=GROUP_ORDER.indexOf(a), ib=GROUP_ORDER.indexOf(b);
+    return (ia<0?99:ia)-(ib<0?99:ib);
+  });
   groups.forEach(name=>{
-    const items=S.filter(s=>s.g===name);
+    const items=VIS.filter(s=>s.g===name && !s.special);
+    if(GALLERY.includes(name)){
+      const b=document.createElement('button');
+      b.className='sb-gal-link'; b.type='button'; b.dataset.gallery=name;
+      b.innerHTML=uic(name==='Pages'?'split':'code',14)+'<span>'+name+'</span><span class="sb-group-n">'+items.length+'</span>';
+      b.addEventListener('click',()=>select('gal-'+name.toLowerCase()));
+      side.appendChild(b);
+      return;
+    }
+    if(STORYBOOK_GROUPS.includes(name) && !supraDone){
+      supraDone=true;
+      const sup=document.createElement('div');       // label only — nothing to click
+      sup.className='sb-supra'; sup.textContent='Storybook';
+      side.appendChild(sup);
+    }
     const g=document.createElement('button');
     g.className='sb-group'; g.type='button'; g.dataset.group=name;
     g.setAttribute('aria-expanded','false');
@@ -1315,7 +1531,9 @@ function buildSide(){
     const wrap=document.createElement('div'); wrap.className='sb-group-items'; wrap.dataset.group=name;
     items.forEach(s=>{
       const b=document.createElement('button'); b.className='sb-item'; b.type='button'; b.dataset.id=s.id;
-      b.innerHTML=(s.icon?uic(s.icon,14):'')+'<span>'+s.name+'</span>';
+      b.innerHTML=(s.icon?uic(s.icon,14):'')+'<span>'+s.name+'</span>'
+        +(s.status==='draft'?'<span class="sb-tagm">draft</span>':'')
+        +(s.status==='archived'?'<span class="sb-tagm">archived</span>':'');
       b.dataset.search=(s.name+' '+s.g+' '+(s.tags||[]).join(' ')+' '+(s.u||[]).join(' ')).toLowerCase();
       b.addEventListener('click',()=>{ select(s.id); if(window.innerWidth<=900) side.classList.remove('open'); });
       wrap.appendChild(b);
@@ -1332,7 +1550,9 @@ function setTools(s){
   const theme = show('sbThemeSeg', !isAudit && !isFrame && !(s&&s.theme));  // theme: inline specimens only
   const width = show('sbVwSeg',    !isAudit);                               // width: anything rendered
   const code  = show('sbCodeSeg',  !isAudit && !isFrame);                   // markup: inline specimens only
-  document.getElementById('sbStageBar').style.display=(theme||width||code)?'':'none';
+  const stat  = show('sbStatusSeg', !!(s&&s.pageId));                        // lifecycle: real pages only
+  if(stat) document.querySelectorAll('#sbStatusSeg button').forEach(b=>b.classList.toggle('on', b.dataset.statusSet===(s.status||'live')));
+  document.getElementById('sbStageBar').style.display=(theme||width||code||stat)?'':'none';
 }
 function applyTheme(){
   const isFrame=current&&current.iframe;
@@ -1346,7 +1566,7 @@ function applyTheme(){
 }
 function select(id){
   const s=S.find(x=>x.id===id); if(!s) return; current=s;
-  nameEl.textContent=s.name; descEl.textContent=s.desc||'';
+  nameEl.textContent=s.name; descEl.textContent=s.desc||''; descEl.title=s.desc||'';
   tagsEl.innerHTML=(s.tags||[]).map(t=>{ const c=/^[.#]|\(\)|--|\bMUI\b|live/.test(t); return '<span class="sb-chip'+(c?' code':'')+'">'+t+'</span>'; }).join('');
   document.querySelectorAll('.sb-item').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
   toggleGroup(s.g,true);                      // reveal where you are
@@ -1354,7 +1574,7 @@ function select(id){
   const codeSeg=document.getElementById('sbCodeSeg');
 
   if(s.special){ stagewrap.style.display='none'; codeSec.classList.add('hidden');
-    if(s.special==='cleanup') renderCleanup(); else if(s.special==='a11y') renderA11y();
+    if(s.special==='cleanup') renderCleanup(); else if(s.special==='a11y') renderA11y(); else if(s.special==='gallery') renderGallery(s.galleryOf);
     location.hash=id; return; }
   stagewrap.style.display='';
 
@@ -1380,6 +1600,84 @@ function select(id){
   applyTheme();
   if(typeof s.mount==='function'){ try{ s.mount(stageInner); }catch(e){ console.warn(e); } }
   renderUsage(s.u||[]); location.hash=id;
+}
+
+/* ═══════════ PAGES / FLOWS — a gallery, not a list ═══════════
+   You recognise a page by looking at it. Tiles are the real page in an iframe,
+   scaled — never a screenshot, so they can't go stale. Newest work first. */
+let PAGE_META=[], SHOW_ARCH_TILES=false;
+function ago(ms){
+  const d=Math.floor((Date.now()-ms)/86400000);
+  if(d<=0) return 'today'; if(d===1) return 'yesterday';
+  if(d<30) return d+' days ago';
+  const m=Math.floor(d/30); return m===1?'a month ago':m+' months ago';
+}
+function tileHTML(p){
+  const st=p.status||'live';
+  /* Two toggles, always visible. Draft isn't a button — it's what a page is when you
+     haven't decided yet. Clicking an active toggle returns it there. */
+  const done = st==='live', arch = st==='archived';
+  const doneT = done ? 'Final — click to put it back to draft'
+                     : 'Mark as final — audited and edited with everything else';
+  const archT = arch ? 'Archived — click to bring it back to draft'
+                     : 'Archive — leave it out of every scan, count and edit';
+  return '<div class="sb-tile" data-goto="'+p.id+'" role="button" tabindex="0">'
+    + '<span class="sb-tile-shot"><iframe src="../'+p.file+'" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></span>'
+    + '<span class="sb-tile-meta">'
+      + '<span class="sb-tile-txt"><b>'+esc(p.name)+'</b>'
+      + '<span class="sb-tile-sub">'+(p.mtime?ago(p.mtime*1000):'')
+      + (st!=='live'?' · <i class="sb-tile-st '+st+'">'+st+'</i>':'')+'</span></span>'
+      + '<span class="sb-tile-acts">'
+        + '<button class="sb-tile-ico'+(done?' on':'')+'" data-set="'+(done?'draft':'live')+'" data-pid="'+p.id+'"'
+          + ' title="'+doneT+'" aria-label="'+doneT+'" aria-pressed="'+(done?'true':'false')+'">'+uic('check',15)+'</button>'
+        + '<button class="sb-tile-ico'+(arch?' on':'')+'" data-set="'+(arch?'draft':'archived')+'" data-pid="'+p.id+'"'
+          + ' title="'+archT+'" aria-label="'+archT+'" aria-pressed="'+(arch?'true':'false')+'">'+uic('archive',15)+'</button>'
+      + '</span>'
+    + '</span></div>';
+}
+/* One place that sets a page's lifecycle, wherever you click it from. */
+async function setPageStatus(pid,next,thenFn){
+  const p=(PAGE_META.find(x=>x.id===pid))||(PAGE_LIST.find(x=>x.id===pid));
+  if(!p || p.status===next) return;
+  if(!await requireUnlock()) return;      // it changes what gets audited AND edited
+  try{
+    const r=await fetch('/api/page-status',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({id:pid,status:next})});
+    const j=await r.json();
+    if(!j.ok){ toast(uic('warning',13)+' '+esc(j.error||'failed')); return; }
+    if(j.data) DATA=j.data;
+    [PAGE_META,PAGE_LIST].forEach(list=>{ const x=list.find(y=>y.id===pid); if(x) x.status=next; });
+    const st=S.find(x=>x.id===pid); if(st) st.status=next;
+    const said={live:'Final — audited and edited with everything else.',
+                draft:'Draft — counted and kept in sync, just not nagged about.',
+                archived:'Archived — out of the scan, the counts and every edit.'}[next];
+    toast(uic('check',13)+' '+esc(p.name)+': '+said, 4800);
+    buildSide(); updateOppsCount(); if(thenFn) thenFn();
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable.',5000); }
+}
+function gallerySection(title,list,hint){
+  if(!list.length) return '';
+  return '<div class="sb-gal-h"><b>'+title+'</b><span>'+list.length+'</span>'+(hint?'<i>'+hint+'</i>':'')+'</div>'
+    + '<div class="sb-tiles">'+list.map(tileHTML).join('')+'</div>';
+}
+function renderGallery(group){
+  const wrap=document.getElementById('sbUsage');
+  const src = PAGE_META.length ? PAGE_META : PAGE_LIST;
+  const mine = src.filter(p=>(p.group||'Pages')===group);
+  const by = st => mine.filter(p=>(p.status||'live')===st).sort((a,b)=>(b.mtime||0)-(a.mtime||0));
+  const drafts=by('draft'), live=by('live'), arch=by('archived');
+  let h='';
+  if(!PAGE_META.length) h+='<div class="sb-gal-note">'+uic('warning',13)+' Dates need the editing server — showing name order.</div>';
+  h+=gallerySection('Drafts',drafts,'still being made');
+  h+=gallerySection('Final',live,'live and audited');
+  if(arch.length){
+    h+='<div class="sb-gal-h arch"><button class="sb-arch-toggle" data-arch="1">'
+      + '<span class="sb-f-caret'+(SHOW_ARCH_TILES?' open':'')+'">'+uic('chevronRight',13)+'</span>'
+      + 'Archived</button><span>'+arch.length+'</span><i>excluded from every scan and edit</i></div>'
+      + (SHOW_ARCH_TILES?'<div class="sb-tiles">'+arch.map(tileHTML).join('')+'</div>':'');
+  }
+  if(!mine.length) h='<div class="sb-empty">Nothing here yet.</div>';
+  wrap.innerHTML=h;
 }
 
 /* ═══════════ CREATE — the guided wizard ═══════════
@@ -1563,12 +1861,69 @@ document.getElementById('sbWizFt').addEventListener('click',async e=>{
 });
 document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !document.getElementById('sbWiz').hidden) wizOpen(false); });
 
+/* ── Staleness: the machine notices change, it never invents a finding. ──
+   Measuring is mechanical (usage-scan.py counts classes across your pages).
+   Judging — what matters and why — is not, so it stays a thing you ask for. */
+function auditDrift(){
+  const b=AUDIT&&AUDIT.baseline; if(!b||!DATA) return null;
+  const now=new Date(DATA.meta.pages?Date.now():Date.now());
+  const cur=new Set(DATA.meta.pages||[]), was=new Set(b.pages||[]);
+  const added=[...cur].filter(p=>!was.has(p)), gone=[...was].filter(p=>!cur.has(p));
+  const days=Math.round((Date.now()-Date.parse(b.date+'T00:00:00'))/86400000);
+  if(!added.length && !gone.length && days<14) return null;
+  return {added,gone,days,pages:cur.size,wasPages:was.size};
+}
+/* The prompt hands Claude the fresh measurements + what you have already decided,
+   so a re-audit builds on your calls instead of repeating them. */
+function freshPrompt(){
+  const d=auditDrift();
+  const decided=Object.entries(DECIDED).map(([id,v])=>{
+    const f=AUDIT.findings.find(x=>x.id===id); return '- '+(f?f.title:id)+' → '+(v==='merge'?'ACCEPTED':'DISMISSED');
+  });
+  return 'Re-audit the PowerToFly AI Design Playbook and find new Design Opportunities.\n\n'
+    + 'Last audit: '+AUDIT.baseline.date+' across '+(AUDIT.baseline.pages||[]).length+' pages.\n'
+    + 'Now: '+(DATA?DATA.meta.pageCount:'?')+' pages, '+(DATA?Object.keys(DATA.classes).length:'?')+' classes in use.\n'
+    + (d&&d.added.length?'New since then: '+d.added.join(', ')+'\n':'')
+    + (d&&d.gone.length?'Gone since then: '+d.gone.join(', ')+'\n':'')
+    + '\nMy decisions so far (do not re-raise these):\n'+(decided.length?decided.join('\n'):'- none yet')
+    + '\n\nHow to do it:\n'
+    + '1. Re-run ds/usage-scan.py, then MEASURE THE RENDERED PAGES (not just the CSS) — the real heights, radii, shadows and type.\n'
+    + '2. Look for: duplicate visual styles, near-identical spacing/colour/type, unnecessary variations, repeated layouts that should become Section Patterns, sibling pages that should become a Page Recipe, and components used on pages but missing from ds/COMPONENT-INVENTORY.md.\n'
+    + '3. Exclude prototype-only scaffolding (#devStates, .live-sim) and anything I have already decided.\n'
+    + '4. Write findings into ds/audit-findings.json in the existing shape: title, question, kind, impact, differs, cause, recommend, reasoning, impact_note, fix, variants (live specs, not screenshots), after, and an `apply` array ONLY where the fix is unambiguous and safe.\n'
+    + '5. Update `baseline` to what you measured. Do not invent a finding you have not verified — if the data is noisy, say so instead.\n';
+}
+async function findFresh(){
+  toast(uic('refresh',13)+' Re-measuring your pages…', 30000);
+  try{
+    const r=await fetch('/api/rescan',{method:'POST'});
+    const j=await r.json(); if(j.data) DATA=j.data;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — this needs it to re-measure.',6000); return; }
+  const d=auditDrift();
+  const changed = d ? ((d.added.length?d.added.length+' new page'+(d.added.length===1?'':'s'):'')
+      + (d.added.length&&d.gone.length?', ':'') + (d.gone.length?d.gone.length+' removed':'')) : 'nothing new';
+  const ok=await dlg({
+    title:'Ask Claude for a fresh audit',
+    body:'<b>Re-measured just now:</b> '+(DATA?DATA.meta.pageCount:'?')+' pages, '+(DATA?Object.keys(DATA.classes).length:'?')+' classes.<br>'
+      +'Change since the last audit: <b>'+esc(changed||'nothing new')+'</b>.'
+      +'<br><br>Counting is something this tool can do. Deciding what matters — and why — is not. '
+      +'Copy this prompt and paste it to Claude in chat; the new findings land back in this panel.'
+      +'<br><br><span class="muted">Nothing is written until Claude writes it. Your existing decisions are included so they are not raised again.</span>',
+    ok:'Copy the prompt' });
+  if(!ok) return;
+  try{ await navigator.clipboard.writeText(freshPrompt()); toast(uic('check',13)+' Prompt copied — paste it to Claude in chat.',5200); }catch(e){}
+}
+
 /* ── Improve mode: the Opportunities panel ── */
 function oppsOpen(){ return !document.getElementById('sbOppsPanel').hidden; }
 function updateOppsCount(){
   const btn=document.getElementById('sbOpps'), n=document.getElementById('sbOppsN');
   const open=AUDIT?AUDIT.findings.filter(f=>!DECIDED[f.id]).length:0;
   n.textContent=open; btn.classList.toggle('none',!open);
+  const all=AUDIT?AUDIT.findings.length:0, done=all-open;
+  const cnt=document.getElementById('sbOppsCount'), prog=document.getElementById('sbOppsProg');
+  if(cnt) cnt.innerHTML=all?'<b>'+done+'</b> of '+all+' decided':'';
+  if(prog) prog.style.width=(all?Math.round(done/all*100):0)+'%';
   btn.title=open?open+' opportunities to improve the playbook':'No open opportunities — everything is decided';
   const sub=document.getElementById('sbOppsSub');
   if(sub) sub.textContent=AUDIT
@@ -1601,6 +1956,15 @@ document.getElementById('sbA11yClose').addEventListener('click',()=>toggleA11y(f
 document.getElementById('sbA11yBody').addEventListener('click',e=>{
   const file=e.target.closest('.sb-ufile'); if(file) openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null);
 });
+document.getElementById('sbFresh').addEventListener('click',findFresh);
+(function(){
+  const wrap=document.getElementById('sbMoreWrap'), btn=document.getElementById('sbMore'), menu=document.getElementById('sbMoreMenu');
+  const close=()=>{ menu.hidden=true; btn.setAttribute('aria-expanded','false'); };
+  btn.addEventListener('click',e=>{ e.stopPropagation(); const open=menu.hidden; menu.hidden=!open; btn.setAttribute('aria-expanded',open?'true':'false'); });
+  document.addEventListener('click',e=>{ if(!wrap.contains(e.target)) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+  menu.addEventListener('click',close);   // any choice closes it
+})();
 document.getElementById('sbOpps').addEventListener('click',()=>toggleOpps());
 document.getElementById('sbOppsClose').addEventListener('click',()=>toggleOpps(false));
 document.getElementById('sbOppsScrim').addEventListener('click',()=>{ toggleOpps(false); toggleA11y(false); });
@@ -1610,7 +1974,19 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+document.getElementById('sbOppsBody').addEventListener('keydown',e=>{
+  const op=e.target.closest('[data-open]');
+  if(op && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); op.click(); }
+});
 document.getElementById('sbOppsBody').addEventListener('click',e=>{
+  const op=e.target.closest('[data-open]');
+  if(op && !e.target.closest('.sb-dec')){
+    OPEN_FINDING = (OPEN_FINDING===op.dataset.open) ? null : op.dataset.open;
+    renderCleanup();
+    const card=document.querySelector('[data-fid="'+op.dataset.open+'"]');
+    if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
+    return;
+  }
   const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
@@ -1620,7 +1996,19 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
 });
 
 document.getElementById('sbUsage').addEventListener('click',e=>{
+  const sst=e.target.closest('[data-set]');
+  if(sst){ e.stopPropagation(); setPageStatus(sst.dataset.pid, sst.dataset.set, ()=>renderGallery(current.galleryOf)); return; }
+  const t=e.target.closest('[data-goto]'); if(t){ select(t.dataset.goto); return; }
+  if(e.target.closest('[data-arch]')){ SHOW_ARCH_TILES=!SHOW_ARCH_TILES; renderGallery(current.galleryOf); return; }
   const dev=e.target.closest('.sb-dev-toggle'); if(dev){ const body=dev.parentElement.querySelector('.sb-dev-body'); const open=body.classList.toggle('open'); dev.classList.toggle('open',open); if(open&&body.id==='sbTech') renderCleanupTechnical(); return; }
+  const op=e.target.closest('[data-open]');
+  if(op && !e.target.closest('.sb-dec')){
+    OPEN_FINDING = (OPEN_FINDING===op.dataset.open) ? null : op.dataset.open;
+    renderCleanup();
+    const card=document.querySelector('[data-fid="'+op.dataset.open+'"]');
+    if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
+    return;
+  }
   const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
@@ -1776,9 +2164,11 @@ document.getElementById('sbUndo').addEventListener('click',async()=>{
 /* ── edit-mode gate: locked = read-only (proposals only); unlock with the password to reveal Remove/Replace ── */
 function setEdit(on){
   EDIT_MODE=on; try{ sessionStorage.setItem('sbEdit', on?'1':''); }catch(e){}
-  const b=document.getElementById('sbEdit'); b.removeAttribute('data-ui-icon'); b.innerHTML=uic(on?'unlock':'lock',14)+(on?'Edit mode':'Read only'); b.classList.toggle('on',on);
-  document.getElementById('sbUndo').style.display=on?'':'none';
-  document.getElementById('sbReset').style.display=on?'':'none';
+  const b=document.getElementById('sbEdit'); b.removeAttribute('data-ui-icon');
+  b.innerHTML=uic(on?'unlock':'lock',15); b.classList.toggle('on',on);
+  b.setAttribute('aria-pressed',on?'true':'false');
+  b.title=b.setAttribute('aria-label', on?'Edit mode on — click to lock':'Read only — click to unlock editing') || (on?'Edit mode on — click to lock':'Read only — click to unlock editing');
+  document.getElementById('sbMoreWrap').style.display=on?'':'none';
   // The panel renders itself — select() only redraws the storybook stage, so without
   // this the padlocks stay on the Accept buttons after you've unlocked.
   if(oppsOpen()) renderCleanup();
@@ -1794,6 +2184,10 @@ document.getElementById('sbEdit').addEventListener('click',async()=>{
 });
 document.getElementById('sbThemeSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return; themeMode=b.dataset.theme; if(current) select(current.id); });
 const VW={full:'',1280:'1280px',768:'768px',375:'375px'};
+document.getElementById('sbStatusSeg').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b||!current||!current.pageId) return;
+  setPageStatus(current.pageId, b.dataset.statusSet, ()=>{ setTools(current); });
+});
 document.getElementById('sbVwSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; document.querySelectorAll('#sbVwSeg button').forEach(x=>x.classList.toggle('on',x===b)); stage.dataset.vw=b.dataset.vw; stageInner.style.maxWidth=VW[b.dataset.vw]||''; });
 document.getElementById('sbCodeSeg').addEventListener('click',()=>{ codeOpen=!codeOpen; codeSec.classList.toggle('hidden',!codeOpen); document.querySelector('#sbCodeSeg button').classList.toggle('on',codeOpen); });
 document.getElementById('sbCopy').addEventListener('click',async()=>{ const b=document.getElementById('sbCopy'); try{ await navigator.clipboard.writeText(codeText.textContent); b.classList.add('done'); b.lastChild.textContent='Copied!'; setTimeout(()=>{ b.classList.remove('done'); b.lastChild.textContent='Copy'; },1400);}catch(e){} });
@@ -1811,6 +2205,10 @@ document.getElementById('sbSearch').addEventListener('input',e=>{
   });
 });
 document.getElementById('sbBurger').addEventListener('click',()=>side.classList.toggle('open'));
+/* the sticky header only earns its shadow once content is behind it */
+document.querySelector('.sb-main').addEventListener('scroll',e=>{
+  document.getElementById('sbSticky').classList.toggle('stuck', e.target.scrollTop>4);
+},{passive:true});
 
 /* live page preview modal (from usage file rows) */
 const modal=document.getElementById('sbModal'), mFrame=document.getElementById('sbModalFrame');
@@ -1876,8 +2274,10 @@ Promise.all([
   fetch('/api/approvals').then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('audit-findings.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
   fetch('patterns.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
-  fetch('plans.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null)
-]).then(([ok,d,pj,ap,af,pt,pl])=>{
+  fetch('plans.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).catch(()=>null),
+  fetch('/api/pages',{method:'POST'}).then(r=>r.ok?r.json():null).catch(()=>null)
+]).then(([ok,d,pj,ap,af,pt,pl,pm])=>{
+  PAGE_META=(pm&&pm.pages)||[];
   API_OK=ok; DATA=d; AUDIT=af;
   PATTERNS=(pt&&pt.patterns)||[]; PLANS=(pl&&pl.plans)||[];
   PAGE_LIST=(pj&&pj.pages)||[];
@@ -1885,11 +2285,17 @@ Promise.all([
     APPROVED=new Set(ap.approved.filter(k=>k.indexOf('decide:')!==0));
     ap.approved.filter(k=>k.indexOf('decide:')===0).forEach(k=>{ const p=k.split(':'); DECIDED[p[1]]=p[2]; });
   }
+  S.push({g:'Pages', id:'gal-pages', name:'Pages', special:'gallery', galleryOf:'Pages',
+          desc:'Every page in the playbook, newest work first. Drafts, then final, then archived.'});
+  S.push({g:'Flows', id:'gal-flows', name:'Flows', special:'gallery', galleryOf:'Flows',
+          desc:'Every flow in the playbook, newest work first.'});
   if(pj&&pj.pages){
     const ord={Organisms:0,Pages:1,Flows:2};
     pj.pages.slice().sort((a,b)=>(ord[a.group]==null?9:ord[a.group])-(ord[b.group]==null?9:ord[b.group])).forEach(p=>{
       if(S.some(s=>s.id===p.id)) return;
-      S.push({g:p.group||'Pages', id:p.id, name:p.name, tags:['live'], iframe:p.file, scrollText:p.scrollText, scroll:p.scroll, desc:p.desc||(p.file+' — resize with the width toggle to check responsive.')});
+      S.push({g:p.group||'Pages', id:p.id, name:p.name, tags:[], iframe:p.file, scrollText:p.scrollText, scroll:p.scroll,
+              pageId:p.id, status:p.status||'live',
+              desc:p.desc||(p.file+' — resize with the width toggle to check responsive.')});
     });
   }
   // hydrate the static toolbar icons (one MUI Outlined family, no emoji)
@@ -1902,16 +2308,16 @@ Promise.all([
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
   updateOppsCount();
   try{ EDIT_MODE=sessionStorage.getItem('sbEdit')==='1'; }catch(e){}
-  const eb=document.getElementById('sbEdit'); eb.removeAttribute('data-ui-icon'); eb.innerHTML=uic(EDIT_MODE?'unlock':'lock',14)+(EDIT_MODE?'Edit mode':'Read only'); eb.classList.toggle('on',EDIT_MODE);
-  document.getElementById('sbUndo').style.display=EDIT_MODE?'':'none';
-  document.getElementById('sbReset').style.display=EDIT_MODE?'':'none';
+  setEdit(EDIT_MODE);
   buildSide();
   // #cleanup (the old audit link) and #opportunities both open Improve mode.
   const hash=(location.hash||'').replace('#','');
   const wantOpps=/^(cleanup|opportunities)$/.test(hash);
   const wantCreate=hash==='create';
   const wantA11y=hash==='accessibility';
-  select(S.find(s=>s.id===hash)?hash:S[0].id);
+  // default landing: the work, not the vocabulary
+  const home = S.find(s=>s.id==='gal-pages') ? 'gal-pages' : S[0].id;
+  select(S.find(s=>s.id===hash)?hash:home);
   if(wantOpps) toggleOpps(true);
   if(wantCreate) wizOpen(true);
   if(wantA11y) toggleA11y(true);

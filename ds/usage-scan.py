@@ -15,8 +15,10 @@ CSS  = os.path.join(ROOT, "ds", "ptf.css")
 # ── The storybook's universe comes from ds/pages.json (single source of truth). ──
 # Add a page there and it is audited automatically. Fallback list if the file is missing.
 def _load_pages():
+    # archived pages are excluded entirely — not scanned, not counted, not audited
     try:
-        return [p["file"] for p in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "pages.json")))["pages"]]
+        return [p["file"] for p in json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "pages.json")))["pages"]
+                if p.get("status") != "archived"]
     except Exception:
         return ["employers/index.html","talents/index-v2.html","nav-options.html",
                 "train/index.html","hire/index.html","about/index.html","event-common/index.html"]
@@ -110,8 +112,10 @@ def pack(store):
 data = {
     "meta": {
         "generated": "run `python3 ds/usage-scan.py` to refresh",
-        "pageCount": len(files),
-        "pages": [rel(p) for p in files],
+        # ptf.js is scanned (it renders the nav/footer markup) but it is NOT a page —
+        # counting it would inflate every "used on N pages" number by one.
+        "pageCount": len([p for p in files if p.endswith(".html")]),
+        "pages": [rel(p) for p in files if p.endswith(".html")],
     },
     "classes": pack(classes),
     "tokens":  pack(tokens),

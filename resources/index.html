@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resources — PowerToFly AI</title>
+<!-- OG -->
+<meta property="og:title"       content="Resources — PowerToFly AI">
+<meta property="og:description" content="Career advice, diverse stories, and more. Browse articles on job searching, AI, career development, and building a working life that fits.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<!--
+  No page <style> block. Every block on this page maps to an existing component:
+  .section-hero (hero) · .ev-head + .ev-listing--grid (the article listing, incl. its
+  filter chips, search and pagination) · .section-cta (closer). See ds/COMPONENT-INVENTORY.md.
+-->
+</head>
+<body>
+
+<!-- ═══ FIXED SITE HEADER + shared injected nav ═══ -->
+<div class="site-header" id="siteHeader">
+  <div data-ptf-nav data-active="resources"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- ═══ 01. HERO — .section-hero (the standard first-section recipe: tighter top, --content headline column) ═══ -->
+<section class="section-hero">
+  <div class="section-narrow">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Resources</span>
+      <h1 class="display">Take the next step in your <em class="italic-plain">career path.</em></h1>
+      <p>Career advice, diverse stories, and more — from the people building working lives they actually want.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 02. RECENT ARTICLES — the shared .ev-* listing, grid variant.
+     "Popular topics" from the brief ARE this listing's filter chips (.ev-filter-btn[data-filter]),
+     and "Search all resources" is its [data-ev-search] input — both only work wired inside
+     [data-ev-list]. Filter + search + numbered pagination come free from PTF.initEventList().
+     ═══ -->
+<section class="section">
+  <div class="ev-head">
+    <h2>Recent articles</h2>
+    <!-- COPY: confirm — "View all" target (full blog archive) -->
+    <a class="ev-head-link" href="https://powertofly.com/up" target="_blank" rel="noopener">View all →</a>
+  </div>
+
+  <div class="ev-listing ev-listing--grid" data-ev-list data-ev-per="6">
+
+    <!-- Popular topics -->
+    <div class="ev-filter">
+      <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+      <button class="ev-filter-btn" data-filter="job-search">Job search</button>
+      <button class="ev-filter-btn" data-filter="ai">AI &amp; artificial intelligence</button>
+      <button class="ev-filter-btn" data-filter="career">Career development</button>
+      <button class="ev-filter-btn" data-filter="worklife">Work-life integration</button>
+      <button class="ev-filter-btn" data-filter="inclusion">Workplace inclusion</button>
+      <button class="ev-filter-btn" data-filter="remote">Remote work</button>
+    </div>
+
+    <div>
+      <div class="ev-search-wrap">
+        <input class="ev-search" data-ev-search type="search" placeholder="Search all resources…" aria-label="Search all resources">
+        <button class="ev-search-clear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      </div>
+
+      <!-- COPY: confirm — excerpts below are written from each headline; swap in the real standfirst from the CMS. -->
+      <div class="ev-list">
+
+        <article class="ev-row" data-type="remote">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A professional joining a video call with colleagues from home" loading="lazy"></div>
+          <div class="ev-row-date">July 9, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Remote work</span>
+            <h3 class="ev-row-title">Beyond hybrid work: How employers are redefining workplace flexibility</h3>
+            <p class="ev-row-desc">Three days in the office isn't a flexibility policy. We asked employers what's replacing the hybrid compromise — and what autonomy actually looks like when it's designed on purpose.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="career">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A smiling professional standing on a city street" loading="lazy"></div>
+          <div class="ev-row-date">July 7, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Career development</span>
+            <h3 class="ev-row-title">From attorney to global mobility leader: building a career across borders at Cummins</h3>
+            <p class="ev-row-desc">She trained as a lawyer and ended up moving people around the world. A conversation about lateral moves, transferable expertise, and why the job you're doing in ten years may not have a title yet.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="inclusion">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7495555/pexels-photo-7495555.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse group of people collaborating around a table" loading="lazy"></div>
+          <div class="ev-row-date">July 1, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Workplace inclusion</span>
+            <h3 class="ev-row-title">A look at our Pride 2026 summit &amp; job fair</h3>
+            <p class="ev-row-desc">Two days of workshops, hiring conversations, and community. Here's what happened, who showed up, and the sessions worth watching back.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Professionals collaborating at glowing data screens" loading="lazy"></div>
+          <div class="ev-row-date">June 16, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">GenAI Careers at Moody's: Meet the GenAI Implementation Team</h3>
+            <p class="ev-row-desc">What does a GenAI implementation team actually do all day? The people building it at Moody's walk through the roles, the skills they hire for, and how they got there.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8438940/pexels-photo-8438940.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A professional playing chess against a robotic arm" loading="lazy"></div>
+          <div class="ev-row-date">June 15, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">Will AI take my job? What the data actually says (and what to do about it)</h3>
+            <p class="ev-row-desc">The honest answer is more interesting than the headlines. We went through the research on which roles are being eliminated, which are being created, and where the risk really sits.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="worklife">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7295483/pexels-photo-7295483.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A person taking a calm, restorative moment" loading="lazy"></div>
+          <div class="ev-row-date">June 9, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Work-life integration</span>
+            <h3 class="ev-row-title">Workplace wellness &amp; mental health: How companies are getting it right</h3>
+            <p class="ev-row-desc">Meditation apps don't fix a broken workload. A look at the companies treating wellbeing as a design problem — and the practices their people say make a difference.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+      </div><!-- /.ev-list -->
+
+      <p class="ev-empty" data-ev-empty hidden>No resources match your search.</p>
+
+      <div class="ev-pager" data-ev-pages></div>
+    </div>
+
+  </div><!-- /.ev-listing -->
+</section>
+
+<!-- ═══ 03. EMAIL UPDATES — the shared dark CTA closer (.section-cta).
+     NOTE: there is no inline email-capture component in the inventory, so this hands off to
+     the signup flow rather than inventing one. See the "Email capture band" pattern proposal.
+     ═══ -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Stay in the loop</span>
+    <h2>Get email updates from PowerToFly</h2>
+    <p>New articles, upcoming events, and roles worth knowing about — in your inbox, not your feed.</p>
+    <a href="../signup/" class="btn btn-cta">Sign up for updates →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initMegaNav();
+  PTF.initHeader();
+  PTF.initEventList();   // topic filters + search + numbered pagination for [data-ev-list]
+
+  /* ── Search clear (×) button: show when non-empty, clear on click.
+        Same page-local snippet as events/index.html — the .has-value toggle isn't in ptf.js yet. ── */
+  (function () {
+    var wrap = document.querySelector('.ev-search-wrap');
+    if (!wrap) return;
+    var input = wrap.querySelector('.ev-search'), clear = wrap.querySelector('.ev-search-clear');
+    function sync() { wrap.classList.toggle('has-value', !!input.value); }
+    input.addEventListener('input', sync);
+    clear.addEventListener('click', function () {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.focus();
+    });
+    sync();
+  })();
+</script>
+</body>
+</html>

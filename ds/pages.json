@@ -1,34 +1,206 @@
 {
-  "_comment": "SINGLE SOURCE OF TRUTH for the storybook's page universe. The scanner (usage-scan.py), the editing server (server.py) and the storybook (storybook.html) all read this. ⚠️ server.py only EDITS the pages listed here — a page missing from this list is silently skipped by Merge/Replace, so keep it complete. status: 'canonical' = adopted, shown normally + audited. 'candidate' = under review: audited but quarantined in the 'Under review' group until promoted. group = where a canonical page appears (Pages / Organisms / Flows). scrollText (optional) = scroll the live preview to the element whose text matches.",
-  "pages": [
-    { "id": "p-employers", "name": "Employers",              "file": "employers/index.html",  "group": "Pages", "status": "canonical" },
-    { "id": "p-talents2",  "name": "Talents (v2)",           "file": "talents/index-v2.html", "group": "Pages", "status": "canonical" },
-    { "id": "p-talents",   "name": "Talents",                "file": "talents/index.html",    "group": "Pages", "status": "candidate", "desc": "The earlier Talents page — kept for comparison against Talents (v2)." },
-    { "id": "p-train",     "name": "Train",                  "file": "train/index.html",      "group": "Pages", "status": "canonical" },
-    { "id": "p-hire",      "name": "Hire",                   "file": "hire/index.html",       "group": "Pages", "status": "canonical" },
-    { "id": "p-about",     "name": "About",                  "file": "about/index.html",      "group": "Pages", "status": "canonical" },
-    { "id": "p-events",    "name": "Events",                 "file": "events/index.html",     "group": "Pages", "status": "candidate" },
-    { "id": "p-jobboard",  "name": "Job board",              "file": "job-board/index.html",  "group": "Pages", "status": "canonical" },
-    { "id": "p-404",       "name": "404 — page not found",   "file": "not-found/index.html",  "group": "Pages", "status": "canonical" },
-
-    { "id": "p-vjf",       "name": "Virtual job fair",       "file": "vjf/index.html",        "group": "Pages", "status": "canonical", "desc": "Event detail — the virtual job fair. Shares .ev-hero with Summit and Chat & Learn." },
-    { "id": "p-summit",    "name": "Summit",                 "file": "summit/index.html",     "group": "Pages", "status": "canonical", "desc": "Event detail — the summit. Sibling of Virtual job fair and Chat & Learn." },
-    { "id": "p-chatlearn", "name": "Chat & Learn",           "file": "chat-learn/index.html", "group": "Pages", "status": "canonical", "desc": "Event detail — Chat & Learn. Sibling of Virtual job fair and Summit." },
-
-    { "id": "p-why",       "name": "Why PowerToFly",         "file": "why-powertofly/index.html", "group": "Pages", "status": "candidate", "desc": "Coming-soon placeholder." },
-    { "id": "p-expert",    "name": "Expert finder",          "file": "expert-finder/index.html",  "group": "Pages", "status": "candidate", "desc": "Coming-soon placeholder." },
-    { "id": "p-verify",    "name": "How we verify",          "file": "how-we-verify/index.html",  "group": "Pages", "status": "candidate", "desc": "Coming-soon placeholder." },
-    { "id": "p-compare",   "name": "Compare",                "file": "compare/index.html",        "group": "Pages", "status": "candidate", "desc": "Coming-soon placeholder." },
-
-    { "id": "nav",         "name": "Unified nav — Option 2", "file": "nav-options.html",      "group": "Organisms", "status": "canonical", "scrollText": "Option 2", "desc": "The unified top nav — Option 2, with the logged-in view right below. Live from nav-options.html. Hover items; shrink the width to see the mobile drawer." },
-    { "id": "topalert",    "name": "Top alert bar",          "file": "top-alerts.html",       "group": "Organisms", "status": "canonical", "desc": "The canonical nav + top-alert bar, in every state." },
-
-    { "id": "flow-event",  "name": "Chat & Learn signup",    "file": "event-common/index.html","group": "Flows", "status": "canonical", "desc": "The common / for-all event signup — 'Building on AI: a Chat & Learn'. The latest flow, live." },
-    { "id": "flow-signup", "name": "Sign up",                "file": "signup/index.html",     "group": "Flows", "status": "canonical", "desc": "The regular account signup flow." },
-    { "id": "flow-auth",   "name": "Sign in",                "file": "auth.html",             "group": "Flows", "status": "canonical", "desc": "Sign in, with the identity-chips step." },
-    { "id": "flow-sponsor","name": "Become a sponsor",       "file": "sponsor/index.html",    "group": "Flows", "status": "canonical", "desc": "The sponsor enquiry flow." },
-    { "id": "flow-company","name": "Company registration",   "file": "event-company/index.html",  "group": "Flows", "status": "canonical", "desc": "Register — meet with the company." },
-    { "id": "flow-employer","name": "Employer registration", "file": "event-employer/index.html", "group": "Flows", "status": "canonical", "desc": "Register — meet the company." },
-    { "id": "flow-book",   "name": "Book a call",            "file": "book/index.html",       "group": "Flows", "status": "candidate", "desc": "The book-a-call flow." }
-  ]
+ "_comment": "SINGLE SOURCE OF TRUTH for the storybook's page universe. The scanner (usage-scan.py), the editing server (server.py) and the storybook (storybook.html) all read this.\nstatus — the page's lifecycle, and it decides what the system does with it:\n  live     = finished and in use. Scanned, counted, audited, and edited when you Accept an opportunity.\n  draft    = still being made. Scanned and counted (so a component it uses is never reported 'unused') and edited when you Accept (so it can't rot while you finish it) — but it isn't nagged about.\n  archived = done with. Not scanned, not counted, not audited, never edited. It costs the system nothing.\ngroup = where a page appears (Pages / Organisms / Flows). scrollText (optional) = scroll the preview to matching text.",
+ "pages": [
+  {
+   "id": "p-employers",
+   "name": "Employers",
+   "file": "employers/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-talents2",
+   "name": "Talents (v2)",
+   "file": "talents/index-v2.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-talents",
+   "name": "Talents",
+   "file": "talents/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The earlier Talents page — kept for comparison against Talents (v2)."
+  },
+  {
+   "id": "p-train",
+   "name": "Train",
+   "file": "train/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-hire",
+   "name": "Hire",
+   "file": "hire/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-about",
+   "name": "About",
+   "file": "about/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-events",
+   "name": "Events",
+   "file": "events/index.html",
+   "group": "Pages",
+   "status": "draft"
+  },
+  {
+   "id": "p-jobboard",
+   "name": "Job board",
+   "file": "job-board/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-resources",
+   "name": "Resources",
+   "file": "resources/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The career blog index — hero + the shared .ev-* listing (topic filters, search, pagination) + the dark CTA closer. Zero page CSS."
+  },
+  {
+   "id": "p-404",
+   "name": "404 — page not found",
+   "file": "not-found/index.html",
+   "group": "Pages",
+   "status": "live"
+  },
+  {
+   "id": "p-vjf",
+   "name": "Virtual job fair",
+   "file": "vjf/index.html",
+   "group": "Pages",
+   "status": "live",
+   "desc": "Event detail — the virtual job fair. Shares .ev-hero with Summit and Chat & Learn."
+  },
+  {
+   "id": "p-summit",
+   "name": "Summit",
+   "file": "summit/index.html",
+   "group": "Pages",
+   "status": "live",
+   "desc": "Event detail — the summit. Sibling of Virtual job fair and Chat & Learn."
+  },
+  {
+   "id": "p-chatlearn",
+   "name": "Chat & Learn",
+   "file": "chat-learn/index.html",
+   "group": "Pages",
+   "status": "live",
+   "desc": "Event detail — Chat & Learn. Sibling of Virtual job fair and Summit."
+  },
+  {
+   "id": "p-why",
+   "name": "Why PowerToFly",
+   "file": "why-powertofly/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Coming-soon placeholder."
+  },
+  {
+   "id": "p-expert",
+   "name": "Expert finder",
+   "file": "expert-finder/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Coming-soon placeholder."
+  },
+  {
+   "id": "p-verify",
+   "name": "How we verify",
+   "file": "how-we-verify/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Coming-soon placeholder."
+  },
+  {
+   "id": "p-compare",
+   "name": "Compare",
+   "file": "compare/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Coming-soon placeholder."
+  },
+  {
+   "id": "nav",
+   "name": "Unified nav — Option 2",
+   "file": "nav-options.html",
+   "group": "Organisms",
+   "status": "live",
+   "scrollText": "Option 2",
+   "desc": "The unified top nav — Option 2, with the logged-in view right below. Live from nav-options.html. Hover items; shrink the width to see the mobile drawer."
+  },
+  {
+   "id": "topalert",
+   "name": "Top alert bar",
+   "file": "top-alerts.html",
+   "group": "Organisms",
+   "status": "live",
+   "desc": "The canonical nav + top-alert bar, in every state."
+  },
+  {
+   "id": "flow-event",
+   "name": "Chat & Learn signup",
+   "file": "event-common/index.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "The common / for-all event signup — 'Building on AI: a Chat & Learn'. The latest flow, live."
+  },
+  {
+   "id": "flow-signup",
+   "name": "Sign up",
+   "file": "signup/index.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "The regular account signup flow."
+  },
+  {
+   "id": "flow-auth",
+   "name": "Sign in",
+   "file": "auth.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "Sign in, with the identity-chips step."
+  },
+  {
+   "id": "flow-sponsor",
+   "name": "Become a sponsor",
+   "file": "sponsor/index.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "The sponsor enquiry flow."
+  },
+  {
+   "id": "flow-company",
+   "name": "Company registration",
+   "file": "event-company/index.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "Register — meet with the company."
+  },
+  {
+   "id": "flow-employer",
+   "name": "Employer registration",
+   "file": "event-employer/index.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "Register — meet the company."
+  },
+  {
+   "id": "flow-book",
+   "name": "Book a call",
+   "file": "book/index.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "The book-a-call flow."
+  }
+ ]
 }
