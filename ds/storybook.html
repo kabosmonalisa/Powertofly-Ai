@@ -566,13 +566,7 @@ button,a,label,summary{ touch-action:manipulation; }
 /* What it's for: just a line of text. Rules: a list you open. Neither is an alert. */
 .sb-use{ display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
 .sb-use-when{ margin:0; font-size:14px; line-height:1.65; color:var(--sb-txt-2); max-width:76ch; }
-.sb-rules-btn{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:700;
-  letter-spacing:.02em; color:var(--sb-txt-3); background:none; border:0; padding:2px 0; cursor:pointer; }
-.sb-rules-btn:hover{ color:var(--sb-txt); }
-.sb-rules-btn i{ font-style:normal; font-size:10px; font-weight:800; color:var(--sb-txt-3);
-  background:var(--sb-panel-2); border-radius:4px; padding:1px 5px; }
-.sb-rules{ display:none; margin:0; padding:0 0 0 18px; list-style:none; max-width:76ch; }
-.sb-rules.open{ display:block; }
+.sb-rules{ margin:0 0 4px; padding:0 0 0 18px; list-style:none; }
 .sb-rules li{ position:relative; font-size:13.5px; line-height:1.6; color:var(--sb-txt-2); padding:5px 0; }
 .sb-rules li::before{ content:''; position:absolute; left:-14px; top:12px; width:5px; height:5px;
   border-radius:50%; background:var(--sb-txt-3); }
@@ -846,7 +840,7 @@ button,a,label,summary{ touch-action:manipulation; }
             <span class="sb-seg-g"><span class="sb-flabel">Theme</span><div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
-          <button class="sb-pw-open" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span>What’s in this page</button><span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
+          <button class="sb-pw-open" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">How to use it</span></button><span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
           </div>
@@ -862,7 +856,7 @@ button,a,label,summary{ touch-action:manipulation; }
      you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
 <aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
   <header class="sb-pw-hd">
-    <h2 id="sbPwTitle"><span id="sbPwIcon"></span>What's in this page</h2>
+    <h2 id="sbPwTitle"><span id="sbPwIcon"></span><span id="sbPwTitleTxt">How to use it</span></h2>
     <button class="sb-panel-x" id="sbPwClose" aria-label="Close" data-ui-icon="close"></button>
   </header>
   <div class="sb-pw-body" id="sbPwBody"></div>
@@ -1222,35 +1216,42 @@ const S = [
 /* The colour lookup behind the page-preview highlighter (click a page → every use outlined). */
 const HEXOF = { '--ink':'#0a0a0a','--ink-2':'#2a2a2a','--ink-3':'#5c6f69','--surface-2':'#fafaf6','--accent':'#0a8c66','--green-mid':'#4fe8a9','--purple':'#5b4fcf','--purple-light':'#eeebff','--purple-bright':'#7b00ff','--iri-cyan':'#5bcfff','--iri-lime':'#d5ff66' };
 
-/* What it's for, and the rules. Sourced from DESIGN-SYSTEM.md and
-   COMPONENT-INVENTORY.md — her rules written down, not my opinions.
-
-   The rules used to sit in a yellow warning box, shouting at her every time she
-   opened a component. But a rule isn't an alert: an alert means something is
-   wrong NOW, and these are simply true, forever. Shown that way they're noise she
-   learns to skip — which is the one thing a rule must never become. So they're
-   quiet, listed, and folded away until she goes looking. */
-let RULES_OPEN=false;
+/* "How to use it" — the honest name for what's in here. It isn't one thing and that's
+   why no single label fit: some are rules ("never a pill"), some are reasons ("a
+   gradient icon below 40px turns to mush"), some are warnings about something already
+   broken (the logo lives in three places), some are tips (there's a portrait made for
+   this slot). Calling that lot "Rules" made most of them a lie. What they all ARE is
+   how to use the thing — so that's the name, and they sit in the same drawer a page
+   uses, with the same box for asking me to change them. */
 function renderUse(s){
-  const wrap=document.getElementById('sbUsage');
-  if(!s.use){ wrap.innerHTML=''; return; }
-  const rules=s.rule||[];
-  wrap.innerHTML='<div class="sb-use">'
-    + '<p class="sb-use-when">'+esc(s.use)+'</p>'
-    + (rules.length
-        ? '<button class="sb-rules-btn" data-rules="1" aria-expanded="'+(RULES_OPEN?'true':'false')+'">'
-            + '<span class="sb-f-caret'+(RULES_OPEN?' open':'')+'">'+uic('chevronRight',12)+'</span>'
-            + 'Rules<i>'+rules.length+'</i></button>'
-          + '<ul class="sb-rules'+(RULES_OPEN?' open':'')+'">'
-            + rules.map(r=>'<li>'+esc(r)+'</li>').join('')
-          + '</ul>'
-        : '');
+  const body=document.getElementById('sbPwBody');
+  document.getElementById('sbUsage').innerHTML='';
+  const has=!!s.use;
+  const btn=document.getElementById('sbPwOpen');
+  btn.hidden=!has;
+  document.getElementById('sbPwOpenTxt').textContent='How to use it';
+  document.getElementById('sbPwTitleTxt').textContent='How to use it — '+s.name;
+  if(!has){ pwOpen(false); body.innerHTML=''; return; }
+  const notes=s.rule||[];
+  body.innerHTML='<p class="sb-use-when">'+esc(s.use)+'</p>'
+    + (notes.length ? '<ul class="sb-rules open">'+notes.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>' : '')
+    + '<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">the component, or what it says here</span></div>'
+    + '<textarea class="sb-ask" data-compask="'+esc(s.id)+'" rows="3" '
+    + 'placeholder="e.g. we need a version of this that works on a dark band — and the note above is wrong now">'
+    + esc(ASKED['comp:'+s.id]||'')+'</textarea>'
+    + '<div class="sb-pw-send"><button class="sb-dec merge off" data-compsend="'+esc(s.id)+'" disabled '
+    + 'aria-disabled="true" title="Write what you want first">Ask me to do it</button></div>';
 }
-document.getElementById('sbUsage').addEventListener('click',e=>{
-  if(!e.target.closest('[data-rules]')) return;
-  RULES_OPEN=!RULES_OPEN;                 // stays open as you move between components
-  renderUse(current);
-});
+async function askAboutComp(cid){
+  const st=S.find(x=>x.id===cid); const text=(ASKED['comp:'+cid]||'').trim();
+  if(!text) return;
+  try{
+    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:'comp:'+cid, title:(st?st.name:cid)+' (component)', text})});
+    if(!(await r.json()).ok) throw 0;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
+  toast(uic('check',13)+' Noted for <b>'+esc(st?st.name:cid)+'</b> — I\'ll pick this up next time we talk.',5000);
+}
 
 /* ═══════════ A PAGE'S WORKSPACE ═══════════
    Clicking a page used to give you a preview and a width toggle — a look, not a
@@ -1273,7 +1274,10 @@ function pageFindings(name){
 function renderPageWork(s){
   const body=document.getElementById('sbPwBody');
   const file=s.iframe, name=s.name;
-  document.getElementById('sbPwOpen').hidden=false;
+  const btn=document.getElementById('sbPwOpen');
+  btn.hidden=false;
+  document.getElementById('sbPwOpenTxt').textContent='What’s in this page';
+  document.getElementById('sbPwTitleTxt').textContent='What’s in '+name;
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
   const own=((DATA.meta.pageOwn||{})[file])||[];
@@ -1766,9 +1770,10 @@ function setTools(s){
   const width = show('sbVwSeg',    !isAudit);                               // width: anything rendered
   const code  = show('sbCodeSeg',  !isAudit && !isFrame);                   // markup: inline specimens only
   const stat  = show('sbStatusSeg', !!(s&&s.pageId));                        // lifecycle: real pages only
-  const pw=document.getElementById('sbPwOpen');
-  pw.hidden = !(s&&s.pageId);
-  if(pw.hidden) pwOpen(false);                     // never leave a page's report open over a component
+  /* the drawer follows what you're looking at: a page's report, or a component's
+     how-to. renderPageWork / renderUse own the button — setTools only hides it when
+     neither applies (the audit views). */
+  if(s&&s.special){ document.getElementById('sbPwOpen').hidden=true; pwOpen(false); }
   if(stat) document.querySelectorAll('#sbStatusSeg button').forEach(b=>b.classList.toggle('on', b.dataset.statusSet===(s.status||'live')));
   document.getElementById('sbStageBar').style.display=(theme||width||code||stat)?'':'none';
 }
@@ -2249,12 +2254,14 @@ document.getElementById('sbPwBody').addEventListener('click',e=>{
     setTimeout(()=>{ const c=document.querySelector('.sb-f[data-fid="'+ff.dataset.finding+'"]');
       if(c) c.scrollIntoView({block:'center'}); }, 260); return; }
   const ps=e.target.closest('[data-pagesend]'); if(ps){ askAboutPage(ps.dataset.pagesend); return; }
+  const cs=e.target.closest('[data-compsend]'); if(cs){ askAboutComp(cs.dataset.compsend); return; }
 });
 document.getElementById('sbPwBody').addEventListener('input',e=>{
-  const ta=e.target.closest('[data-pageask]');
+  const ta=e.target.closest('[data-pageask],[data-compask]');
   if(!ta) return;
-  ASKED['page:'+ta.dataset.pageask]=ta.value;
-  const btn=document.querySelector('[data-pagesend="'+ta.dataset.pageask+'"]');
+  const isComp=!!ta.dataset.compask, key=isComp?ta.dataset.compask:ta.dataset.pageask;
+  ASKED[(isComp?'comp:':'page:')+key]=ta.value;
+  const btn=document.querySelector('['+(isComp?'data-compsend':'data-pagesend')+'="'+key+'"]');
   if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
 });
 document.getElementById('sbUsage').addEventListener('input',e=>{
