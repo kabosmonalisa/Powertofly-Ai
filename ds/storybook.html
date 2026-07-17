@@ -547,6 +547,17 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-why{ font-size:13.5px; color:var(--sb-txt-2); line-height:1.65; margin-top:10px; max-width:88ch; }
 .sb-f-fix{ font-size:12.5px; color:var(--sb-green); background:rgba(79,232,169,.07); border:1px solid rgba(79,232,169,.2); border-radius:9px; padding:10px 13px; margin-top:12px; line-height:1.5; }
 .sb-f-fix::before{ content:'→ '; font-weight:700; }
+/* What the button will actually do. Green = it writes to the design system (green is
+   for accept/apply, per the rule that it stays with real actions); quiet = it only
+   records what you decided. */
+.sb-f-does{ display:flex; gap:9px; align-items:flex-start; margin-top:12px; padding:11px 13px;
+  border-radius:10px; font-size:12.5px; line-height:1.55; }
+.sb-f-does .sb-i{ flex:none; margin-top:1px; }
+.sb-f-does b{ font-weight:700; }
+.sb-f-does.apply{ background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); color:var(--sb-txt-2); }
+.sb-f-does.apply .sb-i, .sb-f-does.apply b{ color:var(--sb-green); }
+.sb-f-does.note{ background:var(--sb-panel-2); border:1px solid var(--sb-line); color:var(--sb-txt-3); }
+.sb-f-does.note b{ color:var(--sb-txt-2); }
 .sb-f-acts{ display:flex; gap:8px; margin-top:16px; padding-top:14px; border-top:1px solid var(--sb-line); align-items:center; flex-wrap:wrap; }
 .sb-dec{ font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:8px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
 /* Locked = visible + clickable (it asks for the password), never hidden from a teammate. */
@@ -837,7 +848,9 @@ const UI = {
   archive:'M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z',
   more:'M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
   refresh:'M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z',
-  sparkle:'M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z'
+  sparkle:'M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z',
+  bolt:'M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z',
+  info:'M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'
 };
 /* small = plain single-colour ink, never gradient (DESIGN-SYSTEM rule #5) */
 function uic(name,size,cls){
@@ -1372,6 +1385,15 @@ function findingHTML(f){
   }
   h+='<div class="sb-f-rec"><span class="sb-rec-chip '+f.recommend+'">'+recLbl+'</span>';
   if(f.impact_note) h+='<div class="sb-impact-note"><b>Expected impact:</b> '+esc(f.impact_note)+'</div>';
+  /* Say plainly what the button will do. "Accept" and "Accept & apply" is far too
+     quiet a signal for the difference between "this rewrites your CSS on 18 pages"
+     and "this writes down what you decided and nothing else happens." */
+  h+=(f.apply||[]).length
+    ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>Accepting makes this change for real.</b> '
+      + 'It edits the design system on disk, so every live and draft page changes at once. '
+      + 'Archived pages are left alone, and you can undo it.</span></div>'
+    : '<div class="sb-f-does note">'+uic('info',15)+'<span><b>Accepting records your decision — nothing changes yet.</b> '
+      + 'This one needs judgement rather than a find-and-replace, so it becomes a job for me to do with you.</span></div>';
   h+='</div>';
 
   /* ── the argument, folded ── */
