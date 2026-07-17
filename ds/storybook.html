@@ -557,8 +557,24 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-does.apply .sb-i, .sb-f-does.apply b{ color:var(--sb-green); }
 .sb-f-does.note{ background:var(--sb-panel-2); border:1px solid var(--sb-line); color:var(--sb-txt-3); }
 .sb-f-does.note b{ color:var(--sb-txt-2); }
-.sb-dec.merge.alt{ background:transparent; color:var(--sb-green); border:1px solid rgba(18,201,141,.5); }
-.sb-dec.merge.alt:hover{ background:rgba(18,201,141,.1); border-color:var(--sb-green); }
+/* The answers. A radio group, because it IS one — and because two clicks (decide, then
+   commit) is the right shape for something that rewrites 18 pages. */
+.sb-opts{ display:flex; flex-direction:column; gap:8px; margin-top:14px; }
+.sb-opt{ display:flex; align-items:flex-start; gap:11px; width:100%; text-align:left; font:inherit;
+  padding:12px 14px; border-radius:10px; cursor:pointer; background:var(--sb-panel-2);
+  border:1px solid var(--sb-line); transition:border-color .12s ease, background-color .12s ease; }
+.sb-opt:hover{ border-color:var(--sb-txt-3); }
+.sb-opt.sel{ background:rgba(255,255,255,.05); border-color:var(--sb-txt-3); }
+.sb-opt-mark{ flex:none; width:15px; height:15px; margin-top:2px; border-radius:50%;
+  border:1.5px solid var(--sb-txt-3); transition:border-color .12s ease; }
+.sb-opt.sel .sb-opt-mark{ border-color:var(--sb-green); border-width:5px; }
+.sb-opt-txt b{ display:block; font-family:'Inter Tight'; font-size:13.5px; font-weight:700; color:var(--sb-txt); }
+.sb-opt-rec{ margin-left:8px; font-family:'Inter'; font-size:9.5px; font-weight:800; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--sb-green); font-style:normal; }
+.sb-opt-note{ display:block; margin-top:3px; font-size:12px; line-height:1.5; color:var(--sb-txt-3); }
+/* Waiting on you, not broken. */
+.sb-dec.merge.off{ background:var(--sb-panel-2); color:var(--sb-txt-3); cursor:not-allowed; box-shadow:none; }
+.sb-dec.merge.off:hover{ background:var(--sb-panel-2); }
 .sb-f-acts{ display:flex; gap:8px; margin-top:16px; padding-top:14px; border-top:1px solid var(--sb-line); align-items:center; flex-wrap:wrap; }
 .sb-dec{ font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:8px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
 /* Locked = visible + clickable (it asks for the password), never hidden from a teammate. */
@@ -1272,7 +1288,8 @@ function loadProbe(src){
    Each finding renders the REAL variations live from their measured values, so a label
    can never drift from what you see. Specimens stamp their own measured size. */
 let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FINDING=null;   // DECIDED[id] = 'keep' | 'merge'
-let CHOICE={};   // CHOICE[id] = the option you picked on a finding that asked a question
+let CHOICE={};   // CHOICE[id] = the answer you committed to (saved)
+let PICK={};     // PICK[id]   = the answer selected but not yet applied (this session only)
 const IMPACT_ORDER={high:0,medium:1,low:2};
 
 /* Copy is plain text and may legitimately mention tags like <button> — escape it.
@@ -1367,6 +1384,7 @@ function findingHTML(f){
   /* Every card keeps its presence: title, the question, and the visual evidence.
      Only the ARGUMENT folds — the part you want when you doubt the recommendation. */
   const open = OPEN_FINDING===f.id;
+  const opts = f.options||[];
   const wide = f.layout==='wide'?' wide':'';
   let h='<div class="sb-f'+(open?' open':'')+'" data-fid="'+f.id+'" data-impact="'+f.impact+'">';
   h+='<div class="sb-f-hd"><div class="sb-f-top">'
@@ -1394,8 +1412,8 @@ function findingHTML(f){
      and "this writes down what you decided and nothing else happens." */
   const isDoc=(f.apply||[]).some(o=>o.type==='doc-append');
   h+=(f.options||[]).length
-    ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>This one is a real choice — pick an answer below and it happens.</b> '
-      + 'Each answer edits the design system on disk, so every live and draft page changes at once. '
+    ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>This one is a real choice — pick an answer, then apply it.</b> '
+      + 'Whichever you pick edits the design system on disk, so every live and draft page changes at once. '
       + 'Archived pages are left alone, and you can undo it.</span></div>'
     : isDoc
     ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>Accepting writes this into your playbook.</b> '
@@ -1418,17 +1436,33 @@ function findingHTML(f){
   if(f.fix) h+='<div class="sb-f-fix">'+esc(f.fix)+'</div>';
   h+='</div>';
 
+  if(opts.length){
+    /* Deciding and committing are two different things. Picking an answer used to fire
+       the change on the spot; now it selects, and the same Accept & apply button that
+       every other card has does the committing. */
+    h+='<div class="sb-opts" role="radiogroup" aria-label="'+esc(f.question||'Pick an answer')+'">'
+      + opts.map(o=>{
+          const sel=PICK[f.id]===o.id;
+          return '<button class="sb-opt'+(sel?' sel':'')+'" role="radio" aria-checked="'+(sel?'true':'false')+'"'
+            + ' data-pick="'+esc(o.id)+'" data-fid="'+f.id+'">'
+            + '<span class="sb-opt-mark" aria-hidden="true"></span>'
+            + '<span class="sb-opt-txt"><b>'+esc(o.label)+(o.recommended?'<i class="sb-opt-rec">Recommended</i>':'')+'</b>'
+            + (o.note?'<span class="sb-opt-note">'+esc(o.note)+'</span>':'')+'</span></button>';
+        }).join('')
+      + '</div>';
+  }
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
   const tip=EDIT_MODE?'':' title="Locked — needs the edit password"';
   const auto=(f.apply||[]).length;
-  const opts=f.options||[];
   h+='<div class="sb-f-acts">'
     +'<button class="sb-more-btn" data-open="'+f.id+'" aria-expanded="'+(open?'true':'false')+'">'
       +'<span class="sb-f-caret'+(open?' open':'')+'">'+uic('chevronRight',13)+'</span>'
       +(open?'Hide the reasoning':'Why this — what differs, and the fix')+'</button>'
     +'<span class="sp"></span>'
     + (opts.length
-        ? opts.map(o=>'<button class="sb-dec merge'+lk+(o.recommended?'':' alt')+'" data-opt="'+esc(o.id)+'" data-fid="'+f.id+'"'+tip+'>'+lock+esc(o.label)+'</button>').join('')
+        ? '<button class="sb-dec merge'+lk+(PICK[f.id]?'':' off')+'" data-opt="1" data-fid="'+f.id+'"'
+            + (PICK[f.id]?tip:' disabled aria-disabled="true" title="Pick an answer above first"')+'>'
+            + lock+'Accept & apply</button>'
         : '<button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>')
     +'<button class="sb-dec keep'+lk+'" data-dec="keep" data-fid="'+f.id+'"'+tip+'>'+lock+'Dismiss</button>'
     +'</div>';
@@ -2039,6 +2073,8 @@ document.addEventListener('keydown',e=>{
 });
 
 document.getElementById('sbOppsBody').addEventListener('keydown',e=>{
+  const pk=e.target.closest('[data-pick]');
+  if(pk&&(e.key==='Enter'||e.key===' ')){ e.preventDefault(); pk.click(); return; }
   const op=e.target.closest('[data-open]');
   if(op && (e.key==='Enter'||e.key===' ')){ e.preventDefault(); op.click(); }
 });
@@ -2051,7 +2087,10 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
     if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
     return;
   }
-  const dc=e.target.closest('.sb-dec'); if(dc){ dc.dataset.opt ? chooseOption(dc.dataset.fid, dc.dataset.opt) : decide(dc.dataset.fid, dc.dataset.dec); return; }
+  const pk=e.target.closest('[data-pick]');
+  if(pk){ PICK[pk.dataset.fid] = (PICK[pk.dataset.fid]===pk.dataset.pick ? null : pk.dataset.pick); renderCleanup(); return; }
+  const dc=e.target.closest('.sb-dec'); if(dc){ if(dc.disabled) return;
+    dc.dataset.opt ? chooseOption(dc.dataset.fid, PICK[dc.dataset.fid]) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
@@ -2073,7 +2112,10 @@ document.getElementById('sbUsage').addEventListener('click',e=>{
     if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
     return;
   }
-  const dc=e.target.closest('.sb-dec'); if(dc){ dc.dataset.opt ? chooseOption(dc.dataset.fid, dc.dataset.opt) : decide(dc.dataset.fid, dc.dataset.dec); return; }
+  const pk=e.target.closest('[data-pick]');
+  if(pk){ PICK[pk.dataset.fid] = (PICK[pk.dataset.fid]===pk.dataset.pick ? null : pk.dataset.pick); renderCleanup(); return; }
+  const dc=e.target.closest('.sb-dec'); if(dc){ if(dc.disabled) return;
+    dc.dataset.opt ? chooseOption(dc.dataset.fid, PICK[dc.dataset.fid]) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
@@ -2110,6 +2152,7 @@ async function decide(id,val){
    One button called "Accept" cannot carry that answer, so those cards show the answers
    themselves and each one performs its own change. */
 async function chooseOption(id,oid){
+  if(!oid) return;                 // the button is disabled until an answer is picked
   if(!await requireUnlock()) return;
   const f=AUDIT&&AUDIT.findings.find(x=>x.id===id); if(!f) return;
   const o=(f.options||[]).find(x=>x.id===oid); if(!o) return;
@@ -2120,7 +2163,7 @@ async function chooseOption(id,oid){
     ok:'Do it' });
   if(!ok) return;
   const res=await applyOps({apply:o.apply}); if(!res) return;
-  DECIDED[id]='merge'; CHOICE[id]=oid;
+  DECIDED[id]='merge'; CHOICE[id]=oid; delete PICK[id];
   renderCleanup(); updateOppsCount(); saveDecision(id,'merge',true);
   fetch('/api/approve',{method:'POST',headers:{'Content-Type':'application/json'},
     body:JSON.stringify({key:'choice:'+id+':'+oid, on:true})}).catch(()=>{});
