@@ -544,21 +544,13 @@ button,a,label,summary{ touch-action:manipulation; }
    appear before you click it. An unlabelled icon in the toolbar was invisible — an
    icon alone only works for an action people already expect, and nobody expects
    this one. */
-/* The drawer's handle, welded to the edge it comes out of. Half a pill: its right
-   side runs off the screen, so it reads as attached rather than floating. Sits at the
-   header's height, not the middle of the page. */
-.sb-pw-tab{ position:fixed; right:0; top:200px; z-index:38;   /* placeTab() sets the real value */
-  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+.sb-pw-tab{ display:inline-flex; align-items:center; gap:7px; cursor:pointer; flex:none;
   font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
-  background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-right:0;
-  border-radius:999px 0 0 999px; padding:9px 16px 9px 12px;
-  box-shadow:-6px 0 20px rgba(0,0,0,.35);
-  transition:color .15s ease, background-color .15s ease, padding-right .15s ease; }
-.sb-pw-tab:hover{ color:var(--sb-txt); background:var(--sb-panel); padding-right:22px; }
-.sb-pw-pull{ display:inline-flex; opacity:.55; transition:transform .15s ease, opacity .15s ease; }
-.sb-pw-tab:hover .sb-pw-pull{ transform:translateX(-2px); opacity:1; }
+  background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px;
+  padding:7px 13px; transition:color .15s ease, border-color .15s ease, background-color .15s ease; }
+.sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
-.sb-pw-tab.away{ display:none; }
+.sb-pw-tab.away{ color:var(--sb-txt); background:rgba(255,255,255,.06); border-color:var(--sb-txt-3); }
 .sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
 .sb-pw-tab.away{ color:var(--sb-txt); border-color:var(--sb-txt-3); background:rgba(255,255,255,.06); }
@@ -587,6 +579,22 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-rules li{ position:relative; font-size:13.5px; line-height:1.6; color:var(--sb-txt-2); padding:5px 0; }
 .sb-rules li::before{ content:''; position:absolute; left:-14px; top:12px; width:5px; height:5px;
   border-radius:50%; background:var(--sb-txt-3); }
+/* Your asks */
+.sb-askrow{ padding:14px 16px; border:1px solid var(--sb-line); border-radius:12px;
+  background:var(--sb-panel); margin-bottom:10px; }
+.sb-askrow.done{ opacity:.55; }
+.sb-askrow-hd{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.sb-askrow-hd b{ font-family:'Inter Tight'; font-size:14px; font-weight:700; color:var(--sb-txt); }
+.sb-askrow-when{ font-size:11.5px; color:var(--sb-txt-3); }
+.sb-askrow-st{ margin-left:auto; display:inline-flex; align-items:center; gap:5px; font-size:11px;
+  font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--sb-green); }
+.sb-askrow.done .sb-askrow-st{ color:var(--sb-txt-3); }
+.sb-askrow-txt{ margin:8px 0 0; font-size:13.5px; line-height:1.6; font-style:italic; color:var(--sb-txt-2); }
+.sb-askrow-acts{ display:flex; gap:8px; margin-top:12px; }
+.sb-askrow-btn{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:11.5px; font-weight:700;
+  padding:6px 11px; border-radius:999px; cursor:pointer; color:var(--sb-txt-3);
+  background:transparent; border:1px solid var(--sb-line); }
+.sb-askrow-btn:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:4px; }
 @media (max-width:720px){ .sb-pw-stats{ grid-template-columns:1fr; } }
 .sb-pw-stat{ padding:14px 16px; border:1px solid var(--sb-line); border-radius:12px; background:var(--sb-panel); }
@@ -789,7 +797,7 @@ button,a,label,summary{ touch-action:manipulation; }
   <label class="sb-search" for="sbSearch"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input id="sbSearch" type="search" placeholder="Search…" autocomplete="off" aria-label="Search the storybook"></label>
   <div class="sb-tools">
     <button class="sb-tool" id="sbA11y" title="Accessibility — scan any page live" aria-label="Accessibility"><span id="sbA11yIcon"></span><span class="lbl">Accessibility</span></button>
-    <button class="sb-opps" id="sbOpps" title="Design Opportunities — suggestions to improve the playbook" aria-label="Design Opportunities"><span id="sbOppsIcon"></span><span class="lbl">Opportunities</span><span class="sb-opps-n" id="sbOppsN">0</span></button>
+    <button class="sb-tool" id="sbAsks" title="What you've asked me for" aria-label="Your asks" hidden><span id="sbAsksIcon"></span><span class="lbl">Asks</span><span class="sb-opps-n" id="sbAsksN">0</span></button><button class="sb-opps" id="sbOpps" title="Design Opportunities — suggestions to improve the playbook" aria-label="Design Opportunities"><span id="sbOppsIcon"></span><span class="lbl">Opportunities</span><span class="sb-opps-n" id="sbOppsN">0</span></button>
   </div>
 </header>
 <!-- ══ CREATE — the guided creation wizard. Understands the design problem first,
@@ -861,6 +869,7 @@ button,a,label,summary{ touch-action:manipulation; }
           <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
+            <button class="sb-pw-tab" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">System check</span></button>
             
           </div>
           <div class="sb-tags" id="sbTags"></div>
@@ -873,12 +882,15 @@ button,a,label,summary{ touch-action:manipulation; }
     <section class="sb-usage" id="sbUsage"></section>
 <!-- A page's report sits BESIDE the page, not under it: Opportunities replaces what
      you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
-<!-- Stuck to the right edge — literally the drawer's handle, hanging half off the
-     screen at the header's height. Not a control in the bar: those name a setting you
-     pick between. This one you pull. -->
-<button class="sb-pw-tab" id="sbPwOpen" hidden>
-  <span class="sb-pw-pull" id="sbPwPull"></span><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">System check</span>
-</button>
+
+<aside class="sb-panel" id="sbAsksPanel" role="dialog" aria-modal="true" aria-labelledby="sbAsksTitle" hidden>
+  <header class="sb-panel-hd">
+    <h2 class="sb-panel-title" id="sbAsksTitle"><span id="sbAsksTitleIcon"></span>Your asks</h2>
+    <p class="sb-panel-sub">Everything you've asked me for, and whether it's still waiting. Nothing here has been sent anywhere — it's a note on your machine that I read at the start of our next conversation. If you want it done now, copy it into the chat.</p>
+    <button class="sb-panel-x" id="sbAsksClose" aria-label="Close" data-ui-icon="close"></button>
+  </header>
+  <div class="sb-panel-body" id="sbAsksBody"></div>
+</aside>
 <aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
   <header class="sb-pw-hd">
     <h2 id="sbPwTitle"><span id="sbPwIcon"></span><span id="sbPwTitleTxt">How to use it</span></h2>
@@ -1276,7 +1288,53 @@ async function askAboutComp(cid){
       body:JSON.stringify({fid:'comp:'+cid, title:(st?st.name:cid)+' (component)', text})});
     if(!(await r.json()).ok) throw 0;
   }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
+  await loadAsks();
+  await loadAsks();
+  await loadAsks();
   toast(uic('check',13)+' Noted for <b>'+esc(st?st.name:cid)+'</b> — I\'ll pick this up next time we talk.',5000);
+}
+
+/* Your asks — the window into the outbox.
+   Writing an ask used to be a toast and then silence: no list, no badge, nothing
+   saying "you asked for this on Thursday". She had to trust it went somewhere. An
+   outbox you can't see isn't a feature, it's a promise. So: what you asked, what it
+   was about, when, whether it's still waiting — and a way to take it back or hand it
+   over right now instead of waiting for me to notice. */
+let ASKS=[];
+async function loadAsks(){
+  try{ ASKS=((await (await fetch('/api/requests',{cache:'no-store'})).json()).requests)||[]; }
+  catch(e){ ASKS=[]; }
+  const open=ASKS.filter(r=>!r.done).length;
+  const b=document.getElementById('sbAsks');
+  b.hidden = !ASKS.length;
+  document.getElementById('sbAsksN').textContent=open;
+  b.classList.toggle('none', !open);
+}
+function askAge(iso){
+  const d=new Date(iso), now=new Date(), ms=now-d;
+  if(ms<36e5) return Math.max(1,Math.round(ms/6e4))+'m ago';
+  if(ms<864e5) return Math.round(ms/36e5)+'h ago';
+  return Math.round(ms/864e5)+'d ago';
+}
+function renderAsks(){
+  const wrap=document.getElementById('sbAsksBody');
+  if(!ASKS.length){ wrap.innerHTML='<div class="sb-pw-clean">'+uic('done',15)
+      +'<span><b>Nothing waiting.</b> When you ask me for something on a page, a component or an opportunity, it shows up here.</span></div>'; return; }
+  wrap.innerHTML=ASKS.map(r=>'<div class="sb-askrow'+(r.done?' done':'')+'">'
+    + '<div class="sb-askrow-hd"><b>'+esc(r.title||r.fid)+'</b>'
+      + '<span class="sb-askrow-when">'+esc(askAge(r.at))+'</span>'
+      + '<span class="sb-askrow-st">'+(r.done?uic('check',12)+'Done':uic('sparkle',12)+'Waiting on me')+'</span></div>'
+    + '<p class="sb-askrow-txt">“'+esc(r.text)+'”</p>'
+    + (r.done?'':'<div class="sb-askrow-acts">'
+        + '<button class="sb-askrow-btn" data-askcopy="'+esc(r.fid)+'">'+uic('copy',12)+'Copy for the chat</button>'
+        + '<button class="sb-askrow-btn" data-askdel="'+esc(r.fid)+'">'+uic('close',12)+'Take it back</button></div>')
+    + '</div>').join('');
+}
+function toggleAsks(on){
+  const p=document.getElementById('sbAsksPanel'), sc=document.getElementById('sbOppsScrim');
+  const want = on===undefined ? p.hidden : on;
+  if(want){ renderAsks(); p.hidden=false; sc.hidden=false; }
+  else { p.hidden=true; if(oppsOpen()===false && document.getElementById('sbA11yPanel').hidden) sc.hidden=true; }
 }
 
 /* ═══════════ A PAGE'S WORKSPACE ═══════════
@@ -2258,33 +2316,36 @@ document.getElementById('sbFresh').addEventListener('click',findFresh);
   menu.addEventListener('click',close);   // any choice closes it
 })();
 document.getElementById('sbOpps').addEventListener('click',()=>toggleOpps());
+document.getElementById('sbAsks').addEventListener('click',()=>toggleAsks());
+document.getElementById('sbAsksClose').addEventListener('click',()=>toggleAsks(false));
+document.getElementById('sbAsksBody').addEventListener('click',async e=>{
+  const c=e.target.closest('[data-askcopy]');
+  if(c){ const r=ASKS.find(x=>x.fid===c.dataset.askcopy); if(!r) return;
+    /* hand it over NOW rather than wait for me to notice next session */
+    try{ await navigator.clipboard.writeText(r.title+': '+r.text);
+      toast(uic('check',13)+' Copied — paste it into the chat and I\'ll do it now.',4500); }catch(e2){}
+    return; }
+  const d=e.target.closest('[data-askdel]');
+  if(d){ const r=ASKS.find(x=>x.fid===d.dataset.askdel); if(!r) return;
+    if(!await dlg({title:'Take this back?', body:'“'+esc(r.text)+'”<br><br><span class="muted">It disappears from the list and I never see it.</span>', ok:'Take it back'})) return;
+    await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:r.fid, text:''})});           // empty text = drop it
+    delete ASKED[r.fid]; await loadAsks(); renderAsks();
+    toast('Taken back.'); return; }
+});
 document.getElementById('sbOppsClose').addEventListener('click',()=>toggleOpps(false));
-document.getElementById('sbOppsScrim').addEventListener('click',()=>{ toggleOpps(false); toggleA11y(false); });
+document.getElementById('sbOppsScrim').addEventListener('click',()=>{ toggleOpps(false); toggleA11y(false); toggleAsks(false); });
 document.addEventListener('keydown',e=>{
   if(e.key!=='Escape'||document.getElementById('sbDlg').classList.contains('open')) return;
   if(oppsOpen()) toggleOpps(false);
+  if(!document.getElementById('sbAsksPanel').hidden) toggleAsks(false);
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
-/* The handle hangs level with the top of the preview, not the header — at header
-   height it sat on top of the Status control. The header stacks at narrow widths, so
-   this is measured, never a magic number. */
-function placeTab(){
-  const t=document.getElementById('sbPwOpen');
-  if(!t||t.hidden) return;
-  /* below the header AND below the frame's own bar — that bar carries the "open" link
-     on the right, and the handle was sitting on top of it. */
-  const st=document.getElementById('sbSticky');
-  const bar=document.querySelector('.sb-frame-bar');
-  const under=Math.max(st?st.getBoundingClientRect().bottom:0, bar?bar.getBoundingClientRect().bottom:0);
-  t.style.top=Math.round(under+14)+'px';
-}
-addEventListener('resize',placeTab);
 function pwLabel(t){
   const b=document.getElementById('sbPwOpen');
   b.setAttribute('aria-label',t);
   document.getElementById('sbPwOpenTxt').textContent=t;   // an icon alone is only readable
-  requestAnimationFrame(placeTab);
 }
 function pwOpen(on){
   document.getElementById('sbPwDrawer').hidden=!on;
@@ -2773,7 +2834,9 @@ Promise.all([
   });
   document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',17);
   document.getElementById('sbPwOpenIcon').innerHTML=uic('factCheck',15);
-  document.getElementById('sbPwPull').innerHTML=uic('chevronLeft',13);   // the drawer is that way
+  document.getElementById('sbAsksIcon').innerHTML=uic('sparkle',14);
+  document.getElementById('sbAsksTitleIcon').innerHTML=uic('sparkle',19);
+  loadAsks();
   document.getElementById('sbA11yTitleIcon').innerHTML=uic('accessibility',19);
   document.getElementById('sbOppsIcon').innerHTML=uic('sparkle',14);
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
