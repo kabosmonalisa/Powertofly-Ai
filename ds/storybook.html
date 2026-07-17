@@ -544,9 +544,7 @@ button,a,label,summary{ touch-action:manipulation; }
    appear before you click it. An unlabelled icon in the toolbar was invisible — an
    icon alone only works for an action people already expect, and nobody expects
    this one. */
-/* .sb-head is display:contents, so this button is a grid cell in its own right —
-   without pinning it, auto-placement drops it in the controls column and stretches it. */
-.sb-pw-tab{ grid-column:1; justify-self:start; display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+.sb-pw-tab{ display:inline-flex; align-items:center; gap:7px; cursor:pointer; flex:none;
   font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
   background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px;
   padding:7px 13px; transition:color .15s ease, border-color .15s ease; }
@@ -842,12 +840,7 @@ button,a,label,summary{ touch-action:manipulation; }
           <nav class="sb-crumb" id="sbCrumb" hidden aria-label="Breadcrumb"></nav>
           <span class="sb-titlerow"><h1 id="sbName">—</h1><button class="sb-rename" id="sbRename" hidden title="Rename" aria-label="Rename this page"></button></span>
           <p id="sbDesc"></p>
-          <!-- Belongs to the page, so it sits with the page's own title — not floating
-               on the edge of the screen, and not among the canvas segments, which name
-               a setting rather than open a thing. -->
-          <button class="sb-pw-tab" id="sbPwOpen" hidden>
-            <span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Check against the system</span>
-          </button>
+          
         </div>
         <div class="sb-headside">
           <div class="sb-stagebar" id="sbStageBar">
@@ -857,6 +850,9 @@ button,a,label,summary{ touch-action:manipulation; }
           <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
+            <!-- Last in the bar: on the side with the controls, but a button, not a
+                 segment. It opens a thing rather than naming a setting. -->
+            <button class="sb-pw-tab" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Check against the system</span></button>
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -946,7 +942,8 @@ const UI = {
   refresh:'M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z',
   sparkle:'M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z',
   bolt:'M11 21h-1l1-7H7.5c-.58 0-.57-.32-.38-.66.19-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C12.96 17.55 11 21 11 21z',
-  info:'M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'
+  info:'M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z',
+  factCheck:'M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM10 17H5v-2h5v2zm0-4H5v-2h5v2zm0-4H5V7h5v2zm4.82 6L12 12.16l1.41-1.41 1.41 1.42L17.99 9l1.42 1.42L14.82 15z'
 };
 /* small = plain single-colour ink, never gradient (DESIGN-SYSTEM rule #5) */
 function uic(name,size,cls){
@@ -2745,7 +2742,7 @@ Promise.all([
     if(UI[el.dataset.uiIcon]) el.insertAdjacentHTML('afterbegin', uic(el.dataset.uiIcon,14));
   });
   document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',17);
-  document.getElementById('sbPwOpenIcon').innerHTML=uic('info',16);
+  document.getElementById('sbPwOpenIcon').innerHTML=uic('factCheck',15);
   document.getElementById('sbA11yTitleIcon').innerHTML=uic('accessibility',19);
   document.getElementById('sbOppsIcon').innerHTML=uic('sparkle',14);
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
