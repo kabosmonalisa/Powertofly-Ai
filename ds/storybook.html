@@ -403,7 +403,10 @@ button,a,label,summary{ touch-action:manipulation; }
    leave them deliberately. Both behave the same — two top-bar tools, one grammar. */
 @keyframes sb-rise{ from{ transform:translateY(8px); opacity:0 } to{ transform:none; opacity:1 } }
 @media (prefers-reduced-motion:reduce){ .sb-panel{ animation:none } }
-.sb-panel-hd > *{ max-width:1100px; margin-left:auto; margin-right:auto; }
+/* one centred column for the header AND the body, so nothing floats and the
+   whole thing shares one measure. clamp() grows it with the window up to a
+   readable cap — responsive, not a single hardcoded width. */
+.sb-panel-hd > *, .sb-panel-body > *{ width:100%; max-width:clamp(680px, 82vw, 1360px); margin-inline:auto; }
 .sb-panel-hd{ position:relative; padding:22px 26px 16px; border-bottom:1px solid var(--sb-line); background:#0A0A0A; }
 /* Progress is the header's own bottom rule filling in — ambient, no extra height,
    nothing competing with the title. The number carries the detail. */
@@ -437,7 +440,6 @@ button,a,label,summary{ touch-action:manipulation; }
   color:var(--sb-txt-2); background:none; border:0; border-radius:7px; padding:9px 10px; cursor:pointer; white-space:nowrap; }
 .sb-menu-i:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
 .sb-panel-body{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:20px 26px 60px; }
-.sb-panel-body > *{ max-width:1100px; margin-left:auto; margin-right:auto; }
 .sb-panel-body .sb-usage-h{ display:none; }
 .sb-kind{ font-size:9.5px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; padding:4px 8px; border-radius:6px;
   background:var(--sb-panel-2); color:var(--sb-txt-2); border:1px solid var(--sb-line); flex:none; }
@@ -453,7 +455,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-progress-bar i{ display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#5BCFFF,#4FE8A9 60%,#D5FF66); transition:width .3s ease; }
 .sb-progress-lbl{ font-size:12px; color:var(--sb-txt-2); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .sb-progress-lbl b{ color:var(--sb-txt); }
-.sb-filters{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:0 0 18px; }
+.sb-filters{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:0 auto 18px; }
 .sb-flabel{ font-size:9.5px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--sb-txt-3); white-space:nowrap; }
 .sb-fdiv{ width:1px; height:30px; background:var(--sb-line-2); margin:0 4px; }
 .sb-n{ margin-left:6px; font-variant-numeric:tabular-nums; font-weight:700; opacity:.55; }
