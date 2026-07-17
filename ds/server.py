@@ -122,6 +122,7 @@ def run_edit(paths, fn, nobackup=False):
     return {"backup": bkid, "total": total, "changed": changed}
 
 _IN_BATCH = False        # set while a multi-op Accept & apply runs; suppresses per-op backups
+_LAST_PAGES = 0          # newest page mtime we have measured; a jump means re-scan
 
 def apply(a):
     global _IN_BATCH
@@ -439,15 +440,31 @@ class H(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path.rstrip("/") == "/api/ping": return self._json({"ok": True})
         if self.path.rstrip("/") == "/api/version":
-            # A stamp of the files the open page is made of. Cache-Control can't help
-            # here: a tab that has been open since before an edit isn't serving a stale
-            # copy, it IS the stale copy. So the page asks whether it is still current.
+            # A stamp of everything the open page is made of. Cache-Control can't help
+            # here: a tab open since before an edit isn't serving a stale copy, it IS
+            # the stale copy. So the page asks whether it is still current.
+            #
+            # THE PAGES COUNT TOO. When I change a page in a session — new copy, a new
+            # section, a different image — her playbook has to show it without her
+            # doing anything. That is the whole "the playbook is where we work" idea:
+            # she asks, I do it in chat, and she watches it land.
             v = 0
             for f in (os.path.join(DS, "storybook.html"), CSS,
-                      os.path.join(DS, "audit-findings.json"), PAGES_JSON):
+                      os.path.join(DS, "audit-findings.json"), PAGES_JSON,
+                      os.path.join(DS, "requests.json")):
                 try: v = max(v, os.path.getmtime(f))
                 except OSError: pass
-            return self._json({"v": round(v, 3)})
+            pv = 0
+            for f in page_paths():
+                try: pv = max(pv, os.path.getmtime(f))
+                except OSError: pass
+            global _LAST_PAGES
+            if pv > _LAST_PAGES:
+                # a page moved under us — the numbers she's looking at are now wrong,
+                # so re-measure before telling her to reload
+                if _LAST_PAGES: rescan()
+                _LAST_PAGES = pv
+            return self._json({"v": round(max(v, pv), 3)})
         if self.path.rstrip("/") == "/api/approvals": return self._json(load_appr())
         if self.path.rstrip("/") == "/api/requests":
             try: return self._json(json.load(open(REQS)))
