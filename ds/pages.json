@@ -20,7 +20,7 @@
    "name": "Talents",
    "file": "talents/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "archived",
    "desc": "The earlier Talents page — kept for comparison against Talents (v2)."
   },
   {
@@ -49,7 +49,7 @@
    "name": "Events",
    "file": "events/index.html",
    "group": "Pages",
-   "status": "draft"
+   "status": "live"
   },
   {
    "id": "p-jobboard",
@@ -78,7 +78,7 @@
    "name": "Virtual job fair",
    "file": "vjf/index.html",
    "group": "Pages",
-   "status": "live",
+   "status": "draft",
    "desc": "Event detail — the virtual job fair. Shares .ev-hero with Summit and Chat & Learn."
   },
   {
@@ -86,7 +86,7 @@
    "name": "Summit",
    "file": "summit/index.html",
    "group": "Pages",
-   "status": "live",
+   "status": "draft",
    "desc": "Event detail — the summit. Sibling of Virtual job fair and Chat & Learn."
   },
   {
@@ -94,7 +94,7 @@
    "name": "Chat & Learn",
    "file": "chat-learn/index.html",
    "group": "Pages",
-   "status": "live",
+   "status": "draft",
    "desc": "Event detail — Chat & Learn. Sibling of Virtual job fair and Summit."
   },
   {
@@ -102,7 +102,7 @@
    "name": "Why PowerToFly",
    "file": "why-powertofly/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "archived",
    "desc": "Coming-soon placeholder."
   },
   {
@@ -110,7 +110,7 @@
    "name": "Expert finder",
    "file": "expert-finder/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "archived",
    "desc": "Coming-soon placeholder."
   },
   {
@@ -118,7 +118,7 @@
    "name": "How we verify",
    "file": "how-we-verify/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "archived",
    "desc": "Coming-soon placeholder."
   },
   {
@@ -126,7 +126,7 @@
    "name": "Compare",
    "file": "compare/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "archived",
    "desc": "Coming-soon placeholder."
   },
   {
@@ -183,7 +183,7 @@
    "name": "Company registration",
    "file": "event-company/index.html",
    "group": "Flows",
-   "status": "live",
+   "status": "archived",
    "desc": "Register — meet with the company."
   },
   {
@@ -191,7 +191,7 @@
    "name": "Employer registration",
    "file": "event-employer/index.html",
    "group": "Flows",
-   "status": "live",
+   "status": "archived",
    "desc": "Register — meet the company."
   },
   {
@@ -199,7 +199,7 @@
    "name": "Book a call",
    "file": "book/index.html",
    "group": "Flows",
-   "status": "draft",
+   "status": "live",
    "desc": "The book-a-call flow."
   }
  ]
