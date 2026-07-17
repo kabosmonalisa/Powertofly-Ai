@@ -558,6 +558,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-f-does.apply .sb-i, .sb-f-does.apply b{ color:var(--sb-green); }
 .sb-f-does.note{ background:var(--sb-panel-2); border:1px solid var(--sb-line); color:var(--sb-txt-3); }
 .sb-f-does.note b{ color:var(--sb-txt-2); }
+.sb-dec.merge.alt{ background:transparent; color:var(--sb-green); border:1px solid rgba(18,201,141,.5); }
+.sb-dec.merge.alt:hover{ background:rgba(18,201,141,.1); border-color:var(--sb-green); }
 .sb-f-acts{ display:flex; gap:8px; margin-top:16px; padding-top:14px; border-top:1px solid var(--sb-line); align-items:center; flex-wrap:wrap; }
 .sb-dec{ font:inherit; font-size:12px; font-weight:700; border-radius:8px; padding:8px 14px; cursor:pointer; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; }
 /* Locked = visible + clickable (it asks for the password), never hidden from a teammate. */
@@ -1271,6 +1273,7 @@ function loadProbe(src){
    Each finding renders the REAL variations live from their measured values, so a label
    can never drift from what you see. Specimens stamp their own measured size. */
 let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FINDING=null;   // DECIDED[id] = 'keep' | 'merge'
+let CHOICE={};   // CHOICE[id] = the option you picked on a finding that asked a question
 const IMPACT_ORDER={high:0,medium:1,low:2};
 
 /* Copy is plain text and may legitimately mention tags like <button> — escape it.
@@ -1355,7 +1358,9 @@ function findingHTML(f){
     return '<div class="sb-f decided" data-fid="'+f.id+'" data-impact="'+f.impact+'">'
       +'<div class="sb-f-done"><span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
       +'<h2 class="sb-f-title sm">'+esc(f.title)+'</h2>'
-      +'<span class="sb-decided-tag">'+uic('check',13)+(dec==='merge'?'Accepted':'Dismissed')+'</span>'
+      +'<span class="sb-decided-tag">'+uic('check',13)+(dec==='merge'
+          ? (CHOICE[f.id] ? esc((((f.options||[]).find(o=>o.id===CHOICE[f.id])||{}).label)||'Accepted') : 'Accepted')
+          : 'Dismissed')+'</span>'
       +'<button class="sb-dec keep'+(EDIT_MODE?'':' locked')+'" data-dec="'+dec+'" data-fid="'+f.id+'">'+(EDIT_MODE?'':LOCK_SVG)+'Change</button></div></div>';
   }
   const KIND={unify:'Merge duplicates',standardize:'Standardize',typography:'Simplify type',cleanup:'Remove',
@@ -1388,7 +1393,11 @@ function findingHTML(f){
   /* Say plainly what the button will do. "Accept" and "Accept & apply" is far too
      quiet a signal for the difference between "this rewrites your CSS on 18 pages"
      and "this writes down what you decided and nothing else happens." */
-  h+=(f.apply||[]).length
+  h+=(f.options||[]).length
+    ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>This one is a real choice — pick an answer below and it happens.</b> '
+      + 'Each answer edits the design system on disk, so every live and draft page changes at once. '
+      + 'Archived pages are left alone, and you can undo it.</span></div>'
+    : (f.apply||[]).length
     ? '<div class="sb-f-does apply">'+uic('bolt',15)+'<span><b>Accepting makes this change for real.</b> '
       + 'It edits the design system on disk, so every live and draft page changes at once. '
       + 'Archived pages are left alone, and you can undo it.</span></div>'
@@ -1409,12 +1418,15 @@ function findingHTML(f){
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
   const tip=EDIT_MODE?'':' title="Locked — needs the edit password"';
   const auto=(f.apply||[]).length;
+  const opts=f.options||[];
   h+='<div class="sb-f-acts">'
     +'<button class="sb-more-btn" data-open="'+f.id+'" aria-expanded="'+(open?'true':'false')+'">'
       +'<span class="sb-f-caret'+(open?' open':'')+'">'+uic('chevronRight',13)+'</span>'
       +(open?'Hide the reasoning':'Why this — what differs, and the fix')+'</button>'
     +'<span class="sp"></span>'
-    +'<button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>'
+    + (opts.length
+        ? opts.map(o=>'<button class="sb-dec merge'+lk+(o.recommended?'':' alt')+'" data-opt="'+esc(o.id)+'" data-fid="'+f.id+'"'+tip+'>'+lock+esc(o.label)+'</button>').join('')
+        : '<button class="sb-dec merge'+lk+'" data-dec="merge" data-fid="'+f.id+'"'+tip+'>'+lock+'Accept'+(auto?' & apply':'')+'</button>')
     +'<button class="sb-dec keep'+lk+'" data-dec="keep" data-fid="'+f.id+'"'+tip+'>'+lock+'Dismiss</button>'
     +'</div>';
   h+='</div></div>';
@@ -2020,7 +2032,7 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
     if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
     return;
   }
-  const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
+  const dc=e.target.closest('.sb-dec'); if(dc){ dc.dataset.opt ? chooseOption(dc.dataset.fid, dc.dataset.opt) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
@@ -2042,7 +2054,7 @@ document.getElementById('sbUsage').addEventListener('click',e=>{
     if(card && OPEN_FINDING) card.scrollIntoView({block:'nearest'});
     return;
   }
-  const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
+  const dc=e.target.closest('.sb-dec'); if(dc){ dc.dataset.opt ? chooseOption(dc.dataset.fid, dc.dataset.opt) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
@@ -2074,6 +2086,25 @@ async function decide(id,val){
   DECIDED[id]=val; renderCleanup(); updateOppsCount(); saveDecision(id,val,true);
   if(val==='merge'&&f&&!(f.apply||[]).length) toast('Accepted — needs a hand edit: '+esc(f.fix||''),6000);
   else if(val==='keep') toast('Dismissed — it stays as it is.');
+}
+/* Some findings ask a real question — which two sizes, 700 or 800, promote or delete.
+   One button called "Accept" cannot carry that answer, so those cards show the answers
+   themselves and each one performs its own change. */
+async function chooseOption(id,oid){
+  if(!await requireUnlock()) return;
+  const f=AUDIT&&AUDIT.findings.find(x=>x.id===id); if(!f) return;
+  const o=(f.options||[]).find(x=>x.id===oid); if(!o) return;
+  const ok=await dlg({ title:esc(o.label),
+    body:'This edits your design system for real:<ul class="sb-dlg-ops"><li>'
+      +(o.apply||[]).map(opLabel).join('</li><li>')+'</li></ul>'
+      +'<span class="muted">Backed up first — Undo reverts the whole thing in one step.</span>',
+    ok:'Do it' });
+  if(!ok) return;
+  const res=await applyOps({apply:o.apply}); if(!res) return;
+  DECIDED[id]='merge'; CHOICE[id]=oid;
+  renderCleanup(); updateOppsCount(); saveDecision(id,'merge',true);
+  fetch('/api/approve',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({key:'choice:'+id+':'+oid, on:true})}).catch(()=>{});
 }
 function saveDecision(id,val,on){
   fetch('/api/approve',{method:'POST',headers:{'Content-Type':'application/json'},
@@ -2349,8 +2380,9 @@ Promise.all([
   PATTERNS=(pt&&pt.patterns)||[]; PLANS=(pl&&pl.plans)||[];
   PAGE_LIST=(pj&&pj.pages)||[];
   if(ap&&ap.approved){
-    APPROVED=new Set(ap.approved.filter(k=>k.indexOf('decide:')!==0));
+    APPROVED=new Set(ap.approved.filter(k=>k.indexOf('decide:')!==0&&k.indexOf('choice:')!==0));
     ap.approved.filter(k=>k.indexOf('decide:')===0).forEach(k=>{ const p=k.split(':'); DECIDED[p[1]]=p[2]; });
+    ap.approved.filter(k=>k.indexOf('choice:')===0).forEach(k=>{ const p=k.split(':'); CHOICE[p[1]]=p[2]; });
   }
   S.push({g:'Pages', id:'gal-pages', name:'Pages', special:'gallery', galleryOf:'Pages',
           desc:'Every page in the playbook, newest work first. Drafts, then final, then archived.'});
