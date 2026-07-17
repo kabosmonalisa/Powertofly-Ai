@@ -2148,31 +2148,29 @@ const WIZ_TYPES=[
   {id:'page', name:'A page',  d:'One page, built from the section patterns you already have.',
    mini:'<div class="mini"><b class="h"></b><div class="mini-row"><b></b><b></b><b></b></div><b></b><div class="mini-row"><b></b><b></b></div><b class="cta"></b></div>'},
   {id:'flow', name:'A flow',  d:'A signup, registration or booking — several steps, one job.',
-   mini:'<div class="mini" style="flex-direction:row;align-items:center"><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1;background:#0A0A0A"></b></div>'}
+   mini:'<div class="mini" style="flex-direction:row;align-items:center"><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1;background:#0A0A0A"></b></div>'},
+  {id:'section', name:'A section', d:'One new block, designed on purpose to be reused — not one that accrued.',
+   mini:'<div class="mini"><div class="mini-row"><b style="height:38px"></b><b style="height:38px;background:#EAFAF2"></b></div><b style="width:55%"></b></div>'},
+  {id:'animation', name:'An animation', d:'A motion or scroll effect. What moves, when, and why.',
+   mini:'<div class="mini" style="align-items:center;justify-content:center"><b style="width:26px;height:26px;border-radius:50%;background:#0A0A0A"></b><b style="width:40%;height:2px;margin-top:8px"></b></div>'}
 ];
 
-/* Only ask what changes a design decision. Each objective needs different answers. */
-/* Nothing exists to read, so these questions carry all of it. Four, and each one
-   changes what gets built: what it's for, who reads it, what goes in it, what it can't
-   do. Anything else is me making conversation. */
+/* Three questions, and she was right to cut it there. She brings the content and a line
+   about what it is; if she hasn't got content she hands me a screenshot instead. Goal,
+   audience, constraints were me making conversation — I can read them off the content,
+   or ask in chat once we're actually working. */
 function wizFields(){
   const F={
-    goal:{l:'What has to be true for this to work?',
-      h:'The outcome, not the feature list. This decides the order of the page.',
-      t:'textarea', ph:'e.g. an employer understands what we do and books a call, without reading everything.'},
-    audience:{l:'Who is reading it?',
-      h:'Which of your audiences. This decides the voice and the proof.',
-      t:'textarea', ph:'e.g. Heads of AI at mid-size companies, hiring their first ML team.'},
-    content:{l:'What have you got?',
-      h:'Paste the copy or an outline — rough is fine. This decides the sections.',
-      t:'textarea', ph:'The headline, the sections you know you want, any real numbers.'},
-    constraints:{l:'Anything it must or must not do?', opt:true,
-      h:'A page it should resemble, a deadline, a rule. Constraints make better recommendations.',
-      t:'textarea', ph:'e.g. same shape as Chat & Learn but for a workshop. No new colours. Ships next week.'},
-    shot:{l:'Attach a screenshot', opt:true,
-      h:'A reference, a sketch, a comp — anything you want me to look at.', t:'file'}
+    desc:{l:'What is it, in a sentence?',
+      h:'Just enough for me to know what we’re making.',
+      t:'textarea', ph:'e.g. a landing page for a new AI upskilling program for employers.'},
+    content:{l:'The content', opt:true,
+      h:'Paste it — copy, an outline, real numbers. Rough is fine. Don’t have it yet? Attach a screenshot below instead.',
+      t:'textarea', ph:'The headline, the sections you know you want, anything you’ve got.'},
+    shot:{l:'Or attach something', opt:true,
+      h:'A screenshot of an existing page, a sketch, a reference — anything I should look at.', t:'file'}
   };
-  return ['goal','audience','content','constraints','shot'].map(k=>Object.assign({k},F[k]));
+  return ['desc','content','shot'].map(k=>Object.assign({k},F[k]));
 }
 function wizStepsBar(){
   const names=['What','The brief','Plan'];
@@ -2272,17 +2270,17 @@ function briefText(){
 
   wizFields().forEach(f=>{
     const v=WIZ.ctx[f.k]; if(!v) return;
-    if(f.t==='file'){ L.push('## Screenshot I attached'); L.push('Open it and look: `'+v+'`'); L.push(''); return; }
-    if(f.k==='current') return;                       // it gets its own section, with the measurements
-    L.push('## '+f.l.replace(/\?$/,''));
+    if(f.t==='file'){ L.push('## What I attached'); L.push('Open it and look: `'+v+'`'); L.push(''); return; }
+    L.push('## '+f.l.replace(/[?:.]$/,''));
     L.push(v); L.push('');
   });
 
   {
     L.push('## Where to start');
     L.push('ds/patterns.json is the section patterns that already exist and where each earns its place.');
-    L.push('Reuse → adapt → create new, in that order. A new pattern must argue why nothing existing fits,');
-    L.push('and must be reusable rather than a one-off. Name the sections you\'d use and why, before building.');
+    L.push('Reuse → adapt → create new, in that order. Only invent when nothing fits — and then argue why,');
+    L.push('and make it reusable, not a one-off. Name the pieces you\'d use, and why, before building anything.');
+    if(WIZ.type==='animation'){ L.push('For motion: honour prefers-reduced-motion, and match the timing/easing already in ptf.js.'); }
     L.push('');
   }
 
@@ -2297,8 +2295,8 @@ function wizPlanHTML(){
   const plan=(PLANS||[]).find(p=>p.when && p.when.type===WIZ.type && p.when.objective==='new');
   const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name;
   let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">'+(plan?esc(plan.title):'Your brief')+'</h2>';
-  h+='<div class="sb-brief"><h4>The brief</h4><dl><dt>What</dt><dd>'+esc(t||'—')+'</dd><dt>Objective</dt><dd>'+esc(o||'—')+'</dd>'
-    + wizFields().filter(f=>WIZ.ctx[f.k]).map(f=>'<dt>'+esc(f.l.replace(/\?$/,''))+'</dt><dd>'+esc(WIZ.ctx[f.k])+'</dd>').join('')
+  h+='<div class="sb-brief"><h4>The brief</h4><dl><dt>What</dt><dd>'+esc(t||'—')+'</dd>'
+    + wizFields().filter(f=>WIZ.ctx[f.k]&&f.t!=='file').map(f=>'<dt>'+esc(f.l.replace(/[?:.]$/,''))+'</dt><dd>'+esc(WIZ.ctx[f.k])+'</dd>').join('')
     +'</dl></div>';
   if(!plan){
     h+='<div class="sb-done-state" style="text-align:left;padding:26px"><b>No canned plan for this combination — and I won\'t fake one.</b>'
@@ -2338,8 +2336,8 @@ document.getElementById('sbWizBody').addEventListener('click',e=>{
     const open=box.classList.toggle('open'); a.textContent=(open?'Hide':'Compare')+a.textContent.replace(/^(Hide|Compare)/,''); fitThumbs(box); return; }
 });
 document.getElementById('sbWizFt').addEventListener('click',async e=>{
-  if(e.target.closest('#wizBack')){ if(WIZ.step===3) wizCollect(); WIZ.step--; wizRender(); return; }
-  if(e.target.closest('#wizNext')){ if(WIZ.step===3) wizCollect(); WIZ.step++; wizRender(); return; }
+  if(e.target.closest('#wizBack')){ if(WIZ.step===2) wizCollect(); WIZ.step--; wizRender(); return; }
+  if(e.target.closest('#wizNext')){ if(WIZ.step===2) wizCollect(); WIZ.step++; wizRender(); return; }
   if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=null; WIZ.ctx={}; wizRender(); return; }
   if(e.target.closest('#wizCopy')){
     try{ await navigator.clipboard.writeText(briefText()); toast(uic('check',13)+' Brief copied — paste it to Claude in chat.',5000); }catch(err){}
