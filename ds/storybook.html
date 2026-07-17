@@ -121,7 +121,11 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-sticky-in{ max-width:1240px; margin:0 auto; display:flex; flex-wrap:wrap;
   align-items:flex-start; gap:10px 32px; }
 .sb-head{ flex:1 1 340px; min-width:0; }        /* below 340px of room, the controls wrap away */
-.sb-headside{ flex:0 1 auto; margin-left:auto; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+/* No margin-left:auto. On a wide screen .sb-head grows and pushes these to the right
+   edge on its own; when they wrap to their own line, they start at the left, lined up
+   with the title. Forcing them right left them stranded on the far side of an empty
+   row, attached to nothing. */
+.sb-headside{ flex:0 1 auto; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
 .sb-crumb{ display:flex; align-items:center; gap:3px; margin:0 0 3px; }
 .sb-crumb button{ font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; color:var(--sb-txt-3);
   background:none; border:0; padding:0; cursor:pointer; }
@@ -136,14 +140,14 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-rename:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
 .sb-head p{ margin:4px 0 0; color:var(--sb-txt-2); font-size:13px; line-height:1.5; max-width:80ch;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.sb-tags{ display:flex; gap:6px; margin:0; flex-wrap:wrap; justify-content:flex-end; }
+.sb-tags{ display:flex; gap:6px; margin:0; flex-wrap:wrap; }
 .sb-chip{ font-size:11px; font-weight:600; padding:4px 9px; border-radius:999px; background:var(--sb-panel-2); border:1px solid var(--sb-line-2); color:var(--sb-txt-2); }
 .sb-chip.code{ font-family:var(--sb-mono); color:var(--sb-green); border-color:rgba(79,232,169,.3); background:rgba(79,232,169,.07); }
 
 .sb-stagewrap{ max-width:1240px; margin:0 auto; }
 /* Preview controls live ON the canvas, not in the global bar — they only ever change
    what's in the stage below them, and they disappear when they can't do anything. */
-.sb-stagebar{ display:flex; justify-content:flex-end; align-items:center; gap:14px; margin:0; flex-wrap:wrap; }
+.sb-stagebar{ display:flex; align-items:center; gap:14px; margin:0; flex-wrap:wrap; }
 .sb-seg-g{ display:inline-flex; align-items:center; gap:7px; }
 @media (max-width:1100px){
   #sbName,#sbDesc,#sbStageBar,#sbTags{ grid-area:auto; }
