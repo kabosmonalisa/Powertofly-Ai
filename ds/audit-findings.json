@@ -879,7 +879,7 @@
    "cause": "The system is right and the pages disagree with it: ptf.css already says cards are 20px (var(--r-xl)). The 22px comes from pages overriding it locally — employers/index.html and talents/index.html each re-declare border-radius: 22px on the testimonial card. 16px and 18px are likewise set on the page, not in the system.",
    "recommend": "merge",
    "reasoning": "Corner radius is one of the strongest signals that things belong to the same family. At these sizes 18 vs 20 vs 22 is invisible one at a time — but side by side it quietly reads as sloppiness, and every new card becomes a guess. What makes this worth fixing: your system already has the right answer. These are pages ignoring it, which is the pattern that will keep reappearing until the overrides are gone.",
-   "fix": "Delete the local border-radius overrides on the pages (employers, talents, talents-v2) so the cards inherit the system's 20px. Hand edit — the storybook won't guess which page overrides are deliberate.",
+   "fix": "Set every card to the system's 20px. Eight rules across Employers, Hire and Talents (v2) — the 28px feature panels (Sign in, Book a call) stay as they are, because 28px is the second tier this finding recommends, not a mistake.",
    "variants": [
     {
      "label": "16px",
@@ -1021,7 +1021,72 @@
     }
    ],
    "stamp": "radius",
-   "apply": [],
+   "apply": [
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".fcard",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "16px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".service-card",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "22px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".t-card",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "22px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".expert-card",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "16px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".opp-card",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "16px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hero-match-card",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "18px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hmc-back",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "18px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".faq-item",
+     "prop": "border-radius",
+     "value": "20px",
+     "expect": "16px"
+    }
+   ],
    "kind": "standardize",
    "impact_note": "Three off-scale radii disappear and cards read as one family. Removes page overrides that fight the system."
   },

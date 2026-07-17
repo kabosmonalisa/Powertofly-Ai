@@ -43,6 +43,8 @@ def page_paths():        return [os.path.join(ROOT, p) for p in _load_pages() if
 def rel(p):              return os.path.relpath(p, ROOT)
 def all_targets():       return page_paths() + [CSS]
 
+STYLE_RX = re.compile(r'(<style[^>]*>)(.*?)(</style>)', re.S | re.I)   # CSS edits touch only <style>
+
 CKPTS = os.path.join(DS, ".sb-checkpoints")  # dated restore points: "beginning" + one per day
 APPR  = os.path.join(DS, "approvals.json")   # items Lizu marked "keep as it is"
 BRIEFS = os.path.join(DS, "briefs.json")     # Create-wizard briefs, newest first, for Claude to plan against
@@ -98,10 +100,12 @@ def backup(paths):
     json.dump(manifest, open(os.path.join(d, "manifest.json"), "w"))
     return ts
 
-def run_edit(paths, fn):
-    """fn(text) -> (new_text, count). Backs up, writes changed files, returns summary."""
+def run_edit(paths, fn, nobackup=False):
+    """fn(text) -> (new_text, count). Backs up, writes changed files, returns summary.
+    nobackup: this edit is one step inside a batch that already took a restore point —
+    backing up again mid-batch would make undo land halfway through the batch."""
     paths = [p for p in paths if os.path.exists(p)]
-    bkid = backup(paths)
+    bkid = None if (nobackup or _IN_BATCH) else backup(paths)
     total = 0; changed = []
     for p in paths:
         t = open(p, encoding="utf-8", errors="ignore").read()
@@ -110,7 +114,11 @@ def run_edit(paths, fn):
             open(p, "w", encoding="utf-8").write(nt); total += c; changed.append([rel(p), c])
     return {"backup": bkid, "total": total, "changed": changed}
 
+_IN_BATCH = False        # set while a multi-op Accept & apply runs; suppresses per-op backups
+
 def apply(a):
+    global _IN_BATCH
+    _IN_BATCH = bool(a.get("_nobackup"))
     typ = a.get("type")
     if typ == "replace-hex":
         hx = a["hex"].lstrip("#"); tok = a["token"]
@@ -166,8 +174,24 @@ def apply(a):
         return run_edit([CSS], fn)
     if typ == "css-set":
         # Set a declaration on the rule whose selector list contains `selector` exactly.
-        # Replaces the property if present, otherwise appends it. ptf.css only.
+        # Replaces the property if present, otherwise appends it.
+        #
+        # `in` chooses the target: "css" (default) = ds/ptf.css only; "pages" = every
+        # live/draft page's <style> block; "all" = both. Most of the design system is
+        # NOT in ptf.css — .service-card lives in employers/index.html, .opp-card in
+        # talents/index-v2.html. Without "pages" those are unreachable, which is why
+        # most opportunities could never apply themselves.
+        #
+        # `expect` is a safety catch: the current value we measured. If a rule no longer
+        # says what the audit thinks it says, the page has moved on and we skip it rather
+        # than overwrite a change that was made deliberately since.
         sel, prop, val = a["selector"], a["prop"], a["value"]
+        where = a.get("in", "css")
+        targets = {"css": [CSS], "pages": page_paths(), "all": page_paths() + [CSS]}.get(where)
+        if targets is None:
+            return {"ok": False, "error": "css-set: `in` must be css, pages or all"}
+        expect = a.get("expect")
+        norm = lambda s: re.sub(r'\s+', ' ', (s or "")).strip().rstrip(";").lower()
         proprx = re.compile(r'(^|;|\{)(\s*)' + re.escape(prop) + r'\s*:[^;}]*(;?)', re.I)
         rule = re.compile(r'([^{}]+)\{([^{}]*)\}')
         def has_sel(prelude):
@@ -182,6 +206,11 @@ def apply(a):
                 if not has_sel(m.group(1)):
                     return m.group(0)
                 decls = m.group(2)
+                if expect is not None:
+                    cur = proprx.search(decls)
+                    curval = re.sub(r'^[^:]*:', '', cur.group(0)).strip().rstrip(";") if cur else ""
+                    if norm(curval) != norm(expect):
+                        return m.group(0)          # not what we measured — leave it alone
                 if proprx.search(decls):
                     nd = proprx.sub(lambda d: d.group(1) + d.group(2) + prop + ": " + val + (d.group(3) or ";"), decls, count=1)
                 else:
@@ -193,7 +222,18 @@ def apply(a):
                 cnt[0] += 1
                 return m.group(1) + "{" + nd + "}"
             return rule.sub(repl, t), cnt[0]
-        return run_edit([CSS], fn)
+        def fn_file(t):
+            # In an HTML page, only ever look inside <style>. Running a CSS rule regex
+            # over a whole page is both wrong (every { } in a <script> is a candidate)
+            # and far too slow to sit behind a button.
+            if not STYLE_RX.search(t):
+                return fn(t)
+            cnt = [0]
+            def rep(m):
+                nb, c = fn(m.group(2)); cnt[0] += c
+                return m.group(1) + nb + m.group(3)
+            return STYLE_RX.sub(rep, t), cnt[0]
+        return run_edit(targets, fn_file)
     if typ == "css-append":
         # Append a raw rule to the end of ptf.css (used to fix things that have no rule yet).
         block, marker = a["css"], a.get("marker", "")
@@ -235,7 +275,27 @@ class H(http.server.SimpleHTTPRequestHandler):
         if self.path.rstrip("/") == "/api/apply":
             n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
             try:
-                res = apply(body); res["data"] = rescan(); res["ok"] = True; self._json(res)
+                # {"ops":[...]} = ONE action: one backup, one rescan, one undo step.
+                # A finding is rarely a single edit — card corners is eight rules across
+                # three pages. Sent one-by-one they'd each take a full backup + rescan
+                # (slow), and undo would only take back the last one, leaving seven
+                # applied. Accept & apply is one decision, so it must undo as one.
+                ops = body.get("ops")
+                if ops is None:
+                    res = apply(body)                    # single op — unchanged
+                else:
+                    bkid = backup(all_targets())         # one restore point for the whole batch
+                    res = {"backup": bkid, "total": 0, "changed": [], "steps": []}
+                    agg = {}
+                    for op in ops:
+                        r = apply(dict(op, _nobackup=True))
+                        res["steps"].append({"selector": op.get("selector") or op.get("from") or op.get("type"),
+                                             "count": r.get("total", 0)})
+                        res["total"] += r.get("total", 0)
+                        for fname, c in r.get("changed", []):
+                            agg[fname] = agg.get(fname, 0) + c
+                    res["changed"] = sorted(agg.items(), key=lambda kv: -kv[1])
+                res["data"] = rescan(); res["ok"] = True; self._json(res)
             except Exception as e:
                 self._json({"ok": False, "error": str(e)}, 400)
             return
@@ -264,6 +324,22 @@ class H(http.server.SimpleHTTPRequestHandler):
                 item["missing"] = not os.path.exists(fp)
                 out.append(item)
             self._json({"ok": True, "pages": out})
+            return
+        if self.path.rstrip("/") == "/api/page-rename":
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            pid, name = body.get("id"), (body.get("name") or "").strip()
+            if not name:
+                self._json({"ok": False, "error": "a name can't be empty"}); return
+            if len(name) > 60:
+                self._json({"ok": False, "error": "keep it under 60 characters"}); return
+            d = json.load(open(PAGES_JSON))
+            hit = next((p for p in d["pages"] if p.get("id") == pid), None)
+            if not hit:
+                self._json({"ok": False, "error": "no such page: %s" % pid}); return
+            old = hit.get("name")
+            hit["name"] = name
+            json.dump(d, open(PAGES_JSON, "w"), indent=1, ensure_ascii=False)
+            self._json({"ok": True, "id": pid, "was": old, "name": name})
             return
         if self.path.rstrip("/") == "/api/page-status":
             # Set a page's lifecycle: live | draft | archived

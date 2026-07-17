@@ -2063,7 +2063,11 @@ function saveDecision(id,val,on){
     body:JSON.stringify({key:'decide:'+id+':'+val, on})}).catch(()=>{});
 }
 function opLabel(o){
-  if(o.type==='css-set') return 'Set <code>'+esc(o.prop)+': '+esc(o.value)+'</code> on <code>'+esc(o.selector)+'</code> in ptf.css';
+  if(o.type==='css-set'){
+    const where={pages:'on your pages',all:'in the design system and on your pages'}[o.in]||'in the design system';
+    return 'Set <code>'+esc(o.prop)+': '+esc(o.value)+'</code> on <code>'+esc(o.selector)+'</code> '+where
+      + (o.expect?' <span class="muted">(only where it still says '+esc(o.expect)+')</span>':'');
+  }
   if(o.type==='css-append') return 'Add a new rule to ptf.css';
   if(o.type==='replace-class') return 'Rename <code>'+esc(o.from)+'</code> → <code>'+esc(o.to)+'</code> across your pages';
   if(o.type==='remove-css-rule') return 'Delete the <code>'+esc(o.selector)+'</code> rule from ptf.css';
@@ -2078,16 +2082,19 @@ function confirmApply(f){
 }
 async function applyOps(f){
   toast('Applying…',60000);
+  const ops=f.apply||[];
   let total=0; const files=new Set();
-  for(const op of (f.apply||[])){
-    try{
-      const r=await fetch('/api/apply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(op)});
-      const j=await r.json();
-      if(!j.ok){ toast(uic('warning',13)+' '+esc(j.error||'failed')+' — nothing else applied.',7000); return null; }
-      total+=j.total||0; (j.changed||[]).forEach(c=>files.add(c[0]));
-      if(j.data) DATA=j.data;
-    }catch(e){ toast(uic('warning',13)+' Editing server not reachable — restart it (python3 ds/server.py 3456).',7000); return null; }
-  }
+  /* ONE call for the whole finding. Sent op-by-op, each edit took its own backup —
+     so Undo would revert only the LAST one and leave the rest applied. Accept & apply
+     is one decision; it has to be one restore point. */
+  try{
+    const r=await fetch('/api/apply',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({ops:ops})});
+    const j=await r.json();
+    if(!j.ok){ toast(uic('warning',13)+' '+esc(j.error||'failed')+' — nothing was changed.',7000); return null; }
+    total=j.total||0; (j.changed||[]).forEach(c=>files.add(c[0]));
+    if(j.data) DATA=j.data;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — restart it (python3 ds/server.py 3456).',7000); return null; }
   document.getElementById('sbUndo').style.display='';
   if(!total){ toast('Already applied — nothing left to change.',4500); return {total:0}; }
   toast(uic('check',13)+' Done — <b>'+total+'</b> change'+(total===1?'':'s')+' in '+files.size+' file'+(files.size===1?'':'s')+'. Backup saved.',6000);
