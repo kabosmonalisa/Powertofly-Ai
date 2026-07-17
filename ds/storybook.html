@@ -1310,6 +1310,80 @@ async function loadAsks(){
   document.getElementById('sbAsksN').textContent=open;
   b.classList.toggle('none', !open);
 }
+/* The brief. "Copy for the chat" used to copy "<title>: <text>" — a sentence with no
+   idea what she turned down, what I'd recommended, or where any of it lives. The
+   playbook knows ALL of that; pasting it into a fresh session should hand over
+   everything I'd otherwise make her say twice. */
+function askBrief(r){
+  const L=[], fid=r.fid;
+  L.push('# Ask from the PowerToFly AI Design Playbook');
+  L.push('Written '+r.at.replace('T',' ')+'. Read CLAUDE.md, ds/COMPONENT-INVENTORY.md and');
+  L.push('ds/DESIGN-SYSTEM.md before touching anything.');
+  L.push('');
+  L.push('## What I want');
+  L.push(r.text);
+  L.push('');
+  if(fid.indexOf('page:')===0){
+    const st=S.find(x=>x.pageId===fid.slice(5));
+    if(st){
+      const file=st.iframe, comps=pageStories(file), finds=pageFindings(st.name);
+      const own=((DATA&&DATA.meta.pageOwn||{})[file])||[], css=(DATA&&DATA.meta.pageCss||{})[file];
+      L.push('## The page');
+      L.push('**'+st.name+'** — `'+file+'` · status: '+(st.status||'live'));
+      L.push('Preview: http://localhost:3456/'+file);
+      L.push('');
+      L.push('## What the playbook already measured');
+      L.push('- Uses **'+comps.length+'** components from the design system: '+comps.map(c=>c.name).join(', '));
+      L.push('- Has **'+own.length+'** of its own the system does not define'+(own.length?': `'+own.join('`, `')+'`':''));
+      L.push('- Writes **'+(css==null?'?':css)+'** lines of its own CSS'
+             +(css===0?' — built entirely from the system. Keep it that way.'
+                      :css>400?' — this page is effectively its own design system.':'.'));
+      L.push('- Open opportunities against it: '+(finds.length?finds.map(f=>f.title).join('; '):'none'));
+      L.push('');
+      L.push('Work with the system, not around it. If something is missing, say so rather than');
+      L.push('adding more page CSS — the pages with none of their own have no problems.');
+    }
+  } else if(fid.indexOf('comp:')===0){
+    const st=S.find(x=>x.id===fid.slice(5));
+    if(st){
+      L.push('## The component');
+      L.push('**'+st.name+'** — storybook id `'+st.id+'`'+((st.u||[]).length?' · classes: `'+st.u.join('`, `')+'`':''));
+      L.push('Open it: http://localhost:3456/ds/storybook.html#'+st.id);
+      if(st.use){ L.push(''); L.push('What the playbook says it is for: '+st.use); }
+      if((st.rule||[]).length){ L.push(''); L.push('Its notes today — these may be exactly what I want changed:');
+        (st.rule||[]).forEach(x=>L.push('- '+x)); }
+      if(DATA){
+        const on=(st.u||[]).filter(k=>k.charAt(0)==='.')
+          .reduce((a,k)=>a.concat(Object.keys((DATA.classes[k]||{}).files||{})),[])
+          .filter(f=>f.endsWith('.html'));
+        if(on.length){ L.push(''); L.push('Used on: '+Array.from(new Set(on)).join(', ')); }
+      }
+    }
+  } else {
+    const f=AUDIT&&AUDIT.findings.find(x=>x.id===fid);
+    if(f){
+      L.push('## The opportunity I was answering');
+      L.push('**'+f.title+'** (`'+f.id+'` in ds/audit-findings.json) · '+f.impact+' impact');
+      L.push('The question it put to me: '+f.question);
+      L.push('');
+      L.push('### What I have today');
+      (f.variants||[]).forEach(v=>L.push('- **'+v.label+'** — '+((v.where||[]).join(', ')||'?')+(v.note?' — '+v.note:'')));
+      if((f.options||[]).length){
+        L.push('');
+        L.push('### The answers you offered me, which I turned down');
+        (f.options||[]).forEach(o=>L.push('- **'+o.label+'**'+(o.recommended?' (you recommended this one)':'')+(o.note?' — '+o.note:'')));
+        L.push('');
+        L.push('I chose "Something else" instead. What I actually want is at the top.');
+      }
+      if(f.fix){ L.push(''); L.push('### Where it lives, as you measured it'); L.push(f.fix); }
+      L.push('');
+      L.push('Every opportunity ships a working Accept & apply — so turn what I want into real');
+      L.push('`options`/`apply` ops on this finding, prove it (apply, diff, undo), and mark my');
+      L.push('ask done in ds/requests.json.');
+    }
+  }
+  return L.join('\n');
+}
 function askAge(iso){
   const d=new Date(iso), now=new Date(), ms=now-d;
   if(ms<36e5) return Math.max(1,Math.round(ms/6e4))+'m ago';
@@ -1326,7 +1400,7 @@ function renderAsks(){
       + '<span class="sb-askrow-st">'+(r.done?uic('check',12)+'Done':uic('sparkle',12)+'Waiting on me')+'</span></div>'
     + '<p class="sb-askrow-txt">“'+esc(r.text)+'”</p>'
     + (r.done?'':'<div class="sb-askrow-acts">'
-        + '<button class="sb-askrow-btn" data-askcopy="'+esc(r.fid)+'">'+uic('copy',12)+'Copy for the chat</button>'
+        + '<button class="sb-askrow-btn" data-askcopy="'+esc(r.fid)+'">'+uic('copy',12)+'Copy the full brief</button>'
         + '<button class="sb-askrow-btn" data-askdel="'+esc(r.fid)+'">'+uic('close',12)+'Take it back</button></div>')
     + '</div>').join('');
 }
@@ -2322,8 +2396,9 @@ document.getElementById('sbAsksBody').addEventListener('click',async e=>{
   const c=e.target.closest('[data-askcopy]');
   if(c){ const r=ASKS.find(x=>x.fid===c.dataset.askcopy); if(!r) return;
     /* hand it over NOW rather than wait for me to notice next session */
-    try{ await navigator.clipboard.writeText(r.title+': '+r.text);
-      toast(uic('check',13)+' Copied — paste it into the chat and I\'ll do it now.',4500); }catch(e2){}
+    const brief=askBrief(r);
+    try{ await navigator.clipboard.writeText(brief);
+      toast(uic('check',13)+' Copied — <b>'+brief.split('\n').length+' lines</b> of context. Paste it into any chat.',5200); }catch(e2){}
     return; }
   const d=e.target.closest('[data-askdel]');
   if(d){ const r=ASKS.find(x=>x.fid===d.dataset.askdel); if(!r) return;
