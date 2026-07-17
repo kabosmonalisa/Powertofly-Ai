@@ -540,11 +540,21 @@ button,a,label,summary{ touch-action:manipulation; }
 /* A page's workspace */
 /* A page's report — a drawer over the preview, so the page stays visible. Opportunities
    replaces what you're looking at; this is ABOUT what you're looking at. */
-.sb-pw-open{ display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px;
-  border-radius:50%; cursor:pointer; color:var(--sb-txt-2); flex:none;
-  background:var(--sb-panel-2); border:1px solid var(--sb-line); }
-.sb-pw-open:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
-.sb-pw-open.on{ color:var(--sb-txt); background:rgba(255,255,255,.06); border-color:var(--sb-txt-3); }
+/* The tab lives on the edge the drawer comes out of, so you can see where it will
+   appear before you click it. An unlabelled icon in the toolbar was invisible — an
+   icon alone only works for an action people already expect, and nobody expects
+   this one. */
+.sb-pw-tab{ position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:38;
+  display:inline-flex; flex-direction:column; align-items:center; gap:9px;
+  padding:16px 9px 18px; cursor:pointer; font:inherit; font-size:12px; font-weight:700;
+  letter-spacing:.02em; color:var(--sb-txt-2); background:var(--sb-panel);
+  border:1px solid var(--sb-line-2); border-right:0; border-radius:12px 0 0 12px;
+  box-shadow:-8px 0 24px rgba(0,0,0,.4);
+  transition:color .15s ease, background-color .15s ease, transform .2s ease; }
+.sb-pw-tab span:last-child{ writing-mode:vertical-rl; }
+.sb-pw-tab:hover{ color:var(--sb-txt); background:var(--sb-panel-2); transform:translateY(-50%) translateX(-3px); }
+.sb-pw-tab .sb-i{ color:var(--sb-green); }
+.sb-pw-tab.away{ display:none; }
 .sb-pw-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(460px,92vw); z-index:39; display:flex;
   flex-direction:column; background:#0A0A0A; border-left:1px solid var(--sb-line-2);
   box-shadow:-24px 0 70px rgba(0,0,0,.55); animation:sb-slide .2s ease; }
@@ -842,7 +852,7 @@ button,a,label,summary{ touch-action:manipulation; }
             <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
           <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
-          </div></span><button class="sb-pw-open" id="sbPwOpen" hidden aria-label="How to use it"><span id="sbPwOpenIcon"></span></button>
+          </div></span>
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -854,6 +864,9 @@ button,a,label,summary{ touch-action:manipulation; }
     <section class="sb-usage" id="sbUsage"></section>
 <!-- A page's report sits BESIDE the page, not under it: Opportunities replaces what
      you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
+<button class="sb-pw-tab" id="sbPwOpen" hidden>
+  <span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Work on this page</span>
+</button>
 <aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
   <header class="sb-pw-hd">
     <h2 id="sbPwTitle"><span id="sbPwIcon"></span><span id="sbPwTitleTxt">How to use it</span></h2>
@@ -1276,7 +1289,7 @@ function renderPageWork(s){
   const file=s.iframe, name=s.name;
   const btn=document.getElementById('sbPwOpen');
   btn.hidden=false;
-  pwLabel('What’s in this page');
+  pwLabel('Work on this page');
   document.getElementById('sbPwTitleTxt').textContent='What’s in '+name;
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
@@ -2242,12 +2255,12 @@ document.addEventListener('keydown',e=>{
 
 function pwLabel(t){
   const b=document.getElementById('sbPwOpen');
-  b.title=t; b.setAttribute('aria-label',t);      // the icon carries it; the words are the tooltip
+  b.setAttribute('aria-label',t);
+  document.getElementById('sbPwOpenTxt').textContent=t;   // an icon alone is only readable
 }
 function pwOpen(on){
-  const d=document.getElementById('sbPwDrawer');
-  d.hidden=!on;
-  document.getElementById('sbPwOpen').classList.toggle('on',on);
+  document.getElementById('sbPwDrawer').hidden=!on;
+  document.getElementById('sbPwOpen').classList.toggle('away',on);   // the tab IS the drawer, closed
 }
 document.getElementById('sbPwOpen').addEventListener('click',()=>pwOpen(document.getElementById('sbPwDrawer').hidden));
 document.getElementById('sbPwClose').addEventListener('click',()=>pwOpen(false));
