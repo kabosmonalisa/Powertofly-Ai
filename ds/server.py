@@ -55,6 +55,7 @@ CKPTS = os.path.join(DS, ".sb-checkpoints")  # dated restore points: "beginning"
 APPR  = os.path.join(DS, "approvals.json")   # items Lizu marked "keep as it is"
 BRIEFS = os.path.join(DS, "briefs.json")     # Create-wizard briefs, newest first, for Claude to plan against
 REQS   = os.path.join(DS, "requests.json")   # "Something else" — what she asked for in her own words, newest first
+SHOTS  = os.path.join(DS, ".briefs")         # screenshots she attaches to a Create brief
 
 def _snapshot(dirpath):
     os.makedirs(dirpath, exist_ok=True)
@@ -397,6 +398,28 @@ class H(http.server.SimpleHTTPRequestHandler):
             # not judging. It never writes a finding; it only refreshes the data.
             self._json({"ok": True, "data": rescan()})
             return
+        if self.path.rstrip("/") == "/api/shot":
+            # A screenshot can't travel inside a text prompt — but it can sit on disk and
+            # the prompt can point at it. She uploads, this saves it, the brief says
+            # "look at this file", and I can actually open it.
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            data = body.get("data", "")
+            if not data.startswith("data:image/"):
+                return self._json({"ok": False, "error": "images only"})
+            try:
+                head, b64 = data.split(",", 1)
+                ext = {"png": "png", "jpeg": "jpg", "jpg": "jpg", "webp": "webp", "gif": "gif"}.get(
+                    head.split("/")[1].split(";")[0], "png")
+                import base64
+                raw = base64.b64decode(b64)
+                if len(raw) > 12 * 1024 * 1024:
+                    return self._json({"ok": False, "error": "that image is over 12MB"})
+                os.makedirs(SHOTS, exist_ok=True)
+                name = "shot-" + str(int(time.time() * 1000)) + "." + ext
+                open(os.path.join(SHOTS, name), "wb").write(raw)
+                return self._json({"ok": True, "path": "ds/.briefs/" + name})
+            except Exception as e:
+                return self._json({"ok": False, "error": str(e)})
         if self.path.rstrip("/") == "/api/request":
             # An opportunity where neither answer is what she wants. She writes what she
             # actually wants; it lands here in her own words for me to pick up. Nothing

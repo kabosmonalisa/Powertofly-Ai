@@ -7,3 +7,4 @@ ds/.sb-backups/
 ds/.sb-checkpoints/
 ds/approvals.json
 ds/briefs.json
+ds/.briefs/

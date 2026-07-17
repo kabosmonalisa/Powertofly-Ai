@@ -670,6 +670,14 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-decided-tag.asked{ color:var(--sb-green); }
 .sb-decided-ask{ display:block; width:100%; margin-top:6px; font-size:12.5px; font-style:italic;
   color:var(--sb-txt-3); }
+.sb-ctx-f input[type=file]{ font:inherit; font-size:12.5px; color:var(--sb-txt-2); }
+.sb-ctx-f input[type=file]::file-selector-button{ font:inherit; font-size:12px; font-weight:700; margin-right:10px;
+  padding:7px 13px; border-radius:999px; cursor:pointer; color:var(--sb-green);
+  background:transparent; border:1px solid rgba(18,201,141,.55); }
+.sb-shotname{ display:flex; align-items:center; gap:6px; margin-top:7px; font-family:var(--sb-mono);
+  font-size:11.5px; color:var(--sb-green); }
+.sb-opt-tag{ margin-left:8px; font-family:'Inter'; font-style:normal; font-size:9.5px; font-weight:800;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--sb-txt-3); }
 .sb-fresher{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60;
   display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; cursor:pointer;
   font:inherit; font-size:12.5px; font-weight:700; color:#0A0A0A; background:var(--sb-green); border:0;
@@ -2131,40 +2139,44 @@ function renderGallery(group){
 let PATTERNS=null, PLANS=null, PAGE_LIST=[];
 const WIZ={ step:1, type:null, objective:null, ctx:{} };
 const WIZ_TYPES=[
-  {id:'page',    name:'Page',            d:'A whole page built from existing section patterns.',
-   mini:'<div class="mini"><b class="h"></b><div class="mini-row"><b></b><b></b><b></b></div><b></b><div class="mini-row"><b></b><b></b></div><b class="g"></b></div>'},
-  {id:'flow',    name:'User flow',       d:'A multi-step signup, registration or lead capture.',
-   mini:'<div class="mini" style="flex-direction:row;align-items:center"><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b class="g" style="height:30px;flex:1"></b></div>'},
-  {id:'section', name:'Section pattern',  d:'One reusable block, meant to be used on many pages.',
-   mini:'<div class="mini"><div class="mini-row"><b style="height:34px"></b><b style="height:34px;background:#EAFAF2"></b></div><b style="width:60%"></b></div>'},
-  {id:'component',name:'Component',      d:'A single element — a card, a chip, a control.',
-   mini:'<div class="mini" style="width:70px"><b style="height:20px;border-radius:999px;background:#0A0A0A"></b></div>'}
+  {id:'page', name:'A page',  d:'One page, built from the section patterns you already have.',
+   mini:'<div class="mini"><b class="h"></b><div class="mini-row"><b></b><b></b><b></b></div><b></b><div class="mini-row"><b></b><b></b></div><b class="cta"></b></div>'},
+  {id:'flow', name:'A flow',  d:'A signup, registration or booking — several steps, one job.',
+   mini:'<div class="mini" style="flex-direction:row;align-items:center"><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1;background:#0A0A0A"></b></div>'}
 ];
 const WIZ_OBJ=[
-  {id:'new',       name:'Create something new',      d:"It doesn't exist yet. Start from proven patterns."},
-  {id:'redesign',  name:'Redesign what exists',      d:"It exists and isn't working. Keep what's earned, change what isn't."},
-  {id:'extend',    name:'Extend what exists',        d:'Add to a page or flow without breaking its rhythm.'},
-  {id:'experiment',name:'Experiment with a concept', d:'Explore an idea. Throwaway is fine — the system still applies.'}
+  {id:'improve', name:'Improve something that exists', d:'New copy, a new section, a rebrand, a fix. It already works — this makes it better.'},
+  {id:'new',     name:'Build it from scratch',         d:"It doesn't exist yet. More questions, because I have nothing to read."}
 ];
 /* Only ask what changes a design decision. Each objective needs different answers. */
+/* Improving: I can go and read the thing, so ask for what I can't — what she wants,
+   what the copywriter sent, what it should look like. Building new: nothing exists to
+   read, so the questions carry all of it. */
 function wizFields(){
-  const pageOpts=(PAGE_LIST||[]).map(p=>'<option value="'+esc(p.name)+'">'+esc(p.name)+'</option>').join('');
+  const pageOpts=(PAGE_LIST||[]).filter(p=>(p.status||'live')!=='archived')
+    .map(p=>'<option value="'+esc(p.name)+'">'+esc(p.name)+'</option>').join('');
   const F={
-    goal:{l:'What has to be true for this to work?',h:'The business or user outcome — not the feature list.',t:'textarea',ph:'e.g. Employers understand we verify every expert, and book a call.'},
-    audience:{l:'Who is it for?',h:'Which of your audiences is reading this.',t:'textarea',ph:'e.g. Heads of AI at mid-size companies, hiring their first data team.'},
-    content:{l:'What content do you already have?',h:'Paste the copy, or an outline. Rough is fine.',t:'textarea',ph:'Headline, sections, any real numbers or quotes…'},
-    constraints:{l:'Anything it must or must not do?',h:'Constraints make better recommendations, not worse ones.',t:'textarea',ph:'e.g. must reuse the event hero; no new colours; ships next week.'},
-    current:{l:'Which page are we working from?',h:'Pulled from your real page list.',t:'select',opts:'<option value="">Choose a page…</option>'+pageOpts},
-    problem:{l:"What isn't working today?",h:'Be specific about the symptom, not the fix.',t:'textarea',ph:'e.g. People scroll past the proof and never reach the CTA.'},
-    keep:{l:'What has to survive?',h:'The parts that already earn their place.',t:'textarea',ph:'e.g. the hero and the stat band test well — keep them.'},
-    addition:{l:"What's being added?",h:'The new capability or content going in.',t:'textarea',ph:'e.g. a speakers section, above the FAQ.'},
-    idea:{l:"What's the idea?",h:'One or two sentences.',t:'textarea',ph:'e.g. what if the job board previewed a live match?'},
-    learn:{l:'What do you want to learn from it?',h:'This decides how finished it needs to look.',t:'textarea',ph:'e.g. whether people trust a match score they can see.'}
+    current:{l:'Which one are we working on?', h:"I'll read it, measure it, and bring what it's made of.",
+      t:'select', opts:'<option value="">Choose…</option>'+pageOpts},
+    change:{l:'What needs to change?', h:'New copy, a new section, something that bugs you, a whole rebrand. Say it however you like.',
+      t:'textarea', ph:'e.g. the copywriter sent new copy for the hero and the FAQ. The speakers section needs to come out. And the photos feel wrong.'},
+    copy:{l:'Paste the new copy', h:'Optional. From the copywriter, a doc, wherever — rough is fine.', opt:true,
+      t:'textarea', ph:'Paste it here exactly as you got it.'},
+    shot:{l:'Attach a screenshot', h:'Optional. A reference, a scribble, a comp — anything you want me to look at.', opt:true, t:'file'},
+    goal:{l:'What has to be true for this to work?', h:'The outcome, not the feature list.',
+      t:'textarea', ph:'e.g. an employer understands what we do and books a call in under a minute.'},
+    audience:{l:'Who is it for?', h:'Which of your audiences is reading this.',
+      t:'textarea', ph:'e.g. Heads of AI at mid-size companies hiring their first ML team.'},
+    content:{l:'What content do you have?', h:'Paste the copy or an outline. Rough is fine — this decides the sections.',
+      t:'textarea', ph:'Headline, the sections you know you want, any real numbers.'},
+    like:{l:'Anything it should be like?', h:'Optional. A page of yours it resembles, or a screenshot to look at.', opt:true,
+      t:'textarea', ph:"e.g. same shape as Chat & Learn, but it's a workshop."},
+    shot2:{l:'Attach a screenshot', h:'Optional. A reference or a sketch.', opt:true, t:'file'},
+    constraints:{l:'Anything it must or must not do?', h:'Optional. Constraints make better recommendations, not worse ones.', opt:true,
+      t:'textarea', ph:'e.g. must reuse the event hero; no new colours; ships next week.'}
   };
-  const by={ new:['goal','audience','content','constraints'],
-             redesign:['current','problem','keep','goal'],
-             extend:['current','addition','constraints'],
-             experiment:['idea','learn','constraints'] };
+  const by={ improve:['current','change','copy','shot'],
+             new:['goal','audience','content','like','shot2','constraints'] };
   return (by[WIZ.objective]||[]).map(k=>Object.assign({k},F[k]));
 }
 function wizStepsBar(){
@@ -2218,10 +2230,11 @@ function wizRender(){
     const fs=wizFields();
     h+='<h2 class="sb-wiz-q" id="sbWizTitle">Tell me about it</h2>'
       +'<p class="sb-wiz-sub">Only what actually changes a design decision. Skip anything you don\'t know yet — a thin brief still gets a plan, just a rougher one.</p>'
-      +'<div class="sb-ctx">'+fs.map(f=>'<div class="sb-ctx-f"><label for="wf-'+f.k+'">'+esc(f.l)+'</label><div class="hint">'+esc(f.h)+'</div>'
+      +'<div class="sb-ctx">'+fs.map(f=>'<div class="sb-ctx-f"><label for="wf-'+f.k+'">'+esc(f.l)+(f.opt?'<i class="sb-opt-tag">optional</i>':'')+'</label><div class="hint">'+esc(f.h)+'</div>'
         +(f.t==='select'?'<select id="wf-'+f.k+'" data-f="'+f.k+'">'+f.opts+'</select>'
+          :f.t==='file'?'<input type="file" accept="image/*" id="wf-'+f.k+'" data-shot="'+f.k+'"><div class="sb-shotname" id="wn-'+f.k+'">'+(WIZ.ctx[f.k]?esc(WIZ.ctx[f.k]):'')+'</div>'
           :'<textarea id="wf-'+f.k+'" data-f="'+f.k+'" placeholder="'+esc(f.ph||'')+'">'+esc(WIZ.ctx[f.k]||'')+'</textarea>')+'</div>').join('')
-      +'<div class="sb-ctx-opt">Screenshots and assets: drop them in the folder and mention the filename above — I read the repo directly.</div></div>';
+      +'</div>';
   }
   else { h+=wizPlanHTML(); }
   h+='</div>';
@@ -2235,19 +2248,85 @@ function wizRender(){
                 :'<button class="sb-wiz-b ghost" id="wizRestart">Start over</button><button class="sb-wiz-b primary" id="wizCopy">Copy brief for Claude</button>');
   body.scrollTop=0;
 }
+/* The upload: it lands on disk and the brief points me at the path — a picture can't
+   travel inside a text prompt, but a path can, and I can open the file. */
+document.getElementById('sbWizBody').addEventListener('change',async e=>{
+  const inp=e.target.closest('[data-shot]'); if(!inp||!inp.files||!inp.files[0]) return;
+  const k=inp.dataset.shot, nameEl=document.getElementById('wn-'+k), f=inp.files[0];
+  nameEl.textContent='Saving '+f.name+'…';
+  const b64=await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(f); });
+  try{
+    const r=await fetch('/api/shot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({data:b64})});
+    const j=await r.json(); if(!j.ok) throw new Error(j.error||'failed');
+    WIZ.ctx[k]=j.path;
+    nameEl.innerHTML=uic('check',12)+esc(j.path);
+  }catch(err){ nameEl.textContent='Could not save it: '+err.message; }
+});
 function wizRestore(){
   wizFields().forEach(f=>{ const el=document.getElementById('wf-'+f.k); if(el&&WIZ.ctx[f.k]!=null) el.value=WIZ.ctx[f.k]; });
 }
 function wizCollect(){
   document.querySelectorAll('#sbWizBody [data-f]').forEach(el=>{ WIZ.ctx[el.dataset.f]=el.value.trim(); });
 }
+/* The brief is the whole point of the wizard: a prompt she can paste into any session
+   that carries everything I'd otherwise make her explain. Not "do this, do that" — what
+   to read first, what the page is already made of, what it invented, what's already
+   known to be wrong with it, and the rule that the answer comes from the system. */
 function briefText(){
-  const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name, o=(WIZ_OBJ.find(x=>x.id===WIZ.objective)||{}).name;
-  let s='PowerToFly AI — Create brief\n\nWhat: '+t+'\nObjective: '+o+'\n';
-  wizFields().forEach(f=>{ if(WIZ.ctx[f.k]) s+='\n'+f.l+'\n'+WIZ.ctx[f.k]+'\n'; });
-  s+='\nPlan this against ds/patterns.json and ds/COMPONENT-INVENTORY.md. Prefer reuse → adapt → create new. '
-    +'If no pattern fits, say why and propose a new reusable Section Pattern rather than a one-off.';
-  return s;
+  const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name||'—';
+  const improving=WIZ.objective==='improve';
+  const L=[];
+  L.push('# '+(improving?'Improve':'Build')+' '+t.toLowerCase()+' — PowerToFly AI Design Playbook');
+  L.push('');
+  L.push('## Read these first, in this order');
+  L.push('1. CLAUDE.md — the non-negotiables. 2. ds/COMPONENT-INVENTORY.md — the closed list of what exists.');
+  L.push('3. ds/DESIGN-SYSTEM.md — the rules behind it. Map my answers to components in the inventory and copy');
+  L.push('their markup. Never invent, rebuild, or write component CSS. No match → stop and ask me.');
+  L.push('');
+
+  wizFields().forEach(f=>{
+    const v=WIZ.ctx[f.k]; if(!v) return;
+    if(f.t==='file'){ L.push('## Screenshot I attached'); L.push('Open it and look: `'+v+'`'); L.push(''); return; }
+    if(f.k==='current') return;                       // it gets its own section, with the measurements
+    L.push('## '+f.l.replace(/\?$/,''));
+    L.push(v); L.push('');
+  });
+
+  if(improving && WIZ.ctx.current){
+    const st=(S||[]).find(x=>x.name===WIZ.ctx.current && x.pageId);
+    L.push('## The page, as the playbook measures it today');
+    if(st){
+      const file=st.iframe, comps=pageStories(file), finds=pageFindings(st.name);
+      const own=((DATA&&DATA.meta.pageOwn||{})[file])||[], css=(DATA&&DATA.meta.pageCss||{})[file];
+      L.push('**'+st.name+'** — `'+file+'` · status: '+(st.status||'live'));
+      L.push('Open it: http://localhost:3456/'+file);
+      L.push('');
+      L.push('- Uses **'+comps.length+'** components from the system: '+comps.map(c=>c.name).join(', '));
+      L.push('- Has **'+own.length+'** of its own the system does not define'+(own.length?': `'+own.join('`, `')+'`':''));
+      L.push('- Writes **'+(css==null?'?':css)+'** lines of its own CSS'
+        +(css===0?' — built entirely from the system. Keep it that way.':css>400?' — this page is effectively its own design system.':'.'));
+      L.push('- Open opportunities against it: '+(finds.length?finds.map(f=>f.title).join('; '):'none'));
+      L.push('');
+      L.push('Work with the system, not around it. If something is genuinely missing, say so rather than adding');
+      L.push('more page CSS — the pages that write none of their own have no problems against them.');
+    } else { L.push(WIZ.ctx.current); }
+    L.push('');
+  }
+
+  if(!improving){
+    L.push('## Where to start');
+    L.push('ds/patterns.json is the section patterns that already exist and where each earns its place.');
+    L.push('Reuse → adapt → create new, in that order. A new pattern must argue why nothing existing fits,');
+    L.push('and must be reusable rather than a one-off. Name the sections you\'d use and why, before building.');
+    L.push('');
+  }
+
+  L.push('## How I want this done');
+  L.push('- Show me the plan before you build: which components fill which slot, and what you rejected.');
+  L.push('- Copy: sentence case, real PowerToFly voice, no Lorem. Mark anything unconfirmed.');
+  L.push('- Images: real, diverse, professional people — Pexels or the local photos/ library.');
+  L.push('- When it\'s built, tell me which components you used and whether the page had to invent anything.');
+  return L.join('\n');
 }
 function wizPlanHTML(){
   const plan=(PLANS||[]).find(p=>p.when && p.when.type===WIZ.type && p.when.objective===WIZ.objective);
