@@ -148,7 +148,8 @@ button,a,label,summary{ touch-action:manipulation; }
 /* Preview controls live ON the canvas, not in the global bar — they only ever change
    what's in the stage below them, and they disappear when they can't do anything. */
 .sb-stagebar{ display:flex; align-items:center; gap:14px; margin:0; flex-wrap:wrap; }
-.sb-seg-g{ display:inline-flex; align-items:center; gap:7px; }
+/* label beside the control — the one placement, everywhere */
+.sb-seg-g, .sb-fgroup{ display:inline-flex; align-items:center; gap:8px; }
 @media (max-width:1100px){
   #sbName,#sbDesc,#sbStageBar,#sbTags{ grid-area:auto; }
   #sbStageBar,#sbTags{ justify-content:flex-start; }
@@ -451,9 +452,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-progress-bar i{ display:block; height:100%; border-radius:999px; background:linear-gradient(90deg,#5BCFFF,#4FE8A9 60%,#D5FF66); transition:width .3s ease; }
 .sb-progress-lbl{ font-size:12px; color:var(--sb-txt-2); font-variant-numeric:tabular-nums; white-space:nowrap; }
 .sb-progress-lbl b{ color:var(--sb-txt); }
-.sb-filters{ display:flex; gap:14px; align-items:flex-end; flex-wrap:wrap; margin:0 0 18px; }
-.sb-fgroup{ display:flex; flex-direction:column; gap:7px; }
-.sb-flabel{ font-size:9.5px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--sb-txt-3); padding-left:3px; }
+.sb-filters{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin:0 0 18px; }
+.sb-flabel{ font-size:9.5px; font-weight:800; letter-spacing:.13em; text-transform:uppercase; color:var(--sb-txt-3); white-space:nowrap; }
 .sb-fdiv{ width:1px; height:30px; background:var(--sb-line-2); margin:0 4px; }
 .sb-n{ margin-left:6px; font-variant-numeric:tabular-nums; font-weight:700; opacity:.55; }
 .sb-seg button.on .sb-n{ opacity:.65; }
@@ -513,7 +513,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-sp-stage.dark{ background:#0A0A0A; background-image:none; }
 .sb-sp-meta{ padding:10px 12px 12px; border-top:1px solid var(--sb-line); }
 .sb-sp-name{ font-size:12.5px; font-weight:700; color:var(--sb-txt); line-height:1.4; }
-.sb-stamp{ display:inline-block; margin-top:6px; max-width:100%; font-family:var(--sb-mono); font-size:10px;
+.sb-stamp{ display:block; width:fit-content; margin-top:7px; max-width:100%; font-family:var(--sb-mono); font-size:10px;
   font-weight:600; color:var(--sb-green); background:transparent; border:1px solid rgba(79,232,169,.42);
   border-radius:4px; padding:2px 6px; line-height:1.45; }
 .sb-sp-note{ font-size:11.5px; color:var(--sb-txt-3); margin-top:4px; line-height:1.4; }
@@ -2411,7 +2411,22 @@ function freshPrompt(){
     + '\nMy decisions so far (do not re-raise these):\n'+(decided.length?decided.join('\n'):'- none yet')
     + '\n\nHow to do it:\n'
     + '1. Re-run ds/usage-scan.py, then MEASURE THE RENDERED PAGES (not just the CSS) — the real heights, radii, shadows and type.\n'
-    + '2. Look for: duplicate visual styles, near-identical spacing/colour/type, unnecessary variations, repeated layouts that should become Section Patterns, sibling pages that should become a Page Recipe, and components used on pages but missing from ds/COMPONENT-INVENTORY.md.\n'
+    + '2. Look for, and none of these is optional:\n'
+    + '   a. DUPLICATE STYLES — two things that look the same wearing different clothes.\n'
+    + '   b. NEAR-IDENTICAL COLOURS — two greens a few hex apart, two greys nobody could tell apart.\n'
+    + '      A colour that differs only slightly from one she already has is an accident, not a decision.\n'
+    + '   c. COLOURS NOT IN THE SYSTEM — a hex typed straight into a page. Either it becomes a named\n'
+    + '      colour the system owns, or it becomes one she already has. usage-data.json `hex` lists them.\n'
+    + '   d. THINGS SHE KEEPS REBUILDING — a block that appears on three or more pages and is not in\n'
+    + '      the inventory. If FAQs are on three pages, the FAQ is a component whether or not anyone\n'
+    + '      wrote it down. usage-data.json `meta.pageOwn` is the shortlist: every class a page styles\n'
+    + '      itself that the system does not define. A name that appears in several pages\u2019 pageOwn is\n'
+    + '      the system telling you what it is missing.\n'
+    + '   e. NEAR-IDENTICAL SPACING AND TYPE — sizes a hair apart, doing the same job.\n'
+    + '   f. REPEATED LAYOUTS that should be a Section Pattern; sibling pages that should be a Page Recipe.\n'
+    + '   The point is not only \u201ctwo things differ, merge them\u201d. It is also \u201cthis exists on her pages and\n'
+    + '   the system never claimed it\u201d \u2014 those become opportunities to ADD a component, colour or\n'
+    + '   pattern, with the same Accept & apply as any other.\n'
     + '3. Exclude prototype-only scaffolding (#devStates, .live-sim) and anything I have already decided.\n'
     + '4. ADD findings to ds/audit-findings.json. Existing shape: title, question, kind, impact, differs,\n'
     + '   cause, reasoning, impact_note, fix, variants (live specs, not screenshots), after.\n'
