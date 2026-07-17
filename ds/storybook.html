@@ -313,11 +313,12 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-wiz-step.done i{ background:rgba(79,232,169,.22); border-color:transparent; color:var(--sb-green); }
 .sb-wiz-sep{ width:14px; height:1px; background:var(--sb-line-2); }
 .sb-wiz-body{ flex:1; overflow-y:auto; padding:40px 26px 30px; }
-.sb-wiz-in{ max-width:1120px; margin:0 auto; }
+.sb-wiz-in{ max-width:680px; margin:0 auto; }
 .sb-wiz-q{ font-family:'Inter Tight'; font-size:29px; font-weight:800; letter-spacing:-.03em; margin:0 0 8px; text-align:center; }
-.sb-wiz-sub{ font-size:14px; color:var(--sb-txt-2); text-align:center; margin:0 auto 30px; max-width:64ch; line-height:1.6; }
+.sb-wiz-sub{ font-size:14px; color:var(--sb-txt-2); text-align:center; margin:0 auto 30px; line-height:1.6; }
 /* Step 1 & 2 — pick by looking, not by reading a dropdown */
-.sb-pick{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+.sb-pick{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+@media (max-width:620px){ .sb-pick{ grid-template-columns:1fr; } }
 .sb-pick-card{ text-align:left; font:inherit; color:var(--sb-txt); background:var(--sb-panel); border:1px solid var(--sb-line-2);
   border-radius:14px; padding:0; cursor:pointer; overflow:hidden; transition:border-color .15s ease, transform .15s ease; }
 .sb-pick-card:hover{ border-color:var(--sb-txt-3); transform:translateY(-2px); }
@@ -335,7 +336,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .mini-row{ display:flex; gap:3px; }
 .mini-row b{ flex:1 }
 /* Step 3 — context */
-.sb-ctx{ display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); }
+.sb-ctx{ display:grid; gap:18px; grid-template-columns:1fr; }
 .sb-ctx-f{ background:var(--sb-panel); border:1px solid var(--sb-line); border-radius:12px; padding:14px 15px; }
 .sb-ctx-f label{ display:block; font-size:12.5px; font-weight:700; margin-bottom:3px; }
 .sb-ctx-f .hint{ font-size:11.5px; color:var(--sb-txt-3); margin-bottom:9px; line-height:1.45; }
@@ -644,8 +645,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-find{ display:flex; align-items:center; gap:11px; width:100%; text-align:left; font:inherit; cursor:pointer;
   padding:11px 13px; border-radius:10px; background:var(--sb-panel); border:1px solid var(--sb-line); }
 .sb-pw-find:hover{ border-color:var(--sb-txt-3); }
-.sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); }
-.sb-pw-find-go{ margin-left:auto; flex:none; }
+.sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); flex:1; }
+.sb-pw-find-go{ flex:none; }
 .sb-pw-clean{ display:flex; gap:9px; align-items:flex-start; padding:13px 15px; border-radius:10px; font-size:12.5px; line-height:1.55;
   color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
 .sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
@@ -1526,8 +1527,8 @@ function renderPageWork(s){
   h+=sect('What’s off here', why)
     + (finds.length
         ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'" title="Opens Design Opportunities">'
-            + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
             + '<span class="sb-pw-find-t">'+esc(f.title)+'</span>'
+            + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
             + '<span class="sb-pw-find-go sb-a3">Fix'+uic('external',11)+'</span></button>').join('')+'</div>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
           + 'Every opportunity in the playbook was checked against it and none land here.</span></div>');
@@ -2137,50 +2138,44 @@ function renderGallery(group){
    Step 4 never invents a layout. It recommends from ds/patterns.json, always in the
    order reuse → adapt → create-new, and shows the real thing rather than a name. */
 let PATTERNS=null, PLANS=null, PAGE_LIST=[];
-const WIZ={ step:1, type:null, objective:null, ctx:{} };
+/* Create only creates. There was an "improve an existing page" branch here that asked
+   her to pick a page from a dropdown and then say what to change — a worse version of
+   standing on the page, where the drawer already knows its file, its components, what
+   it invented and what's wrong with it. Two doors to one job, and this one knew less.
+   Improving lives on the page. */
+const WIZ={ step:1, type:null, objective:'new', ctx:{} };
 const WIZ_TYPES=[
   {id:'page', name:'A page',  d:'One page, built from the section patterns you already have.',
    mini:'<div class="mini"><b class="h"></b><div class="mini-row"><b></b><b></b><b></b></div><b></b><div class="mini-row"><b></b><b></b></div><b class="cta"></b></div>'},
   {id:'flow', name:'A flow',  d:'A signup, registration or booking — several steps, one job.',
    mini:'<div class="mini" style="flex-direction:row;align-items:center"><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1"></b><b style="height:2px;width:8px"></b><b style="height:30px;flex:1;background:#0A0A0A"></b></div>'}
 ];
-const WIZ_OBJ=[
-  {id:'improve', name:'Improve something that exists', d:'New copy, a new section, a rebrand, a fix. It already works — this makes it better.'},
-  {id:'new',     name:'Build it from scratch',         d:"It doesn't exist yet. More questions, because I have nothing to read."}
-];
+
 /* Only ask what changes a design decision. Each objective needs different answers. */
-/* Improving: I can go and read the thing, so ask for what I can't — what she wants,
-   what the copywriter sent, what it should look like. Building new: nothing exists to
-   read, so the questions carry all of it. */
+/* Nothing exists to read, so these questions carry all of it. Four, and each one
+   changes what gets built: what it's for, who reads it, what goes in it, what it can't
+   do. Anything else is me making conversation. */
 function wizFields(){
-  const pageOpts=(PAGE_LIST||[]).filter(p=>(p.status||'live')!=='archived')
-    .map(p=>'<option value="'+esc(p.name)+'">'+esc(p.name)+'</option>').join('');
   const F={
-    current:{l:'Which one are we working on?', h:"I'll read it, measure it, and bring what it's made of.",
-      t:'select', opts:'<option value="">Choose…</option>'+pageOpts},
-    change:{l:'What needs to change?', h:'New copy, a new section, something that bugs you, a whole rebrand. Say it however you like.',
-      t:'textarea', ph:'e.g. the copywriter sent new copy for the hero and the FAQ. The speakers section needs to come out. And the photos feel wrong.'},
-    copy:{l:'Paste the new copy', h:'Optional. From the copywriter, a doc, wherever — rough is fine.', opt:true,
-      t:'textarea', ph:'Paste it here exactly as you got it.'},
-    shot:{l:'Attach a screenshot', h:'Optional. A reference, a scribble, a comp — anything you want me to look at.', opt:true, t:'file'},
-    goal:{l:'What has to be true for this to work?', h:'The outcome, not the feature list.',
-      t:'textarea', ph:'e.g. an employer understands what we do and books a call in under a minute.'},
-    audience:{l:'Who is it for?', h:'Which of your audiences is reading this.',
-      t:'textarea', ph:'e.g. Heads of AI at mid-size companies hiring their first ML team.'},
-    content:{l:'What content do you have?', h:'Paste the copy or an outline. Rough is fine — this decides the sections.',
-      t:'textarea', ph:'Headline, the sections you know you want, any real numbers.'},
-    like:{l:'Anything it should be like?', h:'Optional. A page of yours it resembles, or a screenshot to look at.', opt:true,
-      t:'textarea', ph:"e.g. same shape as Chat & Learn, but it's a workshop."},
-    shot2:{l:'Attach a screenshot', h:'Optional. A reference or a sketch.', opt:true, t:'file'},
-    constraints:{l:'Anything it must or must not do?', h:'Optional. Constraints make better recommendations, not worse ones.', opt:true,
-      t:'textarea', ph:'e.g. must reuse the event hero; no new colours; ships next week.'}
+    goal:{l:'What has to be true for this to work?',
+      h:'The outcome, not the feature list. This decides the order of the page.',
+      t:'textarea', ph:'e.g. an employer understands what we do and books a call, without reading everything.'},
+    audience:{l:'Who is reading it?',
+      h:'Which of your audiences. This decides the voice and the proof.',
+      t:'textarea', ph:'e.g. Heads of AI at mid-size companies, hiring their first ML team.'},
+    content:{l:'What have you got?',
+      h:'Paste the copy or an outline — rough is fine. This decides the sections.',
+      t:'textarea', ph:'The headline, the sections you know you want, any real numbers.'},
+    constraints:{l:'Anything it must or must not do?', opt:true,
+      h:'A page it should resemble, a deadline, a rule. Constraints make better recommendations.',
+      t:'textarea', ph:'e.g. same shape as Chat & Learn but for a workshop. No new colours. Ships next week.'},
+    shot:{l:'Attach a screenshot', opt:true,
+      h:'A reference, a sketch, a comp — anything you want me to look at.', t:'file'}
   };
-  const by={ improve:['current','change','copy','shot'],
-             new:['goal','audience','content','like','shot2','constraints'] };
-  return (by[WIZ.objective]||[]).map(k=>Object.assign({k},F[k]));
+  return ['goal','audience','content','constraints','shot'].map(k=>Object.assign({k},F[k]));
 }
 function wizStepsBar(){
-  const names=['What','Why','Context','Plan'];
+  const names=['What','The brief','Plan'];
   return names.map((n,i)=>{
     const s=i+1, cls=WIZ.step===s?'on':(WIZ.step>s?'done':'');
     return (i?'<span class="sb-wiz-sep"></span>':'')
@@ -2220,31 +2215,23 @@ function wizRender(){
         +'<div class="sb-pick-vis">'+t.mini+'</div><div class="sb-pick-b"><div class="sb-pick-t">'+esc(t.name)+'</div><div class="sb-pick-d">'+esc(t.d)+'</div></div></button>').join('')+'</div>';
   }
   else if(WIZ.step===2){
-    const t=WIZ_TYPES.find(x=>x.id===WIZ.type);
-    h+='<h2 class="sb-wiz-q" id="sbWizTitle">What are we doing with this '+esc((t&&t.name||'').toLowerCase())+'?</h2>'
-      +'<p class="sb-wiz-sub">This changes what I need to ask you next — and how much of the playbook we can lean on.</p>'
-      +'<div class="sb-pick">'+WIZ_OBJ.map(o=>'<button class="sb-pick-card'+(WIZ.objective===o.id?' on':'')+'" data-obj="'+o.id+'" style="min-height:0">'
-        +'<div class="sb-pick-b" style="padding:16px"><div class="sb-pick-t">'+esc(o.name)+'</div><div class="sb-pick-d">'+esc(o.d)+'</div></div></button>').join('')+'</div>';
-  }
-  else if(WIZ.step===3){
     const fs=wizFields();
     h+='<h2 class="sb-wiz-q" id="sbWizTitle">Tell me about it</h2>'
-      +'<p class="sb-wiz-sub">Only what actually changes a design decision. Skip anything you don\'t know yet — a thin brief still gets a plan, just a rougher one.</p>'
+      +'<p class="sb-wiz-sub">Four questions, and each one changes what gets built. Skip what you don\'t know yet — a thin brief still gets a plan, just a rougher one.</p>'
       +'<div class="sb-ctx">'+fs.map(f=>'<div class="sb-ctx-f"><label for="wf-'+f.k+'">'+esc(f.l)+(f.opt?'<i class="sb-opt-tag">optional</i>':'')+'</label><div class="hint">'+esc(f.h)+'</div>'
-        +(f.t==='select'?'<select id="wf-'+f.k+'" data-f="'+f.k+'">'+f.opts+'</select>'
-          :f.t==='file'?'<input type="file" accept="image/*" id="wf-'+f.k+'" data-shot="'+f.k+'"><div class="sb-shotname" id="wn-'+f.k+'">'+(WIZ.ctx[f.k]?esc(WIZ.ctx[f.k]):'')+'</div>'
+        +(f.t==='file'?'<input type="file" accept="image/*" id="wf-'+f.k+'" data-shot="'+f.k+'"><div class="sb-shotname" id="wn-'+f.k+'">'+(WIZ.ctx[f.k]?esc(WIZ.ctx[f.k]):'')+'</div>'
           :'<textarea id="wf-'+f.k+'" data-f="'+f.k+'" placeholder="'+esc(f.ph||'')+'">'+esc(WIZ.ctx[f.k]||'')+'</textarea>')+'</div>').join('')
       +'</div>';
   }
   else { h+=wizPlanHTML(); }
   h+='</div>';
   body.innerHTML=h;
-  if(WIZ.step===3) wizRestore();
+  if(WIZ.step===2) wizRestore();
   fitThumbs(body);
-  const canNext = (WIZ.step===1&&WIZ.type)||(WIZ.step===2&&WIZ.objective)||WIZ.step===3;
+  const canNext = (WIZ.step===1&&WIZ.type)||WIZ.step===2;
   ft.innerHTML=(WIZ.step>1?'<button class="sb-wiz-b ghost" id="wizBack">Back</button>':'<span></span>')
     +'<span class="sp"></span>'
-    +(WIZ.step<4?'<button class="sb-wiz-b primary" id="wizNext"'+(canNext?'':' disabled')+'>'+(WIZ.step===3?'See the plan':'Continue')+'</button>'
+    +(WIZ.step<3?'<button class="sb-wiz-b primary" id="wizNext"'+(canNext?'':' disabled')+'>'+(WIZ.step===2?'See the plan':'Continue')+'</button>'
                 :'<button class="sb-wiz-b ghost" id="wizRestart">Start over</button><button class="sb-wiz-b primary" id="wizCopy">Copy brief for Claude</button>');
   body.scrollTop=0;
 }
@@ -2274,9 +2261,8 @@ function wizCollect(){
    known to be wrong with it, and the rule that the answer comes from the system. */
 function briefText(){
   const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name||'—';
-  const improving=WIZ.objective==='improve';
   const L=[];
-  L.push('# '+(improving?'Improve':'Build')+' '+t.toLowerCase()+' — PowerToFly AI Design Playbook');
+  L.push('# Build '+t.toLowerCase()+' — PowerToFly AI Design Playbook');
   L.push('');
   L.push('## Read these first, in this order');
   L.push('1. CLAUDE.md — the non-negotiables. 2. ds/COMPONENT-INVENTORY.md — the closed list of what exists.');
@@ -2292,28 +2278,7 @@ function briefText(){
     L.push(v); L.push('');
   });
 
-  if(improving && WIZ.ctx.current){
-    const st=(S||[]).find(x=>x.name===WIZ.ctx.current && x.pageId);
-    L.push('## The page, as the playbook measures it today');
-    if(st){
-      const file=st.iframe, comps=pageStories(file), finds=pageFindings(st.name);
-      const own=((DATA&&DATA.meta.pageOwn||{})[file])||[], css=(DATA&&DATA.meta.pageCss||{})[file];
-      L.push('**'+st.name+'** — `'+file+'` · status: '+(st.status||'live'));
-      L.push('Open it: http://localhost:3456/'+file);
-      L.push('');
-      L.push('- Uses **'+comps.length+'** components from the system: '+comps.map(c=>c.name).join(', '));
-      L.push('- Has **'+own.length+'** of its own the system does not define'+(own.length?': `'+own.join('`, `')+'`':''));
-      L.push('- Writes **'+(css==null?'?':css)+'** lines of its own CSS'
-        +(css===0?' — built entirely from the system. Keep it that way.':css>400?' — this page is effectively its own design system.':'.'));
-      L.push('- Open opportunities against it: '+(finds.length?finds.map(f=>f.title).join('; '):'none'));
-      L.push('');
-      L.push('Work with the system, not around it. If something is genuinely missing, say so rather than adding');
-      L.push('more page CSS — the pages that write none of their own have no problems against them.');
-    } else { L.push(WIZ.ctx.current); }
-    L.push('');
-  }
-
-  if(!improving){
+  {
     L.push('## Where to start');
     L.push('ds/patterns.json is the section patterns that already exist and where each earns its place.');
     L.push('Reuse → adapt → create new, in that order. A new pattern must argue why nothing existing fits,');
@@ -2329,8 +2294,8 @@ function briefText(){
   return L.join('\n');
 }
 function wizPlanHTML(){
-  const plan=(PLANS||[]).find(p=>p.when && p.when.type===WIZ.type && p.when.objective===WIZ.objective);
-  const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name, o=(WIZ_OBJ.find(x=>x.id===WIZ.objective)||{}).name;
+  const plan=(PLANS||[]).find(p=>p.when && p.when.type===WIZ.type && p.when.objective==='new');
+  const t=(WIZ_TYPES.find(x=>x.id===WIZ.type)||{}).name;
   let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">'+(plan?esc(plan.title):'Your brief')+'</h2>';
   h+='<div class="sb-brief"><h4>The brief</h4><dl><dt>What</dt><dd>'+esc(t||'—')+'</dd><dt>Objective</dt><dd>'+esc(o||'—')+'</dd>'
     + wizFields().filter(f=>WIZ.ctx[f.k]).map(f=>'<dt>'+esc(f.l.replace(/\?$/,''))+'</dt><dd>'+esc(WIZ.ctx[f.k])+'</dd>').join('')
@@ -2369,14 +2334,13 @@ function wizOpen(on){
 document.getElementById('sbWizClose').addEventListener('click',()=>wizOpen(false));
 document.getElementById('sbWizBody').addEventListener('click',e=>{
   const t=e.target.closest('[data-type]'); if(t){ WIZ.type=t.dataset.type; wizRender(); return; }
-  const o=e.target.closest('[data-obj]'); if(o){ WIZ.objective=o.dataset.obj; WIZ.ctx={}; wizRender(); return; }
   const a=e.target.closest('[data-alt]'); if(a){ const box=document.querySelector('[data-alts="'+a.dataset.alt+'"]');
     const open=box.classList.toggle('open'); a.textContent=(open?'Hide':'Compare')+a.textContent.replace(/^(Hide|Compare)/,''); fitThumbs(box); return; }
 });
 document.getElementById('sbWizFt').addEventListener('click',async e=>{
   if(e.target.closest('#wizBack')){ if(WIZ.step===3) wizCollect(); WIZ.step--; wizRender(); return; }
   if(e.target.closest('#wizNext')){ if(WIZ.step===3) wizCollect(); WIZ.step++; wizRender(); return; }
-  if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=WIZ.objective=null; WIZ.ctx={}; wizRender(); return; }
+  if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=null; WIZ.ctx={}; wizRender(); return; }
   if(e.target.closest('#wizCopy')){
     try{ await navigator.clipboard.writeText(briefText()); toast(uic('check',13)+' Brief copied — paste it to Claude in chat.',5000); }catch(err){}
     fetch('/api/brief',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({brief:briefText(),wiz:WIZ})}).catch(()=>{});
