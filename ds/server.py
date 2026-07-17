@@ -171,7 +171,20 @@ def apply(a):
             nt = rule.sub(repl, t)
             nt = re.sub(r'\n[ \t]*\n[ \t]*\n+', '\n\n', nt)    # tidy blank lines
             return nt, cnt[0]
-        return run_edit([CSS], fn)
+        # Same `in` as css-set: a one-off rule usually lives in the page, not ptf.css.
+        # Retiring a component means deleting its rule wherever it actually is.
+        targets = {"css": [CSS], "pages": page_paths(), "all": page_paths() + [CSS]}.get(a.get("in", "css"))
+        if targets is None:
+            return {"ok": False, "error": "remove-css-rule: `in` must be css, pages or all"}
+        def fn_file(t):
+            if not STYLE_RX.search(t):
+                return fn(t)
+            cnt = [0]                                          # in a page, only ever inside <style>
+            def rep(m):
+                nb, c = fn(m.group(2)); cnt[0] += c
+                return m.group(1) + nb + m.group(3)
+            return STYLE_RX.sub(rep, t), cnt[0]
+        return run_edit(targets, fn_file)
     if typ == "css-set":
         # Set a declaration on the rule whose selector list contains `selector` exactly.
         # Replaces the property if present, otherwise appends it.

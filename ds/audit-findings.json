@@ -771,7 +771,7 @@
    "cause": "Built per illustration.",
    "recommend": "discuss",
    "reasoning": "The tinted-green pair are clearly the same thing at two sizes — merge those. But the solid-green \"Best value\" is doing a louder job: it's a sales flag on a pricing card, not a status. That one may deserve to stay different — that's a call about emphasis, not consistency, and it's yours to make.",
-   "fix": "Merge the two tinted badges to 11px / 600. Decide separately whether the solid \"Best value\" flag stays its own thing.",
+   "fix": "The 10px one is .sc-badge (ds/ptf.css:932). The 11px one is the same badge written three times: .profile-match (employers:224), .expert-badge (hire:59), .hmc-badge (talents-v2:236) — all already 11px / 4px 10px. The solid 12px is .jb-plan-badge (job-board:72).",
    "variants": [
     {
      "label": "Tinted — 10px",
@@ -865,7 +865,72 @@
    "stamp": "height",
    "apply": [],
    "kind": "unify",
-   "impact_note": "Two of three badges merge; the third is a real decision about emphasis."
+   "impact_note": "Two of three badges merge; the third is a real decision about emphasis.",
+   "options": [
+    {
+     "id": "tinted-only",
+     "recommended": true,
+     "label": "One tinted badge — 11px",
+     "note": "The two tinted badges become one. The solid “Best value” flag stays its own thing.",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".sc-badge",
+       "prop": "font-size",
+       "value": "11px",
+       "expect": "10px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".sc-badge",
+       "prop": "padding",
+       "value": "4px 10px",
+       "expect": "2px 7px"
+      }
+     ]
+    },
+    {
+     "id": "all-three",
+     "label": "All three the same — 11px",
+     "note": "The solid flag matches too. It keeps its green fill, just not its own size.",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".sc-badge",
+       "prop": "font-size",
+       "value": "11px",
+       "expect": "10px"
+      },
+      {
+       "type": "css-set",
+       "in": "css",
+       "selector": ".sc-badge",
+       "prop": "padding",
+       "value": "4px 10px",
+       "expect": "2px 7px"
+      },
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".jb-plan-badge",
+       "prop": "font-size",
+       "value": "11px",
+       "expect": "12px"
+      },
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".jb-plan-badge",
+       "prop": "padding",
+       "value": "4px 10px",
+       "expect": "5px 14px"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "f-card-radius",
@@ -1455,7 +1520,7 @@
    "cause": "About needed a second, quieter action and one was invented for it.",
    "recommend": "discuss",
    "reasoning": "The need is real — a dark closing band with two actions needs a loud one and a quiet one, and today the system only gives you the loud one. So this isn't drift to delete; it's a gap to fill properly. Either promote it to the system as the official secondary-on-dark, or drop the second action on About.",
-   "fix": "Promote it as a proper secondary-on-dark button, or remove it.",
+   "fix": "It's .about-btn-secondary (about/index.html:98, used once at line 777). It exists because the system has no outlined-on-dark button — .btn, .btn-light and .btn-cta are all white fills.",
    "variants": [
     {
      "label": "The one-off",
@@ -1516,7 +1581,49 @@
    "stamp": "height",
    "apply": [],
    "kind": "gap",
-   "impact_note": "Either fills a real gap in the system (secondary action on dark) or removes a one-off."
+   "impact_note": "Either fills a real gap in the system (secondary action on dark) or removes a one-off.",
+   "options": [
+    {
+     "id": "promote",
+     "recommended": true,
+     "label": "Promote it — make it a real button",
+     "note": "Moves it into the system as .btn-ghost-dark so any dark band can use it.",
+     "apply": [
+      {
+       "type": "css-append",
+       "css": "/* Secondary action on a dark band — outlined, never filled. The one place a\n   button may sit on dark without a white fill: use it beside .btn-cta, never alone. */\n.btn-ghost-dark {\n  background: transparent;\n  color: #fff;\n  border: 1.5px solid rgba(255,255,255,0.45);\n}\n.btn-ghost-dark:hover {\n  background: transparent;\n  color: #fff;\n  border-color: rgba(255,255,255,0.75);\n  box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);\n}",
+       "marker": ".btn-ghost-dark"
+      },
+      {
+       "type": "replace-class",
+       "from": ".about-btn-secondary",
+       "to": "btn btn-ghost-dark"
+      },
+      {
+       "type": "remove-css-rule",
+       "in": "pages",
+       "selector": ".about-btn-secondary"
+      }
+     ]
+    },
+    {
+     "id": "retire",
+     "label": "Retire it — use the system's button",
+     "note": "About's second button becomes the standard white one. The one-off disappears.",
+     "apply": [
+      {
+       "type": "replace-class",
+       "from": ".about-btn-secondary",
+       "to": "btn btn-light"
+      },
+      {
+       "type": "remove-css-rule",
+       "in": "pages",
+       "selector": ".about-btn-secondary"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "f-blue-link",
