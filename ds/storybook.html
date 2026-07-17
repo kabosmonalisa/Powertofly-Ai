@@ -841,7 +841,7 @@ button,a,label,summary{ touch-action:manipulation; }
             <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
           <button class="sb-pw-open" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">How to use it</span></button><span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
-            <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
+            <button data-status-set="live">Done</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
           </div>
           <div class="sb-tags" id="sbTags"></div>
@@ -1854,7 +1854,7 @@ function tileHTML(p){
   /* Two toggles, always visible. Draft isn't a button — it's what a page is when you
      haven't decided yet. Clicking an active toggle returns it there. */
   const done = st==='live', arch = st==='archived';
-  const doneT = done ? 'Final — click to put it back to draft'
+  const doneT = done ? 'Done — click to put it back to draft'
                      : 'Mark as final — audited and edited with everything else';
   const archT = arch ? 'Archived — click to bring it back to draft'
                      : 'Archive — leave it out of every scan, count and edit';
@@ -1885,7 +1885,7 @@ async function setPageStatus(pid,next,thenFn){
     if(j.data) DATA=j.data;
     [PAGE_META,PAGE_LIST].forEach(list=>{ const x=list.find(y=>y.id===pid); if(x) x.status=next; });
     const st=S.find(x=>x.id===pid); if(st) st.status=next;
-    const said={live:'Final — audited and edited with everything else.',
+    const said={live:'Done — audited and edited with everything else.',
                 draft:'Draft — counted and kept in sync, just not nagged about.',
                 archived:'Archived — out of the scan, the counts and every edit.'}[next];
     toast(uic('check',13)+' '+esc(p.name)+': '+said, 4800);
@@ -1906,7 +1906,7 @@ function renderGallery(group){
   let h='';
   if(!PAGE_META.length) h+='<div class="sb-gal-note">'+uic('warning',13)+' Dates need the editing server — showing name order.</div>';
   h+=gallerySection('Drafts',drafts,'still being made');
-  h+=gallerySection('Final',live,'live and audited');
+  h+=gallerySection('Done',live,'audited and kept in sync');
   if(arch.length){
     h+='<div class="sb-gal-h arch"><button class="sb-arch-toggle" data-arch="1">'
       + '<span class="sb-f-caret'+(SHOW_ARCH_TILES?' open':'')+'">'+uic('chevronRight',13)+'</span>'
