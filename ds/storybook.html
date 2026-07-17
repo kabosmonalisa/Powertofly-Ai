@@ -505,9 +505,10 @@ button,a,label,summary{ touch-action:manipulation; }
   background-size:20px 20px; background-position:0 0,0 10px,10px -10px,-10px 0; overflow:hidden; }
 .sb-sp-stage.dark{ background:#0A0A0A; background-image:none; }
 .sb-sp-meta{ padding:10px 12px 12px; border-top:1px solid var(--sb-line); }
-.sb-sp-name{ font-size:12.5px; font-weight:700; color:var(--sb-txt); display:flex; align-items:center; gap:7px; }
-.sb-stamp{ font-family:var(--sb-mono); font-size:10px; font-weight:600; color:var(--sb-green); background:transparent;
-  border:1px solid rgba(79,232,169,.42); border-radius:4px; padding:1px 5px; flex:none; }
+.sb-sp-name{ font-size:12.5px; font-weight:700; color:var(--sb-txt); line-height:1.4; }
+.sb-stamp{ display:inline-block; margin-top:6px; max-width:100%; font-family:var(--sb-mono); font-size:10px;
+  font-weight:600; color:var(--sb-green); background:transparent; border:1px solid rgba(79,232,169,.42);
+  border-radius:4px; padding:2px 6px; line-height:1.45; }
 .sb-sp-note{ font-size:11.5px; color:var(--sb-txt-3); margin-top:4px; line-height:1.4; }
 .sb-sp-where{ font-size:11.5px; color:var(--sb-txt-2); margin-top:7px; line-height:1.5; }
 .sb-sp-where b{ color:var(--sb-txt); font-weight:600; }
@@ -1515,6 +1516,8 @@ function specimenHTML(v){
     + (v.where&&v.where.length?(function(){
         const live=v.where.filter(n=>pageStatusByName(n)!=='archived');
         const gone=v.where.length-live.length;
+        if(!live.length)   // "0 pages:  +4 archived" — a count of nothing, a colon, then nothing
+          return '<div class="sb-sp-where"><i class="sb-arch-note">Only on '+gone+' archived page'+(gone===1?'':'s')+'</i></div>';
         return '<div class="sb-sp-where"><b>'+live.length+' page'+(live.length===1?'':'s')+':</b> '+esc(live.join(', '))
           + (gone?' <i class="sb-arch-note">+'+gone+' archived</i>':'')+'</div>';
       })():'')
