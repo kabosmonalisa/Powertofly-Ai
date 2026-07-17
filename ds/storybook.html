@@ -1597,6 +1597,10 @@ function select(id){
   } else { crumb.hidden=true; ren.hidden=true; }
   tagsEl.innerHTML=(s.tags||[]).map(t=>{ const c=/^[.#]|\(\)|--|\bMUI\b|live/.test(t); return '<span class="sb-chip'+(c?' code':'')+'">'+t+'</span>'; }).join('');
   document.querySelectorAll('.sb-item').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  /* Pages and Flows are nav too — they need to show where you are, same as a story.
+     The style existed; nothing ever put the class on. */
+  document.querySelectorAll('.sb-gal-link').forEach(b=>
+    b.classList.toggle('on', s.special==='gallery' && b.dataset.gallery===s.galleryOf));
   toggleGroup(s.g,true);                      // reveal where you are
   setTools(s);
   const codeSeg=document.getElementById('sbCodeSeg');
