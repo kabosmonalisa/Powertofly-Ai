@@ -544,10 +544,14 @@ button,a,label,summary{ touch-action:manipulation; }
    appear before you click it. An unlabelled icon in the toolbar was invisible — an
    icon alone only works for an action people already expect, and nobody expects
    this one. */
-.sb-pw-tab{ display:inline-flex; align-items:center; gap:7px; cursor:pointer; flex:none;
+/* A handle, not a button in a row of buttons: it sits at the far right, where the
+   drawer comes from, and the chevron points at it. Pull it out. */
+.sb-pw-tab{ display:inline-flex; align-items:center; gap:8px; cursor:pointer; flex:none;
   font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
   background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px;
-  padding:7px 13px; transition:color .15s ease, border-color .15s ease; }
+  padding:7px 9px 7px 13px; transition:color .15s ease, border-color .15s ease, background-color .15s ease; }
+.sb-pw-pull{ display:inline-flex; opacity:.55; margin-left:-2px; transition:transform .15s ease, opacity .15s ease; }
+.sb-pw-tab:hover .sb-pw-pull{ transform:translateX(-2px); opacity:1; }
 .sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
 .sb-pw-tab.away{ color:var(--sb-txt); border-color:var(--sb-txt-3); background:rgba(255,255,255,.06); }
@@ -852,7 +856,7 @@ button,a,label,summary{ touch-action:manipulation; }
           </div></span>
             <!-- Last in the bar: on the side with the controls, but a button, not a
                  segment. It opens a thing rather than naming a setting. -->
-            <button class="sb-pw-tab" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Check against the system</span></button>
+            <button class="sb-pw-tab" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">System check</span><span class="sb-pw-pull" id="sbPwPull"></span></button>
           </div>
           <div class="sb-tags" id="sbTags"></div>
         </div>
@@ -1287,7 +1291,7 @@ function renderPageWork(s){
   const file=s.iframe, name=s.name;
   const btn=document.getElementById('sbPwOpen');
   btn.hidden=false;
-  pwLabel('Check against the system');
+  pwLabel('System check');
   document.getElementById('sbPwTitleTxt').textContent=name+' — against the system';
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
@@ -2743,6 +2747,7 @@ Promise.all([
   });
   document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',17);
   document.getElementById('sbPwOpenIcon').innerHTML=uic('factCheck',15);
+  document.getElementById('sbPwPull').innerHTML=uic('chevronLeft',13);   // the drawer is that way
   document.getElementById('sbA11yTitleIcon').innerHTML=uic('accessibility',19);
   document.getElementById('sbOppsIcon').innerHTML=uic('sparkle',14);
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
