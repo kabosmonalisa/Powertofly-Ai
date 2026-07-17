@@ -544,17 +544,15 @@ button,a,label,summary{ touch-action:manipulation; }
    appear before you click it. An unlabelled icon in the toolbar was invisible — an
    icon alone only works for an action people already expect, and nobody expects
    this one. */
-.sb-pw-tab{ position:fixed; right:0; top:50%; transform:translateY(-50%); z-index:38;
-  display:inline-flex; flex-direction:column; align-items:center; gap:9px;
-  padding:16px 9px 18px; cursor:pointer; font:inherit; font-size:12px; font-weight:700;
-  letter-spacing:.02em; color:var(--sb-txt-2); background:var(--sb-panel);
-  border:1px solid var(--sb-line-2); border-right:0; border-radius:12px 0 0 12px;
-  box-shadow:-8px 0 24px rgba(0,0,0,.4);
-  transition:color .15s ease, background-color .15s ease, transform .2s ease; }
-.sb-pw-tab span:last-child{ writing-mode:vertical-rl; }
-.sb-pw-tab:hover{ color:var(--sb-txt); background:var(--sb-panel-2); transform:translateY(-50%) translateX(-3px); }
+/* .sb-head is display:contents, so this button is a grid cell in its own right —
+   without pinning it, auto-placement drops it in the controls column and stretches it. */
+.sb-pw-tab{ grid-column:1; justify-self:start; display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+  font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
+  background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px;
+  padding:7px 13px; transition:color .15s ease, border-color .15s ease; }
+.sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
-.sb-pw-tab.away{ display:none; }
+.sb-pw-tab.away{ color:var(--sb-txt); border-color:var(--sb-txt-3); background:rgba(255,255,255,.06); }
 .sb-pw-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(460px,92vw); z-index:39; display:flex;
   flex-direction:column; background:#0A0A0A; border-left:1px solid var(--sb-line-2);
   box-shadow:-24px 0 70px rgba(0,0,0,.55); animation:sb-slide .2s ease; }
@@ -844,6 +842,12 @@ button,a,label,summary{ touch-action:manipulation; }
           <nav class="sb-crumb" id="sbCrumb" hidden aria-label="Breadcrumb"></nav>
           <span class="sb-titlerow"><h1 id="sbName">—</h1><button class="sb-rename" id="sbRename" hidden title="Rename" aria-label="Rename this page"></button></span>
           <p id="sbDesc"></p>
+          <!-- Belongs to the page, so it sits with the page's own title — not floating
+               on the edge of the screen, and not among the canvas segments, which name
+               a setting rather than open a thing. -->
+          <button class="sb-pw-tab" id="sbPwOpen" hidden>
+            <span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Check against the system</span>
+          </button>
         </div>
         <div class="sb-headside">
           <div class="sb-stagebar" id="sbStageBar">
@@ -864,9 +868,6 @@ button,a,label,summary{ touch-action:manipulation; }
     <section class="sb-usage" id="sbUsage"></section>
 <!-- A page's report sits BESIDE the page, not under it: Opportunities replaces what
      you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
-<button class="sb-pw-tab" id="sbPwOpen" hidden>
-  <span id="sbPwOpenIcon"></span><span id="sbPwOpenTxt">Work on this page</span>
-</button>
 <aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
   <header class="sb-pw-hd">
     <h2 id="sbPwTitle"><span id="sbPwIcon"></span><span id="sbPwTitleTxt">How to use it</span></h2>
@@ -1289,8 +1290,8 @@ function renderPageWork(s){
   const file=s.iframe, name=s.name;
   const btn=document.getElementById('sbPwOpen');
   btn.hidden=false;
-  pwLabel('Work on this page');
-  document.getElementById('sbPwTitleTxt').textContent='What’s in '+name;
+  pwLabel('Check against the system');
+  document.getElementById('sbPwTitleTxt').textContent=name+' — against the system';
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
   const own=((DATA.meta.pageOwn||{})[file])||[];
