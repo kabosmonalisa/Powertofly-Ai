@@ -288,8 +288,9 @@ button,a,label,summary{ touch-action:manipulation; }
 /* ══ CREATE — entry point + guided wizard ══ */
 /* Create lives at the top of the side nav: it's the start of the work, not a tool. */
 .sb-side-create{ display:flex; align-items:center; justify-content:center; gap:8px; width:calc(100% - 24px); margin:10px 12px 6px; font:inherit;
-  color:#08110d; background:var(--sb-green); border:0; border-radius:11px; padding:11px 13px; cursor:pointer;
-  font-size:14px; font-weight:800; font-family:'Inter Tight'; transition:filter .15s ease; }
+  border-radius:11px; padding:11px 13px; cursor:pointer;
+  font-size:14px; font-weight:800; font-family:'Inter Tight';
+  transition:background-color .15s ease, border-color .15s ease; }
 .sb-side-create:hover{ filter:brightness(1.06); }
 /* Tools that aren't part of the playbook live in the top bar */
 .sb-tool{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2);
@@ -373,7 +374,6 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-wiz-ft{ border-top:1px solid var(--sb-line); background:var(--sb-panel); padding:14px 26px; display:flex; align-items:center; gap:10px; justify-content:space-between; }
 .sb-wiz-ft .sp{ flex:1 }
 .sb-wiz-b{ font:inherit; font-size:13px; font-weight:700; border-radius:9px; padding:10px 18px; cursor:pointer; display:inline-flex; align-items:center; gap:7px; }
-.sb-wiz-b.primary{ color:#08110d; background:var(--sb-green); border:0; }
 .sb-wiz-b.primary:disabled{ opacity:.4; cursor:not-allowed; }
 .sb-wiz-b.ghost{ color:var(--sb-txt-2); background:transparent; border:1px solid var(--sb-line-2); }
 .sb-wiz-b.ghost:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
@@ -419,9 +419,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-panel-tools{ display:flex; gap:8px; align-items:center; margin-top:14px; }
 /* The job you came to do */
 .sb-primary{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12px; font-weight:800;
-  color:#08110d; background:var(--sb-green); border:1px solid var(--sb-green); border-radius:999px;
-  padding:8px 15px; cursor:pointer; white-space:nowrap; transition:filter .15s ease; }
-.sb-primary:hover{ filter:brightness(1.08); }
+  border-radius:999px; padding:8px 15px; cursor:pointer; white-space:nowrap;
+  transition:background-color .15s ease, border-color .15s ease; }
 /* Guards and safety nets: present, quiet, out of the way */
 .sb-icon-btn{ display:inline-flex; align-items:center; justify-content:center; width:32px; height:32px; flex:none;
   border-radius:999px; background:var(--sb-panel-2); border:1px solid var(--sb-line-2); color:var(--sb-txt-2);
@@ -563,7 +562,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-tab:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
 .sb-pw-tab .sb-i{ color:var(--sb-green); }
 .sb-pw-tab.away{ color:var(--sb-txt); border-color:var(--sb-txt-3); background:rgba(255,255,255,.06); }
-.sb-pw-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(460px,92vw); z-index:39; display:flex;
+.sb-pw-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(580px,94vw); z-index:39; display:flex;
   flex-direction:column; background:#0A0A0A; border-left:1px solid var(--sb-line-2);
   box-shadow:-24px 0 70px rgba(0,0,0,.55); animation:sb-slide .2s ease; }
 @keyframes sb-slide{ from{ transform:translateX(20px); opacity:0 } to{ transform:none; opacity:1 } }
@@ -589,6 +588,27 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-rules li{ position:relative; font-size:13.5px; line-height:1.6; color:var(--sb-txt-2); padding:5px 0; }
 .sb-rules li::before{ content:''; position:absolute; left:-14px; top:12px; width:5px; height:5px;
   border-radius:50%; background:var(--sb-txt-3); }
+/* ── Actions: three, and only three ──────────────────────────────────────────
+   Primary   solid green      — the thing you came here to do. One per view.
+   Secondary green border     — a real alternative, equal weight, less shout.
+   Tertiary  green text       — a way out or a way onward. No fill, no border.
+   Her rule, and the right one: green stays with actions. Anything grey is a
+   control, not an action. If you're reaching for a fourth, you want one of these. */
+.sb-a1, .sb-a2, .sb-a3{ display:inline-flex; align-items:center; gap:6px; font:inherit;
+  font-size:12.5px; font-weight:700; border-radius:999px; cursor:pointer; white-space:nowrap;
+  transition:background-color .15s ease, border-color .15s ease, color .15s ease; }
+.sb-a1, .sb-primary, .sb-dec.merge, .sb-side-create, .sb-dlg-ok, .sb-wiz-b.primary{
+  color:#08110d; background:var(--sb-green); border:1px solid var(--sb-green); }
+.sb-a1:hover, .sb-primary:hover, .sb-dec.merge:hover, .sb-side-create:hover,
+.sb-dlg-ok:hover, .sb-wiz-b.primary:hover{
+  background:#3FE3A6; border-color:#3FE3A6; filter:none; }
+.sb-a1{ padding:8px 15px; }
+.sb-a2{ padding:8px 15px; color:var(--sb-green); background:transparent; border:1px solid rgba(18,201,141,.55); }
+.sb-a2:hover{ background:rgba(18,201,141,.1); border-color:var(--sb-green); }
+.sb-a3{ padding:4px 2px; color:var(--sb-green); background:none; border:0; }
+.sb-a3:hover{ color:#7FF0C4; }
+.sb-a1:disabled, .sb-a2:disabled, .sb-a3:disabled{ opacity:.45; cursor:not-allowed; }
+
 /* Your asks */
 .sb-askrow{ padding:14px 16px; border:1px solid var(--sb-line); border-radius:12px;
   background:var(--sb-panel); margin-bottom:10px; }
@@ -625,7 +645,7 @@ button,a,label,summary{ touch-action:manipulation; }
   padding:11px 13px; border-radius:10px; background:var(--sb-panel); border:1px solid var(--sb-line); }
 .sb-pw-find:hover{ border-color:var(--sb-txt-3); }
 .sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); }
-.sb-pw-find-go{ margin-left:auto; display:inline-flex; align-items:center; gap:3px; font-size:11.5px; color:var(--sb-txt-3); flex:none; }
+.sb-pw-find-go{ margin-left:auto; flex:none; }
 .sb-pw-clean{ display:flex; gap:9px; align-items:flex-start; padding:13px 15px; border-radius:10px; font-size:12.5px; line-height:1.55;
   color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
 .sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
@@ -676,10 +696,8 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-lock{ width:12px; height:12px; flex:none; fill:currentColor; opacity:.75; }
 .sb-dlg-ops{ margin:12px 0 14px; padding-left:18px; }
 .sb-dlg-ops li{ margin-bottom:6px; line-height:1.5; }
-.sb-dec.merge{ color:#08110d; background:var(--sb-green); border:0; }
 .sb-dec.keep{ color:var(--sb-txt-2); background:transparent; border:1px solid var(--sb-line-2); }
 .sb-dec.keep:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
-.sb-dec.merge:hover{ filter:brightness(1.08); }
 .sb-dec.on{ outline:2px solid var(--sb-green); outline-offset:1px; }
 .sb-decided-tag{ font-size:11.5px; font-weight:700; color:var(--sb-green); }
 .sb-arrow-row{ display:flex; align-items:center; gap:10px; margin:18px 0 12px; }
@@ -716,7 +734,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-dlg-actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
 .sb-dlg-cancel{ font:inherit; font-size:13px; font-weight:600; color:var(--sb-txt-2); background:transparent; border:1px solid var(--sb-line-2); border-radius:9px; padding:9px 16px; cursor:pointer; }
 .sb-dlg-cancel:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
-.sb-dlg-ok{ font:inherit; font-size:13px; font-weight:700; color:#08110d; background:var(--sb-green); border:0; border-radius:9px; padding:9px 18px; cursor:pointer; }
+.sb-dlg-ok{ font:inherit; font-size:13px; font-weight:700; border:0; border-radius:9px; padding:9px 18px; cursor:pointer; }
 .sb-dlg-ok.danger{ background:#ff6b6b; color:#2a0000; }
 .sb-dlg-ok:hover{ filter:brightness(1.08); }
 .sb-ckpts{ display:flex; flex-direction:column; gap:8px; margin-top:14px; }
@@ -1502,7 +1520,7 @@ function renderPageWork(s){
         ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'" title="Opens Design Opportunities">'
             + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
             + '<span class="sb-pw-find-t">'+esc(f.title)+'</span>'
-            + '<span class="sb-pw-find-go">fix it'+uic('external',11)+'</span></button>').join('')+'</div>'
+            + '<span class="sb-pw-find-go sb-a3">Fix'+uic('external',11)+'</span></button>').join('')+'</div>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
           + 'Every opportunity in the playbook was checked against it and none land here.</span></div>');
 
