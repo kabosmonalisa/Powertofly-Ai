@@ -40,6 +40,8 @@ Copy: sentence case for headlines and buttons; real PowerToFly voice (no Lorem);
 ## 🔁 Design Opportunities — the rule, every time
 Every opportunity in the storybook **ships with a working Accept & apply.** Lizu looks, decides, clicks — and the code changes on every page. A card that only records a decision is not a card; fix the apply or leave the finding out. "Needs judgement" is never cover for ops you didn't write. This is standing — she must never ask for it again, including for anything from **Find new opportunities**.
 
+**`ds/audit-findings.json` is append-only.** It is Lizu's work, not scratch. A re-audit ADDS findings; it never rewrites, reorders, re-words, regenerates or "cleans up" existing ones. Every existing id keeps its wording and its apply/options ops. Think one is wrong? Say so in chat and let her decide — never silently drop it. Never delete a finding for being obsolete: obsolescence is **computed** from archived pages and already hides it on its own, and it must return if she un-archives. Back the file up before touching it and confirm every id survived.
+
 To make that true:
 - Record **where the rule lives** per variant (file + line + selector + the literal declaration), not just what it looks like — a look can't be edited. `where` = the pages the look appears on; the rule itself is often `ds/ptf.css`, not the page. Both matter.
 - **Verify every address** by opening the file. Findings hold *computed* values (`#FAFAF6`); the source says `var(--bg-soft)`. Match on meaning, never guess — a wrong guess edits a page that never had the problem.
