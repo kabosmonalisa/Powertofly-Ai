@@ -574,6 +574,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-body .sb-pw-stats{ grid-template-columns:repeat(3,1fr); gap:8px; }
 .sb-pw-body .sb-pw-stat{ padding:11px 12px; }
 .sb-pw-body .sb-pw-stat b{ font-size:24px; }
+.sb-pw-body .sb-pw-stat span{ font-size:11px; line-height:1.4; }
 .sb-pw-chip.own{ color:var(--sb-txt-3); background:transparent; border-style:dashed; font-family:var(--sb-mono); font-size:11.5px; cursor:default; }
   border-radius:10px; font-size:13px; line-height:1.6; }
 .sb-use-when .sb-i, .sb-use-rule .sb-i{ flex:none; margin-top:2px; }
@@ -612,7 +613,9 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-stat b.mid{ color:#FFCB6B; }
 .sb-pw-stat b.bad{ color:#FF8A8A; }
 .sb-pw-stat span{ display:block; margin-top:2px; font-size:12px; color:var(--sb-txt-3); }
-.sb-pw-stat i{ display:block; margin-top:3px; font-style:italic; font-size:11.5px; color:var(--sb-txt-3); opacity:.8; }
+.sb-pw-verdict{ margin:9px 0 0; font-size:12.5px; line-height:1.5; color:var(--sb-txt-3); }
+.sb-pw-verdict.good{ color:var(--sb-green); }
+.sb-pw-verdict.bad{ color:#FF8A8A; }
 .sb-pw-chips{ display:flex; flex-wrap:wrap; gap:7px; }
 .sb-pw-chip{ font:inherit; font-size:12.5px; padding:6px 12px; border-radius:999px; cursor:pointer;
   color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line); }
@@ -627,11 +630,12 @@ button,a,label,summary{ touch-action:manipulation; }
   color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
 .sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
 .sb-pw-send{ display:flex; justify-content:flex-end; margin-top:10px; }
-.sb-a11y-h{ display:flex; align-items:baseline; gap:10px; margin:26px 0 12px; }
-.sb-a11y-h:first-child{ margin-top:0; }
-.sb-a11y-h b{ font-family:'Inter Tight'; font-size:15px; font-weight:700; color:var(--sb-txt); }
-.sb-a11y-h b[title]{ cursor:help; }   /* the explanation lives on hover, like the gallery headings */
-.sb-a11y-hint{ font-size:12px; color:var(--sb-txt-3); }
+/* Every section announces itself the same quiet way, and a hairline separates them —
+   so the drawer reads as blocks you can scan, not one stream of text. */
+.sb-sect{ font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--sb-txt-3); margin:24px 0 12px; padding-top:22px; border-top:1px solid var(--sb-line); }
+.sb-sect:first-child{ margin-top:0; padding-top:0; border-top:0; }
+.sb-sect[title]{ cursor:help; }
 .sb-ct-two{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 @media (max-width:820px){ .sb-ct-two{ grid-template-columns:1fr; } }
 .sb-ct-col{ border:1px solid var(--sb-line); border-radius:12px; padding:14px; background:var(--bg); }
@@ -1283,7 +1287,7 @@ function renderUse(s){
   const notes=s.rule||[];
   body.innerHTML='<p class="sb-use-when">'+esc(s.use)+'</p>'
     + (notes.length ? '<ul class="sb-rules open">'+notes.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>' : '')
-    + '<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">the component, or what it says here</span></div>'
+    + sect('Ask me to change it','The component itself, or what this page says about it — these notes are my writing about your system, so correct them.')
     + '<textarea class="sb-ask" data-compask="'+esc(s.id)+'" rows="3" '
     + 'placeholder="e.g. we need a version of this that works on a dark band — and the note above is wrong now">'
     + esc(ASKED['comp:'+s.id]||'')+'</textarea>'
@@ -1302,6 +1306,15 @@ async function askAboutComp(cid){
   await loadAsks();
   await loadAsks();
   toast(uic('check',13)+' Noted for <b>'+esc(st?st.name:cid)+'</b> — I\'ll pick this up next time we talk.',5000);
+}
+
+/* One section label for the drawer and the accessibility panel — the same quiet
+   uppercase the opportunity cards already use. The old heading was a big bold line
+   with a hint sitting beside it, so a long hint crushed the heading onto two lines
+   ("Its own — not in / the system") and every section shouted as loud as the content.
+   The hint goes where hints go: on hover. */
+function sect(label, why){
+  return '<div class="sb-sect"'+(why?' title="'+esc(why)+'"':'')+'>'+esc(label)+'</div>';
 }
 
 /* Your asks — the window into the outbox.
@@ -1457,10 +1470,11 @@ function renderPageWork(s){
   let h='<div class="sb-pw-stats">'
     + '<div class="sb-pw-stat"><b>'+comps.length+'</b><span>from the system</span></div>'
     + '<div class="sb-pw-stat"><b class="'+(own.length?'bad':'good')+'">'+own.length+'</b><span>of its own</span></div>'
-    + '<div class="sb-pw-stat"><b class="'+cssVerdict+'">'+(css==null?'—':css)+'</b><span>lines of its own CSS<i>'+cssNote+'</i></span></div>'
-    + '</div>';
+    + '<div class="sb-pw-stat"><b class="'+cssVerdict+'">'+(css==null?'—':css)+'</b><span>lines of its own CSS</span></div>'
+    + '</div>'
+    + '<p class="sb-pw-verdict '+cssVerdict+'">'+esc(cssNote.charAt(0).toUpperCase()+cssNote.slice(1))+'.</p>';
 
-  h+='<div class="sb-a11y-h"><b>From the system</b><span class="sb-a11y-hint">click one to open it</span></div>'
+  h+=sect('From the system','Click one to open its page in the storybook.')
     + (comps.length
         ? '<div class="sb-pw-chips">'+comps.map(c=>'<button class="sb-pw-chip" data-goto="'+c.id+'">'+esc(c.name)+'</button>').join('')+'</div>'
         : '<p class="sb-scan-note">Nothing here matches a component in the storybook — the page was hand-built.</p>');
@@ -1468,12 +1482,10 @@ function renderPageWork(s){
   /* The half that was missing. "What it's made of" only ever showed what the page took
      FROM the system; the interesting question is what it invented instead. Each of these
      is a decision waiting: does the system want it, or does the system already have it? */
-  h+='<div class="sb-a11y-h"><b>Its own — not in the system</b>'
-    + '<span class="sb-a11y-hint">'+(own.length?'each one is a decision: add it, or replace it with something you already have':'')+'</span></div>'
+  h+=sect('Its own — not in the system','Each one is a decision: add it to the system, or replace it with something you already have. The goal is this list at zero.')
     + (own.length
         ? '<div class="sb-pw-chips own">'+own.map(c=>'<span class="sb-pw-chip own">'+esc(c)+'</span>').join('')+'</div>'
-          + '<p class="sb-scan-note">This is what those '+css+' lines are. The goal is this list at zero — '
-          + 'every one either becomes a component the system owns, or gets replaced by one it already has.</p>'
+          + '<p class="sb-scan-note">This is what those '+css+' lines are.</p>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
           + 'Every component on it comes from the system.</span></div>');
 
@@ -1485,7 +1497,7 @@ function renderPageWork(s){
   const why='From the last audit'+(seen?' on '+seen:'')+'. These are accepted or dismissed in '
     + 'Design Opportunities — decide one there and it leaves this list too. Unlike the numbers '
     + 'above, this list does not update on its own.';
-  h+='<div class="sb-a11y-h"><b title="'+esc(why)+'">What’s off here</b></div>'
+  h+=sect('What’s off here', why)
     + (finds.length
         ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'" title="Opens Design Opportunities">'
             + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
@@ -1494,7 +1506,7 @@ function renderPageWork(s){
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
           + 'Every opportunity in the playbook was checked against it and none land here.</span></div>');
 
-  h+='<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">in your words</span></div>'
+  h+=sect('Ask me to change it','In your words. It waits for me and I pick it up next time we talk.')
     + '<textarea class="sb-ask" data-pageask="'+esc(s.pageId)+'" rows="3" '
     + 'placeholder="e.g. the floating cards here should become a real component — every page rebuilds them">'
     + esc(ASKED['page:'+s.pageId]||'')+'</textarea>'
@@ -1770,8 +1782,7 @@ function contrastHTML(){
     + '<div class="sb-ct-chip" style="background:var('+p[1]+');color:var('+p[0]+')">Aa</div>'
     + '<div class="sb-ct-meta">'+p[2]+'<br>'+p[0]+' on '+p[1]+'</div>'
     + '<div class="sb-ct-ratio">—</div><div class="sb-ct-wb">—</div></div>').join('');
-  return '<div class="sb-a11y-h"><b>Colour contrast</b>'
-      + '<span class="sb-a11y-hint">AA needs 4.5:1 (3:1 for large text) · AAA needs 7:1</span></div>'
+  return sect('Colour contrast','AA needs 4.5:1 (3:1 for large text). AAA needs 7:1. Both themes shown, because a pair only passes if it passes in both.')
     + '<div class="sb-ct-two">'
       + '<div class="sb-ct-col"><div class="sb-ct-col-h">Light</div><div class="sb-ct">'+rows()+'</div></div>'
       + '<div class="sb-ct-col theme-dark"><div class="sb-ct-col-h">Dark</div><div class="sb-ct">'+rows()+'</div></div>'
@@ -1809,8 +1820,7 @@ function renderA11y(){
   const wrap=document.getElementById('sbA11yBody');
   if(!DATA){ wrap.innerHTML='<div class="sb-empty">Page data not loaded — start the server and reload.</div>'; return; }
   const named=f=>{ const p=(PAGE_LIST||[]).find(x=>x.file===f); return p?p.name:f; };
-  wrap.innerHTML='<div class="sb-a11y-h"><b>Scan a page</b>'
-      + '<span class="sb-a11y-hint">opens the real page and outlines every problem in red</span></div>'
+  wrap.innerHTML=sect('Scan a page','Opens the real page and outlines every problem in red.')
     + (DATA.meta.pages||[]).map(f=>
       '<button type="button" class="sb-scanrow sb-ufile" data-file="'+f+'" data-a11y="1">'
       + '<span class="sb-scan-name">'+esc(named(f))+'</span>'
@@ -1972,7 +1982,9 @@ function select(id){
   if(s.pageId){
     const gal = s.g==='Flows' ? 'gal-flows' : (s.g==='Pages' ? 'gal-pages' : null);
     crumb.hidden=!gal;
-    if(gal) crumb.innerHTML='<button data-crumb="'+gal+'">'+esc(s.g)+'</button>'+uic('chevronRight',12);
+    /* it's a way back, so it points back — the arrow was on the right, pointing
+       forward, on a link that takes you backwards */
+    if(gal) crumb.innerHTML=uic('chevronLeft',12)+'<button data-crumb="'+gal+'">'+esc(s.g)+'</button>';
     ren.hidden=false; ren.innerHTML=uic('edit',13);
   } else { crumb.hidden=true; ren.hidden=true; }
   tagsEl.innerHTML=(s.tags||[]).map(t=>{ const c=/^[.#]|\(\)|--|\bMUI\b|live/.test(t); return '<span class="sb-chip'+(c?' code':'')+'">'+t+'</span>'; }).join('');
