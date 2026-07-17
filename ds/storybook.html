@@ -538,6 +538,25 @@ button,a,label,summary{ touch-action:manipulation; }
    commit) is the right shape for something that rewrites 18 pages. */
 /* Accessibility: section headers, and the checker's two themes side by side */
 /* A page's workspace */
+/* A page's report — a drawer over the preview, so the page stays visible. Opportunities
+   replaces what you're looking at; this is ABOUT what you're looking at. */
+.sb-pw-open{ display:inline-flex; align-items:center; gap:7px; font:inherit; font-size:12.5px; font-weight:600;
+  padding:8px 14px; border-radius:999px; cursor:pointer; color:var(--sb-txt-2);
+  background:var(--sb-panel-2); border:1px solid var(--sb-line); }
+.sb-pw-open:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+.sb-pw-open.on{ color:var(--sb-txt); background:rgba(255,255,255,.06); border-color:var(--sb-txt-3); }
+.sb-pw-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(460px,92vw); z-index:39; display:flex;
+  flex-direction:column; background:#0A0A0A; border-left:1px solid var(--sb-line-2);
+  box-shadow:-24px 0 70px rgba(0,0,0,.55); animation:sb-slide .2s ease; }
+@keyframes sb-slide{ from{ transform:translateX(20px); opacity:0 } to{ transform:none; opacity:1 } }
+@media (prefers-reduced-motion:reduce){ .sb-pw-drawer{ animation:none } }
+.sb-pw-hd{ position:relative; padding:20px 22px 14px; border-bottom:1px solid var(--sb-line); }
+.sb-pw-hd h2{ display:flex; align-items:center; gap:9px; font-family:'Inter Tight'; font-size:17px; font-weight:800; letter-spacing:-.02em; }
+.sb-pw-body{ flex:1; overflow-y:auto; overscroll-behavior:contain; padding:18px 22px 50px; }
+.sb-pw-body .sb-pw-stats{ grid-template-columns:repeat(3,1fr); gap:8px; }
+.sb-pw-body .sb-pw-stat{ padding:11px 12px; }
+.sb-pw-body .sb-pw-stat b{ font-size:24px; }
+.sb-pw-chip.own{ color:var(--sb-txt-3); background:transparent; border-style:dashed; font-family:var(--sb-mono); font-size:11.5px; cursor:default; }
 /* How to use it */
 .sb-use{ display:flex; flex-direction:column; gap:9px; }
 .sb-use-when, .sb-use-rule{ display:flex; gap:10px; align-items:flex-start; padding:13px 15px;
@@ -817,7 +836,7 @@ button,a,label,summary{ touch-action:manipulation; }
             <span class="sb-seg-g"><span class="sb-flabel">Theme</span><div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">Width</span><div class="sb-seg" id="sbVwSeg" title="Preview width"><button data-vw="full" class="on">Full</button><button data-vw="1280">1280</button><button data-vw="768">768</button><button data-vw="375">375</button></div></span>
             <span class="sb-seg-g"><span class="sb-flabel">View</span><div class="sb-seg" id="sbCodeSeg"><button data-view="preview" class="on" data-ui-icon="light">Preview</button><button data-view="code" data-ui-icon="code">Code</button></div></span>
-          <span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
+          <button class="sb-pw-open" id="sbPwOpen" hidden><span id="sbPwOpenIcon"></span>What’s in this page</button><span class="sb-seg-g"><span class="sb-flabel">Status</span><div class="sb-seg" id="sbStatusSeg" title="Is this page finished?" role="group" aria-label="Page status">
             <button data-status-set="live">Live</button><button data-status-set="draft">Draft</button><button data-status-set="archived">Archived</button>
           </div></span>
           </div>
@@ -829,6 +848,15 @@ button,a,label,summary{ touch-action:manipulation; }
       <div class="sb-stage" id="sbStage" data-vw="full"><div class="sb-stage-inner" id="sbStageInner"></div></div>
     </div>
     <section class="sb-usage" id="sbUsage"></section>
+<!-- A page's report sits BESIDE the page, not under it: Opportunities replaces what
+     you're looking at, this one is ABOUT what you're looking at, so the page stays. -->
+<aside class="sb-pw-drawer" id="sbPwDrawer" hidden aria-labelledby="sbPwTitle">
+  <header class="sb-pw-hd">
+    <h2 id="sbPwTitle"><span id="sbPwIcon"></span>What's in this page</h2>
+    <button class="sb-panel-x" id="sbPwClose" aria-label="Close" data-ui-icon="close"></button>
+  </header>
+  <div class="sb-pw-body" id="sbPwBody"></div>
+</aside>
     <section class="sb-code hidden" id="sbCode">
       <div class="sb-code-bar"><span id="sbCodeWhat">Markup — copy verbatim</span><button class="sb-copy" id="sbDl" title="Save it as a file"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>Download</button><button class="sb-copy" id="sbCopy"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Copy</button></div>
       <pre><code id="sbCodeText"></code></pre>
@@ -1216,25 +1244,39 @@ function pageFindings(name){
     && (f.variants||[]).some(v=>(v.where||[]).includes(name)));
 }
 function renderPageWork(s){
-  const wrap=document.getElementById('sbUsage');
+  const body=document.getElementById('sbPwBody');
   const file=s.iframe, name=s.name;
-  if(!DATA){ wrap.innerHTML=''; return; }
+  document.getElementById('sbPwOpen').hidden=false;
+  if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
+  const own=((DATA.meta.pageOwn||{})[file])||[];
   const css=(DATA.meta.pageCss||{})[file];
   const cssVerdict = css===0 ? 'good' : css>400 ? 'bad' : 'mid';
   const cssNote = css===0 ? 'built entirely from the system'
                 : css>400 ? 'this page is its own design system'
                 : 'some of this page is one-offs';
   let h='<div class="sb-pw-stats">'
-    + '<div class="sb-pw-stat"><b>'+comps.length+'</b><span>components from the system</span></div>'
-    + '<div class="sb-pw-stat"><b class="'+(finds.length?'bad':'good')+'">'+finds.length+'</b><span>opportunities against it</span></div>'
+    + '<div class="sb-pw-stat"><b>'+comps.length+'</b><span>from the system</span></div>'
+    + '<div class="sb-pw-stat"><b class="'+(own.length?'bad':'good')+'">'+own.length+'</b><span>of its own</span></div>'
     + '<div class="sb-pw-stat"><b class="'+cssVerdict+'">'+(css==null?'—':css)+'</b><span>lines of its own CSS<i>'+cssNote+'</i></span></div>'
     + '</div>';
 
-  h+='<div class="sb-a11y-h"><b>What it’s made of</b><span class="sb-a11y-hint">click one to open it</span></div>'
+  h+='<div class="sb-a11y-h"><b>From the system</b><span class="sb-a11y-hint">click one to open it</span></div>'
     + (comps.length
         ? '<div class="sb-pw-chips">'+comps.map(c=>'<button class="sb-pw-chip" data-goto="'+c.id+'">'+esc(c.name)+'</button>').join('')+'</div>'
-        : '<p class="sb-scan-note">Nothing here matches a component in the storybook — which usually means the page was hand-built.</p>');
+        : '<p class="sb-scan-note">Nothing here matches a component in the storybook — the page was hand-built.</p>');
+
+  /* The half that was missing. "What it's made of" only ever showed what the page took
+     FROM the system; the interesting question is what it invented instead. Each of these
+     is a decision waiting: does the system want it, or does the system already have it? */
+  h+='<div class="sb-a11y-h"><b>Its own — not in the system</b>'
+    + '<span class="sb-a11y-hint">'+(own.length?'each one is a decision: add it, or replace it with something you already have':'')+'</span></div>'
+    + (own.length
+        ? '<div class="sb-pw-chips own">'+own.map(c=>'<span class="sb-pw-chip own">'+esc(c)+'</span>').join('')+'</div>'
+          + '<p class="sb-scan-note">This is what those '+css+' lines are. The goal is this list at zero — '
+          + 'every one either becomes a component the system owns, or gets replaced by one it already has.</p>'
+        : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
+          + 'Every component on it comes from the system.</span></div>');
 
   h+='<div class="sb-a11y-h"><b>What’s off here</b><span class="sb-a11y-hint">'
     + (finds.length?'the opportunities that touch this page':'')+'</span></div>'
@@ -1244,15 +1286,16 @@ function renderPageWork(s){
             + '<span class="sb-pw-find-t">'+esc(f.title)+'</span>'
             + '<span class="sb-pw-find-go">fix it'+uic('chevronRight',12)+'</span></button>').join('')+'</div>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page is clean.</b> '
-          + 'Every opportunity in the playbook has been checked against it and none of them land here.</span></div>');
+          + 'Every opportunity in the playbook was checked against it and none land here.</span></div>');
 
-  h+='<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">in your words — I pick it up next time we talk</span></div>'
+  h+='<div class="sb-a11y-h"><b>Ask me to change it</b><span class="sb-a11y-hint">in your words</span></div>'
     + '<textarea class="sb-ask" data-pageask="'+esc(s.pageId)+'" rows="3" '
-    + 'placeholder="e.g. the hero feels too tight on mobile, and the topic filters should match the Events page">'
+    + 'placeholder="e.g. the floating cards here should become a real component — every page rebuilds them">'
     + esc(ASKED['page:'+s.pageId]||'')+'</textarea>'
     + '<div class="sb-pw-send"><button class="sb-dec merge off" data-pagesend="'+esc(s.pageId)+'" disabled '
     + 'aria-disabled="true" title="Write what you want first">Ask me to do it</button></div>';
-  wrap.innerHTML=h;
+  body.innerHTML=h;
+  document.getElementById('sbUsage').innerHTML='';
 }
 
 /* ═══════════ VISUAL FINDINGS — the audit in designer language ═══════════
@@ -1696,6 +1739,9 @@ function setTools(s){
   const width = show('sbVwSeg',    !isAudit);                               // width: anything rendered
   const code  = show('sbCodeSeg',  !isAudit && !isFrame);                   // markup: inline specimens only
   const stat  = show('sbStatusSeg', !!(s&&s.pageId));                        // lifecycle: real pages only
+  const pw=document.getElementById('sbPwOpen');
+  pw.hidden = !(s&&s.pageId);
+  if(pw.hidden) pwOpen(false);                     // never leave a page's report open over a component
   if(stat) document.querySelectorAll('#sbStatusSeg button').forEach(b=>b.classList.toggle('on', b.dataset.statusSet===(s.status||'live')));
   document.getElementById('sbStageBar').style.display=(theme||width||code||stat)?'':'none';
 }
@@ -2162,6 +2208,28 @@ document.addEventListener('keydown',e=>{
   if(!document.getElementById('sbA11yPanel').hidden) toggleA11y(false);
 });
 
+function pwOpen(on){
+  const d=document.getElementById('sbPwDrawer');
+  d.hidden=!on;
+  document.getElementById('sbPwOpen').classList.toggle('on',on);
+}
+document.getElementById('sbPwOpen').addEventListener('click',()=>pwOpen(document.getElementById('sbPwDrawer').hidden));
+document.getElementById('sbPwClose').addEventListener('click',()=>pwOpen(false));
+document.getElementById('sbPwBody').addEventListener('click',e=>{
+  const go=e.target.closest('[data-goto]'); if(go){ pwOpen(false); select(go.dataset.goto); return; }
+  const ff=e.target.closest('[data-finding]');
+  if(ff){ OPEN_FINDING=ff.dataset.finding; pwOpen(false); toggleOpps(true);
+    setTimeout(()=>{ const c=document.querySelector('.sb-f[data-fid="'+ff.dataset.finding+'"]');
+      if(c) c.scrollIntoView({block:'center'}); }, 260); return; }
+  const ps=e.target.closest('[data-pagesend]'); if(ps){ askAboutPage(ps.dataset.pagesend); return; }
+});
+document.getElementById('sbPwBody').addEventListener('input',e=>{
+  const ta=e.target.closest('[data-pageask]');
+  if(!ta) return;
+  ASKED['page:'+ta.dataset.pageask]=ta.value;
+  const btn=document.querySelector('[data-pagesend="'+ta.dataset.pageask+'"]');
+  if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
+});
 document.getElementById('sbUsage').addEventListener('input',e=>{
   const ta=e.target.closest('[data-pageask]');
   if(!ta) return;

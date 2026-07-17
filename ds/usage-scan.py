@@ -33,6 +33,13 @@ def html_files():
         files.append(js)
     return files
 
+# what ptf.css defines — hoisted, because each page is measured against it as we go
+try:
+    _css_early = open(CSS, encoding="utf-8", errors="ignore").read()
+    css_class_defs_early = set(re.findall(r'\.[a-zA-Z][\w-]*', _css_early))
+except Exception:
+    css_class_defs_early = set()
+
 CLASS_ATTR = re.compile(r'class\s*=\s*"([^"]*)"|class\s*=\s*\'([^\']*)\'')
 # Classes applied by script: classList.add/toggle/remove('x'), el.className = 'x y'.
 # ptf.js RENDERS the nav + footer, so its class names never appear in any page's HTML —
@@ -49,6 +56,9 @@ fonts   = collections.defaultdict(lambda: collections.defaultdict(int))
 fontsz  = collections.defaultdict(lambda: collections.defaultdict(int))
 FS_RE   = re.compile(r'font-size\s*:\s*([0-9.]+px)', re.I)
 STYLE_RE = re.compile(r'<style[^>]*>(.*?)</style>', re.S | re.I)
+pageown = {}   # the classes a page STYLES ITSELF — its own design system, the part that
+               # isn't in ptf.css. This is the actionable half: each one is either a
+               # component the system should own, or a component it already has.
 pagecss = {}   # how many lines of CSS a page writes for itself — the clearest drift signal
                # we have: the pages with none (Resources, Become a sponsor) have no
                # opportunities against them; Employers writes 939 lines and has nine.
@@ -84,11 +94,18 @@ for path in files:
         fontsz[fs.lower()][r] += 1
     # a page's own CSS — everything inside its <style> blocks, comments and blanks aside
     if r.endswith(".html"):
-        n = 0
+        n = 0; own = set()
         for block in STYLE_RE.findall(txt):
             body = re.sub(r'/\*.*?\*/', '', block, flags=re.S)
             n += len([l for l in body.split("\n") if l.strip()])
+            # every class this page defines a rule for
+            for sel, _decls in re.findall(r'([^{}]+)\{([^{}]*)\}', body):
+                for cls in re.findall(r'\.([a-zA-Z][\w-]*)', sel):
+                    own.add("." + cls)
         pagecss[r] = n
+        # only the ones it actually USES, and that the system does not already define
+        used = {c for c in own if ('class="' in txt) and re.search(r'class\s*=\s*"[^"]*\b' + re.escape(c[1:]) + r'\b', txt)}
+        pageown[r] = sorted(used - set(css_class_defs_early))
     # font families
     for fam in ("Inter Tight", "JetBrains Mono"):
         n = txt.count("'" + fam + "'") + txt.count('"' + fam + '"')
@@ -128,6 +145,7 @@ data = {
         "pageCount": len([p for p in files if p.endswith(".html")]),
         "pages": [rel(p) for p in files if p.endswith(".html")],
         "pageCss": pagecss,
+        "pageOwn": pageown,
     },
     "classes": pack(classes),
     "tokens":  pack(tokens),
