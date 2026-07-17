@@ -639,7 +639,7 @@
    "cause": "Each illustration was built with its own tag rather than sharing one.",
    "recommend": "merge",
    "reasoning": "These do exactly the same job — labelling a skill, a domain, a requirement — and a visitor reads them as the same thing. The variations aren't communicating a difference in meaning; they're four people solving the same problem on four different days. One tag, one look.",
-   "fix": "One tag: 12px / 500 / soft off-white fill / pill. Retire the three others.",
+   "fix": "Your system already has this tag — .sc-title-chip (ds/ptf.css:904): 12px, medium, soft off-white fill, hairline border, pill. Four copies on Talents (v2) drift from it: .hmc-tag (:299), .req-tag (:568), .domain-pill (:358), .stat-chip (:332). This makes the four match the one you already wrote.",
    "variants": [
     {
      "label": "Filled — 12px",
@@ -753,7 +753,116 @@
     }
    ],
    "stamp": "height",
-   "apply": [],
+   "apply": [
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hmc-tag",
+     "prop": "font-size",
+     "value": "12px",
+     "expect": "11px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hmc-tag",
+     "prop": "padding",
+     "value": "4px 10px",
+     "expect": "3px 9px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hmc-tag",
+     "prop": "background",
+     "value": "var(--bg-soft)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".hmc-tag",
+     "prop": "color",
+     "value": "var(--ink-2)",
+     "expect": "var(--ink-3)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".req-tag",
+     "prop": "background",
+     "value": "var(--bg-soft)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".req-tag",
+     "prop": "color",
+     "value": "var(--ink-2)",
+     "expect": "var(--ink-3)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".domain-pill",
+     "prop": "font-size",
+     "value": "12px",
+     "expect": "12.5px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".domain-pill",
+     "prop": "padding",
+     "value": "4px 10px",
+     "expect": "5px 13px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".domain-pill",
+     "prop": "background",
+     "value": "var(--bg-soft)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".domain-pill",
+     "prop": "color",
+     "value": "var(--ink-2)",
+     "expect": "var(--ink-3)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".stat-chip",
+     "prop": "font-size",
+     "value": "12px",
+     "expect": "13px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".stat-chip",
+     "prop": "padding",
+     "value": "4px 10px",
+     "expect": "7px 14px"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".stat-chip",
+     "prop": "background",
+     "value": "var(--bg-soft)"
+    },
+    {
+     "type": "css-set",
+     "in": "pages",
+     "selector": ".stat-chip",
+     "prop": "color",
+     "value": "var(--ink-2)",
+     "expect": "var(--ink-3)"
+    }
+   ],
    "kind": "unify",
    "impact_note": "Four tag styles become one. Every future tag has an obvious answer instead of a coin flip."
   },
@@ -1169,7 +1278,7 @@
    "cause": "Each floating element got a hand-tuned shadow.",
    "recommend": "merge",
    "reasoning": "Shadow is how the eye reads depth — inconsistent shadows make things sit at different heights for no reason, which is exactly the \"accidental\" look you're trying to remove. You realistically need two: a resting card, and something genuinely lifted (a floating card, a modal). Everything else is noise.",
-   "fix": "Two elevations: Resting (your existing token) and Lifted. Retire the other ten.",
+   "fix": "Most of your cards are already on the token — .fcard, .opp-card, .expert-card, .benefit-card, .jb-plan/.jb-card/.jb-fcard/.jb-statecard, .hero-feature, .ev-row, .faq-item.open. The drift is six one-offs (.hero-match-card, .hero-search, .about-pages-card, .apt-hire-single, .sc-mock, .sc-person-card) plus the auth/book panels, which are genuinely deeper — so they become the second tier, --shadow-lifted, instead of a one-off.",
    "variants": [
     {
      "label": "Resting — your token",
@@ -1316,7 +1425,77 @@
     }
    ],
    "stamp": "none",
-   "apply": [],
+   "apply": [
+    {
+     "type": "css-append",
+     "css": "/* Two elevations, and only two. Resting = a card at rest. Lifted = a card that is\n   the whole screen's subject (the auth/book panels). A literal shadow can't follow the\n   dark theme; a token can — that is the entire point of these two lines. */\n:root       { --shadow-lifted: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10); }\n.theme-dark { --shadow-lifted: 0 16px 48px rgba(0,0,0,0.6); }",
+     "marker": "--shadow-lifted"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".auth-card",
+     "prop": "box-shadow",
+     "value": "var(--shadow-lifted)",
+     "expect": "0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".book-card",
+     "prop": "box-shadow",
+     "value": "var(--shadow-lifted)",
+     "expect": "0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".hero-match-card",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 8px 32px rgba(15,30,26,0.14), 0 2px 8px rgba(15,30,26,0.06)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".hero-search",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 8px 32px rgba(15,30,26,0.10), 0 2px 8px rgba(15,30,26,0.05)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".about-pages-card",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 12px 32px rgba(0,0,0,0.09)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".apt-hire-single",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 4px 20px rgba(0,0,0,0.09)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".sc-mock",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 4px 24px rgba(0,0,0,0.1)"
+    },
+    {
+     "type": "css-set",
+     "in": "all",
+     "selector": ".sc-person-card",
+     "prop": "box-shadow",
+     "value": "var(--shadow-card)",
+     "expect": "0 8px 28px rgba(0,0,0,0.15)"
+    }
+   ],
    "kind": "standardize",
    "impact_note": "Twelve shadows become two. Depth starts meaning something."
   },
