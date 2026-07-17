@@ -637,6 +637,10 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-decided-tag.asked{ color:var(--sb-green); }
 .sb-decided-ask{ display:block; width:100%; margin-top:6px; font-size:12.5px; font-style:italic;
   color:var(--sb-txt-3); }
+.sb-primary.busy{ opacity:.75; cursor:progress; }
+.sb-primary.busy .sb-i{ animation:sb-spin 1.1s linear infinite; }
+@keyframes sb-spin{ to{ transform:rotate(360deg) } }
+@media (prefers-reduced-motion:reduce){ .sb-primary.busy .sb-i{ animation:none } }
 .sb-fresher{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60;
   display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; cursor:pointer;
   font:inherit; font-size:12.5px; font-weight:700; color:#0A0A0A; background:var(--sb-green); border:0;
@@ -2322,23 +2326,78 @@ function freshPrompt(){
 }
 async function findFresh(){
   toast(uic('refresh',13)+' Re-measuring your pages…', 30000);
+  let cli=false;
   try{
     const r=await fetch('/api/rescan',{method:'POST'});
     const j=await r.json(); if(j.data) DATA=j.data;
+    cli=(await (await fetch('/api/audit-status')).json()).cli;
   }catch(e){ toast(uic('warning',13)+' Editing server not reachable — this needs it to re-measure.',6000); return; }
   const d=auditDrift();
   const changed = d ? ((d.added.length?d.added.length+' new page'+(d.added.length===1?'':'s'):'')
       + (d.added.length&&d.gone.length?', ':'') + (d.gone.length?d.gone.length+' removed':'')) : 'nothing new';
-  const ok=await dlg({
-    title:'Ask Claude for a fresh audit',
-    body:'<b>Re-measured just now:</b> '+(DATA?DATA.meta.pageCount:'?')+' pages, '+(DATA?Object.keys(DATA.classes).length:'?')+' classes.<br>'
-      +'Change since the last audit: <b>'+esc(changed||'nothing new')+'</b>.'
+  const measured='<b>Re-measured just now:</b> '+(DATA?DATA.meta.pageCount:'?')+' pages, '
+      +(DATA?Object.keys(DATA.classes).length:'?')+' classes.<br>Change since the last audit: <b>'+esc(changed||'nothing new')+'</b>.';
+
+  /* With the Claude command installed the button can just do it — but only the audit.
+     It measures and writes findings; it never touches her pages, her CSS or her copy.
+     Design work stays a conversation, because there the value is her reacting to it. */
+  if(cli){
+    const go=await dlg({ title:'Run a fresh audit',
+      body:measured+'<br><br>I\'ll re-measure every live and draft page, compare them against your '
+        +'rules, and add anything new to Design Opportunities. Takes a few minutes.'
+        +'<br><br><span class="muted">Your '+(AUDIT?AUDIT.findings.length:0)+' existing opportunities are backed up first and can only be '
+        +'added to — never rewritten or deleted. Nothing else on disk is touched: not your pages, not ptf.css.</span>',
+      ok:'Run it' });
+    if(!go) return;
+    try{
+      const r=await fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({prompt:freshPrompt()})});
+      const j=await r.json();
+      if(!j.ok && j.error==='nocli'){ return copyPromptInstead(); }
+      if(!j.ok){ toast(uic('warning',13)+' '+esc(j.error||'It would not start.'),6000); return; }
+    }catch(e){ toast(uic('warning',13)+' Editing server not reachable.',6000); return; }
+    watchAudit();
+    return;
+  }
+  await dlg({ title:'Ask Claude for a fresh audit', body:measured
       +'<br><br>Counting is something this tool can do. Deciding what matters — and why — is not. '
       +'Copy this prompt and paste it to Claude in chat; the new findings land back in this panel.'
       +'<br><br><span class="muted">Nothing is written until Claude writes it. Your existing decisions are included so they are not raised again.</span>',
     ok:'Copy the prompt' });
-  if(!ok) return;
+  copyPromptInstead();
+}
+async function copyPromptInstead(){
   try{ await navigator.clipboard.writeText(freshPrompt()); toast(uic('check',13)+' Prompt copied — paste it to Claude in chat.',5200); }catch(e){}
+}
+/* It takes minutes, so the button can't just wait on it: ask how it's going, and say so. */
+function watchAudit(){
+  const btn=document.getElementById('sbFresh');
+  btn.classList.add('busy'); btn.disabled=true;
+  const t0=Date.now();
+  const tick=setInterval(async()=>{
+    let st; try{ st=await (await fetch('/api/audit-status',{cache:'no-store'})).json(); }catch(e){ return; }
+    const secs=Math.round((Date.now()-t0)/1000);
+    if(st.running){ toast(uic('refresh',13)+' Auditing your pages… <b>'+secs+'s</b>. You can keep working.', 4000); return; }
+    clearInterval(tick); btn.classList.remove('busy'); btn.disabled=false;
+    if(st.error==='notloggedin'){
+      dlg({ title:'One thing first', ok:'Got it',
+        body:'The Claude command is installed but not signed in yet — and signing in is yours to do, not mine.'
+          +'<br><br>Open Terminal and run:<br><code>~/.claude-cli/node_modules/.bin/claude</code>'
+          +'<br>then type <code>/login</code> and follow it in the browser. One time only.'
+          +'<br><br><span class="muted">Then this button works. Until then, it copies the prompt for you instead.</span>' });
+      return;
+    }
+    if(!st.ok){ toast(uic('warning',13)+' The audit stopped: '+esc(String(st.error||'').slice(0,140)),9000); return; }
+    /* it wrote findings — pick them up without her reloading */
+    try{
+      const af=await (await fetch('audit-findings.json',{cache:'no-store'})).json();
+      const before=AUDIT?AUDIT.findings.length:0;
+      AUDIT=af; renderCleanup(); updateOppsCount();
+      const added=af.findings.length-before;
+      toast(uic('check',13)+' Audit done in <b>'+Math.round((st.finished-st.started))+'s</b> — '
+        +(added>0?'<b>'+added+' new</b> opportunit'+(added===1?'y':'ies'):'nothing new to raise')+'.',7000);
+    }catch(e){ toast(uic('check',13)+' Audit done — reload to see it.',6000); }
+  }, 3000);
 }
 
 /* ── Improve mode: the Opportunities panel ── */
