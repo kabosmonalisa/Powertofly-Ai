@@ -616,6 +616,11 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-find:hover{ border-color:var(--sb-txt-3); }
 .sb-pw-find-t{ font-size:13px; font-weight:600; color:var(--sb-txt); }
 .sb-pw-find-go{ margin-left:auto; display:inline-flex; align-items:center; gap:3px; font-size:11.5px; color:var(--sb-txt-3); flex:none; }
+.sb-elsewhere{ display:flex; gap:8px; align-items:flex-start; margin:-4px 0 10px; padding:10px 12px;
+  border-radius:9px; font-size:12px; line-height:1.55; color:var(--sb-txt-3);
+  background:var(--sb-panel-2); border:1px dashed var(--sb-line-2); }
+.sb-elsewhere .sb-i{ flex:none; margin-top:1px; }
+.sb-elsewhere b{ color:var(--sb-txt-2); font-weight:600; }
 .sb-pw-clean{ display:flex; gap:9px; align-items:flex-start; padding:13px 15px; border-radius:10px; font-size:12.5px; line-height:1.55;
   color:var(--sb-txt-2); background:rgba(18,201,141,.07); border:1px solid rgba(18,201,141,.28); }
 .sb-pw-clean .sb-i, .sb-pw-clean b{ color:var(--sb-green); }
@@ -1469,8 +1474,17 @@ function renderPageWork(s){
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
           + 'Every component on it comes from the system.</span></div>');
 
+  /* Everything above this line is live and hers to act on. This section is neither:
+     it's a snapshot from the last audit, and it's decided in Design Opportunities, not
+     here. Nothing said so — the rows just said "fix it" and jumped her somewhere else
+     without warning. */
+  const seen=(AUDIT&&AUDIT.baseline&&AUDIT.baseline.date)||null;
   h+='<div class="sb-a11y-h"><b>What’s off here</b><span class="sb-a11y-hint">'
-    + (finds.length?'the opportunities that touch this page':'')+'</span></div>'
+    + (finds.length?'decided in Design Opportunities, not here':'')+'</span></div>'
+    + (finds.length?'<p class="sb-elsewhere">'+uic('info',13)
+        +'<span>Unlike the numbers above, this doesn’t update on its own — it’s what the last audit found'
+        + (seen?' on <b>'+esc(seen)+'</b>':'')+'. Accepting or dismissing happens in <b>Design Opportunities</b>; '
+        + 'once you decide one there, it leaves this list too.</span></p>':'')
     + (finds.length
         ? '<div class="sb-pw-finds">'+finds.map(f=>'<button class="sb-pw-find" data-finding="'+f.id+'">'
             + '<span class="sb-imp '+f.impact+'">'+f.impact+'</span>'
