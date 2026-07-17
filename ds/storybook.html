@@ -573,6 +573,10 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-ct-col{ border:1px solid var(--sb-line); border-radius:12px; padding:14px; background:var(--bg); }
 .sb-ct-col-h{ font-family:'Inter'; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
   color:var(--ink-3); margin-bottom:10px; }
+.sb-fresher{ position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60;
+  display:inline-flex; align-items:center; gap:7px; padding:9px 16px; border-radius:999px; cursor:pointer;
+  font:inherit; font-size:12.5px; font-weight:700; color:#0A0A0A; background:var(--sb-green); border:0;
+  box-shadow:0 8px 28px rgba(0,0,0,.5); }
 .sb-opts{ display:flex; flex-direction:column; gap:8px; margin-top:14px; }
 .sb-opt{ display:flex; align-items:flex-start; gap:11px; width:100%; text-align:left; font:inherit;
   padding:12px 14px; border-radius:10px; cursor:pointer; background:var(--sb-panel-2);
@@ -1578,6 +1582,45 @@ function renderA11y(){
   mountContrast(wrap);
 }
 
+/* ── Stay current ────────────────────────────────────────────────────────────
+   Twice now Lizu has looked at a tab that was open from before an edit and
+   concluded the app was broken — once "zero opportunities", once "you didn't
+   build what I asked for". No cache header fixes that: the tab isn't serving a
+   stale copy, it IS the stale copy. So the page asks whether it's still current
+   and reloads itself, keeping where she was. It never interrupts: if a dialog is
+   open or an answer is picked but not applied, it waits and offers instead. */
+let LIVE_V=null;
+async function checkVersion(){
+  let v; try{ v=(await (await fetch('/api/version',{cache:'no-store'})).json()).v; }catch(e){ return; }
+  if(LIVE_V===null){ LIVE_V=v; return; }
+  if(v===LIVE_V) return;
+  const busy = document.getElementById('sbDlg').classList.contains('open')
+            || Object.keys(PICK).some(k=>PICK[k]);
+  if(busy){ LIVE_V=v; showReloadPill(); return; }
+  sessionStorage.setItem('sb-resume', JSON.stringify({
+    hash:location.hash, opps:oppsOpen(), a11y:!document.getElementById('sbA11yPanel').hidden,
+    scroll:(document.getElementById('sbOppsBody')||{}).scrollTop||0 }));
+  location.reload();
+}
+function showReloadPill(){
+  if(document.getElementById('sbFresher')) return;
+  const b=document.createElement('button');
+  b.id='sbFresher'; b.className='sb-fresher';
+  b.innerHTML=uic('refresh',13)+'Updated — reload';
+  b.onclick=()=>location.reload();
+  document.body.appendChild(b);
+}
+function resumeAfterReload(){
+  let st; try{ st=JSON.parse(sessionStorage.getItem('sb-resume')||'null'); }catch(e){}
+  sessionStorage.removeItem('sb-resume');
+  if(!st) return;
+  if(st.opps) toggleOpps(true);
+  else if(st.a11y) toggleA11y(true);
+  if(st.scroll){ const b=document.getElementById('sbOppsBody'); if(b) setTimeout(()=>{ b.scrollTop=st.scroll; },80); }
+}
+setInterval(checkVersion, 2000);
+checkVersion();
+
 /* ═══════════ APP ═══════════ */
 const side=document.getElementById('sbSide'), stage=document.getElementById('sbStage'), stageInner=document.getElementById('sbStageInner');
 const stagewrap=document.querySelector('.sb-stagewrap');
@@ -2540,6 +2583,7 @@ Promise.all([
   if(wantOpps) toggleOpps(true);
   if(wantCreate) wizOpen(true);
   if(wantA11y) toggleA11y(true);
+  resumeAfterReload();          // came back from a live reload → put her back where she was
 });
 </script>
 </body>

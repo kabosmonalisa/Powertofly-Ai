@@ -418,6 +418,16 @@ class H(http.server.SimpleHTTPRequestHandler):
         self._json({"ok": False, "error": "not found"}, 404)
     def do_GET(self):
         if self.path.rstrip("/") == "/api/ping": return self._json({"ok": True})
+        if self.path.rstrip("/") == "/api/version":
+            # A stamp of the files the open page is made of. Cache-Control can't help
+            # here: a tab that has been open since before an edit isn't serving a stale
+            # copy, it IS the stale copy. So the page asks whether it is still current.
+            v = 0
+            for f in (os.path.join(DS, "storybook.html"), CSS,
+                      os.path.join(DS, "audit-findings.json"), PAGES_JSON):
+                try: v = max(v, os.path.getmtime(f))
+                except OSError: pass
+            return self._json({"v": round(v, 3)})
         if self.path.rstrip("/") == "/api/approvals": return self._json(load_appr())
         if self.path.rstrip("/") == "/api/checkpoints": return self._json({"checkpoints": list_checkpoints()})
         return super().do_GET()
