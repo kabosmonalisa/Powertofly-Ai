@@ -120,7 +120,18 @@ button,a,label,summary{ touch-action:manipulation; }
 #sbDesc{ grid-area:2/1; }
 #sbStageBar{ grid-area:1/2; }
 #sbTags{ grid-area:2/2; }
+.sb-crumb{ display:flex; align-items:center; gap:3px; margin:0 0 3px; }
+.sb-crumb button{ font:inherit; font-size:11.5px; font-weight:700; letter-spacing:.02em; color:var(--sb-txt-3);
+  background:none; border:0; padding:0; cursor:pointer; }
+.sb-crumb button:hover{ color:var(--sb-green); text-decoration:underline; }
+.sb-crumb .sb-i{ color:var(--sb-txt-3); opacity:.6; }
+.sb-titlerow{ display:flex; align-items:center; gap:8px; }
 .sb-head h1{ font-family:'Inter Tight'; font-weight:800; letter-spacing:-.025em; font-size:23px; margin:0 0 4px; line-height:1.15; }
+.sb-head h1.editing{ outline:2px solid var(--sb-green); outline-offset:3px; border-radius:5px; cursor:text; }
+.sb-rename{ display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; margin-bottom:4px;
+  border-radius:6px; background:none; border:0; color:var(--sb-txt-3); cursor:pointer; opacity:0; transition:opacity .15s ease, color .15s ease; }
+.sb-titlerow:hover .sb-rename, .sb-rename:focus-visible{ opacity:1; }
+.sb-rename:hover{ color:var(--sb-txt); background:var(--sb-panel-2); }
 .sb-head p{ margin:0; color:var(--sb-txt-2); font-size:13px; line-height:1.5; max-width:80ch;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
 .sb-tags{ display:flex; gap:6px; margin:0; flex-wrap:wrap; justify-content:flex-end; }
@@ -185,66 +196,16 @@ button,a,label,summary{ touch-action:manipulation; }
 /* logo auto-inverts to white on dark backgrounds (fixes black-on-black) */
 .sb-logo-mark.theme-dark, .theme-dark .sb-logo-mark{ filter:brightness(0) invert(1); }
 
-/* ── usage audit panel ── */
 .sb-usage{ max-width:1240px; margin:22px auto 0; }
 .sb-usage-h{ display:flex; align-items:baseline; gap:10px; margin:0 0 12px; flex-wrap:wrap; }
 .sb-usage-h b{ font-family:'Inter Tight'; font-size:15px; font-weight:800; }
 .sb-usage-h span{ font-size:12px; color:var(--sb-txt-3); }
-.sb-urow{ border:1px solid var(--sb-line); border-radius:12px; margin-bottom:8px; overflow:hidden; background:var(--sb-panel); }
-.sb-urow-top{ display:flex; align-items:center; gap:12px; padding:11px 14px; cursor:pointer; }
-.sb-urow-top:hover{ background:var(--sb-panel-2); }
-.sb-caret{ width:14px; height:14px; flex:none; opacity:.45; transition:transform .15s ease, opacity .15s ease; }
-.sb-urow.open .sb-caret{ transform:rotate(90deg); opacity:.8; }
 .sb-utype{ font-size:9px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; padding:3px 7px; border-radius:5px; background:var(--sb-panel-2); color:var(--sb-txt-3); border:1px solid var(--sb-line); flex:none; }
 .sb-ukey{ font-family:var(--sb-mono); font-size:13px; color:var(--sb-txt); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 /* designer-friendly row: category badge + sample + name/blurb/suggestion */
-.sb-cat{ font-size:9.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; padding:4px 8px; border-radius:6px; flex:none; white-space:nowrap; }
-.sb-cat.c-color{ background:rgba(79,232,169,.16); color:#4FE8A9; }
-.sb-cat.c-text{ background:rgba(91,207,255,.16); color:#8fd6ff; }
-.sb-cat.c-space{ background:rgba(255,193,86,.16); color:#FFCB6B; }
-.sb-cat.c-radius{ background:rgba(170,150,255,.18); color:#c3b4ff; }
-.sb-cat.c-layout{ background:rgba(255,255,255,.07); color:var(--sb-txt-2); }
-.sb-cat.c-comp{ background:rgba(255,255,255,.07); color:var(--sb-txt); }
-.sb-swatch2{ width:22px; height:22px; border-radius:6px; border:1px solid var(--sb-line-2); flex:none; }
-.sb-size2{ font-family:'Inter Tight'; font-weight:700; color:var(--sb-txt); flex:none; width:32px; text-align:center; line-height:1; }
-.sb-nameblock{ min-width:0; flex:1; }
-.sb-fname{ font-size:14px; font-weight:600; color:var(--sb-txt); display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.sb-code-name{ font-family:var(--sb-mono); font-size:11px; color:var(--sb-txt-3); font-weight:400; }
-.sb-blurb{ font-size:12.5px; color:var(--sb-txt-2); margin-top:2px; line-height:1.4; }
-.sb-suggest{ font-size:12.5px; color:#4FE8A9; margin-top:5px; line-height:1.4; }
-.sb-suggest .sb-i{ vertical-align:-2px; margin-right:5px; }
-.sb-suggest b{ font-weight:700; }
-.sb-urow.approved .sb-suggest{ display:none; }
 /* developer bucket — separated, collapsed by default */
-.sb-devsec{ margin-top:28px; border-top:1px dashed var(--sb-line-2); padding-top:18px; }
-.sb-dev-toggle{ font-family:'Inter Tight'; font-size:14px; font-weight:800; color:var(--sb-txt-2); background:none; border:0; cursor:pointer; padding:0; }
-.sb-dev-toggle:hover{ color:var(--sb-txt); }
-.sb-dev-toggle{ display:inline-flex; align-items:center; gap:6px; }
-.sb-dev-caret{ display:inline-flex; transition:transform .15s ease; }
-.sb-dev-toggle.open .sb-dev-caret{ transform:rotate(90deg); }
 .sb-i{ flex:none; vertical-align:-2px; }
-.sb-dev-body{ display:none; margin-top:12px; }
-.sb-dev-body.open{ display:block; }
 /* before → after mini side-by-side */
-.ba-card{ display:flex; align-items:stretch; gap:12px; background:var(--sb-panel-2); border:1px solid var(--sb-line); border-radius:10px; padding:14px; margin-bottom:10px; }
-.ba-side{ flex:1; text-align:center; min-width:0; }
-.ba-lbl{ font-size:10px; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--sb-txt-3); margin-bottom:8px; }
-.ba-stage{ min-height:56px; display:flex; align-items:center; justify-content:center; gap:8px; background:#EDEFEE; border-radius:8px; padding:12px; overflow:hidden; }
-.ba-arrow{ display:flex; align-items:center; color:var(--sb-txt-3); font-size:20px; flex:none; }
-.ba-swatch{ width:26px; height:26px; border-radius:6px; border:1px solid rgba(0,0,0,.12); flex:none; }
-.ba-stage b{ font-size:20px; }
-.ba-box{ width:48px; height:48px; background:linear-gradient(135deg,#5BCFFF,#4FE8A9); }
-.ba-bar{ height:20px; background:linear-gradient(90deg,#4FE8A9,#5BCFFF); border-radius:4px; }
-.ba-stage small{ color:#5C6F69; font-family:var(--sb-mono); font-size:11px; }
-.ba-note{ font-size:12px; color:var(--sb-txt-2); margin-bottom:10px; }
-.sb-ucount{ margin-left:auto; font-size:12px; color:var(--sb-txt-2); font-variant-numeric:tabular-nums; white-space:nowrap; flex:none; }
-.sb-verdict{ font-size:10.5px; font-weight:700; padding:4px 9px; border-radius:999px; white-space:nowrap; flex:none; }
-.sb-verdict.ok{ background:rgba(79,232,169,.12); color:#4FE8A9; }
-.sb-verdict.warn{ background:rgba(255,193,86,.15); color:#FFCB6B; }
-.sb-verdict.bad{ background:rgba(255,99,99,.15); color:#FF8A8A; }
-.sb-verdict.gray{ background:var(--sb-panel-2); color:var(--sb-txt-3); }
-.sb-ufiles{ display:none; border-top:1px solid var(--sb-line); padding:8px 14px 12px; }
-.sb-urow.open .sb-ufiles{ display:block; }
 .sb-ufile{ font:inherit; text-align:left; background:none; border:0; width:100%; display:flex; justify-content:space-between; gap:12px; padding:6px 8px; margin:0 -8px; font-size:12.5px; border-bottom:1px solid rgba(255,255,255,.04); cursor:pointer; border-radius:6px; }
 .sb-ufile:last-child{ border-bottom:0; }
 .sb-ufile:hover{ background:var(--sb-panel-2); }
@@ -254,11 +215,49 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-ufile-r b{ color:var(--sb-green); font-variant-numeric:tabular-nums; }
 .sb-open{ font-size:10.5px; color:var(--sb-txt-3); }
 .sb-ufile:hover .sb-open{ color:var(--sb-green); }
-.sb-unote{ font-size:12px; color:var(--sb-txt-2); background:rgba(255,193,86,.08); border:1px solid rgba(255,193,86,.18); border-radius:8px; padding:8px 11px; margin-top:8px; }
-.sb-unote b{ color:#FFCB6B; }
 .sb-clean-h{ font-family:'Inter Tight'; font-size:14px; font-weight:800; margin:22px 0 4px; }
 .sb-clean-hint{ font-size:12.5px; color:var(--sb-txt-3); margin:0 0 12px; line-height:1.5; }
 .sb-empty{ font-size:13px; color:var(--sb-txt-3); padding:10px 0; }
+
+.sb-usage{ max-width:1240px; margin:22px auto 0; }
+/* ══ WHERE IT LIVES — the pages using this component ══ */
+.sb-where-h{ display:flex; align-items:baseline; gap:9px; margin:0 0 12px; }
+.sb-where-h b{ font-family:'Inter Tight'; font-size:14px; font-weight:800; }
+.sb-where-hint{ font-style:normal; font-size:11.5px; color:var(--sb-txt-3); }
+.sb-where-more{ font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2); background:var(--sb-panel);
+  border:1px solid var(--sb-line-2); border-radius:8px; padding:8px 14px; margin-top:10px; cursor:pointer; }
+.sb-where-more:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+.sb-where-h span{ font-size:11px; font-weight:700; color:var(--sb-txt-3); background:var(--sb-panel-2); border-radius:999px; padding:2px 7px; }
+.sb-shots{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; }
+.sb-shot{ display:flex; flex-direction:column; padding:0; font:inherit; text-align:left; background:var(--sb-panel);
+  border:1px solid var(--sb-line); border-radius:12px; overflow:hidden; cursor:pointer;
+  transition:border-color .15s ease, transform .15s ease; }
+.sb-shot:hover{ border-color:var(--sb-txt-3); transform:translateY(-2px); }
+/* the window onto the real page — the iframe inside is positioned so the component is centred */
+.sb-shot-win{ display:block; position:relative; height:176px; overflow:hidden; background:var(--bg); }
+.sb-shot-win iframe{ position:absolute; width:1280px; height:1400px; /* grown to the full page height by cropShot */ border:0; pointer-events:none; opacity:0;
+  transition:opacity .2s ease; }
+.sb-shot-meta{ display:block; padding:10px 12px 11px; border-top:1px solid var(--sb-line); }
+.sb-shot-meta b{ display:block; font-family:'Inter Tight'; font-size:13px; font-weight:700; color:var(--sb-txt); }
+.sb-shot-sub{ display:block; font-size:11.5px; color:var(--sb-txt-3); margin-top:2px; }
+.sb-tiles-sm{ grid-template-columns:repeat(auto-fill,minmax(158px,1fr)); gap:10px; }
+.sb-tile-sm .sb-tile-shot{ height:96px; }
+.sb-tile-sm .sb-tile-shot iframe{ transform:scale(.122); }
+.sb-tile-sm .sb-tile-meta{ padding:7px 9px; }
+.sb-tile-sm .sb-tile-meta b{ font-size:12px; }
+.sb-nowhere{ display:flex; gap:10px; align-items:flex-start; font-size:12.5px; color:var(--sb-txt-2); line-height:1.55;
+  background:rgba(255,193,86,.06); border:1px solid rgba(255,193,86,.18); border-radius:10px; padding:12px 14px; }
+.sb-nowhere .sb-i{ color:#FFCB6B; margin-top:1px; flex:none; }
+.sb-nowhere b{ color:var(--sb-txt); }
+/* Accessibility panel rows */
+.sb-scanrow{ display:flex; align-items:center; justify-content:space-between; gap:12px; width:100%; font:inherit;
+  text-align:left; background:var(--sb-panel); border:1px solid var(--sb-line); border-radius:10px;
+  padding:11px 14px; margin-bottom:6px; cursor:pointer; color:var(--sb-txt-2); }
+.sb-scanrow:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+.sb-scan-name{ font-size:13px; font-weight:600; }
+.sb-scan-go{ display:inline-flex; align-items:center; gap:5px; font-size:11.5px; color:var(--sb-txt-3); }
+.sb-scanrow:hover .sb-scan-go{ color:var(--sb-green); }
+.sb-scan-note{ font-size:12.5px; color:var(--sb-txt-3); line-height:1.55; margin:16px 0 0; }
 
 /* ══ PAGES / FLOWS — the tile gallery ══ */
 .sb-gal-link{ display:flex; align-items:center; gap:9px; width:100%; font:inherit; text-align:left; background:none;
@@ -531,6 +530,7 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-sp-note{ font-size:11.5px; color:var(--sb-txt-3); margin-top:4px; line-height:1.4; }
 .sb-sp-where{ font-size:11.5px; color:var(--sb-txt-2); margin-top:7px; line-height:1.5; }
 .sb-sp-where b{ color:var(--sb-txt); font-weight:600; }
+.sb-arch-note{ font-style:normal; color:var(--sb-txt-3); }
 /* differences / cause / reasoning */
 .sb-f-cols{ display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:20px; }
 @media (max-width:820px){ .sb-f-cols{ grid-template-columns:1fr; } }
@@ -563,28 +563,12 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-arrow-row .ln{ flex:1; height:1px; background:var(--sb-line); }
 .sb-arrow-row span{ font-size:11px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--sb-green); }
 /* remove / replace action buttons */
-.sb-act{ font:inherit; font-size:11px; font-weight:700; color:#08110d; background:var(--sb-green); border:0; border-radius:7px; padding:6px 11px; cursor:pointer; white-space:nowrap; flex:none; }
-.sb-act:hover{ filter:brightness(1.08); }
-.sb-act.rm{ background:transparent; color:#FF8A8A; border:1px solid rgba(255,99,99,.45); }
-.sb-act.rm:hover{ background:rgba(255,99,99,.14); }
 /* approve (mark intentional / reviewed) */
-.sb-approve{ font:inherit; font-size:11px; font-weight:700; color:var(--sb-txt-3); background:transparent; border:1px solid var(--sb-line-2); border-radius:7px; padding:6px 10px; cursor:pointer; white-space:nowrap; flex:none; }
-.sb-approve:hover{ color:var(--sb-green); border-color:var(--sb-green); }
-.sb-approve.on{ color:var(--sb-green); background:rgba(79,232,169,.09); border-color:var(--sb-green); }
-.sb-urow.approved{ opacity:.5; }
-.sb-urow.approved .sb-verdict{ background:rgba(79,232,169,.12); color:#4FE8A9; }
 /* inline proposal chip — the suggestion, visible without expanding (read mode scanning) */
-.sb-prop{ font-family:var(--sb-mono); font-size:11px; color:var(--sb-green); background:rgba(79,232,169,.08); border:1px solid rgba(79,232,169,.22); border-radius:6px; padding:4px 8px; white-space:nowrap; flex:none; max-width:220px; overflow:hidden; text-overflow:ellipsis; }
-.sb-prop.rm{ color:#FF8A8A; background:rgba(255,99,99,.08); border-color:rgba(255,99,99,.22); }
 /* review filter */
-.sb-filter{ display:flex; gap:6px; margin:2px 0 14px; }
-.sb-filter button{ font:inherit; font-size:11.5px; font-weight:600; color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line); border-radius:999px; padding:6px 12px; cursor:pointer; }
-.sb-filter button.on{ color:var(--sb-green); background:rgba(79,232,169,.09); border-color:var(--sb-green); }
 /* reset-to-start button */
 .sb-reset{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:700; color:#FFCB6B; background:transparent; border:1px solid rgba(255,193,86,.4); border-radius:999px; padding:7px 13px; cursor:pointer; white-space:nowrap; }
 .sb-reset:hover{ background:rgba(255,193,86,.12); }
-#sbUsage[data-filter="review"] .sb-urow.approved{ display:none; }
-#sbUsage[data-filter="approved"] .sb-urow:not(.approved){ display:none; }
 .sb-undo{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:600; color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px; padding:7px 13px; cursor:pointer; }
 .sb-undo:hover{ color:var(--sb-txt); border-color:var(--sb-green); }
 .sb-edit{ display:inline-flex; align-items:center; gap:6px; font:inherit; font-size:12px; font-weight:700; color:var(--sb-txt-2); background:var(--sb-panel-2); border:1px solid var(--sb-line-2); border-radius:999px; padding:7px 13px; cursor:pointer; white-space:nowrap; }
@@ -762,7 +746,11 @@ button,a,label,summary{ touch-action:manipulation; }
          stay reachable however far you scroll. -->
     <div class="sb-sticky" id="sbSticky">
       <div class="sb-sticky-in">
-        <div class="sb-head"><h1 id="sbName">—</h1><p id="sbDesc"></p></div>
+        <div class="sb-head">
+          <nav class="sb-crumb" id="sbCrumb" hidden aria-label="Breadcrumb"></nav>
+          <span class="sb-titlerow"><h1 id="sbName">—</h1><button class="sb-rename" id="sbRename" hidden title="Rename" aria-label="Rename this page"></button></span>
+          <p id="sbDesc"></p>
+        </div>
         <div class="sb-headside">
           <div class="sb-stagebar" id="sbStageBar">
             <div class="sb-seg" id="sbThemeSeg" title="Preview theme"><button data-theme="light" class="on" data-ui-icon="light">Light</button><button data-theme="dark" data-ui-icon="dark">Dark</button><button data-theme="split" data-ui-icon="split" title="Light and dark side by side">Split</button></div>
@@ -834,6 +822,7 @@ const UI = {
   history:'M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z',
   close:'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z',
   check:'M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z',
+  done:'M22 5.18L10.59 16.6l-4.24-4.24 1.41-1.41 2.83 2.83 10-10L22 5.18zm-2.21 5.04c.13.57.21 1.17.21 1.78 0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c1.58 0 3.04.46 4.28 1.25l1.44-1.44C16.1 2.67 14.13 2 12 2 6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10c0-1.19-.22-2.33-.6-3.39l-1.61 1.61z',
   external:'M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z',
   copy:'M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z',
   chevronRight:'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z',
@@ -844,7 +833,8 @@ const UI = {
   bulb:'M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z',
   warning:'M12 5.99L19.53 19H4.47L12 5.99M12 2L1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z',
   add:'M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z',
-  archive:'M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z',
+  edit:'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z',
+  archive:'M20 2H4c-1 0-2 .9-2 2v3.01c0 .72.43 1.34 1 1.69V20c0 1.1 1.1 2 2 2h14c.9 0 2-.9 2-2V8.7c.57-.35 1-.97 1-1.69V4c0-1.1-1-2-2-2zm-5 12H9v-2h6v2zm5-7H4V4h16v3z',
   more:'M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z',
   refresh:'M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z',
   sparkle:'M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z'
@@ -867,7 +857,7 @@ const S = [
   desc:'The PowerToFly wordmark, the AI sub-brand chip, and the standalone icon mark. Toggle Dark or Split — the wordmark inverts to white so it never sits black-on-black.',
   html:`<div class="sb-variant"><div class="sb-variant-h">Wordmark — .brand</div>
   <img src="../PowerToFly-AI-logo.svg" alt="PowerToFly AI" class="sb-logo-mark" style="height:30px">
-  <p class="sb-cap">The primary lockup used in the nav. On dark backgrounds it flips to white automatically (brightness/invert), matching the live nav behaviour.</p></div>
+  <p class="sb-cap"><b>Careful — this is a different file from the one your site uses.</b> The nav and footer don't load this SVG: their wordmark is drawn in code (ds/ptf.js), twice. Three copies of your logo exist and nothing keeps them in step. Replacing the mark today means a code change, not swapping this file.</p></div>
 <div class="sb-variant"><div class="sb-variant-h">AI chip — .brand-ai</div>
   <span class="brand-ai" style="position:static">AI</span>
   <p class="sb-cap">The green "AI" pill appended to the wordmark for the PowerToFly <b>AI</b> sub-brand. Solid brand green, never gradient.</p></div>
@@ -1103,186 +1093,167 @@ const S = [
 ];
 /* Pages / Organisms-nav / Flows are generated from ds/pages.json at boot (single source of truth). */
 
-/* ═══════════ USAGE AUDIT ═══════════ */
+/* The colour lookup behind the page-preview highlighter (click a page → every use outlined). */
 const HEXOF = { '--ink':'#0a0a0a','--ink-2':'#2a2a2a','--ink-3':'#5c6f69','--surface-2':'#fafaf6','--accent':'#0a8c66','--green-mid':'#4fe8a9','--purple':'#5b4fcf','--purple-light':'#eeebff','--purple-bright':'#7b00ff','--iri-cyan':'#5bcfff','--iri-lime':'#d5ff66' };
-const COMPONENT_KEYS = [...new Set(S.flatMap(s=>s.u||[]).filter(k=>k.startsWith('.')))];
 
-/* ── Unification engine — for ANY kind, "what to replace it with" ── */
-const TOKEN_HEX = Object.assign({'--bg':'#ffffff','--surface':'#ffffff','--ink-2':'#2a2a2a'}, HEXOF);
-const NUMTOK = {
-  radius:{'--r-sm':8,'--r-md':12,'--r-lg':16,'--r-xl':20,'--r-2xl':28,'--r-pill':999},
-  spacing:{'--section-y':100,'--section-y-tight':80,'--section-y-loose':140,'--hero-top':56},
-  width:{'--container':1400,'--content-body':1200,'--content-wide':1180,'--content':1080,'--content-narrow':720,'--gutter':32}
-};
-function _rgb(h){ if(!h) return null; h=h.replace('#',''); if(h.length===3) h=h.split('').map(c=>c+c).join(''); if(h.length<6) return null; return {r:parseInt(h.slice(0,2),16),g:parseInt(h.slice(2,4),16),b:parseInt(h.slice(4,6),16)}; }
-function nearestColor(hex, exclude){ const t=_rgb(hex); if(!t) return null; let best=null; for(const k in TOKEN_HEX){ if(k===exclude) continue; const c=_rgb(TOKEN_HEX[k]); const d=Math.sqrt((t.r-c.r)**2+(t.g-c.g)**2+(t.b-c.b)**2); if(!best||d<best.d) best={k,d}; } return best; }
-function numGroup(key){ for(const g in NUMTOK) if(key in NUMTOK[g]) return NUMTOK[g]; return null; }
-function nearestNum(key){ const g=numGroup(key); if(!g) return null; const v=g[key]; let best=null; for(const k in g){ if(k===key) continue; const d=Math.abs(g[k]-v); if(!best||d<best.d) best={k,d}; } return best; }
-function siblingClass(cls){ if(!DATA) return null; const prefix=cls.replace(/-[^-]+$/,''); if(prefix===cls) return null; const cands=Object.entries(DATA.classes||{}).filter(([k,v])=>k!==cls&&(k===prefix||k.indexOf(prefix+'-')===0)&&v.total>0).sort((a,b)=>b[1].total-a[1].total); return cands.length?cands[0][0]:null; }
-function nearestFontSize(px){ if(!DATA) return null; const v=parseFloat(px); const mine=(DATA.fontsize[px]||{}).total||0; let best=null; for(const k in (DATA.fontsize||{})){ if(k===px) continue; const t=(DATA.fontsize[k]||{}).total||0; const d=Math.abs(parseFloat(k)-v); if(d<=1.5 && t>mine && (!best || t>((DATA.fontsize[best.k]||{}).total||0))) best={k,d}; } return best; }
-/* returns replacement HTML string (or '' if none) for a key that is still in use */
-function recommend(key){
-  if(key[0]==='#'){ const n=nearestColor(key); return n? 'var('+n.k+')'+(n.d<1?'':' <span style="opacity:.6">Δ'+Math.round(n.d)+'</span>') : ''; }
-  if(key.startsWith('--')){
-    if(numGroup(key)){ const n=nearestNum(key), g=numGroup(key); return n? 'var('+n.k+') <span style="opacity:.6">('+g[key]+'→'+g[n.k]+')</span>' : ''; }
-    if(TOKEN_HEX[key]){ const n=nearestColor(TOKEN_HEX[key], key); return n? 'var('+n.k+') <span style="opacity:.6">Δ'+Math.round(n.d)+' — verify intent</span>' : ''; }
-    return '';
-  }
-  if(key[0]==='.'){ const s=siblingClass(key); return s? s+' <span style="opacity:.6">(most-used in its family)</span>' : ''; }
-  if(/^\d/.test(key)){ const n=nearestFontSize(key); return n? n.k+' <span style="opacity:.6">(more common — unify)</span>' : ''; }
-  return '';
-}
-let DATA = null, API_OK = false, EDIT_MODE = false, APPROVED = new Set(), REVIEW_FILTER = 'all';
+/* ═══════════ WHERE IT LIVES ═══════════
+   Not a picture of a page — a picture of the COMPONENT, cropped to where it sits.
+   The unit is the occurrence, not the page: the wordmark's nav (light) and footer
+   (dark) live on the same page and are completely different situations. So we load
+   the page that uses it most, find every occurrence, and show one per distinct
+   context. Click to open the real page and explore the rest. */
+let WHERE_ALL=false, WHERE_TOKEN=0, WHERE_STORY='';
 
-function actBtn(label,cls,payload){ return '<button class="sb-act '+cls+'" data-act="'+encodeURIComponent(JSON.stringify(payload))+'">'+label+'</button>'; }
-function approveBtn(key){ const on=APPROVED.has(key); return '<button class="sb-approve'+(on?' on':'')+'" data-approve="'+encodeURIComponent(key)+'" title="'+(on?'Reviewed — kept as it is. Click to move back to review.':'Keep this as it is — stop suggesting it')+'">'+(on?uic('check',12)+'Kept':'Keep as is')+'</button>'; }
-function proposalChip(key,type,total){
-  if(total===0) return '<span class="sb-prop rm">suggest: remove</span>';
-  const flagged = total<=2 || type==='hex' || type==='font-size';
-  if(!flagged) return '';
-  const rec=recommend(key); if(!rec) return '';
-  return '<span class="sb-prop">→ '+rec.replace(/<[^>]+>/g,'')+'</span>';
+/* Does this actually draw anything? A class can be on a node that paints nothing —
+   the footer has a .brand-ai with a real 29\u00d721 box and no pixels in it. Centre a
+   crop on that and you frame empty footer and call it the logo. So: only occurrences
+   that render something get to be an example. */
+function paints(el,win){
+  if((el.innerText||'').trim()) return true;
+  if(el.querySelector('svg,img,canvas,video,picture')) return true;
+  const cs=win.getComputedStyle(el);
+  if(cs.backgroundImage && cs.backgroundImage!=='none') return true;
+  const bg=cs.backgroundColor||'';
+  const m=bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+  if(m && (m[4]===undefined || parseFloat(m[4])>0.05)) return true;
+  if(parseFloat(cs.borderTopWidth)>0 || parseFloat(cs.borderLeftWidth)>0) return true;
+  return false;
 }
-function filterBar(){
-  return '<div class="sb-filter" id="sbFilter">'
-    + '<button data-filter="all"'+(REVIEW_FILTER==='all'?' class="on"':'')+'>All</button>'
-    + '<button data-filter="review"'+(REVIEW_FILTER==='review'?' class="on"':'')+'>Needs review</button>'
-    + '<button data-filter="approved"'+(REVIEW_FILTER==='approved'?' class="on"':'')+'>Kept</button></div>';
+function shotEls(root,win,key){
+  return [...root.querySelectorAll(key)].filter(e=>{
+    const r=e.getBoundingClientRect();
+    return r.width>0 && r.height>0 && paints(e,win);
+  });
 }
-function actionFor(key,type,total){
-  if(!API_OK || !EDIT_MODE) return '';   // read-only unless edit mode is unlocked
-  if(total===0){
-    if(type==='token'){ const e=(DATA.tokens||{})[key]||{}; if((e.cssRefs||0)>0) return ''; return actBtn('Remove','rm',{type:'remove-token',token:key}); }
-    if(type==='class'){ if(DATA&&DATA.cssClasses&&DATA.cssClasses.indexOf(key)<0) return ''; return actBtn('Remove','rm',{type:'remove-css-rule',selector:key}); }
-    return '';
+/* Is this sitting on something dark? Walk up for the first painted background. */
+function ctxOf(el,win){
+  /* Start at the PARENT. A black primary button asked about itself answers "dark",
+     which would label a black button on a white nav as a dark-theme example. What we
+     want is what it's sitting ON, not what it is. */
+  let n=el.parentElement;
+  while(n && n!==win.document.documentElement){
+    const bg=win.getComputedStyle(n).backgroundColor;
+    const m=(bg||'').match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?/);
+    if(m && (m[4]===undefined || parseFloat(m[4])>0.5)){
+      const lum=(0.2126*+m[1]+0.7152*+m[2]+0.0722*+m[3])/255;
+      return lum<0.5 ? 'dark' : 'light';
+    }
+    n=n.parentElement;
   }
-  if(type==='hex'){ const n=nearestColor(key); return n? actBtn('Replace everywhere','',{type:'replace-hex',hex:key,token:n.k}) : ''; }
-  if(type==='font-size'){ const n=nearestFontSize(key); return n? actBtn('Replace everywhere','',{type:'replace-fontsize',old:key,new:n.k}) : ''; }
-  if(type==='class'){ const s=siblingClass(key); return (s && key.indexOf(s+'-')===0)? actBtn('Replace everywhere','',{type:'replace-class',from:key,to:s}) : ''; }
-  if(type==='token'){
-    if(numGroup(key)){ const n=nearestNum(key); return n? actBtn('Replace everywhere','',{type:'replace-token',from:key,to:n.k}) : ''; }
-    if(TOKEN_HEX[key]){ const n=nearestColor(TOKEN_HEX[key],key); return (n&&n.d<1)? actBtn('Merge','',{type:'replace-token',from:key,to:n.k}) : ''; }
-    return '';
-  }
-  return '';
+  return 'light';
 }
-
-/* ── Plain-language dictionary — turns code names into designer language ── */
-const COLORNAME={ '#0a0a0a':'Ink (near-black)','#2a2a2a':'Dark grey','#5c6f69':'Muted grey','#fafaf6':'Soft off-white','#ffffff':'White','#0a8c66':'Brand green (deep)','#4fe8a9':'Brand green (bright)','#5bcfff':'Iridescent cyan','#d5ff66':'Iridescent lime','#5b4fcf':'Brand purple','#eeebff':'Light purple','#7b00ff':'Bright purple' };
-const TOKENINFO={
-  '--ink':['Color','Main text colour (near-black)'],'--ink-2':['Color','Secondary text colour'],'--ink-3':['Color','Muted text colour'],
-  '--bg':['Color','Page background'],'--surface':['Color','Card background'],'--surface-2':['Color','Soft inset background'],
-  '--accent':['Color','Brand green for links & eyebrows'],'--green-mid':['Color','Bright brand green'],'--purple':['Color','Brand purple'],
-  '--purple-light':['Color','Light purple'],'--purple-bright':['Color','Bright purple (alert bar)'],
-  '--iri-cyan':['Color','Iridescent cyan'],'--iri-lime':['Color','Iridescent lime'],'--iri-green':['Color','Iridescent green'],
-  '--line':['Color','Hairline border'],'--line-2':['Color','Stronger border'],'--btn-bg':['Color','Button fill'],'--btn-fg':['Color','Button label'],'--btn-bg-hover':['Color','Button hover fill'],
-  '--r-sm':['Corner radius','Small rounded corner (8px)'],'--r-md':['Corner radius','Medium corner (12px)'],'--r-lg':['Corner radius','Large corner (16px)'],'--r-xl':['Corner radius','Card corner (20px)'],'--r-2xl':['Corner radius','Feature corner (28px)'],'--r-pill':['Corner radius','Pill / fully round'],
-  '--section-y':['Spacing','Space between sections'],'--section-y-tight':['Spacing','Tight section spacing'],'--section-y-loose':['Spacing','Loose section spacing'],'--hero-top':['Spacing','Hero top spacing'],
-  '--container':['Layout','Page outer width'],'--content-body':['Layout','Wide content width'],'--content-wide':['Layout','Content width'],'--content':['Layout','Content column width'],'--content-narrow':['Layout','Narrow column width'],'--gutter':['Layout','Page side padding'],
-  '--shadow-card':['Style','Card shadow']
-};
-const COMPINFO={
-  '.btn':['Button','The standard outlined button'],'.btn-primary':['Button','Primary dark button'],'.btn-light':['Button','Light button variant'],'.btn-cta':['Button','Button for the dark CTA band'],'.btn-sm':['Button','Small button size'],'.btn-block':['Button','Full-width button'],'.btn-auth':['Button','Sign-up form button'],'.btn-social':['Button','Social sign-in button'],'.btn-dashboard':['Button','Dashboard link button'],'.btn-skip':['Button','Skip link'],
-  '.benefit-card':['Benefit card','A "why us" card with a sparkle icon'],'.t-card':['Testimonial card','A customer quote card'],'.eyebrow':['Eyebrow','The little green label above a heading'],'.avatar':['Avatar','Initials chip'],'.avatar-lg':['Avatar','Large initials chip'],
-  '.sci':['Interactive illustration','The animated demo card'],'.oc-float':['Outcome card','A floating outcome card'],'.statband-inner':['Stat band','Row of 4 stats'],'.stats-grid':['Stat grid','Grid of big numbers'],'.stat-block':['Stat grid','One big-number block'],'.stats-card-wrap':['Stats + portrait','Photo beside a dark stats card'],
-  '.expert-row':['Expert row','Copy beside an illustration panel'],'.mission-statement':['Mission statement','One big centred line'],'.logo-strip':['Logo strip','Scrolling client logos'],'.section-cta':['CTA band','The dark closing call-to-action'],
-  '.field':['Form field','A labelled input'],'.id-chip':['Selectable chip','A tap-to-select pill'],'.check-row':['Checkbox','A checkbox row'],'.thanks-icon':['Thank-you check','The success checkmark'],'.ind-grid':['Industries grid','Grid of industry cells'],'.step':['How-it-works step','A numbered step'],'.footer':['Footer','The site footer'],'.nav':['Navigation','The top navigation bar'],'.section-hero':['Hero','The top hero section'],
-  '.fly-badge':['Nav badge','"New" flag on nav items'],'.fly-badge-soon':['Nav badge','"Soon" flag on nav items'],'.sc-tag':['Category tag','Green label above a heading'],'.sc-badge':['Status badge','A status pill in illustrations']
-};
-const DESIGNER_COMPS=new Set(Object.keys(COMPINFO));  // what a designer decides on (whole components, not sub-parts)
-function deslug(k){ return k.replace(/^\./,'').replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase()); }
-function classify(key,type){
-  if(type==='hex'){ const h=key.toLowerCase(); return {badge:'Color',cls:'c-color',name:COLORNAME[h]||'Custom colour',code:key,swatch:key,blurb:COLORNAME[h]?'A brand colour typed by hand here.':'A colour that isn’t one of your brand colours.'}; }
-  if(type==='font-size') return {badge:'Text size',cls:'c-text',name:key+' text',code:key,size:key,blurb:'A text size used on the pages.'};
-  if(type==='token'){ const info=TOKENINFO[key]; if(info){ const map={'Color':'c-color','Corner radius':'c-radius','Spacing':'c-space','Layout':'c-layout','Style':'c-comp'}; return {badge:info[0],cls:map[info[0]]||'c-comp',name:info[1],code:key,swatch:(info[0]==='Color'?(TOKEN_HEX[key]||HEXOF[key]):null),blurb:info[0]+' setting used across the design.'}; } return {badge:'Setting',cls:'c-comp',name:deslug(key),code:key,blurb:'A design setting.'}; }
-  const info=COMPINFO[key];
-  if(info) return {badge:info[0],cls:'c-comp',name:info[0],code:key,blurb:info[1]};
-  return {badge:'Component',cls:'c-comp',name:deslug(key),code:key,blurb:'A style used inside a component.'};
+/* Where on the page is it? Gives the crop an honest caption. */
+function areaOf(el){
+  if(el.closest('.footer')) return 'In the footer';
+  if(el.closest('.nav,.site-header,.top-alert')) return 'In the nav';
+  if(el.closest('.section-cta')) return 'In the closing CTA';
+  if(el.closest('.section-hero,.ev-hero,.hero')) return 'In the hero';
+  if(el.closest('.auth-card,.reg-layout,.flow-shell')) return 'In the signup flow';
+  if(el.closest('.faq-list')) return 'In the FAQ';
+  return 'On the page';
 }
-function sampleHTML(c){ if(c.swatch) return '<span class="sb-swatch2" style="background:'+c.swatch+'"></span>'; if(c.size) return '<span class="sb-size2" style="font-size:'+Math.min(parseFloat(c.size),22)+'px">Aa</span>'; return '<span class="sb-swatch2" style="background:transparent;border-style:dashed"></span>'; }
-function recommendPlain(key){
-  const {type}=lookup(key);
-  if(type==='hex'){ const n=nearestColor(key); if(!n) return ''; return 'Swap for your <b>'+((TOKENINFO[n.k]&&TOKENINFO[n.k][1])||n.k)+'</b> so every use stays in sync.'; }
-  if(type==='font-size'){ const n=nearestFontSize(key); if(!n) return ''; return 'Change to <b>'+n.k+'</b> — the size you use most (removes a near-duplicate).'; }
-  if(type==='token'){ if(numGroup(key)){ const n=nearestNum(key); if(!n) return ''; return 'Use <b>'+((TOKENINFO[n.k]&&TOKENINFO[n.k][1])||n.k)+'</b> instead — they’re nearly the same.'; } if(TOKEN_HEX[key]){ const n=nearestColor(TOKEN_HEX[key],key); if(n&&n.d<1) return 'Merge into <b>'+((TOKENINFO[n.k]&&TOKENINFO[n.k][1])||n.k)+'</b> — it’s the identical colour.'; } return ''; }
-  if(type==='class'){ const s=siblingClass(key); if(!s || key.indexOf(s+'-')!==0) return ''; return 'Use the <b>'+((COMPINFO[s]&&COMPINFO[s][0])||deslug(s))+'</b> style instead — the version you use most.'; }
-  return '';
+function whereShot(x){
+  return '<div class="sb-shot" data-preview="'+x.file+'" data-key="'+esc(x.key)+'" role="button" tabindex="0"'
+    + ' title="Open '+esc(x.page)+' and step through all '+x.total+'">'
+    + '<span class="sb-shot-win"><iframe src="../'+x.file+'" scrolling="no" tabindex="-1" aria-hidden="true" title=""'
+    + ' data-crop="'+x.i+'" data-cropkey="'+esc(x.key)+'"></iframe></span>'
+    + '<span class="sb-shot-meta"><b>'+esc(x.area)+'</b>'
+    + '<span class="sb-shot-sub">'+esc(x.page)+' · '+(x.ctx==='dark'?'on dark':'on light')+'</span></span></div>';
 }
-function suggestLine(key,type,total){
-  if(total===0) return '<div class="sb-suggest">'+uic('bulb',13)+'Nothing uses this — safe to remove.</div>';
-  const flagged=total<=2||type==='hex'||type==='font-size'; if(!flagged) return '';
-  const rec=recommendPlain(key); return rec?'<div class="sb-suggest">'+uic('bulb',13)+rec+'</div>':'';
+/* Crop each shot to its occurrence once the page inside has loaded. */
+function cropShot(fr){
+  try{
+    const doc=fr.contentDocument, win=fr.contentWindow;
+    /* Never scroll the frame to reach the element. Scrolling an iframe and then
+       positioning by viewport coordinates only holds until the page re-lays out —
+       then the scroll resets, the frame shows page top, and the crop confidently
+       frames the wrong thing. Instead: grow the frame to the whole page height so
+       nothing needs scrolling, and read honest page coordinates. */
+    fr.style.height=Math.max(doc.documentElement.scrollHeight,900)+'px';
+    win.scrollTo(0,0);
+    const els=shotEls(doc,win,fr.dataset.cropkey);
+    const el=els[+fr.dataset.crop]; if(!el) return;
+    const r=el.getBoundingClientRect();
+    const box=fr.parentElement.getBoundingClientRect();
+    /* Frame the NEIGHBOURHOOD, not the element. An eyebrow is 10px tall — fit that and
+       you get a green smudge in an empty field. So we crop a context box around it
+       (never smaller than 560×280) and never zoom past 1:1: you see the component
+       sitting in its surroundings, at the size it really is. */
+    const cw=Math.max(r.width+140,560), ch=Math.max(r.height+110,280);
+    const s=Math.min(box.width/cw, box.height/ch, 1);
+    fr.style.transformOrigin='top left';
+    fr.style.transform='scale('+s+')';
+    fr.style.left=Math.round(box.width/2 - (r.left+r.width/2)*s)+'px';
+    fr.style.top =Math.round(box.height/2 - (r.top+r.height/2)*s)+'px';
+    fr.style.opacity='1';
+    el.style.outline='2px solid #12c98d'; el.style.outlineOffset='2px';
+  }catch(e){}
 }
-/* what a suggestion swaps, for the before/after sample */
-function baTarget(key,type){
-  if(type==='hex'){ const n=nearestColor(key); return n?{kind:'color',fromHex:key,toHex:TOKEN_HEX[n.k]}:null; }
-  if(type==='font-size'){ const n=nearestFontSize(key); return n?{kind:'size',from:key,to:n.k}:null; }
-  if(type==='token'){ const g=numGroup(key); if(g){ const n=nearestNum(key); if(!n) return null; return {kind:(g===NUMTOK.radius?'radius':(g===NUMTOK.spacing?'space':'width')),fromVal:g[key],toVal:g[n.k]}; } if(TOKEN_HEX[key]){ const n=nearestColor(TOKEN_HEX[key],key); if(n&&n.d<1) return {kind:'color',fromHex:TOKEN_HEX[key],toHex:TOKEN_HEX[n.k]}; } return null; }
-  if(type==='class'){ const s=siblingClass(key); if(!s||key.indexOf(s+'-')!==0) return null; return {kind:'class',from:key,to:s}; }
-  return null;
-}
-function beforeAfterHTML(key,type){
-  const t=baTarget(key,type); if(!t) return '';
-  let b='',a='',note='';
-  if(t.kind==='color'){
-    b='<span class="ba-swatch" style="background:'+t.fromHex+'"></span><b style="color:'+t.fromHex+'">Aa</b>';
-    a='<span class="ba-swatch" style="background:'+t.toHex+'"></span><b style="color:'+t.toHex+'">Aa</b>';
-    note=((t.fromHex||'').toLowerCase()===(t.toHex||'').toLowerCase())?'Same colour — nothing changes visually, it’s just managed centrally now.':'Slightly different colour — check it still looks right.';
-  } else if(t.kind==='size'){
-    b='<span style="font-size:'+t.from+';color:#0A0A0A">The humans behind AI</span>';
-    a='<span style="font-size:'+t.to+';color:#0A0A0A">The humans behind AI</span>';
-  } else if(t.kind==='radius'){
-    b='<span class="ba-box" style="border-radius:'+t.fromVal+'px"></span>'; a='<span class="ba-box" style="border-radius:'+t.toVal+'px"></span>';
-  } else if(t.kind==='space'||t.kind==='width'){
-    b='<span class="ba-bar" style="width:'+Math.min(t.fromVal,140)+'px"></span><small>'+t.fromVal+'</small>'; a='<span class="ba-bar" style="width:'+Math.min(t.toVal,140)+'px"></span><small>'+t.toVal+'</small>';
-  } else if(t.kind==='class'){
-    b='<a class="'+t.from.slice(1)+' btn">Button</a>'; a='<a class="'+t.to.slice(1)+' btn">Button</a>';
-  }
-  return '<div class="ba-card"><div class="ba-side"><div class="ba-lbl">Before</div><div class="ba-stage">'+b+'</div></div><div class="ba-arrow">→</div><div class="ba-side"><div class="ba-lbl">After</div><div class="ba-stage">'+a+'</div></div></div>'+(note?'<div class="ba-note">'+note+'</div>':'');
-}
-
-function lookup(key){
-  if(!DATA) return {type:'?',name:key,entry:null};
-  if(key.startsWith('font:')){ const n=key.slice(5); return {type:'font',name:n,entry:(DATA.fonts||{})[n]}; }
-  if(key.startsWith('#'))  return {type:'hex',  name:key,entry:(DATA.hex||{})[key.toLowerCase()]};
-  if(key.startsWith('--')) return {type:'token',name:key,entry:(DATA.tokens||{})[key]};
-  if(/^\d/.test(key))      return {type:'font-size',name:key,entry:(DATA.fontsize||{})[key]};
-  return {type:'class',name:key,entry:(DATA.classes||{})[key]};
-}
-function verdict(total,type,cssRefs){
-  if(total>=3) return {cls:'ok',label:'In use'};
-  if(total===2) return {cls:'warn',label:'Rarely used'};
-  if(total===1) return {cls:'warn',label:'One-off'};
-  if(type==='token'&&cssRefs>0) return {cls:'gray',label:'CSS-internal only'};
-  return {cls:'bad',label:'Unused — removable'};
-}
-const CARET='<svg class="sb-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>';
-function rowHTML(key,noteHTML){
-  const {type,name,entry}=lookup(key);
-  const total=entry?entry.total:0, cssRefs=(entry&&entry.cssRefs)||0;
-  const v=verdict(total,type,cssRefs);
-  const files=entry&&entry.files?Object.entries(entry.files):[];
-  let note=noteHTML||'';
-  if(type==='token'&&HEXOF[key]){ const h=(DATA.hex||{})[HEXOF[key]]; if(h&&h.total>0) note+='<div class="sb-unote">Same color appears as raw hex <b>'+HEXOF[key]+'</b> ×'+h.total+' — bypassing <b>'+key+'</b>.</div>'; }
-  if(type==='token'&&cssRefs) note+='<div class="sb-unote" style="background:rgba(255,255,255,.03);border-color:var(--sb-line);color:var(--sb-txt-3)">Referenced by <b style="color:var(--sb-txt-2)">'+cssRefs+'</b> rule(s) in ptf.css.</div>';
-  // the universal rule: 0 use → remove; 1–2 use → replacement required first
-  if(total===0){ note+='<div class="sb-unote" style="background:rgba(255,99,99,.09);border-color:rgba(255,99,99,.22)"><b style="color:#FF8A8A">Safe to remove</b> — unused on all '+(DATA?DATA.meta.pageCount:0)+' pages'+((type==='token'&&cssRefs)?' (still referenced inside ptf.css — clean that too)':'')+'.</div>'; }
-  else if(total<=2){ const rec=recommend(key); note+='<div class="sb-unote"><b>Replace before removing →</b> '+(rec?('<code style="color:#12c98d">'+rec+'</code>'):'no automatic match — review manually')+'</div>'; }
-  const filesHTML=files.length?files.map(([f,n])=>'<button type="button" class="sb-ufile" data-file="'+f+'" data-key="'+key+'"><code>'+f+'</code><span class="sb-ufile-r"><b>'+n+'×</b><span class="sb-open">preview'+uic('external',11)+'</span></span></button>').join(''):'<div class="sb-empty">No page uses this.</div>';
-  const count=total?('used '+total+'× on '+files.length+' page'+(files.length===1?'':'s')):'not used';
-  const appr=APPROVED.has(key);
-  const c=classify(key,type);
-  const nameblock='<div class="sb-nameblock"><div class="sb-fname">'+c.name+' <code class="sb-code-name">'+c.code+'</code></div><div class="sb-blurb">'+c.blurb+'</div>'+(appr?'':suggestLine(key,type,total))+'</div>';
-  return '<div class="sb-urow'+(appr?' approved':'')+'" data-key="'+key+'"><div class="sb-urow-top">'+CARET+'<span class="sb-cat '+c.cls+'">'+c.badge+'</span>'+sampleHTML(c)+nameblock+'<span class="sb-ucount">'+count+'</span><span class="sb-verdict '+v.cls+'">'+(appr?uic('check',12)+'Kept':v.label)+'</span>'+(appr?'':actionFor(key,type,total))+approveBtn(key)+'</div><div class="sb-ufiles">'+(appr?'':beforeAfterHTML(key,type))+note+filesHTML+'</div></div>';
-}
-function renderUsage(keys){
+async function renderWhere(story){
   const wrap=document.getElementById('sbUsage');
-  if(!keys||!keys.length){ wrap.innerHTML=''; return; }
-  if(!DATA){ wrap.innerHTML='<div class="sb-usage-h"><b>Usage across the site</b><span>Run <code>python3 ds/usage-scan.py</code> to load usage data.</span></div>'; return; }
-  wrap.dataset.filter=REVIEW_FILTER;
-  wrap.innerHTML='<div class="sb-usage-h"><b>Usage across the site</b><span>'+DATA.meta.pageCount+' pages · click a row, then a file to open it</span></div>'+filterBar()+keys.map(k=>rowHTML(k)).join('');
-  const f=wrap.querySelector('.sb-urow'); if(f) f.classList.add('open'); // first row expanded so previews are visible
+  const keys=(story.u||[]).filter(k=>k.charAt(0)==='.');
+  const token=++WHERE_TOKEN;
+  if(WHERE_STORY!==story.id){ WHERE_ALL=false; WHERE_STORY=story.id; }   // "show more" is per story
+  if(!DATA||!keys.length){ wrap.innerHTML=''; return; }
+  const tally={};
+  keys.forEach(k=>{ const e=DATA.classes[k]; if(!e) return;
+    Object.entries(e.files||{}).forEach(([f,n])=>{ if(f.endsWith('.html')) tally[f]=(tally[f]||0)+n; }); });
+  const pages=Object.keys(tally)
+    .map(f=>({file:f,n:tally[f],p:(PAGE_META.find(x=>x.file===f)||PAGE_LIST.find(x=>x.file===f))}))
+    .filter(x=>x.p && (x.p.status||'live')!=='archived')
+    .sort((a,b)=>b.n-a.n);
+  if(!pages.length){
+    wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b></div>'
+      + '<div class="sb-nowhere">'+uic('warning',14)+'<span><b>Nothing uses this yet.</b> '
+      + 'It exists in the system, but no page has taken it. Either it is waiting for its moment, or it is a candidate to retire.</span></div>';
+    return;
+  }
+  wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b><span>'+pages.length+' page'+(pages.length===1?'':'s')+'</span>'
+    +'<i class="sb-where-hint">finding distinct examples…</i></div>';
+  /* Measure the busiest page: find every occurrence and keep one per distinct situation. */
+  const shots=[];
+  for(const cand of pages.slice(0,3)){
+    if(shots.length>=(WHERE_ALL?6:2)) break;
+    const probe=await loadProbe('../'+cand.file);
+    if(!probe) continue;
+    try{
+      for(const key of keys){
+        const els=shotEls(probe.doc,probe.win,key);
+        els.forEach((el,i)=>{
+          const sig=ctxOf(el,probe.win)+'|'+areaOf(el);
+          if(shots.some(sh=>sh.sig===sig)) return;               // already have this situation
+          shots.push({sig,file:cand.file,page:cand.p.name,key,i,
+                      ctx:ctxOf(el,probe.win),area:areaOf(el),total:cand.n});
+        });
+      }
+    }catch(e){}
+    probe.kill();
+    if(token!==WHERE_TOKEN) return;                              // she moved on
+  }
+  if(token!==WHERE_TOKEN) return;
+  const cap=WHERE_ALL?6:2, show=shots.slice(0,cap), rest=shots.length-show.length;
+  wrap.innerHTML='<div class="sb-where-h"><b>Where it lives</b><span>'+pages.length+' page'+(pages.length===1?'':'s')+'</span>'
+      +'<i class="sb-where-hint">click a shot to open the page and step through every use</i></div>'
+    + '<div class="sb-shots">'+show.map(whereShot).join('')+'</div>'
+    + (rest>0?'<button class="sb-where-more" data-wheremore="1">Show '+rest+' more example'+(rest===1?'':'s')+'</button>':'');
+  wrap.querySelectorAll('.sb-shot iframe').forEach(fr=>{ fr.addEventListener('load',()=>cropShot(fr)); });
 }
+/* A hidden full-size copy of a page, just to measure where things are. */
+function loadProbe(src){
+  return new Promise(res=>{
+    const fr=document.createElement('iframe');
+    fr.style.cssText='position:fixed;left:-9999px;top:0;width:1280px;height:1400px;border:0;visibility:hidden';
+    fr.src=src;
+    let done=false;
+    const finish=ok=>{ if(done) return; done=true;
+      res(ok?{doc:fr.contentDocument,win:fr.contentWindow,kill:()=>fr.remove()}:null); if(!ok) fr.remove(); };
+    fr.onload=()=>setTimeout(()=>finish(true),260);
+    fr.onerror=()=>finish(false);
+    setTimeout(()=>finish(false),6000);
+    document.body.appendChild(fr);
+  });
+}
+
 /* ═══════════ VISUAL FINDINGS — the audit in designer language ═══════════
    Each finding renders the REAL variations live from their measured values, so a label
    can never drift from what you see. Specimens stamp their own measured size. */
@@ -1305,7 +1276,12 @@ function specimenHTML(v){
   return '<div class="sb-sp"><div class="sb-sp-stage'+(dark?' dark':'')+'">'+inner+'</div>'
     + '<div class="sb-sp-meta"><div class="sb-sp-name">'+esc(v.label)+'<span class="sb-stamp">·</span></div>'
     + (v.note?'<div class="sb-sp-note">'+esc(v.note)+'</div>':'')
-    + (v.where&&v.where.length?'<div class="sb-sp-where"><b>'+v.where.length+' page'+(v.where.length===1?'':'s')+':</b> '+esc(v.where.join(', '))+'</div>':'')
+    + (v.where&&v.where.length?(function(){
+        const live=v.where.filter(n=>pageStatusByName(n)!=='archived');
+        const gone=v.where.length-live.length;
+        return '<div class="sb-sp-where"><b>'+live.length+' page'+(live.length===1?'':'s')+':</b> '+esc(live.join(', '))
+          + (gone?' <i class="sb-arch-note">+'+gone+' archived</i>':'')+'</div>';
+      })():'')
     + '</div></div>';
 }
 /* Measure every specimen and stamp what it ACTUALLY renders as, so a label can never
@@ -1331,6 +1307,27 @@ function stampSpecimens(root){
       else badge.remove();
     });
   });
+}
+/* A finding is only worth showing if it is still about something real.
+   Computed live, never stored: archive the last page it references and it goes;
+   un-archive one and it comes back on its own. A stored dismissal would silently
+   bury a problem that came back. */
+function pageStatusByName(name){
+  const p=(PAGE_META.find(x=>x.name===name))||(PAGE_LIST.find(x=>x.name===name));
+  return p?(p.status||'live'):null;      // unknown name (e.g. renamed) → fail safe, keep the finding
+}
+function findingPages(f){
+  const names=new Set();
+  (f.variants||[]).forEach(v=>(v.where||[]).forEach(n=>names.add(n)));
+  (f.measured_on||[]).forEach(n=>names.add(n));
+  return [...names];
+}
+function findingObsolete(f){
+  const names=findingPages(f);
+  if(!names.length) return false;                       // not page-scoped (tokens, shadows…)
+  const known=names.map(pageStatusByName).filter(Boolean);
+  if(!known.length) return false;                       // can't tell → show it
+  return known.every(st=>st==='archived');              // every page it is about is archived
 }
 function findingHTML(f){
   const dec=DECIDED[f.id];
@@ -1391,7 +1388,7 @@ function findingHTML(f){
   return h;
 }
 function impactBar(){
-  const all=AUDIT?AUDIT.findings:[];
+  const all=AUDIT?AUDIT.findings.filter(f=>!findingObsolete(f)):[];
   const c={high:0,medium:0,low:0}; all.forEach(f=>c[f.impact]++);
   const done=all.filter(f=>DECIDED[f.id]).length, pct=all.length?Math.round(done/all.length*100):0;
   /* Two separate questions — what to show, and how big it is — so they get two
@@ -1412,6 +1409,7 @@ function renderCleanup(){
   const wrap=document.getElementById('sbOppsBody');
   if(!AUDIT){ wrap.innerHTML='<div class="sb-empty">Findings not loaded — <code>ds/audit-findings.json</code> is missing.</div>'; return; }
   const list=AUDIT.findings.slice().sort((a,b)=>IMPACT_ORDER[a.impact]-IMPACT_ORDER[b.impact])
+    .filter(f=>!findingObsolete(f))
     .filter(f=>IMPACT_FILTER==='all'||f.impact===IMPACT_FILTER)
     .filter(f=>STATUS_FILTER==='all'||(STATUS_FILTER==='done'?DECIDED[f.id]:!DECIDED[f.id]));
   const allDone=AUDIT.findings.every(f=>DECIDED[f.id]);
@@ -1426,42 +1424,19 @@ function renderCleanup(){
   wrap.innerHTML='<div class="sb-usage-h"><b>Cleanup &amp; unify</b><span>measured across '+esc(AUDIT.measured)+'</span></div>'
     + impactBar()
     + body
-    + '<div class="sb-devsec"><button class="sb-dev-toggle" type="button"><span class="sb-dev-caret">'+uic('chevronRight',13)+'</span>Technical details — tokens, raw colours, unused styles</button>'
-    + '<p class="sb-clean-hint" style="margin-top:4px">The code-level audit: settings nothing uses, colours typed by hand, near-duplicate text sizes. Useful, but not design decisions.</p>'
-    + '<div class="sb-dev-body" id="sbTech"></div></div>';
+    ;
   stampSpecimens(wrap);
-}
-function renderCleanupTechnical(){
-  const wrap=document.getElementById('sbTech');
-  if(!wrap) return;
-  if(!DATA){ wrap.innerHTML='<div class="sb-empty">Usage data not loaded. Run <code>python3 ds/usage-scan.py</code>.</div>'; return; }
-  if(wrap.dataset.done) return; wrap.dataset.done='1';
-  const cssSet=new Set(DATA.cssClasses||[]);
-  // designer-level: only whole components (in COMPINFO), not internal sub-parts
-  const comps=[...DESIGNER_COMPS].map(k=>({k,t:((DATA.classes||{})[k]||{total:0}).total})).filter(x=>x.t<=2 && (!DATA.cssClasses || cssSet.has(x.k))).sort((a,b)=>a.t-b.t);
-  const toks=Object.entries(DATA.tokens||{}).filter(([k,v])=>v.total===0).map(([k,v])=>({k,r:v.cssRefs||0})).sort((a,b)=>a.r-b.r);
-  const untok=Object.entries(HEXOF).map(([tok,hex])=>{const h=(DATA.hex||{})[hex]||{total:0},t=(DATA.tokens||{})[tok]||{total:0};return {tok,hex,raw:h.total,via:t.total};}).filter(x=>x.raw>0).sort((a,b)=>b.raw-a.raw);
-  const knownHex=new Set(Object.values(TOKEN_HEX).map(h=>h.toLowerCase()));
-  const offp=Object.entries(DATA.hex||{}).filter(([hex])=>{const l=hex.toLowerCase(); return !knownHex.has(l)&&['#fff','#ffffff','#000','#000000'].indexOf(l)<0;}).map(([hex,v])=>({hex,t:v.total})).sort((a,b)=>b.t-a.t).slice(0,24);
-  const fsizes=Object.keys(DATA.fontsize||{});
-  const dupFs=fsizes.filter(k=>nearestFontSize(k)).map(k=>({k,t:DATA.fontsize[k].total})).sort((a,b)=>a.t-b.t);
-  // developer bucket: internal ptf.css classes (not whole components) that are barely/never used
-  const devKeys=(DATA.cssClasses||[]).filter(k=> k.charAt(0)==='.' && !DESIGNER_COMPS.has(k) && (((DATA.classes||{})[k]||{total:0}).total)<=2)
-    .sort((a,b)=>(((DATA.classes||{})[a]||{total:0}).total)-(((DATA.classes||{})[b]||{total:0}).total));
-  let h='<p class="sb-clean-hint">'+DATA.meta.pageCount+' pages scanned · the rule: 0 uses → remove · 1–2 uses → replace first (each row tells you with what)</p>';
-  h+='<div class="sb-clean-h">Components you barely use</div><p class="sb-clean-hint">Whole components used twice or less. Remove if unused, or switch to the version you use most.</p>'+(comps.length?comps.map(x=>rowHTML(x.k)).join(''):'<div class="sb-empty">Nothing.</div>');
-  h+='<div class="sb-clean-h">Design settings nothing uses</div><p class="sb-clean-hint">Spacing, corner-radius, width and colour settings not used on any page — safe to tidy up.</p>'+(toks.length?toks.map(x=>rowHTML(x.k)).join(''):'<div class="sb-empty">None.</div>');
-  h+='<div class="sb-clean-h">Colours typed by hand</div><p class="sb-clean-hint">These are brand colours written as raw code instead of using your palette — the biggest source of drift.</p>'+(untok.length?untok.map(x=>rowHTML(x.hex,'<div class="sb-unote">Replace <b>'+x.raw+'×</b> hard-coded with <code style="color:#12c98d">var('+x.tok+')</code> (already used '+x.via+'× via the palette).</div>')).join(''):'<div class="sb-empty">None.</div>');
-  h+='<div class="sb-clean-h">Colours not in your palette</div><p class="sb-clean-hint">Colours that don’t match any brand colour. Each suggests the closest one to switch to.</p>'+(offp.length?offp.map(x=>rowHTML(x.hex,'<div class="sb-unote">Suggestion: '+(recommendPlain(x.hex)||'review')+'</div>')).join(''):'<div class="sb-empty">None.</div>');
-  h+='<div class="sb-clean-h">Text sizes that are near-duplicates</div><p class="sb-clean-hint">'+fsizes.length+' different text sizes across your pages. These are almost identical to another — pick one.</p>'+(dupFs.length?dupFs.map(x=>rowHTML(x.k)).join(''):'<div class="sb-empty">No near-duplicates.</div>');
-  h+='<div class="sb-devsec"><button class="sb-dev-toggle" type="button"><span class="sb-dev-caret">'+uic('chevronRight',13)+'</span>Developer — internal styles ('+devKeys.length+')</button><p class="sb-clean-hint" style="margin-top:4px">The tiny code-only pieces inside components. Not design decisions — hand this list to a developer when you have one.</p><div class="sb-dev-body">'+(devKeys.length?devKeys.map(k=>rowHTML(k)).join(''):'<div class="sb-empty">None.</div>')+'</div></div>';
-  wrap.innerHTML=h;
 }
 function renderA11y(){
   const wrap=document.getElementById('sbA11yBody');
-  if(!DATA){ wrap.innerHTML='<div class="sb-empty">Usage data not loaded.</div>'; return; }
-  wrap.innerHTML=(DATA.meta.pages||[]).map(p=>'<div class="sb-urow open"><button type="button" class="sb-ufile" data-file="'+p+'" data-a11y="1"><code>'+p+'</code><span class="sb-ufile-r"><span class="sb-open">scan for issues'+uic('external',11)+'</span></span></button></div>').join('')
-    + '<div class="sb-clean-hint" style="margin-top:16px">Checks images without <code>alt</code>, form controls without a label, and links/buttons with no accessible name. For colour contrast (WCAG) see <b>Foundations → Contrast checker</b>.</div>';
+  if(!DATA){ wrap.innerHTML='<div class="sb-empty">Page data not loaded — start the server and reload.</div>'; return; }
+  const named=f=>{ const p=(PAGE_LIST||[]).find(x=>x.file===f); return p?p.name:f; };
+  wrap.innerHTML=(DATA.meta.pages||[]).map(f=>
+      '<button type="button" class="sb-scanrow sb-ufile" data-file="'+f+'" data-a11y="1">'
+      + '<span class="sb-scan-name">'+esc(named(f))+'</span>'
+      + '<span class="sb-scan-go">scan for issues'+uic('external',11)+'</span></button>').join('')
+    + '<p class="sb-scan-note">Checks images without alt text, form fields with no label, and links or buttons with no name. '
+    + 'Colour contrast lives in Foundations → Contrast checker.</p>';
 }
 
 /* ═══════════ APP ═══════════ */
@@ -1567,6 +1542,14 @@ function applyTheme(){
 function select(id){
   const s=S.find(x=>x.id===id); if(!s) return; current=s;
   nameEl.textContent=s.name; descEl.textContent=s.desc||''; descEl.title=s.desc||'';
+  /* Breadcrumb, not a back arrow: it says where you are AND takes you back. */
+  const crumb=document.getElementById('sbCrumb'), ren=document.getElementById('sbRename');
+  if(s.pageId){
+    const gal = s.g==='Flows' ? 'gal-flows' : (s.g==='Pages' ? 'gal-pages' : null);
+    crumb.hidden=!gal;
+    if(gal) crumb.innerHTML='<button data-crumb="'+gal+'">'+esc(s.g)+'</button>'+uic('chevronRight',12);
+    ren.hidden=false; ren.innerHTML=uic('edit',13);
+  } else { crumb.hidden=true; ren.hidden=true; }
   tagsEl.innerHTML=(s.tags||[]).map(t=>{ const c=/^[.#]|\(\)|--|\bMUI\b|live/.test(t); return '<span class="sb-chip'+(c?' code':'')+'">'+t+'</span>'; }).join('');
   document.querySelectorAll('.sb-item').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
   toggleGroup(s.g,true);                      // reveal where you are
@@ -1589,7 +1572,7 @@ function select(id){
       if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
       if(el) el.scrollIntoView({block:'start'});
     }catch(e){} };
-    applyTheme(); renderUsage(s.u||[]); location.hash=id; return;
+    applyTheme(); WHERE_ALL=false; renderWhere(s); location.hash=id; return;
   }
   codeSec.classList.toggle('hidden',!codeOpen);
   stageInner.style.padding='';
@@ -1599,7 +1582,7 @@ function select(id){
   codeText.textContent=html.trim();
   applyTheme();
   if(typeof s.mount==='function'){ try{ s.mount(stageInner); }catch(e){ console.warn(e); } }
-  renderUsage(s.u||[]); location.hash=id;
+  WHERE_ALL=false; renderWhere(s); location.hash=id;
 }
 
 /* ═══════════ PAGES / FLOWS — a gallery, not a list ═══════════
@@ -1629,9 +1612,9 @@ function tileHTML(p){
       + (st!=='live'?' · <i class="sb-tile-st '+st+'">'+st+'</i>':'')+'</span></span>'
       + '<span class="sb-tile-acts">'
         + '<button class="sb-tile-ico'+(done?' on':'')+'" data-set="'+(done?'draft':'live')+'" data-pid="'+p.id+'"'
-          + ' title="'+doneT+'" aria-label="'+doneT+'" aria-pressed="'+(done?'true':'false')+'">'+uic('check',15)+'</button>'
+          + ' title="'+doneT+'" aria-label="'+doneT+'" aria-pressed="'+(done?'true':'false')+'">'+uic('done',17)+'</button>'
         + '<button class="sb-tile-ico'+(arch?' on':'')+'" data-set="'+(arch?'draft':'archived')+'" data-pid="'+p.id+'"'
-          + ' title="'+archT+'" aria-label="'+archT+'" aria-pressed="'+(arch?'true':'false')+'">'+uic('archive',15)+'</button>'
+          + ' title="'+archT+'" aria-label="'+archT+'" aria-pressed="'+(arch?'true':'false')+'">'+uic('archive',17)+'</button>'
       + '</span>'
     + '</span></div>';
 }
@@ -1918,9 +1901,9 @@ async function findFresh(){
 function oppsOpen(){ return !document.getElementById('sbOppsPanel').hidden; }
 function updateOppsCount(){
   const btn=document.getElementById('sbOpps'), n=document.getElementById('sbOppsN');
-  const open=AUDIT?AUDIT.findings.filter(f=>!DECIDED[f.id]).length:0;
+  const open=AUDIT?AUDIT.findings.filter(f=>!findingObsolete(f)&&!DECIDED[f.id]).length:0;
   n.textContent=open; btn.classList.toggle('none',!open);
-  const all=AUDIT?AUDIT.findings.length:0, done=all-open;
+  const all=AUDIT?AUDIT.findings.filter(f=>!findingObsolete(f)).length:0, done=all-open;
   const cnt=document.getElementById('sbOppsCount'), prog=document.getElementById('sbOppsProg');
   if(cnt) cnt.innerHTML=all?'<b>'+done+'</b> of '+all+' decided':'';
   if(prog) prog.style.width=(all?Math.round(done/all*100):0)+'%';
@@ -1990,17 +1973,17 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
   const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
-  const dev=e.target.closest('.sb-dev-toggle'); if(dev){ const body=dev.parentElement.querySelector('.sb-dev-body'); const open=body.classList.toggle('open'); dev.classList.toggle('open',open); if(open&&body.id==='sbTech') renderCleanupTechnical(); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
-  const top=e.target.closest('.sb-urow-top'); if(top) top.parentElement.classList.toggle('open');
 });
 
 document.getElementById('sbUsage').addEventListener('click',e=>{
+  const pv=e.target.closest('[data-preview]');
+  if(pv){ openPreview(pv.dataset.preview, pv.dataset.key||null); return; }
+  if(e.target.closest('[data-wheremore]')){ WHERE_ALL=true; renderWhere(current); return; }
   const sst=e.target.closest('[data-set]');
   if(sst){ e.stopPropagation(); setPageStatus(sst.dataset.pid, sst.dataset.set, ()=>renderGallery(current.galleryOf)); return; }
   const t=e.target.closest('[data-goto]'); if(t){ select(t.dataset.goto); return; }
   if(e.target.closest('[data-arch]')){ SHOW_ARCH_TILES=!SHOW_ARCH_TILES; renderGallery(current.galleryOf); return; }
-  const dev=e.target.closest('.sb-dev-toggle'); if(dev){ const body=dev.parentElement.querySelector('.sb-dev-body'); const open=body.classList.toggle('open'); dev.classList.toggle('open',open); if(open&&body.id==='sbTech') renderCleanupTechnical(); return; }
   const op=e.target.closest('[data-open]');
   if(op && !e.target.closest('.sb-dec')){
     OPEN_FINDING = (OPEN_FINDING===op.dataset.open) ? null : op.dataset.open;
@@ -2012,11 +1995,7 @@ document.getElementById('sbUsage').addEventListener('click',e=>{
   const dc=e.target.closest('.sb-dec'); if(dc){ decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
   const sf=e.target.closest('#sbStatus button'); if(sf){ STATUS_FILTER=sf.dataset.status; renderCleanup(); return; }
-  const fb=e.target.closest('.sb-filter button'); if(fb){ REVIEW_FILTER=fb.dataset.filter; document.getElementById('sbUsage').dataset.filter=REVIEW_FILTER; document.querySelectorAll('.sb-filter button').forEach(b=>b.classList.toggle('on',b===fb)); return; }
-  const ap=e.target.closest('.sb-approve'); if(ap){ e.stopPropagation(); toggleApprove(decodeURIComponent(ap.dataset.approve)); return; }
-  const act=e.target.closest('.sb-act'); if(act){ e.stopPropagation(); applyAction(JSON.parse(decodeURIComponent(act.dataset.act))); return; }
   const file=e.target.closest('.sb-ufile'); if(file){ openPreview(file.dataset.file,file.dataset.key, file.dataset.a11y?'a11y':null); return; }
-  const top=e.target.closest('.sb-urow-top'); if(top) top.parentElement.classList.toggle('open');
 });
 /* ── The lock: anyone can READ the audit; only an unlocked editor can change the code.
    Locked buttons stay visible and clickable — clicking asks for the password, then
@@ -2184,6 +2163,37 @@ document.getElementById('sbEdit').addEventListener('click',async()=>{
 });
 document.getElementById('sbThemeSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b||b.disabled) return; themeMode=b.dataset.theme; if(current) select(current.id); });
 const VW={full:'',1280:'1280px',768:'768px',375:'375px'};
+document.getElementById('sbCrumb').addEventListener('click',e=>{
+  const b=e.target.closest('[data-crumb]'); if(b) select(b.dataset.crumb);
+});
+async function startRename(){
+  if(!current||!current.pageId) return;
+  if(!await requireUnlock()) return;         // it writes pages.json
+  const h1=document.getElementById('sbName'), was=current.name;
+  h1.contentEditable='true'; h1.classList.add('editing'); h1.focus();
+  document.execCommand('selectAll',false,null);
+  const finish=async(save)=>{
+    h1.contentEditable='false'; h1.classList.remove('editing');
+    h1.removeEventListener('keydown',key); h1.removeEventListener('blur',onBlur);
+    const name=h1.textContent.trim();
+    if(!save || !name || name===was){ h1.textContent=was; return; }
+    try{
+      const r=await fetch('/api/page-rename',{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({id:current.pageId,name})});
+      const j=await r.json();
+      if(!j.ok){ toast(uic('warning',13)+' '+esc(j.error||'failed')); h1.textContent=was; return; }
+      current.name=name;
+      [PAGE_LIST,PAGE_META].forEach(l=>{ const x=l.find(y=>y.id===current.pageId); if(x) x.name=name; });
+      buildSide();
+      toast(uic('check',13)+' Renamed to <b>'+esc(name)+'</b>');
+    }catch(err){ toast(uic('warning',13)+' Editing server not reachable.'); h1.textContent=was; }
+  };
+  const key=e=>{ if(e.key==='Enter'){ e.preventDefault(); finish(true); } if(e.key==='Escape'){ e.preventDefault(); finish(false); } };
+  const onBlur=()=>finish(true);
+  h1.addEventListener('keydown',key); h1.addEventListener('blur',onBlur);
+}
+document.getElementById('sbRename').addEventListener('click',startRename);
+document.getElementById('sbName').addEventListener('dblclick',()=>{ if(current&&current.pageId) startRename(); });
 document.getElementById('sbStatusSeg').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b||!current||!current.pageId) return;
   setPageStatus(current.pageId, b.dataset.statusSet, ()=>{ setTools(current); });
@@ -2302,7 +2312,7 @@ Promise.all([
   document.querySelectorAll('[data-ui-icon]').forEach(el=>{
     if(UI[el.dataset.uiIcon]) el.insertAdjacentHTML('afterbegin', uic(el.dataset.uiIcon,14));
   });
-  document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',14);
+  document.getElementById('sbA11yIcon').innerHTML=uic('accessibility',17);
   document.getElementById('sbA11yTitleIcon').innerHTML=uic('accessibility',19);
   document.getElementById('sbOppsIcon').innerHTML=uic('sparkle',14);
   document.getElementById('sbOppsTitleIcon').innerHTML=uic('sparkle',19);
