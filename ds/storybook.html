@@ -590,6 +590,19 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-thing-n{ margin-left:auto; font-size:11.5px; font-weight:700; color:var(--sb-txt-3);
   background:var(--sb-panel-2); border-radius:999px; padding:2px 9px; flex:none; }
 .sb-thing-body{ padding:2px 14px 14px 32px; }
+/* the live crop: a window onto the real page, positioned by cropPart so the group's
+   element sits centred and outlined */
+.sb-thing-shot{ position:relative; height:190px; margin-bottom:12px; border-radius:9px; overflow:hidden;
+  background:#fff; border:1px solid var(--sb-line); }
+.sb-thing-shot iframe{ position:absolute; width:1280px; height:1400px; border:0; pointer-events:none;
+  opacity:0; transition:opacity .2s ease; }
+.sb-thing-open{ position:absolute; top:8px; right:8px; z-index:2; display:inline-flex; align-items:center;
+  justify-content:center; width:26px; height:26px; border-radius:6px; color:#0A0A0A;
+  background:rgba(255,255,255,.9); border:1px solid rgba(10,10,10,.12); }
+.sb-thing-open:hover{ background:#fff; }
+.sb-thing-shot.empty{ background:var(--sb-panel-2); border-style:dashed; height:auto; display:flex; align-items:center; }
+.sb-thing-noshot{ display:flex; gap:9px; align-items:flex-start; padding:14px; font-size:12.5px; line-height:1.5; color:var(--sb-txt-2); }
+.sb-thing-noshot .sb-i{ flex:none; margin-top:1px; color:#FFCB6B; }
 .sb-thing-parts{ display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
 .sb-thing-parts code{ font-family:var(--sb-mono); font-size:11px; color:var(--sb-txt-3);
   background:var(--sb-panel-2); border-radius:5px; padding:2px 7px; }
@@ -1598,6 +1611,9 @@ function renderPageWork(s){
                 + '<b>'+esc(g.name)+'</b>'
                 + '<span class="sb-thing-n">'+g.classes.length+' piece'+(g.classes.length===1?'':'s')+'</span></button>'
               + (open?'<div class="sb-thing-body">'
+                  + '<div class="sb-thing-shot"><iframe src="../'+file+'" scrolling="no" tabindex="-1" aria-hidden="true" title="" '
+                    + 'data-partsel="'+esc(g.classes.map(c=>c).join(','))+'"></iframe>'
+                    + '<a class="sb-thing-open" href="../'+esc(file)+'" target="_blank" rel="noopener" title="Open the page">'+uic('external',12)+'</a></div>'
                   + '<div class="sb-thing-parts">'+g.classes.map(c=>'<code>'+esc(c)+'</code>').join('')+'</div>'
                   + '<div class="sb-thing-acts">'
                     + '<button class="sb-a2" data-partmake="'+esc(g.name)+'">'+uic('add',13)+'Make it a component</button>'
@@ -1634,6 +1650,44 @@ function renderPageWork(s){
     + 'aria-disabled="true" title="Write what you want first">Ask me to do it</button></div>';
   body.innerHTML=h;
   document.getElementById('sbUsage').innerHTML='';
+  body.querySelectorAll('.sb-thing-shot iframe').forEach(fr=>fr.addEventListener('load',()=>cropPart(fr)));
+}
+/* Naming isn't enough to decide "promote or replace" — she has to SEE the thing. So the
+   expanded group crops the real page to where its pieces live and outlines them. Same
+   idea as the old "Where it lives", scoped to one group: grow the frame to the whole
+   page so nothing scrolls, find the biggest element the group styles (its container),
+   and frame its neighbourhood. */
+function cropPart(fr){
+  try{
+    const doc=fr.contentDocument, win=fr.contentWindow;
+    fr.style.height=Math.max(doc.documentElement.scrollHeight,900)+'px';
+    win.scrollTo(0,0);
+    const sel=(fr.dataset.partsel||'').split(',').filter(Boolean).join(',');
+    if(!sel) return;
+    let el=null, best=0;
+    doc.querySelectorAll(sel).forEach(n=>{
+      const r=n.getBoundingClientRect(), a=r.width*r.height;
+      if(r.width>4 && r.height>4 && a>best){ best=a; el=n; }   // the biggest = the container
+    });
+    if(!el){
+      // nothing of this group renders on the live page — it's styled but never shown,
+      // i.e. almost certainly dead code. Say so instead of a blank white box.
+      const win2=fr.parentElement;
+      win2.classList.add('empty');
+      win2.innerHTML='<div class="sb-thing-noshot">'+uic('warning',14)
+        +'<span>Nothing with these names shows on the page — this looks like leftover code.</span></div>';
+      return;
+    }
+    const r=el.getBoundingClientRect(), box=fr.parentElement.getBoundingClientRect();
+    const cw=Math.max(r.width+80,box.width), ch=Math.max(r.height+70,240);
+    const s=Math.min(box.width/cw, box.height/ch, 1);
+    fr.style.transformOrigin='top left';
+    fr.style.transform='scale('+s+')';
+    fr.style.left=Math.round(box.width/2 - (r.left+r.width/2)*s)+'px';
+    fr.style.top =Math.round(box.height/2 - (r.top+r.height/2)*s)+'px';
+    fr.style.opacity='1';
+    el.style.outline='2px solid #12c98d'; el.style.outlineOffset='2px';
+  }catch(e){}
 }
 
 /* ═══════════ VISUAL FINDINGS — the audit in designer language ═══════════
