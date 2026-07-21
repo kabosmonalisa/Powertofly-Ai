@@ -1369,12 +1369,36 @@ const S = [
   theme:'dark',
   srcdoc:`<div data-ptf-footer></div>`, init:`PTF.renderFooter(document.querySelector('[data-ptf-footer]'))`},
 {g:'Organisms', id:'topnav', name:'Top nav',
-  use:"The unified nav, from the one source (PTF.renderNav). Same on every page; a mega-dropdown holds the deeper employer links.",
-  rule:["It renders from ptf.js — never hand-build a nav on a page.","The dropdown carries the employer content; keep the bar itself short.","Drop the width to 375 and it becomes the real mobile drawer — it's responsive here now."],
-  tags:['.nav'], u:['.nav','.nav-inner','.nav-fly'],
-  desc:'The real top nav — an isolated specimen from PTF.renderNav with the For-employers mega-dropdown open. Its own viewport: Full shows the desktop nav, 375 shows the mobile drawer.',
-  srcdoc:`<div data-ptf-nav data-auth="out"></div>`,
-  init:`PTF.renderNav(document.querySelector('[data-ptf-nav]'));if(PTF.initMegaNav)PTF.initMegaNav();setTimeout(function(){var t=document.querySelector('[data-fly="fly-employers"]');if(t)t.click();},90);`},
+  use:"The unified nav, from the one source (PTF.renderNav). Same on every page. Two states: logged out (Log in + Get matched, with the employer mega-dropdown) and logged in (the account menu). Flip between them with the State toggle.",
+  rule:["It renders from ptf.js — never hand-build a nav on a page.","The dropdown carries the employer content; keep the bar itself short.","Logged in swaps Log in / Get matched for the account menu — same bar, one CTA slot changes.","Drop the width to 375 and it becomes the real mobile drawer — it's responsive here now."],
+  tags:['.nav','two states'], u:['.nav','.nav-inner','.nav-fly'],
+  desc:'The real top nav from PTF.renderNav, isolated in its own viewport. Toggle State to see logged out (employer mega open) or logged in (account menu open). Pull width to 375 for the mobile drawer.',
+  html:`<div id="navCfg"></div>`,
+  mount:function(host){
+    const wrap=host.querySelector('#navCfg'); if(!wrap) return;
+    const st=window.__NAV_ST||(window.__NAV_ST={auth:'out'});   // persist across theme re-renders
+    let fr=null;
+    function renderNavFrame(){
+      if(!fr) return;
+      const dark=themeMode==='dark';
+      const inner=`<div data-ptf-nav data-auth="${st.auth}"${dark?' data-theme="dark"':''}></div>`;
+      const flySel=st.auth==='in'?'[data-fly="fly-account"]':'[data-fly="fly-employers"]';
+      const init=`PTF.renderNav(document.querySelector('[data-ptf-nav]'));if(PTF.initMegaNav)PTF.initMegaNav();setTimeout(function(){var t=document.querySelector('${flySel}');if(t)t.click();},90);`;
+      fr.onload=function(){ fitFacade(fr); };
+      fr.srcdoc=specimenDoc(inner, init, dark);
+    }
+    function renderDial(){
+      const btns=[['out','Logged out'],['in','Logged in']].map(a=>`<button data-auth="${a[0]}"${a[0]===st.auth?' class="on"':''}>${a[1]}</button>`).join('');
+      const note=st.auth==='in'?'the account menu — profile, dashboard, log out':'Log in + Get matched, employer mega open';
+      wrap.querySelector('#nDial').innerHTML=
+        `<span class="sb-seg-g"><span class="sb-flabel">State</span><div class="sb-seg">${btns}</div></span>`
+        +`<span style="font-size:13px;color:var(--sb-txt-2)">${note}</span>`;
+    }
+    wrap.innerHTML=`<div id="nDial" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px"></div><div class="sb-frame-vp" style="height:62vh;min-height:440px"><iframe class="sb-frame"></iframe></div>`;
+    fr=wrap.querySelector('iframe');
+    wrap.addEventListener('click',e=>{ const a=e.target.closest('[data-auth]'); if(a){ st.auth=a.dataset.auth; renderDial(); renderNavFrame(); } });
+    renderDial(); renderNavFrame();
+  }},
 {g:'Organisms', id:'topalert', name:'Top alert bar',
   use:"The full-width bar at the very top — a timely announcement and one action. Optional per page, dismissible.",
   rule:["One message, one action — it's an announcement, not a nav.","Respect the close; it's dismissible.","The bar and its mobile stacking live in ptf.css. The content pieces (the Live badge, the countdown boxes, the thumbnail) are still page-local .ta-* classes — a real candidate to promote into the system."],
