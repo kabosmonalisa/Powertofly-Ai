@@ -1319,7 +1319,14 @@ const S = [
 {g:'Organisms', id:'cta', name:'Final CTA band',
   use:"The always-dark closer that blends into the footer. Every page ends here \u2014 that's the point.", rule:["The green eyebrow is a required part of the band, not decoration."], tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
   desc:'The always-dark closer that blends into the footer. The green eyebrow is a REQUIRED part of the band.',
-  html:`<div class="section-cta" style="border-radius:16px;overflow:hidden"><div class="section-cta-inner"><span class="eyebrow">Let's talk</span><h2>Ready when you are.</h2><p>Whether you're hiring AI talent or building your team's capability — we've spent 12 years preparing for this.</p><a href="#" class="btn btn-cta">Book a discovery call</a></div></div>`}
+  html:`<div class="section-cta" style="border-radius:16px;overflow:hidden"><div class="section-cta-inner"><span class="eyebrow">Let's talk</span><h2>Ready when you are.</h2><p>Whether you're hiring AI talent or building your team's capability — we've spent 12 years preparing for this.</p><a href="#" class="btn btn-cta">Book a discovery call</a></div></div>`},
+
+{g:'Animations', id:'flip', name:'Card flip',
+  use:"A 3D turn that reveals a second side on hover — used by the Talents match card. Reach for it when a card genuinely has two states worth flipping between; not for decoration.",
+  rule:["It must work on focus, not only hover — a keyboard user has to reach the back too.","Honour reduced motion: when someone turns animations off, the card shows one side, no turn.","Two sides only. If you want three states, it's a different pattern."],
+  tags:['.anim-flip','motion'], u:['.anim-flip','.anim-flip-inner','.anim-flip-face','.anim-flip-back'],
+  desc:'The reusable 3D card flip, promoted out of the Talents match card into the system. Hover or focus the card to turn it.',
+  html:`<div class="anim-flip" tabindex="0" style="width:230px;height:150px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Front — hover me</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">Back</div></div></div>`}
 ];
 /* Pages / Organisms-nav / Flows are generated from ds/pages.json at boot (single source of truth). */
 
@@ -1556,6 +1563,33 @@ const PART_NAMES={
   navdemo:'Nav demo', navstage:'Nav stage', err:'404 hero', demo:'Demo controls', eg:'Example'
 };
 let OPEN_PART=null;   // which "built for this page" group is expanded
+function pageNameOf(f){ const p=(PAGE_LIST||[]).find(x=>x.file===f); return p?p.name:f; }
+/* The recommendation — written from the real scan, not made up. The strongest signal is
+   whether the SAME thing exists on other pages: if it does, "make it a component" isn't
+   an opinion, it's the whole reason components exist. Then size and where it's used. */
+function partAdvice(g, file){
+  const own=(DATA&&DATA.meta.pageOwn)||{};
+  const set=new Set(g.classes);
+  const pages=Object.keys(own).filter(f=>(own[f]||[]).some(c=>set.has(c)));
+  const others=pages.filter(f=>f!==file);
+  if(others.length){
+    return { verdict:'make',
+      chip:'Make it a component',
+      why:'You’ve built this on '+pages.length+' pages — '+pages.map(pageNameOf).join(', ')+'. '
+        + 'Rebuilding the same thing by hand on every page is exactly what a component prevents: '
+        + 'make it once, and all '+pages.length+' stay in step. This is the clearest kind to promote.' };
+  }
+  if(g.classes.length>=8){
+    return { verdict:'make',
+      chip:'Make it a component — if you’ll reuse it',
+      why:'A big custom thing ('+g.classes.length+' pieces), only on this page so far. Worth promoting the '
+        + 'moment a second page needs anything like it — otherwise fine to leave as a one-off.' };
+  }
+  return { verdict:'check',
+    chip:'Check the system first',
+    why:'Small, and only here. If your system already has something close, replace this with it and drop the '
+      + 'custom code. If not, it’s probably too small to earn its own component.' };
+}
 function groupOwn(classes){
   const by={};
   (classes||[]).forEach(c=>{
@@ -1610,15 +1644,18 @@ function renderPageWork(s){
                 + '<span class="sb-f-caret'+(open?' open':'')+'">'+uic('chevronRight',12)+'</span>'
                 + '<b>'+esc(g.name)+'</b>'
                 + '<span class="sb-thing-n">'+g.classes.length+' piece'+(g.classes.length===1?'':'s')+'</span></button>'
-              + (open?'<div class="sb-thing-body">'
+              + (open?(function(){ const adv=partAdvice(g,file); const mk=adv.verdict==='make';
+                  return '<div class="sb-thing-body">'
                   + '<div class="sb-thing-shot"><iframe src="../'+file+'" scrolling="no" tabindex="-1" aria-hidden="true" title="" '
-                    + 'data-partsel="'+esc(g.classes.map(c=>c).join(','))+'"></iframe>'
+                    + 'data-partsel="'+esc(g.classes.join(','))+'"></iframe>'
                     + '<a class="sb-thing-open" href="../'+esc(file)+'" target="_blank" rel="noopener" title="Open the page">'+uic('external',12)+'</a></div>'
+                  + '<div class="sb-thing-advice"><span class="sb-thing-chip '+adv.verdict+'">'+esc(adv.chip)+'</span>'
+                    + '<p>'+esc(adv.why)+'</p></div>'
                   + '<div class="sb-thing-parts">'+g.classes.map(c=>'<code>'+esc(c)+'</code>').join('')+'</div>'
                   + '<div class="sb-thing-acts">'
-                    + '<button class="sb-a2" data-partmake="'+esc(g.name)+'">'+uic('add',13)+'Make it a component</button>'
-                    + '<button class="sb-a3" data-partswap="'+esc(g.name)+'">Replace with one I have</button>'
-                  + '</div></div>':'')
+                    + '<button class="'+(mk?'sb-a1':'sb-a2')+'" data-partmake="'+esc(g.name)+'">'+uic('add',13)+'Make it a component</button>'
+                    + '<button class="'+(mk?'sb-a3':'sb-a2')+'" data-partswap="'+esc(g.name)+'">Replace with one I have</button>'
+                  + '</div></div>'; })():'')
               + '</div>';
           }).join('')+'</div>'
           + '<p class="sb-scan-note">That’s what the '+css+' lines of custom CSS are. Open one to decide what to do with it.</p>'
@@ -1676,6 +1713,11 @@ function cropPart(fr){
       win2.classList.add('empty');
       win2.innerHTML='<div class="sb-thing-noshot">'+uic('warning',14)
         +'<span>Nothing with these names shows on the page — this looks like leftover code.</span></div>';
+      // renders nothing → the recommendation is neither make nor replace, it's delete
+      const adv=win2.parentElement.querySelector('.sb-thing-advice');
+      if(adv) adv.innerHTML='<span class="sb-thing-chip del">Probably delete it</span>'
+        + '<p>This is styled but never shown on the page — almost certainly leftover code. '
+        + 'Nothing to make or replace; I’d just remove it. Ask me and I’ll confirm before deleting.</p>';
       return;
     }
     const r=el.getBoundingClientRect(), box=fr.parentElement.getBoundingClientRect();
@@ -2075,10 +2117,10 @@ function buildSide(){
   const VIS=S.filter(x=>x.status!=='archived');   // archived lives in its own gallery section, not the nav
   /* Ordered by what you do, not by how the system composes: Create, then the things
      you make, then the vocabulary you make them from. */
-  const GROUP_ORDER=['Pages','Flows','Foundations','Atoms','Form parts','Molecules','Organisms'];
+  const GROUP_ORDER=['Pages','Flows','Foundations','Atoms','Form parts','Molecules','Organisms','Animations'];
   const GALLERY=['Pages','Flows'];   // these open as tiles, they don't drop down
   // Foundations → Organisms ARE the storybook. Pages and Flows are what you make with it.
-  const STORYBOOK_GROUPS=['Foundations','Atoms','Form parts','Molecules','Organisms'];
+  const STORYBOOK_GROUPS=['Foundations','Atoms','Form parts','Molecules','Organisms','Animations'];
   let supraDone=false;
   const groups=[]; VIS.forEach(s=>{ if(!groups.includes(s.g)) groups.push(s.g); });
   groups.sort((a,b)=>{

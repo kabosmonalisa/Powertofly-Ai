@@ -1421,3 +1421,19 @@ img { display: block; max-width: 100%; }
 .about-stat-desc { font-size: 14px; color: var(--ink-2); line-height: 1.55; margin-top: 14px; }
 @media (max-width: 768px) { .about-stat-grid { grid-template-columns: 1fr 1fr; gap: 12px; } .about-stat-num { font-size: clamp(40px, 10vw, 60px); } }
 @media (max-width: 480px) { .about-stat-grid { grid-template-columns: 1fr; } }
+
+/* ═══════════ ANIMATIONS ═══════════
+   Reusable motion patterns, promoted out of the pages that invented them so the whole
+   system shares one definition. A component USES an animation; the animation lives here. */
+
+/* Card flip — a 3D turn on hover/focus. The Talents match card uses this. */
+.anim-flip { perspective: 1200px; }
+.anim-flip-inner { position: relative; transition: transform .6s cubic-bezier(0.16,1,0.3,1); transform-style: preserve-3d; }
+.anim-flip:hover .anim-flip-inner,
+.anim-flip:focus-within .anim-flip-inner { transform: rotateY(180deg); }
+.anim-flip-face, .anim-flip-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.anim-flip-back { position: absolute; inset: 0; transform: rotateY(180deg); }
+@media (prefers-reduced-motion: reduce) {
+  .anim-flip-inner { transition: none; }
+  .anim-flip:hover .anim-flip-inner, .anim-flip:focus-within .anim-flip-inner { transform: none; }
+}
