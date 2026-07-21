@@ -380,6 +380,41 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-wiz-b.primary:disabled{ opacity:.4; cursor:not-allowed; }
 .sb-wiz-b.ghost{ color:var(--sb-txt-2); background:transparent; border:1px solid var(--sb-line-2); }
 .sb-wiz-b.ghost:hover{ color:var(--sb-txt); border-color:var(--sb-txt-3); }
+/* Create → page: paste-copy + the section/layout picker */
+.sb-copy-in{ width:100%; min-height:320px; resize:vertical; font:inherit; font-size:14px; line-height:1.65; padding:16px 18px; border-radius:12px; border:1px solid var(--sb-line-2); background:var(--sb-panel); color:var(--sb-txt); }
+.sb-copy-in:focus{ outline:none; border-color:var(--sb-green); box-shadow:0 0 0 1px var(--sb-green); }
+.sb-sec{ border:1px solid var(--sb-line-2); border-radius:12px; padding:16px; margin-bottom:16px; background:var(--sb-panel); }
+.sb-sec-hd{ display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.sb-sec-n{ width:22px; height:22px; border-radius:50%; background:rgba(79,232,169,.14); color:var(--sb-green); font-size:12px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; flex:none; }
+.sb-sectype{ font:inherit; font-size:13px; font-weight:700; color:var(--sb-txt); background:rgba(255,255,255,.04); border:1px solid var(--sb-line-2); border-radius:8px; padding:6px 10px; cursor:pointer; }
+.sb-sec-peek{ font-size:12px; color:var(--sb-txt-3); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; }
+.sb-cut-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; }
+.sb-cut{ font:inherit; text-align:left; background:transparent; border:1px solid var(--sb-line-2); border-radius:10px; padding:9px; cursor:pointer; color:var(--sb-txt); }
+.sb-cut:hover{ border-color:var(--sb-txt-3); }
+.sb-cut.on{ border-color:var(--sb-green); box-shadow:0 0 0 1px var(--sb-green); }
+.sb-cut-wf{ height:100px; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6px; }
+.sb-cut-n{ font-size:12px; margin-top:8px; color:var(--sb-txt-2); }
+.sb-cut-m{ color:var(--sb-green); }
+.wf{ width:100%; }
+.wf-h{ font-size:10px; font-weight:700; color:var(--sb-txt); line-height:1.2; margin-bottom:5px; }
+.wf-bar{ height:4px; background:var(--sb-line-2); border-radius:3px; margin-top:4px; }
+.wf-pill{ width:44px; height:11px; border-radius:20px; background:var(--sb-txt-3); margin-top:7px; }
+.wf-center{ text-align:center; } .wf-center .wf-bar,.wf-center .wf-pill{ margin-left:auto; margin-right:auto; }
+.wf-split{ display:grid; grid-template-columns:1fr 1fr; gap:8px; align-items:center; }
+.wf-split.rev{ direction:rtl; } .wf-split.rev>*{ direction:ltr; }
+.wf-col{ min-width:0; }
+.wf-media{ border:1px dashed var(--sb-txt-3); border-radius:5px; min-height:52px; display:flex; align-items:center; justify-content:center; gap:5px; color:var(--sb-txt-3); font-size:10px; }
+.wf-play{ width:0; height:0; border-left:8px solid currentColor; border-top:5px solid transparent; border-bottom:5px solid transparent; }
+.wf-row{ display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.wf-num{ width:16px; height:16px; border-radius:50%; border:1px solid var(--sb-txt-3); color:var(--sb-txt-3); font-size:9px; display:inline-flex; align-items:center; justify-content:center; flex:none; }
+.wf-3col{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; } .wf-2col{ display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.wf-card{ border:1px solid var(--sb-line-2); border-radius:5px; padding:7px; }
+.wf-band{ display:flex; gap:8px; justify-content:space-between; } .wf-2x2{ display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.wf-stat{ text-align:center; flex:1; } .wf-stat b{ display:block; font-size:14px; color:var(--sb-txt); } .wf-stat span{ display:block; height:3px; width:70%; margin:3px auto 0; background:var(--sb-line-2); border-radius:2px; }
+.wf-timeline{ display:flex; align-items:center; margin-bottom:8px; } .wf-dot{ width:8px; height:8px; border-radius:50%; background:var(--sb-txt-3); flex:none; } .wf-line{ height:2px; flex:1; background:var(--sb-line-2); }
+.wf-quote .wf-mark{ font-family:Georgia,serif; font-size:24px; line-height:.7; color:var(--sb-txt-3); } .wf-attrib{ display:flex; align-items:center; gap:6px; margin-top:8px; } .wf-face{ width:16px; height:16px; border-radius:50%; background:var(--sb-line-2); flex:none; }
+.wf-faq{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding:5px 0; border-bottom:1px solid var(--sb-line-2); } .wf-plus{ color:var(--sb-txt-3); }
+.wf-cta{ text-align:center; border:1px solid var(--sb-line-2); border-radius:6px; padding:14px 10px; background:rgba(79,232,169,.05); } .wf-cta .wf-pill{ margin:8px auto 0; background:var(--sb-green); }
 .sb-brief{ background:var(--sb-panel); border:1px solid var(--sb-line-2); border-radius:12px; padding:16px; margin-bottom:16px; }
 .sb-brief h4{ font-family:'Inter Tight'; font-size:14px; margin:0 0 10px; }
 .sb-brief dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 14px; font-size:12.5px; }
@@ -2467,7 +2502,7 @@ function wizFields(){
   return ['desc','content','shot'].map(k=>Object.assign({k},F[k]));
 }
 function wizStepsBar(){
-  const names=['What','The brief','Plan'];
+  const names = WIZ.type==='page' ? ['What','Your copy','Sections & layout'] : ['What','The brief','Plan'];
   return names.map((n,i)=>{
     const s=i+1, cls=WIZ.step===s?'on':(WIZ.step>s?'done':'');
     return (i?'<span class="sb-wiz-sep"></span>':'')
@@ -2506,6 +2541,11 @@ function wizRender(){
       +'<div class="sb-pick">'+WIZ_TYPES.map(t=>'<button class="sb-pick-card'+(WIZ.type===t.id?' on':'')+'" data-type="'+t.id+'">'
         +'<div class="sb-pick-vis">'+t.mini+'</div><div class="sb-pick-b"><div class="sb-pick-t">'+esc(t.name)+'</div><div class="sb-pick-d">'+esc(t.d)+'</div></div></button>').join('')+'</div>';
   }
+  else if(WIZ.step===2 && WIZ.type==='page'){
+    h+='<h2 class="sb-wiz-q" id="sbWizTitle">Paste your page copy</h2>'
+      +'<p class="sb-wiz-sub">The whole thing — headline, sections, numbers, quotes. From the copywriter, or the old page you\'re rebranding. I\'ll break it into sections; you pick the layouts.</p>'
+      +'<textarea id="wf-copy" class="sb-copy-in" placeholder="Paste the full page copy here — leave a blank line between sections and I\'ll read them apart.">'+esc(WIZ.copy||'')+'</textarea>';
+  }
   else if(WIZ.step===2){
     const fs=wizFields();
     h+='<h2 class="sb-wiz-q" id="sbWizTitle">Tell me about it</h2>'
@@ -2515,16 +2555,21 @@ function wizRender(){
           :'<textarea id="wf-'+f.k+'" data-f="'+f.k+'" placeholder="'+esc(f.ph||'')+'">'+esc(WIZ.ctx[f.k]||'')+'</textarea>')+'</div>').join('')
       +'</div>';
   }
+  else if(WIZ.type==='page'){ h+=wizSectionsHTML(); }
   else { h+=wizPlanHTML(); }
   h+='</div>';
   body.innerHTML=h;
   if(WIZ.step===2) wizRestore();
   fitThumbs(body);
   const canNext = (WIZ.step===1&&WIZ.type)||WIZ.step===2;
+  const isPage=WIZ.type==='page';
+  const nextLabel = WIZ.step===2 ? (isPage?'Break into sections':'See the plan') : 'Continue';
+  const finalBtn = isPage
+    ? '<button class="sb-wiz-b ghost" id="wizRestart">Start over</button><button class="sb-wiz-b primary" id="wizSpec">Copy build spec</button>'
+    : '<button class="sb-wiz-b ghost" id="wizRestart">Start over</button><button class="sb-wiz-b primary" id="wizCopy">Copy brief for Claude</button>';
   ft.innerHTML=(WIZ.step>1?'<button class="sb-wiz-b ghost" id="wizBack">Back</button>':'<span></span>')
     +'<span class="sp"></span>'
-    +(WIZ.step<3?'<button class="sb-wiz-b primary" id="wizNext"'+(canNext?'':' disabled')+'>'+(WIZ.step===2?'See the plan':'Continue')+'</button>'
-                :'<button class="sb-wiz-b ghost" id="wizRestart">Start over</button><button class="sb-wiz-b primary" id="wizCopy">Copy brief for Claude</button>');
+    +(WIZ.step<3?'<button class="sb-wiz-b primary" id="wizNext"'+(canNext?'':' disabled')+'>'+nextLabel+'</button>':finalBtn);
   body.scrollTop=0;
 }
 /* The upload: it lands on disk and the brief points me at the path — a picture can't
@@ -2615,6 +2660,106 @@ function wizPlanHTML(){
   if(plan.note) h+='<div class="sb-impact-note" style="margin-top:6px">'+esc(plan.note)+'</div>';
   return h;
 }
+/* ═══════════ CREATE → PAGE : copy-first section + layout picker ═══════════
+   You paste the whole page copy; I break it into sections, you fix my read and
+   pick a layout cut for each. Wireframes only — real copy in, media stays gray. */
+const SECTION_CUTS={
+  hero:       {label:'Hero',         cuts:[{id:'centered',name:'Centered',media:'image'},{id:'split-img',name:'Split',media:'image'},{id:'split-vid',name:'Split',media:'video'}]},
+  steps:      {label:'How it works', cuts:[{id:'steps-rows',name:'Numbered rows',media:'none'},{id:'steps-cards',name:'Three cards',media:'none'},{id:'steps-timeline',name:'Timeline',media:'none'}]},
+  stats:      {label:'Stats',        cuts:[{id:'stats-band',name:'Inline band',media:'none'},{id:'stats-grid',name:'Grid',media:'none'},{id:'stats-portrait',name:'Stats + portrait',media:'image'}]},
+  feature:    {label:'Features',     cuts:[{id:'feat-cards',name:'Three cards',media:'none'},{id:'feat-2col',name:'Two columns',media:'none'},{id:'feat-altrows',name:'Alternating rows',media:'image'}]},
+  testimonial:{label:'Testimonial',  cuts:[{id:'tst-quote',name:'Single quote',media:'none'},{id:'tst-2up',name:'Two up',media:'none'},{id:'tst-face',name:'Quote + face',media:'image'}]},
+  faq:        {label:'FAQ',          cuts:[{id:'faq-accordion',name:'Accordion',media:'none'}]},
+  cta:        {label:'Final CTA',    cuts:[{id:'cta-band',name:'Full-bleed band',media:'none'}]}
+};
+const SEC_ORDER=['hero','steps','stats','feature','testimonial','faq','cta'];
+
+function guessType(b,lines,i,n){
+  const isFirst=i===0, isLast=i===n-1;
+  const numbered=lines.filter(l=>/^(\d+[\.\)]|step\b)/i.test(l)).length;
+  const stats=(b.match(/\b\d[\d,]*\s*(k\+?|m\+?|%|\+)/gi)||[]).length;
+  const isQuote=/["“”].{12,}/.test(b) || /^\s*[—–-]\s*\S+/.test(lines[lines.length-1]||'');
+  const q=lines.filter(l=>/\?\s*$/.test(l)).length;
+  const cta=/\b(get started|sign up|book (a )?(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk)\b/i.test(b);
+  if(isFirst) return 'hero';
+  if(numbered>=2) return 'steps';
+  if(q>=2) return 'faq';
+  if(isQuote) return 'testimonial';
+  if(stats>=2 && b.length<220) return 'stats';
+  if(cta && (isLast || b.length<170)) return 'cta';
+  return 'feature';
+}
+function segmentCopy(text){
+  const blocks=(text||'').split(/\n\s*\n+/).map(b=>b.trim()).filter(Boolean);
+  const raw=blocks.map((b,i)=>{ const lines=b.split(/\n/).map(l=>l.trim()).filter(Boolean); return {raw:b, lines, type:guessType(b,lines,i,blocks.length)}; });
+  const out=[];
+  raw.forEach(s=>{ const last=out[out.length-1];
+    if(last && last.type===s.type && s.type!=='hero' && s.type!=='cta'){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
+    else out.push(Object.assign({},s)); });
+  out.forEach((s,i)=>{ s.id=i; if(!s.cut) s.cut=(SECTION_CUTS[s.type]||SECTION_CUTS.feature).cuts[0].id; });
+  return out;
+}
+
+/* wireframe primitives — real copy where we have it, gray everything else */
+function wfTitle(sec){ return '<div class="wf-h">'+esc((sec.lines[0]||'Section').slice(0,64))+'</div>'; }
+function wfBars(n){ let s=''; for(let i=0;i<(n||2);i++) s+='<div class="wf-bar" style="width:'+(92-i*14)+'%"></div>'; return s; }
+function wfMedia(kind){ const lbl=kind==='video'?'video':(kind==='flip'?'card':'image'); return '<div class="wf-media">'+(kind==='video'?'<span class="wf-play"></span>':'')+'<span>'+lbl+'</span></div>'; }
+function cutWF(sec,cut){
+  const id=cut.id;
+  if(id==='centered') return '<div class="wf wf-center">'+wfTitle(sec)+wfBars(2)+'<div class="wf-pill"></div>'+wfMedia(cut.media)+'</div>';
+  if(id==='split-img'||id==='split-vid') return '<div class="wf wf-split"><div class="wf-col">'+wfTitle(sec)+wfBars(2)+'<div class="wf-pill"></div></div>'+wfMedia(id==='split-vid'?'video':'image')+'</div>';
+  if(id==='steps-rows') return '<div class="wf">'+[1,2,3].map(n=>'<div class="wf-row"><span class="wf-num">'+n+'</span><div style="flex:1">'+wfBars(1)+'</div></div>').join('')+'</div>';
+  if(id==='steps-cards'||id==='feat-cards') return '<div class="wf wf-3col">'+[0,1,2].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
+  if(id==='steps-timeline') return '<div class="wf"><div class="wf-timeline"><span class="wf-dot"></span><span class="wf-line"></span><span class="wf-dot"></span><span class="wf-line"></span><span class="wf-dot"></span></div>'+wfBars(1)+'</div>';
+  if(id==='stats-band') return '<div class="wf wf-band">'+[0,1,2,3].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div>';
+  if(id==='stats-grid') return '<div class="wf wf-2x2">'+[0,1,2,3].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div>';
+  if(id==='stats-portrait') return '<div class="wf wf-split">'+wfMedia('image')+'<div class="wf-col">'+[0,1,2].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div></div>';
+  if(id==='feat-2col') return '<div class="wf wf-2col">'+[0,1].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
+  if(id==='feat-altrows') return '<div class="wf">'+[0,1].map(i=>'<div class="wf-split'+(i%2?' rev':'')+'">'+wfMedia('image')+'<div class="wf-col">'+wfBars(2)+'</div></div>').join('')+'</div>';
+  if(id==='tst-quote') return '<div class="wf wf-quote"><div class="wf-mark">“</div>'+wfBars(2)+'<div class="wf-attrib"><span class="wf-face"></span>'+wfBars(1)+'</div></div>';
+  if(id==='tst-2up') return '<div class="wf wf-2col">'+[0,1].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
+  if(id==='tst-face') return '<div class="wf wf-split">'+wfMedia('image')+'<div class="wf-col wf-quote"><div class="wf-mark">“</div>'+wfBars(2)+'</div></div>';
+  if(id==='faq-accordion') return '<div class="wf">'+[0,1,2].map(()=>'<div class="wf-faq"><div class="wf-bar" style="width:66%;margin:0"></div><span class="wf-plus">+</span></div>').join('')+'</div>';
+  if(id==='cta-band') return '<div class="wf wf-cta">'+wfTitle(sec)+'<div class="wf-pill"></div></div>';
+  return '<div class="wf">'+wfTitle(sec)+wfBars(2)+'</div>';
+}
+function wizSectionsHTML(){
+  if(!WIZ.sections||!WIZ.sections.length){
+    return '<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">No copy yet</h2>'
+      +'<p class="sb-wiz-sub" style="text-align:left">Go back and paste your page copy — I\'ll break it into sections right here.</p>';
+  }
+  let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Here\'s how I read your copy</h2>'
+    +'<p class="sb-wiz-sub" style="text-align:left;margin:0 0 24px">'+WIZ.sections.length+' section'+(WIZ.sections.length===1?'':'s')+'. Fix my read with the dropdown if I got one wrong, then pick a layout for each — your copy is in, media stays gray.</p>';
+  h+=WIZ.sections.map((sec,i)=>{
+    const set=SECTION_CUTS[sec.type]||SECTION_CUTS.feature;
+    if(!sec.cut||!set.cuts.some(c=>c.id===sec.cut)) sec.cut=set.cuts[0].id;
+    const opts=SEC_ORDER.map(t=>'<option value="'+t+'"'+(t===sec.type?' selected':'')+'>'+SECTION_CUTS[t].label+'</option>').join('');
+    const cuts=set.cuts.map(c=>'<button class="sb-cut'+(c.id===sec.cut?' on':'')+'" data-cut="'+i+'|'+c.id+'"><div class="sb-cut-wf">'+cutWF(sec,c)+'</div>'
+      +'<div class="sb-cut-n">'+esc(c.name)+(c.media!=='none'?' · <span class="sb-cut-m">'+c.media+'</span>':'')+'</div></button>').join('');
+    return '<div class="sb-sec"><div class="sb-sec-hd"><span class="sb-sec-n">'+(i+1)+'</span>'
+      +'<select class="sb-sectype" data-sectype="'+i+'" title="What kind of section is this?">'+opts+'</select>'
+      +'<span class="sb-sec-peek">'+esc((sec.lines[0]||'').slice(0,72))+'</span></div>'
+      +'<div class="sb-cut-row">'+cuts+'</div></div>';
+  }).join('');
+  return h;
+}
+/* The spec: a precise, unambiguous build order — the handoff you chose over a live builder. */
+function specText(){
+  const L=[];
+  L.push('# Build page — PowerToFly AI Design Playbook');
+  L.push('');
+  L.push('Assemble this page from the components in the playbook, section by section, in the order below.');
+  L.push('For each section: use the named layout cut, fill it with the copy, and leave media as gray placeholders (no real photos/video yet).');
+  L.push('Read CLAUDE.md + ds/COMPONENT-INVENTORY.md first. Map each cut to a real component — never invent one; if a cut has no component yet, stop and tell me.');
+  L.push('');
+  (WIZ.sections||[]).forEach((sec,i)=>{
+    const set=SECTION_CUTS[sec.type]||{}; const cut=(set.cuts||[]).find(c=>c.id===sec.cut)||{};
+    L.push('## '+(i+1)+'. '+(set.label||sec.type)+' — layout: '+(cut.name||sec.cut)+(cut.media&&cut.media!=='none'?' (media slot = '+cut.media+', placeholder)':''));
+    L.push(sec.raw);
+    L.push('');
+  });
+  return L.join('\n');
+}
 function wizOpen(on){
   const w=document.getElementById('sbWiz');
   const show = on==null ? w.hidden : on;
@@ -2626,13 +2771,31 @@ function wizOpen(on){
 document.getElementById('sbWizClose').addEventListener('click',()=>wizOpen(false));
 document.getElementById('sbWizBody').addEventListener('click',e=>{
   const t=e.target.closest('[data-type]'); if(t){ WIZ.type=t.dataset.type; wizRender(); return; }
+  const c=e.target.closest('[data-cut]'); if(c){ const p=c.dataset.cut.split('|'); const s=WIZ.sections&&WIZ.sections[+p[0]]; if(s){ s.cut=p[1]; wizRender(); } return; }
   const a=e.target.closest('[data-alt]'); if(a){ const box=document.querySelector('[data-alts="'+a.dataset.alt+'"]');
     const open=box.classList.toggle('open'); a.textContent=(open?'Hide':'Compare')+a.textContent.replace(/^(Hide|Compare)/,''); fitThumbs(box); return; }
 });
+/* Change a section's type → reset its cut to that type's first, re-render. */
+document.getElementById('sbWizBody').addEventListener('change',e=>{
+  const st=e.target.closest('[data-sectype]'); if(!st) return;
+  const s=WIZ.sections&&WIZ.sections[+st.dataset.sectype]; if(!s) return;
+  s.type=st.value; s.cut=(SECTION_CUTS[s.type]||SECTION_CUTS.feature).cuts[0].id; wizRender();
+});
 document.getElementById('sbWizFt').addEventListener('click',async e=>{
   if(e.target.closest('#wizBack')){ if(WIZ.step===2) wizCollect(); WIZ.step--; wizRender(); return; }
-  if(e.target.closest('#wizNext')){ if(WIZ.step===2) wizCollect(); WIZ.step++; wizRender(); return; }
-  if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=null; WIZ.ctx={}; wizRender(); return; }
+  if(e.target.closest('#wizNext')){
+    if(WIZ.step===2){
+      wizCollect();
+      if(WIZ.type==='page'){ const ta=document.getElementById('wf-copy'); WIZ.copy=ta?ta.value:(WIZ.copy||''); WIZ.sections=segmentCopy(WIZ.copy); }
+    }
+    WIZ.step++; wizRender(); return;
+  }
+  if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=null; WIZ.ctx={}; WIZ.copy=''; WIZ.sections=null; wizRender(); return; }
+  if(e.target.closest('#wizSpec')){
+    try{ await navigator.clipboard.writeText(specText()); toast(uic('check',13)+' Build spec copied — paste it to Claude in chat and I\'ll build the page.',5000); }catch(err){}
+    fetch('/api/brief',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({brief:specText(),wiz:WIZ})}).catch(()=>{});
+    return;
+  }
   if(e.target.closest('#wizCopy')){
     try{ await navigator.clipboard.writeText(briefText()); toast(uic('check',13)+' Brief copied — paste it to Claude in chat.',5000); }catch(err){}
     fetch('/api/brief',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({brief:briefText(),wiz:WIZ})}).catch(()=>{});
