@@ -395,6 +395,15 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-cut-wf{ height:100px; overflow:hidden; display:flex; align-items:center; justify-content:center; padding:6px; }
 .sb-cut-n{ font-size:12px; margin-top:8px; color:var(--sb-txt-2); }
 .sb-cut-m{ color:var(--sb-green); }
+.sb-cut-use{ color:var(--sb-txt-3); }
+.sb-onecut{ font-size:12px; line-height:1.5; color:var(--sb-txt-2); background:rgba(79,232,169,.06); border:1px solid var(--sb-line-2); border-radius:8px; padding:9px 11px; margin-bottom:12px; }
+.sb-sec-copy{ margin-top:12px; }
+.sb-sec-copy summary{ font-size:12px; color:var(--sb-txt-3); cursor:pointer; }
+.sb-sec-copy pre{ white-space:pre-wrap; font:inherit; font-size:12px; line-height:1.5; color:var(--sb-txt-2); background:rgba(255,255,255,.03); border-radius:8px; padding:10px 12px; margin:8px 0 0; }
+.sb-chrome-note{ font-size:13px; line-height:1.55; color:var(--sb-txt-2); background:rgba(255,255,255,.03); border:1px solid var(--sb-line-2); border-radius:10px; padding:11px 14px; margin:0 0 18px; }
+.sb-chrome-note b{ color:var(--sb-txt); }
+.sb-sec.is-chrome, .sb-sec.is-skip{ opacity:.62; border-style:dashed; }
+.sb-chrome-body{ font-size:12px; color:var(--sb-txt-3); line-height:1.5; }
 .wf{ width:100%; }
 .wf-h{ font-size:10px; font-weight:700; color:var(--sb-txt); line-height:1.2; margin-bottom:5px; }
 .wf-bar{ height:4px; background:var(--sb-line-2); border-radius:3px; margin-top:4px; }
@@ -2661,100 +2670,135 @@ function wizPlanHTML(){
   return h;
 }
 /* ═══════════ CREATE → PAGE : copy-first section + layout picker ═══════════
-   You paste the whole page copy; I break it into sections, you fix my read and
-   pick a layout cut for each. Wireframes only — real copy in, media stays gray. */
-const SECTION_CUTS={
-  hero:       {label:'Hero',         cuts:[{id:'centered',name:'Centered',media:'image'},{id:'split-img',name:'Split',media:'image'},{id:'split-vid',name:'Split',media:'video'}]},
-  steps:      {label:'How it works', cuts:[{id:'steps-rows',name:'Numbered rows',media:'none'},{id:'steps-cards',name:'Three cards',media:'none'},{id:'steps-timeline',name:'Timeline',media:'none'}]},
-  stats:      {label:'Stats',        cuts:[{id:'stats-band',name:'Inline band',media:'none'},{id:'stats-grid',name:'Grid',media:'none'},{id:'stats-portrait',name:'Stats + portrait',media:'image'}]},
-  feature:    {label:'Features',     cuts:[{id:'feat-cards',name:'Three cards',media:'none'},{id:'feat-2col',name:'Two columns',media:'none'},{id:'feat-altrows',name:'Alternating rows',media:'image'}]},
-  testimonial:{label:'Testimonial',  cuts:[{id:'tst-quote',name:'Single quote',media:'none'},{id:'tst-2up',name:'Two up',media:'none'},{id:'tst-face',name:'Quote + face',media:'image'}]},
-  faq:        {label:'FAQ',          cuts:[{id:'faq-accordion',name:'Accordion',media:'none'}]},
-  cta:        {label:'Final CTA',    cuts:[{id:'cta-band',name:'Full-bleed band',media:'none'}]}
+   You paste the whole page copy; I break it into sections, you fix my read, then
+   pick a layout for each. EVERY option here is a REAL component — pulled live from
+   ds/patterns.json (the section registry) and the documented Molecule stories.
+   Create never invents a layout: if your system has one, it shows one and says so;
+   a layout you want that doesn't exist is a new component, not something Create fakes. */
+const SEC_LABEL={hero:'Hero',steps:'How it works',stats:'Stats',feature:'Benefit cards',testimonial:'Testimonials',faq:'FAQ',cta:'Final CTA',mission:'Mission statement',logos:'Logo strip',expertrow:'Expert row'};
+/* section type → the real components that ARE its layout, by source: 'pat' = ds/patterns.json id, 'mol' = a Molecule story id in S. */
+const SECTION_REAL={
+  hero:       [{src:'pat',id:'pat-hero'}],
+  steps:      [{src:'pat',id:'pat-how'}],
+  stats:      [{src:'pat',id:'pat-statband'},{src:'mol',id:'statgrid'},{src:'mol',id:'statsportrait'}],
+  feature:    [{src:'pat',id:'pat-benefit'}],
+  testimonial:[{src:'pat',id:'pat-testimonials'}],
+  faq:        [{src:'pat',id:'pat-faq'}],
+  cta:        [{src:'pat',id:'pat-cta'}],
+  mission:    [{src:'pat',id:'pat-mission'}],
+  logos:      [{src:'pat',id:'pat-logos'}],
+  expertrow:  [{src:'pat',id:'pat-expertrow'}]
 };
-const SEC_ORDER=['hero','steps','stats','feature','testimonial','faq','cta'];
+const SEC_ORDER=Object.keys(SECTION_REAL);
+/* resolve an option to the real component behind it (never fabricated) */
+function realComp(o){
+  if(!o) return null;
+  if(o.src==='pat'){ const p=(PATTERNS||[]).find(x=>x.id===o.id); return p?{id:p.id,name:p.name,html:p.html,scale:p.scale,key:p.key,does:p.does,dark:p.id==='pat-cta'}:null; }
+  const s=(typeof S!=='undefined'?S:[]).find(x=>x.id===o.id); return s?{id:s.id,name:s.name,html:s.html,scale:0.5,key:(s.u&&s.u[0])||'',does:s.desc,dark:!!s.theme}:null;
+}
+function compUses(key){ if(!DATA||!key) return 'not on any page yet'; const e=DATA.classes[key]; if(!e||!e.total) return 'not on any page yet'; const n=Object.keys(e.files||{}).length; return 'on '+n+' page'+(n===1?'':'s'); }
 
-function guessType(b,lines,i,n){
-  const isFirst=i===0, isLast=i===n-1;
+/* Chrome (nav + footer) and "not a section" aren't content — they never get a layout picker.
+   Nav/footer map to real Organisms (Top nav, Footer) that every page gets automatically. */
+const CHROME_LABEL={nav:'Top nav (automatic)',footer:'Footer (automatic)',skip:'Not a section — remove'};
+function looksNav(lines,isFirst){
+  if(!isFirst || lines.length<3) return false;
+  const short=lines.filter(l=>l.split(/\s+/).length<=3 && l.length<28).length;
+  const navWord=/\b(sign in|log ?in|sign up|menu|pricing|solutions|resources|product|company|for (employers|talent)|home)\b/i.test(lines.join(' '));
+  const hasSentence=lines.some(l=>/[.!?]$/.test(l) && l.split(/\s+/).length>6);
+  return (short/lines.length)>=0.6 && !hasSentence && (navWord || short>=4);
+}
+function looksFooter(b,lines,isLast){
+  if(/(©|\ball rights reserved\b|\bprivacy\b|\bterms\b|\bcookies?\b|\bpopular topics\b|\bquick links\b|\bfollow us\b|\bsitemap\b|\b\d{4}\s+powertofly\b|\bnewsletter\b)/i.test(b)) return true;
+  const short=lines.filter(l=>l.split(/\s+/).length<=3).length;
+  return isLast && lines.length>=5 && (short/lines.length)>=0.6;
+}
+function guessContent(b,lines){
   const numbered=lines.filter(l=>/^(\d+[\.\)]|step\b)/i.test(l)).length;
   const stats=(b.match(/\b\d[\d,]*\s*(k\+?|m\+?|%|\+)/gi)||[]).length;
-  const isQuote=/["“”].{12,}/.test(b) || /^\s*[—–-]\s*\S+/.test(lines[lines.length-1]||'');
+  const isQuote=/[“"][^”"]{15,}[”"]/.test(b) && /(—|–| - )\s*[A-Z]/.test(b);   // needs a real quote AND an attribution
   const q=lines.filter(l=>/\?\s*$/.test(l)).length;
   const cta=/\b(get started|sign up|book (a )?(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk)\b/i.test(b);
-  if(isFirst) return 'hero';
   if(numbered>=2) return 'steps';
   if(q>=2) return 'faq';
   if(isQuote) return 'testimonial';
   if(stats>=2 && b.length<220) return 'stats';
-  if(cta && (isLast || b.length<170)) return 'cta';
+  if(cta && b.length<170) return 'cta';
   return 'feature';
 }
 function segmentCopy(text){
-  const blocks=(text||'').split(/\n\s*\n+/).map(b=>b.trim()).filter(Boolean);
-  const raw=blocks.map((b,i)=>{ const lines=b.split(/\n/).map(l=>l.trim()).filter(Boolean); return {raw:b, lines, type:guessType(b,lines,i,blocks.length)}; });
+  const blocks=(text||'').split(/\n\s*\n+/).map(b=>b.trim()).filter(Boolean), n=blocks.length;
+  let arr=blocks.map((b,i)=>{
+    const lines=b.split(/\n/).map(l=>l.trim()).filter(Boolean);
+    let type;
+    if(looksNav(lines,i===0)) type='nav';
+    else if(looksFooter(b,lines,i===n-1)) type='footer';
+    else type=guessContent(b,lines);
+    return {raw:b, lines, type};
+  });
+  const firstContent=arr.findIndex(s=>s.type!=='nav'&&s.type!=='footer');   // first non-chrome block is the hero
+  if(firstContent>=0) arr[firstContent].type='hero';
   const out=[];
-  raw.forEach(s=>{ const last=out[out.length-1];
-    if(last && last.type===s.type && s.type!=='hero' && s.type!=='cta'){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
+  arr.forEach(s=>{ const last=out[out.length-1];
+    if(last && last.type===s.type && !['nav','footer','hero','cta','skip'].includes(s.type)){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
     else out.push(Object.assign({},s)); });
-  out.forEach((s,i)=>{ s.id=i; if(!s.cut) s.cut=(SECTION_CUTS[s.type]||SECTION_CUTS.feature).cuts[0].id; });
+  out.forEach((s,i)=>{ s.id=i; const opts=SECTION_REAL[s.type]; if(opts && (!s.cut||!opts.some(o=>o.id===s.cut))) s.cut=opts[0].id; });
   return out;
 }
-
-/* wireframe primitives — real copy where we have it, gray everything else */
-function wfTitle(sec){ return '<div class="wf-h">'+esc((sec.lines[0]||'Section').slice(0,64))+'</div>'; }
-function wfBars(n){ let s=''; for(let i=0;i<(n||2);i++) s+='<div class="wf-bar" style="width:'+(92-i*14)+'%"></div>'; return s; }
-function wfMedia(kind){ const lbl=kind==='video'?'video':(kind==='flip'?'card':'image'); return '<div class="wf-media">'+(kind==='video'?'<span class="wf-play"></span>':'')+'<span>'+lbl+'</span></div>'; }
-function cutWF(sec,cut){
-  const id=cut.id;
-  if(id==='centered') return '<div class="wf wf-center">'+wfTitle(sec)+wfBars(2)+'<div class="wf-pill"></div>'+wfMedia(cut.media)+'</div>';
-  if(id==='split-img'||id==='split-vid') return '<div class="wf wf-split"><div class="wf-col">'+wfTitle(sec)+wfBars(2)+'<div class="wf-pill"></div></div>'+wfMedia(id==='split-vid'?'video':'image')+'</div>';
-  if(id==='steps-rows') return '<div class="wf">'+[1,2,3].map(n=>'<div class="wf-row"><span class="wf-num">'+n+'</span><div style="flex:1">'+wfBars(1)+'</div></div>').join('')+'</div>';
-  if(id==='steps-cards'||id==='feat-cards') return '<div class="wf wf-3col">'+[0,1,2].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
-  if(id==='steps-timeline') return '<div class="wf"><div class="wf-timeline"><span class="wf-dot"></span><span class="wf-line"></span><span class="wf-dot"></span><span class="wf-line"></span><span class="wf-dot"></span></div>'+wfBars(1)+'</div>';
-  if(id==='stats-band') return '<div class="wf wf-band">'+[0,1,2,3].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div>';
-  if(id==='stats-grid') return '<div class="wf wf-2x2">'+[0,1,2,3].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div>';
-  if(id==='stats-portrait') return '<div class="wf wf-split">'+wfMedia('image')+'<div class="wf-col">'+[0,1,2].map(()=>'<div class="wf-stat"><b>00</b><span></span></div>').join('')+'</div></div>';
-  if(id==='feat-2col') return '<div class="wf wf-2col">'+[0,1].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
-  if(id==='feat-altrows') return '<div class="wf">'+[0,1].map(i=>'<div class="wf-split'+(i%2?' rev':'')+'">'+wfMedia('image')+'<div class="wf-col">'+wfBars(2)+'</div></div>').join('')+'</div>';
-  if(id==='tst-quote') return '<div class="wf wf-quote"><div class="wf-mark">“</div>'+wfBars(2)+'<div class="wf-attrib"><span class="wf-face"></span>'+wfBars(1)+'</div></div>';
-  if(id==='tst-2up') return '<div class="wf wf-2col">'+[0,1].map(()=>'<div class="wf-card">'+wfBars(2)+'</div>').join('')+'</div>';
-  if(id==='tst-face') return '<div class="wf wf-split">'+wfMedia('image')+'<div class="wf-col wf-quote"><div class="wf-mark">“</div>'+wfBars(2)+'</div></div>';
-  if(id==='faq-accordion') return '<div class="wf">'+[0,1,2].map(()=>'<div class="wf-faq"><div class="wf-bar" style="width:66%;margin:0"></div><span class="wf-plus">+</span></div>').join('')+'</div>';
-  if(id==='cta-band') return '<div class="wf wf-cta">'+wfTitle(sec)+'<div class="wf-pill"></div></div>';
-  return '<div class="wf">'+wfTitle(sec)+wfBars(2)+'</div>';
+function sectypeSelect(sec,i){
+  const content=SEC_ORDER.map(t=>'<option value="'+t+'"'+(t===sec.type?' selected':'')+'>'+SEC_LABEL[t]+'</option>').join('');
+  const chrome=['nav','footer','skip'].map(t=>'<option value="'+t+'"'+(t===sec.type?' selected':'')+'>'+CHROME_LABEL[t]+'</option>').join('');
+  return '<select class="sb-sectype" data-sectype="'+i+'" title="What kind of section is this?">'+content+'<option disabled>──────────</option>'+chrome+'</select>';
 }
 function wizSectionsHTML(){
   if(!WIZ.sections||!WIZ.sections.length){
     return '<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">No copy yet</h2>'
       +'<p class="sb-wiz-sub" style="text-align:left">Go back and paste your page copy — I\'ll break it into sections right here.</p>';
   }
-  let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Here\'s how I read your copy</h2>'
-    +'<p class="sb-wiz-sub" style="text-align:left;margin:0 0 24px">'+WIZ.sections.length+' section'+(WIZ.sections.length===1?'':'s')+'. Fix my read with the dropdown if I got one wrong, then pick a layout for each — your copy is in, media stays gray.</p>';
+  const chrome=WIZ.sections.filter(s=>s.type==='nav'||s.type==='footer');
+  const contentCount=WIZ.sections.filter(s=>SECTION_REAL[s.type]).length;
+  let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Here\'s how I read your copy</h2>';
+  if(chrome.length) h+='<div class="sb-chrome-note">Recognized as chrome and set aside — '+chrome.map(s=>'<b>'+(s.type==='nav'?'Top nav':'Footer')+'</b>').join(' · ')+'. Every page gets these automatically, so you don\'t lay them out.</div>';
+  h+='<p class="sb-wiz-sub" style="text-align:left;margin:0 0 24px">'+contentCount+' content section'+(contentCount===1?'':'s')+' to lay out. Every layout is a <b>real component from your system</b>, never a sketch I invented. Wrong read? The dropdown includes <b>Not a section</b> for anything that slipped through.</p>';
   h+=WIZ.sections.map((sec,i)=>{
-    const set=SECTION_CUTS[sec.type]||SECTION_CUTS.feature;
-    if(!sec.cut||!set.cuts.some(c=>c.id===sec.cut)) sec.cut=set.cuts[0].id;
-    const opts=SEC_ORDER.map(t=>'<option value="'+t+'"'+(t===sec.type?' selected':'')+'>'+SECTION_CUTS[t].label+'</option>').join('');
-    const cuts=set.cuts.map(c=>'<button class="sb-cut'+(c.id===sec.cut?' on':'')+'" data-cut="'+i+'|'+c.id+'"><div class="sb-cut-wf">'+cutWF(sec,c)+'</div>'
-      +'<div class="sb-cut-n">'+esc(c.name)+(c.media!=='none'?' · <span class="sb-cut-m">'+c.media+'</span>':'')+'</div></button>').join('');
-    return '<div class="sb-sec"><div class="sb-sec-hd"><span class="sb-sec-n">'+(i+1)+'</span>'
-      +'<select class="sb-sectype" data-sectype="'+i+'" title="What kind of section is this?">'+opts+'</select>'
-      +'<span class="sb-sec-peek">'+esc((sec.lines[0]||'').slice(0,72))+'</span></div>'
-      +'<div class="sb-cut-row">'+cuts+'</div></div>';
+    const hd='<div class="sb-sec-hd"><span class="sb-sec-n">'+(i+1)+'</span>'+sectypeSelect(sec,i)
+      +'<span class="sb-sec-peek">'+esc((sec.lines[0]||'').slice(0,72))+'</span></div>';
+    if(sec.type==='nav'||sec.type==='footer')
+      return '<div class="sb-sec is-chrome">'+hd+'<div class="sb-chrome-body">'+(sec.type==='nav'?'Top nav':'Footer')+' — added automatically to every page, not a section you lay out. Wrong? Change the dropdown.</div></div>';
+    if(sec.type==='skip')
+      return '<div class="sb-sec is-skip">'+hd+'<div class="sb-chrome-body">Removed — this won\'t be built. Change the dropdown to bring it back.</div></div>';
+    const opts=SECTION_REAL[sec.type]||SECTION_REAL.feature;
+    if(!sec.cut||!opts.some(o=>o.id===sec.cut)) sec.cut=opts[0].id;
+    const cards=opts.map(o=>{ const c=realComp(o); if(!c) return '';
+      return '<button class="sb-cut'+(o.id===sec.cut?' on':'')+'" data-cut="'+i+'|'+o.id+'">'
+        + thumbHTML({id:c.id,html:c.html,scale:c.scale}, 240, c.dark)
+        + '<div class="sb-cut-n">'+esc(c.name)+' <span class="sb-cut-use">· '+esc(compUses(c.key))+'</span></div></button>'; }).join('');
+    const one = opts.length===1
+      ? '<div class="sb-onecut">This is the one '+esc(SEC_LABEL[sec.type]||sec.type)+' layout your system has. Want a different one? That\'s a new component to add — a Design Opportunity, not something Create should invent.</div>'
+      : '';
+    return '<div class="sb-sec">'+hd+one+'<div class="sb-cut-row">'+cards+'</div>'
+      +'<details class="sb-sec-copy"><summary>Your copy for this section</summary><pre>'+esc(sec.raw)+'</pre></details></div>';
   }).join('');
   return h;
 }
-/* The spec: a precise, unambiguous build order — the handoff you chose over a live builder. */
+/* The spec: a precise, unambiguous build order that names the EXACT real component per
+   section (with its class + how many pages already use it) — the handoff you chose. */
 function specText(){
   const L=[];
   L.push('# Build page — PowerToFly AI Design Playbook');
   L.push('');
-  L.push('Assemble this page from the components in the playbook, section by section, in the order below.');
-  L.push('For each section: use the named layout cut, fill it with the copy, and leave media as gray placeholders (no real photos/video yet).');
-  L.push('Read CLAUDE.md + ds/COMPONENT-INVENTORY.md first. Map each cut to a real component — never invent one; if a cut has no component yet, stop and tell me.');
+  L.push('Assemble this page section by section, in order. Each section names a REAL component from');
+  L.push('ds/COMPONENT-INVENTORY.md / ds/patterns.json — copy its markup, fill it with the copy below,');
+  L.push('leave media as placeholders. Never invent or rebuild a component. If a section needs a layout');
+  L.push('that isn\'t in the inventory, STOP and tell me — that\'s a new component, a Design Opportunity.');
+  L.push('Top nav and Footer are automatic on every page (the shared organisms) — not listed below.');
   L.push('');
-  (WIZ.sections||[]).forEach((sec,i)=>{
-    const set=SECTION_CUTS[sec.type]||{}; const cut=(set.cuts||[]).find(c=>c.id===sec.cut)||{};
-    L.push('## '+(i+1)+'. '+(set.label||sec.type)+' — layout: '+(cut.name||sec.cut)+(cut.media&&cut.media!=='none'?' (media slot = '+cut.media+', placeholder)':''));
+  let n=0;
+  (WIZ.sections||[]).forEach(sec=>{
+    const opts=SECTION_REAL[sec.type]; if(!opts) return;   // skip nav / footer / removed
+    n++;
+    const o=opts.find(x=>x.id===sec.cut)||opts[0]; const c=o?realComp(o):null;
+    L.push('## '+n+'. '+(SEC_LABEL[sec.type]||sec.type)+' — component: '+(c?c.name+' ('+c.key+', '+compUses(c.key)+')':sec.cut));
     L.push(sec.raw);
     L.push('');
   });
@@ -2779,7 +2823,7 @@ document.getElementById('sbWizBody').addEventListener('click',e=>{
 document.getElementById('sbWizBody').addEventListener('change',e=>{
   const st=e.target.closest('[data-sectype]'); if(!st) return;
   const s=WIZ.sections&&WIZ.sections[+st.dataset.sectype]; if(!s) return;
-  s.type=st.value; s.cut=(SECTION_CUTS[s.type]||SECTION_CUTS.feature).cuts[0].id; wizRender();
+  s.type=st.value; const opts=SECTION_REAL[s.type]; s.cut=opts?opts[0].id:null; wizRender();
 });
 document.getElementById('sbWizFt').addEventListener('click',async e=>{
   if(e.target.closest('#wizBack')){ if(WIZ.step===2) wizCollect(); WIZ.step--; wizRender(); return; }
