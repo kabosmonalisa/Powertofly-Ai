@@ -1377,10 +1377,28 @@ const S = [
   init:`PTF.renderNav(document.querySelector('[data-ptf-nav]'));if(PTF.initMegaNav)PTF.initMegaNav();setTimeout(function(){var t=document.querySelector('[data-fly="fly-employers"]');if(t)t.click();},90);`},
 {g:'Organisms', id:'topalert', name:'Top alert bar',
   use:"The full-width bar at the very top — a timely announcement and one action. Optional per page, dismissible.",
-  rule:["One message, one action — it's an announcement, not a nav.","Respect the close; it's dismissible.","Heads up: its styling lives on the pages, NOT in ptf.css yet — a real candidate to promote into the system, so every page's alert stays in step."],
+  rule:["One message, one action — it's an announcement, not a nav.","Respect the close; it's dismissible.","The bar and its mobile stacking live in ptf.css. The content pieces (the Live badge, the countdown boxes, the thumbnail) are still page-local .ta-* classes — a real candidate to promote into the system."],
   tags:['.top-alert'], u:['.top-alert'],
-  desc:'The top announcement bar — isolated in its own viewport (wraps gracefully at 375). Note: its base styling is page-local, not yet in ptf.css — that gap is worth closing.',
-  srcdoc:`<div style="background:#7B00FF;color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;padding:11px 44px;font-size:13px;position:relative;font-family:'Inter',system-ui,sans-serif"><span><strong style="font-weight:800;letter-spacing:.1em">● LIVE</strong> &nbsp;Virtual Job Fair · June 12 — meet 40+ teams hiring AI talent</span><a href="#" onclick="return false" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;border:1.5px solid #fff;color:#fff;text-decoration:none;white-space:nowrap">Register free →</a><button aria-label="Dismiss" onclick="return false" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:17px;line-height:1">×</button></div>`},
+  desc:'Your real Live-now alert — the .top-alert bar from ptf.css with the .ta-* content pieces from the cases demo. Isolated in its own viewport, so at 375 it stacks the way your pages do.',
+  srcdoc:`<style>
+    .ta-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:#fff;color:#7B00FF;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+    .ta-dot{width:6px;height:6px;border-radius:50%;background:#7B00FF;animation:tapulse 1.5s ease-out infinite}
+    @keyframes tapulse{0%{box-shadow:0 0 0 0 rgba(123,0,255,.5)}70%{box-shadow:0 0 0 6px rgba(123,0,255,0)}100%{box-shadow:0 0 0 0 rgba(123,0,255,0)}}
+    .ta-title{min-width:0}
+    .ta-title strong{font-weight:800;letter-spacing:.1em}
+    .ta-count{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+    .ta-count .lbl{letter-spacing:.1em}
+    .ta-box{display:inline-flex;align-items:baseline;gap:3px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;padding:4px 7px}
+    .ta-box b{font-size:13px;font-weight:800;letter-spacing:0}
+    .ta-box span{font-size:9px;font-weight:700;letter-spacing:.08em;opacity:.75}
+  </style>
+  <div class="top-alert">
+    <span class="ta-badge"><span class="ta-dot"></span>Live now</span>
+    <span class="ta-title">Live Chat with an Expert: <strong>Breaking into AI roles</strong></span>
+    <span class="ta-count"><span class="lbl">Ends in</span><span class="ta-box"><b>02</b><span>D</span></span><span class="ta-box"><b>13</b><span>H</span></span><span class="ta-box"><b>36</b><span>M</span></span></span>
+    <a href="#" onclick="return false">Join in →</a>
+    <button class="top-alert-close" aria-label="Close" onclick="return false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>`},
 {g:'Organisms', id:'hero', name:'Hero',
   use:"Two layouts, and the Fill choices change to only what's real for each. CENTERED can be the typewriter search card (Employers), an image (About), or a video. SPLIT can be an image, a video, or an image with the flip card over it (Talents). The typewriter is centred-only; the flip card is split-over-image only — the dial won't let you mix them wrong. On the typewriter, the card carries the Get started, so there's no second CTA.",
   rule:["Typewriter → Centered only. It's the search card and it carries its own Get started — no extra buttons.","Flip card → Split only, and only over an image (never over a video).","The copy stands on its own; the fill is support. If it's a video, give it a real control and never autoplay with sound."],
