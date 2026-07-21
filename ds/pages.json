@@ -130,21 +130,22 @@
    "desc": "Coming-soon placeholder."
   },
   {
-   "id": "nav",
-   "name": "Top nav",
+   "id": "nav-demo",
+   "name": "Nav \u2014 states demo",
    "file": "nav-options.html",
-   "group": "Organisms",
+   "group": "Pages",
    "status": "live",
    "scrollText": "Logged out",
-   "desc": "The unified top nav \u2014 logged-out and logged-in states."
+   "openFly": "[data-fly=\"c-fly-employers\"]",
+   "desc": "Reference demo page for the nav's logged-out and logged-in states. The Top nav organism is the inline specimen."
   },
   {
-   "id": "topalert",
-   "name": "Top alert bar",
+   "id": "alert-demo",
+   "name": "Top-alert \u2014 cases demo",
    "file": "top-alerts.html",
-   "group": "Organisms",
+   "group": "Pages",
    "status": "live",
-   "desc": "The canonical nav + top-alert bar, in every state."
+   "desc": "Reference demo page for the top-alert cases. The Top alert bar organism is the inline specimen."
   },
   {
    "id": "flow-event",

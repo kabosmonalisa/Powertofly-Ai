@@ -1364,48 +1364,71 @@ const S = [
 
 /* ══════════ ORGANISMS (static) — footer, hero, CTA. Nav/flows/pages come from pages.json ══════════ */
 {g:'Organisms', id:'footer', name:'Footer',
-  use:"The end of every page. Same everywhere, no exceptions.", rule:[], tags:['.footer','live'], iframe:'about/index.html', scroll:'.footer', u:['.footer','.footer-cols','.footer-col'],
-  desc:'The always-dark footer, live at the bottom of the About page.'},
+  use:"The end of every page. Same everywhere, no exceptions — rendered from the one source in ptf.js.", rule:["It renders from PTF.renderFooter — never hand-build a footer on a page."], tags:['.footer'], u:['.footer','.footer-cols','.footer-col'],
+  desc:'The always-dark footer — an isolated specimen from the real PTF.renderFooter, in its own viewport, so the width toggle shows it truly responsive.',
+  theme:'dark',
+  srcdoc:`<div data-ptf-footer></div>`, init:`PTF.renderFooter(document.querySelector('[data-ptf-footer]'))`},
+{g:'Organisms', id:'topnav', name:'Top nav',
+  use:"The unified nav, from the one source (PTF.renderNav). Same on every page; a mega-dropdown holds the deeper employer links.",
+  rule:["It renders from ptf.js — never hand-build a nav on a page.","The dropdown carries the employer content; keep the bar itself short.","Drop the width to 375 and it becomes the real mobile drawer — it's responsive here now."],
+  tags:['.nav'], u:['.nav','.nav-inner','.nav-fly'],
+  desc:'The real top nav — an isolated specimen from PTF.renderNav with the For-employers mega-dropdown open. Its own viewport: Full shows the desktop nav, 375 shows the mobile drawer.',
+  srcdoc:`<div data-ptf-nav data-auth="out"></div>`,
+  init:`PTF.renderNav(document.querySelector('[data-ptf-nav]'));if(PTF.initMegaNav)PTF.initMegaNav();setTimeout(function(){var t=document.querySelector('[data-fly="fly-employers"]');if(t)t.click();},90);`},
+{g:'Organisms', id:'topalert', name:'Top alert bar',
+  use:"The full-width bar at the very top — a timely announcement and one action. Optional per page, dismissible.",
+  rule:["One message, one action — it's an announcement, not a nav.","Respect the close; it's dismissible.","Heads up: its styling lives on the pages, NOT in ptf.css yet — a real candidate to promote into the system, so every page's alert stays in step."],
+  tags:['.top-alert'], u:['.top-alert'],
+  desc:'The top announcement bar — isolated in its own viewport (wraps gracefully at 375). Note: its base styling is page-local, not yet in ptf.css — that gap is worth closing.',
+  srcdoc:`<div style="background:#7B00FF;color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 16px;padding:11px 44px;font-size:13px;position:relative;font-family:'Inter',system-ui,sans-serif"><span><strong style="font-weight:800;letter-spacing:.1em">● LIVE</strong> &nbsp;Virtual Job Fair · June 12 — meet 40+ teams hiring AI talent</span><a href="#" onclick="return false" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 14px;border-radius:999px;border:1.5px solid #fff;color:#fff;text-decoration:none;white-space:nowrap">Register free →</a><button aria-label="Dismiss" onclick="return false" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:17px;line-height:1">×</button></div>`},
 {g:'Organisms', id:'hero', name:'Hero',
-  use:"One hero, two dials. Layout picks Centered or Split; Fill picks what goes in the media slot — a static image, a video, the flip card, or the typewriter. Every opener you have is a point on these two dials: Employers = Centered + Typewriter, Train = Split + Video, Talents = Split + Flip, About = Split + Image.",
-  rule:["Pick a layout, then a fill — never build a new hero per page.","The copy must stand on its own; the fill is support, not the message.","One fill at a time. If it's a video, give it a real control and never autoplay with sound."],
+  use:"Two layouts, and the Fill choices change to only what's real for each. CENTERED can be the typewriter search card (Employers), an image (About), or a video. SPLIT can be an image, a video, or an image with the flip card over it (Talents). The typewriter is centred-only; the flip card is split-over-image only — the dial won't let you mix them wrong. On the typewriter, the card carries the Get started, so there's no second CTA.",
+  rule:["Typewriter → Centered only. It's the search card and it carries its own Get started — no extra buttons.","Flip card → Split only, and only over an image (never over a video).","The copy stands on its own; the fill is support. If it's a video, give it a real control and never autoplay with sound."],
   tags:['.hero-ds','configurable'], u:['.hero-ds','.hero-ds-inner','.hero-ds-media'],
-  desc:'The real, configurable hero — the first component extracted as a set of choices instead of fixed copies. Turn the dial to switch layout and fill; the label tells you which of your pages each combination is.',
+  desc:'The real, configurable hero, isolated in its own viewport — pull the width toggle to 375 and it goes mobile. Pick a Layout; the Fill offers only the combinations your pages actually have.',
   html:`<div id="heroCfg"></div>`,
   mount:function(host){
     const wrap=host.querySelector('#heroCfg'); if(!wrap) return;
-    const st={layout:'split', fill:'video'};
-    const MAP={'centered|type':'Employers','split|video':'Train','split|flip':'Talents','split|image':'About / Hire'};
-    wrap.innerHTML=
-      '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
-      +'<span class="sb-seg-g"><span class="sb-flabel">Layout</span><div class="sb-seg" data-dial="layout"><button data-v="centered">Centered</button><button data-v="split" class="on">Split</button></div></span>'
-      +'<span class="sb-seg-g"><span class="sb-flabel">Fill</span><div class="sb-seg" data-dial="fill"><button data-v="image">Image</button><button data-v="video" class="on">Video</button><button data-v="flip">Flip card</button><button data-v="type">Typewriter</button></div></span>'
-      +'<span data-map style="font-size:13px;color:var(--sb-txt-2)"></span></div>'
-      +'<div data-stagehero></div>';
-    function fill(f){
-      if(f==='image') return `<div class="hero-ds-media"><img src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="A professional at her laptop"></div>`;
-      if(f==='video') return `<div class="hero-ds-media"><video src="../train/hero-side.mp4" autoplay muted loop playsinline></video></div>`;
-      if(f==='flip') return `<div class="hero-ds-media" style="background:transparent"><div class="anim-flip" tabindex="0" style="width:240px;height:160px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Match 94%</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">See profile →</div></div></div></div>`;
-      return `<div class="hero-ds-media" style="aspect-ratio:auto;justify-content:flex-start;padding:26px 28px"><div style="font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:800;color:#fff">Hiring <span class="anim-type">Software Engineers</span></div></div>`;
+    const LAYOUTS={centered:['type','image','video'], split:['image','video','flip']};   // what each layout may hold
+    const FL={type:'Typewriter', image:'Image', video:'Video', flip:'Flip card'};
+    const MAP={'centered|type':'Employers','centered|image':'About','split|image':'Hire','split|video':'Train','split|flip':'Talents'};
+    const st=window.__HERO_ST||(window.__HERO_ST={layout:'split', fill:'flip'});   // persist across theme re-renders
+    const flipCard=`<div class="anim-flip" tabindex="0" style="width:230px;height:150px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Match 94%</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">See profile →</div></div></div>`;
+    function ph(kind){ const vid=kind==='video'; return `<span class="hero-ds-ph${vid?' is-video':''}">${vid?'video':'image'}</span>`; }
+    function fillHTML(){
+      const f=st.fill;
+      if(f==='type') return `<div class="hero-ds-search"><div class="hero-ds-search-hd"><span class="anim-pulse"></span>Ready to deploy</div><div class="hero-ds-search-row"><span class="hero-ds-search-word"><span class="anim-type">Software Engineers</span></span><a href="#" class="btn btn-primary" onclick="return false" style="white-space:nowrap">Get started →</a></div></div>`;
+      if(f==='flip') return `<div class="hero-ds-media">${ph('image')}<div class="hero-ds-float anim-float">${flipCard}</div></div>`;   // flip ALWAYS over an image
+      return `<div class="hero-ds-media">${ph(f)}</div>`;
     }
-    function render(){
+    function heroHTML(){
+      const ctas = st.fill==='type' ? '' : `<div class="hero-ds-ctas"><a href="#" class="btn btn-primary" onclick="return false">Get started</a><a href="#" class="btn" onclick="return false">Talk to us</a></div>`;   // typewriter card carries its own CTA
+      return `<div class="hero-ds is-${st.layout}"><div class="hero-ds-inner"><div class="hero-ds-copy"><h1>Better AI models start with <em class="italic-plain">better experts</em>.</h1><p>PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it serves.</p>${ctas}</div>${fillHTML()}</div></div>`;
+    }
+    let fr=null;
+    function renderHero(){ if(!fr) return; fr.onload=function(){ fitFacade(fr); }; fr.srcdoc=specimenDoc(heroHTML(), '', themeMode==='dark'); }
+    function renderDial(){
+      if(!LAYOUTS[st.layout].includes(st.fill)) st.fill=LAYOUTS[st.layout][0];   // snap to a valid fill when the layout changes
       const key=st.layout+'|'+st.fill, pg=MAP[key];
-      wrap.querySelector('[data-map]').innerHTML = pg ? `= your <b style="color:var(--sb-green)">${pg}</b> hero` : 'a combination no page uses yet';
-      wrap.querySelector('[data-stagehero]').innerHTML=
-        `<div class="hero-ds is-${st.layout}"><div class="hero-ds-inner"><div class="hero-ds-copy"><h1>Better AI models start with <em class="italic-plain">better experts</em>.</h1><p>PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it serves.</p><div class="hero-ds-ctas"><a href="#" class="btn btn-primary" onclick="return false">Get started</a><a href="#" class="btn" onclick="return false">Talk to us</a></div></div>${fill(st.fill)}</div></div>`;
+      const lay=['centered','split'].map(l=>`<button data-lay="${l}"${l===st.layout?' class="on"':''}>${l==='centered'?'Centered':'Split'}</button>`).join('');
+      const fl=LAYOUTS[st.layout].map(f=>`<button data-fill="${f}"${f===st.fill?' class="on"':''}>${FL[f]}</button>`).join('');
+      wrap.querySelector('#hDial').innerHTML=
+        `<span class="sb-seg-g"><span class="sb-flabel">Layout</span><div class="sb-seg" id="hLay">${lay}</div></span>`
+        +`<span class="sb-seg-g"><span class="sb-flabel">Fill</span><div class="sb-seg" id="hFill">${fl}</div></span>`
+        +`<span style="font-size:13px;color:var(--sb-txt-2)">${pg?`= your <b style="color:var(--sb-green)">${pg}</b> hero`:'a combination no page uses yet'}</span>`;
     }
-    wrap.querySelectorAll('.sb-seg[data-dial]').forEach(seg=>seg.addEventListener('click',e=>{
-      const b=e.target.closest('button'); if(!b) return;
-      st[seg.dataset.dial]=b.dataset.v;
-      [...seg.children].forEach(x=>x.classList.toggle('on',x===b));
-      render();
-    }));
-    render();
+    wrap.innerHTML=`<div id="hDial" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px"></div><div class="sb-frame-vp" style="height:68vh;min-height:460px"><iframe class="sb-frame"></iframe></div>`;
+    fr=wrap.querySelector('iframe');
+    wrap.addEventListener('click',e=>{
+      const l=e.target.closest('[data-lay]'); if(l){ st.layout=l.dataset.lay; renderDial(); renderHero(); return; }
+      const f=e.target.closest('[data-fill]'); if(f){ st.fill=f.dataset.fill; renderDial(); renderHero(); return; }
+    });
+    renderDial(); renderHero();
   }},
 {g:'Organisms', id:'cta', name:'Final CTA band',
   use:"The always-dark closer that blends into the footer. Every page ends here \u2014 that's the point.", rule:["The green eyebrow is a required part of the band, not decoration."], tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
-  desc:'The always-dark closer that blends into the footer. The green eyebrow is a REQUIRED part of the band.',
-  html:`<div class="section-cta" style="border-radius:16px;overflow:hidden"><div class="section-cta-inner"><span class="eyebrow">Let's talk</span><h2>Ready when you are.</h2><p>Whether you're hiring AI talent or building your team's capability — we've spent 12 years preparing for this.</p><a href="#" class="btn btn-cta">Book a discovery call</a></div></div>`},
+  desc:'The always-dark closer that blends into the footer — an isolated specimen in its own viewport. The green eyebrow is a REQUIRED part of the band.',
+  srcdoc:`<div class="section-cta"><div class="section-cta-inner"><span class="eyebrow">Let's talk</span><h2>Ready when you are.</h2><p>Whether you're hiring AI talent or building your team's capability — we've spent 12 years preparing for this.</p><a href="#" class="btn btn-cta">Book a discovery call</a></div></div>`},
 
 {g:'Animations', id:'flip', name:'Card flip',
   use:"A 3D turn that reveals a second side on hover — used by the Talents match card. Reach for it when a card genuinely has two states worth flipping between; not for decoration.",
@@ -1465,7 +1488,13 @@ const S = [
    use:"The morphing green orb behind the Train hero — it breathes (its glow swells) and slowly changes shape. Pure ambience, to make a dark hero feel alive.",
    rule:["Background only, always behind content — never let it fight the headline for attention.","Slow. A fast morph looks like a glitch.","Honour reduced motion: it holds one shape, no breathing."],
    tags:['live'], iframe:'train/index.html', scroll:'.hero', u:[],
-   desc:'The breathing / morphing orb behind the Train hero. Lives on the Train page.'}
+   desc:'The breathing / morphing orb behind the Train hero. Lives on the Train page.'},
+
+  {g:'Animations', id:'carousel', name:'Card carousel',
+   use:"The full-width band of image and video cards on the Employers hero. The row ROTATES through the cards — it slides, it does not flip — with the search card floating over it. It needs the full width, so it belongs to the Centered hero only.",
+   rule:["It rotates the row sideways; it never flips a card. Keep the motion horizontal and smooth.","Mix media freely — images and short muted videos — but never autoplay a video with sound.","A Centered-hero band: it wants the whole width, so don't drop it into a Split hero."],
+   tags:['.fh-wrap','live'], iframe:'employers/index.html', scroll:'.fh-wrap', u:['.fh-wrap','.fh-track','.fh-slide'],
+   desc:'The rotating card carousel from the Employers hero — a JS-driven .fh-track of media cards. Lives on the Employers page; a centred-hero band (not a flip).'}
 ];
 /* Pages / Organisms-nav / Flows are generated from ds/pages.json at boot (single source of truth). */
 
@@ -2241,6 +2270,18 @@ function fitFacade(fr){
   fr.style.transform='scale('+scale+')';
   fr.style.left=(scale===1 && lw<vw ? Math.round((vw-lw)/2) : 0)+'px';
 }
+/* An ISOLATED component specimen: just the component + the real ptf.css/ptf.js, in its OWN
+   viewport. That's the only way the width toggle can drive true responsive behaviour (media
+   queries read the iframe's width, not the storybook window) and the theme can be applied. */
+function specimenDoc(inner, init, dark){
+  const base=location.origin+'/ds/';
+  return '<!doctype html><html'+(dark?' data-theme="dark"':'')+'><head><base href="'+base+'">'
+    +'<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+    +'<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Inter+Tight:wght@700;800&display=swap" rel="stylesheet">'
+    +'<link rel="stylesheet" href="ptf.css"><style>html,body{margin:0;background:transparent}</style></head>'
+    +'<body class="'+(dark?'theme-dark':'')+'">'+inner+'<scr'+'ipt src="ptf.js"></scr'+'ipt>'
+    +(init?'<scr'+'ipt>try{'+init+'}catch(e){}</scr'+'ipt>':'')+'</body></html>';
+}
 const stagewrap=document.querySelector('.sb-stagewrap');
 const nameEl=document.getElementById('sbName'), descEl=document.getElementById('sbDesc'), tagsEl=document.getElementById('sbTags');
 const codeSec=document.getElementById('sbCode'), codeText=document.getElementById('sbCodeText');
@@ -2320,12 +2361,12 @@ function buildSide(){
    they can actually do something: no theme/width/code controls on the audit views,
    no theme toggle on a live page (the page owns its own theme). ── */
 function setTools(s){
-  const isAudit=!!(s&&s.special), isFrame=!!(s&&s.iframe);
+  const isAudit=!!(s&&s.special), isFacade=!!(s&&s.iframe), isSrcdoc=!!(s&&s.srcdoc);
   /* hide the label with its control — setTools targets the seg, the label rides along */
   const show=(id,on)=>{ const el=document.getElementById(id); (el.closest('.sb-seg-g')||el).style.display=on?'':'none'; return on; };
-  const theme = show('sbThemeSeg', !isAudit && !isFrame && !(s&&s.theme));  // theme: inline specimens only
-  const width = show('sbVwSeg',    !isAudit);                               // width: anything rendered
-  const code  = show('sbCodeSeg',  !isAudit && !isFrame);                   // markup: inline specimens only
+  const theme = show('sbThemeSeg', !isAudit && !isFacade && !(s&&s.theme));  // theme: inline + isolated specimens (real-page facades own their theme)
+  const width = show('sbVwSeg',    !isAudit);                                // width: anything rendered
+  const code  = show('sbCodeSeg',  !isAudit && !isFacade && !isSrcdoc);      // markup: inline specimens only
   const stat  = show('sbStatusSeg', !!(s&&s.pageId));                        // lifecycle: real pages only
   /* the drawer follows what you're looking at: a page's report, or a component's
      how-to. renderPageWork / renderUse own the button — setTools only hides it when
@@ -2335,9 +2376,9 @@ function setTools(s){
   document.getElementById('sbStageBar').style.display=(theme||width||code||stat)?'':'none';
 }
 function applyTheme(){
-  const isFrame=current&&current.iframe;
+  const inIframe=current&&(current.iframe||current.srcdoc);   // iframe specimens carry their own theme
   const forced=current&&current.theme==='dark';
-  const dark=!isFrame&&(forced||themeMode==='dark');
+  const dark=!inIframe&&(forced||themeMode==='dark');
   stage.classList.toggle('theme-dark',dark);
   document.querySelectorAll('#sbThemeSeg button').forEach(btn=>{
     btn.classList.toggle('on', !forced && btn.dataset.theme===themeMode);
@@ -2372,20 +2413,28 @@ function select(id){
     location.hash=id; return; }
   stagewrap.style.display='';
 
-  if(s.iframe){
+  if(s.iframe || s.srcdoc){
     codeSec.classList.add('hidden');
     stageInner.style.padding='0';
-    stageInner.innerHTML='<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code><a href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the real page in a new tab" aria-label="Open the real page in a new tab">'+uic('external',13)+'</a></div><div class="sb-frame-vp"><iframe class="sb-frame" src="../'+s.iframe+'"></iframe></div>';
+    const bar = s.srcdoc
+      ? '<div class="sb-frame-bar">Component · <code>'+esc((s.tags&&s.tags[0])||s.name)+'</code> · isolated, real ptf.css</div>'
+      : '<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code><a href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the real page in a new tab" aria-label="Open the real page in a new tab">'+uic('external',13)+'</a></div>';
+    stageInner.innerHTML=bar+'<div class="sb-frame-vp"><iframe class="sb-frame"'+(s.iframe?' src="../'+s.iframe+'"':'')+'></iframe></div>';
     const fr=stageInner.querySelector('iframe');
     fr.onload=function(){
-      fitFacade(fr);   // render at a desktop layout width, scaled to fit — so a split hero reads as split, not stacked
-      if(s.scroll||s.scrollText){ try{
-        const d=fr.contentDocument; let el=null;
-        if(s.scroll) el=d.querySelector(s.scroll);
-        if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
-        if(el) el.scrollIntoView({block:'start'});
+      fitFacade(fr);   // its own viewport, at the width toggle's size, scaled to fit — real responsive
+      if(s.iframe){ try{
+        const d=fr.contentDocument;
+        if(s.openFly){ const t=d.querySelector(s.openFly); if(t){ const p=d.getElementById(t.dataset.fly);
+          if(p){ t.classList.add('open'); p.classList.add('open'); } } }
+        if(s.scroll||s.scrollText){ let el=null;
+          if(s.scroll) el=d.querySelector(s.scroll);
+          if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
+          if(el) el.scrollIntoView({block:'start'});
+        }
       }catch(e){} }
     };
+    if(s.srcdoc){ const dark=(s.theme==='dark')||themeMode==='dark'; fr.srcdoc=specimenDoc(s.srcdoc, s.init, dark); }
     applyTheme();
     if(s.pageId) renderPageWork(s); else renderUse(s);
     location.hash=id; return;
@@ -3548,7 +3597,7 @@ Promise.all([
     pj.pages.slice().sort((a,b)=>(ord[a.group]==null?9:ord[a.group])-(ord[b.group]==null?9:ord[b.group])).forEach(p=>{
       if(S.some(s=>s.id===p.id)) return;
       S.push({g:p.group||'Pages', id:p.id, name:p.name, tags:[], iframe:p.file, scrollText:p.scrollText, scroll:p.scroll,
-              pageId:p.id, status:p.status||'live',
+              openFly:p.openFly, pageId:p.id, status:p.status||'live',
               desc:p.desc||(p.file+' — resize with the width toggle to check responsive.')});
     });
   }
