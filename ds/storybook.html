@@ -1402,27 +1402,50 @@ const S = [
 {g:'Organisms', id:'topalert', name:'Top alert bar',
   use:"The full-width bar at the very top — a timely announcement and one action. Optional per page, dismissible.",
   rule:["One message, one action — it's an announcement, not a nav.","Respect the close; it's dismissible.","The bar and its mobile stacking live in ptf.css. The content pieces (the Live badge, the countdown boxes, the thumbnail) are still page-local .ta-* classes — a real candidate to promote into the system."],
-  tags:['.top-alert'], u:['.top-alert'],
-  desc:'Your real Live-now alert — the .top-alert bar from ptf.css with the .ta-* content pieces from the cases demo. Isolated in its own viewport, so at 375 it stacks the way your pages do.',
-  srcdoc:`<style>
-    .ta-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:#fff;color:#7B00FF;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
-    .ta-dot{width:6px;height:6px;border-radius:50%;background:#7B00FF;animation:tapulse 1.5s ease-out infinite}
-    @keyframes tapulse{0%{box-shadow:0 0 0 0 rgba(123,0,255,.5)}70%{box-shadow:0 0 0 6px rgba(123,0,255,0)}100%{box-shadow:0 0 0 0 rgba(123,0,255,0)}}
-    .ta-title{min-width:0}
-    .ta-title strong{font-weight:800;letter-spacing:.1em}
-    .ta-count{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
-    .ta-count .lbl{letter-spacing:.1em}
-    .ta-box{display:inline-flex;align-items:baseline;gap:3px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;padding:4px 7px}
-    .ta-box b{font-size:13px;font-weight:800;letter-spacing:0}
-    .ta-box span{font-size:9px;font-weight:700;letter-spacing:.08em;opacity:.75}
-  </style>
-  <div class="top-alert">
-    <span class="ta-badge"><span class="ta-dot"></span>Live now</span>
-    <span class="ta-title">Live Chat with an Expert: <strong>Breaking into AI roles</strong></span>
-    <span class="ta-count"><span class="lbl">Ends in</span><span class="ta-box"><b>02</b><span>D</span></span><span class="ta-box"><b>13</b><span>H</span></span><span class="ta-box"><b>36</b><span>M</span></span></span>
-    <a href="#" onclick="return false">Join in →</a>
-    <button class="top-alert-close" aria-label="Close" onclick="return false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-  </div>`},
+  tags:['.top-alert','cases'], u:['.top-alert'],
+  desc:'Your real .top-alert bar (ptf.css) with the .ta-* content pieces from the cases demo. Toggle Case to see each one — announcement, live countdown, upcoming, with a thumbnail, product news. Isolated viewport, so at 375 it stacks the way your pages do.',
+  html:`<div id="taCfg"></div>`,
+  mount:function(host){
+    const wrap=host.querySelector('#taCfg'); if(!wrap) return;
+    const st=window.__TA_ST||(window.__TA_ST={key:'live'});   // persist across theme re-renders
+    const STYLE=`<style>
+      .ta-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:999px;background:#fff;color:#7B00FF;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+      .ta-dot{width:6px;height:6px;border-radius:50%;background:#7B00FF;animation:tapulse 1.5s ease-out infinite}
+      @keyframes tapulse{0%{box-shadow:0 0 0 0 rgba(123,0,255,.5)}70%{box-shadow:0 0 0 6px rgba(123,0,255,0)}100%{box-shadow:0 0 0 0 rgba(123,0,255,0)}}
+      .ta-title{min-width:0}
+      .ta-title strong{font-weight:800;letter-spacing:.1em}
+      .ta-count{display:inline-flex;align-items:center;gap:6px;flex-shrink:0}
+      .ta-count .lbl{letter-spacing:.1em}
+      .ta-box{display:inline-flex;align-items:baseline;gap:3px;border:1.5px solid rgba(255,255,255,.45);border-radius:6px;padding:4px 7px}
+      .ta-box b{font-size:13px;font-weight:800;letter-spacing:0}
+      .ta-box span{font-size:9px;font-weight:700;letter-spacing:.08em;opacity:.75}
+      .ta-thumb{width:52px;height:32px;border-radius:6px;object-fit:cover;flex-shrink:0;background:rgba(255,255,255,.2)}
+    </style>`;
+    const CLOSE=`<button class="top-alert-close" aria-label="Close" onclick="return false"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>`;
+    const cnt=(label,units)=>`<span class="ta-count"><span class="lbl">${label}</span>${units.map(u=>`<span class="ta-box"><b>${u[0]}</b><span>${u[1]}</span></span>`).join('')}</span>`;
+    const CASES={
+      default :{label:'Announcement', html:`AI &amp; Emerging Tech Summit 2026 &nbsp;·&nbsp; Sept 16–17 · Virtual<a href="#" onclick="return false">Register now →</a>`},
+      live    :{label:'Live countdown', html:`<span class="ta-badge"><span class="ta-dot"></span>Live now</span><span class="ta-title">Live Chat with an Expert: <strong>Breaking into AI roles</strong></span>${cnt('Ends in',[['02','D'],['13','H'],['36','M']])}<a href="#" onclick="return false">Join in →</a>`},
+      upcoming:{label:'Upcoming', html:`<span class="ta-badge">Upcoming</span><span class="ta-title">Resume Reboot Workshop · <strong>Thu, Jun 19 · 1:00 PM ET</strong></span>${cnt('Starts in',[['03','D'],['04','H'],['22','M']])}<a href="#" onclick="return false">Register →</a>`},
+      thumb   :{label:'With thumbnail', html:`<span class="ta-badge"><span class="ta-dot"></span>Live now</span><span class="ta-title">Diversity Reboot: <strong>Inclusive AI teams</strong></span>${cnt('Ends in',[['00','H'],['42','M'],['09','S']])}<a href="#" onclick="return false">Join in →</a><img class="ta-thumb" src="/photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="">`},
+      plain   :{label:'Product news', html:`<span class="ta-badge">New</span><span class="ta-title">PowerToFly AI matching is live — expert-vetted candidates in days, not weeks</span><a href="#" onclick="return false">See how →</a>`}
+    };
+    const ORDER=['default','live','upcoming','thumb','plain'];
+    let fr=null;
+    function renderBar(){ if(!fr) return; const c=CASES[st.key]||CASES.live;
+      const inner=`${STYLE}<div class="top-alert">${c.html}${CLOSE}</div>`;
+      fr.onload=function(){ fitFacade(fr); };
+      fr.srcdoc=specimenDoc(inner, '', themeMode==='dark');
+    }
+    function renderDial(){
+      const btns=ORDER.map(k=>`<button data-case="${k}"${k===st.key?' class="on"':''}>${CASES[k].label}</button>`).join('');
+      wrap.querySelector('#taDial').innerHTML=`<span class="sb-seg-g"><span class="sb-flabel">Case</span><div class="sb-seg">${btns}</div></span>`;
+    }
+    wrap.innerHTML=`<div id="taDial" style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px"></div><div class="sb-frame-vp" style="height:40vh;min-height:300px"><iframe class="sb-frame"></iframe></div>`;
+    fr=wrap.querySelector('iframe');
+    wrap.addEventListener('click',e=>{ const b=e.target.closest('[data-case]'); if(b){ st.key=b.dataset.case; renderDial(); renderBar(); } });
+    renderDial(); renderBar();
+  }},
 {g:'Organisms', id:'hero', name:'Hero',
   use:"Two layouts, and the Fill choices change to only what's real for each. CENTERED can be the typewriter search card (Employers), an image (About), or a video. SPLIT can be an image, a video, or an image with the flip card over it (Talents). The typewriter is centred-only; the flip card is split-over-image only — the dial won't let you mix them wrong. On the typewriter, the card carries the Get started, so there's no second CTA.",
   rule:["Typewriter → Centered only. It's the search card and it carries its own Get started — no extra buttons.","Flip card → Split only, and only over an image (never over a video).","The copy stands on its own; the fill is support. If it's a video, give it a real control and never autoplay with sound."],
