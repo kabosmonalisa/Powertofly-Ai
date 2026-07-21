@@ -578,6 +578,14 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-pw-body .sb-pw-stat b{ font-size:24px; }
 .sb-pw-body .sb-pw-stat span{ font-size:11px; line-height:1.4; }
 .sb-pw-chip.own{ color:var(--sb-txt-3); background:transparent; border-style:dashed; font-family:var(--sb-mono); font-size:11.5px; cursor:default; }
+/* the page's own building blocks, grouped into things with a piece count — biggest
+   first, so a 23-piece custom hero reads as the one thing to look at */
+.sb-pw-things{ display:flex; flex-direction:column; gap:7px; }
+.sb-thing{ display:flex; align-items:center; gap:10px; padding:10px 13px; border-radius:10px;
+  background:var(--sb-panel); border:1px solid var(--sb-line); cursor:help; }
+.sb-thing b{ font-family:'Inter Tight'; font-size:13.5px; font-weight:700; color:var(--sb-txt); }
+.sb-thing-n{ margin-left:auto; font-size:11.5px; font-weight:700; color:var(--sb-txt-3);
+  background:var(--sb-panel-2); border-radius:999px; padding:2px 9px; flex:none; }
   border-radius:10px; font-size:13px; line-height:1.6; }
 .sb-use-when .sb-i, .sb-use-rule .sb-i{ flex:none; margin-top:2px; }
 .sb-use-when{ background:var(--sb-panel); border:1px solid var(--sb-line); color:var(--sb-txt-2); }
@@ -1481,6 +1489,28 @@ function pageFindings(name){
   return AUDIT.findings.filter(f=>!findingObsolete(f) && !DECIDED[f.id]
     && (f.variants||[]).some(v=>(v.where||[]).includes(name)));
 }
+/* 40 raw class names is unreadable AND a lie: 23 of them are one custom hero. A designer
+   can't act on ".fh-card-outer". So group the classes a page invented back into the
+   things they build — by their shared name prefix — and count the pieces. One big group
+   (a 23-piece hero) is the real signal; the raw names live in the hover, for a developer. */
+function groupOwn(classes){
+  const by={};
+  (classes||[]).forEach(c=>{
+    const stem=c.replace(/^\./,'').split('-')[0];    // .fh-card-outer -> fh
+    (by[stem]=by[stem]||[]).push(c);
+  });
+  const nice={hero:'Hero',logos:'Logos',logo:'Logos',section:'Sections',outcomes:'Outcomes scene',
+              typed:'Typed text',why:'“Why” row',more:'“More” link',about:'About block',
+              benefits:'Benefits row',benefit:'Benefits row',stat:'Stats',stats:'Stats'};
+  const merged={};   // .logo and .logos both read "Logos" — one group, not two
+  Object.entries(by).forEach(([stem,cls])=>{
+    const nm = nice[stem] || (stem.charAt(0).toUpperCase()+stem.slice(1)+' group');
+    (merged[nm]=merged[nm]||[]).push(...cls);
+  });
+  return Object.entries(merged)
+    .map(([name,cls])=>({ name, classes:cls.sort() }))
+    .sort((a,b)=>b.classes.length-a.classes.length);
+}
 function renderPageWork(s){
   const body=document.getElementById('sbPwBody');
   const file=s.iframe, name=s.name;
@@ -1490,7 +1520,7 @@ function renderPageWork(s){
   document.getElementById('sbPwTitleTxt').textContent=name+' — against the system';
   if(!DATA){ body.innerHTML=''; return; }
   const comps=pageStories(file), finds=pageFindings(name);
-  const own=((DATA.meta.pageOwn||{})[file])||[];
+  const own=((DATA.meta.pageOwn||{})[file])||[], ownGroups=groupOwn(own);
   const css=(DATA.meta.pageCss||{})[file];
   const cssVerdict = css===0 ? 'good' : css>400 ? 'bad' : 'mid';
   const cssNote = css===0 ? 'built entirely from the system'
@@ -1498,7 +1528,7 @@ function renderPageWork(s){
                 : 'some of this page is one-offs';
   let h='<div class="sb-pw-stats">'
     + '<div class="sb-pw-stat"><b>'+comps.length+'</b><span>from the system</span></div>'
-    + '<div class="sb-pw-stat"><b class="'+(own.length?'bad':'good')+'">'+own.length+'</b><span>of its own</span></div>'
+    + '<div class="sb-pw-stat"><b class="'+(ownGroups.length?'bad':'good')+'">'+ownGroups.length+'</b><span>of its own</span></div>'
     + '<div class="sb-pw-stat"><b class="'+cssVerdict+'">'+(css==null?'—':css)+'</b><span>lines of its own CSS</span></div>'
     + '</div>'
     + '<p class="sb-pw-verdict '+cssVerdict+'">'+esc(cssNote.charAt(0).toUpperCase()+cssNote.slice(1))+'.</p>';
@@ -1511,12 +1541,15 @@ function renderPageWork(s){
   /* The half that was missing. "What it's made of" only ever showed what the page took
      FROM the system; the interesting question is what it invented instead. Each of these
      is a decision waiting: does the system want it, or does the system already have it? */
-  h+=sect('Its own — not in the system','Each one is a decision: add it to the system, or replace it with something you already have. The goal is this list at zero.')
-    + (own.length
-        ? '<div class="sb-pw-chips own">'+own.map(c=>'<span class="sb-pw-chip own">'+esc(c)+'</span>').join('')+'</div>'
-          + '<p class="sb-scan-note">This is what those '+css+' lines are.</p>'
+  h+=sect('Built for this page','These aren’t from your system — the page made them itself. A big group is a whole custom thing: worth building into the system properly, or swapping for something you already have.')
+    + (ownGroups.length
+        ? '<div class="sb-pw-things">'+ownGroups.map(g=>
+            '<div class="sb-thing" title="'+esc(g.classes.join('  '))+'">'
+            + '<b>'+esc(g.name)+'</b>'
+            + '<span class="sb-thing-n">'+g.classes.length+' piece'+(g.classes.length===1?'':'s')+'</span></div>').join('')+'</div>'
+          + '<p class="sb-scan-note">That’s what the '+css+' lines of custom CSS are. Hover a group to see the code names a developer would use.</p>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
-          + 'Every component on it comes from the system.</span></div>');
+          + 'Every part of it comes from your system.</span></div>');
 
   /* The explanation moved to the heading's tooltip — a paragraph explaining a section
      sits there forever, and she reads it once. And the rows now wear the same ⧉ the
