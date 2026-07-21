@@ -1313,9 +1313,21 @@ const S = [
 {g:'Organisms', id:'footer', name:'Footer',
   use:"The end of every page. Same everywhere, no exceptions.", rule:[], tags:['.footer','live'], iframe:'about/index.html', scroll:'.footer', u:['.footer','.footer-cols','.footer-col'],
   desc:'The always-dark footer, live at the bottom of the About page.'},
-{g:'Organisms', id:'hero', name:'Hero section',
-  use:"One promise, one sub, one action. The most consistent thing on the site.", rule:["A page that opens differently reads as a different product.", "Spend your novelty budget lower down."], tags:['.section-hero','live'], iframe:'employers/index.html', u:['.section-hero'],
-  desc:'A real hero in context — the top of the Employers page.'},
+{g:'Organisms', id:'hero-animated', name:'Hero — animated',
+  use:"The Employers opener: a typewriter that reels through job titles beside a photo grid, one big CTA. Reach for it when the promise is 'we have people for any role' and you want it to feel alive.", rule:["The typewriter is decoration — the real action is the button. Don't make it look so much like a search that people try to type.","One CTA. The animation already carries the energy."], tags:['.hero','live'], iframe:'employers/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.fh-typed'],
+  desc:'The animated hero — typewriter + photo grid. Lives on the Employers page; not yet a shared component.'},
+{g:'Organisms', id:'hero-match', name:'Hero — with match card',
+  use:"The Talents opener: a real job-search box and a candidate match card that flips. For a page where the visitor is the talent and the proof is 'we match you'.", rule:["The search here is real — it submits. Keep it a real form, not a look-alike.","The match card uses the flip animation; keep it to two sides."], tags:['.hero','live'], iframe:'talents/index-v2.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-match-card','.hero-search'],
+  desc:'The match-card hero — real search + a flipping candidate card. Lives on the Talents page.'},
+{g:'Organisms', id:'hero-video', name:'Hero — with video',
+  use:"The Train opener: copy on one side, a video on the other. For when showing beats telling — a product demo, a walkthrough.", rule:["Give the video a real control; never autoplay with sound.","The copy still has to stand on its own if the video never plays."], tags:['.hero','live'], iframe:'train/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-video'],
+  desc:'The video hero — copy beside a video. Lives on the Train page.'},
+{g:'Organisms', id:'hero-card', name:'Hero — with card',
+  use:"The Hire opener: copy beside a single floating product card. For when one concrete example says more than any headline.", rule:["One card, floating — not a grid. The point is a single vivid example.","Keep the card readable at a glance; it's a taste, not the whole product."], tags:['.hero','live'], iframe:'hire/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-card'],
+  desc:'The card hero — copy beside one floating card. Lives on the Hire page.'},
+{g:'Organisms', id:'hero-featured', name:'Hero — featured event',
+  use:"The Events opener: the hero IS the next event — date, title, register. For a page whose whole job is 'here's what's happening next'.", rule:["The featured item must be current; a stale event here is worse than none.","Register is the action — make it the loudest thing."], tags:['.hero','live'], iframe:'events/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-feature'],
+  desc:'The featured-event hero — the next event, front and centre. Lives on the Events page.'},
 {g:'Organisms', id:'cta', name:'Final CTA band',
   use:"The always-dark closer that blends into the footer. Every page ends here \u2014 that's the point.", rule:["The green eyebrow is a required part of the band, not decoration."], tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
   desc:'The always-dark closer that blends into the footer. The green eyebrow is a REQUIRED part of the band.',
@@ -1326,7 +1338,21 @@ const S = [
   rule:["It must work on focus, not only hover — a keyboard user has to reach the back too.","Honour reduced motion: when someone turns animations off, the card shows one side, no turn.","Two sides only. If you want three states, it's a different pattern."],
   tags:['.anim-flip','motion'], u:['.anim-flip','.anim-flip-inner','.anim-flip-face','.anim-flip-back'],
   desc:'The reusable 3D card flip, promoted out of the Talents match card into the system. Hover or focus the card to turn it.',
-  html:`<div class="anim-flip" tabindex="0" style="width:230px;height:150px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Front — hover me</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">Back</div></div></div>`}
+  html:`<div class="anim-flip" tabindex="0" style="width:230px;height:150px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Front — hover me</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">Back</div></div></div>`},
+
+{g:'Animations', id:'typewriter', name:'Typewriter',
+  use:"Text that types itself in, then holds — the thing inside the Employers hero that looks like a search but isn't. Use it to make a headline feel alive, never for anything a user needs to read fast or interact with.",
+  rule:["It's a decoration, not an input. If it looks like a search, don't be surprised when people try to type — pair it with a real button.","Honour reduced motion: the full text just shows, no typing.","One line. A paragraph that types itself is a paragraph nobody reads."],
+  tags:['.anim-type','motion'], u:['.anim-type'],
+  desc:'The typewriter effect, promoted out of the Employers hero. Types a line, then blinks.',
+  html:`<div style="font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:800;color:var(--ink);padding:8px 0"><span class="anim-type">Software Engineers</span></div>`},
+
+{g:'Animations', id:'marquee', name:'Logo marquee',
+  use:"A strip of logos (or anything) sliding sideways forever — for a client wall or a partner row where the count matters more than any single item.",
+  rule:["Pause on hover, so someone can actually look at one.","Honour reduced motion: it stops, and shows a static row.","Duplicate the row so the loop is seamless — a visible jump reads as broken."],
+  tags:['.anim-marquee','motion'], u:['.anim-marquee','.anim-marquee-track'],
+  desc:'The sideways logo scroll, promoted out of the hero logo strips. Hover to pause.',
+  html:`<div class="anim-marquee" style="max-width:420px;padding:16px 0"><div class="anim-marquee-track" style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:18px;color:var(--ink-3)"><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span></div></div>`}
 ];
 /* Pages / Organisms-nav / Flows are generated from ds/pages.json at boot (single source of truth). */
 

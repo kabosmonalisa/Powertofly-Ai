@@ -1437,3 +1437,20 @@ img { display: block; max-width: 100%; }
   .anim-flip-inner { transition: none; }
   .anim-flip:hover .anim-flip-inner, .anim-flip:focus-within .anim-flip-inner { transform: none; }
 }
+
+/* Typewriter — types a line of text, then holds. The Employers hero's "search" is this. */
+.anim-type { display: inline-block; overflow: hidden; white-space: nowrap; border-right: 2px solid var(--accent);
+  animation: anim-type-in 2.4s steps(24) 1 both, anim-caret .8s step-end infinite; }
+@keyframes anim-type-in { from { width: 0; } to { width: 100%; } }
+@keyframes anim-caret { 50% { border-color: transparent; } }
+
+/* Logo marquee — a strip of logos scrolling sideways, forever. */
+.anim-marquee { overflow: hidden; }
+.anim-marquee-track { display: inline-flex; gap: 48px; white-space: nowrap; animation: anim-marquee 18s linear infinite; }
+.anim-marquee:hover .anim-marquee-track { animation-play-state: paused; }
+@keyframes anim-marquee { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-type { animation: none; width: auto; border-right: 0; }
+  .anim-marquee-track { animation: none; }
+}
