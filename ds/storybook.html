@@ -581,11 +581,19 @@ button,a,label,summary{ touch-action:manipulation; }
 /* the page's own building blocks, grouped into things with a piece count — biggest
    first, so a 23-piece custom hero reads as the one thing to look at */
 .sb-pw-things{ display:flex; flex-direction:column; gap:7px; }
-.sb-thing{ display:flex; align-items:center; gap:10px; padding:10px 13px; border-radius:10px;
-  background:var(--sb-panel); border:1px solid var(--sb-line); cursor:help; }
-.sb-thing b{ font-family:'Inter Tight'; font-size:13.5px; font-weight:700; color:var(--sb-txt); }
+.sb-thing{ border-radius:10px; background:var(--sb-panel); border:1px solid var(--sb-line); overflow:hidden; }
+.sb-thing.open{ border-color:var(--sb-txt-3); }
+.sb-thing-hd{ display:flex; align-items:center; gap:10px; width:100%; padding:11px 13px; cursor:pointer;
+  font:inherit; text-align:left; background:none; border:0; color:var(--sb-txt); }
+.sb-thing-hd .sb-f-caret{ color:var(--sb-txt-3); flex:none; }
+.sb-thing-hd b{ font-family:'Inter Tight'; font-size:13.5px; font-weight:700; color:var(--sb-txt); }
 .sb-thing-n{ margin-left:auto; font-size:11.5px; font-weight:700; color:var(--sb-txt-3);
   background:var(--sb-panel-2); border-radius:999px; padding:2px 9px; flex:none; }
+.sb-thing-body{ padding:2px 14px 14px 32px; }
+.sb-thing-parts{ display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
+.sb-thing-parts code{ font-family:var(--sb-mono); font-size:11px; color:var(--sb-txt-3);
+  background:var(--sb-panel-2); border-radius:5px; padding:2px 7px; }
+.sb-thing-acts{ display:flex; gap:8px; flex-wrap:wrap; }
   border-radius:10px; font-size:13px; line-height:1.6; }
 .sb-use-when .sb-i, .sb-use-rule .sb-i{ flex:none; margin-top:2px; }
 .sb-use-when{ background:var(--sb-panel); border:1px solid var(--sb-line); color:var(--sb-txt-2); }
@@ -1340,9 +1348,30 @@ async function askAboutComp(cid){
     if(!(await r.json()).ok) throw 0;
   }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
   await loadAsks();
-  await loadAsks();
-  await loadAsks();
   toast(uic('check',13)+' Noted for <b>'+esc(st?st.name:cid)+'</b> — I\'ll pick this up next time we talk.',5000);
+}
+/* Promote or replace a thing the page built for itself. Neither is a one-click apply —
+   "which existing component?" and "is it worth making reusable?" are judgement — so both
+   become an ask, with the page, the group and its exact pieces, so I can do it with her. */
+async function askAboutPart(groupName, action){
+  const s=current; if(!s||!s.pageId) return;
+  const own=((DATA&&DATA.meta.pageOwn||{})[s.iframe])||[];
+  const g=groupOwn(own).find(x=>x.name===groupName); if(!g) return;
+  const verb = action==='make'
+    ? 'Promote it into the design system as a reusable component'
+    : 'Replace it with a component the system already has';
+  const text = verb+'.\n\nOn '+s.name+' ('+s.iframe+'), the custom "'+groupName+'" — '
+    + g.classes.length+' pieces: '+g.classes.join(', ')+'.\n'
+    + (action==='make'
+        ? 'Extract it into ds/ptf.css + a story, write it into COMPONENT-INVENTORY.md, and swap the page over.'
+        : 'Find the closest match in COMPONENT-INVENTORY.md, confirm it with me, then swap the page over and delete the custom CSS.');
+  try{
+    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:'part:'+s.pageId+':'+groupName+':'+action, title:groupName+' on '+s.name, text})});
+    if(!(await r.json()).ok) throw 0;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
+  await loadAsks();
+  toast(uic('check',13)+' Noted — '+(action==='make'?'make <b>'+esc(groupName)+'</b> a component':'replace <b>'+esc(groupName)+'</b>')+'. I\'ll pick it up next time we talk.',5500);
 }
 
 /* One section label for the drawer and the accessibility panel — the same quiet
@@ -1493,18 +1522,36 @@ function pageFindings(name){
    can't act on ".fh-card-outer". So group the classes a page invented back into the
    things they build — by their shared name prefix — and count the pieces. One big group
    (a 23-piece hero) is the real signal; the raw names live in the hover, for a developer. */
+/* Real names, read off each page's own code — because "Sc group" is nothing a designer
+   can decide about. A class prefix (fh, hmc, apt…) is a page's private shorthand; this
+   is what it actually is. Where a prefix is unknown, the code stem is the honest fallback. */
+const PART_NAMES={
+  fh:'Animated hero', hero:'Hero layout', outcomes:'Outcomes scene', sc:'Service cards',
+  section:'Custom sections', logo:'Client logos', logos:'Client logos', more:'“More” link',
+  t:'Company logo', typed:'Typed text', why:'“Why” section',
+  jb:'Job-board interface', is:'Step states',
+  about:'About-page blocks', apt:'Audience panels',
+  hmc:'Match card (flip)', opp:'Opportunity cards', ai:'AI typing effect', search:'Job search bar',
+  av:'Avatar', benefit:'Benefit insight', benefits:'Benefits row', btn:'Search button',
+  cycler:'Text cycler', flip:'Flip animation', req:'Requirement tags',
+  hf:'Countdown timer', live:'Live-event hero', lh:'Live stats', mi:'Menu item',
+  use:'Use-case cards', experts:'Experts CTA',
+  hire:'Floating portrait scene',
+  ev:'Event-detail hero', cl:'Speaker cards',
+  book:'Booking card', cal:'Calendar heading', meta:'Meeting details', meetings:'Calendar embed',
+  opt:'Nav option cards', emp:'Employer footer', fly:'Flyout feature', mobile:'Mobile note',
+  navdemo:'Nav demo', navstage:'Nav stage', err:'404 hero', demo:'Demo controls', eg:'Example'
+};
+let OPEN_PART=null;   // which "built for this page" group is expanded
 function groupOwn(classes){
   const by={};
   (classes||[]).forEach(c=>{
     const stem=c.replace(/^\./,'').split('-')[0];    // .fh-card-outer -> fh
     (by[stem]=by[stem]||[]).push(c);
   });
-  const nice={hero:'Hero',logos:'Logos',logo:'Logos',section:'Sections',outcomes:'Outcomes scene',
-              typed:'Typed text',why:'“Why” row',more:'“More” link',about:'About block',
-              benefits:'Benefits row',benefit:'Benefits row',stat:'Stats',stats:'Stats'};
-  const merged={};   // .logo and .logos both read "Logos" — one group, not two
+  const merged={};   // .logo and .logos both read "Client logos" — one group, not two
   Object.entries(by).forEach(([stem,cls])=>{
-    const nm = nice[stem] || (stem.charAt(0).toUpperCase()+stem.slice(1)+' group');
+    const nm = PART_NAMES[stem] || (stem+' — custom');
     (merged[nm]=merged[nm]||[]).push(...cls);
   });
   return Object.entries(merged)
@@ -1541,13 +1588,24 @@ function renderPageWork(s){
   /* The half that was missing. "What it's made of" only ever showed what the page took
      FROM the system; the interesting question is what it invented instead. Each of these
      is a decision waiting: does the system want it, or does the system already have it? */
-  h+=sect('Built for this page','These aren’t from your system — the page made them itself. A big group is a whole custom thing: worth building into the system properly, or swapping for something you already have.')
+  h+=sect('Built for this page','These aren’t from your system — the page made them itself. Two ways to fix each: build it into the system so any page can reuse it, or replace it with something you already have.')
     + (ownGroups.length
-        ? '<div class="sb-pw-things">'+ownGroups.map(g=>
-            '<div class="sb-thing" title="'+esc(g.classes.join('  '))+'">'
-            + '<b>'+esc(g.name)+'</b>'
-            + '<span class="sb-thing-n">'+g.classes.length+' piece'+(g.classes.length===1?'':'s')+'</span></div>').join('')+'</div>'
-          + '<p class="sb-scan-note">That’s what the '+css+' lines of custom CSS are. Hover a group to see the code names a developer would use.</p>'
+        ? '<div class="sb-pw-things">'+ownGroups.map((g,i)=>{
+            const open=OPEN_PART===g.name;
+            return '<div class="sb-thing'+(open?' open':'')+'">'
+              + '<button class="sb-thing-hd" data-part="'+esc(g.name)+'">'
+                + '<span class="sb-f-caret'+(open?' open':'')+'">'+uic('chevronRight',12)+'</span>'
+                + '<b>'+esc(g.name)+'</b>'
+                + '<span class="sb-thing-n">'+g.classes.length+' piece'+(g.classes.length===1?'':'s')+'</span></button>'
+              + (open?'<div class="sb-thing-body">'
+                  + '<div class="sb-thing-parts">'+g.classes.map(c=>'<code>'+esc(c)+'</code>').join('')+'</div>'
+                  + '<div class="sb-thing-acts">'
+                    + '<button class="sb-a2" data-partmake="'+esc(g.name)+'">'+uic('add',13)+'Make it a component</button>'
+                    + '<button class="sb-a3" data-partswap="'+esc(g.name)+'">Replace with one I have</button>'
+                  + '</div></div>':'')
+              + '</div>';
+          }).join('')+'</div>'
+          + '<p class="sb-scan-note">That’s what the '+css+' lines of custom CSS are. Open one to decide what to do with it.</p>'
         : '<div class="sb-pw-clean">'+uic('done',15)+'<span><b>Nothing. This page invented nothing.</b> '
           + 'Every part of it comes from your system.</span></div>');
 
@@ -2576,6 +2634,9 @@ document.getElementById('sbPwBody').addEventListener('click',e=>{
       if(c) c.scrollIntoView({block:'center'}); }, 260); return; }
   const ps=e.target.closest('[data-pagesend]'); if(ps){ askAboutPage(ps.dataset.pagesend); return; }
   const cs=e.target.closest('[data-compsend]'); if(cs){ askAboutComp(cs.dataset.compsend); return; }
+  const pt=e.target.closest('[data-part]'); if(pt){ OPEN_PART = OPEN_PART===pt.dataset.part ? null : pt.dataset.part; renderPageWork(current); return; }
+  const mk=e.target.closest('[data-partmake]'); if(mk){ askAboutPart(mk.dataset.partmake,'make'); return; }
+  const sw=e.target.closest('[data-partswap]'); if(sw){ askAboutPart(sw.dataset.partswap,'swap'); return; }
 });
 document.getElementById('sbPwBody').addEventListener('input',e=>{
   const ta=e.target.closest('[data-pageask],[data-compask]');
