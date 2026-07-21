@@ -170,7 +170,8 @@ button,a,label,summary{ touch-action:manipulation; }
   width:26px; height:26px; color:var(--sb-txt-2); text-decoration:none;
   border:1px solid var(--sb-line-2); border-radius:6px; }
 .sb-frame-bar a:hover{ color:var(--sb-green); border-color:var(--sb-green); }
-.sb-frame{ width:100%; height:74vh; min-height:520px; border:0; display:block; background:#fff; }
+.sb-frame-vp{ position:relative; width:100%; height:74vh; min-height:520px; overflow:hidden; background:#fff; }
+.sb-frame{ position:absolute; top:0; left:0; border:0; display:block; background:#fff; transform-origin:0 0; }
 
 /* specimen helpers (foundations) */
 .sb-grid{ display:grid; gap:14px; }
@@ -1313,21 +1314,42 @@ const S = [
 {g:'Organisms', id:'footer', name:'Footer',
   use:"The end of every page. Same everywhere, no exceptions.", rule:[], tags:['.footer','live'], iframe:'about/index.html', scroll:'.footer', u:['.footer','.footer-cols','.footer-col'],
   desc:'The always-dark footer, live at the bottom of the About page.'},
-{g:'Organisms', id:'hero-animated', name:'Hero — animated',
-  use:"The Employers opener: a typewriter that reels through job titles beside a photo grid, one big CTA. Reach for it when the promise is 'we have people for any role' and you want it to feel alive.", rule:["The typewriter is decoration — the real action is the button. Don't make it look so much like a search that people try to type.","One CTA. The animation already carries the energy."], tags:['.hero','live'], iframe:'employers/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.fh-typed'],
-  desc:'The animated hero — typewriter + photo grid. Lives on the Employers page; not yet a shared component.'},
-{g:'Organisms', id:'hero-match', name:'Hero — with match card',
-  use:"The Talents opener: a real job-search box and a candidate match card that flips. For a page where the visitor is the talent and the proof is 'we match you'.", rule:["The search here is real — it submits. Keep it a real form, not a look-alike.","The match card uses the flip animation; keep it to two sides."], tags:['.hero','live'], iframe:'talents/index-v2.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-match-card','.hero-search'],
-  desc:'The match-card hero — real search + a flipping candidate card. Lives on the Talents page.'},
-{g:'Organisms', id:'hero-video', name:'Hero — with video',
-  use:"The Train opener: copy on one side, a video on the other. For when showing beats telling — a product demo, a walkthrough.", rule:["Give the video a real control; never autoplay with sound.","The copy still has to stand on its own if the video never plays."], tags:['.hero','live'], iframe:'train/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-video'],
-  desc:'The video hero — copy beside a video. Lives on the Train page.'},
-{g:'Organisms', id:'hero-card', name:'Hero — with card',
-  use:"The Hire opener: copy beside a single floating product card. For when one concrete example says more than any headline.", rule:["One card, floating — not a grid. The point is a single vivid example.","Keep the card readable at a glance; it's a taste, not the whole product."], tags:['.hero','live'], iframe:'hire/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-card'],
-  desc:'The card hero — copy beside one floating card. Lives on the Hire page.'},
-{g:'Organisms', id:'hero-featured', name:'Hero — featured event',
-  use:"The Events opener: the hero IS the next event — date, title, register. For a page whose whole job is 'here's what's happening next'.", rule:["The featured item must be current; a stale event here is worse than none.","Register is the action — make it the loudest thing."], tags:['.hero','live'], iframe:'events/index.html', scroll:'.hero-inner', u:['.hero','.hero-inner','.hero-feature'],
-  desc:'The featured-event hero — the next event, front and centre. Lives on the Events page.'},
+{g:'Organisms', id:'hero', name:'Hero',
+  use:"One hero, two dials. Layout picks Centered or Split; Fill picks what goes in the media slot — a static image, a video, the flip card, or the typewriter. Every opener you have is a point on these two dials: Employers = Centered + Typewriter, Train = Split + Video, Talents = Split + Flip, About = Split + Image.",
+  rule:["Pick a layout, then a fill — never build a new hero per page.","The copy must stand on its own; the fill is support, not the message.","One fill at a time. If it's a video, give it a real control and never autoplay with sound."],
+  tags:['.hero-ds','configurable'], u:['.hero-ds','.hero-ds-inner','.hero-ds-media'],
+  desc:'The real, configurable hero — the first component extracted as a set of choices instead of fixed copies. Turn the dial to switch layout and fill; the label tells you which of your pages each combination is.',
+  html:`<div id="heroCfg"></div>`,
+  mount:function(host){
+    const wrap=host.querySelector('#heroCfg'); if(!wrap) return;
+    const st={layout:'split', fill:'video'};
+    const MAP={'centered|type':'Employers','split|video':'Train','split|flip':'Talents','split|image':'About / Hire'};
+    wrap.innerHTML=
+      '<div style="display:flex;gap:18px;flex-wrap:wrap;align-items:center;margin-bottom:20px">'
+      +'<span class="sb-seg-g"><span class="sb-flabel">Layout</span><div class="sb-seg" data-dial="layout"><button data-v="centered">Centered</button><button data-v="split" class="on">Split</button></div></span>'
+      +'<span class="sb-seg-g"><span class="sb-flabel">Fill</span><div class="sb-seg" data-dial="fill"><button data-v="image">Image</button><button data-v="video" class="on">Video</button><button data-v="flip">Flip card</button><button data-v="type">Typewriter</button></div></span>'
+      +'<span data-map style="font-size:13px;color:var(--sb-txt-2)"></span></div>'
+      +'<div data-stagehero></div>';
+    function fill(f){
+      if(f==='image') return `<div class="hero-ds-media"><img src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="A professional at her laptop"></div>`;
+      if(f==='video') return `<div class="hero-ds-media"><video src="../train/hero-side.mp4" autoplay muted loop playsinline></video></div>`;
+      if(f==='flip') return `<div class="hero-ds-media" style="background:transparent"><div class="anim-flip" tabindex="0" style="width:240px;height:160px;cursor:pointer"><div class="anim-flip-inner" style="width:100%;height:100%"><div class="anim-flip-face" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-card);font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Match 94%</div><div class="anim-flip-back" style="display:flex;align-items:center;justify-content:center;background:#0A0A0A;border-radius:16px;font-family:'Inter Tight',sans-serif;font-weight:700;color:#fff">See profile →</div></div></div></div>`;
+      return `<div class="hero-ds-media" style="aspect-ratio:auto;justify-content:flex-start;padding:26px 28px"><div style="font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:800;color:#fff">Hiring <span class="anim-type">Software Engineers</span></div></div>`;
+    }
+    function render(){
+      const key=st.layout+'|'+st.fill, pg=MAP[key];
+      wrap.querySelector('[data-map]').innerHTML = pg ? `= your <b style="color:var(--sb-green)">${pg}</b> hero` : 'a combination no page uses yet';
+      wrap.querySelector('[data-stagehero]').innerHTML=
+        `<div class="hero-ds is-${st.layout}"><div class="hero-ds-inner"><div class="hero-ds-copy"><h1>Better AI models start with <em class="italic-plain">better experts</em>.</h1><p>PowerToFly connects you with domain experts who understand your industry, so your model is trained by people who understand the world it serves.</p><div class="hero-ds-ctas"><a href="#" class="btn btn-primary" onclick="return false">Get started</a><a href="#" class="btn" onclick="return false">Talk to us</a></div></div>${fill(st.fill)}</div></div>`;
+    }
+    wrap.querySelectorAll('.sb-seg[data-dial]').forEach(seg=>seg.addEventListener('click',e=>{
+      const b=e.target.closest('button'); if(!b) return;
+      st[seg.dataset.dial]=b.dataset.v;
+      [...seg.children].forEach(x=>x.classList.toggle('on',x===b));
+      render();
+    }));
+    render();
+  }},
 {g:'Organisms', id:'cta', name:'Final CTA band',
   use:"The always-dark closer that blends into the footer. Every page ends here \u2014 that's the point.", rule:["The green eyebrow is a required part of the band, not decoration."], tags:['.section-cta','always-dark'], theme:'dark', u:['.section-cta','.section-cta-inner','.btn-cta','.eyebrow'],
   desc:'The always-dark closer that blends into the footer. The green eyebrow is a REQUIRED part of the band.',
@@ -1352,7 +1374,46 @@ const S = [
   rule:["Pause on hover, so someone can actually look at one.","Honour reduced motion: it stops, and shows a static row.","Duplicate the row so the loop is seamless — a visible jump reads as broken."],
   tags:['.anim-marquee','motion'], u:['.anim-marquee','.anim-marquee-track'],
   desc:'The sideways logo scroll, promoted out of the hero logo strips. Hover to pause.',
-  html:`<div class="anim-marquee" style="max-width:420px;padding:16px 0"><div class="anim-marquee-track" style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:18px;color:var(--ink-3)"><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span></div></div>`}
+  html:`<div class="anim-marquee" style="max-width:420px;padding:16px 0"><div class="anim-marquee-track" style="font-family:'Inter Tight',sans-serif;font-weight:800;font-size:18px;color:var(--ink-3)"><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span><span>Meta</span><span>Spotify</span><span>Deloitte</span><span>Cisco</span><span>PwC</span><span>Zapier</span></div></div>`},
+
+  {g:'Animations', id:'pulse', name:'Live pulse',
+   use:"The “live” dot — a small dot that softly pulses with an expanding ring, to say something is happening right now: a live cohort, an event about to start, a real-time count. Eight pages each redrew this by hand; this is the one to use.",
+   rule:["It signals “live / now” — don't use it as plain decoration, or the signal stops meaning anything.","Pair it with a word (LIVE, ON NOW). A pulsing dot on its own is a guess.","Honour reduced motion: it holds as a solid dot, no pulse."],
+   tags:['.anim-pulse','motion'], u:['.anim-pulse'],
+   desc:'The live-status dot, promoted out of the eight pages that each had their own .cohort-live-dot / .livepulse copy.',
+   html:`<div style="display:inline-flex;align-items:center;gap:10px;font-family:'Inter Tight',sans-serif;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px;color:var(--ink)"><span class="anim-pulse"></span>Live now</div>`},
+
+  {g:'Animations', id:'float', name:'Float',
+   use:"A gentle, endless up-and-down bob — for a hero sparkle, a floating badge, a card that should feel weightless. Slow and small on purpose.",
+   rule:["Keep it subtle. A big bob reads as broken, not alive.","Decoration only — never float something someone has to click or read precisely.","Honour reduced motion: it sits still."],
+   tags:['.anim-float','motion'], u:['.anim-float'],
+   desc:'The floating bob, promoted out of the Employers and Talents hero sparkles.',
+   html:`<div class="anim-float" style="width:120px;height:120px;border-radius:24px;background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow-card);display:flex;align-items:center;justify-content:center;font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink)">Floating</div>`},
+
+  {g:'Animations', id:'spin', name:'Spin',
+   use:"A slow, steady rotation for a decorative ring, an orbiting badge, or a loading mark. Endless and linear.",
+   rule:["For decoration, keep it very slow (tens of seconds a turn) so it reads as ambience, not urgency.","A fast spin means “loading” — don't imply waiting when nothing is.","Honour reduced motion: it stops."],
+   tags:['.anim-spin','motion'], u:['.anim-spin'],
+   desc:'The steady rotation, promoted out of the Employers hero .spin-slow rings.',
+   html:`<svg class="anim-spin" width="90" height="90" viewBox="0 0 90 90" style="display:block"><circle cx="45" cy="45" r="40" fill="none" stroke="var(--line)" stroke-width="2"/><circle cx="45" cy="5" r="5" fill="var(--accent)"/></svg>`},
+
+  {g:'Animations', id:'reveal', name:'Scroll reveal',
+   use:"Rows that fade and rise into place as they scroll into view, one after another — the how-it-works timeline. It's already wired in the system (ptf.js reveals any .step inside a .steps group); you just write the markup.",
+   rule:["It's a stagger, not a curtain — a small delay between rows, not a long wait for the first.","Content must never be stuck invisible: anything already on screen reveals immediately, and mobile shows everything with no motion.","Honour reduced motion: rows appear in place."],
+   tags:['.steps','.step','live'], iframe:'train/index.html', scroll:'#stepsContainer', u:['.steps','.step'],
+   desc:'The step-timeline reveal, driven by PTF.initSteps in ptf.js. Lives on every how-it-works section. Watch the rows stagger in.'},
+
+  {g:'Animations', id:'ai-review', name:'AI review sequence',
+   use:"The cinematic on the Train page: a cursor glides across a card, clicks a tab, fills a row of dots, expands a criterion, fires a flag — a scripted demo of the AI doing the work. For showing a product in motion without a video.",
+   rule:["It's a scripted loop, not a real UI — nobody can click into it, so it must not sit where someone expects to interact.","Heavy motion; give it room and never stack two on one screen.","Honour reduced motion: it shows the finished end-state, no motion."],
+   tags:['.ai-cursor','live'], iframe:'train/index.html', scroll:'#expert-types', u:['.ai-cursor'],
+   desc:'The elaborate AI-review cinematic — lives on the Train page as hand-tuned keyframes. Note: ptf.js already has a reusable .sci cursor engine (initIllustrations) that no page uses yet, so this is a candidate to rebuild on the system.'},
+
+  {g:'Animations', id:'orb', name:'Breathing orb',
+   use:"The morphing green orb behind the Train hero — it breathes (its glow swells) and slowly changes shape. Pure ambience, to make a dark hero feel alive.",
+   rule:["Background only, always behind content — never let it fight the headline for attention.","Slow. A fast morph looks like a glitch.","Honour reduced motion: it holds one shape, no breathing."],
+   tags:['live'], iframe:'train/index.html', scroll:'.hero', u:[],
+   desc:'The breathing / morphing orb behind the Train hero. Lives on the Train page.'}
 ];
 /* Pages / Organisms-nav / Flows are generated from ds/pages.json at boot (single source of truth). */
 
@@ -2113,6 +2174,21 @@ checkVersion();
 
 /* ═══════════ APP ═══════════ */
 const side=document.getElementById('sbSide'), stage=document.getElementById('sbStage'), stageInner=document.getElementById('sbStageInner');
+/* Facade width: unlike inline specimens (which can only shrink), a live-page iframe is
+   rendered at a real desktop layout width and SCALED DOWN to fit the panel — otherwise a
+   split hero collapses to its mobile stack and looks identical to a centred one. */
+const FVW={full:1280,'1280':1280,'768':768,'375':375};
+function fitFacade(fr){
+  if(!fr) return; const vp=fr.parentElement;
+  if(!vp||!vp.classList.contains('sb-frame-vp')) return;
+  const lw=FVW[stage.dataset.vw]||1280;
+  const vw=vp.clientWidth||626, vh=vp.clientHeight||520;
+  const scale=Math.min(1, vw/lw);
+  fr.style.width=lw+'px';
+  fr.style.height=Math.ceil(vh/scale)+'px';
+  fr.style.transform='scale('+scale+')';
+  fr.style.left=(scale===1 && lw<vw ? Math.round((vw-lw)/2) : 0)+'px';
+}
 const stagewrap=document.querySelector('.sb-stagewrap');
 const nameEl=document.getElementById('sbName'), descEl=document.getElementById('sbDesc'), tagsEl=document.getElementById('sbTags');
 const codeSec=document.getElementById('sbCode'), codeText=document.getElementById('sbCodeText');
@@ -2247,14 +2323,17 @@ function select(id){
   if(s.iframe){
     codeSec.classList.add('hidden');
     stageInner.style.padding='0';
-    stageInner.innerHTML='<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code><a href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the real page in a new tab" aria-label="Open the real page in a new tab">'+uic('external',13)+'</a></div><iframe class="sb-frame" src="../'+s.iframe+'"></iframe>';
+    stageInner.innerHTML='<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code><a href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the real page in a new tab" aria-label="Open the real page in a new tab">'+uic('external',13)+'</a></div><div class="sb-frame-vp"><iframe class="sb-frame" src="../'+s.iframe+'"></iframe></div>';
     const fr=stageInner.querySelector('iframe');
-    if(s.scroll||s.scrollText) fr.onload=function(){ try{
-      const d=fr.contentDocument; let el=null;
-      if(s.scroll) el=d.querySelector(s.scroll);
-      if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
-      if(el) el.scrollIntoView({block:'start'});
-    }catch(e){} };
+    fr.onload=function(){
+      fitFacade(fr);   // render at a desktop layout width, scaled to fit — so a split hero reads as split, not stacked
+      if(s.scroll||s.scrollText){ try{
+        const d=fr.contentDocument; let el=null;
+        if(s.scroll) el=d.querySelector(s.scroll);
+        if(!el&&s.scrollText){ el=[...d.querySelectorAll('*')].find(n=>n.children.length===0 && n.textContent.trim()===s.scrollText); }
+        if(el) el.scrollIntoView({block:'start'});
+      }catch(e){} }
+    };
     applyTheme();
     if(s.pageId) renderPageWork(s); else renderUse(s);
     location.hash=id; return;
@@ -3094,7 +3173,8 @@ document.getElementById('sbStatusSeg').addEventListener('click',e=>{
   const b=e.target.closest('button'); if(!b||!current||!current.pageId) return;
   setPageStatus(current.pageId, b.dataset.statusSet, ()=>{ setTools(current); });
 });
-document.getElementById('sbVwSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; document.querySelectorAll('#sbVwSeg button').forEach(x=>x.classList.toggle('on',x===b)); stage.dataset.vw=b.dataset.vw; stageInner.style.maxWidth=VW[b.dataset.vw]||''; });
+document.getElementById('sbVwSeg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; document.querySelectorAll('#sbVwSeg button').forEach(x=>x.classList.toggle('on',x===b)); stage.dataset.vw=b.dataset.vw; stageInner.style.maxWidth=VW[b.dataset.vw]||''; fitFacade(stageInner.querySelector('.sb-frame')); });
+window.addEventListener('resize',()=>fitFacade(stageInner.querySelector('.sb-frame')));
 /* Preview and Code are two views of one component, so it's a toggle, not a drawer
    that pushes the preview down the page. */
 function setView(v){

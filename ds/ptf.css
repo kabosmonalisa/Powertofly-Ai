@@ -1450,7 +1450,53 @@ img { display: block; max-width: 100%; }
 .anim-marquee:hover .anim-marquee-track { animation-play-state: paused; }
 @keyframes anim-marquee { to { transform: translateX(-50%); } }
 
+/* Live pulse — the "LIVE" dot: a solid dot that softly pulses, with an expanding ring
+   behind it. Promoted out of the eight pages (Employers, Events, Hire, Summit, VJF,
+   Chat & learn, Talents) that each redrew it as .cohort-live-dot / .livepulse. */
+.anim-pulse { position: relative; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); animation: anim-pulse 2s ease-in-out infinite; }
+.anim-pulse::after { content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  background: var(--accent); opacity: .18; animation: anim-pulse-ring 2s ease-in-out infinite; }
+@keyframes anim-pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .6; transform: scale(.85); } }
+@keyframes anim-pulse-ring { 0%,100% { transform: scale(1); opacity: .18; } 50% { transform: scale(1.7); opacity: 0; } }
+
+/* Float — a gentle, endless up-and-down bob for a hero sparkle or a floating card. */
+.anim-float { animation: anim-float 6s ease-in-out infinite; }
+@keyframes anim-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+
+/* Spin — a slow, steady rotation for a decorative ring or orbiting badge. */
+.anim-spin { animation: anim-spin 50s linear infinite; }
+@keyframes anim-spin { to { transform: rotate(360deg); } }
+
 @media (prefers-reduced-motion: reduce) {
   .anim-type { animation: none; width: auto; border-right: 0; }
   .anim-marquee-track { animation: none; }
+  .anim-pulse, .anim-pulse::after, .anim-float, .anim-spin { animation: none; }
 }
+
+/* ── Configurable hero ─────────────────────────────────────────────
+   ONE hero, two layouts, a swappable media slot — the real component behind
+   every page opener. Centred = one column, centre-aligned, media/animation below.
+   Split = copy left, media panel right. The fill (image · video · flip · type)
+   drops into .hero-ds-media. Pick a layout with .is-centered / .is-split. */
+.hero-ds { padding: var(--section-y) 0; background: var(--bg); }
+.hero-ds-inner { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.hero-ds h1 { font-family: 'Inter Tight','Inter',system-ui,sans-serif; font-weight: 700;
+  font-size: clamp(30px, 4.4vw, 54px); line-height: 1.03; letter-spacing: -.03em; margin: 0; color: var(--ink); }
+.hero-ds p { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+.hero-ds-ctas { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Centred */
+.hero-ds.is-centered .hero-ds-inner { text-align: center; }
+.hero-ds.is-centered p { margin-left: auto; margin-right: auto; }
+.hero-ds.is-centered .hero-ds-ctas { justify-content: center; }
+.hero-ds.is-centered .hero-ds-media { margin: 40px auto 0; max-width: 760px; }
+
+/* Split — copy left, media right; stacks on a narrow viewport */
+.hero-ds.is-split .hero-ds-inner { display: grid; grid-template-columns: 1.05fr .85fr; gap: 48px; align-items: center; }
+@media (max-width: 820px) { .hero-ds.is-split .hero-ds-inner { grid-template-columns: 1fr; gap: 32px; } }
+
+/* Media slot — holds an image, a video, or an animation as its fill */
+.hero-ds-media { border-radius: 20px; overflow: hidden; background: #0A0A0A;
+  display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; }
+.hero-ds-media > img, .hero-ds-media > video { width: 100%; height: 100%; object-fit: cover; display: block; }
