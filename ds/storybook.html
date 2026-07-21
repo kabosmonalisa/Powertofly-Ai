@@ -404,6 +404,14 @@ button,a,label,summary{ touch-action:manipulation; }
 .sb-chrome-note b{ color:var(--sb-txt); }
 .sb-sec.is-chrome, .sb-sec.is-skip{ opacity:.62; border-style:dashed; }
 .sb-chrome-body{ font-size:12px; color:var(--sb-txt-3); line-height:1.5; }
+.sb-read-by{ display:inline-flex; align-items:center; gap:6px; font-size:12px; border-radius:999px; padding:4px 11px; margin:0 0 16px; }
+.sb-read-by.ai{ color:var(--sb-green); background:rgba(79,232,169,.1); }
+.sb-read-by.rules{ color:var(--sb-txt-2); background:rgba(255,255,255,.04); }
+.sb-reading{ display:flex; gap:8px; padding:28px 0; }
+.sb-reading span{ width:9px; height:9px; border-radius:50%; background:var(--sb-green); opacity:.35; animation:sb-read 1s ease-in-out infinite; }
+.sb-reading span:nth-child(2){ animation-delay:.16s; } .sb-reading span:nth-child(3){ animation-delay:.32s; }
+@keyframes sb-read{ 0%,100%{ opacity:.25; transform:translateY(0); } 50%{ opacity:1; transform:translateY(-4px); } }
+@media (prefers-reduced-motion:reduce){ .sb-reading span{ animation:none; opacity:.6; } }
 .wf{ width:100%; }
 .wf-h{ font-size:10px; font-weight:700; color:var(--sb-txt); line-height:1.2; margin-bottom:5px; }
 .wf-bar{ height:4px; background:var(--sb-line-2); border-radius:3px; margin-top:4px; }
@@ -2564,7 +2572,7 @@ function wizRender(){
           :'<textarea id="wf-'+f.k+'" data-f="'+f.k+'" placeholder="'+esc(f.ph||'')+'">'+esc(WIZ.ctx[f.k]||'')+'</textarea>')+'</div>').join('')
       +'</div>';
   }
-  else if(WIZ.type==='page'){ h+=wizSectionsHTML(); }
+  else if(WIZ.type==='page'){ h += WIZ.reading ? wizReadingHTML() : wizSectionsHTML(); }
   else { h+=wizPlanHTML(); }
   h+='</div>';
   body.innerHTML=h;
@@ -2701,46 +2709,47 @@ function compUses(key){ if(!DATA||!key) return 'not on any page yet'; const e=DA
 /* Chrome (nav + footer) and "not a section" aren't content — they never get a layout picker.
    Nav/footer map to real Organisms (Top nav, Footer) that every page gets automatically. */
 const CHROME_LABEL={nav:'Top nav (automatic)',footer:'Footer (automatic)',skip:'Not a section — remove'};
-function looksNav(lines,isFirst){
-  if(!isFirst || lines.length<3) return false;
-  const short=lines.filter(l=>l.split(/\s+/).length<=3 && l.length<28).length;
-  const navWord=/\b(sign in|log ?in|sign up|menu|pricing|solutions|resources|product|company|for (employers|talent)|home)\b/i.test(lines.join(' '));
-  const hasSentence=lines.some(l=>/[.!?]$/.test(l) && l.split(/\s+/).length>6);
-  return (short/lines.length)>=0.6 && !hasSentence && (navWord || short>=4);
+/* A block of short link-labels with no real sentence — nav items, footer columns, chip rows. */
+function isLinky(lines){
+  if(!lines.length) return false;
+  const short=lines.filter(l=>l.split(/\s+/).length<=4 && l.length<28).length;
+  const sentence=lines.some(l=>l.split(/\s+/).length>7);
+  return (short/lines.length)>=0.7 && !sentence;
 }
-function looksFooter(b,lines,isLast){
-  if(/(©|\ball rights reserved\b|\bprivacy\b|\bterms\b|\bcookies?\b|\bpopular topics\b|\bquick links\b|\bfollow us\b|\bsitemap\b|\b\d{4}\s+powertofly\b|\bnewsletter\b)/i.test(b)) return true;
-  const short=lines.filter(l=>l.split(/\s+/).length<=3).length;
-  return isLast && lines.length>=5 && (short/lines.length)>=0.6;
-}
+/* A numbered step — "01", "1.", "Step 2" — even without punctuation (that was the miss). */
+function isStepBlock(lines){ const f=(lines[0]||'').trim(); return /^(\d{1,2}|step\s*\d{1,2})$/i.test(f) || /^\d{1,2}[\.\)]\s+\S/.test(f); }
+function footerSignal(b){ return /(©|\ball rights reserved\b|\bprivacy\b|\bterms\b|\bcookies?\b|\bpopular topics\b|\bquick links\b|\bfollow us\b|\bsitemap\b|\b\d{4}\s+powertofly\b|\blegal & privacy\b|\bnewsletter\b)/i.test(b); }
 function guessContent(b,lines){
-  const numbered=lines.filter(l=>/^(\d+[\.\)]|step\b)/i.test(l)).length;
   const stats=(b.match(/\b\d[\d,]*\s*(k\+?|m\+?|%|\+)/gi)||[]).length;
   const isQuote=/[“"][^”"]{15,}[”"]/.test(b) && /(—|–| - )\s*[A-Z]/.test(b);   // needs a real quote AND an attribution
   const q=lines.filter(l=>/\?\s*$/.test(l)).length;
   const cta=/\b(get started|sign up|book (a )?(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk)\b/i.test(b);
-  if(numbered>=2) return 'steps';
   if(q>=2) return 'faq';
   if(isQuote) return 'testimonial';
-  if(stats>=2 && b.length<220) return 'stats';
+  if(stats>=2 && b.length<240) return 'stats';
   if(cta && b.length<170) return 'cta';
   return 'feature';
 }
+/* Confident content types (steps/stats/faq/…) win over "linky"; only a truly ambiguous block falls back. */
+function blockType(b,lines){
+  if(isStepBlock(lines)) return 'steps';
+  if(footerSignal(b)) return 'footer';
+  const c=guessContent(b,lines);
+  if(c!=='feature') return c;
+  if(isLinky(lines)) return 'linky';
+  return 'feature';
+}
 function segmentCopy(text){
-  const blocks=(text||'').split(/\n\s*\n+/).map(b=>b.trim()).filter(Boolean), n=blocks.length;
-  let arr=blocks.map((b,i)=>{
-    const lines=b.split(/\n/).map(l=>l.trim()).filter(Boolean);
-    let type;
-    if(looksNav(lines,i===0)) type='nav';
-    else if(looksFooter(b,lines,i===n-1)) type='footer';
-    else type=guessContent(b,lines);
-    return {raw:b, lines, type};
-  });
-  const firstContent=arr.findIndex(s=>s.type!=='nav'&&s.type!=='footer');   // first non-chrome block is the hero
-  if(firstContent>=0) arr[firstContent].type='hero';
+  const blocks=(text||'').split(/\n\s*\n+/).map(b=>b.trim()).filter(Boolean);
+  let arr=blocks.map(b=>{ const lines=b.split(/\n/).map(l=>l.trim()).filter(Boolean); return {raw:b, lines, type:blockType(b,lines)}; });
+  for(let i=0;i<arr.length && arr[i].type==='linky';i++) arr[i].type='nav';                              // leading link run → nav
+  for(let j=arr.length-1;j>=0 && (arr[j].type==='linky'||arr[j].type==='footer');j--) arr[j].type='footer'; // trailing run → footer
+  arr.forEach(s=>{ if(s.type==='linky') s.type='feature'; });                                            // any link block left in the middle = content chips
+  const firstContent=arr.findIndex(s=>s.type!=='nav'&&s.type!=='footer'); if(firstContent>=0) arr[firstContent].type='hero';
+  /* Merge ONLY runs of the same structural chrome/steps type — never collapse content sections. */
   const out=[];
   arr.forEach(s=>{ const last=out[out.length-1];
-    if(last && last.type===s.type && !['nav','footer','hero','cta','skip'].includes(s.type)){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
+    if(last && last.type===s.type && ['nav','footer','steps'].includes(s.type)){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
     else out.push(Object.assign({},s)); });
   out.forEach((s,i)=>{ s.id=i; const opts=SECTION_REAL[s.type]; if(opts && (!s.cut||!opts.some(o=>o.id===s.cut))) s.cut=opts[0].id; });
   return out;
@@ -2750,6 +2759,24 @@ function sectypeSelect(sec,i){
   const chrome=['nav','footer','skip'].map(t=>'<option value="'+t+'"'+(t===sec.type?' selected':'')+'>'+CHROME_LABEL[t]+'</option>').join('');
   return '<select class="sb-sectype" data-sectype="'+i+'" title="What kind of section is this?">'+content+'<option disabled>──────────</option>'+chrome+'</select>';
 }
+/* AI reader (server /api/segment, real Claude) returns [{type, copy}] — map to our
+   section shape, coercing any unknown type to 'feature' so a stray label can't break it. */
+function sectionsFromAI(arr){
+  return (arr||[]).filter(x=>x&&x.type).map((x,i)=>{
+    let type=x.type;
+    if(!SECTION_REAL[type] && !['nav','footer','skip'].includes(type)) type='feature';
+    const raw=(x.copy||'').trim();
+    const lines=raw.split(/\n/).map(l=>l.trim()).filter(Boolean);
+    const s={id:i, raw, lines, type};
+    const opts=SECTION_REAL[type]; if(opts) s.cut=opts[0].id;
+    return s;
+  });
+}
+function wizReadingHTML(){
+  return '<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Reading your copy…</h2>'
+    +'<p class="sb-wiz-sub" style="text-align:left">Claude is reading the whole page and breaking it into sections. One moment.</p>'
+    +'<div class="sb-reading"><span></span><span></span><span></span></div>';
+}
 function wizSectionsHTML(){
   if(!WIZ.sections||!WIZ.sections.length){
     return '<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">No copy yet</h2>'
@@ -2758,6 +2785,9 @@ function wizSectionsHTML(){
   const chrome=WIZ.sections.filter(s=>s.type==='nav'||s.type==='footer');
   const contentCount=WIZ.sections.filter(s=>SECTION_REAL[s.type]).length;
   let h='<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Here\'s how I read your copy</h2>';
+  h+= WIZ.readBy==='ai'
+    ? '<div class="sb-read-by ai">'+uic('check',12)+' Read by Claude'+(WIZ.readModel?' · '+esc(WIZ.readModel):'')+'</div>'
+    : (WIZ.readBy==='rules' ? '<div class="sb-read-by rules">Read by the built-in rules — '+esc(WIZ.readNote||'')+'</div>' : '');
   if(chrome.length) h+='<div class="sb-chrome-note">Recognized as chrome and set aside — '+chrome.map(s=>'<b>'+(s.type==='nav'?'Top nav':'Footer')+'</b>').join(' · ')+'. Every page gets these automatically, so you don\'t lay them out.</div>';
   h+='<p class="sb-wiz-sub" style="text-align:left;margin:0 0 24px">'+contentCount+' content section'+(contentCount===1?'':'s')+' to lay out. Every layout is a <b>real component from your system</b>, never a sketch I invented. Wrong read? The dropdown includes <b>Not a section</b> for anything that slipped through.</p>';
   h+=WIZ.sections.map((sec,i)=>{
@@ -2828,10 +2858,19 @@ document.getElementById('sbWizBody').addEventListener('change',e=>{
 document.getElementById('sbWizFt').addEventListener('click',async e=>{
   if(e.target.closest('#wizBack')){ if(WIZ.step===2) wizCollect(); WIZ.step--; wizRender(); return; }
   if(e.target.closest('#wizNext')){
-    if(WIZ.step===2){
+    if(WIZ.step===2 && WIZ.type==='page'){
       wizCollect();
-      if(WIZ.type==='page'){ const ta=document.getElementById('wf-copy'); WIZ.copy=ta?ta.value:(WIZ.copy||''); WIZ.sections=segmentCopy(WIZ.copy); }
+      const ta=document.getElementById('wf-copy'); WIZ.copy=ta?ta.value:(WIZ.copy||'');
+      WIZ.step=3; WIZ.sections=null; WIZ.reading=true; WIZ.readBy=null; WIZ.readNote=''; WIZ.readModel=''; wizRender();
+      try{
+        const r=await fetch('/api/segment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({copy:WIZ.copy})});
+        const j=await r.json();
+        if(j&&j.ok&&Array.isArray(j.sections)&&j.sections.length){ WIZ.sections=sectionsFromAI(j.sections); WIZ.readBy='ai'; WIZ.readModel=j.model||''; }
+        else { WIZ.sections=segmentCopy(WIZ.copy); WIZ.readBy='rules'; WIZ.readNote=(j&&j.message)||'AI reading unavailable.'; }
+      }catch(err){ WIZ.sections=segmentCopy(WIZ.copy); WIZ.readBy='rules'; WIZ.readNote='AI reading unavailable — is the server running?'; }
+      WIZ.reading=false; wizRender(); return;
     }
+    if(WIZ.step===2) wizCollect();
     WIZ.step++; wizRender(); return;
   }
   if(e.target.closest('#wizRestart')){ WIZ.step=1; WIZ.type=null; WIZ.ctx={}; WIZ.copy=''; WIZ.sections=null; wizRender(); return; }

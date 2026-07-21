@@ -294,6 +294,76 @@ def rescan():
     try: return json.load(open(DATA))
     except Exception: return None
 
+# ── AI segmentation ─────────────────────────────────────────────────────────
+# Create's copy-first flow asks a real Claude model to read a whole pasted page
+# and break it into ordered sections, using ONLY our real vocabulary. This is the
+# "seamless" path Lizu chose: no chat hop. Needs ANTHROPIC_API_KEY in the env; if
+# it's missing the endpoint says so and the storybook falls back to its rules reader.
+SEGMENT_TYPES = ["nav","footer","hero","steps","stats","feature",
+                 "testimonial","faq","cta","mission","logos","expertrow","skip"]
+SEGMENT_SYSTEM = (
+    "You segment the raw copy of ONE marketing web page into ordered sections for a design tool.\n"
+    "Return the sections top-to-bottom, using EXACTLY one of these type strings for each:\n"
+    "- nav: the top navigation bar (logo, menu links, sign in / get started). Chrome, not content.\n"
+    "- footer: the page footer (link columns, company info, legal, copyright, social). Chrome, not content.\n"
+    "- hero: the opening section — big headline, sub, and primary call to action.\n"
+    "- steps: a how-it-works numbered sequence.\n"
+    "- stats: a row or grid of proof numbers (e.g. 80K+ experts, 190 countries).\n"
+    "- feature: a benefit/feature block, OR any content block that doesn't clearly fit another type.\n"
+    "- testimonial: customer quotes with attribution.\n"
+    "- faq: a list of questions and answers.\n"
+    "- cta: a short call-to-action closer whose job is to get the visitor to act.\n"
+    "- mission: a single big mission/statement line.\n"
+    "- logos: a strip of client/partner logos.\n"
+    "- expertrow: copy on one side with a product mock-UI on the other.\n"
+    "- skip: decorative fragments, stray labels, anything that isn't a real page section.\n\n"
+    "Rules: recognise the top nav and footer as chrome (nav / footer) — never treat their links as content. "
+    "Preserve reading order. Put the VERBATIM copy for each section in its 'copy' field — never rewrite, "
+    "summarise, or invent text. Prefer one section per distinct heading. If a big custom block matches no "
+    "type, use 'feature'."
+)
+SEGMENT_SCHEMA = {
+    "type": "object", "additionalProperties": False, "required": ["sections"],
+    "properties": {"sections": {"type": "array", "items": {
+        "type": "object", "additionalProperties": False, "required": ["type","copy"],
+        "properties": {"type": {"type": "string", "enum": SEGMENT_TYPES},
+                       "copy": {"type": "string"}}}}}
+}
+def ai_segment(copy):
+    copy = (copy or "").strip()
+    if not copy:
+        return {"ok": False, "error": "empty", "message": "No copy to read."}
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if not key:
+        return {"ok": False, "error": "no_key",
+                "message": "AI reading is off — set ANTHROPIC_API_KEY and restart the server. Used the rules reader instead."}
+    import urllib.request, urllib.error
+    model = os.environ.get("PTF_SEGMENT_MODEL", "claude-haiku-4-5")   # cheapest reader by default (well under 1¢/page); set the env var to claude-opus-4-8 for the best quality
+    payload = {"model": model, "max_tokens": 4096, "system": SEGMENT_SYSTEM,
+               "output_config": {"format": {"type": "json_schema", "schema": SEGMENT_SCHEMA}},
+               "messages": [{"role": "user", "content": copy}]}
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages",
+        data=json.dumps(payload).encode("utf-8"), method="POST",
+        headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=90) as r:
+            data = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return {"ok": False, "error": "api", "message": e.read().decode("utf-8","replace")[:400]}
+    except Exception as e:
+        return {"ok": False, "error": "net", "message": str(e)}
+    if data.get("stop_reason") == "refusal":
+        return {"ok": False, "error": "refusal", "message": "The model declined to read this copy."}
+    text = "".join(b.get("text","") for b in data.get("content",[]) if b.get("type") == "text")
+    try:
+        parsed = json.loads(text)
+    except Exception:
+        return {"ok": False, "error": "parse", "message": text[:400]}
+    secs = parsed.get("sections") if isinstance(parsed, dict) else None
+    if not isinstance(secs, list) or not secs:
+        return {"ok": False, "error": "shape", "message": "The model returned no sections."}
+    return {"ok": True, "sections": secs, "model": model}
+
 class H(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *a, **k): super().__init__(*a, directory=ROOT, **k)
     def _json(self, obj, code=200):
@@ -451,6 +521,10 @@ class H(http.server.SimpleHTTPRequestHandler):
                               "brief": body.get("brief", ""), "wiz": body.get("wiz", {})})
             json.dump({"briefs": briefs[:20]}, open(BRIEFS, "w"), indent=1)
             self._json({"ok": True, "saved": rel(BRIEFS)})
+            return
+        if self.path.rstrip("/") == "/api/segment":
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            self._json(ai_segment(body.get("copy", "")))
             return
         if self.path.rstrip("/") == "/api/approve":
             n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
