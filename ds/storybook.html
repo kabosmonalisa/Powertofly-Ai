@@ -2654,11 +2654,14 @@ function thumbHTML(p,w,dark){
   const s=(p.scale||0.45)*(w?w/400:1);
   return '<div class="sb-thumb'+(dark?' theme-dark':'')+'" data-thumb="'+p.id+'"><div class="sb-thumb-in" style="transform:scale('+s+')">'+p.html+'</div></div>';
 }
-/* after render, size each thumb box to its scaled content so nothing is clipped */
+/* Scale each wireframe to FILL its card width (like the iframe specimens), so a narrow
+   component (the steps list) is as readable as a wide one and there's no dead space. */
 function fitThumbs(root){
   root.querySelectorAll('.sb-thumb').forEach(box=>{
     const inner=box.querySelector('.sb-thumb-in'); if(!inner) return;
-    const m=/scale\(([\d.]+)\)/.exec(inner.style.transform||''); const s=m?parseFloat(m[1]):1;
+    const natW=inner.scrollWidth||760, boxW=box.clientWidth||240;
+    const s=Math.min(1, boxW/natW);
+    inner.style.transform='scale('+s+')';
     box.style.height=Math.round(inner.scrollHeight*s)+'px';
   });
 }
@@ -2831,13 +2834,16 @@ function isLinky(lines){
   return (short/lines.length)>=0.7 && !sentence;
 }
 /* A numbered step — "01", "1.", "Step 2" — even without punctuation (that was the miss). */
+function isStepMarker(l){ return /^(?:step\s*)?\d{1,2}[\.\):]?\s*$/i.test(l) || /^\d{1,2}[\.\)]\s+\S/.test(l); }
 function isStepBlock(lines){ const f=(lines[0]||'').trim(); return /^(\d{1,2}|step\s*\d{1,2})$/i.test(f) || /^\d{1,2}[\.\)]\s+\S/.test(f); }
+/* …or a block with two-plus numbered markers even behind a heading ("How it works / 01 / 02 / 03"). */
+function stepMarkerCount(lines){ return lines.filter(isStepMarker).length; }
 function footerSignal(b){ return /(©|\ball rights reserved\b|\bprivacy\b|\bterms\b|\bcookies?\b|\bpopular topics\b|\bquick links\b|\bfollow us\b|\bsitemap\b|\b\d{4}\s+powertofly\b|\blegal & privacy\b|\bnewsletter\b)/i.test(b); }
 function guessContent(b,lines){
   const stats=(b.match(/\b\d[\d,]*\s*(k\+?|m\+?|%|\+)/gi)||[]).length;
   const isQuote=/[“"][^”"]{15,}[”"]/.test(b) && /(—|–| - )\s*[A-Z]/.test(b);   // needs a real quote AND an attribution
   const q=lines.filter(l=>/\?\s*$/.test(l)).length;
-  const cta=/\b(get started|sign up|book (a )?(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk)\b/i.test(b);
+  const cta=/\b(get started|sign up|book\b[^.\n]{0,20}\b(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk)\b/i.test(b);
   if(q>=2) return 'faq';
   if(isQuote) return 'testimonial';
   if(stats>=2 && b.length<240) return 'stats';
@@ -2846,7 +2852,7 @@ function guessContent(b,lines){
 }
 /* Confident content types (steps/stats/faq/…) win over "linky"; only a truly ambiguous block falls back. */
 function blockType(b,lines){
-  if(isStepBlock(lines)) return 'steps';
+  if(isStepBlock(lines) || stepMarkerCount(lines)>=2) return 'steps';
   if(footerSignal(b)) return 'footer';
   const c=guessContent(b,lines);
   if(c!=='feature') return c;
@@ -2863,7 +2869,9 @@ function segmentCopy(text){
   /* Merge ONLY runs of the same structural chrome/steps type — never collapse content sections. */
   const out=[];
   arr.forEach(s=>{ const last=out[out.length-1];
-    if(last && last.type===s.type && ['nav','footer','steps'].includes(s.type)){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
+    // Merge runs of the SAME type that are really one section made of cards/steps/chrome:
+    // benefit cards, testimonial cards, steps, nav, footer. Never merge a hero, stats, cta, faq, etc.
+    if(last && last.type===s.type && ['nav','footer','steps','feature','testimonial'].includes(s.type)){ last.raw+='\n\n'+s.raw; last.lines=last.lines.concat(s.lines); }
     else out.push(Object.assign({},s)); });
   out.forEach((s,i)=>{ s.id=i; const opts=SECTION_REAL[s.type]; if(opts && (!s.cut||!opts.some(o=>o.id===s.cut))) s.cut=opts[0].id; });
   return out;
@@ -2885,6 +2893,109 @@ function sectionsFromAI(arr){
     const opts=SECTION_REAL[type]; if(opts) s.cut=opts[0].id;
     return s;
   });
+}
+/* ═══════════ Fill the REAL component with HER copy (gray for media) ═══════════
+   Each section's wireframe is the actual component markup (same classes/inline styles
+   as the pattern demos above) with the pasted copy dropped into its slots — never the
+   demo's placeholder copy, and never invented text. A media slot shows a gray box. */
+const MEDIA_BOX=(label,h)=>`<div style="height:${h||120}px;border:1px dashed var(--line);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);font-size:13px;background:rgba(128,128,128,.08)">${label||'image'}</div>`;
+function isCTAline(l){ return l.split(/\s+/).length<=6 && /\b(get started|sign up|book\b[^.\n]{0,20}\b(call|demo)|request (a )?demo|contact us|join (us|now)|apply now|register|talk to (us|our)|schedule|start (free|now)|let'?s talk|learn more|see how|see more|explore|get matched|find out)\b/i.test(l); }
+/* split a block into cards: blank-line sub-blocks, or line-pairs when there are none */
+function cardsFromRaw(raw){
+  let chunks=(raw||'').split(/\n\s*\n+/).map(c=>c.trim()).filter(Boolean);
+  if(chunks.length<=1){
+    const ls=(raw||'').split(/\n/).map(x=>x.trim()).filter(Boolean);
+    if(ls.length>=4){ chunks=[]; for(let i=0;i<ls.length;i+=2) chunks.push(ls.slice(i,i+2).join('\n')); }
+  }
+  return chunks;
+}
+function splitHeadCtaBody(lines){
+  const head=lines[0]||''; let cta=null; const body=[];
+  lines.slice(1).forEach(l=>{ if(isCTAline(l)&&!cta) cta=l; else body.push(l); });
+  return {head, cta, body:body.join(' ')};
+}
+function fillHero(raw,lines){
+  const {head,cta,body}=splitHeadCtaBody(lines);
+  return `<div style='width:760px;padding:36px 40px'><h1 class='display' style='font-size:46px;margin:0 0 14px;line-height:1.08'>${esc(head)}</h1>`
+    +(body?`<p style='font-size:17px;color:var(--ink-3);max-width:46ch;margin:0 0 22px'>${esc(body)}</p>`:'')
+    +(cta?`<a class='btn btn-primary' href='javascript:void(0)'>${esc(cta)}${/[→]$/.test(cta)?'':' →'}</a>`:'')
+    +`<div style='margin-top:24px'>${MEDIA_BOX('image or video',130)}</div></div>`;
+}
+function fillBenefit(raw){
+  const cards=cardsFromRaw(raw).slice(0,4).map(ch=>{
+    const ls=ch.split(/\n/).map(x=>x.trim()).filter(Boolean);
+    let ey='',title='',body='';
+    if(ls.length>=3 && ls[0].split(/\s+/).length<=4){ ey=ls[0]; title=ls[1]; body=ls.slice(2).join(' '); }
+    else if(ls.length>=2){ title=ls[0]; body=ls.slice(1).join(' '); }
+    else { title=ls[0]||''; }
+    return `<div class='benefit-card' style='flex:1'>${ey?`<span class='benefit-eyebrow'>${esc(ey)}</span>`:''}<h3 style='font-size:19px;margin:${ey?'8px':'0'} 0 8px'>${esc(title)}</h3>${body?`<p style='font-size:14px;color:var(--ink-3);margin:0'>${esc(body)}</p>`:''}</div>`;
+  }).join('');
+  return `<div style='display:flex;gap:16px;width:900px;padding:20px'>${cards}</div>`;
+}
+function fillSteps(lines){
+  const fi=lines.findIndex(isStepMarker); if(fi>0) lines=lines.slice(fi);   // drop a leading "How it works" heading
+  const steps=[]; let cur=null;
+  lines.forEach(l=>{
+    const m=/^(?:step\s*)?(\d{1,2})[\.\):]?\s*$/i.exec(l) || /^(\d{1,2})[\.\)]\s+(.*)$/.exec(l);
+    if(m){ cur={num:m[1], title:(m[2]||'').trim(), body:''}; steps.push(cur); }
+    else if(cur){ if(!cur.title) cur.title=l; else cur.body+=(cur.body?' ':'')+l; }
+    else { cur={num:String(steps.length+1), title:l, body:''}; steps.push(cur); }
+  });
+  const items=steps.slice(0,5).map((s,i)=>`<div class='step visible'><div class='step-num'>${esc(s.num||String(i+1))}</div><div class='step-content'><h4>${esc(s.title)}</h4>${s.body?`<p>${esc(s.body)}</p>`:''}</div></div>`).join('');
+  return `<div style='width:880px;padding:18px'><div class='steps'>${items}</div></div>`;
+}
+function fillStats(lines){
+  const items=lines.slice(0,4).map(l=>{ const m=/^\s*([\d.,]+\s*[kKmM]?\+?%?)\s+(.*)$/.exec(l); const num=m?m[1]:l; const lbl=m?m[2]:''; return `<div class='statband-item'><div class='statband-text'><div class='statband-num'>${esc(num)}</div><div class='statband-lbl'>${esc(lbl)}</div></div></div>`; }).join('');
+  return `<div style='width:900px;padding:18px'><div class='statband-inner'>${items}</div></div>`;
+}
+function fillTestimonial(raw){
+  const cards=cardsFromRaw(raw).slice(0,3).map(ch=>{
+    const qm=/[“"]([^”"]+)[”"]/.exec(ch); const quote=qm?qm[1]:(ch.split(/\n/)[0]||'').replace(/^["“]|["”]$/g,'');
+    const rest=ch.replace(/[“"][^”"]*[”"]/,''); const am=/(?:—|–|-)\s*([^,\n]+?)(?:\s*,\s*(.+))?\s*$/m.exec(rest);
+    const author=am?am[1].trim():''; const role=am&&am[2]?am[2].trim():'';
+    return `<div class='t-card' style='flex:1'><div class='t-quote'>“${esc(quote)}”</div>${author?`<div class='t-author'>${esc(author)}</div>`:''}${role?`<div class='t-role'>${esc(role)}</div>`:''}</div>`;
+  }).join('');
+  return `<div style='display:flex;gap:16px;width:880px;padding:20px'>${cards}</div>`;
+}
+function fillFaq(lines){
+  const qs=lines.filter(l=>/\?\s*$/.test(l)); const list=(qs.length?qs:lines).slice(0,6);
+  // NB: a <div> (not <button>) — this wireframe sits inside the .sb-cut <button>, and a
+  // nested <button> is invalid HTML (the parser closes the outer one and drops the rest).
+  const items=list.map(q=>`<div class='faq-item'><div class='faq-q' style='width:100%;text-align:left'>${esc(q)}<span class='faq-icon'><svg viewBox='0 0 24 24'><line x1='12' y1='5' x2='12' y2='19'/><line x1='5' y1='12' x2='19' y2='12'/></svg></span></div></div>`).join('');
+  return `<div style='width:760px;padding:18px'><div class='faq-list'>${items}</div></div>`;
+}
+function fillCta(lines){
+  let ey='',rest=lines.slice();
+  if(rest.length>=2 && rest[0].split(/\s+/).length<=3){ ey=rest[0]; rest=rest.slice(1); }
+  const {head,cta,body}=splitHeadCtaBody(rest);
+  return `<div style='width:860px'><div class='section-cta' style='border-radius:16px;overflow:hidden'><div class='section-cta-inner'>${ey?`<span class='eyebrow'>${esc(ey)}</span>`:''}<h2 style='font-size:34px;margin:${ey?'10px':'0'} 0 12px'>${esc(head)}</h2>${body?`<p style='margin:0 0 20px'>${esc(body)}</p>`:''}${cta?`<a class='btn btn-cta' href='javascript:void(0)'>${esc(cta)}${/[→]$/.test(cta)?'':' →'}</a>`:''}</div></div></div>`;
+}
+function fillMission(raw){ return `<div style='width:820px;padding:26px 18px'><div class='mission-statement'>${esc(raw)}</div></div>`; }
+function fillLogos(lines){
+  const names=(lines.length?lines:['Logo','Logo','Logo','Logo']).slice(0,6);
+  return `<div style='width:880px;padding:24px 18px;display:flex;gap:30px;align-items:center;justify-content:center;opacity:.6;flex-wrap:wrap'>${names.map(n=>`<b style='font-family:Inter Tight;font-size:18px'>${esc(n)}</b>`).join('')}</div>`;
+}
+function fillExpertRow(raw,lines){
+  const {head,cta,body}=splitHeadCtaBody(lines);
+  return `<div style='width:900px;padding:18px'><div class='expert-row'><div class='sc-left'><h3 style='font-size:24px;margin:0 0 10px'>${esc(head)}</h3>${body?`<p class='sc-body'>${esc(body)}</p>`:''}${cta?`<a class='sc-more' href='javascript:void(0)'>${esc(cta)}${/[→]$/.test(cta)?'':' →'}</a>`:''}</div><div class='sc-right' style='background:rgba(128,128,128,.1);border:1px dashed var(--line);border-radius:14px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);min-height:150px'>media</div></div></div>`;
+}
+/* dispatch by the resolved component id; returns HER-copy markup, or null to fall back to the demo */
+function fillFor(compId, sec){
+  const raw=(sec&&sec.raw)||''; const lines=(sec&&sec.lines)||[];
+  if(!raw.trim()) return null;
+  switch(compId){
+    case 'pat-hero':         return fillHero(raw,lines);
+    case 'pat-benefit':      return fillBenefit(raw);
+    case 'pat-how':          return fillSteps(lines);
+    case 'pat-statband':     return fillStats(lines);
+    case 'pat-testimonials': return fillTestimonial(raw);
+    case 'pat-faq':          return fillFaq(lines);
+    case 'pat-cta':          return fillCta(lines);
+    case 'pat-mission':      return fillMission(raw);
+    case 'pat-logos':        return fillLogos(lines);
+    case 'pat-expertrow':    return fillExpertRow(raw,lines);
+    default: return null;   // molecule alternatives (statgrid/statsportrait) keep their demo
+  }
 }
 function wizReadingHTML(){
   return '<h2 class="sb-wiz-q" id="sbWizTitle" style="text-align:left">Reading your copy…</h2>'
@@ -2914,8 +3025,9 @@ function wizSectionsHTML(){
     const opts=SECTION_REAL[sec.type]||SECTION_REAL.feature;
     if(!sec.cut||!opts.some(o=>o.id===sec.cut)) sec.cut=opts[0].id;
     const cards=opts.map(o=>{ const c=realComp(o); if(!c) return '';
+      const filled=fillFor(c.id, sec);   // HER copy in the real component; null → demo fallback
       return '<button class="sb-cut'+(o.id===sec.cut?' on':'')+'" data-cut="'+i+'|'+o.id+'">'
-        + thumbHTML({id:c.id,html:c.html,scale:c.scale}, 240, c.dark)
+        + thumbHTML({id:c.id,html:(filled||c.html),scale:c.scale}, 240, c.dark)
         + '<div class="sb-cut-n">'+esc(c.name)+' <span class="sb-cut-use">· '+esc(compUses(c.key))+'</span></div></button>'; }).join('');
     const one = opts.length===1
       ? '<div class="sb-onecut">This is the one '+esc(SEC_LABEL[sec.type]||sec.type)+' layout your system has. Want a different one? That\'s a new component to add — a Design Opportunity, not something Create should invent.</div>'
