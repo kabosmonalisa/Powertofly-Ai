@@ -1,3 +1,12 @@
 {
- "requests": []
+ "requests": [
+  {
+   "at": "2026-07-22T23:19:36",
+   "fid": "f-ghost-dark",
+   "title": "A secondary button on dark that exists once",
+   "text": "Promote it yes but also make them have the same height!what do you recommend based on the system?",
+   "done": true,
+   "resolved": "Promote it — as .btn-ghost-dark, built on .btn-cta box + inset-ring outline so it is the SAME height (56px, proven). Swaps About, deletes the one-off, adds it to the inventory. Recommended option on f-ghost-dark."
+  }
+ ]
 }

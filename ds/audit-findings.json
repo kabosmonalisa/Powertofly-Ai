@@ -1979,23 +1979,29 @@
     {
      "id": "promote",
      "recommended": true,
-     "label": "Promote it — make it a real button",
-     "note": "Moves it into the system as .btn-ghost-dark so any dark band can use it.",
+     "label": "Promote it — matched to the white button's height",
+     "note": "Adds .btn-ghost-dark to the system, built on .btn-cta's box so the pair is exactly the same height (the outline is an inset ring, never adds height). Swaps About over, deletes the one-off, and writes it into the inventory.",
      "apply": [
       {
        "type": "css-append",
-       "css": "/* Secondary action on a dark band — outlined, never filled. The one place a\n   button may sit on dark without a white fill: use it beside .btn-cta, never alone. */\n.btn-ghost-dark {\n  background: transparent;\n  color: #fff;\n  border: 1.5px solid rgba(255,255,255,0.45);\n}\n.btn-ghost-dark:hover {\n  background: transparent;\n  color: #fff;\n  border-color: rgba(255,255,255,0.75);\n  box-shadow: 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);\n}",
-       "marker": ".btn-ghost-dark"
+       "css": "/* Secondary action on a dark band — outlined, never filled. The one place a button\n   may sit on dark without a white fill; use it beside .btn-cta on a .section-cta band.\n   Same box as .btn-cta (equal height by construction); the outline is an inset ring, so\n   it never adds height the way a real border would (.btn-cta has none). */\n.btn-ghost-dark {\n  display: inline-flex; align-items: center; gap: 8px;\n  padding: 20px 32px; border-radius: 999px;\n  font-family: 'Inter Tight', 'Inter', sans-serif;\n  font-size: 16px; font-weight: 700; letter-spacing: -0.01em; line-height: 1;\n  text-decoration: none; cursor: pointer; border: none;\n  background: transparent; color: #fff;\n  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.45);\n  transition: box-shadow 180ms ease, transform 180ms ease;\n}\n.btn-ghost-dark:hover {\n  transform: translateY(-1px);\n  box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.75), 0 12px 28px rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.3);\n}",
+       "marker": ".btn-ghost-dark {"
       },
       {
        "type": "replace-class",
        "from": ".about-btn-secondary",
-       "to": "btn btn-ghost-dark"
+       "to": "btn-ghost-dark"
       },
       {
        "type": "remove-css-rule",
        "in": "pages",
        "selector": ".about-btn-secondary"
+      },
+      {
+       "type": "doc-append",
+       "file": "ds/COMPONENT-INVENTORY.md",
+       "marker": "## Button — Ghost on dark",
+       "md": "## Button — Ghost on dark (`.btn-ghost-dark`)\nThe only outlined-on-dark secondary. It sits beside `.btn-cta` on a `.section-cta` band — never alone, never on a light section. It shares `.btn-cta`'s exact box (padding 20/32, 16px/700, `line-height:1`) so the two are the same height; the white ring is an inset `box-shadow`, not a border, so it adds no height. Markup: `<a class=\"btn-ghost-dark\">`. Do not hand-build an outlined-on-dark button on a page again — this is it."
       }
      ]
     },
