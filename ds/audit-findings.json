@@ -1683,11 +1683,19 @@
    "impact_note": "One hero size instead of whatever each page chose. Also settles a 700-vs-800 weight split.",
    "options": [
     {
-     "id": "one-weight",
+     "id": "one-size-68",
      "recommended": true,
-     "label": "One weight — Bold everywhere",
-     "note": "Fixes the single odd rule. Keeps 68px and 80px as they are.",
+     "label": "One size — 68px Bold",
+     "note": "Every hero becomes 68px, weight 700 — the size 8 of your pages already use. Only Talents, Talents (v2) and Train come down from 80px. This is the one shown above.",
      "apply": [
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": "h1.hero-headline",
+       "prop": "font-size",
+       "value": "clamp(36px, 5.5vw, 68px)",
+       "expect": "clamp(44px, 7vw, 80px)"
+      },
       {
        "type": "css-set",
        "in": "pages",
@@ -1700,8 +1708,8 @@
     },
     {
      "id": "one-size",
-     "label": "One weight and one size — 80px Bold",
-     "note": "Every hero becomes the big one. Three pages grow from 68px.",
+     "label": "One size — 80px Bold",
+     "note": "Every hero becomes the big one — 80px, weight 700. The eight 68px pages grow to match Talents.",
      "apply": [
       {
        "type": "css-set",
@@ -1718,6 +1726,21 @@
        "prop": "font-size",
        "value": "clamp(44px, 7vw, 80px)",
        "expect": "clamp(36px, 5.5vw, 68px)"
+      }
+     ]
+    },
+    {
+     "id": "one-weight",
+     "label": "Keep two sizes — just fix the weight",
+     "note": "Keep 68px and 80px as a deliberate scale; only settle the odd 800 weight to 700 (Talents, Talents v2).",
+     "apply": [
+      {
+       "type": "css-set",
+       "in": "pages",
+       "selector": ".hero h1",
+       "prop": "font-weight",
+       "value": "700",
+       "expect": "800"
       }
      ]
     }

@@ -1972,6 +1972,8 @@ let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FIND
 let CHOICE={};   // CHOICE[id] = the answer you committed to (saved)
 let PICK={};     // PICK[id]   = the answer selected but not yet applied (this session only)
 let ASKED={};    // ASKED[id]  = what she asked for in her own words, when neither answer fits
+let DISMISS_WHY={};   // DISMISS_WHY[id] = why she dismissed a finding — feedback so I bring a better one (fid 'dismiss:<id>' in requests.json)
+let WHY_DRAFT={};     // in-progress dismissal reason, held across re-renders so the cursor survives
 const IMPACT_ORDER={high:0,medium:1,low:2};
 
 /* Copy is plain text and may legitimately mention tags like <button> — escape it.
@@ -2063,7 +2065,9 @@ function findingHTML(f){
           : dec==='merge' ? (CHOICE[f.id] ? esc((((f.options||[]).find(o=>o.id===CHOICE[f.id])||{}).label)||'Accepted') : 'Accepted')
           : 'Dismissed')+'</span>'
       +(dec==='asked'&&ASKED[f.id]?'<span class="sb-decided-ask">\u201c'+esc(ASKED[f.id])+'\u201d</span>':'')
-      +'<button class="sb-dec keep'+(EDIT_MODE?'':' locked')+'" data-dec="'+dec+'" data-fid="'+f.id+'">'+(EDIT_MODE?'':LOCK_SVG)+'Change</button></div></div>';
+      +'<button class="sb-dec keep'+(EDIT_MODE?'':' locked')+'" data-dec="'+dec+'" data-fid="'+f.id+'">'+(EDIT_MODE?'':LOCK_SVG)+'Change</button></div>'
+      + (dec==='keep' ? dismissWhyHTML(f) : '')
+      + '</div>';
   }
   const KIND={unify:'Merge duplicates',standardize:'Standardize',typography:'Simplify type',cleanup:'Remove',
               pattern:'New section pattern',recipe:'New page recipe',gap:'Fill a gap'};
@@ -3327,6 +3331,11 @@ document.getElementById('sbUsage').addEventListener('input',e=>{
   if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
 });
 document.getElementById('sbOppsBody').addEventListener('input',e=>{
+  const wa=e.target.closest('[data-whyask]');
+  if(wa){ WHY_DRAFT[wa.dataset.whyask]=wa.value;         // dismissal reason draft
+    const wb=document.querySelector('[data-whysend="'+wa.dataset.whyask+'"]');
+    if(wb){ const ready=!!wa.value.trim(); wb.disabled=!ready; wb.classList.toggle('off',!ready); }
+    return; }
   const ta=e.target.closest('[data-ask]');
   if(!ta) return;
   ASKED[ta.dataset.ask]=ta.value;                       // hold it; re-rendering here would eat the cursor
@@ -3352,6 +3361,7 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
   if(pk){ PICK[pk.dataset.fid] = (PICK[pk.dataset.fid]===pk.dataset.pick ? null : pk.dataset.pick); renderCleanup();
     if(PICK[pk.dataset.fid]==='__other'){ const ta=document.querySelector('[data-ask="'+pk.dataset.fid+'"]'); if(ta) ta.focus(); }
     return; }
+  const ws=e.target.closest('[data-whysend]'); if(ws){ if(ws.disabled) return; sendDismissWhy(ws.dataset.whysend); return; }   // dismissal reason — before .sb-dec (the button carries that class)
   const dc=e.target.closest('.sb-dec'); if(dc){ if(dc.disabled) return;
     dc.dataset.opt ? chooseOption(dc.dataset.fid, PICK[dc.dataset.fid]) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
@@ -3414,7 +3424,7 @@ async function decide(id,val){
   }
   DECIDED[id]=val; renderCleanup(); updateOppsCount(); saveDecision(id,val,true);
   if(val==='merge'&&f&&!(f.apply||[]).length) toast('Accepted — needs a hand edit: '+esc(f.fix||''),6000);
-  else if(val==='keep') toast('Dismissed — it stays as it is.');
+  else if(val==='keep') toast('Dismissed — it stays as it is. Tell me why below and I\'ll bring a better one for this area.',6000);
 }
 async function askAboutPage(pid){
   const st=S.find(x=>x.pageId===pid); const text=(ASKED['page:'+pid]||'').trim();
@@ -3441,6 +3451,33 @@ async function askInstead(id){
   DECIDED[id]='asked'; delete PICK[id];
   renderCleanup(); updateOppsCount(); saveDecision(id,'asked',true);
   toast(uic('check',13)+' Noted — I\'ll pick this up next time we talk.',5000);
+}
+
+/* A dismissal you can explain. Dismissing stays one click, but the receipt then invites
+   a reason — and the reason is the point: it lands in ds/requests.json as 'dismiss:<id>'
+   so next session I read WHY this one missed and bring a better opportunity for that area,
+   instead of re-proposing the same thing. Writing a note isn't editing — no unlock needed. */
+function dismissWhyHTML(f){
+  if(DISMISS_WHY[f.id]) return '<div style="margin:8px 0 2px">'
+    +'<span class="sb-decided-ask" style="display:block">“'+esc(DISMISS_WHY[f.id])+'”</span>'
+    +'<span style="display:block;margin-top:6px;font-size:12px;color:var(--sb-green)">'+uic('sparkle',12)+' Noted — I\'ll bring you a better one for this area next time.</span></div>';
+  const val=esc(WHY_DRAFT[f.id]||'');
+  return '<div style="margin:8px 0 2px;display:flex;gap:8px;align-items:flex-start">'
+    +'<textarea class="sb-ask" data-whyask="'+esc(f.id)+'" rows="2" style="flex:1;margin:0" '
+    +'placeholder="Optional — why did this miss? What would a better opportunity here look like? I read this next session and bring one back.">'+val+'</textarea>'
+    +'<button class="sb-dec merge off" data-whysend="'+esc(f.id)+'" disabled aria-disabled="true" style="align-self:center">Tell me why</button></div>';
+}
+async function sendDismissWhy(id){
+  const ta=document.querySelector('[data-whyask="'+id+'"]');
+  const text=((ta?ta.value:WHY_DRAFT[id])||'').trim(); if(!text) return;
+  const f=AUDIT&&AUDIT.findings.find(x=>x.id===id);
+  try{
+    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:'dismiss:'+id, title:'Dismissed — '+(f?f.title:id), text})});
+    if(!(await r.json()).ok) throw 0;
+  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your note wasn\'t saved.',6000); return; }
+  DISMISS_WHY[id]=text; delete WHY_DRAFT[id]; await loadAsks(); renderCleanup();
+  toast(uic('check',13)+' Thank you — I\'ll bring you a better opportunity for this area.',5000);
 }
 
 /* Some findings ask a real question — which two sizes, 700 or 800, promote or delete.
@@ -3762,7 +3799,7 @@ Promise.all([
     ap.approved.filter(k=>k.indexOf('decide:')===0).forEach(k=>{ const p=k.split(':'); DECIDED[p[1]]=p[2]; });
     ap.approved.filter(k=>k.indexOf('choice:')===0).forEach(k=>{ const p=k.split(':'); CHOICE[p[1]]=p[2]; });
     try{ const rq=await (await fetch('/api/requests')).json();
-      (rq.requests||[]).forEach(r=>{ if(!r.done) ASKED[r.fid]=r.text; });
+      (rq.requests||[]).forEach(r=>{ if(!r.done){ if(r.fid&&r.fid.indexOf('dismiss:')===0) DISMISS_WHY[r.fid.slice(8)]=r.text; else ASKED[r.fid]=r.text; } });
     }catch(e){}
   }
   S.push({g:'Pages', id:'gal-pages', name:'Pages', special:'gallery', galleryOf:'Pages',
