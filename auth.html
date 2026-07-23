@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sign in — PowerToFly AI</title>
+<meta property="og:title"       content="Sign in — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -121,7 +124,7 @@ body {
   background: var(--bg);
   border: 1px solid var(--line);
   border-radius: 28px;
-  box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
+  box-shadow: var(--shadow-lifted);
   width: 100%;
   max-width: 540px;
   padding: 24px 40px 24px;
@@ -308,7 +311,7 @@ body {
 .btn-auth {
   margin-top: 4px;
   width: 100%;
-  padding: 18px 26px;
+  padding: 16px 32px;
   line-height: 1;
   border-radius: 999px;
   border: 1.5px solid var(--ink);
@@ -391,7 +394,7 @@ body {
   font-weight: 800;
   letter-spacing: .14em;
   text-transform: uppercase;
-  color: #0A8C66;
+  color: var(--green);
 }
 
 /* ===== Step 2 — profile ===== */
@@ -435,7 +438,7 @@ body {
 .thanks-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #0A8C66;
+  text-transform: uppercase; color: var(--green);
   margin-bottom: 12px;
 }
 .thanks-body {
@@ -452,7 +455,7 @@ body {
 .btn-dashboard {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--ink); color: #fff;
-  padding: 18px 26px; border-radius: 999px;
+  padding: 16px 32px; border-radius: 999px;
   border: 1.5px solid var(--ink);
   font-family: 'Inter Tight', sans-serif;
   font-size: 15px; font-weight: 600;

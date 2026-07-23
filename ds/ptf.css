@@ -65,7 +65,7 @@
    * identical everywhere. The gap is NEUTRAL (it's the section's own padding, not a colored
    * band — a colored block keeps its color on an inner element so the gap stays neutral).
    * Never hand-set section padding; use the token so it stays even. */
-  --section-y:       100px; /* standard half-gap, top & bottom of every section */
+  --section-y:        84px; /* standard half-gap, top & bottom of every section */
   --section-y-tight:  80px; /* denser rhythm (one-line statements) */
   --section-y-loose: 140px; /* generous: hero / final-CTA closer */
   --hero-top:         56px; /* TOP padding of the first section under the nav (.section-hero) — tighter than --section-y because the sticky nav already adds breathing room */
@@ -73,7 +73,7 @@
 /* One token drives mobile too — shrink it here and EVERY section follows (don't add
  * per-section mobile padding overrides; that's what broke the even rhythm before). */
 @media (max-width: 768px) {
-  :root { --section-y: 60px; --section-y-tight: 48px; --section-y-loose: 84px; --gutter: 20px; --hero-top: 32px; }
+  :root { --section-y: 52px; --section-y-tight: 48px; --section-y-loose: 84px; --gutter: 20px; --hero-top: 32px; }
 }
 
 /* ===== Reset ===== */
@@ -142,14 +142,14 @@ img { display: block; max-width: 100%; }
 /* ===== Buttons ===== */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 14px 26px; border-radius: 999px;
+  padding: 18px 26px; border-radius: 999px;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-size: 15px; font-weight: 600;
   letter-spacing: -0.01em;
   text-decoration: none; cursor: pointer;
   border: 1.5px solid var(--ink);
   background: #ffffff; color: var(--ink);
-  transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease, box-shadow 180ms ease; line-height: 1;
 }
 .btn:hover { transform: translateY(-1px); background: var(--ink); color: #fff; }
 .btn-primary { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
@@ -157,7 +157,7 @@ img { display: block; max-width: 100%; }
   background: var(--btn-bg-hover); color: var(--btn-fg); border-color: var(--btn-bg-hover);
   box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18);
 }
-.btn-sm { padding: 10px 18px; font-size: 14px; }
+.btn-sm { padding: 13px 18px; font-size: 14px; }
 /* White button on dark backgrounds */
 .btn-light {
   background: #ffffff; color: #0A0A0A; border-color: #ffffff;
@@ -170,7 +170,7 @@ img { display: block; max-width: 100%; }
 /* Large CTA button — the big white pill on dark CTA bands (was .btn-book / .btn-hero). */
 .btn-cta {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 16px 32px; border-radius: 999px;
+  padding: 20px 32px; border-radius: 999px;
   font-family: 'Inter Tight', 'Inter', sans-serif;
   font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
   text-decoration: none; cursor: pointer; border: none;
@@ -385,10 +385,6 @@ img { display: block; max-width: 100%; }
   padding: 80px 32px; text-align: center;
 }
 .cs-inner { max-width: 560px; margin: 0 auto; }
-.cs-eyebrow {
-  font-size: 12px; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--green); margin-bottom: 20px;
-}
 .cs-headline {
   font-family: 'Inter Tight', sans-serif;
   font-size: clamp(36px, 5vw, 60px); font-weight: 800;
@@ -691,7 +687,7 @@ img { display: block; max-width: 100%; }
 /* Card shell */
 .auth-card {
   background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-2xl);
-  box-shadow: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10);
+  box-shadow: var(--shadow-lifted);
   width: 100%; max-width: 540px; padding: 24px 40px; transition: max-width 250ms ease;
 }
 .auth-card.wide { max-width: 720px; }
@@ -727,9 +723,9 @@ img { display: block; max-width: 100%; }
 .upload-icon { font-size: 28px; margin-bottom: 8px; }
 .upload-name { margin-top: 8px; font-size: 13px; color: var(--green); font-weight: 600; display: none; }
 /* Primary submit + dashboard buttons */
-.btn-auth { margin-top: 4px; width: 100%; padding: 18px 26px; line-height: 1; border-radius: 999px; border: 1.5px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; transition: background 180ms, box-shadow 180ms, transform 180ms; }
+.btn-auth { margin-top: 4px; width: 100%; padding: 16px 32px; line-height: 1; border-radius: 999px; border: 1.5px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; cursor: pointer; transition: background 180ms, box-shadow 180ms, transform 180ms; }
 .btn-auth:hover { background: var(--btn-bg-hover); border-color: var(--btn-bg-hover); transform: translateY(-1px); box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }
-.btn-dashboard { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 28px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 180ms, transform 180ms; }
+.btn-dashboard { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 26px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; text-decoration: none; transition: background 180ms, transform 180ms; }
 .btn-dashboard:hover { background: var(--btn-bg-hover); transform: translateY(-1px); }
 /* Thank-you screen */
 .thanks-icon { margin-bottom: 20px; }
@@ -752,7 +748,7 @@ img { display: block; max-width: 100%; }
 .btn-skip { background: none; border: none; cursor: pointer; font-size: 13px; color: var(--ink-3); text-decoration: underline; text-underline-offset: 3px; padding: 0; transition: color 180ms; }
 .btn-skip:hover { color: var(--ink); }
 /* Full-width block button (thank-you actions) + the stacked action column + tiny legal print */
-.btn-block { width: 100%; justify-content: center; padding: 18px 26px; }
+.btn-block { width: 100%; justify-content: center; padding: 16px 32px; }
 .thanks-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .thanks-actions > a { flex: 1 1 210px; justify-content: center; padding: 18px 26px; }  /* two CTAs side by side; wrap to stacked on narrow screens */
 .auth-fineprint { margin-top: 12px; font-size: 12px; color: var(--ink-3); text-align: center; line-height: 1.5; }
@@ -910,7 +906,7 @@ img { display: block; max-width: 100%; }
 .sc-tint-amber { background: #FAF1E8; }
 /* fill the panel absolutely so the photo never drives the row height (copy does) — keeps image balanced with the side content */
 .sc-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
-.sc-person-card { position: absolute; bottom: 28px; left: 28px; background: var(--surface); border-radius: 14px; padding: 12px 16px; box-shadow: 0 8px 28px rgba(0,0,0,0.15); min-width: 190px; }
+.sc-person-card { position: absolute; bottom: 28px; left: 28px; background: var(--surface); border-radius: 14px; padding: 12px 16px; box-shadow: var(--shadow-card); min-width: 190px; }
 .sc-person-name { font-size: 14px; font-weight: 700; color: var(--ink); }
 .sc-person-role { font-size: 12px; color: var(--accent); font-weight: 500; margin-top: 2px; }
 .sc-person-sep { border: none; border-top: 1px solid var(--line); margin: 8px 0; }
@@ -919,7 +915,7 @@ img { display: block; max-width: 100%; }
 .sc-mock-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; }
 .sc-mock-stack { position: relative; width: 78%; }
 .sc-mock-peek-card { display: none; }  /* the stacked "shadow card" behind the mock — off by default (matches train) */
-.sc-mock { position: relative; z-index: 1; background: var(--surface); border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.1); padding: 18px; }
+.sc-mock { position: relative; z-index: 1; background: var(--surface); border-radius: 16px; box-shadow: var(--shadow-card); padding: 18px; }
 .sc-mock-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 2px; }
 .sc-mock-icon-box { width: 30px; height: 30px; border-radius: 8px; background: rgba(79,232,169,0.18); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .sc-mock-title { font-size: 13px; font-weight: 700; color: var(--ink); }
@@ -929,7 +925,7 @@ img { display: block; max-width: 100%; }
 .sc-mock-row { display: flex; align-items: center; gap: 6px; padding: 7px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
 .sc-mock-row.active { border-color: #4FE8A9; }
 .sc-mock-row-lbl { flex: 1; min-width: 0; font-size: 11.5px; font-weight: 500; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.sc-badge { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
+.sc-badge { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 999px; white-space: nowrap; flex-shrink: 0; }
 .sc-badge-green { background: rgba(79,232,169,0.2); color: var(--accent); }
 .sc-badge-amber { background: rgba(245,166,35,0.15); color: #A85E00; }
 .sc-badge-gray  { background: var(--bg-soft); color: var(--ink-3); }
@@ -1410,6 +1406,19 @@ img { display: block; max-width: 100%; }
 .ev-listing--grid .ev-faces img { width: 26px; height: 26px; border-color: var(--bg-soft); }
 .ev-listing--grid .ev-people { margin-bottom: 16px; }
 
+/* ── PROMO variant (.ev-promo) — the grid-tile card look, stacked 1-up for a NARROW
+   column (e.g. the flow thank-you step). Reuses .ev-row markup + all the tile styling
+   from .ev-listing--grid; this only forces a single column and tightens sizing so the
+   viewport-driven 3-up grid can't blow out a ~430px card. Presentational only —
+   NO [data-ev-list], so no filters/search/pagination. Markup:
+   .ev-listing.ev-listing--grid.ev-promo > .ev-list > .ev-row (date · sc-tag · title · desc · link). */
+.ev-promo { text-align: left; margin: 4px 0; }
+.ev-promo .ev-list { grid-template-columns: 1fr; gap: 12px; }
+.ev-promo .ev-row { padding: 16px 18px 18px; }
+.ev-promo .ev-row-date { font-size: 12.5px; margin-bottom: 8px; }
+.ev-promo .ev-row-title { font-size: 16.5px; margin-bottom: 6px; }
+.ev-promo .ev-row-desc { font-size: 13.5px; -webkit-line-clamp: 2; margin-bottom: 12px; }
+
 /* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
    Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
    3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */
@@ -1518,3 +1527,27 @@ img { display: block; max-width: 100%; }
   letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 12px; }
 .hero-ds-search-row { display: flex; align-items: center; gap: 14px; }
 .hero-ds-search-word { flex: 1; min-width: 0; font-family: 'Inter Tight', sans-serif; font-size: 22px; font-weight: 800; color: var(--ink); }
+
+/* Two elevations, and only two. Resting = a card at rest. Lifted = a card that is
+   the whole screen's subject (the auth/book panels). A literal shadow can't follow the
+   dark theme; a token can — that is the entire point of these two lines. */
+:root       { --shadow-lifted: 0 2px 4px rgba(15,30,26,0.04), 0 16px 48px rgba(15,30,26,0.10); }
+.theme-dark { --shadow-lifted: 0 16px 48px rgba(0,0,0,0.6); }
+
+/* FAQ answers: links use the brand link colour, never the browser default blue. */
+.faq-a-inner a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.faq-a-inner a:hover { text-decoration: underline; }
+
+/* Speaker bio card — photo beside name/role/bio. Promoted from the identical
+   page-local copies on Chat & Learn and Meet with companies. Part of the event
+   family; use it wherever a page lists who is speaking. */
+.cl-speakers { display: flex; flex-direction: column; gap: 40px; max-width: var(--content-body); margin: 0 auto; }
+.cl-speaker { display: flex; gap: 24px; align-items: flex-start; max-width: var(--content-narrow); }
+.cl-speaker-photo { width: 96px; height: 96px; border-radius: var(--r-pill); object-fit: cover; flex: none; background: var(--surface-2); }
+.cl-speaker-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+.cl-speaker-role { font-size: 14px; color: var(--ink-3); margin: 3px 0 12px; }
+.cl-speaker-bio { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+@media (max-width: 700px) {
+  .cl-speaker { gap: 16px; }
+  .cl-speaker-photo { width: 72px; height: 72px; }
+}

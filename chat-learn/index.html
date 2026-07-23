@@ -88,20 +88,13 @@
 .about-head .section-head,
 .about-head .about-stat-grid { max-width: var(--content-narrow); }
 
-/* ── Body copy columns — wrapper shares the hero + tiles' left edge (content-body),
-      readable content held to content-narrow and left-aligned ── */
-.cl-copy, .cl-speakers { max-width: var(--content-body); margin: 0 auto; }
+/* ── Body copy columns — wrapper shares the hero + tiles' left edge (content-body), readable content held to content-narrow and left-aligned ── */
+.cl-copy { max-width: var(--content-body); margin: 0 auto; }
 .cl-copy .section-head { text-align: left; max-width: var(--content-narrow); margin: 0 0 20px; }
 .cl-copy .section-head p { margin: 0; max-width: none; }
 
 /* ── "Meet the speakers" — page-specific speaker-bio layout (no DS component for this).
-      Circular photo + name + role + bio, held to the readable column. Tokens only. ── */
-.cl-speakers { display: flex; flex-direction: column; gap: 40px; }
-.cl-speaker { display: flex; gap: 24px; align-items: flex-start; max-width: var(--content-narrow); }
-.cl-speaker-photo { width: 96px; height: 96px; border-radius: var(--r-pill); object-fit: cover; flex: none; background: var(--surface-2); }
-.cl-speaker-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
-.cl-speaker-role { font-size: 14px; color: var(--ink-3); margin: 3px 0 12px; }
-.cl-speaker-bio { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+      Circular photo + name + role + bio { display: flex; flex-direction: column; gap: 40px; }
 
 /* ── "More Chat & Learns" — hold head + tiles to the shared content column ── */
 .ev-more { max-width: var(--content-body); margin: 0 auto; }
@@ -132,8 +125,6 @@
   .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
   .ev-hero-sub { font-size: 16px; }
   .ev-hero-meta { grid-template-columns: 1fr; }
-  .cl-speaker { gap: 16px; }
-  .cl-speaker-photo { width: 72px; height: 72px; }
 }
 </style>
 </head>

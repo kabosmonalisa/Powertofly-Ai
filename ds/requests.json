@@ -1,6 +1,46 @@
 {
  "requests": [
   {
+   "at": "2026-07-22T23:52:26",
+   "fid": "part:p-meetcompanies:Step states:swap",
+   "title": "Step states on Meet with Companies",
+   "text": "Replace it with a component the system already has.\n\nOn Meet with Companies (meet-with-companies/index.html), the custom \"Step states\" — 1 pieces: .is-live.\nFind the closest match in COMPONENT-INVENTORY.md, confirm it with me, then swap the page over and delete the custom CSS.",
+   "done": true,
+   "resolved": "Turned into finding o-live — the .is-live red pulse is one dot built 5 times with 5 keyframe names; proven apply promotes it + names the red (--live). Decide it there."
+  },
+  {
+   "at": "2026-07-22T23:52:02",
+   "fid": "part:p-meetcompanies:About-page blocks:make",
+   "title": "About-page blocks on Meet with Companies",
+   "text": "Promote it into the design system as a reusable component.\n\nOn Meet with Companies (meet-with-companies/index.html), the custom \"About-page blocks\" — 1 pieces: .about-head.\nExtract it into ds/ptf.css + a story, write it into COMPONENT-INVENTORY.md, and swap the page over.",
+   "done": true,
+   "resolved": "Turned into finding o-about-head — promote the .about-head width wrapper to ds/ptf.css (proven apply). Decide it there."
+  },
+  {
+   "at": "2026-07-22T23:51:21",
+   "fid": "part:p-meetcompanies:Event-detail hero:make",
+   "title": "Event-detail hero on Meet with Companies",
+   "text": "Promote it into the design system as a reusable component.\n\nOn Meet with Companies (meet-with-companies/index.html), the custom \"Event-detail hero\" — 6 pieces: .ev-fact, .ev-hero, .ev-hero-inner, .ev-hero-meta, .ev-hero-sub, .ev-hero-text.\nExtract it into ds/ptf.css + a story, write it into COMPONENT-INVENTORY.md, and swap the page over.",
+   "done": true,
+   "resolved": "Turned into finding o-ev-hero — the hero is drifting across 4 pages; proven apply re-aligns the slipped values, promote-to-system tracked under o-event-recipe. Decide it there."
+  },
+  {
+   "at": "2026-07-22T23:51:01",
+   "fid": "part:p-meetcompanies:Speaker cards:make",
+   "title": "Speaker cards on Meet with Companies",
+   "text": "Promote it into the design system as a reusable component.\n\nOn Meet with Companies (meet-with-companies/index.html), the custom \"Speaker cards\" — 6 pieces: .cl-speaker, .cl-speaker-bio, .cl-speaker-name, .cl-speaker-photo, .cl-speaker-role, .cl-speakers.\nExtract it into ds/ptf.css + a story, write it into COMPONENT-INVENTORY.md, and swap the page over.",
+   "done": true,
+   "resolved": "Already resolved — promoted as finding o-speaker-card and applied (the .cl-speaker rules are now in ds/ptf.css). This ask was a stale duplicate of a decision already made."
+  },
+  {
+   "at": "2026-07-22T23:50:28",
+   "fid": "part:p-meetcompanies:mwc — custom:make",
+   "title": "mwc — custom on Meet with Companies",
+   "text": "Promote it into the design system as a reusable component.\n\nOn Meet with Companies (meet-with-companies/index.html), the custom \"mwc — custom\" — 21 pieces: .mwc-action, .mwc-action-actions, .mwc-action-alt, .mwc-action-body, .mwc-action-note, .mwc-action-status, .mwc-action-title, .mwc-ag-people, .mwc-ag-row, .mwc-ag-time, .mwc-ag-title, .mwc-agenda, .mwc-agenda-note, .mwc-co-head, .mwc-copy, .mwc-host-logo, .mwc-prose, .mwc-roles, .mwc-roles-chips, .mwc-roles-group-label, .mwc-roles-wrap.\nExtract it into ds/ptf.css + a story, write it into COMPONENT-INVENTORY.md, and swap the page over.",
+   "done": true,
+   "resolved": "Dropped — not a system gap. The 21 .mwc-* classes are this page’s own bespoke content (agenda, action cards, role chips), single-page. Promoting them wholesale would be wrong. Reopen only if a specific block turns out to be reused elsewhere."
+  },
+  {
    "at": "2026-07-22T23:19:36",
    "fid": "f-ghost-dark",
    "title": "A secondary button on dark that exists once",

@@ -1972,6 +1972,8 @@ let AUDIT=null, IMPACT_FILTER='all', STATUS_FILTER='todo', DECIDED={}, OPEN_FIND
 let CHOICE={};   // CHOICE[id] = the answer you committed to (saved)
 let PICK={};     // PICK[id]   = the answer selected but not yet applied (this session only)
 let ASKED={};    // ASKED[id]  = what she asked for in her own words, when neither answer fits
+let REDRAFT={};  // REDRAFT[id]  = a proven option the server drafted live from her words (the "Not quite" box)
+let REDRAFTING={};// REDRAFTING[id] = a redraft is in flight for this finding
 let DISMISS_WHY={};   // DISMISS_WHY[id] = why she dismissed a finding — feedback so I bring a better one (fid 'dismiss:<id>' in requests.json)
 let WHY_DRAFT={};     // in-progress dismissal reason, held across re-renders so the cursor survives
 let AWAIT_WHY=new Set();   // just-dismissed findings, pinned in view so the "why?" box doesn't vanish under the to-do filter
@@ -2139,8 +2141,8 @@ function findingHTML(f){
     /* The third answer is "neither of those". Any real choice has one — a menu that
        only offers my two answers is a menu that assumes I thought of everything. */
     h+='<div class="sb-opts" role="radiogroup" aria-label="'+esc(f.question||'Pick an answer')+'">'
-      + opts.concat([{id:'__other', label:'Something else — tell me what you want',
-                      note:'Neither of those. Write it in your own words and I pick it up.'}]).map(o=>{
+      + opts.concat([{id:'__other', label:'Not quite — tell me what you want',
+                      note:'Neither of those. Write it in your own words and I build it right here, no waiting.'}]).map(o=>{
           const sel=PICK[f.id]===o.id;
           return '<button class="sb-opt'+(sel?' sel':'')+(o.id==='__other'?' other':'')+'" role="radio"'
             + ' aria-checked="'+(sel?'true':'false')+'" data-pick="'+esc(o.id)+'" data-fid="'+f.id+'">'
@@ -2151,6 +2153,7 @@ function findingHTML(f){
       + (other?'<textarea class="sb-ask" data-ask="'+f.id+'" rows="3" '
           + 'placeholder="e.g. keep both, but make the outlined one only for the About page \u2014 and shrink it to 14px">'
           + esc(ASKED[f.id]||'')+'</textarea>':'')
+      + (other?redraftBlockHTML(f):'')
       + '</div>';
   }
   const lock=EDIT_MODE?'':LOCK_SVG, lk=EDIT_MODE?'':' locked';
@@ -2164,11 +2167,13 @@ function findingHTML(f){
     + (opts.length
         ? (function(){
             const isOther=PICK[f.id]==='__other';
-            /* "Accept & apply" on Other would be a lie: there is nothing built to apply
-               yet. That is exactly the dead button we spent this whole rebuild removing,
-               so the label changes rather than the promise. */
-            const ready = isOther ? !!(ASKED[f.id]||'').trim() : !!PICK[f.id];
-            const label = isOther ? 'Ask me to do it' : 'Accept & apply';
+            /* On "Not quite", the button drafts her words into a real option LIVE (the
+               server writes it and proves it undoes clean), then the proven option shows
+               above with its own Accept. No dead button, no parked ask — she never leaves
+               the card. Re-draft as many times as she likes; the label reflects the state. */
+            const busy = isOther && !!REDRAFTING[f.id];
+            const ready = isOther ? (!!(ASKED[f.id]||'').trim() && !busy) : !!PICK[f.id];
+            const label = isOther ? (busy?'Drafting…':(REDRAFT[f.id]?'Re-draft':'Draft it live')) : 'Accept & apply';
             const why = isOther ? 'Write what you want first' : 'Pick an answer above first';
             return '<button class="sb-dec merge'+(isOther?'':lk)+(ready?'':' off')+'" data-opt="1" data-fid="'+f.id+'"'
               + (ready?(isOther?'':tip):' disabled aria-disabled="true" title="'+why+'"')+'>'
@@ -3340,7 +3345,7 @@ document.getElementById('sbOppsBody').addEventListener('input',e=>{
   const ta=e.target.closest('[data-ask]');
   if(!ta) return;
   ASKED[ta.dataset.ask]=ta.value;                       // hold it; re-rendering here would eat the cursor
-  const btn=document.querySelector('.sb-f[data-fid="'+ta.dataset.ask+'"] .sb-dec.merge');
+  const btn=document.querySelector('.sb-f[data-fid="'+ta.dataset.ask+'"] .sb-dec.merge[data-opt]');  // the Draft button, not the proven-redraft Accept
   if(btn){ const ready=!!ta.value.trim(); btn.disabled=!ready; btn.classList.toggle('off',!ready); }
 });
 document.getElementById('sbOppsBody').addEventListener('keydown',e=>{
@@ -3364,6 +3369,9 @@ document.getElementById('sbOppsBody').addEventListener('click',e=>{
     return; }
   const ws=e.target.closest('[data-whysend]'); if(ws){ if(ws.disabled) return; sendDismissWhy(ws.dataset.whysend); return; }   // dismissal reason — before .sb-dec (the button carries that class)
   const wk=e.target.closest('[data-whyskip]'); if(wk){ AWAIT_WHY.delete(wk.dataset.whyskip); delete WHY_DRAFT[wk.dataset.whyskip]; renderCleanup(); return; }
+  const ad=e.target.closest('[data-acceptdraft]'); if(ad){ acceptRedraft(ad.dataset.acceptdraft); return; }   // proven redraft — before .sb-dec (it carries that class)
+  const cd=e.target.closest('[data-cleardraft]'); if(cd){ delete REDRAFT[cd.dataset.cleardraft]; renderCleanup();
+    const ta=document.querySelector('[data-ask="'+cd.dataset.cleardraft+'"]'); if(ta) ta.focus(); return; }
   const dc=e.target.closest('.sb-dec'); if(dc){ if(dc.disabled) return;
     dc.dataset.opt ? chooseOption(dc.dataset.fid, PICK[dc.dataset.fid]) : decide(dc.dataset.fid, dc.dataset.dec); return; }
   const ib=e.target.closest('#sbImpact button'); if(ib){ IMPACT_FILTER=ib.dataset.impact; renderCleanup(); return; }
@@ -3450,17 +3458,57 @@ async function askAboutPage(pid){
 /* Neither answer fits: she writes what she wants, and it's recorded in her words.
    Nothing in a web page can start a Claude session, so this is the honest handoff —
    the ask lands in ds/requests.json and I pick it up next time we talk. */
+/* The "Not quite" box. Her words on a finding, turned into a REAL option in the
+   moment: the server drafts the ops, proves they change something and undo clean,
+   and hands back a proven option that shows right here with its own Accept. No parked
+   ask, no copied prompt — decide and do collapse into one sitting. Re-draft freely. */
 async function askInstead(id){
-  const f=AUDIT.findings.find(x=>x.id===id); const text=(ASKED[id]||'').trim();
-  if(!text) return;
+  const note=(ASKED[id]||'').trim(); if(!note) return;
+  REDRAFTING[id]=true; delete REDRAFT[id]; renderCleanup();
+  let data;
   try{
-    const r=await fetch('/api/request',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({fid:id, title:f?f.title:id, text})});
-    if(!(await r.json()).ok) throw 0;
-  }catch(e){ toast(uic('warning',13)+' Editing server not reachable — your ask was not saved.',6000); return; }
-  DECIDED[id]='asked'; delete PICK[id];
-  renderCleanup(); updateOppsCount(); saveDecision(id,'asked',true);
-  toast(uic('check',13)+' Noted — I\'ll pick this up next time we talk.',5000);
+    const r=await fetch('/api/redraft',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({fid:id, note})});
+    data=await r.json();
+  }catch(e){ data={ok:false,message:'Editing server not reachable — is it running on :3456?'}; }
+  REDRAFTING[id]=false;
+  if(data&&data.ok){ REDRAFT[id]=data; renderCleanup();
+    toast(uic('sparkle',13)+' Drafted and proven — look it over, then Accept.',4500); }
+  else{ renderCleanup(); toast(uic('warning',13)+' '+esc((data&&data.message)||'Could not draft that.'),8000); }
+}
+function redraftBlockHTML(f){
+  if(REDRAFTING[f.id]) return '<div style="margin:10px 0 2px;padding:12px 14px;border:1px solid var(--sb-line,rgba(10,10,10,.12));border-radius:10px;font-size:12.5px;color:var(--sb-txt-2)">'
+    +uic('sparkle',13)+' Drafting your change and checking it undoes clean…</div>';
+  const r=REDRAFT[f.id]; if(!r) return '';
+  const o=r.option||{}, p=r.proof||{};
+  const places=(p.changed||[]).map(c=>String(c[0]).split('/').pop()+' ('+c[1]+')').join(', ');
+  return '<div style="margin:10px 0 2px;padding:14px;border:1px solid var(--sb-green);border-radius:10px;background:rgba(10,140,102,.04)">'
+    +'<div style="font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--sb-green);margin-bottom:8px">'+uic('sparkle',12)+' Here’s what that does</div>'
+    +'<div style="font-weight:700;font-size:14px;color:var(--sb-txt);margin-bottom:'+(o.note?'4px':'10px')+'">'+esc(o.label||'Your version')+'</div>'
+    +(o.note?'<div style="font-size:12.5px;color:var(--sb-txt-2);margin-bottom:10px">'+esc(o.note)+'</div>':'')
+    +'<ul class="sb-dlg-ops"><li>'+(o.apply||[]).map(opLabel).join('</li><li>')+'</li></ul>'
+    +'<div style="font-size:12px;color:var(--sb-green);margin:8px 0 12px">'+uic('check',12)+' Proven — changes '+(p.total||0)+' place'+((p.total||0)===1?'':'s')
+      +(places?' ('+esc(places)+')':'')+' and undoes clean in one step.</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+      +'<button class="sb-dec merge" data-acceptdraft="'+f.id+'">Accept &amp; apply</button>'
+      +'<button class="sb-dec keep" data-cleardraft="'+f.id+'">Not quite — redraft</button>'
+    +'</div></div>';
+}
+async function acceptRedraft(id){
+  if(!await requireUnlock()) return;
+  const r=REDRAFT[id]; if(!r) return; const o=r.option||{};
+  const ok=await dlg({ title:esc(o.label||'Your version'),
+    body:'This edits your design system for real:<ul class="sb-dlg-ops"><li>'
+      +(o.apply||[]).map(opLabel).join('</li><li>')+'</li></ul>'
+      +'<span class="muted">Backed up first — Undo reverts the whole thing in one step.</span>',
+    ok:'Do it' });
+  if(!ok) return;
+  const res=await applyOps({apply:o.apply}); if(!res) return;
+  DECIDED[id]='merge'; CHOICE[id]='__redraft'; delete PICK[id]; delete REDRAFT[id]; delete ASKED[id];
+  renderCleanup(); updateOppsCount(); saveDecision(id,'merge',true);
+  fetch('/api/approve',{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({key:'redraft:'+id, on:true})}).catch(()=>{});
+  toast(uic('check',13)+' Done — applied your version. Undo reverts it in one step.',5000);
 }
 
 /* A dismissal you can explain. Dismissing stays one click, but the receipt then invites
@@ -3529,8 +3577,11 @@ function opLabel(o){
   if(o.type==='css-append') return 'Add a new rule to ptf.css';
   if(o.type==='doc-append') return 'Write a new section into <code>'+esc(o.file)+'</code>';
   if(o.type==='replace-class') return 'Rename <code>'+esc(o.from)+'</code> → <code>'+esc(o.to)+'</code> across your pages';
-  if(o.type==='remove-css-rule') return 'Delete the <code>'+esc(o.selector)+'</code> rule from ptf.css';
+  if(o.type==='remove-css-rule') return 'Delete the <code>'+esc(o.selector)+'</code> rule '+({pages:'from your pages',all:'everywhere'}[o.in]||'from ptf.css');
   if(o.type==='remove-token') return 'Delete <code>'+esc(o.token)+'</code> from ptf.css';
+  if(o.type==='replace-hex') return 'Swap <code>'+esc(o.hex)+'</code> for <code>var('+esc(o.token)+')</code> across your pages';
+  if(o.type==='replace-token') return 'Swap <code>var('+esc(o.from)+')</code> → <code>var('+esc(o.to)+')</code>';
+  if(o.type==='replace-fontsize') return 'Change font-size <code>'+esc(o.old)+'</code> → <code>'+esc(o.new)+'</code>';
   return esc(o.type);
 }
 function confirmApply(f){

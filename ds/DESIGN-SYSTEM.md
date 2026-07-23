@@ -98,7 +98,7 @@ Always use the variable, never the raw hex.
 ❌ Never build a custom button. Use these + `btn-sm` as needed.
 
 ### Layout
-- `.section` — standard vertical rhythm (`100px 32px`).
+- `.section` — standard vertical rhythm (`84px 32px`).
 - `.section-tight` — tighter rhythm (`80px 32px`) — for denser pages (hire/train style).
 - `.section-narrow` — centers content at max 1180px.
 - `.section-head` — centered headline + subhead block.
@@ -213,7 +213,7 @@ The #1 recurring complaint. The model:
 - **No margins on sections. No spacer `<div>`s. No `margin-top` nudges.** A wrong gap = a rule violation; find it, don't counter-margin it.
 - Denser/airier only via the variant token (`.section-tight` / `.section-loose`), never a raw px.
 
-**ONE token, desktop AND mobile.** `--section-y` is `100px`, and shrinks to `60px` on mobile via a single `:root` media query. **Never add per-section mobile padding** — that's exactly what broke the even rhythm before. Change the token; every section follows.
+**ONE token, desktop AND mobile.** `--section-y` is `84px`, and shrinks to `52px` on mobile via a single `:root` media query. **Never add per-section mobile padding** — that's exactly what broke the even rhythm before. Change the token; every section follows. (Lizu set 84/52 on 2026-07-22, down from the original 100/60, for a tighter site-wide rhythm — this is the value, not a suggestion.)
 
 **The only formal exceptions (everything else follows the law), each commented in code:**
 1. **Hero** — owns its internal padding (sits against the fixed header, no "gap above").
@@ -262,10 +262,14 @@ So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 �
 - Hero/section video (like `train/hero-side.mp4`): source from Pexels video; keep it muted, looping, with a play/pause control.
 - Always set meaningful `alt`. Diversity is the brand — it must be visible in every people-shot.
 
-### 5. Icons: THE one approved recipe — MUI Outlined + gradient fill&stroke + square corners
-**Lizu approved exactly one icon style for the whole site (2026-06-18). Every icon — existing or new — is built this way. No mixing filled/outline, no other libraries, no improvising.** The live proof sheet is [`ds/_icons.html`](_icons.html) — keep it the source of truth and mirror any icon change there.
+### 5. Icons: MUI Outlined always — gradient ONLY when big (≥40px), plain ink when small (<40px)
+**One icon family for the whole site: genuine MUI Material Icons, Outlined variant — never Feather/Lucide, never mixing filled/outline. What changes is the treatment, and it's driven by SIZE.** The live proof sheet is [`ds/_icons.html`](_icons.html) — keep it the source of truth and mirror any icon change there.
 
-**The recipe (one `<path>`):**
+**The size law (updated 2026-07-04 — this is the one that bites):**
+- **Big icons — rendered ≥ 40px** (hero/feature "moment" icons, the thank-you check) get the **gradient** recipe. The gradient is a *big-icon* treatment; it reads as a rich branded gesture only at large size.
+- **Small icons — rendered < 40px** (list bullets, chips, inline labels, field/input affordances, buttons, stepper marks, row/table icons — anything repeated) are **plain, single-color, ink MUI Outlined**. **NO gradient.** A gradient icon at 16–24px is ridiculous — the three colour stops collapse into mush. Small = plain ink; save the gradient for the big moments. *(Lizu, 2026-07-04.)*
+
+**Big-icon recipe (≥40px) — one `<path>`, gradient fill + matching stroke:**
 ```html
 <svg viewBox="0 0 24 24">
   <path fill="url(#ptf-grad)" stroke="url(#ptf-grad)"
@@ -273,7 +277,18 @@ So the hierarchy per page: **nav/footer 1280 → content 1180 → column 1080 �
         d="<MUI OUTLINED icon path>"/>
 </svg>
 ```
-And the gradient def once per page (canonical id `ptf-grad`):
+
+**Small-icon recipe (<40px) — plain MUI Outlined, ink, coloured via a token (no gradient, no stroke):**
+```html
+<svg viewBox="0 0 24 24"><path d="<MUI OUTLINED icon path>"/></svg>
+```
+```css
+/* colour the shape with a token — never a raw hex, never a gradient */
+.your-icon svg { fill: var(--ink); }        /* or var(--ink-3) for a muted affordance */
+```
+(Path carries no colour attribute so CSS governs — that also lets it flip correctly on `.theme-dark`. Don't inline `fill="#…"`.)
+
+**The gradient def once per page (canonical id `ptf-grad`) — needed wherever a big/gradient icon or the thank-you check appears:**
 ```html
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -281,11 +296,10 @@ And the gradient def once per page (canonical id `ptf-grad`):
   </linearGradient>
 </defs></svg>
 ```
-- **Source = genuine MUI Material Icons, Outlined variant** (`people_outline`, `favorite_border`, `calendar_today`, `vpn_key_outlined`, `bolt_outlined`, `verified_user_outlined`, `star_border`, `schedule`, `public`, `videocam_outlined`, `lightbulb_outlined`, `attach_money`, `auto_awesome`, …). **NOT** Feather/Lucide — confirm it's really MUI before using.
-- **Fill + matching gradient stroke** = fattens the thin MUI outline uniformly. `1.4` is the approved weight (bump the single number if a future ask says "fatter").
-- **Square corners** — `stroke-linejoin="miter" stroke-linecap="square"` — same look as the thank-you check. Genuinely round shapes (clock/globe circles) stay round on their own; never force a curve straight.
-- The thank-you check is the same family at a heavier stroke: `stroke-width="6.5"`, `stroke-linecap="square"`, `stroke-linejoin="miter"`, no fill.
-- ❌ **Never** a colored bubble/circle with a flat mono icon inside it. The gradient goes ON the icon shape itself. ❌ Never thin hairline strokes, never a different icon set.
+- **Source = genuine MUI Material Icons, Outlined variant** (`people_outline`, `favorite_border`, `calendar_today`, `vpn_key_outlined`, `bolt_outlined`, `verified_user_outlined`, `star_border`, `schedule`, `public`, `videocam_outlined`, `lightbulb_outlined`, `attach_money`, `auto_awesome`, …). **NOT** Feather/Lucide — confirm it's really MUI before using. This holds at BOTH sizes; only the colour treatment changes.
+- **Big only:** fill + matching gradient stroke fattens the thin MUI outline uniformly. `1.4` is the approved weight. **Square corners** — `stroke-linejoin="miter" stroke-linecap="square"` — same look as the thank-you check. Genuinely round shapes (clock/globe circles) stay round on their own; never force a curve straight.
+- The thank-you check is the big family's check: `stroke-width="6.5"`, `stroke-linecap="square"`, `stroke-linejoin="miter"`, no fill — it's always a big gesture, so it's always gradient.
+- ❌ **Never gradient below 40px.** ❌ **Never** a colored bubble/circle with a flat mono icon inside it (the gradient goes ON the big icon's shape). ❌ Never thin hairline strokes, never a different icon set. ❌ Never inline a raw hex fill — colour small icons with a token in CSS.
 - One icon family per page (this one). Don't mix sets.
 
 ---

@@ -118,7 +118,7 @@
         <div class="flow-step" data-step="2" hidden>
           <div class="step-indicator">Step 2 of 4</div>
           <h1 class="auth-heading">Tell us a bit about you</h1>
-          <p class="auth-sub">Helps us match you with the right people at the event.</p>
+          <p class="auth-sub">A complete profile is how we connect you to the right people, sessions, and opportunities — at this event and beyond.</p>
           <form class="auth-form" onsubmit="return goToStep(3)">
             <div class="field"><label>LinkedIn <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><input type="url" placeholder="linkedin.com/in/…"></div>
             <!-- Resume: optional secondary path, revealed on tap — keeps mobile signup frictionless (per Milena) -->
@@ -194,7 +194,31 @@
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">You're all set!</h1>
           <p class="thanks-body">We've sent a calendar invite and a link to join, right to your inbox.</p>
-          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse more events →</a>
+          <!-- Promote a couple of upcoming events — reuses the .ev-row tile via the .ev-promo (stacked, narrow-column) variant -->
+          <div class="q-label" style="margin:22px 0 12px">More AI events you might like</div>
+          <div class="ev-listing ev-listing--grid ev-promo">
+            <div class="ev-list">
+              <article class="ev-row" data-type="vjf">
+                <div class="ev-row-date">October 8, 2026 · Virtual</div>
+                <div class="ev-row-body">
+                  <span class="sc-tag">Virtual job fair</span><!-- COPY: confirm event type -->
+                  <h3 class="ev-row-title">AI talent showcase</h3>
+                  <p class="ev-row-desc">Meet teams hiring for AI roles and interview with companies building the future of work.</p><!-- COPY: confirm -->
+                  <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+                </div>
+              </article>
+              <article class="ev-row" data-type="summit">
+                <div class="ev-row-date">November 12, 2026 · Virtual</div>
+                <div class="ev-row-body">
+                  <span class="sc-tag">Summit</span>
+                  <h3 class="ev-row-title">Summit: scaling AI teams</h3>
+                  <p class="ev-row-desc">A half-day of talks and roundtables on hiring, upskilling, and leading AI teams at scale.</p><!-- COPY: confirm -->
+                  <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+                </div>
+              </article>
+            </div>
+          </div>
+          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse all events →</a>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">Have any questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>

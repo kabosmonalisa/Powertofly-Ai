@@ -40,7 +40,7 @@
 .hero {
   position: relative;
   padding: 96px 32px 72px;
-  background: radial-gradient(ellipse 1100px 720px at 50% -10%, rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, #ffffff 70%);
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%, color-mix(in srgb, var(--iri-green) 22%, transparent) 0%, color-mix(in srgb, var(--iri-lime) 12%, transparent) 35%, var(--bg) 70%);
   overflow: hidden;
 }
 .hero-inner {
@@ -176,7 +176,7 @@ h1.hero-headline {
   position: absolute;
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 20px;
   box-shadow: var(--shadow-card);
   padding: 14px 16px;
   z-index: 5;
@@ -227,7 +227,7 @@ h1.hero-headline {
   right: 12px;
   display: inline-flex; align-items: center; gap: 5px;
   background: rgba(79,232,169,0.16);
-  color: #0A8C66;
+  color: var(--green);
   font-size: 11px; font-weight: 600;
   padding: 4px 10px; border-radius: 999px;
   white-space: nowrap;
@@ -263,7 +263,7 @@ h1.hero-headline {
 .input-head .spinner {
   width: 12px; height: 12px; border-radius: 50%;
   border: 2px solid rgba(79,232,169,0.25);
-  border-top-color: #0A8C66;
+  border-top-color: var(--green);
   animation: spinFast 1.6s linear infinite;
 }
 @keyframes spinFast { to { transform: rotate(360deg); } }
@@ -399,7 +399,7 @@ h1.hero-headline {
 .service-card {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 20px;
   padding: 28px;
   display: flex; flex-direction: column;
   min-height: 320px;
@@ -487,7 +487,7 @@ h1.hero-headline {
 .t-card {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 20px;
   padding: 24px;
   display: flex; flex-direction: column;
   transition: transform 200ms ease;
@@ -579,7 +579,7 @@ h1.hero-headline {
 .testi-company {
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
-  color: #0A8C66;
+  color: var(--green);
 }
 .testi-linkedin {
   display: flex; align-items: center; justify-content: center;
@@ -698,7 +698,7 @@ h1.hero-headline {
   .drawer-group:last-of-type { border-bottom: none; }
   .drawer-cat {
     font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
-    text-transform: uppercase; color: #0A8C66;
+    text-transform: uppercase; color: var(--green);
     padding: 0; margin-bottom: 8px; display: block;
     border-bottom: none !important;
   }

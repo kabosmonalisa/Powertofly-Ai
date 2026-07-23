@@ -1,5 +1,5 @@
 {
- "_comment": "SINGLE SOURCE OF TRUTH for the storybook's page universe. The scanner (usage-scan.py), the editing server (server.py) and the storybook (storybook.html) all read this.\nstatus \u2014 the page's lifecycle, and it decides what the system does with it:\n  live     = finished and in use. Scanned, counted, audited, and edited when you Accept an opportunity.\n  draft    = still being made. Scanned and counted (so a component it uses is never reported 'unused') and edited when you Accept (so it can't rot while you finish it) \u2014 but it isn't nagged about.\n  archived = done with. Not scanned, not counted, not audited, never edited. It costs the system nothing.\ngroup = where a page appears (Pages / Organisms / Flows). scrollText (optional) = scroll the preview to matching text.",
+ "_comment": "SINGLE SOURCE OF TRUTH for the storybook's page universe. The scanner (usage-scan.py), the editing server (server.py) and the storybook (storybook.html) all read this.\nstatus — the page's lifecycle, and it decides what the system does with it:\n  live     = finished and in use. Scanned, counted, audited, and edited when you Accept an opportunity.\n  draft    = still being made. Scanned and counted (so a component it uses is never reported 'unused') and edited when you Accept (so it can't rot while you finish it) — but it isn't nagged about.\n  archived = done with. Not scanned, not counted, not audited, never edited. It costs the system nothing.\ngroup = where a page appears (Pages / Organisms / Flows). scrollText (optional) = scroll the preview to matching text.",
  "pages": [
   {
    "id": "p-employers",
@@ -21,7 +21,7 @@
    "file": "talents/index.html",
    "group": "Pages",
    "status": "archived",
-   "desc": "The earlier Talents page \u2014 kept for comparison against Talents (v2)."
+   "desc": "The earlier Talents page — kept for comparison against Talents (v2)."
   },
   {
    "id": "p-train",
@@ -64,11 +64,11 @@
    "file": "resources/index.html",
    "group": "Pages",
    "status": "draft",
-   "desc": "The career blog index \u2014 hero + the shared .ev-* listing (topic filters, search, pagination) + the dark CTA closer. Zero page CSS."
+   "desc": "The career blog index — hero + the shared .ev-* listing (topic filters, search, pagination) + the dark CTA closer. Zero page CSS."
   },
   {
    "id": "p-404",
-   "name": "404 \u2014 page not found",
+   "name": "404 — page not found",
    "file": "not-found/index.html",
    "group": "Pages",
    "status": "live"
@@ -78,16 +78,16 @@
    "name": "Virtual job fair",
    "file": "vjf/index.html",
    "group": "Pages",
-   "status": "draft",
-   "desc": "Event detail \u2014 the virtual job fair. Shares .ev-hero with Summit and Chat & Learn."
+   "status": "live",
+   "desc": "Event detail — the virtual job fair. Shares .ev-hero with Summit and Chat & Learn."
   },
   {
    "id": "p-summit",
    "name": "Summit",
    "file": "summit/index.html",
    "group": "Pages",
-   "status": "draft",
-   "desc": "Event detail \u2014 the summit. Sibling of Virtual job fair and Chat & Learn."
+   "status": "live",
+   "desc": "Event detail — the summit. Sibling of Virtual job fair and Chat & Learn."
   },
   {
    "id": "p-chatlearn",
@@ -95,7 +95,15 @@
    "file": "chat-learn/index.html",
    "group": "Pages",
    "status": "draft",
-   "desc": "Event detail \u2014 Chat & Learn. Sibling of Virtual job fair and Summit."
+   "desc": "Event detail — Chat & Learn. Sibling of Virtual job fair and Summit."
+  },
+  {
+   "id": "p-meetcompanies",
+   "name": "Meet with Companies",
+   "file": "meet-with-companies/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Event detail — invite-only company career event (Mitsubishi Power). Sibling of Summit/VJF/Chat & Learn; two-dial state switcher (event × viewer)."
   },
   {
    "id": "p-why",
@@ -131,7 +139,7 @@
   },
   {
    "id": "nav-demo",
-   "name": "Nav \u2014 states demo",
+   "name": "Nav — states demo",
    "file": "nav-options.html",
    "group": "Pages",
    "status": "live",
@@ -141,7 +149,7 @@
   },
   {
    "id": "alert-demo",
-   "name": "Top-alert \u2014 cases demo",
+   "name": "Top-alert — cases demo",
    "file": "top-alerts.html",
    "group": "Pages",
    "status": "live",
@@ -153,7 +161,7 @@
    "file": "event-common/index.html",
    "group": "Flows",
    "status": "live",
-   "desc": "The common / for-all event signup \u2014 'Building on AI: a Chat & Learn'. The latest flow, live."
+   "desc": "The common / for-all event signup — 'Building on AI: a Chat & Learn'. The latest flow, live."
   },
   {
    "id": "flow-signup",
@@ -185,7 +193,7 @@
    "file": "event-company/index.html",
    "group": "Flows",
    "status": "archived",
-   "desc": "Register \u2014 meet with the company."
+   "desc": "Register — meet with the company."
   },
   {
    "id": "flow-employer",
@@ -193,7 +201,7 @@
    "file": "event-employer/index.html",
    "group": "Flows",
    "status": "archived",
-   "desc": "Register \u2014 meet the company."
+   "desc": "Register — meet the company."
   },
   {
    "id": "flow-book",

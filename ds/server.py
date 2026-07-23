@@ -364,6 +364,129 @@ def ai_segment(copy):
         return {"ok": False, "error": "shape", "message": "The model returned no sections."}
     return {"ok": True, "sections": secs, "model": model}
 
+# ── Live redraft — the "Not quite" box ──────────────────────────────────────
+# An opportunity's recommendation isn't what she wants. Instead of parking her
+# words in requests.json for a future chat (the old handoff, now dead), she types
+# the redirect on the card and this turns it — in the moment — into a NEW option
+# with a real, working apply. The same seamless path as ai_segment: no chat hop.
+#
+# The hard rule from CLAUDE.md: "an unproven apply is a bug with a button on it."
+# So we never hand back an option we haven't proven. dry_run_ops applies the
+# generated ops to a full snapshot, confirms they actually change something and
+# undo byte-clean, then restores. Only a proven redraft reaches the card.
+FINDINGS = os.path.join(DS, "audit-findings.json")
+
+def _finding(fid):
+    try:
+        for f in json.load(open(FINDINGS, encoding="utf-8")).get("findings", []):
+            if f.get("id") == fid: return f
+    except Exception: pass
+    return None
+
+def dry_run_ops(ops):
+    """Apply ops to a live snapshot, measure, then restore. Never leaves a trace.
+    Returns {ok, total, changed, reversible, error}. total==0 means the ops matched
+    nothing on the real pages — an apply that would do nothing, i.e. not real."""
+    docs = [DOCS[o["file"]] for o in ops if o.get("type") == "doc-append" and o.get("file") in DOCS]
+    files = sorted(set(all_targets() + docs))
+    snap = {p: open(p, encoding="utf-8").read() for p in files if os.path.exists(p)}
+    total = 0; agg = {}; err = None
+    try:
+        for op in ops:
+            r = apply(dict(op, _nobackup=True))
+            if not isinstance(r, dict) or r.get("ok") is False:
+                err = (r or {}).get("error", "op failed"); break
+            total += r.get("total", 0)
+            for fname, c in r.get("changed", []): agg[fname] = agg.get(fname, 0) + c
+    except Exception as e:
+        err = str(e)
+    for p, t in snap.items():          # always restore, even on error
+        if open(p, encoding="utf-8").read() != t: open(p, "w", encoding="utf-8").write(t)
+    reversible = all(open(p, encoding="utf-8").read() == t for p, t in snap.items())
+    return {"ok": err is None and total > 0 and reversible, "total": total,
+            "changed": sorted(agg.items(), key=lambda kv: -kv[1]), "reversible": reversible, "error": err}
+
+REDRAFT_SYSTEM = (
+ "You are the apply-engine behind a design-system cleanup tool. The designer is looking at ONE finding "
+ "(a described inconsistency in her CSS) whose built-in recommendation is NOT what she wants. She has typed, "
+ "in her own words, what she wants instead. Turn her words into ONE new option with a REAL, working `apply` "
+ "array — the same op format the tool already runs.\n\n"
+ "You may ONLY use these op types (nothing else exists):\n"
+ "- {\"type\":\"css-set\",\"in\":\"css|pages|all\",\"selector\":\".x\",\"prop\":\"padding\",\"value\":\"16px 32px\",\"expect\":\"18px 26px\"} "
+ "— set one declaration on the rule whose selector list contains EXACTLY `selector`. `in`: css = ds/ptf.css only, "
+ "pages = every page's <style>, all = both. `expect` (STRONGLY recommended) is the current value you measured from "
+ "the finding; the edit is skipped where the rule no longer says it, so it can't clobber. Most page-level rules live "
+ "in the page, so use in:\"pages\" for those.\n"
+ "- {\"type\":\"css-append\",\"marker\":\"unique-substring\",\"css\":\"...raw rule...\"} — append a NEW rule to ds/ptf.css. "
+ "`marker` must be a substring of the css that appears nowhere else, so re-accept is a no-op.\n"
+ "- {\"type\":\"remove-css-rule\",\"in\":\"pages|css|all\",\"selector\":\".x\"} — delete every rule referencing that class token.\n"
+ "- {\"type\":\"replace-class\",\"from\":\".old\",\"to\":\"new\"} — rename a class across pages.\n"
+ "- {\"type\":\"replace-hex\",\"hex\":\"#0A8C66\",\"token\":\"--green\"} — swap a raw hex for a token, CSS contexts only.\n"
+ "- {\"type\":\"replace-token\",\"from\":\"--a\",\"to\":\"--b\"} · {\"type\":\"replace-fontsize\",\"old\":\"11.5px\",\"new\":\"11px\"} · "
+ "{\"type\":\"remove-token\",\"token\":\"--x\"}.\n"
+ "- {\"type\":\"doc-append\",\"file\":\"ds/COMPONENT-INVENTORY.md\",\"marker\":\"## Heading\",\"md\":\"## Heading\\n...\"} "
+ "— write a section into the inventory (file must be ds/COMPONENT-INVENTORY.md or ds/DESIGN-SYSTEM.md).\n\n"
+ "Use the finding's `variants[].spec.at` entries — they give you the exact file, selector and current declaration to "
+ "target. Match on MEANING: the finding shows computed values (e.g. #FAFAF6) but the source often says a token "
+ "(var(--bg-soft)); never invent a selector or value you can't see in the finding. Prefer the smallest change that "
+ "does what she asked. Every op must actually change a real file — if her request can't be done with these ops, say so "
+ "in `label` and return an EMPTY apply array rather than a fake one.\n"
+ "Return `label` (a short button label for her choice), `note` (one sentence on what it does), and `apply`."
+)
+REDRAFT_SCHEMA = {
+ "type": "object", "additionalProperties": False, "required": ["label", "note", "apply"],
+ "properties": {
+   "label": {"type": "string"}, "note": {"type": "string"},
+   "apply": {"type": "array", "items": {"type": "object", "required": ["type"],
+             "properties": {"type": {"type": "string"}}}}}
+}
+def ai_redraft(finding, note):
+    note = (note or "").strip()
+    if not note:
+        return {"ok": False, "error": "empty", "message": "Write what you want first."}
+    key = os.environ.get("ANTHROPIC_API_KEY")
+    if not key:
+        return {"ok": False, "error": "no_key",
+                "message": "Live redraft is off — set ANTHROPIC_API_KEY and restart the server."}
+    import urllib.request, urllib.error
+    model = os.environ.get("PTF_REDRAFT_MODEL", "claude-opus-4-8")   # harder than reading copy — default to the best
+    # Hand the model exactly what the card shows: the finding, and her redirect.
+    slim = {k: finding.get(k) for k in ("id","title","question","differs","cause","fix","apply","options","variants") if k in finding}
+    user = ("THE FINDING:\n" + json.dumps(slim, ensure_ascii=False, indent=1)
+            + "\n\nWHAT SHE WANTS INSTEAD (her words):\n" + note)
+    payload = {"model": model, "max_tokens": 4096, "system": REDRAFT_SYSTEM,
+               "output_config": {"format": {"type": "json_schema", "schema": REDRAFT_SCHEMA}},
+               "messages": [{"role": "user", "content": user}]}
+    req = urllib.request.Request("https://api.anthropic.com/v1/messages",
+        data=json.dumps(payload).encode("utf-8"), method="POST",
+        headers={"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            data = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        return {"ok": False, "error": "api", "message": e.read().decode("utf-8","replace")[:400]}
+    except Exception as e:
+        return {"ok": False, "error": "net", "message": str(e)}
+    if data.get("stop_reason") == "refusal":
+        return {"ok": False, "error": "refusal", "message": "The model declined this one."}
+    text = "".join(b.get("text","") for b in data.get("content",[]) if b.get("type") == "text")
+    try: opt = json.loads(text)
+    except Exception: return {"ok": False, "error": "parse", "message": text[:400]}
+    ops = opt.get("apply") or []
+    if not ops:
+        return {"ok": False, "error": "cant",
+                "message": opt.get("label") or "I couldn't turn that into a safe change to these files."}
+    proof = dry_run_ops(ops)
+    if not proof["ok"]:
+        why = ("it wouldn't change anything on your pages" if proof["total"] == 0
+               else "it didn't undo cleanly" if not proof["reversible"] else proof.get("error") or "it didn't verify")
+        return {"ok": False, "error": "unproven",
+                "message": "I drafted that, but " + why + " — so I'm not handing you a button that lies. Try rewording it."}
+    return {"ok": True, "model": model,
+            "option": {"id": "__redraft", "label": opt.get("label","Do what I asked"),
+                       "note": opt.get("note",""), "apply": ops},
+            "proof": {"total": proof["total"], "changed": proof["changed"]}}
+
 class H(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *a, **k): super().__init__(*a, directory=ROOT, **k)
     def _json(self, obj, code=200):
@@ -525,6 +648,14 @@ class H(http.server.SimpleHTTPRequestHandler):
         if self.path.rstrip("/") == "/api/segment":
             n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
             self._json(ai_segment(body.get("copy", "")))
+            return
+        if self.path.rstrip("/") == "/api/redraft":
+            # The "Not quite" box: her words on a finding -> a proven new option, live.
+            n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")
+            f = _finding(body.get("fid", ""))
+            if not f:
+                self._json({"ok": False, "error": "nofind", "message": "That finding isn't in the audit any more."}); return
+            self._json(ai_redraft(f, body.get("note", "")))
             return
         if self.path.rstrip("/") == "/api/approve":
             n = int(self.headers.get("Content-Length", 0)); body = json.loads(self.rfile.read(n) or "{}")

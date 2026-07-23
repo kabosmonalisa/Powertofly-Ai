@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meet with Companies — Mitsubishi Power — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  MEET WITH COMPANIES — invite-only company career event (sibling of summit/,
+  vjf/, chat-learn/). Instanced here with the Mitsubishi Power copy. Built
+  ENTIRELY from the shared design system:
+  · nav + footer        → injected (data-ptf-nav / data-ptf-footer)
+  · hero shell          → .ev-hero (same shared event-hero as the siblings)
+  · host chip           → .event-host + .ev-faces (shared)
+  · request form        → real .auth-form / .field / .btn-auth (shared)
+  · attendee takeaways  → .section-how / .how-inner / .steps (shared how-it-works layout)
+  · "registered" badge  → shared .sc-ck green-circle check (shared)
+  · priority roles      → .sc-title-chip chips (shared)
+  · meet the speakers   → .cl-speaker bio layout (shared with chat-learn)
+  · about PowerToFly     → .about-head + .about-stat-grid (shared with siblings)
+  · closer              → .section-cta
+
+  WHAT'S DIFFERENT (the invite-only model, decided in the team review):
+  The hero RIGHT column is an action CARD (not the sibling photo). It swaps by
+  two independent dials in the dev switcher:
+    · EVENT  = upcoming · live · registration closed
+    · VIEWER = logged out (public) · logged in + registered · logged in + not registered
+  Live promotes the old "Already registered? Join here" top banner into a
+  prominent SECOND CTA inside the hero card, with "Register now" kept beneath it.
+
+  PAGE-SPECIFIC CSS below is the sanctioned exception (COMPONENT-INVENTORY
+  "Allowed page-specific CSS"): the fixed-header wiring, the event-hero
+  composition (shared verbatim with the siblings), the hero action-card states,
+  the agenda timeline, the speaker-bio layout, and the dev dials. Tokens only.
+  NOTE — the AGENDA has no component in the inventory yet; it is built here from
+  tokens and flagged to Lizu as a missing-component Design Opportunity (an event
+  schedule recurs across every event page).
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<!-- OG -->
+<meta property="og:title"       content="Meet with Companies — Mitsubishi Power — PowerToFly AI">
+<meta property="og:description" content="Powering What's Next: an invite-only virtual career event with Mitsubishi Power. Meet leaders, recruiters, and hiring teams across New Generation Systems and Power Generation Services.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY (tokens, never raw hex — see COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"). Everything visual not defined here comes from ptf.css.
+ */
+
+/* ── Fixed site header (alert + nav) — same wiring as the sibling event pages ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Event-detail hero — the reusable event-hero, shared with the siblings.
+      2-col: event info (left) + action card (right). ── */
+.ev-hero {
+  position: relative; overflow: hidden;
+  padding: var(--section-y) var(--gutter);
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%,
+              rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
+}
+.ev-hero-inner {
+  position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.05fr;
+  gap: clamp(28px, 4vw, 56px); align-items: center;  /* vertically center the action card against the hero text */
+}
+.ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+.ev-hero h1 { margin: 18px 0 0; max-width: 20ch; }
+.ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+.ev-hero .event-host { margin: 26px 0 0; }
+/* host logo tile — company mark in place of the sibling pages' face-stack */
+.mwc-host-logo { width: 44px; height: 44px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+.mwc-host-logo svg { width: 30px; height: 30px; display: block; }
+/* company-section heading — logo tile beside the h2, mirroring the hosted-by chip */
+.mwc-co-head { display: flex; align-items: center; gap: 14px; }
+.mwc-co-head h2 { margin: 0; }
+/* Meta facts — text only, plain single-color MUI icons (no gradient at this size) */
+.ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 26px 0 0; }
+.ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
+
+/* ── Hero ACTION CARD (page-specific, part of the hero composition exception) —
+      a token-built panel; its inner slots are filled per EVENT × VIEWER by JS.
+      Uses REAL shared form/button components inside (.auth-form/.field/.btn-*). ── */
+.mwc-action {
+  position: relative;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-xl); padding: 26px;
+  box-shadow: 0 18px 44px rgba(10,10,10,0.06);
+}
+.mwc-action-status { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+.mwc-action-status.is-live { color: var(--ink); }
+.mwc-action-status.is-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: mwcLivePulse 1.6s ease-in-out infinite; }
+.mwc-action-title { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+.mwc-action-body { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 10px 0 0; }
+.mwc-action .auth-form { margin-top: 16px; }
+.mwc-action-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.mwc-action-note { font-size: 13px; line-height: 1.5; color: var(--ink-3); margin: 14px 0 0; }
+.mwc-action-note a { color: var(--ink); font-weight: 600; }
+.mwc-action-alt { font-size: 13px; color: var(--ink-3); margin: 14px 0 0; text-align: center; }
+.mwc-action-alt a { color: var(--ink); font-weight: 600; }
+@keyframes mwcLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+
+/* ── Body copy columns — wrapper shares the hero's left edge (content-body), readable content held to content-narrow and left-aligned ── */
+.mwc-copy, .mwc-roles-wrap, .about-head { max-width: var(--content-body); margin: 0 auto; }
+.mwc-copy .section-head { text-align: left; max-width: var(--content-narrow); margin: 0 0 20px; }
+.mwc-copy .section-head p { margin: 0; max-width: none; }
+.mwc-prose { max-width: var(--content-narrow); }
+.mwc-prose p { font-size: 15.5px; line-height: 1.65; color: var(--ink-2); margin: 0 0 16px; }
+.mwc-prose p:last-child { margin-bottom: 0; }
+.mwc-prose a { color: var(--ink); font-weight: 600; }
+/* "Attendees will have the opportunity to" — the shared how-it-works layout
+   (portrait left + check-marked .steps right), same treatment as summit/chat-learn's
+   "What you'll get". Portrait = a real professional photo (Pexels, verified).
+   Photo by www.kaboompics.com via Pexels (pexels.com/photo/5237973). */
+.how-portrait-card { background-image: url('https://images.pexels.com/photos/5237973/pexels-photo-5237973.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1500&fit=crop'); background-position: center; }
+
+/* ── AGENDA timeline (page-specific — no component exists yet; flagged as a
+      Design Opportunity). Time rail + content, with a nested panelist list. ── */
+.mwc-agenda { max-width: var(--content-narrow); margin: 0; list-style: none; padding: 0; }
+.mwc-agenda-note { font-size: 13px; color: var(--ink-3); margin: 0 0 20px; }
+.mwc-ag-row { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 16px 0; border-top: 1px solid var(--line); }
+.mwc-ag-row:first-of-type { border-top: none; }
+.mwc-ag-time { font-size: 13.5px; font-weight: 600; color: var(--ink-3); line-height: 1.4; }
+.mwc-ag-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
+.mwc-ag-people { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.mwc-ag-people li { font-size: 14px; color: var(--ink-2); line-height: 1.45; }
+.mwc-ag-people li span { color: var(--ink-3); }
+
+/* ── PRIORITY ROLES — shared .sc-title-chip chips, grouped by category ── */
+.mwc-roles { max-width: var(--content-narrow); margin: 0; display: flex; flex-direction: column; gap: 22px; }
+.mwc-roles-group-label { font-size: 13px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 12px; }
+.mwc-roles-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* About PowerToFly — same as siblings: title, body and stat grid share ONE width */
+.about-head .section-head, .about-head .about-stat-grid { max-width: var(--content-narrow); }
+
+/* jump targets — offset for the fixed header */
+#about, #agenda, #speakers, #roles { scroll-margin-top: 140px; }
+
+/* eyebrow live/past cues (same as siblings) */
+.eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: mwcLivePulse 1.6s ease-in-out infinite; }
+.eyebrow.is-past { color: var(--ink-3); }
+
+/* ── PROTOTYPE: two-dial dev switcher (event × viewer). Delete before launch. ── */
+#devDials { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 6px; background: #0A0A0A; padding: 10px 12px; border-radius: 16px; box-shadow: 0 12px 34px rgba(0,0,0,.34); font-family: 'Inter', sans-serif; }
+#devDials .dial { display: flex; align-items: center; gap: 4px; }
+#devDials .dial-label { color: #8a8a8a; font-size: 10px; font-weight: 700; letter-spacing: .12em; width: 60px; padding-left: 4px; }
+#devDials button { all: unset; cursor: pointer; color: #fff; font-size: 12.5px; font-weight: 600; padding: 7px 13px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
+#devDials button:hover { background: rgba(255,255,255,0.12); }
+#devDials button.active { background: #fff; color: #0A0A0A; }
+#devDials button.active:hover { background: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .ev-hero-inner { grid-template-columns: 1fr; gap: 30px; }
+  .ev-hero h1 { max-width: none; }
+  /* stacked, the card follows the event context (title/sub/facts) — no reorder */
+}
+@media (max-width: 560px) {
+  .ev-hero { padding: 40px 20px var(--section-y); }
+  h1, h2, h3 { text-wrap: pretty; }
+  .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  .ev-hero-sub { font-size: 16px; }
+  .ev-hero-meta { grid-template-columns: 1fr; }
+  .mwc-ag-row { grid-template-columns: 1fr; gap: 4px; }
+  #devDials .dial-label { width: 52px; }
+  #devDials button { padding: 7px 10px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-header" id="siteHeader">
+  <!-- ═══ TOP ALERT ═══ -->
+  <div class="top-alert" id="topAlert">
+    <span id="alertText">Meet with Companies &nbsp;·&nbsp; Powering What's Next with Mitsubishi Power &nbsp;·&nbsp; Jul 23</span>
+    <a id="alertCta" href="#hero" rel="noopener">Request an invite →</a>
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- ═══ NAV — shared injected nav (auth swapped by the viewer dial) ═══ -->
+  <div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — event info (left) + the state-driven action card (right) -->
+<section class="ev-hero" id="hero">
+  <div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow" id="heroEyebrow">Meet with Companies</div>
+      <h1 class="display">Powering what's next: a virtual career event with <em class="italic-plain">Mitsubishi Power</em></h1>
+      <p class="ev-hero-sub">An invite-only virtual career event for U.S.-based engineering and project professionals — meet leaders, recruiters, and hiring teams across New Generation Systems and Power Generation Services.</p>
+
+      <!-- host chip — shared .event-host, with the company logo in place of the face-stack -->
+      <div class="event-host">
+        <!-- COPY: confirm — placeholder Mitsubishi three-diamond mark; swap for the official logo asset -->
+        <span class="mwc-host-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg>
+        </span>
+        <div class="event-host-text">
+          <span class="event-host-name">Hosted by Mitsubishi Power</span>
+          <span class="event-host-role">In partnership with PowerToFly</span>
+        </div>
+      </div>
+
+      <div class="ev-hero-meta">
+        <!-- MUI Outlined paths, plain ink (small = no gradient) -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Thu, Jul 23, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>12:30 – 2:00 AM (GMT+3)</span>
+        <!-- format fact — this event is Virtual. For an in-person event, swap this for
+             "In-person" + a Location fact (see CLAUDE.md → Meet with Companies template). -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>Invite-only</span>
+      </div>
+    </div>
+
+    <!-- STATE-DRIVEN ACTION CARD — filled by JS per (event × viewer) -->
+    <aside class="mwc-action" id="heroAction" aria-live="polite"></aside>
+  </div>
+</section>
+
+<!-- 02. ABOUT THE EVENT -->
+<section class="section" id="about" style="background: var(--bg)">
+  <div class="mwc-copy">
+    <div class="section-head">
+      <div class="eyebrow" style="margin-bottom:14px">About this event</div>
+      <h2>Where your experience could help shape the future of <em class="italic-plain">energy</em></h2>
+    </div>
+    <div class="mwc-prose">
+      <p>The future of energy is being built today, and the people behind it matter. At Mitsubishi Power, our teams are designing, manufacturing, servicing, and supporting the technologies that help deliver reliable, flexible, and sustainable power around the world.</p>
+      <p>Join Mitsubishi Power and PowerToFly on Wednesday, July 22, from 5:30–7:00 PM ET for an invite-only virtual career event for U.S.-based engineering and project professionals.</p>
+      <p>You'll have the opportunity to participate in focused breakout sessions covering Engineering and Project Management, hear directly from team members, explore current career opportunities, and engage in live moderated Q&amp;A with our leaders, recruiters, and hiring teams.</p>
+      <p>During this event, you'll hear directly from leaders and team members across New Generation Systems (NGS) and Power Generation Services (PGS), learn about Mitsubishi Power's business, culture, and growth opportunities, and gain insight into the teams, projects, and technologies helping power the future.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03. WHAT YOU'LL TAKE AWAY — shared how-it-works layout (portrait + check steps),
+     same as summit/chat-learn's "What you'll get". Titles are SHORT verb phrases that
+     complete the header ("…the opportunity to →") and stay one line so the check aligns.
+     .step reveal auto-wired by PTF.initSteps(). -->
+<section class="section-how" id="takeaways">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>Attendees will have the opportunity to</h2>
+      <p>A focused, invite-only session — here's what you'll walk away with.</p>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <!-- the timeline you love: check marks reveal one-by-one on scroll (PTF.initSteps).
+           SHORT one-line titles complete the header "…the opportunity to →" so the check
+           sits beside the title. Small check (<40px) = plain single-color ink. -->
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Get to know Mitsubishi Power</h4>
+            <p>Our technologies and our impact on the energy industry.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Hear real career journeys</h4>
+            <p>Directly from leaders and team members, about their experiences and how they got here.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>See what life here is like</h4>
+            <p>Our culture, values, and the room to grow that comes with it.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Join focused breakouts</h4>
+            <p>Sessions tailored to Engineering and Project professionals.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Ask questions live</h4>
+            <p>Engage directly with leaders, recruiters, and hiring managers in moderated Q&amp;A.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Take your next step</h4>
+            <p>Current hiring priorities and how to move forward in the application process.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04. AGENDA — page-specific timeline (flagged as a missing DS component) -->
+<section class="section" id="agenda" style="background: var(--bg)">
+  <div class="mwc-copy">
+    <div class="section-head">
+      <h2>Agenda</h2>
+    </div>
+    <p class="mwc-agenda-note">All times ET. Subject to change.</p>
+    <ol class="mwc-agenda">
+      <li class="mwc-ag-row">
+        <div class="mwc-ag-time">5:30 – 5:35 PM</div>
+        <div><h3 class="mwc-ag-title">Kickoff with PowerToFly</h3></div>
+      </li>
+      <li class="mwc-ag-row">
+        <div class="mwc-ag-time">5:35 – 5:45 PM</div>
+        <div>
+          <h3 class="mwc-ag-title">Welcome address</h3>
+          <ul class="mwc-ag-people">
+            <li>Michael Glover <span>· SVP, New Generation Systems</span></li>
+            <li>Prasanth Thupili <span>· SVP, Power Generation Services</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mwc-ag-row">
+        <div class="mwc-ag-time">5:45 – 6:30 PM</div>
+        <div>
+          <h3 class="mwc-ag-title">Panel discussion featuring leaders from Mitsubishi Power</h3>
+          <ul class="mwc-ag-people">
+            <li>Matthew Ellithorpe <span>· VP, Service Engineering</span></li>
+            <li>Chaya Springer <span>· Director, Project Management Office</span></li>
+            <li>Brian Subasavage <span>· VP, Project Management</span></li>
+            <li>Udo Zirn <span>· VP, NGS Engineering</span></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mwc-ag-row">
+        <div class="mwc-ag-time">6:30 – 6:55 PM</div>
+        <div><h3 class="mwc-ag-title">Breakout rooms</h3></div>
+      </li>
+      <li class="mwc-ag-row">
+        <div class="mwc-ag-time">6:55 – 7:00 PM</div>
+        <div><h3 class="mwc-ag-title">Closing remarks</h3></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- 05. PRIORITY ROLES — shared .sc-title-chip chips, grouped -->
+<section class="section" id="roles" style="background: var(--bg)">
+  <div class="mwc-roles-wrap">
+    <div class="section-head" style="text-align:left; max-width:var(--content-narrow); margin:0 0 24px">
+      <h2>Priority roles</h2>
+      <p style="margin:0; max-width:none">Whether you're actively exploring new opportunities or simply interested in learning more, we invite you to join us.</p>
+    </div>
+    <div class="mwc-roles">
+      <div class="mwc-roles-group">
+        <div class="mwc-roles-group-label">Engineering</div>
+        <div class="mwc-roles-chips">
+          <span class="sc-title-chip">Civil &amp; Structural</span>
+          <span class="sc-title-chip">Controls &amp; Instrumentation</span>
+          <span class="sc-title-chip">Electrical</span>
+          <span class="sc-title-chip">General Engineering</span>
+          <span class="sc-title-chip">Mechanical &amp; Piping</span>
+          <span class="sc-title-chip">Service &amp; Field</span>
+        </div>
+      </div>
+      <div class="mwc-roles-group">
+        <div class="mwc-roles-group-label">Project categories</div>
+        <div class="mwc-roles-chips">
+          <span class="sc-title-chip">Field Operations</span>
+          <span class="sc-title-chip">Project Management</span>
+          <span class="sc-title-chip">Planning &amp; Scheduling</span>
+          <span class="sc-title-chip">Technical &amp; Engineering</span>
+          <span class="sc-title-chip">Controls &amp; Instrumentation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. MEET THE SPEAKERS — page-specific speaker-bio layout (shared with chat-learn) -->
+<section class="section" id="speakers" style="background: var(--bg)">
+  <div class="mwc-copy">
+    <div class="section-head" style="text-align:left; margin:0 0 36px">
+      <h2>Meet the speakers</h2>
+    </div>
+  </div>
+  <div class="cl-speakers">
+    <!-- COPY: confirm — real speaker headshots replace the placeholders -->
+    <div class="cl-speaker">
+      <img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=32" alt="" loading="lazy">
+      <div class="cl-speaker-body">
+        <h3 class="cl-speaker-name">Chaya Springer</h3>
+        <p class="cl-speaker-role">Director of the Project Management Office, Mitsubishi Power</p>
+        <p class="cl-speaker-bio">Chaya leads initiatives focused on operational excellence, project delivery, and continuous improvement across Service Operations. Starting as an intern 13 years ago, she now brings extensive experience in project management, process optimization, and organizational leadership. Outside of work, Chaya is an avid supporter of rescue animals — especially pitbulls — and a dedicated Formula 1 fan, drawn to the sport's precision, strategy, and high-performance culture.</p>
+      </div>
+    </div>
+    <div class="cl-speaker">
+      <img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=15" alt="" loading="lazy">
+      <div class="cl-speaker-body">
+        <h3 class="cl-speaker-name">Matt Ellithorpe</h3>
+        <p class="cl-speaker-role">Vice President of Service Engineering, Mitsubishi Power Americas</p>
+        <p class="cl-speaker-bio">Matthew leads more than 150 engineers and technical specialists supporting a fleet of over 140 advanced-class gas turbines and 400 steam turbines. He owns the strategy and execution of Service Engineering, Monitoring &amp; Diagnostics, and Controls Engineering, while driving initiatives in reliability, digital transformation, cybersecurity, and AI. With more than 20 years in power generation, his expertise spans gas and steam turbine technology, flexible operation, hydrogen and fuel-flexibility upgrades, remote monitoring, and major equipment modernization. He holds B.S. and M.S. degrees in Mechanical Engineering from Union College.</p>
+      </div>
+    </div>
+    <div class="cl-speaker">
+      <img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=11" alt="" loading="lazy">
+      <div class="cl-speaker-body">
+        <h3 class="cl-speaker-name">Michael Glover</h3>
+        <p class="cl-speaker-role">Senior Vice President of New Generation Systems, Mitsubishi Power Americas</p>
+        <p class="cl-speaker-bio">Michael leads the New Generation Systems (NGS) business unit, with scope spanning all Engineering, Project Management, Project Execution, Product Line Management, and Hydrogen Production — over 700 team members focused on GTCC applications and opportunities. Previously he led the Power Generation Service (PGS) Engineering department, responsible for total plant support including new product development, root-cause and corrective action, monitoring and diagnostics, service and outage support, upgrade analysis, design and applications, and master data management.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07. ABOUT MITSUBISHI POWER -->
+<section class="section" style="background: var(--bg)">
+  <div class="mwc-copy">
+    <div class="section-head">
+      <div class="eyebrow" style="margin-bottom:14px">About the company</div>
+      <div class="mwc-co-head">
+        <!-- COPY: confirm — placeholder Mitsubishi three-diamond mark; swap for the official logo asset -->
+        <span class="mwc-host-logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg>
+        </span>
+        <h2>Mitsubishi Power Americas, Inc.</h2>
+      </div>
+    </div>
+    <div class="mwc-prose">
+      <p><a href="https://powertofly.com/companies/mitsubishi-power/details" target="_blank" rel="noopener">Mitsubishi Power Americas, Inc.</a>, headquartered in Lake Mary, FL, is creating a future that works for people and the planet through innovative power generation technology and solutions. Our more than 3,500 employees focus on empowering customers in power generation and delivering innovative solutions across North, Central, and South America.</p>
+      <p>Mitsubishi Power's solutions include gas, steam, and aero-derivative turbines; power trains and power islands; geothermal systems; environmental controls; and services. We also offer solutions that leverage AI-enabled autonomous operation of power plants.</p>
+      <p>Mitsubishi Power is a power solutions brand of Mitsubishi Heavy Industries, Ltd. (MHI). Headquartered in Tokyo, Japan, MHI is one of the world's leading heavy-machinery manufacturers, with engineering and manufacturing businesses spanning energy, infrastructure, transport, aerospace, and defense.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 08. ABOUT POWERTOFLY — editorial header + shared stat grid (as siblings) -->
+<section class="section" style="background: var(--bg)">
+  <div class="about-head">
+    <div class="section-head" style="text-align:left; margin:0 0 40px">
+      <div class="eyebrow" style="margin-bottom:14px">About PowerToFly</div>
+      <h2>A women-run career platform connecting talent with companies that <em class="italic-plain">prioritize inclusion.</em></h2>
+      <p style="margin-left:0; margin-right:0; max-width:none">With 2,000+ events hosted in partnership with leading brands like Meta, Salesforce, and Deloitte, PowerToFly helps professionals unlock new opportunities and thrive in workplaces built for everyone.</p>
+    </div>
+    <div class="about-stat-grid">
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Community</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">800K+</span>
+        <span class="about-stat-desc">Active members across every industry, domain, and geography — from anywhere in the world.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Events hosted</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">2,000+</span>
+        <span class="about-stat-desc">In partnership with leading brands like Meta, Salesforce, and Deloitte.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Verified experts</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">80K+</span>
+        <span class="about-stat-desc">Domain specialists in healthcare, law, finance, engineering, and more — vetted and ready.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Countries</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">204</span>
+        <span class="about-stat-desc">A truly global community, so you can connect and grow your network without borders.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Women &amp; BIPOC</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">75%+</span>
+        <span class="about-stat-desc">The voices most underrepresented in tech are overrepresented here — by design.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Years building</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">12+</span>
+        <span class="about-stat-desc">Connecting talent with companies that value it, since 2014.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 09. ACCESSIBILITY — a real, intentional welcome, not a footnote:
+     belonging (who's welcome) and accommodation (how we'll help) as two clear thoughts. -->
+<section class="section" style="background: var(--bg)">
+  <div class="mwc-copy">
+    <div class="section-head">
+      <div class="eyebrow" style="margin-bottom:14px">Accessibility</div>
+      <h2>Everyone's welcome, and we'll <em class="italic-plain">help you take part.</em></h2>
+    </div>
+    <div class="mwc-prose">
+      <p>All RSVP'd attendees are welcome, regardless of race, color, religion, national origin, gender identity, pregnancy, disability, or age.</p>
+      <p>If you need any assistance to fully take part, tell us what would help — email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> and we'll make it work.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 10. CLOSER — shared dark closer band -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Powering what's next</span>
+    <h2>Want to join?</h2>
+    <p>This is an invite-only event for U.S.-based engineering and project professionals. Request an invitation and our team will review your profile.</p>
+    <a href="#hero" class="btn btn-cta">Request an invite →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<!-- PROTOTYPE-ONLY — two dials: EVENT × VIEWER. Delete #devDials + its script before launch. -->
+<div id="devDials">
+  <div class="dial">
+    <span class="dial-label">EVENT</span>
+    <button type="button" data-dim="event" data-val="upcoming">Upcoming</button>
+    <button type="button" data-dim="event" data-val="live">Live</button>
+    <button type="button" data-dim="event" data-val="closed">Reg. closed</button>
+  </div>
+  <div class="dial">
+    <span class="dial-label">VIEWER</span>
+    <button type="button" data-dim="viewer" data-val="out">Logged out</button>
+    <button type="button" data-dim="viewer" data-val="reg">Registered</button>
+    <button type="button" data-dim="viewer" data-val="unreg">Not registered</button>
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed alert + nav offset (bound once)
+
+  /* ════════════════════════════════════════════════════════════════════════
+     PROTOTYPE STATE ENGINE — two independent dials drive the page:
+       EVENT  ∈ { upcoming, live, closed }
+       VIEWER ∈ { out (public), reg (logged in + registered), unreg (logged in, not) }
+     Each combination renders: hero eyebrow · hero action card · top alert · nav auth.
+     Live promotes "Already registered? Join here" into the card's PRIMARY CTA,
+     with "Register now" kept beneath it (the team's decision).
+     Reachable via hash, e.g. #live or #live/reg.
+     ════════════════════════════════════════════════════════════════════════ */
+  (function () {
+    var REG_FLOW = '../event-company/index.html';   // Meet with the Company registration flow
+    // "Registered" badge — reuses the shared .sc-ck green-circle check (same as .sc-bullets),
+    // shaped like the "● Live now" badge. NOT a rebuilt checkmark.
+    var REG_BADGE = '<span class="sc-ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="var(--ink)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Registered';
+
+    // ── request-an-invitation form (real shared components) ──
+    function requestForm() {
+      return '<form class="auth-form" onsubmit="return false">' +
+             '<div class="field"><label>Full name</label><input type="text" placeholder="Your name" autocomplete="name" required></div>' +
+             '<div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>' +
+             '<div class="field"><label>Phone number</label><input type="tel" placeholder="(555) 000-0000" autocomplete="tel"></div>' +
+             '<button class="btn-auth" type="submit">Submit request</button>' +
+             '</form>' +
+             '<p class="auth-fineprint">Hear about networking opportunities, upskilling events, new remote roles, and more — all in one email. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>';
+    }
+    function btn(label, cls, href) { return '<a class="btn ' + cls + ' btn-block" href="' + href + '" rel="noopener">' + label + '</a>'; }
+    function status(html, cls) { if (!html) return ''; return '<div class="mwc-action-status ' + (cls || '') + '">' + html + '</div>'; }
+
+    // ── the card content per (event × viewer) ──
+    function buildAction(ev, vw) {
+      // LIVE — the "Join here" banner becomes the card's primary CTA for everyone.
+      if (ev === 'live') {
+        if (vw === 'reg')
+          return status('<span class="dot"></span>Live now', 'is-live') +
+                 '<h3 class="mwc-action-title">The session is live</h3>' +
+                 '<p class="mwc-action-body">You\'re registered — jump straight in.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Join now →', 'btn-primary', '#') + '</div>';
+        if (vw === 'unreg')
+          return status('<span class="dot"></span>Live now', 'is-live') +
+                 '<h3 class="mwc-action-title">You\'re not registered</h3>' +
+                 '<p class="mwc-action-body">Registration is required to join this live session.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Request access →', 'btn-primary', '#request') + '</div>' +
+                 '<p class="mwc-action-note">Already approved? Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> to be added.</p>';
+        // public / logged out — Join here primary, Register now secondary
+        return status('<span class="dot"></span>Live now', 'is-live') +
+               '<h3 class="mwc-action-title">Already registered? Join here</h3>' +
+               '<p class="mwc-action-body">Enter your email on the next screen and we\'ll check you\'re on the approved list.</p>' +
+               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + btn('Register now →', '', REG_FLOW) + '</div>';
+      }
+
+      // CLOSED — no new registrations; existing registrants keep access.
+      if (ev === 'closed') {
+        if (vw === 'reg')
+          return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
+                 '<p class="mwc-action-body">Registration is now closed, but you\'re all set. We\'ll email your join link before it starts.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
+        var closedHead = status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
+                 '<p class="mwc-action-body">This event is no longer accepting new registrations. Interested in an event like this in the future? Share your details below.</p>';
+        return closedHead + requestForm();
+      }
+
+      // UPCOMING (default).
+      if (vw === 'reg')
+        return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
+               '<p class="mwc-action-body">We\'ll email you the join link before the event starts.</p>' +
+               '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
+      if (vw === 'unreg')
+        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in, but not registered</h3>' +
+               '<p class="mwc-action-body">This is an invite-only event. Request an invitation and we\'ll review your profile — please include your resume or profile URL.</p>' +
+               '<div class="mwc-action-actions">' + btn('Request an invitation →', 'btn-primary', '#request') + '</div>' +
+               '<p class="mwc-action-note">Or email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> to get added.</p>';
+      // public / logged out — the lead copy: request an invitation form
+      return status('', '') + '<h3 class="mwc-action-title">Interested in attending?</h3>' +
+             '<p class="mwc-action-body">Share your contact information below so we can reach out if you\'re a good fit.</p>' +
+             requestForm() +
+             '<p class="mwc-action-alt">Have an invitation code? <a href="' + REG_FLOW + '" rel="noopener">Register now →</a></p>';
+    }
+
+    // ── hero eyebrow + top alert per EVENT ──
+    var EVENT_CHROME = {
+      upcoming: { eyebrow: 'Meet with Companies', ecls: '', dot: false,
+                  alert: 'Meet with Companies &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power &nbsp;·&nbsp; Jul 23',
+                  alertCta: { t: 'Request an invite →', href: '#hero' } },
+      live:     { eyebrow: 'Live now', ecls: '', dot: true,
+                  alert: 'Live now &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power',
+                  alertCta: { t: 'Join here →', href: '#hero' } },
+      closed:   { eyebrow: 'Registration closed', ecls: ' is-past', dot: false,
+                  alert: 'Registration is closed &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power',
+                  alertCta: { t: 'See details →', href: '#about' } }
+    };
+
+    var el = {
+      eyebrow: document.getElementById('heroEyebrow'),
+      action:  document.getElementById('heroAction'),
+      alertText: document.getElementById('alertText'),
+      alertCta:  document.getElementById('alertCta'),
+      header:  document.getElementById('siteHeader')
+    };
+
+    var cur = { event: 'upcoming', viewer: 'out' };
+    var navAuth = null;  // track rendered nav auth to avoid needless re-render
+
+    // ── swap the shared nav between logged-out and logged-in (real data-auth feature) ──
+    function setNavAuth(loggedIn) {
+      if (navAuth === loggedIn) return;
+      navAuth = loggedIn;
+      var oldNav = el.header.querySelector('.nav');
+      var oldDrawer = document.getElementById('mobileDrawer');
+      var oldOverlay = document.querySelector('.nav-overlay');
+      if (oldNav) oldNav.parentNode.removeChild(oldNav);
+      if (oldDrawer) oldDrawer.parentNode.removeChild(oldDrawer);
+      if (oldOverlay) oldOverlay.parentNode.removeChild(oldOverlay);
+      var mount = document.createElement('div');
+      mount.setAttribute('data-ptf-nav', '');
+      mount.setAttribute('data-active', 'events');
+      if (loggedIn) { mount.setAttribute('data-auth', 'in'); mount.setAttribute('data-user', 'Amara'); mount.setAttribute('data-user-full', 'Amara Okafor'); }
+      el.header.appendChild(mount);
+      PTF.renderNav(mount);   // inserts nav + drawer before the mount, then removes it
+      PTF.initMegaNav();      // re-bind flyouts on the fresh nav
+      PTF.initNav();          // re-bind hamburger/drawer
+    }
+
+    function render() {
+      var c = EVENT_CHROME[cur.event];
+      // eyebrow
+      el.eyebrow.className = 'eyebrow' + c.ecls;
+      el.eyebrow.innerHTML = (c.dot ? '<span class="dot is-live"></span>' : '') + c.eyebrow;
+      // action card
+      el.action.innerHTML = buildAction(cur.event, cur.viewer);
+      // top alert
+      if (el.alertText) el.alertText.innerHTML = c.alert;
+      if (el.alertCta) {
+        if (c.alertCta.t) { el.alertCta.style.display = ''; el.alertCta.textContent = c.alertCta.t; el.alertCta.setAttribute('href', c.alertCta.href); }
+        else { el.alertCta.style.display = 'none'; }
+      }
+      // nav auth
+      setNavAuth(cur.viewer !== 'out');
+      // dial button active states
+      [].slice.call(document.querySelectorAll('#devDials [data-dim]')).forEach(function (b) {
+        b.classList.toggle('active', cur[b.getAttribute('data-dim')] === b.getAttribute('data-val'));
+      });
+    }
+
+    // dial clicks
+    [].slice.call(document.querySelectorAll('#devDials [data-dim]')).forEach(function (b) {
+      b.addEventListener('click', function () {
+        cur[b.getAttribute('data-dim')] = b.getAttribute('data-val');
+        render();
+        var h = cur.event + (cur.viewer !== 'out' ? '/' + cur.viewer : '');
+        history.replaceState(null, '', cur.event === 'upcoming' && cur.viewer === 'out' ? location.pathname : '#' + h);
+      });
+    });
+
+    // hash → state (e.g. #live or #live/reg)
+    function fromHash() {
+      var parts = (location.hash || '').replace('#', '').split('/');
+      if (EVENT_CHROME[parts[0]]) cur.event = parts[0];
+      if (parts[1] === 'reg' || parts[1] === 'unreg') cur.viewer = parts[1];
+    }
+    fromHash();
+    render();
+    window.addEventListener('hashchange', function () { fromHash(); render(); });
+  })();
+</script>
+</body>
+</html>

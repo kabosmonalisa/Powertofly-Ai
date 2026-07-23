@@ -53,3 +53,38 @@ To make that true:
 - Real alternatives (which two sizes? 700 or 800?) ship as **`options`**, each with its own apply ops — never one ambiguous Accept.
 - **Prove it:** apply → diff → undo → byte-identical. An unproven apply is a bug with a button on it.
 - One finding = one `/api/apply {"ops":[…]}` = one backup = one undo.
+
+---
+
+## 🧩 Page template — "Meet with Companies" event (ONE template, all events)
+
+Every "Meet with Companies" event (Mitsubishi/virtual, Expedia/Austin, Visa/Tokyo, …) is the **same page**, in the same order. Differences are only: (a) content in fixed slots, (b) optional modules turned on/off, (c) ONE toggle — **Virtual ↔ In-person**. Don't fork the template per event; instance it. Canonical build: `meet-with-companies/index.html` (sibling of `vjf/` `summit/` `chat-learn/`).
+
+**Skeleton — in order** (`fixed` = always; `optional` = module on/off; `toggle` = virtual vs in-person):
+
+| # | Section | Type | Built from |
+|---|---|---|---|
+| — | Top alert + nav | fixed | injected nav |
+| 1 | **Hero** (`.ev-hero`) | fixed | — |
+| | ├ "Meet with Companies" eyebrow | fixed | `.eyebrow` |
+| | ├ Event title | fixed slot | `h1` |
+| | ├ Meta facts: date · time+zone · format · invite-only | fixed | `.ev-hero-meta` / `.ev-fact` |
+| | ├ **+ Location** (venue/city) | **toggle** (in-person only) | extra `.ev-fact`, pin icon |
+| | ├ Hosted by [company] + logo | fixed slot | `.event-host` + logo tile |
+| | └ **Request-an-invitation form** (name/email/phone → Submit Request) | fixed — *word-for-word identical every event* | hero action card (`.mwc-action`) |
+| 2 | About this event (description prose) | fixed slot | `.section` + `.mwc-prose` |
+| 3 | "What you'll get / Topics" list | fixed slot | how-it-works check list (`.section-how`/`.steps`) |
+| 4 | Agenda (times + items) | fixed slot | agenda timeline (`.mwc-agenda`) |
+| | └ Arrival / logistics (floor, "seated by") | **optional** (in-person) | small note |
+| 5 | Priority roles / focus | optional | `.sc-title-chip` chips |
+| 6 | Meet the speakers (bios) | **optional module** | `.cl-speaker` |
+| 7 | About [company] | fixed slot | `.section` + `.mwc-prose` (+ logo tile in head) |
+| 8 | About PowerToFly (+ stats) | fixed | `.about-head` + `.about-stat-grid` |
+| 9 | Accessibility note | fixed | `.section` |
+| | └ Extra policy (e.g. "no outside recruiters") | optional | small note |
+| 10 | Closer — "Want to join? Register" | fixed | `.section-cta` |
+| — | Footer | fixed | injected footer |
+
+**The one toggle — Virtual ↔ In-person:** virtual (Mitsubishi) shows a "Virtual" fact; in-person (Expedia, Visa) swaps it for "In-person" + adds a **Location** fact (venue + city, pin icon) and an optional **logistics** note (arrival window, "seated by," floor/room). Everything else is identical.
+
+**Also on the page (prototype/dev):** a two-dial state switcher — EVENT (upcoming · live · registration closed) × VIEWER (logged out · registered · not registered); the hero action card + top alert + nav-auth swap per combination. Live promotes the "Already registered? Join here" banner into a second hero CTA. Delete `#devDials` before launch.

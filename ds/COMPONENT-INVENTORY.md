@@ -81,6 +81,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 - **Logo strip (marquee)** — `.logo-strip` > `.logo-strip-track`. Behavior: `PTF.initMarquee()`.
 - **Industries grid** — `.ind-grid` > `.ind-item` (`.ind-name` + `.ind-desc`).
 - **Event listing** (marketing Events page `/browse-events`) — date-sorted events in a **3-up grid of text tiles**, filters on top, numbered pagination. A `.section` holds `.ev-head` (left `h2`, optional right `.ev-head-link`) then `.ev-listing` (a `[data-ev-list]` block, `data-ev-per` = page size) stacking: `.ev-filter` (horizontal `.ev-filter-btn[data-filter]` pill chips; active fills ink) → optional `.ev-search[data-ev-search]` → `.ev-list` (3-up grid → 2 ≤900 → 1 ≤600) of `.ev-row[data-type]` tiles → optional `.ev-empty[data-ev-empty]` → `.ev-pager[data-ev-pages]`. Each tile `.ev-row` = `.ev-row-date` + `.ev-row-body` (`.sc-tag` type label + `.ev-row-title` + `.ev-row-desc` [3-line clamp] + `.ev-row-link`). Pager: JS fills `[data-ev-pages]` with `.ev-page` number buttons; active page = green + green underline (hidden when 1 page). Behavior: `PTF.initEventList()` (filter + search + numbered pagination, auto-runs for EVERY `[data-ev-list]` — e.g. an "Upcoming events" list + a "Past events" archive). Type is a plain `.sc-tag` — never a pill. NOTE: `.ev-*` ≠ the flow `.event-card` panel. Live example: `events/index.html`.
+  - **Promo variant** (`.ev-promo`) — the same `.ev-row` tile card look, **stacked 1-up for a narrow column** (e.g. the flow thank-you step). Markup: `.ev-listing.ev-listing--grid.ev-promo` > `.ev-list` > `.ev-row` (`.ev-row-date` + `.ev-row-body` with `.sc-tag` + `.ev-row-title` + `.ev-row-desc` [2-line clamp] + `.ev-row-link`). Presentational only — **no `[data-ev-list]`**, so no filters/search/pagination. Use to promote a couple of upcoming events. Live example: `event-common/index.html` step 5.
 - **Final CTA band** — `.section-cta` > `.section-cta-inner` (**`.eyebrow` [required] + `h2` + `p` + `.btn.btn-cta`**). Always-dark closer; blends into footer. The green eyebrow is a REQUIRED part of the band — never omit it. It auto-greens (the band sets `.section-cta .eyebrow` → green-mid), so a plain `.eyebrow` is enough (no `.eyebrow-on-dark` needed).
 - **FAQ accordion** — `.faq-list` > `.faq-item` > (`button.faq-q` [question text + `.faq-icon` > svg plus] + `.faq-a` > `.faq-a-inner` [answer]). Click a question to expand its answer; opening one closes the others. Theme-aware (recolors from tokens, works on `.theme-dark`). The plus icon is coloured by CSS — its svg `<line>`s need NO colour attribute. Behavior: **`PTF.initFaq()` auto-runs** on DOMContentLoaded for every `.faq-list` — no page script. Live examples: `talents/index.html`, `vjf/index.html`. Question text is a plain button — never a pill.
 
@@ -109,3 +110,45 @@ Color: `--ink --ink-2 --ink-3 --bg --surface --surface-2 --line --line-2 --accen
 
 ## Allowed page-specific CSS (the ONLY exceptions)
 Per `DESIGN-SYSTEM.md` → "Not in the system": a genuinely unique hero composition or one-off decorative layout MAY have a small page `<style>` — but it must (a) use tokens, never raw hex; (b) never restyle a shared component; (c) be commented with why it's page-specific. When unsure whether something qualifies → it doesn't; ask Lizu.
+
+## Event listing parts (were in use before they were written down)
+These ship in `ds/ptf.css` and are used across Events, Virtual job fair, Summit and Chat & Learn.
+They were live for months without being in this file — which is how a fifth copy gets built by hand.
+
+- **Event thumbnail** — `.ev-thumb` (`ds/ptf.css:1354`) + `.ev-thumb img`. A clipped, rounded event image: `--r-lg` corners, `--surface-2` behind it, `object-fit: cover` so any aspect ratio behaves. Use it for every event image in a listing; never re-crop by hand.
+- **People row** — `.ev-faces` (`ds/ptf.css:1358`) + `.ev-faces img`. Overlapping 32px round avatars (`-10px` overlap, 2px `--bg` ring so they read on any background). Use it wherever you show "who's coming"; the first face never gets a negative margin.
+- **About-stat card** — `.about-stat-grid` (`ds/ptf.css:1416`) and its `.about-stat-*` parts. A three-up number grid. Shared by About, Summit and Chat & Learn — it is NOT an About-page thing despite the name.
+
+## Page Recipe — Event detail (Virtual job fair · Summit · Chat & Learn)
+These three pages are one recipe, not three designs. Build the fourth from this and it inherits
+the spacing law, the dark theme and the hover language for free.
+
+Section order, top to bottom — every slot is an existing component:
+1. `.ev-hero` — the event hero. Shared by all three; no state toggle.
+2. `.section-how` — how it works, beside `photos/how_it_works.png` (the generic portrait, reused on every event type).
+3. `.section` — who's speaking / who's coming: `.ev-faces` for the people row.
+4. `.section` — the detail body.
+5. `.section-cta` — the always-dark closer. Green `.eyebrow` is part of the band, not decoration.
+
+Rules: these siblings share `.ev-hero` — build a new one consistent with THIS system, not the
+legacy purple design. Signing up goes to the common event flow (`event-common/`), not a new flow.
+
+## Hero glow — one wash, one owner (`.hero-glow`)
+The iridescent radial wash behind a light hero lives in `ds/ptf.css` as `.hero-glow`, built from `--iri-green` / `--iri-lime` / `--bg`. Add `hero-glow` to the hero section — do not paste the `radial-gradient(...)` into a page's own `.hero` rule. It was promoted from three inline copies on 2026-07-07; Employers, Hire and Events kept re-typing it and were re-pointed at the token version (identical on light, correct in dark). If you need the wash, use the class.
+
+## Speaker bio card (`.cl-speaker`)
+A photo beside name / role / bio, stacked in a `.cl-speakers` column. 96px round photo (`--r-pill`, `--surface-2` placeholder), 20px/700 name, 14px `--ink-3` role, 15px `--ink-2` bio; drops to a 72px photo under 700px. Promoted from identical copies on Chat & Learn and Meet with companies. Part of the Event-detail recipe (see that Page Recipe) — use it for 'meet the speakers', never rebuild it on the page.
+
+Markup:
+```html
+<div class="cl-speakers">
+  <div class="cl-speaker">
+    <img class="cl-speaker-photo" src="…" alt="…">
+    <div>
+      <p class="cl-speaker-name">Name</p>
+      <p class="cl-speaker-role">Title, Company</p>
+      <p class="cl-speaker-bio">Bio…</p>
+    </div>
+  </div>
+</div>
+```
