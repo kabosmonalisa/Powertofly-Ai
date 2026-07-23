@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Job Board — Post jobs, find talent — PowerToFly AI</title>
+<meta property="og:title"       content="Job Board — Post jobs, find talent — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
 <!--
   JOB BOARD CHECKOUT FUNNEL — faithful reproduction of the v0 flow, re-skinned into
   the PowerToFly design system. Four screens toggled in-page:
@@ -261,9 +264,9 @@
             <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
           </div>
           <h3>Single Job Posting</h3>
-          <p class="jb-plan-desc">Post individual jobs with 30-day visibility. Perfect for targeted hiring.</p>
-          <div class="jb-plan-price">$499<span>/job posting</span></div>
-          <div class="jb-plan-per">Valid for 30 days per posting</div>
+          <p class="jb-plan-desc">Post individual jobs with recurring monthly visibility. Perfect for targeted hiring.</p>
+          <div class="jb-plan-price">$499<span>per posting / month</span></div>
+          <div class="jb-plan-per">Recurring monthly. Cancel anytime.</div>
           <ul class="jb-plan-feats">
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Candidates redirected to your ATS</li>
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Job posting promoted in the PowerToFly newsletter</li>
@@ -463,7 +466,7 @@
               <h3>Order summary</h3>
               <div class="jb-srow"><div><div class="jb-slabel">Product</div><div class="jb-sval">Job Board</div></div></div>
               <div class="jb-srow">
-                <div><div class="jb-slabel">Package</div><div class="jb-sval" data-pkgname>Single Job Posting (×3)</div><div class="jb-ssub">$499 per job posting, valid for 30 days</div></div>
+                <div><div class="jb-slabel">Package</div><div class="jb-sval" data-pkgname>Single Job Posting (×3)</div><div class="jb-ssub">$499 per posting / month, renews monthly</div></div>
                 <div class="jb-sval" data-total>$1,497</div>
               </div>
               <div class="jb-srow"><div><div class="jb-slabel">Quantity</div><div class="jb-sval" data-qtylabel>3 job postings</div></div></div>
@@ -486,7 +489,7 @@
             </div>
           </div>
 
-          <!-- RIGHT: payment + auto-renew + agree + pay -->
+          <!-- RIGHT: payment + agree + pay (auto-renew is on by default — no toggle) -->
           <div>
             <div class="jb-card">
               <div class="jb-pay-hd">
@@ -509,20 +512,6 @@
                   <div class="field"><label for="pay-cvc">CVC</label><input type="text" id="pay-cvc" inputmode="numeric" placeholder="123"></div>
                 </div>
                 <div class="field"><label for="pay-name">Name on card</label><input type="text" id="pay-name" placeholder="Jane Doe"></div>
-              </div>
-            </div>
-
-            <div class="jb-card jb-toggle">
-              <div class="jb-toggle-row">
-                <input type="checkbox" class="check-box" checked>
-                <div class="jb-toggle-main">
-                  <div class="jb-toggle-title">
-                    <svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
-                    Auto-renew job posting
-                  </div>
-                  <div class="jb-toggle-desc">Automatically renew your job posting every 30 days to keep it visible to candidates.</div>
-                  <div class="jb-toggle-info">You can change or cancel auto-renewal at any time from your account settings. We'll send you a reminder email 3 days before each renewal.</div>
-                </div>
               </div>
             </div>
 
@@ -555,22 +544,12 @@
           </svg>
         </div>
         <h1 class="display">Payment successful</h1>
-        <p class="jb-success-sub">Thank you for choosing PowerToFly. Your account is ready to be activated.</p>
+        <p class="jb-success-sub">Thank you for choosing PowerToFly. Your account is active and ready to go.</p>
 
         <div class="jb-card jb-nextsteps">
           <h3>Next steps</h3>
           <div class="jb-nsrow is-active">
             <span class="jb-nsnum">1</span>
-            <div>
-              <div class="jb-nstitle">
-                <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-                Verify your email
-              </div>
-              <div class="jb-nsdesc">Check your inbox for the verification link</div>
-            </div>
-          </div>
-          <div class="jb-nsrow">
-            <span class="jb-nsnum">2</span>
             <div>
               <div class="jb-nstitle">
                 <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
@@ -580,7 +559,7 @@
             </div>
           </div>
           <div class="jb-nsrow">
-            <span class="jb-nsnum">3</span>
+            <span class="jb-nsnum">2</span>
             <div>
               <div class="jb-nstitle">
                 <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
@@ -592,8 +571,8 @@
         </div>
 
         <button class="btn btn-primary jb-paybtn" type="button" style="margin-top:0">
-          <svg viewBox="0 0 24 24" style="margin:0 8px 0 0"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-          Verify email
+          <svg viewBox="0 0 24 24" style="margin:0 8px 0 0"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          Go to your account
         </button>
         <p class="jb-contact">Need help? Contact us at <a href="mailto:support@powertofly.com">support@powertofly.com</a></p>
       </div>
