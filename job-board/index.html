@@ -154,7 +154,8 @@
 .jb-flow-head .jb-chip{margin-bottom:22px;}
 .jb-flow-head h1{margin-bottom:10px;}
 .jb-flow-head p{font-size:17px;color:var(--ink-3);}
-.jb-flow-actions{display:flex;justify-content:center;margin-top:32px;}
+.jb-flow-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:32px;}
+.jb-flow-actions .jb-back{margin-bottom:0;}
 
 /* ── success screen ── */
 .jb-success{max-width:640px;margin:0 auto;text-align:center;}
@@ -367,6 +368,7 @@
         <div class="jb-note">Your company account will be created as pending and activated after payment is completed.</div>
 
         <div class="jb-flow-actions">
+          <a class="jb-back" href="#" onclick="showScreen('screen-package');return false">← Back</a>
           <button class="btn btn-primary" type="button" onclick="continueFromCompany()">Continue to checkout →</button>
         </div>
       </div>
@@ -451,7 +453,7 @@
       </div>
 
       <div class="content">
-        <a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back</a>
+        <!-- No back link at checkout — payment is a commit point, we don't send people backwards. -->
         <div style="margin-bottom:24px"><span class="jb-chip">
           <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
           Job Board
