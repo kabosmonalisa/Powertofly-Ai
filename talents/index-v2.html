@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PowerToFly — Find your next remote role</title>
+<meta property="og:title"       content="PowerToFly — Find your next remote role">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
@@ -15,7 +18,7 @@
 h1.hero-headline {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-weight: 700;
-  font-size: clamp(44px, 7vw, 80px);
+  font-size: clamp(36px, 5.5vw, 68px);
   line-height: 0.95;
   letter-spacing: -0.04em;
   margin: 0 auto;
@@ -80,7 +83,7 @@ h1.hero-headline {
 .mega-left { padding: 28px 36px 28px 30px; }
 .fly-eyebrow {
   font-size: 10.5px; font-weight: 800; letter-spacing: .14em;
-  text-transform: uppercase; color: #0A8C66; margin-bottom: 10px;
+  text-transform: uppercase; color: var(--green); margin-bottom: 10px;
 }
 .mega-items { display: flex; flex-direction: column; gap: 4px; }
 .fly-item {
@@ -224,8 +227,8 @@ animation: floatY 5s ease-in-out infinite;
 .hero-match-card {
 background: #fff;
 border: 1px solid var(--line);
-border-radius: 18px;
-box-shadow: 0 8px 32px rgba(15,30,26,0.14), 0 2px 8px rgba(15,30,26,0.06);
+border-radius: 20px;
+box-shadow: var(--shadow-card);
 width: 320px;
 transform-style: preserve-3d;
 transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
@@ -238,7 +241,7 @@ font-size: 11px;
 font-weight: 600;
 letter-spacing: 0.04em;
 text-transform: uppercase;
-color: #0A8C66;
+color: var(--green);
 background: rgba(79,232,169,0.16);
 padding: 4px 10px;
 border-radius: 999px;
@@ -290,7 +293,7 @@ backface-visibility: hidden;
 position: absolute;
 inset: 0;
 background: #fff;
-border-radius: 18px;
+border-radius: 20px;
 transform: rotateY(180deg);
 }
 .hmc-tag {
@@ -306,7 +309,7 @@ padding: 3px 9px;
 .hero h1 {
 font-family: 'Inter Tight', sans-serif;
 font-size: clamp(44px, 7vw, 80px);
-font-weight: 800;
+font-weight: 700;
 letter-spacing: -0.04em;
 line-height: 0.95;
 color: var(--ink);
@@ -373,7 +376,7 @@ max-width: 540px;
 background: #fff;
 border: 1px solid var(--line);
 border-radius: 999px;
-box-shadow: 0 8px 32px rgba(15,30,26,0.10), 0 2px 8px rgba(15,30,26,0.05);
+box-shadow: var(--shadow-card);
 padding: 6px 6px 6px 18px;
 }
 .hero-search-ico { width: 20px; height: 20px; flex-shrink: 0; color: var(--ink-3); }
@@ -389,7 +392,7 @@ color: var(--ink);
 padding: 12px 8px 12px 12px;
 }
 .hero-search-input::placeholder { color: var(--ink-3); }
-.hero-search .btn-search { flex-shrink: 0; padding: 12px 24px; font-size: 15px; font-weight: 700; }
+.hero-search .btn-search { flex-shrink: 0; padding: 14px 26px; font-size: 15px; font-weight: 700; }
 /* Quick-search pills — links into the job board */
 .search-quick {
 display: flex;
@@ -517,7 +520,7 @@ margin: 0 auto;
 .opp-card {
 background: var(--bg-soft);
 border: 1px solid var(--line);
-border-radius: 16px;
+border-radius: 20px;
 padding: 24px;
 box-shadow: var(--shadow-card);
 display: flex;
@@ -533,7 +536,7 @@ box-shadow: 0 2px 4px rgba(15,30,26,0.05), 0 16px 40px rgba(15,30,26,0.12);
 display: inline-flex;
 align-items: center;
 align-self: flex-start;
-color: #0A8C66;
+color: var(--green);
 font-family: 'Inter Tight', sans-serif;
 font-weight: 700;
 font-size: 11px;
@@ -592,7 +595,7 @@ background: transparent;
 .t-card {
   background: #fff;
   border: 1px solid var(--line);
-  border-radius: 22px;
+  border-radius: 20px;
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -764,7 +767,7 @@ background: transparent;
 .faq-item {
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 16px;
+  border-radius: 20px;
   overflow: hidden;
   transition: box-shadow 180ms ease;
 }
@@ -851,7 +854,7 @@ h1.display br { display: none; }
 .drawer-group:last-of-type { border-bottom: none; }
 .drawer-cat {
   font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
-  text-transform: uppercase; color: #0A8C66;
+  text-transform: uppercase; color: var(--green);
   padding: 0; margin-bottom: 8px; display: block;
   border-bottom: none !important;
 }
@@ -1012,12 +1015,14 @@ h1.display br { display: none; }
     <!-- Quick-search pills — popular job categories -->
     <div class="search-quick" aria-label="Popular categories">
       <span class="search-quick-lbl">Popular:</span>
-      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Engineering">Engineering</a>
-      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Data%20Science">Data Science</a>
-      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Product">Product</a>
-      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Design">Design</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Software%20Engineering">Software Engineering</a>
       <a class="search-pill" href="https://powertofly.com/jobs?keywords=Marketing">Marketing</a>
       <a class="search-pill" href="https://powertofly.com/jobs?keywords=Sales">Sales</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Data">Data</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Design">Design</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Project%20Management">Project Management</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Virtual%20Events">Virtual Events</a>
+      <a class="search-pill" href="https://powertofly.com/jobs?keywords=Remote%20%26%20Flexible%20Jobs">Remote &amp; Flexible Jobs</a>
     </div>
   </div>
 
