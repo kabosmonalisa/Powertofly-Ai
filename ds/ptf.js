@@ -251,7 +251,6 @@ window.PTF = (function () {
           </div>\
         </div>\
       </div>\
-      <a class="nav-btn" data-nav="about" href="../about/">About</a>\
     </div>\
     <div class="nav-cta">\
       <div class="nav-drop login-drop">\
@@ -276,7 +275,6 @@ window.PTF = (function () {
   <a href="https://powertofly.com/browse-events">Events</a>\
   <a href="https://powertofly.com/up">Resources</a>\
   <a href="../employers/">For employers</a>\
-  <a href="../about/">About</a>\
   <div class="drawer-cta"><a href="#" class="btn btn-sm">Log in</a><a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get matched</a></div>\
 </div>';
 
@@ -288,15 +286,15 @@ window.PTF = (function () {
   <button class="btn btn-sm" data-fly="fly-account">{{NAME}} <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
   <div class="nav-fly login-fly" id="fly-account">\
     <div class="mega-inner"><div class="mega-left">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">{{FULL}}</span><span class="fly-desc">View profile</span></span><span class="login-arrow">→</span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Edit Profile</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Dashboard</span></span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">View Profile</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">My applications</span></span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Invite Friends</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Saved jobs</span></span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Messages</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Account settings</span></span></a>\
+      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Settings</span></span></a>\
       <hr class="fly-rule">\
       <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Log out</span></span></a>\
     </div></div>\
@@ -324,6 +322,10 @@ window.PTF = (function () {
         if (cta) cta.innerHTML = ctaHTML;
         var drawerCta = mount.parentNode.querySelector('.mobile-drawer .drawer-cta');
         if (drawerCta) drawerCta.innerHTML = DRAWER_CTA_IN;
+        /* Dashboard: logged-in only, first item on the left.
+           (Mobile already surfaces Dashboard via DRAWER_CTA_IN, so don't add it twice.) */
+        var items = nav.querySelector('.nav-items');
+        if (items) items.insertAdjacentHTML('afterbegin', '<a class="nav-btn" data-nav="dashboard" href="#">Dashboard</a>');
       }
     }
     mount.parentNode.removeChild(mount);
