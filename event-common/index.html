@@ -119,7 +119,7 @@
           <div class="step-indicator">Step 2 of 4</div>
           <h1 class="auth-heading">Tell us a bit about you</h1>
           <p class="auth-sub">A complete profile is how we connect you to the right people, sessions, and opportunities — at this event and beyond.</p>
-          <form class="auth-form" onsubmit="return goToStep(3)">
+          <form class="auth-form" onsubmit="return afterStep2()">
             <div class="field"><label>LinkedIn <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><input type="url" placeholder="linkedin.com/in/…"></div>
             <!-- Resume: optional secondary path, revealed on tap — keeps mobile signup frictionless (per Milena) -->
             <button type="button" class="resume-toggle" id="resumeToggle" onclick="document.getElementById('resumeReveal').classList.add('open'); this.hidden=true;">
@@ -139,6 +139,25 @@
           </form>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 2b — CONDITIONAL: only shown when BOTH resume AND LinkedIn are skipped on step 2.
+             A resume or LinkedIn would have given us these (Rob's source-of-truth fields); without
+             either, we ask directly. "Most recent" (not "current") so it still applies if between jobs. -->
+        <div class="flow-step" data-step="2b" hidden>
+          <div class="step-indicator">A few work details</div>
+          <h1 class="auth-heading">Tell us where you're at</h1>
+          <p class="auth-sub">You skipped resume and LinkedIn, so a couple of quick details help us match you with the right people at the event.</p>
+          <form class="auth-form" onsubmit="return validateStep2b()">
+            <div class="field"><label>Most recent job title</label><input type="text" placeholder="e.g. Machine learning engineer" required></div>
+            <div class="field"><label>Most recent company</label><input type="text" placeholder="e.g. Acme AI" required></div>
+            <div class="id-grid stacked">
+              <div class="id-section">
+                <div class="id-section-label">Years of experience</div>
+                <div class="id-chips"><button type="button" class="id-chip">Less than 1 year</button><button type="button" class="id-chip">1–3 years</button><button type="button" class="id-chip">4–6 years</button><button type="button" class="id-chip">7–10 years</button><button type="button" class="id-chip">10+ years</button></div>
+              </div>
+            </div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(2)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
         </div>
         <!-- Step 3 — demographics (golden: chips in columns) -->
         <div class="flow-step" data-step="3" hidden>
@@ -241,6 +260,7 @@
   <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
   <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
   <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+  <button type="button" onclick="goToStep('2b')" style="all:unset;cursor:pointer;color:#9fe870;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2b</button>
   <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
   <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
   <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
@@ -292,13 +312,27 @@
     if (!ok) { shake(1); if (firstBad) firstBad.focus(); return false; }
     return goToStep(2);
   }
-  function validateStep2() {
+  // Step 2 is optional (resume + LinkedIn). Both blank → detour to the conditional 2b
+  // (most-recent job title / company / years). Either one present → straight to demographics.
+  function afterStep2() {
     var file = document.querySelector('[data-step="2"] input[type=file]');
     var li   = document.querySelector('[data-step="2"] input[type=url]');
+    var hasResume   = !!(file && file.files.length);
+    var hasLinkedIn = !!(li && li.value.trim());
+    return goToStep(!hasResume && !hasLinkedIn ? '2b' : 3);
+  }
+  function validateStep2b() {
+    var s = document.querySelector('[data-step="2b"]');
     var ok = true, firstBad = null;
-    if (!file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; firstBad = firstBad || file; }
-    if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; firstBad = firstBad || li; }
-    if (!ok) { shake(2); firstBad.focus(); return false; }
+    s.querySelectorAll('.field input[required]').forEach(function (inp) {
+      var f = inp.closest('.field');
+      if (inp.value.trim() === '') { setError(f); ok = false; firstBad = firstBad || inp; } else { clearError(f); }
+    });
+    s.querySelectorAll('.id-section').forEach(function (sec) {
+      clearError(sec);
+      if (!sec.querySelector('.id-chip.selected')) { setError(sec, 'Pick one'); ok = false; firstBad = firstBad || sec; }
+    });
+    if (!ok) { shake('2b'); if (firstBad.focus) firstBad.focus(); else firstBad.scrollIntoView({ block: 'center' }); return false; }
     return goToStep(3);
   }
   function validateStep3() {
@@ -330,6 +364,9 @@
   });
   // Clear text/url field errors as the user types, and the waiver error when ticked
   document.querySelectorAll('[data-step="2"] input[type=url]').forEach(function (inp) {
+    inp.addEventListener('input', function () { clearError(inp.closest('.field')); });
+  });
+  document.querySelectorAll('[data-step="2b"] .field input').forEach(function (inp) {
     inp.addEventListener('input', function () { clearError(inp.closest('.field')); });
   });
   var agreeBox = document.getElementById('agreeBox');
