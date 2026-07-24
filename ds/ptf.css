@@ -1406,14 +1406,15 @@ img { display: block; max-width: 100%; }
 .ev-listing--grid .ev-faces img { width: 26px; height: 26px; border-color: var(--bg-soft); }
 .ev-listing--grid .ev-people { margin-bottom: 16px; }
 
-/* ── PROMO variant (.ev-promo) — the grid-tile card look, stacked 1-up for a NARROW
-   column (e.g. the flow thank-you step). Reuses .ev-row markup + all the tile styling
-   from .ev-listing--grid; this only forces a single column and tightens sizing so the
-   viewport-driven 3-up grid can't blow out a ~430px card. Presentational only —
-   NO [data-ev-list], so no filters/search/pagination. Markup:
-   .ev-listing.ev-listing--grid.ev-promo > .ev-list > .ev-row (date · sc-tag · title · desc · link). */
+/* ── PROMO variant (.ev-promo) — the grid-tile card look for a NARROW column (e.g. the
+   flow thank-you step). 2-up so it stays short / above the fold, stacking to 1-up on
+   mobile. Reuses .ev-row markup + all the tile styling from .ev-listing--grid; this only
+   sets the column count and tightens sizing so the viewport-driven 3-up grid can't blow
+   out a ~430px card. Presentational only — NO [data-ev-list], so no filters/search/pagination.
+   Markup: .ev-listing.ev-listing--grid.ev-promo > .ev-list > .ev-row (date · sc-tag · title · desc · link). */
 .ev-promo { text-align: left; margin: 4px 0; }
-.ev-promo .ev-list { grid-template-columns: 1fr; gap: 12px; }
+.ev-promo .ev-list { grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 700px) { .ev-promo .ev-list { grid-template-columns: 1fr; } }
 .ev-promo .ev-row { padding: 16px 18px 18px; }
 .ev-promo .ev-row-date { font-size: 12.5px; margin-bottom: 8px; }
 .ev-promo .ev-row-title { font-size: 16.5px; margin-bottom: 6px; }
