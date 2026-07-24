@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nav state</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+  /* Isolated single-nav frame. The nav is 100% ds/ptf.css + ptf.js — fully interactive:
+     hover "For employers"/"Log in" or click the account button to open the real dropdowns. */
+  html, body { background:#fff; margin:0; }
+  .mobile-drawer { display:none !important; }
+</style>
+</head>
+<body>
+<!-- Mount must carry its auth attribute before ptf.js runs (it renders synchronously). -->
+<div data-ptf-nav id="navMount"></div>
+<script>
+  (function () {
+    var p = new URLSearchParams(location.hash.slice(1));
+    var m = document.getElementById('navMount');
+    if (p.get('auth') === 'in') {
+      m.setAttribute('data-auth', 'in');
+      m.setAttribute('data-user', 'Amara');
+      m.setAttribute('data-user-full', 'Amara Okafor');
+    }
+  })();
+</script>
+<script src="../ds/ptf.js"></script>
+<script>
+  /* Tell the parent how tall this frame needs to be: nav height normally, taller while a
+     dropdown is open. Keeps each frame compact but lets dropdowns show without clipping. */
+  (function () {
+    function postH() {
+      var nav = document.querySelector('.nav');
+      var h = nav ? nav.getBoundingClientRect().bottom : 80;
+      document.querySelectorAll('.nav-fly.open').forEach(function (f) {
+        var r = f.getBoundingClientRect(); if (r.bottom > h) h = r.bottom;
+      });
+      parent.postMessage({ type: 'nav-h', h: Math.ceil(h) + 14 }, '*');
+    }
+    window.addEventListener('load', function () { setTimeout(postH, 60); });
+    var mo = new MutationObserver(function () { setTimeout(postH, 30); });
+    mo.observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    document.addEventListener('transitionend', postH, true);
+  })();
+</script>
+</body>
+</html>

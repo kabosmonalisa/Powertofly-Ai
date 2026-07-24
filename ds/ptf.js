@@ -288,17 +288,17 @@ window.PTF = (function () {
   <button class="btn btn-sm" data-fly="fly-account">{{NAME}} <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
   <div class="nav-fly login-fly" id="fly-account">\
     <div class="mega-inner"><div class="mega-left">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Edit Profile</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M14.06 9.02l.92.92L5.92 19H5v-.92l9.06-9.06M17.66 3c-.25 0-.51.1-.7.29l-1.83 1.83 3.75 3.75 1.83-1.83c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.2-.2-.45-.29-.71-.29zm-3.6 3.19L3 17.25V21h3.75L17.81 9.94l-3.75-3.75z"></path></svg></span><span class="login-tx"><span class="fly-title">Edit Profile</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">View Profile</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M12 6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2m0 10c2.7 0 5.8 1.29 6 2H6c.23-.72 3.31-2 6-2m0-12C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 10c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></span><span class="login-tx"><span class="fly-title">View Profile</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Invite Friends</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm0 8c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4zm0 2c1.99 0 4.29.71 5.5 1.5-1.21.79-3.51 1.5-5.5 1.5s-4.29-.71-5.5-1.5c1.21-.79 3.51-1.5 5.5-1.5zM6 10V7H4v3H1v2h3v3h2v-3h3v-2z"></path></svg></span><span class="login-tx"><span class="fly-title">Invite Friends</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Messages</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg></span><span class="login-tx"><span class="fly-title">Messages</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Settings</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M9.25 22l-.4-3.2q-.325-.125-.612-.3-.288-.175-.563-.375L4.7 19.375l-2.75-4.75 2.575-1.95Q4.5 12.5 4.5 12.338v-.675q0-.163.025-.338L1.95 9.375l2.75-4.75 2.975 1.25q.275-.2.575-.375.3-.175.6-.3l.4-3.2h5.5l.4 3.2q.325.125.613.3.287.175.562.375l2.975-1.25 2.75 4.75-2.575 1.95q.025.175.025.338v.674q0 .163-.05.338l2.575 1.95-2.75 4.75-2.95-1.25q-.275.2-.575.375-.3.175-.6.3l-.4 3.2h-5.5Zm2.8-6.5q1.45 0 2.475-1.025Q15.55 13.45 15.55 12t-1.025-2.475Q13.5 8.5 12.05 8.5q-1.475 0-2.488 1.025Q8.55 10.55 8.55 12t1.013 2.475Q10.575 15.5 12.05 15.5Zm-.05-1.5q-.825 0-1.412-.588Q10.2 12.825 10.2 12t.588-1.412Q11.375 10 12.2 10q.825 0 1.413.588.587.587.587 1.412t-.587 1.412Q13.025 14 12.2 14Zm-1.75 6.5h3.1l.55-4.15q.7-.175 1.3-.525.6-.35 1.1-.85l3.875 1.625.975-1.7-3.35-2.525q.1-.35.15-.712.05-.363.05-.738t-.05-.738q-.05-.362-.15-.712l3.35-2.525-.975-1.7L16.15 6.6q-.5-.5-1.1-.85-.6-.35-1.3-.525L13.55 3.5h-3.1l-.55 4.15q-.7.175-1.3.525-.6.35-1.1.85L3.625 7.4l-.975 1.7L6 11.625q-.1.35-.15.712-.05.363-.05.738t.05.738q.05.362.15.712L2.65 17.05l.975 1.7L7.5 17.125q.5.5 1.1.85.6.35 1.3.525Z"></path></svg></span><span class="login-tx"><span class="fly-title">Settings</span></span></a>\
       <hr class="fly-rule">\
-      <a class="fly-item" href="#"><span class="login-tx"><span class="fly-title">Log out</span></span></a>\
+      <a class="fly-item" href="#"><span class="acct-ic"><svg viewBox="0 0 24 24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path></svg></span><span class="login-tx"><span class="fly-title">Log out</span></span></a>\
     </div></div>\
   </div>\
 </div>';

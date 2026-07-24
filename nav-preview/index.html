@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Top navigation — logged out & logged in — PowerToFly AI</title>
-<meta property="og:title"       content="Top navigation proposal — PowerToFly AI">
-<meta property="og:description" content="The new login experience: logged-out and logged-in top navigation.">
+<meta property="og:title"       content="Top navigation — PowerToFly AI">
+<meta property="og:description" content="The login experience: logged-out and logged-in top navigation, dropdowns live.">
 <meta property="og:type"        content="website">
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,58 +14,48 @@
 <!-- Design system -->
 <link rel="stylesheet" href="../ds/ptf.css">
 <style>
-/* PREVIEW HARNESS ONLY — chrome for showing the real nav in isolation.
-   The nav itself is 100% ds/ptf.css + ds/ptf.js, untouched. */
+/* PREVIEW HARNESS ONLY. Each frame is the real nav (ds/ptf.css + ptf.js) in an iframe. */
 body { background: var(--bg-soft, #FAFAF6); }
 .np-wrap { max-width: var(--container, 1200px); margin: 0 auto; padding: 56px 32px 96px; }
 .np-title { font-family: 'Inter Tight', sans-serif; font-weight: 800; letter-spacing: -0.03em;
   font-size: 30px; color: var(--ink, #14140F); margin: 0 0 6px; }
-.np-sub { color: var(--ink-3, #6b6b63); font-size: 15px; margin: 0 0 40px; max-width: 640px; line-height: 1.6; }
-.np-block { margin-bottom: 48px; }
+.np-sub { color: var(--ink-3, #6b6b63); font-size: 15px; margin: 0 0 40px; max-width: 680px; line-height: 1.6; }
+.np-block { margin-bottom: 40px; }
 .np-label { display: flex; align-items: center; gap: 8px; font-family: 'Inter Tight', sans-serif;
   font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--green, #1f9e6b); margin: 0 0 12px; }
-.np-note { color: var(--ink-3, #6b6b63); font-size: 13px; margin: 10px 2px 0; }
-/* Frame each nav in a white card; force the sticky nav to sit statically inside it. */
 .np-frame { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04); overflow: visible; }
-.np-frame .nav { position: static !important; }
-.np-frame.is-in { min-height: 520px; }   /* room for the open account menu */
-/* The injected mobile drawer sibling is desktop-hidden already; keep it out of the flow. */
-.np-frame .mobile-drawer { display: none !important; }
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04); overflow-x: auto; overflow-y: hidden; }
+/* Pin each frame to a desktop width so the nav shows its desktop layout (it collapses to a
+   hamburger below 900px). The tall height leaves room for a dropdown to open inside the frame. */
+.np-frame iframe { display: block; width: 100%; min-width: 1040px; border: 0; }
 </style>
 </head>
 <body>
 <div class="np-wrap">
   <h1 class="np-title">Top navigation — login experience</h1>
-  <p class="np-sub">The same top bar in both states. Logged out shows the marketing nav; once
-  a member signs in, <strong>Dashboard</strong> appears first on the left and the account menu
-  carries the member links.</p>
+  <p class="np-sub">The same top bar, signed out and signed in. The dropdowns are live — hover
+  <strong>For employers</strong> or <strong>Log in</strong>, and click <strong>Amara</strong> to
+  open the account menu. It all renders from the shared design system (<code>ds/ptf.css</code> +
+  <code>ds/ptf.js</code>).</p>
 
   <div class="np-block">
     <p class="np-label"><span class="dot"></span>Logged out</p>
-    <div class="np-frame">
-      <div data-ptf-nav></div>
-    </div>
+    <div class="np-frame"><iframe src="state.html" height="92" title="Logged out"></iframe></div>
   </div>
 
   <div class="np-block">
     <p class="np-label"><span class="dot"></span>Logged in</p>
-    <div class="np-frame is-in">
-      <div data-ptf-nav data-auth="in" data-user="Amara" data-user-full="Amara Okafor"></div>
-    </div>
-    <p class="np-note">Account menu shown open. Click “Amara ▾” to toggle it.</p>
+    <div class="np-frame"><iframe src="state.html#auth=in" height="92" title="Logged in"></iframe></div>
   </div>
 </div>
-
-<script src="../ds/ptf.js"></script>
 <script>
-/* Preview only: open the logged-in account menu on load so the six items are visible. */
-window.addEventListener('load', function () {
-  var f = document.getElementById('fly-account');
-  var b = document.querySelector('[data-fly="fly-account"]');
-  if (f) { f.classList.add('open'); if (b) b.classList.add('open'); }
-});
+  /* Resize each frame to the height its nav reports (grows when a dropdown opens). */
+  window.addEventListener('message', function (e) {
+    if (!e.data || e.data.type !== 'nav-h') return;
+    var ifr = [...document.querySelectorAll('.np-frame iframe')].find(f => f.contentWindow === e.source);
+    if (ifr) ifr.style.height = e.data.h + 'px';
+  });
 </script>
 </body>
 </html>

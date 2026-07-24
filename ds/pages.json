@@ -210,6 +210,14 @@
    "group": "Flows",
    "status": "live",
    "desc": "The book-a-call flow."
+  },
+  {
+   "id": "org-topnav-login",
+   "name": "Top nav — login states",
+   "file": "nav-preview/index.html",
+   "group": "Organisms",
+   "status": "draft",
+   "desc": "The top navigation in both auth states — logged out (marketing) and logged in (Dashboard-first + account menu with MUI-outlined icons). Dropdowns are live. Dev reference for the login experience."
   }
  ]
 }
