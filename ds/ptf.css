@@ -1420,6 +1420,34 @@ img { display: block; max-width: 100%; }
 .ev-promo .ev-row-title { font-size: 16.5px; margin-bottom: 6px; }
 .ev-promo .ev-row-desc { font-size: 13.5px; -webkit-line-clamp: 2; margin-bottom: 12px; }
 
+/* ── Flow final step — full-width, CENTERED confirmation ──
+   Once someone has registered, the left event-info panel has done its job, so the
+   thank-you step drops it, centers the message full-width, and shows a real 3-up row of
+   WHITE event cards below (3 → 2 ≤900 → 1 ≤600). Reusable by every flow's step 5.
+   Toggled by .reg-wrap.is-done (goToStep adds it on the thanks step). */
+/* Top-align (not vertically centred) so the confirmation starts under the nav instead of
+   floating in the middle of the viewport with an empty gradient band above it. */
+.reg-wrap.is-done { align-items: flex-start; padding-top: 64px; }
+.reg-wrap.is-done .event-card { display: none; }
+.reg-wrap.is-done .reg-layout { display: block; }
+.reg-wrap.is-done .reg-form { max-width: var(--content-body); margin: 0 auto; }
+.reg-wrap.is-done .auth-card { max-width: none; background: none; border: none; box-shadow: none; padding: 0; }
+.reg-wrap.is-done .flow-step[data-step="5"] { text-align: center; }
+/* Editorial success hero — a big gradient check + hero-scale headline OWN the space.
+   No boxed badge: PTF heroes are large type on light, not contained. The earlier timid
+   auth-size heading + white pill read as lost floating text; scale is what anchors it. */
+.reg-wrap.is-done .thanks-icon { display: flex; justify-content: center; margin-bottom: 20px; }
+.reg-wrap.is-done .thanks-icon svg { width: 58px; height: 58px; }
+.reg-wrap.is-done .thanks-eyebrow { font-size: 12px; letter-spacing: .16em; margin-bottom: 16px; }
+.reg-wrap.is-done .auth-heading { font-size: clamp(38px, 5vw, 56px); line-height: 1.02; letter-spacing: -0.035em; }
+.reg-wrap.is-done .thanks-body { font-size: 16px; max-width: 30rem; margin: 0 auto 40px; }
+.reg-wrap.is-done .flow-step[data-step="5"] .ev-listing { text-align: left; margin-top: 8px; }
+/* White cards on the confirmation (not the soft-gray archive tiles) */
+.reg-wrap.is-done .ev-listing--grid .ev-row { background: var(--surface); }
+.reg-wrap.is-done .ev-listing--grid .ev-faces img { border-color: var(--surface); }
+/* See-more sits centered as an inline button, not a full-width block, with room above the cards */
+.reg-wrap.is-done .btn-dashboard.btn-block { display: inline-flex; width: auto; margin-top: 32px; }
+
 /* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
    Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
    3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */

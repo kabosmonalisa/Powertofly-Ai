@@ -212,10 +212,10 @@
           </div>
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">You're all set!</h1>
-          <p class="thanks-body">We've sent a calendar invite and a link to join, right to your inbox.</p>
-          <!-- Promote a couple of upcoming events — reuses the .ev-row tile via the .ev-promo (stacked, narrow-column) variant -->
-          <div class="q-label" style="margin:22px 0 12px">More AI events you might like</div>
-          <div class="ev-listing ev-listing--grid ev-promo">
+          <p class="thanks-body">We've sent a calendar invite to your inbox — your link to join will follow closer to the event.</p>
+          <!-- The next few upcoming events (chronological, not topic-matched) — real 3-up .ev-listing--grid tiles; full-width via .reg-wrap.is-done -->
+          <div class="q-label" style="margin:26px 0 14px">More events coming up</div>
+          <div class="ev-listing ev-listing--grid">
             <div class="ev-list">
               <article class="ev-row" data-type="vjf">
                 <div class="ev-row-date">October 8, 2026 · Virtual</div>
@@ -232,6 +232,15 @@
                   <span class="sc-tag">Summit</span>
                   <h3 class="ev-row-title">Summit: scaling AI teams</h3>
                   <p class="ev-row-desc">A half-day of talks and roundtables on hiring, upskilling, and leading AI teams at scale.</p><!-- COPY: confirm -->
+                  <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
+                </div>
+              </article>
+              <article class="ev-row" data-type="chat-learn">
+                <div class="ev-row-date">September 24, 2026 · Virtual</div>
+                <div class="ev-row-body">
+                  <span class="sc-tag">Chat &amp; learn</span>
+                  <h3 class="ev-row-title">Shipping AI features that stick</h3>
+                  <p class="ev-row-desc">Product leaders on taking AI from demo to daily use — and what they'd do differently.</p><!-- COPY: confirm -->
                   <a class="ev-row-link" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
                 </div>
               </article>
@@ -271,6 +280,8 @@
   function goToStep(n) {
     document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
     document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
+    // Final step: drop the event-info panel + go full-width centered (see .reg-wrap.is-done in ptf.css)
+    document.querySelector('.reg-wrap').classList.toggle('is-done', String(n) === '5');
     window.scrollTo(0, 0);
     return false;
   }
