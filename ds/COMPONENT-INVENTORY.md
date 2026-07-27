@@ -91,7 +91,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 ### Forms & flows — markup in `ds/flow-signup.html` / `ds/flow-event.html`
 - **Flow shell** — `<body class="flow-shell">` (gradient bg), `.auth-bg` + `.auth-bg-blob`, `.auth-nav` (`.nav-brand` + `.nav-back`).
 - **Card + panels** — `.auth-card` (`.wide`), `.auth-toggle` (sign in/up), `.auth-panel`, `.flow-step`.
-- **Copy** — `.auth-heading`, `.auth-sub`, `.auth-note`, `.auth-fineprint`, `.auth-divider`.
+- **Copy** — `.auth-heading` (+ `.auth-heading--sm` for long, sentence-style headers that need to stay ~2 lines), `.auth-sub`, `.auth-note`, `.auth-fineprint`, `.auth-divider`.
 - **Fields** — `.auth-form`, `.field`, `.field-row`, `.field-msg`; `.upload-area` (`.upload-icon`/`.upload-name`); `.social-btns`; `.step-indicator`.
 - **Identity chips** — `.id-grid` > `.id-section` (`.id-section-label` + `.id-chips` > `.id-chip`); actions `.id-actions`/`.id-actions-right`/`.id-skip`/`.id-privacy`.
 - **Checkboxes / questions** — `.check-row` + `.check-box`, `.q-group`/`.q-label`, `.event-list`/`.event-opt`(`-title/-date`), `.agree-row`.
