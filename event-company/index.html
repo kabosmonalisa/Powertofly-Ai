@@ -114,6 +114,8 @@
         <!-- Step 2 — resume + LinkedIn (golden: one step) -->
         <div class="flow-step" data-step="2" hidden>
           <div class="step-indicator">Step 2 of 4</div>
+          <!-- shown only in logged-in mode (they already have an account, so step 1 is skipped) -->
+          <p class="auth-note" id="signedInNote" hidden style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="setAuthMode('out');return false">Not you?</a></p>
           <h1 class="auth-heading">Introduce yourself</h1>
           <p class="auth-sub">Helps the company's recruiters get to know you before you meet.</p>
           <form class="auth-form" onsubmit="return validateStep2()" novalidate>
@@ -125,7 +127,7 @@
               <div class="upload-name"></div>
             </label>
             <div class="field"><label>LinkedIn <span class="req">*</span></label><input type="url" placeholder="linkedin.com/in/…" required></div>
-            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
           </form>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
@@ -195,14 +197,22 @@
   </div>
 </main>
 
-<!-- DEV ONLY — click to jump between screens without filling anything in. Remove before launch. -->
-<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
-  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
-  <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
-  <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
-  <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
-  <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
-  <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+<!-- DEV ONLY — preview the two entry paths (logged out = create account first; logged in
+     = skip straight to details) + jump between screens. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;flex-direction:column;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">AUTH</span>
+    <button type="button" id="devAuthOut" onclick="setAuthMode('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+    <button type="button" id="devAuthIn" onclick="setAuthMode('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">STEP</span>
+    <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+    <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+    <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+    <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
+    <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+  </div>
 </div>
 
 <script src="../ds/ptf.js"></script>
@@ -217,6 +227,33 @@
     goToStep(which === 'signin' ? 'signin' : 1);
     document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
     document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
+    return false;
+  }
+
+  // ── Entry path: logged out (create account first) vs logged in (skip to details) ──
+  // Logged in re-numbers the steps "of 3" (account step 1 is dropped), shows a
+  // "signed in as" note, hides the resume-step Back (resume is now the first step),
+  // and lands on the resume step. Dev toggle only — real app derives this from session.
+  function setAuthMode(mode) {
+    var loggedIn = mode === 'in';
+    window._authMode = mode;
+    // step counter: resume/demographics/questions renumber; account (1) is out-of-flow when logged in
+    function ind(step, numOut, numIn) {
+      var el = document.querySelector('[data-step="' + step + '"] .step-indicator');
+      if (el) el.textContent = loggedIn ? ('Step ' + numIn + ' of 3') : ('Step ' + numOut + ' of 4');
+    }
+    ind(2, 2, 1); ind(3, 3, 2); ind(4, 4, 3);
+    var s1 = document.querySelector('[data-step="1"] .step-indicator');
+    if (s1) s1.textContent = loggedIn ? '' : 'Step 1 of 4';
+    var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
+    var back = document.getElementById('step2Back');   if (back) back.style.display = loggedIn ? 'none' : '';
+    // dev-button active state
+    var din = document.getElementById('devAuthIn'), dout = document.getElementById('devAuthOut');
+    if (din && dout) {
+      din.style.background = loggedIn ? '#fff' : '';  din.style.color = loggedIn ? '#0A0A0A' : '#fff';
+      dout.style.background = loggedIn ? '' : '#fff';  dout.style.color = loggedIn ? '#fff' : '#0A0A0A';
+    }
+    goToStep(loggedIn ? 2 : 1);  // land on the correct first step
     return false;
   }
   // ── Inline validation: button stays active; on click we check, show an error, and focus the gap ──
@@ -324,6 +361,13 @@
   });
   var agreeBox = document.getElementById('agreeBox');
   if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
+
+  // default entry path = logged out; highlight the dev button without moving off the start step
+  (function () {
+    window._authMode = 'out';
+    var dout = document.getElementById('devAuthOut');
+    if (dout) { dout.style.background = '#fff'; dout.style.color = '#0A0A0A'; }
+  })();
 
   // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
   function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
