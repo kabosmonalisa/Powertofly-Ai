@@ -571,6 +571,8 @@
              '<p class="auth-fineprint">Hear about networking opportunities, upskilling events, new remote roles, and more — all in one email. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>';
     }
     function btn(label, cls, href) { return '<a class="btn ' + cls + ' btn-block" href="' + href + '" rel="noopener">' + label + '</a>'; }
+    // carry the chosen scenario into the flow: logged out → create-account path, logged in → skip to details
+    function regUrl(vw) { return REG_FLOW + '?auth=' + (vw === 'out' ? 'out' : 'in'); }
     function status(html, cls) { if (!html) return ''; return '<div class="mwc-action-status ' + (cls || '') + '">' + html + '</div>'; }
 
     // ── the card content per (event × viewer) ──
@@ -592,7 +594,7 @@
         return status('<span class="dot"></span>Live now', 'is-live') +
                '<h3 class="mwc-action-title">Already registered? Join here</h3>' +
                '<p class="mwc-action-body">Enter your email on the next screen and we\'ll check you\'re on the approved list.</p>' +
-               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + btn('Register now →', '', REG_FLOW) + '</div>';
+               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + btn('Register now →', '', regUrl(vw)) + '</div>';
       }
 
       // CLOSED — no new registrations; existing registrants keep access.
@@ -612,15 +614,15 @@
                '<p class="mwc-action-body">We\'ll email you the join link before the event starts.</p>' +
                '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
       if (vw === 'unreg')
-        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in, but not registered</h3>' +
-               '<p class="mwc-action-body">This is an invite-only event. Request an invitation and we\'ll review your profile — please include your resume or profile URL.</p>' +
-               '<div class="mwc-action-actions">' + btn('Request an invitation →', 'btn-primary', '#request') + '</div>' +
-               '<p class="mwc-action-note">Or email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> to get added.</p>';
+        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in — ready to register?</h3>' +
+               '<p class="mwc-action-body">You\'re on the invite list for this event. Complete your registration to lock in your spot.</p>' +
+               '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(vw)) + '</div>' +
+               '<p class="mwc-action-note">Not invited yet? Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL to request access.</p>';
       // public / logged out — the lead copy: request an invitation form
       return status('', '') + '<h3 class="mwc-action-title">Interested in attending?</h3>' +
              '<p class="mwc-action-body">Share your contact information below so we can reach out if you\'re a good fit.</p>' +
              requestForm() +
-             '<p class="mwc-action-alt">Have an invitation code? <a href="' + REG_FLOW + '" rel="noopener">Register now →</a></p>';
+             '<p class="mwc-action-alt">Have an invitation code? <a href="' + regUrl(vw) + '" rel="noopener">Register now →</a></p>';
     }
 
     // ── hero eyebrow + top alert per EVENT ──

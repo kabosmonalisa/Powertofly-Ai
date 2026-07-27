@@ -362,11 +362,17 @@
   var agreeBox = document.getElementById('agreeBox');
   if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
 
-  // default entry path = logged out; highlight the dev button without moving off the start step
+  // Entry path from the landing page: ?auth=in opens the logged-in path (skip account),
+  // anything else = logged out (create account first). QA sets the scenario on the event
+  // page; the button carries it here so the flow opens in the matching state.
   (function () {
-    window._authMode = 'out';
-    var dout = document.getElementById('devAuthOut');
-    if (dout) { dout.style.background = '#fff'; dout.style.color = '#0A0A0A'; }
+    var wantsIn = /[?&]auth=in\b/.test(location.search);
+    if (wantsIn) { setAuthMode('in'); }
+    else {
+      window._authMode = 'out';
+      var dout = document.getElementById('devAuthOut');
+      if (dout) { dout.style.background = '#fff'; dout.style.color = '#0A0A0A'; }
+    }
   })();
 
   // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
