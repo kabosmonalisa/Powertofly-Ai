@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA test guide — Meet with Companies — PowerToFly AI</title>
+<!--
+  QA TEST GUIDE (internal). A readable in-prototype page for the QA reviewer (Patri)
+  so the test instructions live INSIDE the prototype, not in a chat/doc. Links are
+  relative so they work locally (localhost) and live (GitHub Pages). Built from the
+  shared design system (ds/ptf.css); the small table style below is page-specific
+  (internal doc, like the storybook) — tokens only.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/* PAGE-SPECIFIC (internal QA doc) — tokens only. */
+.qa-wrap { max-width: var(--content-narrow); margin: 0 auto; }
+.qa-lead { font-size: 18px; line-height: 1.6; color: var(--ink-2); margin: 18px 0 0; }
+.qa-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 0; }
+.qa-h { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; color: var(--ink); margin: 48px 0 6px; }
+.qa-p { font-size: 15.5px; line-height: 1.65; color: var(--ink-2); margin: 8px 0 0; }
+.qa-p code, .qa-inline-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 1px 6px; }
+.qa-note { font-size: 14.5px; line-height: 1.6; color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; margin: 20px 0 0; }
+.qa-table-scroll { overflow-x: auto; margin: 18px 0 0; }
+.qa-table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.qa-table th, .qa-table td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); line-height: 1.5; }
+.qa-table th { font-family: 'Inter Tight', sans-serif; font-size: 13px; color: var(--ink-3); font-weight: 700; letter-spacing: 0.02em; }
+.qa-table td:first-child { color: var(--ink); font-weight: 600; white-space: nowrap; }
+.qa-table td strong { color: var(--ink); }
+</style>
+</head>
+<body>
+<main>
+<section class="section">
+  <div class="qa-wrap">
+    <div class="eyebrow">QA · Internal</div>
+    <h1 class="display">Meet with Companies — <em class="italic-plain">test guide</em></h1>
+    <p class="qa-lead">Hi Patri — this is a clickable prototype. You can walk through <strong>every scenario</strong> yourself using the on-screen toggles. Please check that each state shows the right thing and each button lands in the right place.</p>
+
+    <div class="qa-actions">
+      <a class="btn btn-primary" href="../events/index.html">Open the events page →</a>
+      <a class="btn" href="../meet-with-companies/index.html">Go straight to the event page →</a>
+    </div>
+
+    <h2 class="qa-h">1. Where to start</h2>
+    <p class="qa-p">Open the <strong>events page</strong> and click the <strong>Mitsubishi Power "Meet with companies"</strong> event — or jump straight to the <strong>event page</strong> with the button above.</p>
+
+    <h2 class="qa-h">2. How to switch scenarios</h2>
+    <p class="qa-p">On the <strong>event page</strong>, use the panel at the <strong>bottom-right</strong>. It has two dials:</p>
+    <p class="qa-p"><strong>EVENT:</strong> Upcoming · Live · Reg. closed &nbsp;&nbsp;|&nbsp;&nbsp; <strong>VIEWER:</strong> Logged out · Registered · Not registered</p>
+    <p class="qa-p">Set a combination, then click the button in the card — it should take you to the correct next screen <strong>already in that state</strong>.</p>
+
+    <h2 class="qa-h">3. Check each of these</h2>
+    <div class="qa-table-scroll">
+      <table class="qa-table">
+        <thead>
+          <tr><th>Set VIEWER + EVENT</th><th>The card should show</th><th>The button should go to</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Logged out · Upcoming</td>
+            <td>Request-an-invitation form (+ "Have a code? Register now")</td>
+            <td><strong>Register now</strong> → flow that starts with <strong>create account</strong></td>
+          </tr>
+          <tr>
+            <td>Logged out · Live</td>
+            <td>"Already registered? Join here" + Register now</td>
+            <td>Join here (see note) / Register now → create-account flow</td>
+          </tr>
+          <tr>
+            <td>Not registered · Upcoming</td>
+            <td>"You're signed in — ready to register?"</td>
+            <td><strong>Register now</strong> → flow that <strong>skips account</strong>, starts at "Introduce yourself" ("Step 1 of 3", "Signed in as…")</td>
+          </tr>
+          <tr>
+            <td>Registered · Upcoming</td>
+            <td>"You're registered" + Add to calendar</td>
+            <td>(no register button — that's correct)</td>
+          </tr>
+          <tr>
+            <td>Registered · Live</td>
+            <td>"Join now"</td>
+            <td>Join (see note)</td>
+          </tr>
+          <tr>
+            <td>Any · Reg. closed</td>
+            <td>"Registration is closed" banner; Registered still see Add to calendar</td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="qa-h">4. On the flow page</h2>
+    <p class="qa-p">There's also a <strong>bottom-left AUTH toggle</strong> (Logged out / Logged in) and a step jumper (1–5) so you can inspect any screen directly, without filling in the previous steps.</p>
+
+    <div class="qa-note">
+      <strong>Known — not a bug:</strong> the <strong>"Join now" / "Join here"</strong> buttons don't lead anywhere yet — that live-session/schedule screen isn't built. Everything else should route correctly.
+    </div>
+
+    <h2 class="qa-h">What to flag</h2>
+    <p class="qa-p">Anything where the <strong>wrong screen shows</strong>, a <strong>button dead-ends</strong>, or the <strong>state doesn't carry through</strong> from the event page into the flow. Thanks! 🙏</p>
+  </div>
+</section>
+</main>
+</body>
+</html>

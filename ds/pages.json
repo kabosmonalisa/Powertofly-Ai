@@ -106,6 +106,14 @@
    "desc": "Event detail — invite-only company career event (Mitsubishi Power). Sibling of Summit/VJF/Chat & Learn; two-dial state switcher (event × viewer)."
   },
   {
+   "id": "p-qa-meetcompanies",
+   "name": "QA test guide — Meet with Companies",
+   "file": "qa/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Internal QA guide for the reviewer: how to walk every scenario (events → landing → flow) and what each button should do."
+  },
+  {
    "id": "p-why",
    "name": "Why PowerToFly",
    "file": "why-powertofly/index.html",
