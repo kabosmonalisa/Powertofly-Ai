@@ -525,19 +525,24 @@
 <!-- ═══ FOOTER — shared injected footer ═══ -->
 <div data-ptf-footer></div>
 
-<!-- PROTOTYPE-ONLY — two dials: EVENT × VIEWER. Delete #devDials + its script before launch. -->
+<!-- PROTOTYPE-ONLY — AUTH is the primary separator (logged out vs logged in); EVENT and
+     STATUS nest under it. STATUS only applies when logged in. Delete before launch. -->
 <div id="devDials">
+  <div class="dial">
+    <span class="dial-label">AUTH</span>
+    <button type="button" data-dim="auth" data-val="out">Logged out</button>
+    <button type="button" data-dim="auth" data-val="in">Logged in</button>
+  </div>
   <div class="dial">
     <span class="dial-label">EVENT</span>
     <button type="button" data-dim="event" data-val="upcoming">Upcoming</button>
     <button type="button" data-dim="event" data-val="live">Live</button>
     <button type="button" data-dim="event" data-val="closed">Reg. closed</button>
   </div>
-  <div class="dial">
-    <span class="dial-label">VIEWER</span>
-    <button type="button" data-dim="viewer" data-val="out">Logged out</button>
-    <button type="button" data-dim="viewer" data-val="reg">Registered</button>
-    <button type="button" data-dim="viewer" data-val="unreg">Not registered</button>
+  <div class="dial" id="statusDial">
+    <span class="dial-label">STATUS</span>
+    <button type="button" data-dim="status" data-val="reg">Registered</button>
+    <button type="button" data-dim="status" data-val="unreg">Not registered</button>
   </div>
 </div>
 
@@ -646,7 +651,8 @@
       header:  document.getElementById('siteHeader')
     };
 
-    var cur = { event: 'upcoming', viewer: 'out' };
+    // auth is the primary separator; status only matters when logged in; viewer is derived.
+    var cur = { event: 'upcoming', auth: 'out', status: 'reg', viewer: 'out' };
     var navAuth = null;  // track rendered nav auth to avoid needless re-render
 
     // ── swap the shared nav between logged-out and logged-in (real data-auth feature) ──
@@ -670,6 +676,11 @@
     }
 
     function render() {
+      // viewer is derived: logged out = 'out'; logged in = the chosen registration status
+      cur.viewer = (cur.auth === 'out') ? 'out' : cur.status;
+      // STATUS dial only applies when logged in — grey it out otherwise
+      var sd = document.getElementById('statusDial');
+      if (sd) { sd.style.opacity = (cur.auth === 'in') ? '' : '0.35'; sd.style.pointerEvents = (cur.auth === 'in') ? '' : 'none'; }
       var c = EVENT_CHROME[cur.event];
       // eyebrow
       el.eyebrow.className = 'eyebrow' + c.ecls;
@@ -683,7 +694,7 @@
         else { el.alertCta.style.display = 'none'; }
       }
       // nav auth
-      setNavAuth(cur.viewer !== 'out');
+      setNavAuth(cur.auth === 'in');
       // dial button active states
       [].slice.call(document.querySelectorAll('#devDials [data-dim]')).forEach(function (b) {
         b.classList.toggle('active', cur[b.getAttribute('data-dim')] === b.getAttribute('data-val'));
@@ -695,8 +706,9 @@
       b.addEventListener('click', function () {
         cur[b.getAttribute('data-dim')] = b.getAttribute('data-val');
         render();
-        var h = cur.event + (cur.viewer !== 'out' ? '/' + cur.viewer : '');
-        history.replaceState(null, '', cur.event === 'upcoming' && cur.viewer === 'out' ? location.pathname : '#' + h);
+        var token = cur.auth === 'out' ? 'out' : cur.status;
+        var h = cur.event + '/' + token;
+        history.replaceState(null, '', (cur.event === 'upcoming' && cur.auth === 'out') ? location.pathname : '#' + h);
       });
     });
 
@@ -704,7 +716,8 @@
     function fromHash() {
       var parts = (location.hash || '').replace('#', '').split('/');
       if (EVENT_CHROME[parts[0]]) cur.event = parts[0];
-      if (parts[1] === 'reg' || parts[1] === 'unreg') cur.viewer = parts[1];
+      if (parts[1] === 'out') { cur.auth = 'out'; }
+      else if (parts[1] === 'reg' || parts[1] === 'unreg') { cur.auth = 'in'; cur.status = parts[1]; }
     }
     fromHash();
     render();
