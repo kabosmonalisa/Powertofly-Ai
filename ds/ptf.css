@@ -1478,6 +1478,30 @@ img { display: block; max-width: 100%; }
 .reg-wrap.is-done .btn-dashboard.btn-block { animation-delay: .48s; }
 @media (prefers-reduced-motion: reduce) { .reg-wrap.is-done [class] { animation: none !important; } }
 
+/* ── "More events coming up" promo cards — complete event tiles in the AI design system:
+   type + date, title, speaker (headshot + name + title), Register. Keeps the humanising
+   speaker element from the live site's "More Events You Might Like" but adds the basics.
+   3-up on the full-width confirmation step, stacking on mobile. Markup: .up-grid > a.up-card. */
+.up-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; text-align: left; margin: 4px 0; }
+@media (max-width: 700px) { .up-grid { grid-template-columns: 1fr; } }
+.up-card { display: flex; flex-direction: column; gap: 10px; padding: 20px 20px 18px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-xl);
+  box-shadow: var(--shadow-card); text-decoration: none;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.up-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,.10); }
+.up-meta { font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); }
+.up-meta span { color: var(--ink-3); font-weight: 500; text-transform: none; letter-spacing: 0; }
+.up-title { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; line-height: 1.25; letter-spacing: -0.01em; color: var(--ink); }
+.up-speaker { display: flex; align-items: center; gap: 10px; margin-top: 2px; }
+.up-faces { display: flex; flex: none; }
+.up-faces img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid var(--surface); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.up-faces img + img { margin-left: -11px; }
+.up-orgs { display: flex; align-items: center; gap: 12px; flex: none; }
+.up-orgs img { height: 17px; width: auto; max-width: 58px; object-fit: contain; filter: grayscale(1); opacity: .7; }
+.up-speaker-txt { font-size: 12.5px; color: var(--ink-3); line-height: 1.35; }
+.up-speaker-txt strong { color: var(--ink); font-weight: 600; }
+.up-cta { margin-top: auto; padding-top: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
+
 /* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
    Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
    3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */
