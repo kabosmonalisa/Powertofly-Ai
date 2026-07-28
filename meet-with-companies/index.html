@@ -526,7 +526,8 @@
 <div data-ptf-footer></div>
 
 <!-- PROTOTYPE-ONLY — AUTH is the primary separator (logged out vs logged in); EVENT and
-     STATUS nest under it. STATUS only applies when logged in. Delete before launch. -->
+     STATUS nest under it. STATUS = not invited (no code) / invited (has code) / registered.
+     Delete before launch. -->
 <div id="devDials">
   <div class="dial">
     <span class="dial-label">AUTH</span>
@@ -541,8 +542,9 @@
   </div>
   <div class="dial" id="statusDial">
     <span class="dial-label">STATUS</span>
-    <button type="button" data-dim="status" data-val="reg">Registered</button>
-    <button type="button" data-dim="status" data-val="unreg">Not registered</button>
+    <button type="button" data-dim="status" data-val="notinvited">Not invited</button>
+    <button type="button" data-dim="status" data-val="invited">Invited</button>
+    <button type="button" data-dim="status" data-val="registered">Registered</button>
   </div>
 </div>
 
@@ -576,58 +578,71 @@
              '<p class="auth-fineprint">Hear about networking opportunities, upskilling events, new remote roles, and more — all in one email. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>';
     }
     function btn(label, cls, href) { return '<a class="btn ' + cls + ' btn-block" href="' + href + '" rel="noopener">' + label + '</a>'; }
-    // carry the chosen scenario into the flow: logged out → create-account path, logged in → skip to details
-    function regUrl(vw) { return REG_FLOW + '?auth=' + (vw === 'out' ? 'out' : 'in'); }
+    // carry the entry path into the flow: logged out → create-account; logged in → skip to details
+    function regUrl(auth) { return REG_FLOW + '?auth=' + (auth === 'in' ? 'in' : 'out'); }
     function status(html, cls) { if (!html) return ''; return '<div class="mwc-action-status ' + (cls || '') + '">' + html + '</div>'; }
 
-    // ── the card content per (event × viewer) ──
-    function buildAction(ev, vw) {
-      // LIVE — the "Join here" banner becomes the card's primary CTA for everyone.
-      if (ev === 'live') {
-        if (vw === 'reg')
+    // ── the card content per (event × auth × status) ──
+    // status = the person's standing for THIS event:
+    //   notinvited (no code) · invited (has code, not yet registered) · registered (has a seat)
+    function buildAction(ev, auth, stat) {
+      var loggedIn = auth === 'in';
+
+      // ── REGISTERED — already has a seat (same whether logged in or out) ──
+      if (stat === 'registered') {
+        if (ev === 'live')
           return status('<span class="dot"></span>Live now', 'is-live') +
                  '<h3 class="mwc-action-title">The session is live</h3>' +
                  '<p class="mwc-action-body">You\'re registered — jump straight in.</p>' +
                  '<div class="mwc-action-actions">' + btn('Join now →', 'btn-primary', '#') + '</div>';
-        if (vw === 'unreg')
+        return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
+               '<p class="mwc-action-body">We\'ll email you the join link before the event starts.' +
+               (ev === 'closed' ? ' Registration is now closed, but you\'re all set.' : '') + '</p>' +
+               '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
+      }
+
+      // ── INVITED — has the code, not yet registered → Register. No "email us" note (QA). ──
+      if (stat === 'invited') {
+        if (ev === 'closed')
+          return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
+                 '<p class="mwc-action-body">This event is no longer accepting new registrations.</p>';
+        if (ev === 'live')
+          return status('<span class="dot"></span>Live now', 'is-live') +
+                 '<h3 class="mwc-action-title">You\'re invited — join or register</h3>' +
+                 '<p class="mwc-action-body">Register to lock in your spot, or if you\'re already registered, join here.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(auth)) + btn('Join here →', '', '#') + '</div>';
+        return status('', '') + '<h3 class="mwc-action-title">You\'re invited — save your seat</h3>' +
+               '<p class="mwc-action-body">Complete your registration to lock in your spot.</p>' +
+               '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(auth)) + '</div>';
+      }
+
+      // ── NOT INVITED — no code ──
+      if (loggedIn) {
+        // logged in + not invited → a DEDICATED request-access message only (QA: separate the flows)
+        if (ev === 'live')
           return status('<span class="dot"></span>Live now', 'is-live') +
                  '<h3 class="mwc-action-title">You\'re not registered</h3>' +
-                 '<p class="mwc-action-body">Registration is required to join this live session.</p>' +
-                 '<div class="mwc-action-actions">' + btn('Request access →', 'btn-primary', '#request') + '</div>' +
-                 '<p class="mwc-action-note">Already approved? Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> to be added.</p>';
-        // public / logged out — Join here primary, Register now secondary
+                 '<p class="mwc-action-body">This is an invite-only event and it\'s live now — registration is required to join.</p>' +
+                 '<p class="mwc-action-note">Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL to request access.</p>';
+        if (ev === 'closed')
+          return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
+                 '<p class="mwc-action-body">This event is no longer accepting new registrations.</p>';
+        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in, but not invited yet</h3>' +
+               '<p class="mwc-action-body">This is an invite-only event. To request access, email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL — the team will review and send you an invitation.</p>';
+      }
+      // logged out + not invited (public, no code) — NO "have a code? register now" hint (QA)
+      if (ev === 'live')
         return status('<span class="dot"></span>Live now', 'is-live') +
                '<h3 class="mwc-action-title">Already registered? Join here</h3>' +
                '<p class="mwc-action-body">Enter your email on the next screen and we\'ll check you\'re on the approved list.</p>' +
-               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + btn('Register now →', '', regUrl(vw)) + '</div>';
-      }
-
-      // CLOSED — no new registrations; existing registrants keep access.
-      if (ev === 'closed') {
-        if (vw === 'reg')
-          return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
-                 '<p class="mwc-action-body">Registration is now closed, but you\'re all set. We\'ll email your join link before it starts.</p>' +
-                 '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
-        var closedHead = status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
-                 '<p class="mwc-action-body">This event is no longer accepting new registrations. Interested in an event like this in the future? Share your details below.</p>';
-        return closedHead + requestForm();
-      }
-
-      // UPCOMING (default).
-      if (vw === 'reg')
-        return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
-               '<p class="mwc-action-body">We\'ll email you the join link before the event starts.</p>' +
-               '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
-      if (vw === 'unreg')
-        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in — ready to register?</h3>' +
-               '<p class="mwc-action-body">You\'re on the invite list for this event. Complete your registration to lock in your spot.</p>' +
-               '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(vw)) + '</div>' +
-               '<p class="mwc-action-note">Not invited yet? Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL to request access.</p>';
-      // public / logged out — the lead copy: request an invitation form
+               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + '</div>';
+      if (ev === 'closed')
+        return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
+               '<p class="mwc-action-body">This event is no longer accepting new registrations. Interested in an event like this in the future? Share your details below.</p>' +
+               requestForm();
       return status('', '') + '<h3 class="mwc-action-title">Interested in attending?</h3>' +
              '<p class="mwc-action-body">Share your contact information below so we can reach out if you\'re a good fit.</p>' +
-             requestForm() +
-             '<p class="mwc-action-alt">Have an invitation code? <a href="' + regUrl(vw) + '" rel="noopener">Register now →</a></p>';
+             requestForm();
     }
 
     // ── hero eyebrow + top alert per EVENT ──
@@ -651,8 +666,8 @@
       header:  document.getElementById('siteHeader')
     };
 
-    // auth is the primary separator; status only matters when logged in; viewer is derived.
-    var cur = { event: 'upcoming', auth: 'out', status: 'reg', viewer: 'out' };
+    // auth is the primary separator; status = not invited / invited / registered
+    var cur = { event: 'upcoming', auth: 'out', status: 'notinvited' };
     var navAuth = null;  // track rendered nav auth to avoid needless re-render
 
     // ── swap the shared nav between logged-out and logged-in (real data-auth feature) ──
@@ -676,17 +691,12 @@
     }
 
     function render() {
-      // viewer is derived: logged out = 'out'; logged in = the chosen registration status
-      cur.viewer = (cur.auth === 'out') ? 'out' : cur.status;
-      // STATUS dial only applies when logged in — grey it out otherwise
-      var sd = document.getElementById('statusDial');
-      if (sd) { sd.style.opacity = (cur.auth === 'in') ? '' : '0.35'; sd.style.pointerEvents = (cur.auth === 'in') ? '' : 'none'; }
       var c = EVENT_CHROME[cur.event];
       // eyebrow
       el.eyebrow.className = 'eyebrow' + c.ecls;
       el.eyebrow.innerHTML = (c.dot ? '<span class="dot is-live"></span>' : '') + c.eyebrow;
       // action card
-      el.action.innerHTML = buildAction(cur.event, cur.viewer);
+      el.action.innerHTML = buildAction(cur.event, cur.auth, cur.status);
       // top alert
       if (el.alertText) el.alertText.innerHTML = c.alert;
       if (el.alertCta) {
@@ -706,9 +716,9 @@
       b.addEventListener('click', function () {
         cur[b.getAttribute('data-dim')] = b.getAttribute('data-val');
         render();
-        var token = cur.auth === 'out' ? 'out' : cur.status;
-        var h = cur.event + '/' + token;
-        history.replaceState(null, '', (cur.event === 'upcoming' && cur.auth === 'out') ? location.pathname : '#' + h);
+        var isDefault = cur.event === 'upcoming' && cur.auth === 'out' && cur.status === 'notinvited';
+        var h = cur.event + '/' + cur.auth + '/' + cur.status;
+        history.replaceState(null, '', isDefault ? location.pathname : '#' + h);
       });
     });
 
@@ -716,8 +726,8 @@
     function fromHash() {
       var parts = (location.hash || '').replace('#', '').split('/');
       if (EVENT_CHROME[parts[0]]) cur.event = parts[0];
-      if (parts[1] === 'out') { cur.auth = 'out'; }
-      else if (parts[1] === 'reg' || parts[1] === 'unreg') { cur.auth = 'in'; cur.status = parts[1]; }
+      if (parts[1] === 'out' || parts[1] === 'in') cur.auth = parts[1];
+      if (['notinvited', 'invited', 'registered'].indexOf(parts[2]) >= 0) cur.status = parts[2];
     }
     fromHash();
     render();
