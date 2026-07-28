@@ -106,6 +106,14 @@
 .mwc-action-note a { color: var(--ink); font-weight: 600; }
 .mwc-action-alt { font-size: 13px; color: var(--ink-3); margin: 14px 0 0; text-align: center; }
 .mwc-action-alt a { color: var(--ink); font-weight: 600; }
+/* PAST/ENDED — recording player (page-specific; shown when a recording exists) */
+.mwc-recording { position: relative; aspect-ratio: 16 / 9; border-radius: var(--r-lg); overflow: hidden; background: linear-gradient(135deg, #14201d 0%, #223029 100%); display: flex; align-items: center; justify-content: center; margin-top: 16px; }
+.mwc-rec-play { width: 54px; height: 54px; border-radius: 50%; background: rgba(255,255,255,0.94); border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: transform 160ms; }
+.mwc-rec-play:hover { transform: scale(1.06); }
+.mwc-rec-play svg { width: 22px; height: 22px; fill: #0A0A0A; margin-left: 3px; }
+.mwc-rec-cap { position: absolute; left: 12px; bottom: 10px; font-size: 12px; font-weight: 600; color: #fff; opacity: 0.9; }
+.mwc-rec-lock { position: absolute; right: 12px; top: 12px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; opacity: 0.82; }
+.mwc-rec-lock svg { width: 13px; height: 13px; fill: #fff; }
 @keyframes mwcLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
 
 /* ── Body copy columns — wrapper shares the hero's left edge (content-body), readable content held to content-narrow and left-aligned ── */
@@ -560,12 +568,18 @@
     <button type="button" data-dim="event" data-val="upcoming">Upcoming</button>
     <button type="button" data-dim="event" data-val="live">Live</button>
     <button type="button" data-dim="event" data-val="closed">Reg. closed</button>
+    <button type="button" data-dim="event" data-val="ended">Ended</button>
   </div>
   <div class="dial" id="statusDial">
     <span class="dial-label">STATUS</span>
     <button type="button" data-dim="status" data-val="notinvited">Not invited</button>
     <button type="button" data-dim="status" data-val="invited">Invited</button>
     <button type="button" data-dim="status" data-val="registered">Registered</button>
+  </div>
+  <div class="dial" id="recDial">
+    <span class="dial-label">PAST</span>
+    <button type="button" data-dim="recording" data-val="recorded">Recording</button>
+    <button type="button" data-dim="recording" data-val="none">No recording</button>
   </div>
 </div>
 
@@ -606,8 +620,33 @@
     // ── the card content per (event × auth × status) ──
     // status = the person's standing for THIS event:
     //   notinvited (no code) · invited (has code, not yet registered) · registered (has a seat)
-    function buildAction(ev, auth, stat) {
+    function buildAction(ev, auth, stat, rec) {
       var loggedIn = auth === 'in';
+
+      // ── ENDED (past event) — overrides everything. Two variants per Patricia:
+      //   recording exists → play it (immediately for logged-in; gated for anonymous);
+      //   no recording (in-person, or client "no video") → a "this event has ended" message. ──
+      if (ev === 'ended') {
+        if (rec === 'recorded') {
+          var play = '<div class="mwc-recording">' +
+            (loggedIn ? '' : '<span class="mwc-rec-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>Sign in to watch</span>') +
+            '<button class="mwc-rec-play" type="button" aria-label="Play recording"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>' +
+            '<span class="mwc-rec-cap">Event recording · 1h 30m</span></div>';
+          if (loggedIn)
+            return status('This event has ended', '') +
+                   '<h3 class="mwc-action-title">Watch the recording</h3>' +
+                   '<p class="mwc-action-body">Missed it, or want a second look? The full session is ready to watch.</p>' + play;
+          return status('This event has ended', '') +
+                 '<h3 class="mwc-action-title">Watch the recording</h3>' +
+                 '<p class="mwc-action-body">Sign in to watch the full session recording.</p>' + play +
+                 '<div class="mwc-action-actions">' + btn('Sign in to watch →', 'btn-primary', '#') + '</div>';
+        }
+        // no recording → message + next steps
+        return status('This event has ended', '') +
+               '<h3 class="mwc-action-title">This event has ended</h3>' +
+               '<p class="mwc-action-body">Thanks to everyone who joined Mitsubishi Power and PowerToFly. There\'s no recording for this event — but here\'s where to go next.</p>' +
+               '<div class="mwc-action-actions">' + btn('See upcoming events →', 'btn-primary', '../events/index.html') + btn('Explore open roles →', '', '#roles') + '</div>';
+      }
 
       // ── REGISTERED — already has a seat (same whether logged in or out) ──
       if (stat === 'registered') {
@@ -676,7 +715,10 @@
                   alertCta: { t: 'Join here →', href: '#hero' } },
       closed:   { eyebrow: 'Registration closed', ecls: ' is-past', dot: false,
                   alert: 'Registration is closed &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power',
-                  alertCta: { t: 'See details →', href: '#about' } }
+                  alertCta: { t: 'See details →', href: '#about' } },
+      ended:    { eyebrow: 'Event ended', ecls: ' is-past', dot: false,
+                  alert: 'This event has ended &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power',
+                  alertCta: { t: '', href: '#' } }
     };
 
     var el = {
@@ -687,8 +729,9 @@
       header:  document.getElementById('siteHeader')
     };
 
-    // auth is the primary separator; status = not invited / invited / registered
-    var cur = { event: 'upcoming', auth: 'out', status: 'notinvited' };
+    // auth is the primary separator; status = not invited / invited / registered;
+    // recording (only used when event = ended) = recorded / none
+    var cur = { event: 'upcoming', auth: 'out', status: 'notinvited', recording: 'recorded' };
     var navAuth = null;  // track rendered nav auth to avoid needless re-render
 
     // ── swap the shared nav between logged-out and logged-in (real data-auth feature) ──
@@ -712,12 +755,16 @@
     }
 
     function render() {
+      var ended = cur.event === 'ended';
+      // contextual dials: STATUS is irrelevant for a past event; PAST (recording) only applies then
+      var sd = document.getElementById('statusDial'); if (sd) { sd.style.opacity = ended ? '0.35' : ''; sd.style.pointerEvents = ended ? 'none' : ''; }
+      var rd = document.getElementById('recDial');    if (rd) { rd.style.opacity = ended ? '' : '0.35'; rd.style.pointerEvents = ended ? '' : 'none'; }
       var c = EVENT_CHROME[cur.event];
       // eyebrow
       el.eyebrow.className = 'eyebrow' + c.ecls;
       el.eyebrow.innerHTML = (c.dot ? '<span class="dot is-live"></span>' : '') + c.eyebrow;
       // action card
-      el.action.innerHTML = buildAction(cur.event, cur.auth, cur.status);
+      el.action.innerHTML = buildAction(cur.event, cur.auth, cur.status, cur.recording);
       // top alert
       if (el.alertText) el.alertText.innerHTML = c.alert;
       if (el.alertCta) {
