@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout rebrand — proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC ONLY. Tokens / .eyebrow / .brand-ai come from ptf.css.
+ * HONEST SCOPE: on Stripe hosted Checkout we control exactly two things —
+ * the panel BACKGROUND COLOR and the LOGO image. Everything else in the frame
+ * below (back arrow, the "Job credits / $499.00" line item + its type, and the
+ * whole right column) is Stripe's own chrome and is drawn here only for context.
+ */
+.wrap{max-width:var(--content);margin:0 auto;padding:28px 20px}
+.title{font-family:'Inter Tight';font-weight:700;font-size:30px;letter-spacing:-.03em;margin:10px 0 6px}
+.sub{color:var(--ink-3);max-width:660px;line-height:1.55;font-size:15px}
+
+/* the two real levers, called out */
+.levers{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 4px}
+.lever{border:1px solid var(--line);border-radius:var(--r-md);padding:12px 16px;font-size:13px;line-height:1.5;color:var(--ink-2);background:var(--surface);max-width:340px}
+.lever b{font-family:'Inter Tight';font-weight:700;color:var(--ink)}
+.lever .sw{display:inline-block;width:11px;height:11px;border-radius:3px;vertical-align:-1px;margin-right:6px}
+
+.frame{margin-top:22px;border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-card);display:grid;grid-template-columns:1fr 1fr;min-height:620px;background:#fff;position:relative}
+
+/* LEFT — the ONE thing that changes: bg color (ink) + a crisp logo.
+   Arrow, label and amount are rendered the way STRIPE renders them (its own type). */
+.brandside{position:relative;padding:52px 56px;display:flex;flex-direction:column;background:var(--ink);color:#fff;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.s-back{display:inline-flex;align-items:center;color:rgba(255,255,255,.7);text-decoration:none}
+.s-back svg{width:16px;height:16px;fill:currentColor}
+.s-logo{height:18px}                        /* crisp VECTOR white lockup — replaces the low-res PNG */
+.s-logo-row{display:flex;align-items:center;gap:12px}
+.s-item{margin-top:52px}
+.s-item .lbl{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:6px}   /* Stripe's line-item label */
+.s-item .amt{font-size:44px;font-weight:600;letter-spacing:-.5px}           /* Stripe's amount type, NOT ours */
+
+/* RIGHT — Stripe's own chrome, unchanged & unstylable. Context only. */
+.payside{padding:48px 52px;background:#fff;color:#30313d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.wallets{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wbtn{height:44px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:#fff}
+.wbtn.apple{background:#000}.wbtn.link{background:#00D66F;color:#0A0A0A}
+.or{display:flex;align-items:center;gap:14px;color:#8a919e;font-size:12px;font-weight:500;margin:20px 0}
+.or:before,.or:after{content:"";flex:1;height:1px;background:#e6e6e6}
+.flabel{font-size:14px;color:#30313d;font-weight:500;margin:20px 0 8px}
+.field{height:44px;border:1px solid #d0d3da;border-radius:6px;display:flex;align-items:center;padding:0 12px;color:#8a919e;font-size:15px;background:#fff;justify-content:space-between}
+.field.static{background:#f6f8fa;color:#30313d}
+.scard{border:1px solid #d0d3da;border-radius:8px;overflow:hidden}
+.scard .tab{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #e6e6e6;font-weight:500;color:#30313d;font-size:14px}
+.scard .cbody{padding:14px}
+.row2{display:flex;border:1px solid #d0d3da;border-radius:6px;overflow:hidden}
+.row2 .field{border:0;border-radius:0;flex:1}.row2 .field+.field{border-left:1px solid #e6e6e6}
+.slbl{font-size:13px;color:#6a7383;margin:14px 0 6px}
+.single{border:1px solid #d0d3da;border-radius:6px;height:44px;display:flex;align-items:center;padding:0 12px;color:#8a919e;font-size:15px;margin-bottom:10px;justify-content:space-between}
+.pay-btn{height:44px;border-radius:6px;background:#30313d;color:#fff;font-weight:500;font-size:15px;display:flex;align-items:center;justify-content:center;margin-top:24px}
+.disc{font-size:12px;color:#8a919e;text-align:center;line-height:1.5;margin-top:16px}
+.sfoot{display:flex;align-items:center;justify-content:center;gap:14px;color:#8a919e;font-size:12px;margin-top:18px}
+
+.foot{border-top:1px solid var(--line);margin-top:22px;padding-top:16px}
+.foot p{font-size:13px;color:var(--ink-3);line-height:1.6;max-width:820px}
+.foot b{color:var(--ink)}
+@media(max-width:900px){.frame{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="eyebrow"><span class="dot"></span>Checkout rebrand · proposal</span>
+  <h1 class="title">New AI branding for the Stripe checkout</h1>
+  <p class="sub">On Stripe's hosted Checkout you control the panel <b>background color</b> and the <b>logo</b> — nothing else. So the rebrand is one honest move: coral&nbsp;→&nbsp;ink, and a crisp logo. Everything else in the frame is Stripe's own chrome.</p>
+
+  <div class="levers">
+    <div class="lever"><b><span class="sw" style="background:var(--ink)"></span>Background</b> → set brand color to <b>#0A0A0A</b> (<code>--ink</code>). Solid only; Stripe can't take a gradient.</div>
+    <div class="lever"><b>Logo</b> → upload a crisp <b>white AI lockup</b>. The current asset is low-res (1.8&nbsp;KB PNG) — export it from vector at 2–3×.</div>
+  </div>
+
+  <div class="frame">
+    <!-- LEFT: bg color + logo are ours; arrow/label/amount are Stripe's rendering -->
+    <div class="brandside">
+      <div class="s-logo-row">
+        <a class="s-back" href="#">
+          <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        </a>
+        <!-- crisp VECTOR white wordmark (from the DS) + real .brand-ai pill -->
+        <svg class="s-logo" viewBox="0 0 160 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="PowerToFly"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.7617 10.928C15.7617 2.86221 21.426 0 26.2767 0C28.9615 0 31.3838 0.986191 33.0976 2.77713C34.9591 4.72298 35.9433 7.53213 35.9433 10.9005C35.9433 18.9575 30.5117 21.8282 25.4283 21.8282C22.7435 21.8282 20.3209 20.842 18.6074 19.0511C16.7459 17.1053 15.7617 14.2964 15.7617 10.928ZM26.4544 19.2225C29.7189 19.2225 31.7468 16.4109 31.7468 11.8849C31.7468 6.32669 29.1355 2.59233 25.2498 2.59233C21.9855 2.59233 19.9576 5.40392 19.9576 9.92991C19.9576 15.4881 22.5686 19.2225 26.4544 19.2225Z" fill="white"/><path d="M60.3487 0.682238L60.388 0.42334H64.0336L57.5637 21.4038H53.1831L49.515 6.05079L45.2528 21.4038H40.6598L35.6982 0.42334H39.7348L43.6016 17.256L47.9597 0.42334H52.024L55.958 17.3081L58.4575 8.50437L58.4691 8.51565C59.9813 3.03757 60.3445 0.708726 60.3487 0.682238Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M94.664 6.88663L94.7092 6.90919V6.41579C94.7092 0.978936 90.0786 0.24585 85.549 0.24585C84.3163 0.24585 83.0046 0.252558 82.0012 0.263231C80.6684 0.276649 80.002 0.3908 80.002 0.605684V21.3907H83.8285V12.6763L85.2266 12.8303L92.1919 21.3907H96.9639L89.0199 12.5641C90.8851 11.9548 94.3838 10.6094 94.664 6.88663ZM90.8143 6.52557C90.8142 8.0607 90.2706 10.6359 86.6306 10.6359C86.2535 10.6359 85.4803 10.6234 85.4092 10.6222L83.8428 10.5417V2.72962C84.1799 2.68602 84.8148 2.61954 85.5218 2.61954C88.2708 2.61954 90.8143 3.09281 90.8143 6.52557Z" fill="white"/><path d="M155.887 0.623079L155.96 0.42334H160L152.907 12.1195V21.3898H149.08V12.3994L141.196 0.42334H145.571L151.337 9.52014L152.047 8.22443C154.993 3.00663 155.87 0.667379 155.887 0.623079Z" fill="white"/><path d="M106.876 3.66406H97.958V5.88711H101.366V13.4064H103.674V5.88711H106.876V3.66406Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M106.103 12.4732C106.103 9.61036 108.264 7.45166 111.129 7.45166C114.042 7.45166 116.157 9.5634 116.157 12.4732C116.157 15.3671 114.042 17.4676 111.129 17.4676C108.217 17.4676 106.103 15.3671 106.103 12.4732ZM111.129 15.2171C112.765 15.2171 113.78 14.1604 113.78 12.4595C113.78 10.8103 112.715 9.70215 111.129 9.70215C109.552 9.70215 108.492 10.8103 108.492 12.4595C108.492 14.1345 109.527 15.2171 111.129 15.2171Z" fill="white"/><path d="M69.3816 11.738H77.3604V9.2277H69.3816V2.91962H77.6205V0.42334H65.541V21.3901H78.1544V18.8935H69.3816V11.738Z" fill="white"/><path d="M123.464 21.3901H119.638V0.42334H131.717V2.91962H123.464V9.50093H131.416V12.1344H123.464V21.3901Z" fill="white"/><path d="M137.447 0.42334H133.62V21.3901H145.74V18.8935H137.447V0.42334Z" fill="white"/><path d="M0.299774 0.300435C0.330911 0.299825 3.43396 0.24585 5.57451 0.24585C8.59025 0.24585 11.6246 0.489195 13.3897 2.25726C14.3592 3.22821 14.8486 4.5907 14.844 6.30723C14.844 11.6026 10.3309 12.9465 8.39061 13.2783C7.54532 13.428 6.37461 13.5289 5.47865 13.5289C5.06654 13.5289 4.2823 13.4317 3.82684 13.3701V21.3904H0V9.09717L0.463397 9.37742C2.31088 10.4953 3.74473 11.101 6.026 11.101C9.29237 11.101 10.9488 9.63052 10.9488 6.73019C10.9488 3.11751 8.34604 2.61954 5.53329 2.61954C4.82202 2.61954 4.17119 2.68693 3.82684 2.73054V9.01819L3.43671 8.90567C3.3494 8.88036 1.28549 8.27199 0.0741802 6.86803L0 6.78203V0.305924L0.299774 0.300435Z" fill="white"/></svg>
+        <span class="brand-ai">AI</span>
+      </div>
+      <div class="s-item">
+        <div class="lbl">Job credits</div>
+        <div class="amt">$499.00</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Stripe's own chrome — unchanged, unstylable. Context only. -->
+    <div class="payside">
+      <div class="wallets"><div class="wbtn apple">&#63743; Pay</div><div class="wbtn link">● link</div></div>
+      <div class="or">OR</div>
+      <div class="flabel">Contact information</div>
+      <div class="field static">dina+jobboard1@powertofly.com</div>
+      <div class="flabel">Payment method</div>
+      <div class="scard">
+        <div class="tab">▭ Card</div>
+        <div class="cbody">
+          <div class="slbl">Card information</div>
+          <div class="single">1234 1234 1234 1234 <span style="letter-spacing:2px">VISA ▮▮ ▮▮</span></div>
+          <div class="row2"><div class="field">MM / YY</div><div class="field">CVC</div></div>
+          <div class="slbl">Cardholder name</div>
+          <div class="field">Full name on card</div>
+          <div class="slbl">Country or region</div>
+          <div class="field static">Jordan <span>⌄</span></div>
+        </div>
+      </div>
+      <div class="pay-btn">Pay</div>
+      <div class="disc">By confirming your payment, you allow PowerToFly Inc. to charge you for this payment in accordance with their terms.</div>
+      <div class="sfoot"><span>Powered by <b style="color:#30313d">stripe</b></span><span>Terms</span><span>Privacy</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <p><b>Want the gradient / aurora look?</b> That's only possible if the checkout moves off Stripe's hosted page onto an <b>embedded checkout</b> (Stripe Elements), where the left column becomes our own markup. On the hosted page, ink + a crisp logo is the whole rebrand — and it already kills the coral.</p>
+  </div>
+</div>
+</body>
+</html>
