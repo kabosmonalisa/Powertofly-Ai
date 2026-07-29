@@ -5780,30 +5780,6 @@
    "cssRefs": 1,
    "defined": true
   },
-  "--section-y-loose": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 2,
-   "defined": true
-  },
-  "--btn-fg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 5,
-   "defined": true
-  },
-  "--purple-bright": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 4,
-   "defined": true
-  },
-  "--btn-bg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 7,
-   "defined": true
-  },
   "--btn-bg-hover": {
    "total": 0,
    "files": {},
@@ -5814,6 +5790,30 @@
    "total": 0,
    "files": {},
    "cssRefs": 1,
+   "defined": true
+  },
+  "--section-y-loose": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--purple-bright": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--btn-fg": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--btn-bg": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 7,
    "defined": true
   }
  },

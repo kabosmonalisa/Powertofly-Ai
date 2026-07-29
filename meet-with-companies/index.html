@@ -68,7 +68,7 @@
 }
 .ev-hero-inner {
   position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;
-  display: grid; grid-template-columns: 1fr 1.05fr;
+  display: grid; grid-template-columns: 1fr minmax(340px, 440px);  /* cap the action card so forms/video aren't stretched */
   gap: clamp(28px, 4vw, 56px); align-items: center;  /* vertically center the action card against the hero text */
 }
 .ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
@@ -100,9 +100,7 @@
 .mwc-action-status.is-live .dot { width: 8px; height: 8px; border-radius: 50%; background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: mwcLivePulse 1.6s ease-in-out infinite; }
 .mwc-action-title { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 21px; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
 .mwc-action-body { font-size: 14.5px; line-height: 1.55; color: var(--ink-2); margin: 10px 0 0; }
-/* keep hero form fields at a comfortable reading width, not stretched to the full card */
-.mwc-action .auth-form { margin-top: 16px; max-width: 380px; }
-.mwc-action .auth-fineprint { max-width: 380px; text-align: left; }
+.mwc-action .auth-form { margin-top: 16px; }
 .mwc-action-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
 .mwc-action-note { font-size: 13px; line-height: 1.5; color: var(--ink-3); margin: 14px 0 0; }
 .mwc-action-note a { color: var(--ink); font-weight: 600; }
