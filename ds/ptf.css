@@ -1504,6 +1504,26 @@ img { display: block; max-width: 100%; }
 .up-speaker-txt strong { color: var(--ink); font-weight: 600; }
 .up-cta { margin-top: auto; padding-top: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
 
+/* ── Logo cluster — a neat, REUSABLE way to show a set of company logos. Each logo sits in a
+   uniform rounded tile so mixed shapes/sizes line up tidily; optional trailing +N count tile.
+   Reuse anywhere logos appear (event cards, participating-companies, etc.). */
+.logo-cluster { display: flex; align-items: center; gap: 5px; flex: none; }
+.logo-tile { flex: none; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+  padding: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+.logo-tile img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.logo-tile--count { padding: 0; font-size: 11px; font-weight: 700; color: var(--ink-3); background: var(--bg-soft); box-shadow: none; }
+
+/* Infinite-scroll mimic on the confirmation cards: first 6 show, the rest reveal on scroll.
+   The revealed cards fade + rise + settle from a slight scale, STAGGERED so the cascade
+   reads as a deliberate load (not an all-at-once flash). Strong ease-out curve. */
+@keyframes ptf-reveal { from { opacity: 0; transform: translateY(20px) scale(0.96); } to { opacity: 1; transform: none; } }
+.up-more { display: none; }
+.up-grid.show-more .up-more { display: flex; animation: ptf-reveal .6s cubic-bezier(0.23, 1, 0.32, 1) backwards; }
+.up-grid.show-more .up-more:nth-child(7)  { animation-delay: .05s; }
+.up-grid.show-more .up-more:nth-child(8)  { animation-delay: .17s; }
+.up-grid.show-more .up-more:nth-child(9)  { animation-delay: .29s; }
+.up-grid.show-more .up-more:nth-child(10) { animation-delay: .41s; }
+
 /* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
    Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
    3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */

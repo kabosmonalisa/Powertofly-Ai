@@ -37,7 +37,7 @@
    "not-found/index.html": 24,
    "vjf/index.html": 48,
    "summit/index.html": 52,
-   "chat-learn/index.html": 55,
+   "chat-learn/index.html": 63,
    "meet-with-companies/index.html": 105,
    "nav-options.html": 99,
    "top-alerts.html": 101,
@@ -474,12 +474,6 @@
     "events/index.html": 1
    }
   },
-  ".ptf-script-logo": {
-   "total": 1,
-   "files": {
-    "employers/index.html": 1
-   }
-  },
   ".hero-headline": {
    "total": 4,
    "files": {
@@ -640,14 +634,14 @@
    }
   },
   ".section": {
-   "total": 37,
+   "total": 38,
    "files": {
     "talents/index-v2.html": 7,
     "job-board/index.html": 7,
     "meet-with-companies/index.html": 7,
+    "chat-learn/index.html": 4,
     "employers/index.html": 3,
     "summit/index.html": 3,
-    "chat-learn/index.html": 3,
     "events/index.html": 2,
     "vjf/index.html": 2,
     "hire/index.html": 1,
@@ -666,15 +660,15 @@
    }
   },
   ".section-head": {
-   "total": 38,
+   "total": 39,
    "files": {
     "meet-with-companies/index.html": 8,
     "talents/index-v2.html": 6,
     "employers/index.html": 4,
     "hire/index.html": 4,
+    "chat-learn/index.html": 4,
     "train/index.html": 3,
     "summit/index.html": 3,
-    "chat-learn/index.html": 3,
     "job-board/index.html": 2,
     "vjf/index.html": 2,
     "about/index.html": 1,
@@ -1695,39 +1689,39 @@
    }
   },
   ".step": {
-   "total": 27,
+   "total": 26,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
     "summit/index.html": 4,
-    "chat-learn/index.html": 4,
     "talents/index-v2.html": 3,
     "train/index.html": 3,
-    "hire/index.html": 3
+    "hire/index.html": 3,
+    "chat-learn/index.html": 3
    }
   },
   ".step-num": {
-   "total": 27,
+   "total": 26,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
     "summit/index.html": 4,
-    "chat-learn/index.html": 4,
     "talents/index-v2.html": 3,
     "train/index.html": 3,
-    "hire/index.html": 3
+    "hire/index.html": 3,
+    "chat-learn/index.html": 3
    }
   },
   ".step-content": {
-   "total": 27,
+   "total": 26,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
     "summit/index.html": 4,
-    "chat-learn/index.html": 4,
     "talents/index-v2.html": 3,
     "train/index.html": 3,
-    "hire/index.html": 3
+    "hire/index.html": 3,
+    "chat-learn/index.html": 3
    }
   },
   ".opp-grid": {
@@ -3583,11 +3577,12 @@
    }
   },
   ".+": {
-   "total": 10,
+   "total": 12,
    "files": {
     "meet-with-companies/index.html": 4,
     "summit/index.html": 2,
     "chat-learn/index.html": 2,
+    "event-common/index.html": 2,
     "ds/ptf.js": 2
    }
   },
@@ -3599,9 +3594,10 @@
    }
   },
   ".'": {
-   "total": 8,
+   "total": 10,
    "files": {
     "meet-with-companies/index.html": 4,
+    "event-common/index.html": 2,
     "ds/ptf.js": 2,
     "summit/index.html": 1,
     "chat-learn/index.html": 1
@@ -3640,9 +3636,9 @@
    }
   },
   ".cl-copy": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "chat-learn/index.html": 1
+    "chat-learn/index.html": 2
    }
   },
   ".cl-speakers": {
@@ -3653,45 +3649,45 @@
    }
   },
   ".cl-speaker": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".cl-speaker-photo": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".cl-speaker-body": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".cl-speaker-name": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".cl-speaker-role": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".cl-speaker-bio": {
-   "total": 6,
+   "total": 4,
    "files": {
-    "chat-learn/index.html": 3,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 3,
+    "chat-learn/index.html": 1
    }
   },
   ".mwc-host-logo": {
@@ -4855,54 +4851,6 @@
     "event-common/index.html": 1
    }
   },
-  ".up-card": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-meta": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-title": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-speaker": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-faces": {
-   "total": 2,
-   "files": {
-    "event-common/index.html": 2
-   }
-  },
-  ".up-speaker-txt": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-cta": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 3
-   }
-  },
-  ".up-orgs": {
-   "total": 1,
-   "files": {
-    "event-common/index.html": 1
-   }
-  },
   ".btn-dashboard": {
    "total": 5,
    "files": {
@@ -4910,6 +4858,111 @@
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "sponsor/index.html": 1
+   }
+  },
+  ".logo-tile": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 2
+   }
+  },
+  ".logo-tile--count": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".logo-cluster": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-speaker-txt": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 2
+   }
+  },
+  ".up-faces": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-card'": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".(i": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".<": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".6": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".?": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".''": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".:": {
+   "total": 2,
+   "files": {
+    "event-common/index.html": 1,
+    "ds/ptf.js": 1
+   }
+  },
+  ".up-more')": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-meta": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-title": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-speaker": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".up-cta": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
    }
   },
   ".invalid": {
@@ -4932,6 +4985,12 @@
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "auth.html": 1
+   }
+  },
+  ".show-more": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
    }
   },
   ".auth-wrap": {
@@ -5143,12 +5202,6 @@
     "ds/ptf.js": 1
    }
   },
-  ".(i": {
-   "total": 1,
-   "files": {
-    "ds/ptf.js": 1
-   }
-  },
   ".===": {
    "total": 1,
    "files": {
@@ -5161,19 +5214,7 @@
     "ds/ptf.js": 1
    }
   },
-  ".?": {
-   "total": 1,
-   "files": {
-    "ds/ptf.js": 1
-   }
-  },
   ".is-active'": {
-   "total": 1,
-   "files": {
-    "ds/ptf.js": 1
-   }
-  },
-  ".:": {
    "total": 1,
    "files": {
     "ds/ptf.js": 1
@@ -5236,7 +5277,7 @@
    "defined": true
   },
   "--bg": {
-   "total": 46,
+   "total": 47,
    "files": {
     "meet-with-companies/index.html": 8,
     "talents/index-v2.html": 6,
@@ -5244,9 +5285,9 @@
     "employers/index.html": 5,
     "hire/index.html": 5,
     "train/index.html": 4,
+    "chat-learn/index.html": 4,
     "book/index.html": 4,
     "summit/index.html": 3,
-    "chat-learn/index.html": 3,
     "events/index.html": 1,
     "vjf/index.html": 1
    },
@@ -5254,7 +5295,7 @@
    "defined": true
   },
   "--ink-2": {
-   "total": 49,
+   "total": 50,
    "files": {
     "employers/index.html": 6,
     "talents/index-v2.html": 6,
@@ -5263,11 +5304,11 @@
     "meet-with-companies/index.html": 5,
     "about/index.html": 4,
     "job-board/index.html": 3,
+    "chat-learn/index.html": 3,
     "nav-options.html": 3,
     "auth.html": 3,
     "vjf/index.html": 2,
     "summit/index.html": 2,
-    "chat-learn/index.html": 2,
     "book/index.html": 2,
     "train/index.html": 1
    },
@@ -5275,7 +5316,7 @@
    "defined": true
   },
   "--ink-3": {
-   "total": 132,
+   "total": 133,
    "files": {
     "job-board/index.html": 25,
     "auth.html": 14,
@@ -5290,13 +5331,13 @@
     "book/index.html": 5,
     "train/index.html": 3,
     "summit/index.html": 3,
+    "chat-learn/index.html": 3,
     "top-alerts.html": 3,
     "vjf/index.html": 2,
-    "chat-learn/index.html": 2,
     "sponsor/index.html": 1,
     "nav-preview/index.html": 1
    },
-   "cssRefs": 53,
+   "cssRefs": 54,
    "defined": true
   },
   "--line": {
@@ -5315,7 +5356,7 @@
     "nav-options.html": 2,
     "top-alerts.html": 2
    },
-   "cssRefs": 37,
+   "cssRefs": 38,
    "defined": true
   },
   "--shadow-card": {
@@ -5387,7 +5428,7 @@
     "meet-with-companies/index.html": 1,
     "nav-preview/index.html": 1
    },
-   "cssRefs": 8,
+   "cssRefs": 9,
    "defined": true
   },
   "--section-y": {
@@ -5544,12 +5585,12 @@
    "defined": true
   },
   "--content-narrow": {
-   "total": 14,
+   "total": 15,
    "files": {
     "meet-with-companies/index.html": 7,
     "about/index.html": 3,
-    "summit/index.html": 2,
-    "chat-learn/index.html": 2
+    "chat-learn/index.html": 3,
+    "summit/index.html": 2
    },
    "cssRefs": 3,
    "defined": true
@@ -5572,7 +5613,7 @@
     "meet-with-companies/index.html": 3,
     "nav-options.html": 1
    },
-   "cssRefs": 10,
+   "cssRefs": 11,
    "defined": true
   },
   "--hire": {
@@ -5616,13 +5657,13 @@
    "defined": true
   },
   "--surface-2": {
-   "total": 14,
+   "total": 15,
    "files": {
     "job-board/index.html": 9,
     "events/index.html": 2,
+    "chat-learn/index.html": 2,
     "vjf/index.html": 1,
-    "summit/index.html": 1,
-    "chat-learn/index.html": 1
+    "summit/index.html": 1
    },
    "cssRefs": 3,
    "defined": true
@@ -5638,9 +5679,10 @@
    "defined": false
   },
   "--r-pill": {
-   "total": 5,
+   "total": 6,
    "files": {
-    "job-board/index.html": 5
+    "job-board/index.html": 5,
+    "chat-learn/index.html": 1
    },
    "cssRefs": 5,
    "defined": true
@@ -5712,6 +5754,14 @@
    "cssRefs": 0,
    "defined": false
   },
+  "--count": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
   "--iri-cyan": {
    "total": 2,
    "files": {
@@ -5730,16 +5780,10 @@
    "cssRefs": 1,
    "defined": true
   },
-  "--btn-bg-hover": {
+  "--section-y-loose": {
    "total": 0,
    "files": {},
-   "cssRefs": 5,
-   "defined": true
-  },
-  "--btn-bg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 7,
+   "cssRefs": 2,
    "defined": true
   },
   "--btn-fg": {
@@ -5754,10 +5798,16 @@
    "cssRefs": 4,
    "defined": true
   },
-  "--section-y-loose": {
+  "--btn-bg": {
    "total": 0,
    "files": {},
-   "cssRefs": 2,
+   "cssRefs": 7,
+   "defined": true
+  },
+  "--btn-bg-hover": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
    "defined": true
   },
   "--hero-top": {
@@ -5863,9 +5913,9 @@
    }
   },
   "#000": {
-   "total": 7,
+   "total": 6,
    "files": {
-    "employers/index.html": 5,
+    "employers/index.html": 4,
     "train/index.html": 2
    }
   },
@@ -6338,7 +6388,7 @@
  },
  "fonts": {
   "Inter Tight": {
-   "total": 81,
+   "total": 82,
    "files": {
     "talents/index-v2.html": 18,
     "employers/index.html": 8,
@@ -6353,7 +6403,8 @@
     "meet-with-companies/index.html": 3,
     "book/index.html": 3,
     "nav-preview/index.html": 2,
-    "not-found/index.html": 1
+    "not-found/index.html": 1,
+    "chat-learn/index.html": 1
    }
   },
   "Inter": {
@@ -6521,7 +6572,7 @@
    }
   },
   "14px": {
-   "total": 38,
+   "total": 39,
    "files": {
     "job-board/index.html": 14,
     "employers/index.html": 6,
@@ -6532,11 +6583,12 @@
     "about/index.html": 2,
     "hire/index.html": 1,
     "events/index.html": 1,
+    "chat-learn/index.html": 1,
     "meet-with-companies/index.html": 1
    }
   },
   "15px": {
-   "total": 35,
+   "total": 36,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 6,
@@ -6546,9 +6598,9 @@
     "hire/index.html": 2,
     "about/index.html": 2,
     "events/index.html": 2,
+    "chat-learn/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
-    "chat-learn/index.html": 1,
     "meet-with-companies/index.html": 1,
     "top-alerts.html": 1,
     "book/index.html": 1,
@@ -6631,10 +6683,11 @@
    }
   },
   "20px": {
-   "total": 6,
+   "total": 7,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
+    "chat-learn/index.html": 1,
     "top-alerts.html": 1,
     "book/index.html": 1
    }
@@ -6956,8 +7009,11 @@
   ".login-fly",
   ".login-signup",
   ".login-tx",
+  ".logo-cluster",
   ".logo-strip",
   ".logo-strip-track",
+  ".logo-tile",
+  ".logo-tile--count",
   ".md",
   ".mega-inner",
   ".mega-items",
@@ -7084,6 +7140,7 @@
   ".section-tight",
   ".selected",
   ".shake",
+  ".show-more",
   ".site-header",
   ".social-btns",
   ".stacked",
@@ -7143,6 +7200,7 @@
   ".up-faces",
   ".up-grid",
   ".up-meta",
+  ".up-more",
   ".up-orgs",
   ".up-speaker",
   ".up-speaker-txt",

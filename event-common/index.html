@@ -214,28 +214,10 @@
           <p class="thanks-body">We've sent an invite link straight to your inbox.</p>
           <!-- The next few upcoming events (chronological, not topic-matched) — real 3-up .ev-listing--grid tiles; full-width via .reg-wrap.is-done -->
           <div class="q-label" style="margin:26px 0 14px">More events coming up</div>
-          <!-- One of each common type — each card's detail line matches how that type is shown on the real site.
-               Real events/speakers/companies — COPY: confirm + real headshots/logos -->
-          <div class="up-grid">
-            <a class="up-card" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">
-              <div class="up-meta">Chat &amp; learn <span>· Aug 18, 2026 · Virtual</span></div>
-              <div class="up-title">Beyond the résumé: building human-first AI for fairer access</div>
-              <div class="up-speaker"><div class="up-faces"><img src="../photos/thumbs/spk-08.jpg" alt=""></div><span class="up-speaker-txt">with <strong>Colette Hart</strong><br>Co-founder &amp; CEO, Idonea Inc.</span></div>
-              <span class="up-cta">Register →</span>
-            </a>
-            <a class="up-card" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">
-              <div class="up-meta">Summit <span>· Oct 21–22, 2026 · Virtual</span></div>
-              <div class="up-title">Beyond boundaries: voices of Latinidad</div>
-              <div class="up-speaker"><div class="up-faces"><img src="../photos/thumbs/spk-12.jpg" alt=""><img src="../photos/thumbs/spk-04.jpg" alt=""><img src="../photos/thumbs/spk-07.jpg" alt=""></div><span class="up-speaker-txt"><strong>25+ speakers</strong><br>5,000+ attending · 2 days</span></div>
-              <span class="up-cta">Register →</span>
-            </a>
-            <a class="up-card" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">
-              <div class="up-meta">Virtual job fair <span>· Sep 17, 2026 · Virtual</span></div>
-              <div class="up-title">The next wave: AI &amp; emerging tech shaping tomorrow</div>
-              <div class="up-speaker"><div class="up-orgs"><img src="../logos/google.png" alt="Google"><img src="../logos/plaid.png" alt="Plaid"></div><span class="up-speaker-txt"><strong>Companies hiring</strong><br>Meet recruiters live</span></div>
-              <span class="up-cta">Register →</span>
-            </a>
-          </div>
+          <!-- Cards rendered by renderUpcoming() from the UPCOMING array — up to 10 events, first 6 shown,
+               the rest reveal on scroll (mimics infinite scroll). Real events/speakers/logos — COPY: confirm -->
+          <div class="up-grid" id="upGrid"></div>
+          <div id="upSentinel" aria-hidden="true" style="height:1px"></div>
           <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse all events →</a>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">Have any questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
@@ -429,6 +411,52 @@
     document.getElementById('evTitle').innerHTML = t.title;
     document.getElementById('evHost').innerHTML = t.host;
   }
+
+  // Step 5 "more events coming up" — up to 10 events this year. First 6 render; the rest reveal
+  // on scroll (mimics infinite scroll). Detail line adapts per type: person (with name), stats, orgs (logo tiles).
+  var UPCOMING = [
+    { type:'Chat &amp; learn', date:'Aug 18, 2026 · Virtual', title:'Beyond the résumé: building human-first AI for fairer access', detail:{ kind:'faces', imgs:['spk-08.jpg'], text:'with <strong>Colette Hart</strong><br>Co-founder &amp; CEO, Idonea Inc.' } },
+    { type:'Summit', date:'Oct 21–22, 2026 · Virtual', title:'Beyond boundaries: voices of Latinidad', detail:{ kind:'faces', imgs:['spk-12.jpg','spk-04.jpg','spk-07.jpg'], text:'<strong>25+ speakers</strong><br>5,000+ attending · 2 days' } },
+    { type:'Virtual job fair', date:'Sep 17, 2026 · Virtual', title:'The next wave: AI &amp; emerging tech shaping tomorrow', detail:{ kind:'orgs', logos:['google.png','plaid.png'], more:8, text:'<strong>Companies hiring</strong><br>Meet recruiters live' } },
+    { type:'Chat &amp; learn', date:'Aug 25, 2026 · Virtual', title:'Navigating career relaunches and pivots in the AI age', detail:{ kind:'faces', imgs:['spk-12.jpg','spk-04.jpg'], text:'with <strong>Susan Rietano Davey &amp; Kelley Biskupiak</strong><br>Co-founders, Prepare to Launch U' } },
+    { type:'Summit', date:'Nov 18–19, 2026 · Virtual', title:'Supporting veterans, active service members &amp; military spouses', detail:{ kind:'faces', imgs:['spk-07.jpg','spk-08.jpg'], text:'<strong>20+ speakers</strong><br>2-day career summit' } },
+    { type:'Virtual job fair', date:'Oct 22, 2026 · Virtual', title:'Voices of Latinidad: virtual job fair', detail:{ kind:'orgs', logos:['visa.png','expedia.png'], more:6, text:'<strong>Companies hiring</strong><br>Meet recruiters live' } },
+    { type:'Chat &amp; learn', date:'Sep 3, 2026 · Virtual', title:'Solving complex challenges through partnership and technology', detail:{ kind:'faces', imgs:['spk-07.jpg','spk-08.jpg'], text:'with <strong>Clay Starr &amp; Renee Opatz</strong><br>Esri' } },
+    { type:'Chat &amp; learn', date:'Sep 10, 2026 · Virtual', title:'Diagnose your AI gap: a working session for HR and technical leaders', detail:{ kind:'faces', imgs:['spk-04.jpg'], text:'with <strong>Mara Gates</strong><br>People &amp; AI Advisor' } },
+    { type:'Summit', date:'Sep 16–17, 2026 · Virtual', title:'The AI skills summit 2026', detail:{ kind:'faces', imgs:['spk-12.jpg','spk-07.jpg','spk-08.jpg'], text:'<strong>30+ speakers</strong><br>3 tracks · 2 days' } },
+    { type:'Virtual job fair', date:'Nov 19, 2026 · Virtual', title:'AI talent showcase', detail:{ kind:'orgs', logos:['lattice.png','zapier.png'], more:5, text:'<strong>Companies hiring</strong><br>Meet recruiters live' } }
+  ];
+  function upDetail(d) {
+    if (d.kind === 'orgs') {
+      var tiles = d.logos.map(function (l) { return '<span class="logo-tile"><img src="../logos/' + l + '" alt=""></span>'; }).join('');
+      if (d.more) { tiles += '<span class="logo-tile logo-tile--count">+' + d.more + '</span>'; }
+      return '<div class="logo-cluster">' + tiles + '</div><span class="up-speaker-txt">' + d.text + '</span>';
+    }
+    var faces = d.imgs.map(function (f) { return '<img src="../photos/thumbs/' + f + '" alt="">'; }).join('');
+    return '<div class="up-faces">' + faces + '</div><span class="up-speaker-txt">' + d.text + '</span>';
+  }
+  (function renderUpcoming() {
+    var grid = document.getElementById('upGrid'); if (!grid) return;
+    grid.innerHTML = UPCOMING.map(function (e, i) {
+      return '<a class="up-card' + (i < 6 ? '' : ' up-more') + '" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">'
+        + '<div class="up-meta">' + e.type + ' <span>· ' + e.date + '</span></div>'
+        + '<div class="up-title">' + e.title + '</div>'
+        + '<div class="up-speaker">' + upDetail(e.detail) + '</div>'
+        + '<span class="up-cta">Register →</span></a>';
+    }).join('');
+  })();
+  (function initReveal() {
+    var grid = document.getElementById('upGrid'), sentinel = document.getElementById('upSentinel');
+    if (!grid || !sentinel) return;
+    var done = false;
+    function check() {
+      if (done || !grid.offsetParent) return;               // skip while step 5 is hidden
+      if (sentinel.getBoundingClientRect().top < window.innerHeight - 20) {
+        done = true; grid.classList.add('show-more'); window.removeEventListener('scroll', check);
+      }
+    }
+    window.addEventListener('scroll', check, { passive: true });
+  })();
 
   // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
   function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
