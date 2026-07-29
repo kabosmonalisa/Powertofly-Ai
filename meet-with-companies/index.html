@@ -588,13 +588,11 @@
   PTF.initHeader();  // fixed alert + nav offset (bound once)
 
   /* ════════════════════════════════════════════════════════════════════════
-     PROTOTYPE STATE ENGINE — two independent dials drive the page:
-       EVENT  ∈ { upcoming, live, closed }
-       VIEWER ∈ { out (public), reg (logged in + registered), unreg (logged in, not) }
-     Each combination renders: hero eyebrow · hero action card · top alert · nav auth.
-     Live promotes "Already registered? Join here" into the card's PRIMARY CTA,
-     with "Register now" kept beneath it (the team's decision).
-     Reachable via hash, e.g. #live or #live/reg.
+     PROTOTYPE STATE ENGINE — dials drive the page (AUTH is the primary separator):
+       AUTH   ∈ { out, in }        EVENT ∈ { upcoming, live, closed, ended }
+       STATUS ∈ { notinvited, invited, registered }   PAST ∈ { recorded, none } (ended only)
+     Each combination renders the hero action card (Mara's 12-state copy), eyebrow,
+     top alert (reflects registered too), and nav auth. Delete #devDials before launch.
      ════════════════════════════════════════════════════════════════════════ */
   (function () {
     var REG_FLOW = '../event-company/index.html';   // Meet with the Company registration flow
@@ -602,15 +600,17 @@
     // shaped like the "● Live now" badge. NOT a rebuilt checkmark.
     var REG_BADGE = '<span class="sc-ck"><svg width="11" height="11" viewBox="0 0 24 24" fill="var(--ink)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Registered';
 
-    // ── request-an-invitation form (real shared components) ──
-    function requestForm() {
+    // ── request-an-invitation form (real shared components). CTA label + footer vary by state. ──
+    var FINE_DEFAULT = 'We\'ll follow up about this event, and occasionally share other opportunities that might be a fit. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.';
+    var FINE_FUTURE  = 'We\'ll keep you posted on events like this one, plus other opportunities that might be a fit. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.';
+    function requestForm(ctaLabel, fineprint) {
       return '<form class="auth-form" onsubmit="return false">' +
              '<div class="field"><label>Full name</label><input type="text" placeholder="Your name" autocomplete="name" required></div>' +
              '<div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>' +
              '<div class="field"><label>Phone number</label><input type="tel" placeholder="(555) 000-0000" autocomplete="tel"></div>' +
-             '<button class="btn-auth" type="submit">Submit request</button>' +
+             '<button class="btn-auth" type="submit">' + ctaLabel + '</button>' +
              '</form>' +
-             '<p class="auth-fineprint">Hear about networking opportunities, upskilling events, new remote roles, and more — all in one email. Opt out any time. By continuing, you agree to our <a href="https://powertofly.com/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>';
+             '<p class="auth-fineprint">' + fineprint + '</p>';
     }
     function btn(label, cls, href) { return '<a class="btn ' + cls + ' btn-block" href="' + href + '" rel="noopener">' + label + '</a>'; }
     // carry the entry path into the flow: logged out → create-account; logged in → skip to details
@@ -644,65 +644,64 @@
         // no recording → message + next steps
         return status('This event has ended', '') +
                '<h3 class="mwc-action-title">This event has ended</h3>' +
-               '<p class="mwc-action-body">Thanks to everyone who joined Mitsubishi Power and PowerToFly. There\'s no recording for this event — but here\'s where to go next.</p>' +
+               '<p class="mwc-action-body">Thanks to everyone who joined Mitsubishi Power and PowerToFly. There\'s no recording for this one, but here\'s where to go next.</p>' +
                '<div class="mwc-action-actions">' + btn('See upcoming events →', 'btn-primary', '../events/index.html') + btn('Explore open roles →', '', '#roles') + '</div>';
       }
 
-      // ── REGISTERED — already has a seat (same whether logged in or out) ──
+      // ── REGISTERED (Mara states 3 / 6 / 9) ──
       if (stat === 'registered') {
-        if (ev === 'live')
+        if (ev === 'live')  // 6
           return status('<span class="dot"></span>Live now', 'is-live') +
                  '<h3 class="mwc-action-title">The session is live</h3>' +
-                 '<p class="mwc-action-body">You\'re registered — jump straight in.</p>' +
+                 '<p class="mwc-action-body">You\'re registered. Click below to join.</p>' +
                  '<div class="mwc-action-actions">' + btn('Join now →', 'btn-primary', '#') + '</div>';
+        // upcoming (3) or closed (9)
         return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
-               '<p class="mwc-action-body">We\'ll email you the join link before the event starts.' +
-               (ev === 'closed' ? ' Registration is now closed, but you\'re all set.' : '') + '</p>' +
+               '<p class="mwc-action-body">' + (ev === 'closed'
+                  ? 'Registration is now closed, but you\'re all set. We\'ll email you the link to join before the event starts.'
+                  : 'We\'ll email you the link to join before the event starts.') + '</p>' +
                '<div class="mwc-action-actions">' + btn('Add to calendar', 'btn-primary', '#') + btn('View details', '', '#about') + '</div>';
       }
 
-      // ── INVITED — has the code, not yet registered → Register. No "email us" note (QA). ──
+      // ── INVITED (Mara states 2 / 5 / 8) ──
       if (stat === 'invited') {
-        if (ev === 'closed')
-          return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
-                 '<p class="mwc-action-body">This event is no longer accepting new registrations.</p>';
-        if (ev === 'live')
+        if (ev === 'closed')  // 8
+          return '<h3 class="mwc-action-title">Registration is closed</h3>' +
+                 '<p class="mwc-action-body">You were on the invite list, but the registration window is now closed. We\'ll keep you posted on future events.</p>';
+        if (ev === 'live')  // 5 — single CTA (Join here removed: invited-not-registered can't "already be registered")
           return status('<span class="dot"></span>Live now', 'is-live') +
-                 '<h3 class="mwc-action-title">You\'re invited — join or register</h3>' +
-                 '<p class="mwc-action-body">Register to lock in your spot, or if you\'re already registered, join here.</p>' +
-                 '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(auth)) + btn('Join here →', '', '#') + '</div>';
-        return status('', '') + '<h3 class="mwc-action-title">You\'re invited — save your seat</h3>' +
-               '<p class="mwc-action-body">Complete your registration to lock in your spot.</p>' +
+                 '<h3 class="mwc-action-title">Register to join</h3>' +
+                 '<p class="mwc-action-body">The session is already live. Register now to jump right in.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(auth)) + '</div>';
+        return status('You\'re invited', '') +  // 2
+               '<h3 class="mwc-action-title">Save your seat</h3>' +
+               '<p class="mwc-action-body">Complete your registration to attend.</p>' +
                '<div class="mwc-action-actions">' + btn('Register now →', 'btn-primary', regUrl(auth)) + '</div>';
       }
 
-      // ── NOT INVITED — no code ──
-      if (loggedIn) {
-        // logged in + not invited → a DEDICATED request-access message only (QA: separate the flows)
-        if (ev === 'live')
-          return status('<span class="dot"></span>Live now', 'is-live') +
-                 '<h3 class="mwc-action-title">You\'re not registered</h3>' +
-                 '<p class="mwc-action-body">This is an invite-only event and it\'s live now — registration is required to join.</p>' +
-                 '<p class="mwc-action-note">Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL to request access.</p>';
-        if (ev === 'closed')
-          return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
-                 '<p class="mwc-action-body">This event is no longer accepting new registrations.</p>';
-        return status('', '') + '<h3 class="mwc-action-title">You\'re signed in, but not invited yet</h3>' +
-               '<p class="mwc-action-body">This is an invite-only event. To request access, email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL — the team will review and send you an invitation.</p>';
-      }
-      // logged out + not invited (public, no code) — NO "have a code? register now" hint (QA)
-      if (ev === 'live')
-        return status('<span class="dot"></span>Live now', 'is-live') +
+      // ── NOT INVITED (Mara states 1 / 1b / 4 / 12 / 7) ──
+      if (ev === 'closed')  // 7 (auth-agnostic)
+        return '<h3 class="mwc-action-title">Registration is closed</h3>' +
+               '<p class="mwc-action-body">This event is no longer accepting new registrations. Want to hear about future events like this one? Share your details below.</p>' +
+               requestForm('Submit request', FINE_FUTURE);
+      if (ev === 'live') {
+        if (loggedIn)  // 12 — deliberate dead end, NO email pathway (can't join a session already in progress)
+          return '<h3 class="mwc-action-title">You\'re not registered</h3>' +
+                 '<p class="mwc-action-body">This session\'s already in progress, and registration is now closed.</p>' +
+                 '<p class="mwc-action-note">There will be more like this. Keep an eye out for future invites.</p>';
+        return status('<span class="dot"></span>Live now', 'is-live') +  // 4 — logged out
                '<h3 class="mwc-action-title">Already registered? Join here</h3>' +
                '<p class="mwc-action-body">Enter your email on the next screen and we\'ll check you\'re on the approved list.</p>' +
-               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + '</div>';
-      if (ev === 'closed')
-        return status('', '') + '<h3 class="mwc-action-title">Registration is closed</h3>' +
-               '<p class="mwc-action-body">This event is no longer accepting new registrations. Interested in an event like this in the future? Share your details below.</p>' +
-               requestForm();
-      return status('', '') + '<h3 class="mwc-action-title">Interested in attending?</h3>' +
-             '<p class="mwc-action-body">Share your contact information below so we can reach out if you\'re a good fit.</p>' +
-             requestForm();
+               '<div class="mwc-action-actions">' + btn('Join here →', 'btn-primary', '#') + '</div>' +
+               '<p class="mwc-action-note">Didn\'t get an invite? This session\'s already in progress, but there will be more like it.</p>';
+      }
+      // upcoming, not invited
+      if (loggedIn)  // 1b
+        return '<h3 class="mwc-action-title">You\'re signed in, but not invited yet</h3>' +
+               '<p class="mwc-action-body">This event is invite-only, but we\'d love to consider you. Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL and we\'ll follow up.</p>';
+      return '<h3 class="mwc-action-title">Request your invite</h3>' +  // 1
+             '<p class="mwc-action-body">This event is invite-only, but we\'d love to consider you. Share your details and we\'ll follow up.</p>' +
+             requestForm('Request an invite →', FINE_DEFAULT);
     }
 
     // ── hero eyebrow + top alert per EVENT ──
@@ -765,10 +764,16 @@
       el.eyebrow.innerHTML = (c.dot ? '<span class="dot is-live"></span>' : '') + c.eyebrow;
       // action card
       el.action.innerHTML = buildAction(cur.event, cur.auth, cur.status, cur.recording);
-      // top alert
-      if (el.alertText) el.alertText.innerHTML = c.alert;
+      // top alert — must reflect registration status too (Mara fix: a Registered banner variant,
+      // instead of always showing "Request an invite")
+      var alertHtml = c.alert, alertCta = c.alertCta;
+      if (cur.status === 'registered' && (cur.event === 'upcoming' || cur.event === 'closed')) {
+        alertHtml = 'You\'re registered &nbsp;·&nbsp; Powering What\'s Next with Mitsubishi Power';
+        alertCta = { t: 'Add to calendar →', href: '#hero' };
+      }
+      if (el.alertText) el.alertText.innerHTML = alertHtml;
       if (el.alertCta) {
-        if (c.alertCta.t) { el.alertCta.style.display = ''; el.alertCta.textContent = c.alertCta.t; el.alertCta.setAttribute('href', c.alertCta.href); }
+        if (alertCta.t) { el.alertCta.style.display = ''; el.alertCta.textContent = alertCta.t; el.alertCta.setAttribute('href', alertCta.href); }
         else { el.alertCta.style.display = 'none'; }
       }
       // nav auth
