@@ -474,6 +474,12 @@
     "events/index.html": 1
    }
   },
+  ".ptf-script-logo": {
+   "total": 1,
+   "files": {
+    "employers/index.html": 1
+   }
+  },
   ".hero-headline": {
    "total": 4,
    "files": {
@@ -3164,14 +3170,14 @@
    }
   },
   ".field": {
-   "total": 47,
+   "total": 48,
    "files": {
     "job-board/index.html": 12,
     "event-common/index.html": 10,
     "signup/index.html": 8,
     "auth.html": 8,
     "sponsor/index.html": 6,
-    "meet-with-companies/index.html": 3
+    "meet-with-companies/index.html": 4
    }
   },
   ".field-row": {
@@ -3827,22 +3833,22 @@
    }
   },
   ".auth-form": {
-   "total": 14,
+   "total": 15,
    "files": {
     "event-common/index.html": 6,
     "signup/index.html": 3,
     "auth.html": 3,
-    "meet-with-companies/index.html": 1,
+    "meet-with-companies/index.html": 2,
     "sponsor/index.html": 1
    }
   },
   ".btn-auth": {
-   "total": 16,
+   "total": 17,
    "files": {
     "event-common/index.html": 6,
     "signup/index.html": 4,
     "auth.html": 4,
-    "meet-with-companies/index.html": 1,
+    "meet-with-companies/index.html": 2,
     "sponsor/index.html": 1
    }
   },
@@ -3921,9 +3927,9 @@
    }
   },
   ".mwc-action-actions": {
-   "total": 7,
+   "total": 6,
    "files": {
-    "meet-with-companies/index.html": 7
+    "meet-with-companies/index.html": 6
    }
   },
   ".mwc-action-note": {
@@ -5724,28 +5730,10 @@
    "cssRefs": 1,
    "defined": true
   },
-  "--section-y-loose": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 2,
-   "defined": true
-  },
-  "--btn-fg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 5,
-   "defined": true
-  },
   "--btn-bg-hover": {
    "total": 0,
    "files": {},
    "cssRefs": 5,
-   "defined": true
-  },
-  "--hero-top": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 1,
    "defined": true
   },
   "--btn-bg": {
@@ -5754,10 +5742,28 @@
    "cssRefs": 7,
    "defined": true
   },
+  "--btn-fg": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
+   "defined": true
+  },
   "--purple-bright": {
    "total": 0,
    "files": {},
    "cssRefs": 4,
+   "defined": true
+  },
+  "--section-y-loose": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 2,
+   "defined": true
+  },
+  "--hero-top": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 1,
    "defined": true
   }
  },
@@ -5857,9 +5863,9 @@
    }
   },
   "#000": {
-   "total": 6,
+   "total": 7,
    "files": {
-    "employers/index.html": 4,
+    "employers/index.html": 5,
     "train/index.html": 2
    }
   },

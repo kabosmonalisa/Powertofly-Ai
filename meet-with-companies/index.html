@@ -628,17 +628,18 @@
       if (ev === 'ended') {
         if (rec === 'recorded') {
           var play = '<div class="mwc-recording">' +
-            (loggedIn ? '' : '<span class="mwc-rec-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>Sign in to watch</span>') +
+            (loggedIn ? '' : '<span class="mwc-rec-lock"><svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>Enter email to watch</span>') +
             '<button class="mwc-rec-play" type="button" aria-label="Play recording"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>' +
             '<span class="mwc-rec-cap">Event recording · 1h 30m</span></div>';
-          if (loggedIn)
+          if (loggedIn)  // 10 — plays immediately
             return status('This event has ended', '') +
                    '<h3 class="mwc-action-title">Watch the recording</h3>' +
                    '<p class="mwc-action-body">Missed it, or want a second look? The full session is ready to watch.</p>' + play;
+          // 10b — logged out: email capture to unlock (Patri: enter email, not sign in)
           return status('This event has ended', '') +
                  '<h3 class="mwc-action-title">Watch the recording</h3>' +
-                 '<p class="mwc-action-body">Sign in to watch the full session recording.</p>' + play +
-                 '<div class="mwc-action-actions">' + btn('Sign in to watch →', 'btn-primary', '#') + '</div>';
+                 '<p class="mwc-action-body">Enter your email and we\'ll unlock the recording.</p>' + play +
+                 '<form class="auth-form" onsubmit="return false"><div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div><button class="btn-auth" type="submit">Watch recording →</button></form>';
         }
         // no recording → message + next steps
         return status('This event has ended', '') +
@@ -695,9 +696,10 @@
                '<p class="mwc-action-note">Didn\'t get an invite? This session\'s already in progress, but there will be more like it.</p>';
       }
       // upcoming, not invited
-      if (loggedIn)  // 1b
-        return '<h3 class="mwc-action-title">You\'re signed in, but not invited yet</h3>' +
-               '<p class="mwc-action-body">This event is invite-only, but we\'d love to consider you. Email <a href="mailto:hi@powertofly.com">hi@powertofly.com</a> with your resume or profile URL and we\'ll follow up.</p>';
+      if (loggedIn)  // 1b — same lightweight form as logged out (Patri: real system just collects email + optional phone, no sign-in/resume)
+        return '<h3 class="mwc-action-title">You\'re signed in — request your invite</h3>' +
+               '<p class="mwc-action-body">This event is invite-only, but we\'d love to consider you. Share your details and we\'ll follow up.</p>' +
+               requestForm('Request an invite →', FINE_DEFAULT);
       return '<h3 class="mwc-action-title">Request your invite</h3>' +  // 1
              '<p class="mwc-action-body">This event is invite-only, but we\'d love to consider you. Share your details and we\'ll follow up.</p>' +
              requestForm('Request an invite →', FINE_DEFAULT);
