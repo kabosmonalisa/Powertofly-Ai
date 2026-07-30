@@ -14,7 +14,9 @@
 <!-- Design system -->
 <link rel="stylesheet" href="../ds/ptf.css">
 <style>
-/* PREVIEW HARNESS ONLY. Each frame is the real nav (ds/ptf.css + ptf.js) in an iframe. */
+/* PREVIEW HARNESS ONLY. Each frame is the real nav (ds/ptf.css + ptf.js) in an iframe,
+   rendered at a fixed desktop width and scaled down to fit — so the full nav is always
+   visible with no sideways scrolling and nothing cut off. */
 body { background: var(--bg-soft, #FAFAF6); }
 .np-wrap { max-width: var(--container, 1200px); margin: 0 auto; padding: 56px 32px 96px; }
 .np-title { font-family: 'Inter Tight', sans-serif; font-weight: 800; letter-spacing: -0.03em;
@@ -25,10 +27,9 @@ body { background: var(--bg-soft, #FAFAF6); }
   font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
   color: var(--green, #1f9e6b); margin: 0 0 12px; }
 .np-frame { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04); overflow-x: auto; overflow-y: hidden; }
-/* Pin each frame to a desktop width so the nav shows its desktop layout (it collapses to a
-   hamburger below 900px). The tall height leaves room for a dropdown to open inside the frame. */
-.np-frame iframe { display: block; width: 100%; min-width: 1040px; border: 0; }
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04); overflow: hidden; }
+/* Width/height/scale are set by JS; the iframe renders at DESIGN_W then scales to fit. */
+.np-frame iframe { display: block; border: 0; transform-origin: top left; width: 1040px; }
 </style>
 </head>
 <body>
@@ -37,32 +38,52 @@ body { background: var(--bg-soft, #FAFAF6); }
   <p class="np-sub">Logged-in users switch the whole top bar between a <strong>Talent</strong> context
   and an <strong>Employer</strong> context — click <strong>Switch to employers</strong> /
   <strong>Switch to talents</strong> in either frame to flip it live. The dropdowns are live too
-  (hover <strong>For employers</strong>/<strong>Log in</strong> when logged out, click
-  <strong>Amara</strong> when logged in). All from the shared system (<code>ds/ptf.css</code> +
-  <code>ds/ptf.js</code>).</p>
+  (hover <strong>For employers</strong>/<strong>Log in</strong> when logged out; click
+  <strong>Solutions</strong> or <strong>Amara</strong> when logged in). All from the shared
+  system (<code>ds/ptf.css</code> + <code>ds/ptf.js</code>).</p>
 
   <div class="np-block">
     <p class="np-label"><span class="dot"></span>Logged out</p>
-    <div class="np-frame"><iframe src="state.html" height="92" title="Logged out"></iframe></div>
+    <div class="np-frame"><iframe src="state.html" title="Logged out"></iframe></div>
   </div>
 
   <div class="np-block">
     <p class="np-label"><span class="dot"></span>Logged in — Talent</p>
-    <div class="np-frame"><iframe src="state.html#auth=in&mode=talent" height="92" title="Logged in — Talent"></iframe></div>
+    <div class="np-frame"><iframe src="state.html#auth=in&mode=talent" title="Logged in — Talent"></iframe></div>
   </div>
 
   <div class="np-block">
     <p class="np-label"><span class="dot"></span>Logged in — Employer</p>
-    <div class="np-frame"><iframe src="state.html#auth=in&mode=employer" height="92" title="Logged in — Employer"></iframe></div>
+    <div class="np-frame"><iframe src="state.html#auth=in&mode=employer" title="Logged in — Employer"></iframe></div>
   </div>
 </div>
 <script>
-  /* Resize each frame to the height its nav reports (grows when a dropdown opens). */
+  /* Render each frame at a fixed desktop width, then scale it to fit its column so the whole
+     nav is always visible — no horizontal scroll, nothing cut off. Grows when a dropdown opens. */
+  var DESIGN_W = 1040;
+  var heights = new WeakMap();
+  function layout(iframe) {
+    var frame = iframe.closest('.np-frame');
+    if (!frame) return;
+    var f = Math.min(1, frame.clientWidth / DESIGN_W);
+    var h = heights.get(iframe) || 92;
+    iframe.style.width = DESIGN_W + 'px';
+    iframe.style.height = h + 'px';
+    iframe.style.transform = 'scale(' + f + ')';
+    frame.style.height = Math.round(h * f) + 'px';
+  }
   window.addEventListener('message', function (e) {
     if (!e.data || e.data.type !== 'nav-h') return;
-    var ifr = [...document.querySelectorAll('.np-frame iframe')].find(f => f.contentWindow === e.source);
-    if (ifr) ifr.style.height = e.data.h + 'px';
+    var iframe = [].slice.call(document.querySelectorAll('.np-frame iframe'))
+      .filter(function (f) { return f.contentWindow === e.source; })[0];
+    if (!iframe) return;
+    heights.set(iframe, e.data.h);
+    layout(iframe);
   });
+  function layoutAll() { [].forEach.call(document.querySelectorAll('.np-frame iframe'), layout); }
+  window.addEventListener('resize', layoutAll);
+  window.addEventListener('load', layoutAll);
+  layoutAll();
 </script>
 </body>
 </html>
