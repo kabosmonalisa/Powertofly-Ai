@@ -555,6 +555,9 @@ img { display: block; max-width: 100%; }
  * Replaces the simple .nav-links row. Drive with PTF.initMegaNav(). */
 .nav-items { display: flex; align-items: center; flex: 1; gap: 10px; justify-content: center; }
 .nav-drop  { position: static; }
+/* Talent ↔ Employer context switch (logged-in only). A normal .btn pill with a swap glyph. */
+#modeSwitch { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+#modeSwitch .switch-ic { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
 .nav-btn {
   background: none; border: none; font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 400;
   color: var(--ink); cursor: pointer; padding: 7px 11px; border-radius: 8px;

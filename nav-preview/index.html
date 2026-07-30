@@ -34,9 +34,11 @@ body { background: var(--bg-soft, #FAFAF6); }
 <body>
 <div class="np-wrap">
   <h1 class="np-title">Top navigation — login experience</h1>
-  <p class="np-sub">The same top bar, signed out and signed in. The dropdowns are live — hover
-  <strong>For employers</strong> or <strong>Log in</strong>, and click <strong>Amara</strong> to
-  open the account menu. It all renders from the shared design system (<code>ds/ptf.css</code> +
+  <p class="np-sub">Logged-in users switch the whole top bar between a <strong>Talent</strong> context
+  and an <strong>Employer</strong> context — click <strong>Switch to employers</strong> /
+  <strong>Switch to talents</strong> in either frame to flip it live. The dropdowns are live too
+  (hover <strong>For employers</strong>/<strong>Log in</strong> when logged out, click
+  <strong>Amara</strong> when logged in). All from the shared system (<code>ds/ptf.css</code> +
   <code>ds/ptf.js</code>).</p>
 
   <div class="np-block">
@@ -45,8 +47,13 @@ body { background: var(--bg-soft, #FAFAF6); }
   </div>
 
   <div class="np-block">
-    <p class="np-label"><span class="dot"></span>Logged in</p>
-    <div class="np-frame"><iframe src="state.html#auth=in" height="92" title="Logged in"></iframe></div>
+    <p class="np-label"><span class="dot"></span>Logged in — Talent</p>
+    <div class="np-frame"><iframe src="state.html#auth=in&mode=talent" height="92" title="Logged in — Talent"></iframe></div>
+  </div>
+
+  <div class="np-block">
+    <p class="np-label"><span class="dot"></span>Logged in — Employer</p>
+    <div class="np-frame"><iframe src="state.html#auth=in&mode=employer" height="92" title="Logged in — Employer"></iframe></div>
   </div>
 </div>
 <script>

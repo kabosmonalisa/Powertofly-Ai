@@ -225,7 +225,7 @@
    "file": "nav-preview/index.html",
    "group": "Organisms",
    "status": "draft",
-   "desc": "The top navigation in both auth states — logged out (marketing) and logged in (Dashboard-first + account menu with MUI-outlined icons). Dropdowns are live. Dev reference for the login experience."
+   "desc": "The top navigation for logged-in users, switching between a Talent context and an Employer context (Switch to employers / Switch to talents). Logged-out shows the marketing nav. Account menu uses MUI-outlined icons; dropdowns and the switch are live. Dev reference for the login experience."
   }
  ]
 }

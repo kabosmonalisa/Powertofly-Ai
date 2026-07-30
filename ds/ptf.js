@@ -321,13 +321,63 @@ window.PTF = (function () {
         var full = mount.getAttribute('data-user-full')  || 'Amara Okafor';
         var ctaHTML = NAV_CTA_IN.replace(/{{NAME}}/g, name).replace(/{{FULL}}/g, full);
         var cta = nav.querySelector('.nav-cta');
-        if (cta) cta.innerHTML = ctaHTML;
-        var drawerCta = mount.parentNode.querySelector('.mobile-drawer .drawer-cta');
+        var drawer = mount.parentNode.querySelector('.mobile-drawer');
+        var drawerCta = drawer && drawer.querySelector('.drawer-cta');
         if (drawerCta) drawerCta.innerHTML = DRAWER_CTA_IN;
-        /* Dashboard: logged-in only, first item on the left.
-           (Mobile already surfaces Dashboard via DRAWER_CTA_IN, so don't add it twice.) */
-        var items = nav.querySelector('.nav-items');
-        if (items) items.insertAdjacentHTML('afterbegin', '<a class="nav-btn" data-nav="dashboard" href="#">Dashboard</a>');
+
+        /* Logged-in nav is context-aware: a Talent view and an Employer view, with a
+           button to switch between them. Employer view flattens the "For employers" mega
+           into top-level items — Resources/Events are the employer-specific ones. */
+        var NAV_TALENT = '\
+<a class="nav-btn" data-nav="dashboard" href="#">Dashboard</a>\
+<a class="nav-btn" data-nav="jobs" href="https://powertofly.com/jobs/">Jobs</a>\
+<a class="nav-btn" data-nav="events" href="https://powertofly.com/browse-events">Events</a>\
+<a class="nav-btn" data-nav="resources" href="https://powertofly.com/up">Resources</a>\
+<a class="nav-btn" data-nav="about" href="../about/">About</a>';
+        var NAV_EMPLOYER = '\
+<a class="nav-btn" data-nav="employers" href="../employers/">For employers</a>\
+<a class="nav-btn" data-nav="hire" href="../hire/">Hire AI experts</a>\
+<a class="nav-btn" data-nav="train" href="../train/">Improve AI performance</a>\
+<a class="nav-btn" data-nav="emp-resources" href="#">Resources</a>\
+<a class="nav-btn" data-nav="emp-events" href="#">Events</a>';
+        var DRAWER_TALENT = '<a href="#">Dashboard</a><a href="https://powertofly.com/jobs/">Jobs</a><a href="https://powertofly.com/browse-events">Events</a><a href="https://powertofly.com/up">Resources</a><a href="../about/">About</a>';
+        var DRAWER_EMPLOYER = '<a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a>';
+        var SWITCH_ICON = '<svg class="switch-ic" viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>';
+
+        if (cta) cta.innerHTML =
+          '<button class="btn btn-sm" id="modeSwitch" type="button">' + SWITCH_ICON + '<span class="switch-label"></span></button>' + ctaHTML;
+
+        function ptfMode() {
+          var m = mount.getAttribute('data-mode');
+          if (m) return m;
+          try { return localStorage.getItem('ptf-nav-mode') || 'talent'; } catch (e) { return 'talent'; }
+        }
+        function applyMode(mode) {
+          var items = nav.querySelector('.nav-items');
+          if (items) items.innerHTML = (mode === 'employer' ? NAV_EMPLOYER : NAV_TALENT);
+          var label = nav.querySelector('#modeSwitch .switch-label');
+          if (label) label.textContent = (mode === 'employer' ? 'Switch to talents' : 'Switch to employers');
+          if (drawer) {
+            var dcta = drawer.querySelector('.drawer-cta');
+            [].forEach.call(drawer.querySelectorAll('a'), function (a) { if (a.parentNode === drawer) a.parentNode.removeChild(a); });
+            var links = (mode === 'employer' ? DRAWER_EMPLOYER : DRAWER_TALENT)
+              + '<a href="#" id="drawerModeSwitch">' + (mode === 'employer' ? 'Switch to talents' : 'Switch to employers') + '</a>';
+            if (dcta) dcta.insertAdjacentHTML('beforebegin', links);
+          }
+        }
+        function toggleMode() {
+          var next = (ptfMode() === 'employer' ? 'talent' : 'employer');
+          try { localStorage.setItem('ptf-nav-mode', next); } catch (e) {}
+          mount.setAttribute('data-mode', next);
+          applyMode(next);
+        }
+        applyMode(ptfMode());
+        var sw = nav.querySelector('#modeSwitch');
+        if (sw) sw.addEventListener('click', toggleMode);
+        if (drawer) drawer.addEventListener('click', function (e) {
+          var hit = e.target.closest ? e.target.closest('#drawerModeSwitch') : null;
+          if (hit) { e.preventDefault(); toggleMode(); }
+        });
       }
     }
     mount.parentNode.removeChild(mount);
