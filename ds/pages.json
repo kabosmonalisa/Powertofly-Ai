@@ -156,6 +156,14 @@
    "desc": "Reference demo page for the top-alert cases. The Top alert bar organism is the inline specimen."
   },
   {
+   "id": "p-checkout",
+   "name": "Checkout rebrand",
+   "file": "checkout-rebrand-proposal.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Stripe hosted-checkout rebrand proposal — the brand panel (bg #0A0A0A via --ink + crisp vector logo) is the only surface PowerToFly controls; the rest is Stripe chrome shown for context."
+  },
+  {
    "id": "flow-event",
    "name": "Chat & Learn signup",
    "file": "event-common/index.html",
