@@ -94,7 +94,7 @@
    "name": "Chat & Learn",
    "file": "chat-learn/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "live",
    "desc": "Event detail — Chat & Learn. Sibling of Virtual job fair and Summit."
   },
   {
@@ -102,7 +102,7 @@
    "name": "Meet with Companies",
    "file": "meet-with-companies/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "live",
    "desc": "Event detail — invite-only company career event (Mitsubishi Power). Sibling of Summit/VJF/Chat & Learn; two-dial state switcher (event × viewer)."
   },
   {
@@ -160,7 +160,7 @@
    "name": "Checkout rebrand",
    "file": "checkout-rebrand-proposal.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "live",
    "desc": "Stripe hosted-checkout rebrand proposal — the brand panel (bg #0A0A0A via --ink + crisp vector logo) is the only surface PowerToFly controls; the rest is Stripe chrome shown for context."
   },
   {
@@ -184,7 +184,7 @@
    "name": "Sign in",
    "file": "auth.html",
    "group": "Flows",
-   "status": "live",
+   "status": "archived",
    "desc": "Sign in, with the identity-chips step."
   },
   {
@@ -197,11 +197,11 @@
   },
   {
    "id": "flow-company",
-   "name": "Company registration",
+   "name": "Meet with Companies registration",
    "file": "event-company/index.html",
    "group": "Flows",
-   "status": "archived",
-   "desc": "Register — meet with the company."
+   "status": "draft",
+   "desc": "Multi-step registration flow for the Meet with Companies event — logged-out (create account) vs logged-in (skip to details) entry paths via the AUTH dev toggle. Reached from the Meet with Companies event page."
   },
   {
    "id": "flow-employer",

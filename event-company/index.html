@@ -90,7 +90,7 @@
         </div>
         <!-- Step 1 — create account + register -->
         <div class="flow-step" data-step="1">
-          <h1 class="auth-heading" style="margin-top:55px"><!-- match the common flow's toggle→heading gap (55px) without the step indicator -->Save your seat</h1>
+          <h1 class="auth-heading" style="margin-top:40px"><!-- toggle→heading gap = 40px (matches the common flow; no step indicator here) -->Save your seat</h1>
           <p class="auth-sub">Create your account to register — free to attend.</p>
           <form class="auth-form" onsubmit="return validateStep1()" novalidate>
             <div class="field-row">
@@ -112,7 +112,7 @@
         </div>
         <!-- Step 2 — resume + LinkedIn (golden: one step) -->
         <div class="flow-step" data-step="2" hidden>
-          <div class="step-indicator">Step 2 of 4</div>
+          <div class="step-indicator">Step 1 of 3</div>
           <!-- shown only in logged-in mode (they already have an account, so step 1 is skipped) -->
           <p class="auth-note" id="signedInNote" hidden style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="setAuthMode('out');return false">Not you?</a></p>
           <h1 class="auth-heading">Introduce yourself</h1>
@@ -133,7 +133,7 @@
         </div>
         <!-- Step 3 — demographics (golden: chips in columns) -->
         <div class="flow-step" data-step="3" hidden>
-          <div class="step-indicator">Step 3 of 4</div>
+          <div class="step-indicator">Step 2 of 3</div>
           <h1 class="auth-heading">Tell us a little more about you</h1>
           <p class="auth-sub">Choose all that apply — none of it affects your eligibility. We use it only internally and never show it publicly.</p>
           <div class="id-grid stacked">
@@ -154,7 +154,7 @@
         </div>
         <!-- Step 4 — questions for panelists + register for more events + agreement -->
         <div class="flow-step" data-step="4" hidden>
-          <div class="step-indicator">Step 4 of 4</div>
+          <div class="step-indicator">Step 3 of 3</div>
           <h1 class="auth-heading">A couple last things</h1>
           <p class="auth-sub">Tell us what you want to get out of the event, then confirm to lock in your spot.</p>
           <form class="auth-form" onsubmit="return validateStep4()">
@@ -236,14 +236,12 @@
   function setAuthMode(mode) {
     var loggedIn = mode === 'in';
     window._authMode = mode;
-    // step counter: resume/demographics/questions renumber; account (1) is out-of-flow when logged in
-    function ind(step, numOut, numIn) {
+    // step counter: the account step is never counted (of 3 in both auth states)
+    function ind(step, num) {
       var el = document.querySelector('[data-step="' + step + '"] .step-indicator');
-      if (el) el.textContent = loggedIn ? ('Step ' + numIn + ' of 3') : ('Step ' + numOut + ' of 4');
+      if (el) el.textContent = 'Step ' + num + ' of 3';
     }
-    ind(2, 2, 1); ind(3, 3, 2); ind(4, 4, 3);
-    var s1 = document.querySelector('[data-step="1"] .step-indicator');
-    if (s1) s1.textContent = loggedIn ? '' : 'Step 1 of 4';
+    ind(2, 1); ind(3, 2); ind(4, 3);
     var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
     var back = document.getElementById('step2Back');   if (back) back.style.display = loggedIn ? 'none' : '';
     // dev-button active state

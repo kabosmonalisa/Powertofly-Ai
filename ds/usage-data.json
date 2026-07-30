@@ -1,7 +1,7 @@
 {
  "meta": {
   "generated": "run `python3 ds/usage-scan.py` to refresh",
-  "pageCount": 21,
+  "pageCount": 22,
   "pages": [
    "employers/index.html",
    "talents/index-v2.html",
@@ -18,10 +18,11 @@
    "meet-with-companies/index.html",
    "nav-options.html",
    "top-alerts.html",
+   "checkout-rebrand-proposal.html",
    "event-common/index.html",
    "signup/index.html",
-   "auth.html",
    "sponsor/index.html",
+   "event-company/index.html",
    "book/index.html",
    "nav-preview/index.html"
   ],
@@ -41,10 +42,11 @@
    "meet-with-companies/index.html": 105,
    "nav-options.html": 99,
    "top-alerts.html": 101,
+   "checkout-rebrand-proposal.html": 34,
    "event-common/index.html": 0,
    "signup/index.html": 0,
-   "auth.html": 424,
    "sponsor/index.html": 0,
+   "event-company/index.html": 0,
    "book/index.html": 123,
    "nav-preview/index.html": 12
   },
@@ -424,10 +426,37 @@
     ".demo-stage",
     ".eg"
    ],
+   "checkout-rebrand-proposal.html": [
+    ".amt",
+    ".apple",
+    ".brandside",
+    ".cbody",
+    ".disc",
+    ".flabel",
+    ".frame",
+    ".link",
+    ".or",
+    ".pay-btn",
+    ".payside",
+    ".row2",
+    ".s-back",
+    ".s-item",
+    ".s-logo",
+    ".s-logo-row",
+    ".scard",
+    ".sfoot",
+    ".single",
+    ".slbl",
+    ".static",
+    ".tab",
+    ".wallets",
+    ".wbtn",
+    ".wrap"
+   ],
    "event-common/index.html": [],
    "signup/index.html": [],
-   "auth.html": [],
    "sponsor/index.html": [],
+   "event-company/index.html": [],
    "book/index.html": [
     ".book-card",
     ".book-footer",
@@ -484,7 +513,7 @@
    }
   },
   ".italic-plain": {
-   "total": 29,
+   "total": 30,
    "files": {
     "about/index.html": 5,
     "talents/index-v2.html": 4,
@@ -498,7 +527,8 @@
     "events/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1,
-    "vjf/index.html": 1
+    "vjf/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".fh-wrap": {
@@ -912,12 +942,12 @@
    }
   },
   ".active": {
-   "total": 24,
+   "total": 21,
    "files": {
     "signup/index.html": 6,
-    "auth.html": 6,
     "top-alerts.html": 3,
     "event-common/index.html": 3,
+    "event-company/index.html": 3,
     "employers/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -1246,7 +1276,7 @@
    }
   },
   ".eyebrow": {
-   "total": 41,
+   "total": 42,
    "files": {
     "about/index.html": 8,
     "meet-with-companies/index.html": 8,
@@ -1260,6 +1290,7 @@
     "resources/index.html": 2,
     "employers/index.html": 1,
     "event-common/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -1273,7 +1304,7 @@
    }
   },
   ".btn": {
-   "total": 57,
+   "total": 58,
    "files": {
     "job-board/index.html": 9,
     "talents/index-v2.html": 7,
@@ -1291,7 +1322,8 @@
     "employers/index.html": 1,
     "about/index.html": 1,
     "resources/index.html": 1,
-    "signup/index.html": 1
+    "signup/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".btn-cta": {
@@ -1767,13 +1799,14 @@
    }
   },
   ".btn-sm": {
-   "total": 18,
+   "total": 19,
    "files": {
     "ds/ptf.js": 7,
     "top-alerts.html": 4,
     "talents/index-v2.html": 3,
     "nav-options.html": 3,
-    "job-board/index.html": 1
+    "job-board/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".stat-unit": {
@@ -1853,16 +1886,17 @@
    }
   },
   ".brand-ai": {
-   "total": 11,
+   "total": 12,
    "files": {
     "nav-options.html": 2,
     "ds/ptf.js": 2,
     "talents/index-v2.html": 1,
     "top-alerts.html": 1,
+    "checkout-rebrand-proposal.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -1901,10 +1935,9 @@
    }
   },
   ".visible": {
-   "total": 17,
+   "total": 13,
    "files": {
     "signup/index.html": 4,
-    "auth.html": 4,
     "talents/index-v2.html": 2,
     "train/index.html": 2,
     "hire/index.html": 2,
@@ -3052,12 +3085,13 @@
    }
   },
   ".btn-block": {
-   "total": 9,
+   "total": 10,
    "files": {
     "job-board/index.html": 6,
     "meet-with-companies/index.html": 1,
     "event-common/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".jb-plan-badge": {
@@ -3164,13 +3198,14 @@
    }
   },
   ".field": {
-   "total": 48,
+   "total": 53,
    "files": {
     "job-board/index.html": 12,
     "event-common/index.html": 10,
     "signup/index.html": 8,
-    "auth.html": 8,
+    "event-company/index.html": 8,
     "sponsor/index.html": 6,
+    "checkout-rebrand-proposal.html": 5,
     "meet-with-companies/index.html": 4
    }
   },
@@ -3181,7 +3216,7 @@
     "job-board/index.html": 2,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".jb-note": {
@@ -3341,16 +3376,18 @@
    }
   },
   ".check-row": {
-   "total": 4,
+   "total": 7,
    "files": {
     "event-common/index.html": 3,
+    "event-company/index.html": 3,
     "job-board/index.html": 1
    }
   },
   ".check-box": {
-   "total": 4,
+   "total": 7,
    "files": {
     "event-common/index.html": 3,
+    "event-company/index.html": 3,
     "job-board/index.html": 1
    }
   },
@@ -3378,8 +3415,8 @@
     "job-board/index.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".jb-success-sub": {
@@ -3604,35 +3641,39 @@
    }
   },
   ".event-host": {
-   "total": 3,
+   "total": 4,
    "files": {
     "chat-learn/index.html": 1,
     "meet-with-companies/index.html": 1,
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-host-text": {
-   "total": 7,
+   "total": 8,
    "files": {
     "event-common/index.html": 5,
     "chat-learn/index.html": 1,
-    "meet-with-companies/index.html": 1
+    "meet-with-companies/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-host-name": {
-   "total": 6,
+   "total": 7,
    "files": {
     "event-common/index.html": 4,
     "chat-learn/index.html": 1,
-    "meet-with-companies/index.html": 1
+    "meet-with-companies/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-host-role": {
-   "total": 5,
+   "total": 6,
    "files": {
     "event-common/index.html": 3,
     "chat-learn/index.html": 1,
-    "meet-with-companies/index.html": 1
+    "meet-with-companies/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".cl-copy": {
@@ -3829,21 +3870,21 @@
    }
   },
   ".auth-form": {
-   "total": 15,
+   "total": 17,
    "files": {
     "event-common/index.html": 6,
+    "event-company/index.html": 5,
     "signup/index.html": 3,
-    "auth.html": 3,
     "meet-with-companies/index.html": 2,
     "sponsor/index.html": 1
    }
   },
   ".btn-auth": {
-   "total": 17,
+   "total": 18,
    "files": {
     "event-common/index.html": 6,
+    "event-company/index.html": 5,
     "signup/index.html": 4,
-    "auth.html": 4,
     "meet-with-companies/index.html": 2,
     "sponsor/index.html": 1
    }
@@ -3959,11 +4000,10 @@
    }
   },
   ".nav": {
-   "total": 6,
+   "total": 5,
    "files": {
     "nav-options.html": 2,
     "top-alerts.html": 1,
-    "auth.html": 1,
     "book/index.html": 1,
     "ds/ptf.js": 1
    }
@@ -4407,9 +4447,10 @@
    }
   },
   ".lbl": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "top-alerts.html": 1
+    "top-alerts.html": 1,
+    "checkout-rebrand-proposal.html": 1
    }
   },
   ".ta-badge": {
@@ -4436,12 +4477,163 @@
     "top-alerts.html": 1
    }
   },
-  ".flow-shell": {
+  ".wrap": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".frame": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".brandside": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".s-logo-row": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".s-back": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".s-logo": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".s-item": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".amt": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".payside": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".wallets": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".wbtn": {
+   "total": 2,
+   "files": {
+    "checkout-rebrand-proposal.html": 2
+   }
+  },
+  ".apple": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".link": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".or": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".flabel": {
+   "total": 2,
+   "files": {
+    "checkout-rebrand-proposal.html": 2
+   }
+  },
+  ".static": {
+   "total": 2,
+   "files": {
+    "checkout-rebrand-proposal.html": 2
+   }
+  },
+  ".scard": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".tab": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".cbody": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".slbl": {
    "total": 3,
+   "files": {
+    "checkout-rebrand-proposal.html": 3
+   }
+  },
+  ".single": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".row2": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".pay-btn": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".disc": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".sfoot": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  ".flow-shell": {
+   "total": 4,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".auth-bg": {
@@ -4449,8 +4641,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -4459,8 +4651,8 @@
    "files": {
     "event-common/index.html": 3,
     "signup/index.html": 3,
-    "auth.html": 3,
     "sponsor/index.html": 3,
+    "event-company/index.html": 3,
     "book/index.html": 3
    }
   },
@@ -4469,8 +4661,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -4479,8 +4671,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -4489,17 +4681,18 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
   ".auth-nav": {
-   "total": 3,
+   "total": 4,
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".nav-brand": {
@@ -4507,8 +4700,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
@@ -4517,69 +4710,79 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   },
   ".reg-wrap": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".reg-layout": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-card": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-top": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-title": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-meta": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-meta-row": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".event-ico": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".event-meta-text": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".reg-form": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".auth-card": {
@@ -4587,8 +4790,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".auth-toggle": {
@@ -4596,30 +4799,31 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".flow-step": {
-   "total": 7,
+   "total": 13,
    "files": {
-    "event-common/index.html": 7
+    "event-common/index.html": 7,
+    "event-company/index.html": 6
    }
   },
   ".auth-heading": {
-   "total": 19,
+   "total": 20,
    "files": {
     "event-common/index.html": 7,
+    "event-company/index.html": 6,
     "signup/index.html": 5,
-    "auth.html": 5,
     "sponsor/index.html": 2
    }
   },
   ".auth-sub": {
-   "total": 15,
+   "total": 16,
    "files": {
     "event-common/index.html": 6,
+    "event-company/index.html": 5,
     "signup/index.html": 4,
-    "auth.html": 4,
     "sponsor/index.html": 1
    }
   },
@@ -4628,7 +4832,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   ".social-btns": {
@@ -4636,7 +4840,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   ".btn-social": {
@@ -4644,33 +4848,33 @@
    "files": {
     "event-common/index.html": 4,
     "signup/index.html": 4,
-    "auth.html": 4
+    "event-company/index.html": 4
    }
   },
   ".auth-note": {
-   "total": 21,
+   "total": 24,
    "files": {
     "event-common/index.html": 8,
+    "event-company/index.html": 8,
     "signup/index.html": 7,
-    "auth.html": 5,
-    "sponsor/index.html": 1
-   }
-  },
-  ".step-indicator": {
-   "total": 12,
-   "files": {
-    "event-common/index.html": 5,
-    "signup/index.html": 3,
-    "auth.html": 3,
     "sponsor/index.html": 1
    }
   },
   ".thanks-divider": {
-   "total": 12,
+   "total": 16,
    "files": {
     "event-common/index.html": 6,
+    "event-company/index.html": 5,
     "signup/index.html": 4,
-    "auth.html": 1,
+    "sponsor/index.html": 1
+   }
+  },
+  ".step-indicator": {
+   "total": 11,
+   "files": {
+    "event-common/index.html": 4,
+    "signup/index.html": 3,
+    "event-company/index.html": 3,
     "sponsor/index.html": 1
    }
   },
@@ -4691,7 +4895,7 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".upload-icon": {
@@ -4699,7 +4903,7 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".upload-name": {
@@ -4707,20 +4911,22 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".nav-row": {
-   "total": 5,
+   "total": 8,
    "files": {
     "event-common/index.html": 4,
+    "event-company/index.html": 3,
     "signup/index.html": 1
    }
   },
   ".btn-skip": {
-   "total": 6,
+   "total": 9,
    "files": {
     "event-common/index.html": 4,
+    "event-company/index.html": 3,
     "signup/index.html": 2
    }
   },
@@ -4735,94 +4941,103 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".stacked": {
-   "total": 3,
+   "total": 4,
    "files": {
     "event-common/index.html": 2,
-    "signup/index.html": 1
+    "signup/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".id-section": {
-   "total": 9,
+   "total": 7,
    "files": {
-    "auth.html": 4,
     "event-common/index.html": 3,
-    "signup/index.html": 2
+    "signup/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".id-section-label": {
-   "total": 9,
+   "total": 7,
    "files": {
-    "auth.html": 4,
     "event-common/index.html": 3,
-    "signup/index.html": 2
+    "signup/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".id-chips": {
-   "total": 9,
+   "total": 7,
    "files": {
-    "auth.html": 4,
     "event-common/index.html": 3,
-    "signup/index.html": 2
+    "signup/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".id-chip": {
    "total": 86,
    "files": {
     "event-common/index.html": 34,
-    "auth.html": 30,
+    "event-company/index.html": 30,
     "signup/index.html": 22
    }
   },
   ".q-group": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".q-label": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 1
    }
   },
   ".event-list": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".event-opt": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".event-opt-title": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".event-opt-date": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "event-common/index.html": 2
+    "event-common/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".agree-row": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "event-common/index.html": 1
+    "event-common/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".req": {
-   "total": 8,
+   "total": 11,
    "files": {
     "sponsor/index.html": 5,
+    "event-company/index.html": 3,
     "signup/index.html": 2,
     "event-common/index.html": 1
    }
@@ -4832,8 +5047,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".thanks-body": {
@@ -4841,8 +5056,8 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".up-grid": {
@@ -4852,12 +5067,12 @@
    }
   },
   ".btn-dashboard": {
-   "total": 5,
+   "total": 4,
    "files": {
-    "auth.html": 2,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   ".logo-tile": {
@@ -4966,17 +5181,19 @@
    }
   },
   ".invalid": {
-   "total": 4,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
-    "signup/index.html": 2
+    "signup/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".shake": {
-   "total": 4,
+   "total": 6,
    "files": {
     "event-common/index.html": 2,
-    "signup/index.html": 2
+    "signup/index.html": 2,
+    "event-company/index.html": 2
    }
   },
   ".selected": {
@@ -4984,7 +5201,7 @@
    "files": {
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".show-more": {
@@ -4994,33 +5211,29 @@
    }
   },
   ".auth-wrap": {
-   "total": 3,
+   "total": 2,
    "files": {
     "signup/index.html": 1,
-    "auth.html": 1,
     "sponsor/index.html": 1
    }
   },
   ".auth-panel": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "signup/index.html": 2,
-    "auth.html": 2
+    "signup/index.html": 2
    }
   },
   ".field-msg": {
-   "total": 7,
+   "total": 3,
    "files": {
-    "auth.html": 4,
     "signup/index.html": 2,
     "sponsor/index.html": 1
    }
   },
   ".id-actions": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "signup/index.html": 1,
-    "auth.html": 1
+    "signup/index.html": 1
    }
   },
   ".id-actions-right": {
@@ -5036,38 +5249,35 @@
    }
   },
   ".wide": {
-   "total": 5,
+   "total": 3,
    "files": {
-    "auth.html": 2,
     "sponsor/index.html": 2,
     "signup/index.html": 1
    }
   },
   ".has-error": {
-   "total": 12,
+   "total": 8,
    "files": {
     "signup/index.html": 4,
-    "auth.html": 4,
     "sponsor/index.html": 4
    }
   },
   ".is-valid": {
-   "total": 4,
+   "total": 2,
    "files": {
-    "signup/index.html": 2,
-    "auth.html": 2
+    "signup/index.html": 2
    }
   },
-  ".id-privacy": {
+  ".event-host-logo": {
    "total": 1,
    "files": {
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
-  ".id-skip": {
+  ".q-added-row": {
    "total": 1,
    "files": {
-    "auth.html": 1
+    "event-company/index.html": 1
    }
   },
   ".book-wrap": {
@@ -5253,9 +5463,8 @@
  },
  "tokens": {
   "--iri-green": {
-   "total": 10,
+   "total": 4,
    "files": {
-    "auth.html": 6,
     "employers/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
@@ -5265,23 +5474,21 @@
    "defined": true
   },
   "--iri-lime": {
-   "total": 5,
+   "total": 4,
    "files": {
     "employers/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
-    "auth.html": 1,
     "book/index.html": 1
    },
    "cssRefs": 4,
    "defined": true
   },
   "--bg": {
-   "total": 47,
+   "total": 41,
    "files": {
     "meet-with-companies/index.html": 8,
     "talents/index-v2.html": 6,
-    "auth.html": 6,
     "employers/index.html": 5,
     "hire/index.html": 5,
     "train/index.html": 4,
@@ -5295,7 +5502,7 @@
    "defined": true
   },
   "--ink-2": {
-   "total": 50,
+   "total": 47,
    "files": {
     "employers/index.html": 6,
     "talents/index-v2.html": 6,
@@ -5306,7 +5513,6 @@
     "job-board/index.html": 3,
     "chat-learn/index.html": 3,
     "nav-options.html": 3,
-    "auth.html": 3,
     "vjf/index.html": 2,
     "summit/index.html": 2,
     "book/index.html": 2,
@@ -5316,24 +5522,25 @@
    "defined": true
   },
   "--ink-3": {
-   "total": 133,
+   "total": 124,
    "files": {
     "job-board/index.html": 25,
-    "auth.html": 14,
     "talents/index-v2.html": 13,
     "meet-with-companies/index.html": 11,
     "employers/index.html": 10,
     "nav-options.html": 10,
     "hire/index.html": 9,
-    "event-common/index.html": 9,
+    "event-common/index.html": 8,
     "about/index.html": 6,
     "events/index.html": 5,
+    "event-company/index.html": 5,
     "book/index.html": 5,
     "train/index.html": 3,
     "summit/index.html": 3,
     "chat-learn/index.html": 3,
     "top-alerts.html": 3,
     "vjf/index.html": 2,
+    "checkout-rebrand-proposal.html": 1,
     "sponsor/index.html": 1,
     "nav-preview/index.html": 1
    },
@@ -5341,12 +5548,11 @@
    "defined": true
   },
   "--line": {
-   "total": 72,
+   "total": 65,
    "files": {
     "talents/index-v2.html": 15,
     "employers/index.html": 10,
     "job-board/index.html": 9,
-    "auth.html": 8,
     "hire/index.html": 6,
     "train/index.html": 5,
     "meet-with-companies/index.html": 5,
@@ -5354,13 +5560,14 @@
     "events/index.html": 3,
     "about/index.html": 2,
     "nav-options.html": 2,
-    "top-alerts.html": 2
+    "top-alerts.html": 2,
+    "checkout-rebrand-proposal.html": 1
    },
    "cssRefs": 38,
    "defined": true
   },
   "--shadow-card": {
-   "total": 19,
+   "total": 18,
    "files": {
     "talents/index-v2.html": 5,
     "job-board/index.html": 4,
@@ -5368,19 +5575,17 @@
     "hire/index.html": 2,
     "about/index.html": 2,
     "events/index.html": 2,
-    "auth.html": 1,
     "book/index.html": 1
    },
    "cssRefs": 8,
    "defined": true
   },
   "--ink": {
-   "total": 171,
+   "total": 156,
    "files": {
     "job-board/index.html": 28,
     "employers/index.html": 23,
     "talents/index-v2.html": 23,
-    "auth.html": 18,
     "meet-with-companies/index.html": 15,
     "hire/index.html": 11,
     "about/index.html": 11,
@@ -5392,14 +5597,16 @@
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
     "event-common/index.html": 3,
+    "checkout-rebrand-proposal.html": 2,
     "not-found/index.html": 1,
+    "event-company/index.html": 1,
     "nav-preview/index.html": 1
    },
    "cssRefs": 82,
    "defined": true
   },
   "--green": {
-   "total": 31,
+   "total": 29,
    "files": {
     "nav-options.html": 6,
     "talents/index-v2.html": 5,
@@ -5408,7 +5615,6 @@
     "hire/index.html": 3,
     "top-alerts.html": 3,
     "train/index.html": 2,
-    "auth.html": 2,
     "book/index.html": 1,
     "nav-preview/index.html": 1
    },
@@ -5416,16 +5622,16 @@
    "defined": true
   },
   "--bg-soft": {
-   "total": 23,
+   "total": 19,
    "files": {
     "talents/index-v2.html": 6,
-    "auth.html": 5,
     "employers/index.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1,
     "meet-with-companies/index.html": 1,
+    "event-company/index.html": 1,
     "nav-preview/index.html": 1
    },
    "cssRefs": 9,
@@ -5763,39 +5969,19 @@
    "defined": false
   },
   "--iri-cyan": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "auth.html": 1,
     "book/index.html": 1
    },
    "cssRefs": 3,
    "defined": true
   },
   "--shadow-lifted": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "auth.html": 1,
     "book/index.html": 1
    },
    "cssRefs": 1,
-   "defined": true
-  },
-  "--btn-bg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 7,
-   "defined": true
-  },
-  "--purple-bright": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 4,
-   "defined": true
-  },
-  "--btn-bg-hover": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 5,
    "defined": true
   },
   "--section-y-loose": {
@@ -5804,16 +5990,34 @@
    "cssRefs": 2,
    "defined": true
   },
-  "--hero-top": {
+  "--btn-bg": {
    "total": 0,
    "files": {},
-   "cssRefs": 1,
+   "cssRefs": 7,
    "defined": true
   },
   "--btn-fg": {
    "total": 0,
    "files": {},
    "cssRefs": 5,
+   "defined": true
+  },
+  "--btn-bg-hover": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 5,
+   "defined": true
+  },
+  "--purple-bright": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 4,
+   "defined": true
+  },
+  "--hero-top": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 1,
    "defined": true
   }
  },
@@ -5826,18 +6030,19 @@
    }
   },
   "#fff": {
-   "total": 125,
+   "total": 138,
    "files": {
     "train/index.html": 20,
     "talents/index-v2.html": 15,
+    "event-company/index.html": 14,
     "employers/index.html": 13,
     "top-alerts.html": 13,
     "event-common/index.html": 9,
     "about/index.html": 8,
     "hire/index.html": 7,
-    "auth.html": 7,
     "job-board/index.html": 6,
     "meet-with-companies/index.html": 6,
+    "checkout-rebrand-proposal.html": 6,
     "signup/index.html": 6,
     "nav-options.html": 4,
     "vjf/index.html": 3,
@@ -5855,14 +6060,13 @@
    }
   },
   "#4fe8a9": {
-   "total": 123,
+   "total": 120,
    "files": {
     "train/index.html": 38,
     "talents/index-v2.html": 29,
     "employers/index.html": 16,
     "hire/index.html": 14,
     "top-alerts.html": 6,
-    "auth.html": 4,
     "about/index.html": 3,
     "job-board/index.html": 3,
     "book/index.html": 3,
@@ -5871,16 +6075,16 @@
     "summit/index.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   "#5bcfff": {
-   "total": 37,
+   "total": 34,
    "files": {
     "employers/index.html": 12,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
-    "auth.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
     "about/index.html": 1,
@@ -5890,16 +6094,16 @@
     "nav-options.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   "#d5ff66": {
-   "total": 35,
+   "total": 32,
    "files": {
     "employers/index.html": 10,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
-    "auth.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
     "about/index.html": 1,
@@ -5909,14 +6113,16 @@
     "nav-options.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
-    "sponsor/index.html": 1
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
    }
   },
   "#000": {
-   "total": 6,
+   "total": 7,
    "files": {
     "employers/index.html": 4,
-    "train/index.html": 2
+    "train/index.html": 2,
+    "checkout-rebrand-proposal.html": 1
    }
   },
   "#0a6e54": {
@@ -5949,7 +6155,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2,
+    "event-company/index.html": 2,
     "employers/index.html": 1,
     "talents/index-v2.html": 1
    }
@@ -5973,10 +6179,9 @@
    }
   },
   "#ffffff": {
-   "total": 6,
+   "total": 5,
    "files": {
     "employers/index.html": 4,
-    "auth.html": 1,
     "book/index.html": 1
    }
   },
@@ -5993,19 +6198,20 @@
    }
   },
   "#0a0a0a": {
-   "total": 79,
+   "total": 83,
    "files": {
     "train/index.html": 22,
     "vjf/index.html": 20,
     "talents/index-v2.html": 18,
     "top-alerts.html": 6,
+    "event-company/index.html": 4,
     "meet-with-companies/index.html": 3,
     "summit/index.html": 2,
     "chat-learn/index.html": 2,
     "event-common/index.html": 2,
     "about/index.html": 1,
+    "checkout-rebrand-proposal.html": 1,
     "signup/index.html": 1,
-    "auth.html": 1,
     "book/index.html": 1
    }
   },
@@ -6186,9 +6392,10 @@
    }
   },
   "#8a8a8a": {
-   "total": 7,
+   "total": 9,
    "files": {
     "event-common/index.html": 2,
+    "event-company/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -6280,12 +6487,60 @@
     "top-alerts.html": 1
    }
   },
+  "#30313d": {
+   "total": 6,
+   "files": {
+    "checkout-rebrand-proposal.html": 6
+   }
+  },
+  "#00d66f": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  "#8a919e": {
+   "total": 5,
+   "files": {
+    "checkout-rebrand-proposal.html": 5
+   }
+  },
+  "#e6e6e6": {
+   "total": 3,
+   "files": {
+    "checkout-rebrand-proposal.html": 3
+   }
+  },
+  "#d0d3da": {
+   "total": 4,
+   "files": {
+    "checkout-rebrand-proposal.html": 4
+   }
+  },
+  "#f6f8fa": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  "#6a7383": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
+  "#63743": {
+   "total": 1,
+   "files": {
+    "checkout-rebrand-proposal.html": 1
+   }
+  },
   "#4285f4": {
    "total": 6,
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   "#34a853": {
@@ -6293,7 +6548,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   "#fbbc05": {
@@ -6301,7 +6556,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   "#ea4335": {
@@ -6309,7 +6564,7 @@
    "files": {
     "event-common/index.html": 2,
     "signup/index.html": 2,
-    "auth.html": 2
+    "event-company/index.html": 2
    }
   },
   "#9fe870": {
@@ -6319,52 +6574,35 @@
    }
   },
   "#c0392b": {
-   "total": 10,
+   "total": 3,
    "files": {
-    "auth.html": 7,
     "signup/index.html": 2,
     "sponsor/index.html": 1
    }
   },
   "#2a2a2a": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "auth.html": 1,
     "book/index.html": 1
    }
   },
   "#5c6f69": {
-   "total": 2,
+   "total": 1,
    "files": {
-    "auth.html": 1,
     "book/index.html": 1
    }
   },
   "#fafaf6": {
-   "total": 3,
+   "total": 2,
    "files": {
-    "auth.html": 1,
     "book/index.html": 1,
     "nav-preview/index.html": 1
    }
   },
   "#0a2a1f": {
-   "total": 2,
-   "files": {
-    "auth.html": 1,
-    "book/index.html": 1
-   }
-  },
-  "#fff9f9": {
    "total": 1,
    "files": {
-    "auth.html": 1
-   }
-  },
-  "#1a1a1a": {
-   "total": 2,
-   "files": {
-    "auth.html": 2
+    "book/index.html": 1
    }
   },
   "#14140f": {
@@ -6388,7 +6626,7 @@
  },
  "fonts": {
   "Inter Tight": {
-   "total": 82,
+   "total": 77,
    "files": {
     "talents/index-v2.html": 18,
     "employers/index.html": 8,
@@ -6398,7 +6636,6 @@
     "hire/index.html": 5,
     "events/index.html": 5,
     "top-alerts.html": 5,
-    "auth.html": 5,
     "nav-options.html": 4,
     "meet-with-companies/index.html": 3,
     "book/index.html": 3,
@@ -6408,10 +6645,9 @@
    }
   },
   "Inter": {
-   "total": 30,
+   "total": 26,
    "files": {
     "employers/index.html": 5,
-    "auth.html": 5,
     "talents/index-v2.html": 3,
     "train/index.html": 2,
     "hire/index.html": 2,
@@ -6425,6 +6661,7 @@
     "chat-learn/index.html": 1,
     "meet-with-companies/index.html": 1,
     "signup/index.html": 1,
+    "event-company/index.html": 1,
     "book/index.html": 1
    }
   }
@@ -6448,15 +6685,16 @@
    }
   },
   "12px": {
-   "total": 44,
+   "total": 51,
    "files": {
     "event-common/index.html": 9,
     "hire/index.html": 7,
+    "event-company/index.html": 7,
     "top-alerts.html": 5,
     "signup/index.html": 4,
     "employers/index.html": 3,
     "meet-with-companies/index.html": 3,
-    "auth.html": 3,
+    "checkout-rebrand-proposal.html": 3,
     "talents/index-v2.html": 2,
     "events/index.html": 2,
     "book/index.html": 2,
@@ -6467,7 +6705,7 @@
    }
   },
   "11px": {
-   "total": 42,
+   "total": 40,
    "files": {
     "talents/index-v2.html": 9,
     "employers/index.html": 7,
@@ -6476,7 +6714,6 @@
     "top-alerts.html": 3,
     "about/index.html": 2,
     "nav-options.html": 2,
-    "auth.html": 2,
     "events/index.html": 1,
     "meet-with-companies/index.html": 1,
     "event-common/index.html": 1,
@@ -6494,26 +6731,27 @@
    }
   },
   "13px": {
-   "total": 43,
+   "total": 39,
    "files": {
     "talents/index-v2.html": 8,
     "job-board/index.html": 8,
-    "auth.html": 7,
     "employers/index.html": 3,
     "meet-with-companies/index.html": 3,
     "nav-options.html": 3,
     "top-alerts.html": 3,
     "train/index.html": 2,
+    "checkout-rebrand-proposal.html": 2,
     "hire/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
     "event-common/index.html": 1,
+    "event-company/index.html": 1,
     "nav-preview/index.html": 1
    }
   },
   "10px": {
-   "total": 40,
+   "total": 42,
    "files": {
     "train/index.html": 10,
     "talents/index-v2.html": 9,
@@ -6522,6 +6760,7 @@
     "about/index.html": 3,
     "top-alerts.html": 2,
     "event-common/index.html": 2,
+    "event-company/index.html": 2,
     "job-board/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -6563,24 +6802,23 @@
    }
   },
   "26px": {
-   "total": 4,
+   "total": 3,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
-    "job-board/index.html": 1,
-    "auth.html": 1
+    "job-board/index.html": 1
    }
   },
   "14px": {
-   "total": 39,
+   "total": 37,
    "files": {
     "job-board/index.html": 14,
     "employers/index.html": 6,
-    "auth.html": 4,
     "talents/index-v2.html": 3,
     "event-common/index.html": 3,
     "book/index.html": 3,
     "about/index.html": 2,
+    "checkout-rebrand-proposal.html": 2,
     "hire/index.html": 1,
     "events/index.html": 1,
     "chat-learn/index.html": 1,
@@ -6588,11 +6826,11 @@
    }
   },
   "15px": {
-   "total": 36,
+   "total": 37,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 6,
-    "auth.html": 4,
+    "checkout-rebrand-proposal.html": 5,
     "train/index.html": 3,
     "employers/index.html": 2,
     "hire/index.html": 2,
@@ -6630,7 +6868,7 @@
    }
   },
   "16px": {
-   "total": 32,
+   "total": 31,
    "files": {
     "talents/index-v2.html": 5,
     "events/index.html": 5,
@@ -6645,14 +6883,12 @@
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "auth.html": 1,
     "book/index.html": 1
    }
   },
   "10.5px": {
-   "total": 8,
+   "total": 5,
    "files": {
-    "auth.html": 3,
     "top-alerts.html": 2,
     "talents/index-v2.html": 1,
     "job-board/index.html": 1,
@@ -6699,10 +6935,9 @@
    }
   },
   "28px": {
-   "total": 3,
+   "total": 2,
    "files": {
-    "hire/index.html": 2,
-    "auth.html": 1
+    "hire/index.html": 2
    }
   },
   "21px": {
@@ -6737,9 +6972,10 @@
    }
   },
   "44px": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "job-board/index.html": 1
+    "job-board/index.html": 1,
+    "checkout-rebrand-proposal.html": 1
    }
   },
   "30px": {
