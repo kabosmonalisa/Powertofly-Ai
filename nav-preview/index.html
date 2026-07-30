@@ -14,22 +14,15 @@
 <!-- Design system -->
 <link rel="stylesheet" href="../ds/ptf.css">
 <style>
-/* PREVIEW HARNESS ONLY. One nav at a time (pick a state with the tabs). The nav is the real
-   thing (ds/ptf.css + ptf.js), rendered at a desktop width and scaled to fit — so there is no
-   horizontal scroll, and because nothing is stacked below it, opening a dropdown never shoves
-   other content around. */
+/* PREVIEW HARNESS ONLY. Three states stacked, each the real nav (ds/ptf.css + ptf.js) in an
+   iframe rendered at the design-system width and scaled to fit — so no horizontal scroll. Each
+   frame has fixed room for its dropdown, so hovering opens it in place with no growth / no jump. */
 body { background: var(--bg-soft, #FAFAF6); }
-.np-wrap { max-width: 1528px; margin: 0 auto; padding: 56px 32px 96px; }
-.np-title { font-family: 'Inter Tight', sans-serif; font-weight: 800; letter-spacing: -0.03em;
-  font-size: 30px; color: var(--ink, #14140F); margin: 0 0 6px; }
-.np-sub { color: var(--ink-3, #6b6b63); font-size: 15px; margin: 0 0 28px; max-width: 680px; line-height: 1.6; }
-.np-tabs { display: inline-flex; flex-wrap: wrap; gap: 4px; background: #fff;
-  border: 1px solid rgba(0,0,0,0.10); border-radius: 999px; padding: 4px; margin-bottom: 22px; }
-.np-tab { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--ink-3, #6b6b63);
-  background: none; border: 0; padding: 9px 18px; border-radius: 999px; cursor: pointer; white-space: nowrap;
-  transition: background .15s ease, color .15s ease; }
-.np-tab:hover { color: var(--ink, #14140F); }
-.np-tab.is-active { background: var(--ink, #14140F); color: #fff; }
+.np-wrap { max-width: 1528px; margin: 0 auto; padding: 32px 32px 64px; }
+.np-block { margin-bottom: 24px; }
+.np-label { display: flex; align-items: center; gap: 8px; font-family: 'Inter Tight', sans-serif;
+  font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--green, #1f9e6b); margin: 0 0 10px; }
 .np-frame { background: #fff; border: 1px solid rgba(0,0,0,0.08); border-radius: 16px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04); overflow: hidden; }
 .np-frame iframe { display: block; border: 0; transform-origin: top left; width: 1464px; }
@@ -37,55 +30,40 @@ body { background: var(--bg-soft, #FAFAF6); }
 </head>
 <body>
 <div class="np-wrap">
-  <h1 class="np-title">Top navigation — login experience</h1>
-  <p class="np-sub">Pick a state below. Logged-in users switch the whole top bar between a
-  <strong>Talent</strong> context and an <strong>Employer</strong> context — use the
-  <strong>Switch</strong> button in the bar to flip it live. The dropdowns are live too — hover
-  <strong>For employers</strong>/<strong>Log in</strong> when logged out; click
-  <strong>Solutions</strong> or <strong>Amara</strong> when logged in.</p>
-
-  <div class="np-tabs" role="tablist">
-    <button class="np-tab is-active" data-src="state.html">Logged out</button>
-    <button class="np-tab" data-src="state.html#auth=in&mode=talent">Logged in — Talent</button>
-    <button class="np-tab" data-src="state.html#auth=in&mode=employer">Logged in — Employer</button>
+  <div class="np-block">
+    <p class="np-label"><span class="dot"></span>Logged out</p>
+    <div class="np-frame"><iframe data-h="536" src="state.html" title="Logged out"></iframe></div>
   </div>
 
-  <div class="np-frame"><iframe id="stage" src="state.html" title="Top navigation preview"></iframe></div>
+  <div class="np-block">
+    <p class="np-label"><span class="dot"></span>Logged in — Talent</p>
+    <div class="np-frame"><iframe data-h="456" src="state.html#auth=in&mode=talent" title="Logged in — Talent"></iframe></div>
+  </div>
+
+  <div class="np-block">
+    <p class="np-label"><span class="dot"></span>Logged in — Employer</p>
+    <div class="np-frame"><iframe data-h="456" src="state.html#auth=in&mode=employer" title="Logged in — Employer"></iframe></div>
+  </div>
 </div>
 <script>
-  /* Render the nav at a fixed desktop width, then scale to fit the column (no horizontal
-     scroll). Height follows the nav and grows only when a dropdown opens — and since this is
-     the only frame, that growth never pushes anything else around. */
-  var DESIGN_W = 1464, stage = document.getElementById('stage'), curH = 92;
+  /* Render each nav at the design-system width, then scale it to fit its column (no horizontal
+     scroll). Heights are fixed per state with room for the dropdown, so hovering opens it in
+     place — no growth, no page jump. */
+  var DESIGN_W = 1464;
   function layout() {
-    var frame = stage.closest('.np-frame');
-    var f = Math.min(1, frame.clientWidth / DESIGN_W);
-    stage.style.width = DESIGN_W + 'px';
-    stage.style.height = curH + 'px';
-    stage.style.transform = 'scale(' + f + ')';
-    frame.style.height = Math.round(curH * f) + 'px';
+    [].forEach.call(document.querySelectorAll('.np-frame iframe'), function (ifr) {
+      var frame = ifr.closest('.np-frame');
+      var f = Math.min(1, frame.clientWidth / DESIGN_W);
+      var h = parseInt(ifr.getAttribute('data-h'), 10) || 120;
+      ifr.style.width = DESIGN_W + 'px';
+      ifr.style.height = h + 'px';
+      ifr.style.transform = 'scale(' + f + ')';
+      frame.style.height = Math.round(h * f) + 'px';
+    });
   }
-  window.addEventListener('message', function (e) {
-    if (!e.data || e.data.type !== 'nav-h' || e.source !== stage.contentWindow) return;
-    curH = e.data.h; layout();
-  });
   window.addEventListener('resize', layout);
   window.addEventListener('load', layout);
   layout();
-
-  /* Tabs swap the single frame's state. */
-  [].forEach.call(document.querySelectorAll('.np-tab'), function (tab) {
-    tab.addEventListener('click', function () {
-      document.querySelector('.np-tab.is-active').classList.remove('is-active');
-      tab.classList.add('is-active');
-      curH = 92; layout();               // reset height while the new state loads
-      /* Tabs differ only by URL hash; a hash-only change won't reload the iframe, so bounce
-         through about:blank to force a fresh render in the new state. */
-      var target = tab.getAttribute('data-src');
-      stage.src = 'about:blank';
-      setTimeout(function () { stage.src = target; }, 0);
-    });
-  });
 </script>
 </body>
 </html>
