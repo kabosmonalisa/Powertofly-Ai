@@ -335,13 +335,21 @@ window.PTF = (function () {
 <a class="nav-btn" data-nav="resources" href="https://powertofly.com/up">Resources</a>\
 <a class="nav-btn" data-nav="about" href="../about/">About</a>';
         var NAV_EMPLOYER = '\
-<a class="nav-btn" data-nav="employers" href="../employers/">For employers</a>\
-<a class="nav-btn" data-nav="hire" href="../hire/">Hire AI experts</a>\
-<a class="nav-btn" data-nav="train" href="../train/">Improve AI performance</a>\
+<a class="nav-btn" data-nav="emp-dashboard" href="#">Dashboard</a>\
+<div class="nav-drop nav-drop-sol">\
+  <button class="nav-btn" data-nav="solutions" data-fly="fly-solutions" type="button">Solutions <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg></button>\
+  <div class="nav-fly sol-fly" id="fly-solutions">\
+    <div class="mega-inner">\
+      <a class="fly-item" href="../employers/"><span class="login-tx"><span class="fly-title">For employers</span><span class="fly-desc">The home for teams hiring and deploying AI talent.</span></span></a>\
+      <a class="fly-item" href="../hire/"><span class="login-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one.</span></span></a>\
+      <a class="fly-item" href="../train/"><span class="login-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span></a>\
+    </div>\
+  </div>\
+</div>\
 <a class="nav-btn" data-nav="emp-resources" href="#">Resources</a>\
 <a class="nav-btn" data-nav="emp-events" href="#">Events</a>';
         var DRAWER_TALENT = '<a href="#">Dashboard</a><a href="https://powertofly.com/jobs/">Jobs</a><a href="https://powertofly.com/browse-events">Events</a><a href="https://powertofly.com/up">Resources</a><a href="../about/">About</a>';
-        var DRAWER_EMPLOYER = '<a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a>';
+        var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a>';
         var SWITCH_ICON = '<svg class="switch-ic" viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>';
 
         if (cta) cta.innerHTML =
@@ -355,6 +363,7 @@ window.PTF = (function () {
         function applyMode(mode) {
           var items = nav.querySelector('.nav-items');
           if (items) items.innerHTML = (mode === 'employer' ? NAV_EMPLOYER : NAV_TALENT);
+          initMegaNav();  // wire the Solutions flyout injected in employer view (idempotent)
           var label = nav.querySelector('#modeSwitch .switch-label');
           if (label) label.textContent = (mode === 'employer' ? 'Switch to talents' : 'Switch to employers');
           if (drawer) {

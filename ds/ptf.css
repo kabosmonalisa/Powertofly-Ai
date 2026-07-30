@@ -1221,6 +1221,12 @@ img { display: block; max-width: 100%; }
 .login-arrow { color:var(--ink-3); font-size:16px; line-height:1; flex-shrink:0; transition:transform .15s ease, color .15s ease; }
 .login-fly .fly-item:hover .login-arrow { transform:translateX(3px); color:var(--green); }
 .login-fly .fly-rule { margin: 8px 0; }
+/* Solutions dropdown (employer view) — a compact single-column list anchored under its
+   trigger, reusing the mega-inner card + fly-item rows. */
+.nav-drop-sol { position: relative; }
+.sol-fly { left: 0; right: auto; width: 320px; padding: 4px 0 0; }
+.sol-fly .mega-inner { grid-template-columns: 1fr; max-width: none; margin: 0; padding: 10px; }
+.sol-fly .fly-item { margin: 0; }
 /* Account menu rows are plain links (no description), so the flyout-title type
    (16/700) reads as big headings. Render them as menu items instead. */
 #fly-account .fly-title { font-family: 'Inter', sans-serif; font-size: 13.5px; font-weight: 400; margin-bottom: 0; }
