@@ -1224,7 +1224,7 @@ img { display: block; max-width: 100%; }
 /* Solutions dropdown (employer view) — a compact single-column list anchored under its
    trigger, reusing the mega-inner card + fly-item rows. */
 .nav-drop-sol { position: relative; }
-.sol-fly { left: 0; right: auto; width: 320px; padding: 4px 0 0; }
+.sol-fly { left: 0; right: auto; width: 372px; padding: 4px 0 0; }
 .sol-fly .mega-inner { grid-template-columns: 1fr; max-width: none; margin: 0; padding: 10px; }
 .sol-fly .fly-item { margin: 0; }
 /* Account menu rows are plain links (no description), so the flyout-title type

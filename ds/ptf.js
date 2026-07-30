@@ -347,9 +347,10 @@ window.PTF = (function () {
   </div>\
 </div>\
 <a class="nav-btn" data-nav="emp-resources" href="#">Resources</a>\
-<a class="nav-btn" data-nav="emp-events" href="#">Events</a>';
+<a class="nav-btn" data-nav="emp-events" href="#">Events</a>\
+<a class="nav-btn" data-nav="emp-about" href="../about/">About</a>';
         var DRAWER_TALENT = '<a href="#">Dashboard</a><a href="https://powertofly.com/jobs/">Jobs</a><a href="https://powertofly.com/browse-events">Events</a><a href="https://powertofly.com/up">Resources</a><a href="../about/">About</a>';
-        var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a>';
+        var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a><a href="../about/">About</a>';
         var SWITCH_ICON = '<svg class="switch-ic" viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>';
 
         if (cta) cta.innerHTML =
