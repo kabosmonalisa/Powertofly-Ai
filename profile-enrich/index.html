@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile enrichment modal — PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,400..800;1,400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/* ============================================================================
+   PROPOSAL — "We enriched your profile" review modal (talent site, on login).
+   Everything inside the card is an EXISTING component:
+     .auth-card (shell) · .auth-heading/.auth-sub (copy) · .check-box (keep/drop)
+     .field (inline-edit value) · .id-section-label (group headers)
+     .id-privacy (privacy line) · .btn-auth + .id-skip (actions)
+   The ONLY genuinely-new bits are flagged below as promote-to-system candidates,
+   because the design system has NO modal/dialog shell today (only .nav-overlay).
+   All values are tokens — no raw hex. — 2026-08-05
+   ========================================================================== */
+
+/* ---- ① PROPOSED NEW COMPONENT: modal / dialog shell (DS gap) -------------- */
+.modal-scrim { position: fixed; inset: 0; z-index: 300; background: rgba(10,10,10,0.55);
+  display: flex; align-items: center; justify-content: center; padding: 24px; }
+.modal-card  { position: relative; display: flex; flex-direction: column;
+  max-height: 88vh; padding: 0; overflow: hidden; }          /* sits on .auth-card */
+.modal-head  { padding: 40px 40px 8px; }              /* 40px = the DS .auth-card padding, all four corners breathe equally */
+.modal-scroll{ overflow-y: auto; padding: 12px 40px 12px; }
+.modal-foot  { padding: 20px 40px 28px; border-top: 1px solid var(--line); }
+.modal-close { position: absolute; top: 30px; right: 24px; width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center; border: none;
+  background: none; cursor: pointer; color: var(--ink-3); border-radius: var(--r-pill); }
+.modal-close:hover { background: var(--surface-2); color: var(--ink); }
+@media (max-width: 560px){ .modal-head,.modal-scroll,.modal-foot{ padding-left:24px; padding-right:24px; } }
+
+/* ---- ② Completeness meter — reuse candidate (no meter exists yet) --------- */
+/* Un-boxed: label + bar sit on the card itself, no gray container. */
+.er-meter { margin: 16px 0 6px; }
+.er-meter-top { display: flex; justify-content: space-between; font-size: 13px; color: var(--ink-3); margin-bottom: 8px; }
+.er-meter-top b { color: var(--ink); font-weight: 600; }
+.er-meter-top b i { color: var(--green); font-style: normal; }
+.er-meter-bar { height: 6px; border-radius: var(--r-pill); background: var(--line-2); overflow: hidden; }
+.er-meter-fill { height: 100%; border-radius: var(--r-pill); background: var(--green-mid);
+  width: 60%; transition: width 260ms ease; }
+
+/* ---- ③ Page glue: the review row = checkbox + editable field -------------- */
+.er-group + .er-group { margin-top: 28px; }
+.er-group > .id-section-label { margin-bottom: 8px; }
+.er-row { display: flex; align-items: flex-start; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.er-row:last-child { border-bottom: none; }
+.er-row .check-box { margin-top: 25px; }        /* line the box up with the input, past its label */
+.er-row .field { flex: 1; }
+.er-row .er-src { font-size: 11px; color: var(--ink-3); margin-top: 5px; }
+/* Unchecked rows stay fully active/legible — the empty checkbox is the only signal.
+   (No dimming: grayed-out fields read as disabled, which they are not.) */
+
+/* ---- faux talent-app backdrop (prototype only, so the modal has context) -- */
+.app-bg { min-height: 100vh; background: var(--surface-2); }
+.app-bar { height: 60px; border-bottom: 1px solid var(--line); background: var(--bg); }
+.app-skel { max-width: 900px; margin: 40px auto; display: flex; flex-direction: column; gap: 16px; padding: 0 24px; }
+.app-skel div { height: 18px; border-radius: var(--r-sm); background: var(--line-2); }
+.app-skel div:nth-child(1){ width: 40%; height: 30px; }
+.app-skel div:nth-child(3){ width: 80%; }
+.app-skel div:nth-child(4){ width: 65%; }
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for the one big header icon -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<!-- faux app behind the modal (prototype context only) -->
+<div class="app-bg">
+  <div class="app-bar"></div>
+  <div class="app-skel"><div></div><div></div><div></div><div></div></div>
+</div>
+
+<!-- ===================== THE MODAL ===================== -->
+<div class="modal-scrim">
+  <div class="auth-card modal-card">
+
+    <button class="modal-close" aria-label="Close" onclick="this.closest('.modal-scrim').style.display='none'">
+      <svg width="20" height="20" viewBox="0 0 24 24"><path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 5.71 18.3 4.3 16.89 10.59 12 4.3 5.71 5.71 4.3l4.88 4.88L16.89 4.3z" fill="currentColor"/></svg>
+    </button>
+
+    <div class="modal-head">
+      <h1 class="auth-heading">Finish your profile in one tap</h1>
+      <p class="auth-sub">You connected LinkedIn, so we filled these in for you. Keep what's right, tweak anything, drop the rest.</p>
+
+      <!-- ② completeness meter -->
+      <div class="er-meter">
+        <div class="er-meter-top"><span>Profile completeness</span><b>60% → <i id="pct">92%</i></b></div>
+        <div class="er-meter-bar"><div class="er-meter-fill" id="meter"></div></div>
+      </div>
+    </div>
+
+    <div class="modal-scroll">
+
+      <!-- Contact -->
+      <div class="er-group">
+        <div class="id-section-label">Contact</div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Phone</label><input type="tel" value="+39 351 790 3423"><div class="er-src">Found on your LinkedIn</div></div>
+        </div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Website</label><input type="url" value="peterson.com"><div class="er-src">Found on your LinkedIn</div></div>
+        </div>
+      </div>
+
+      <!-- Profiles -->
+      <div class="er-group">
+        <div class="id-section-label">Profiles</div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>LinkedIn</label><input type="url" value="linkedin.com/in/foxholly"></div>
+        </div>
+        <div class="er-row off">
+          <input type="checkbox" class="check-box" onchange="sync(this)">
+          <div class="field"><label>GitHub</label><input type="text" value="mcdonalddiana"><div class="er-src">Low confidence — please check</div></div>
+        </div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Twitter / X</label><input type="text" value="@armstrongcharles"></div>
+        </div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Facebook</label><input type="url" value="facebook.com/franciscolewis"></div>
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="er-group">
+        <div class="id-section-label">Experience</div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Years of experience</label><input type="text" value="3 years"></div>
+        </div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Level</label><input type="text" value="Junior"></div>
+        </div>
+        <div class="er-row">
+          <input type="checkbox" class="check-box" checked onchange="sync(this)">
+          <div class="field"><label>Year career started</label><input type="text" value="2020"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-foot">
+      <p class="id-privacy" style="margin-top:0;text-align:left">Only you see this until you choose to share it. We never post on your behalf. See our <a href="#">Privacy Policy</a>.</p>
+      <div class="id-actions" style="margin-top:12px">
+        <button class="id-skip" onclick="this.closest('.modal-scrim').style.display='none'">Skip for now</button>
+        <div class="id-actions-right">
+          <button class="btn-auth" id="save" style="width:auto;padding:16px 28px">Add 8 to my profile</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+/* Prototype behavior: keep the count, meter and row-dim in sync with the checkboxes. */
+function sync(box){
+  box.closest('.er-row').classList.toggle('off', !box.checked);
+  var boxes = document.querySelectorAll('.modal-scroll .check-box');
+  var on = [].filter.call(boxes, function(b){ return b.checked; }).length;
+  document.getElementById('save').textContent = on ? 'Add ' + on + ' to my profile' : 'Skip for now';
+  var pct = Math.round(60 + (on / boxes.length) * 35);   // 60% base → up to ~95%
+  document.getElementById('pct').textContent = pct + '%';
+  document.getElementById('meter').style.width = pct + '%';
+}
+document.addEventListener('DOMContentLoaded', function(){ sync(document.querySelector('.check-box')); });
+</script>
+</body>
+</html>
