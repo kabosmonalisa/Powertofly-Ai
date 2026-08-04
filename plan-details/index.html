@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job postings · Power Pro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC — Power Pro "Job postings" billing screen (product UI).
+ * Editorial layout: ONE balance masthead + rule-divided sections, not cards.
+ * Built on ptf.css TOKENS (no raw hex). Reuses .btn / .eyebrow / type / focus.
+ * App shell / meter / billing table / stepper aren't in the marketing
+ * inventory — built here from tokens; promote if reused elsewhere.
+ * Motion: custom ease-out, press feedback, one subtle load stagger, all
+ * reduced-motion safe (Emil Kowalski craft principles).
+ */
+:root { --ease-out: cubic-bezier(0.23, 1, 0.32, 1); }
+body { background: var(--bg); }
+
+/* ---- App chrome (kept: this is the real Power Pro shell) ---- */
+.topbar { height: 64px; background: var(--surface); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 20; }
+.brandmark { font-family: 'Inter Tight', sans-serif; font-weight: 800; letter-spacing: -0.02em; font-size: 19px; color: var(--ink); }
+.brandmark span { font-weight: 500; color: var(--ink-3); margin-left: 2px; }
+.topbar-right { display: flex; align-items: center; gap: 6px; }
+.acct { display: flex; align-items: center; gap: 9px; padding: 6px 12px 6px 6px; border-radius: var(--r-pill); border: 1px solid transparent; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--ink-2); background: none; transition: background 160ms var(--ease-out); }
+.acct:hover { background: var(--surface-2); }
+.acct .avatar { background: var(--surface-2); color: var(--ink-3); font-weight: 700; }
+.acct.is-user .avatar { background: var(--green-mid); color: var(--ink); }
+.acct svg { width: 16px; height: 16px; fill: var(--ink-3); }
+.msgr { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-left: 4px; }
+.msgr svg { width: 22px; height: 22px; fill: var(--ink-3); }
+
+.shell { display: grid; grid-template-columns: 84px 1fr; }
+.rail { background: var(--surface); border-right: 1px solid var(--line); min-height: calc(100vh - 64px); position: sticky; top: 64px; height: calc(100vh - 64px); display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 16px 0; }
+.rail-item { width: 60px; display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 10px 0; border-radius: var(--r-md); text-decoration: none; color: var(--ink-3); font-size: 11px; font-weight: 600; transition: background 160ms var(--ease-out), color 160ms var(--ease-out); }
+.rail-item svg { width: 22px; height: 22px; fill: currentColor; }
+.rail-item:hover { background: var(--surface-2); color: var(--ink); }
+.rail-item.active { color: var(--ink); }
+.rail-item.active svg { fill: var(--green); }
+.rail-up { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: 15px; line-height: 22px; height: 22px; display: flex; align-items: center; letter-spacing: -0.02em; }
+
+/* ---- Editorial content column (constrained, focused) ---- */
+.content-col { padding: 44px clamp(24px, 6vw, 72px) 120px; max-width: 900px; }
+.mini-label { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-3); }
+
+.page-head { margin-bottom: 4px; }
+.page-head .mini-label { margin-bottom: 12px; }
+.page-h1 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.035em; line-height: 1.05; color: var(--ink); margin-bottom: 10px; }
+.page-desc { font-size: 15px; color: var(--ink-3); line-height: 1.6; max-width: 60ch; }
+
+/* Rule-divided rhythm — the whole page is sections separated by hairlines, not boxes */
+.divide { border-top: 1px solid var(--line); }
+
+/* MASTHEAD — the one confident moment: balance + the buy action */
+.masthead { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; padding: 36px 0; margin-top: 32px; }
+.mh-balance .mini-label { margin-bottom: 16px; }
+.big-stat { display: flex; align-items: baseline; gap: 12px; margin-bottom: 20px; }
+.big-num { font-family: 'Inter Tight', sans-serif; font-weight: 800; font-size: 60px; line-height: 0.9; letter-spacing: -0.045em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.big-unit { font-size: 17px; font-weight: 500; color: var(--ink-3); }
+.meter { height: 6px; border-radius: var(--r-pill); background: var(--surface-2); overflow: hidden; border: 1px solid var(--line); max-width: 360px; }
+.meter-fill { height: 100%; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--green), var(--green-mid)); min-width: 6px; }
+.meter-cap { margin-top: 10px; font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+
+.mh-buy { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+.mh-buy-controls { display: flex; align-items: center; gap: 8px; }
+.mh-buy-note { font-size: 12.5px; color: var(--ink-3); text-align: right; }
+
+.stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--line-2); border-radius: var(--r-pill); background: var(--surface); overflow: hidden; }
+.stepper button { width: 34px; height: 38px; border: 0; background: none; cursor: pointer; color: var(--ink); display: flex; align-items: center; justify-content: center; transition: background 140ms var(--ease-out), transform 120ms var(--ease-out); }
+.stepper button:hover { background: var(--surface-2); }
+.stepper button:active { transform: scale(0.9); }
+.stepper button:disabled { color: var(--line-2); cursor: not-allowed; background: none; transform: none; }
+.stepper button svg { width: 15px; height: 15px; fill: currentColor; }
+.stepper-n { min-width: 34px; text-align: center; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 15px; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+/* Press feedback on the primary button (Emil: buttons must feel responsive) */
+.btn:active { transform: scale(0.97); }
+
+/* SETTINGS ROW — a real setting reads as label + toggle, not a card */
+.setting { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; padding: 28px 0; }
+.setting-title { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 4px; }
+.setting-desc { font-size: 14px; color: var(--ink-3); line-height: 1.55; max-width: 60ch; }
+.switch { position: relative; flex-shrink: 0; width: 46px; height: 27px; border-radius: var(--r-pill); background: var(--line-2); border: 0; cursor: pointer; transition: background 200ms var(--ease-out); }
+.switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 21px; height: 21px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.25); transition: transform 220ms var(--ease-out); }
+.switch:active::after { width: 25px; }
+.switch[aria-checked="true"] { background: var(--green); }
+.switch[aria-checked="true"]::after { transform: translateX(19px); }
+
+/* BLOCK — a labeled section (history / jobs) */
+.block { padding: 32px 0; }
+.block .mini-label { margin-bottom: 18px; }
+
+/* Purchase-history table — refined, flat, tabular */
+.ptable { width: 100%; border-collapse: collapse; }
+.ptable th { text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); padding: 0 16px 14px 0; border-bottom: 1px solid var(--line); }
+.ptable td { padding: 16px 16px 16px 0; border-bottom: 1px solid var(--line); font-size: 14px; color: var(--ink-2); }
+.ptable tr:last-child td { border-bottom: 0; }
+.ptable td:first-child, .ptable th:first-child { white-space: nowrap; }
+.ptable th:last-child, .ptable td:last-child { text-align: right; padding-right: 0; font-variant-numeric: tabular-nums; }
+.ptable .num { font-family: 'Inter Tight', sans-serif; font-weight: 700; color: var(--ink); }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: var(--green); }
+.tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-mid); }
+.chg-pos { color: var(--green); font-weight: 700; font-family: 'Inter Tight', sans-serif; font-variant-numeric: tabular-nums; }
+
+/* Jobs empty state — quiet, no box */
+.empty-quiet { display: flex; align-items: center; gap: 12px; color: var(--ink-3); font-size: 14px; }
+.empty-quiet svg { width: 20px; height: 20px; fill: var(--ink-3); flex-shrink: 0; }
+
+/* Published-job list — rule-divided rows, consistent with the page (no cards) */
+.job { display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; padding: 20px 0; border-top: 1px solid var(--line); }
+.job:first-of-type { border-top: 0; padding-top: 0; }
+.job-head { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.job-title { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; color: var(--ink); cursor: pointer; transition: color 140ms var(--ease-out); }
+.job-title:hover { color: var(--green); }
+.job-meta { font-size: 13.5px; color: var(--ink-3); }
+.job-right { display: flex; align-items: center; gap: 28px; }
+.job-stat { text-align: right; }
+.job-stat-n { display: block; font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; line-height: 1.1; color: var(--ink); font-variant-numeric: tabular-nums; }
+.job-stat-l { font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-3); }
+.job-days { text-align: right; min-width: 116px; }
+.job-days-text { display: block; font-size: 12px; color: var(--ink-3); margin-bottom: 7px; font-variant-numeric: tabular-nums; }
+.job-days-meter { height: 4px; border-radius: var(--r-pill); background: var(--surface-2); border: 1px solid var(--line); overflow: hidden; }
+.job-days-meter > div { height: 100%; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--green), var(--green-mid)); }
+.job-menu { width: 32px; height: 32px; border-radius: var(--r-md); border: 0; background: none; cursor: pointer; color: var(--ink-3); display: flex; align-items: center; justify-content: center; transition: background 140ms var(--ease-out), color 140ms var(--ease-out); }
+.job-menu:hover { background: var(--surface-2); color: var(--ink); }
+.job-menu:active { transform: scale(0.92); }
+.job-menu svg { width: 20px; height: 20px; fill: currentColor; }
+.tag-muted { color: var(--ink-3); }
+.tag-muted .dot { background: var(--line-2); }
+.chg-neg { color: var(--ink-3); font-weight: 700; font-family: 'Inter Tight', sans-serif; font-variant-numeric: tabular-nums; }
+
+/* One subtle load stagger — crisp, fast, reduced-motion safe */
+.stagger > * { opacity: 0; transform: translateY(8px); animation: rise 460ms var(--ease-out) forwards; }
+.stagger > *:nth-child(1) { animation-delay: 40ms; }
+.stagger > *:nth-child(2) { animation-delay: 90ms; }
+.stagger > *:nth-child(3) { animation-delay: 140ms; }
+.stagger > *:nth-child(4) { animation-delay: 190ms; }
+.stagger > *:nth-child(5) { animation-delay: 240ms; }
+@keyframes rise { to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .stagger > * { opacity: 1; transform: none; animation: none; }
+  .switch::after, .stepper button, .btn, .acct { transition: none; }
+}
+
+@media (max-width: 760px) {
+  .shell { grid-template-columns: 1fr; }
+  .rail { position: static; flex-direction: row; height: auto; min-height: 0; width: 100%; overflow-x: auto; border-right: 0; border-bottom: 1px solid var(--line); justify-content: flex-start; padding: 8px 12px; }
+  .content-col { padding: 28px 20px 90px; }
+  .masthead { grid-template-columns: 1fr; gap: 28px; }
+  .mh-buy { align-items: flex-start; }
+  .mh-buy-note { text-align: left; }
+  .setting { grid-template-columns: 1fr; gap: 16px; }
+  .job { grid-template-columns: 1fr; gap: 14px; }
+  .job-right { justify-content: flex-start; gap: 24px; flex-wrap: wrap; }
+  .job-stat, .job-days { text-align: left; }
+  .job-days { min-width: 0; flex: 1 1 140px; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brandmark">POWER<span>PRO</span></div>
+  <div class="topbar-right">
+    <button class="acct"><span class="avatar">NE</span>My company<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <button class="acct is-user"><span class="avatar">TT</span>test<svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg></button>
+    <span class="msgr"><svg viewBox="0 0 24 24"><path d="M12 2C6.36 2 2 6.13 2 11.7c0 2.91 1.19 5.44 3.14 7.17.16.14.26.35.27.57l.05 1.78c.04.57.61.94 1.13.71l1.98-.87c.17-.08.36-.09.54-.05.91.25 1.88.38 2.89.38 5.64 0 10-4.13 10-9.7C24 6.13 17.64 2 12 2z"/></svg></span>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="rail" aria-label="Product">
+    <a class="rail-item" href="#"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V8h16v10z"/></svg>Projects</a>
+    <a class="rail-item" href="#"><svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z"/></svg>Jobs</a>
+    <a class="rail-item" href="#"><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>Events</a>
+    <a class="rail-item active" href="#" aria-current="page"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>Company</a>
+    <a class="rail-item" href="#"><span class="rail-up">UP</span>PowerUp</a>
+  </nav>
+
+  <main class="content-col stagger">
+    <div class="page-head">
+      <p class="mini-label">newjobboard · Billing</p>
+      <h1 class="page-h1">Job postings</h1>
+      <p class="page-desc">Buy posting credits, manage renewals, and track your history. Each credit publishes one job for 30 days.</p>
+    </div>
+
+    <!-- MASTHEAD: balance + buy -->
+    <section class="masthead divide">
+      <div class="mh-balance">
+        <p class="mini-label">Posting balance</p>
+        <p class="big-stat"><span class="big-num">1</span><span class="big-unit">posting available</span></p>
+        <div class="meter"><div class="meter-fill" style="width:67%"></div></div>
+        <p class="meter-cap">2 of 3 used</p>
+      </div>
+      <div class="mh-buy">
+        <div class="mh-buy-controls">
+          <div class="stepper">
+            <button id="dec" aria-label="Decrease" disabled><svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg></button>
+            <span class="stepper-n" id="qty">1</span>
+            <button id="inc" aria-label="Increase"><svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
+          </div>
+          <button class="btn btn-primary btn-sm" id="buyBtn">Buy 1 posting</button>
+        </div>
+        <p class="mh-buy-note">$499 each · publishes one job for 30 days</p>
+      </div>
+    </section>
+
+    <!-- SETTING: auto-renew -->
+    <section class="setting divide">
+      <div>
+        <p class="setting-title">Auto-renew jobs by default</p>
+        <p class="setting-desc">When a job's 30 days end, it renews automatically so it never quietly disappears. You can change this per job after it's published.</p>
+      </div>
+      <button class="switch" role="switch" aria-checked="true" id="autoRenew" aria-label="Auto-renew jobs by default"></button>
+    </section>
+
+    <!-- HISTORY -->
+    <section class="block divide">
+      <p class="mini-label">Purchase history</p>
+      <table class="ptable">
+        <thead><tr><th>Date</th><th>Type</th><th>Change</th><th>Job</th><th>Balance</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Jul 30, 2026</td>
+            <td><span class="tag-muted tag"><span class="dot"></span>Published</span></td>
+            <td><span class="chg-neg">−1</span></td>
+            <td>Machine Learning Engineer</td>
+            <td class="num">1</td>
+          </tr>
+          <tr>
+            <td>Jul 23, 2026</td>
+            <td><span class="tag-muted tag"><span class="dot"></span>Published</span></td>
+            <td><span class="chg-neg">−1</span></td>
+            <td>Senior Frontend Engineer</td>
+            <td class="num">2</td>
+          </tr>
+          <tr>
+            <td>Jul 23, 2026</td>
+            <td><span class="tag"><span class="dot"></span>Purchase</span></td>
+            <td><span class="chg-pos">+3</span></td>
+            <td style="color:var(--ink-3)">—</td>
+            <td class="num">3</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- JOBS -->
+    <section class="block divide">
+      <p class="mini-label">Jobs</p>
+      <div class="job-list">
+        <div class="job">
+          <div class="job-main">
+            <div class="job-head">
+              <span class="job-title">Senior Frontend Engineer</span>
+              <span class="tag"><span class="dot"></span>Live</span>
+            </div>
+            <p class="job-meta">Remote · Full-time · Published Jul 23, 2026</p>
+          </div>
+          <div class="job-right">
+            <div class="job-stat"><span class="job-stat-n">24</span><span class="job-stat-l">Applicants</span></div>
+            <div class="job-stat"><span class="job-stat-n">486</span><span class="job-stat-l">Views</span></div>
+            <div class="job-days">
+              <span class="job-days-text">18 days left · auto-renews</span>
+              <div class="job-days-meter"><div style="width:60%"></div></div>
+            </div>
+            <button class="job-menu" aria-label="Job options"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+        <div class="job">
+          <div class="job-main">
+            <div class="job-head">
+              <span class="job-title">Machine Learning Engineer</span>
+              <span class="tag"><span class="dot"></span>Live</span>
+            </div>
+            <p class="job-meta">Remote · Full-time · Published Jul 30, 2026</p>
+          </div>
+          <div class="job-right">
+            <div class="job-stat"><span class="job-stat-n">7</span><span class="job-stat-l">Applicants</span></div>
+            <div class="job-stat"><span class="job-stat-n">152</span><span class="job-stat-l">Views</span></div>
+            <div class="job-days">
+              <span class="job-days-text">26 days left · auto-renews</span>
+              <div class="job-days-meter"><div style="width:87%"></div></div>
+            </div>
+            <button class="job-menu" aria-label="Job options"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  const PRICE = 499;
+  let qty = 1;
+  const qtyEl = document.getElementById('qty'), buyBtn = document.getElementById('buyBtn'),
+        dec = document.getElementById('dec'), inc = document.getElementById('inc');
+  function render() {
+    qtyEl.textContent = qty;
+    dec.disabled = qty <= 1;
+    buyBtn.textContent = 'Buy ' + qty + ' posting' + (qty > 1 ? 's' : '');
+  }
+  inc.addEventListener('click', () => { qty++; render(); });
+  dec.addEventListener('click', () => { if (qty > 1) { qty--; render(); } });
+  render();
+
+  const sw = document.getElementById('autoRenew');
+  sw.addEventListener('click', () => sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'));
+</script>
+</body>
+</html>
