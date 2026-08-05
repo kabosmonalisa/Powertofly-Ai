@@ -230,7 +230,7 @@ border: 1px solid var(--line);
 border-radius: 20px;
 box-shadow: var(--shadow-card);
 width: 320px;
-min-height: 184px;            /* stable box so the shorter face never clips the taller */
+min-height: 158px;            /* stable box so the shorter face never clips the taller */
 transform-style: preserve-3d;
 transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -336,7 +336,7 @@ transform: rotateY(180deg);
 /* Each face: hidden when facing away */
 .hmc-face {
 padding: 16px 18px;
-min-height: 184px;                 /* every face fills the card box... */
+min-height: 158px;                 /* every face fills the card box... */
 box-sizing: border-box;
 display: flex;
 flex-direction: column;
@@ -1114,12 +1114,11 @@ h1.display br { display: none; }
               <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
               <span class="hmc-score">Tomorrow</span>
             </div>
-            <div class="hmc-role">Google &amp; Visa are hiring</div>
-            <div class="hmc-rate">100+ open roles</div>
+            <div class="hmc-role">Companies are hiring</div>
             <div class="hmc-logos">
               <img class="hmc-logo" src="../logos/google.png" alt="Google">
               <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
-              <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
+              <span class="hmc-avs-lbl">63+ open roles</span>
             </div>
             <div class="hmc-tags">
               <span class="hmc-tag">1:1 sessions</span>
@@ -1672,7 +1671,7 @@ PTF.initMarquee('talentLogos');
   var px = function(id){ return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'; };
   var SPEAKERS  = [1181690, 1239291, 2182970, 3756679, 3785079, 774909, 733872].map(px);   // summit (7 = full row)
   var MEET_TEAM = [1587009, 415829, 1181686].map(px);           // meet-with-companies — leaders + recruiters (a real team)
-  var FAIR_LOGOS = ['google', 'visa', 'reddit'];                // virtual job fair — a few big-name companies
+  var FAIR_LOGOS = ['google', 'visa'];                          // virtual job fair — a couple of big-name companies
 
   var actions = [
     { type: 'match' },        // pre-rendered as FRONT in HTML
@@ -1710,10 +1709,10 @@ PTF.initMarquee('talentLogos');
     } else if (a.type === 'fair') {
       // Her feed: a fair she can join tomorrow, big names hiring.
       h = top('Virtual job fair', '<span class="hmc-score">Tomorrow</span>') +
-        '<div class="hmc-role">Google &amp; Visa are hiring</div>' +
-        '<div class="hmc-rate">100+ open roles</div>' +
+        '<div class="hmc-role">Companies are hiring</div>' +
         '<div class="hmc-logos">' +
           FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
+          '<span class="hmc-avs-lbl">63+ open roles</span>' +
         '</div>' +
         tags(['1:1 sessions', 'Feedback']);
     } else if (a.type === 'summit') {
@@ -1722,7 +1721,7 @@ PTF.initMarquee('talentLogos');
         '<div class="hmc-role">Diversity Reboot</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           SPEAKERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">25 speakers</span></div>' +
+        '</span><span class="hmc-avs-lbl">+25 speakers</span></div>' +
         tags(['Free', '3 days', 'On-demand']);
     } else { // meet with companies — her feed: she's in, meeting a real team (leaders and recruiters)
       h = top('Meet with companies', '<span class="hmc-score">Request invite</span>') +
