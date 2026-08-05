@@ -64,7 +64,7 @@
     <!-- LEFT: bg color + logo are ours; arrow/label/amount are Stripe's rendering -->
     <div class="brandside">
       <div class="s-logo-row">
-        <a class="s-back" href="#">
+        <a class="s-back" href="plan-details/index.html" aria-label="Back to Job postings">
           <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
         </a>
         <!-- crisp VECTOR white wordmark (from the DS) + real .brand-ai pill -->
@@ -96,12 +96,24 @@
           <div class="field static">Jordan <span>⌄</span></div>
         </div>
       </div>
-      <div class="pay-btn">Pay</div>
+      <div class="pay-btn" id="payBtn" role="button" tabindex="0" style="cursor:pointer">Pay</div>
       <div class="disc">By confirming your payment, you allow PowerToFly Inc. to charge you for this payment in accordance with their terms.</div>
       <div class="sfoot"><span>Powered by <b style="color:#30313d">stripe</b></span><span>Terms</span><span>Privacy</span></div>
     </div>
   </div>
 
 </div>
+<script>
+  // Demo flow: reflect the quantity chosen on the Job postings page…
+  var q = parseInt(new URLSearchParams(location.search).get('qty'), 10) || 1;
+  var lbl = document.querySelector('.s-item .lbl'), amt = document.querySelector('.s-item .amt');
+  if (lbl) lbl.textContent = q === 1 ? '1 job posting credit' : q + ' job posting credits';
+  if (amt) amt.textContent = '$' + (q * 499).toLocaleString('en-US', { minimumFractionDigits: 2 });
+  // …and loop back to Job postings after "paying" (mock, no real charge)
+  var pay = document.getElementById('payBtn');
+  function goBack() { location.href = 'plan-details/index.html'; }
+  pay.addEventListener('click', goBack);
+  pay.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goBack(); } });
+</script>
 </body>
 </html>

@@ -146,6 +146,22 @@ body { background: var(--bg); }
   .switch::after, .stepper button, .btn, .acct { transition: none; }
 }
 
+/* ---- Confirm modal (before Stripe Checkout) — DS has no modal shell; token-built ---- */
+.modal-scrim { position: fixed; inset: 0; background: rgba(10,10,10,0.45); z-index: 900; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; visibility: hidden; transition: opacity 200ms var(--ease-out), visibility 200ms; }
+.modal-scrim.open { opacity: 1; visibility: visible; }
+.modal { width: 100%; max-width: 440px; background: var(--surface); border-radius: var(--r-xl); box-shadow: 0 24px 64px rgba(10,10,10,0.28); padding: 26px 28px 22px; transform: scale(0.96); opacity: 0; transition: transform 220ms var(--ease-out), opacity 220ms var(--ease-out); }
+.modal-scrim.open .modal { transform: scale(1); opacity: 1; }
+.modal-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 12px; }
+.modal-head h2 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.025em; color: var(--ink); }
+.modal-close { border: 0; background: none; cursor: pointer; color: var(--ink-3); width: 32px; height: 32px; border-radius: var(--r-sm); display: flex; align-items: center; justify-content: center; margin: -4px -6px 0 0; transition: background 140ms var(--ease-out), color 140ms var(--ease-out); }
+.modal-close:hover { background: var(--surface-2); color: var(--ink); }
+.modal-close:active { transform: scale(0.92); }
+.modal-close svg { width: 18px; height: 18px; fill: currentColor; }
+.modal-body { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin-bottom: 24px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+@media (prefers-reduced-motion: reduce) { .modal { transform: none; transition: opacity 120ms ease; } }
+@media (max-width: 520px) { .modal-actions { flex-direction: column-reverse; } .modal-actions .btn { width: 100%; justify-content: center; } }
+
 /* ---- Scenario switching (dev only) ---- */
 body[data-scenario="new"] .for-active { display: none; }
 body[data-scenario="active"] .for-new { display: none; }
@@ -332,6 +348,21 @@ body[data-scenario="active"] .for-new { display: none; }
   </main>
 </div>
 
+<!-- Confirm modal — opens from "Buy", continues to the Stripe checkout mock -->
+<div class="modal-scrim" id="buyModal" role="dialog" aria-modal="true" aria-labelledby="buyModalTitle">
+  <div class="modal">
+    <div class="modal-head">
+      <h2 id="buyModalTitle">Buy job postings</h2>
+      <button class="modal-close" id="buyModalClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+    </div>
+    <p class="modal-body" id="buyModalBody">You'll be taken to Stripe Checkout to purchase 1 job posting credit. A credit never expires — the 30-day posting period only begins when you publish a job.</p>
+    <div class="modal-actions">
+      <button class="btn btn-sm" id="buyModalCancel">Cancel</button>
+      <a class="btn btn-primary btn-sm" id="buyModalGo" href="../checkout-rebrand-proposal.html?qty=1">Continue to checkout</a>
+    </div>
+  </div>
+</div>
+
 <!-- DEV ONLY — prototype scenario switcher. Delete #devDials before launch. -->
 <div id="devDials">
   <span class="dd-label"><svg viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>Scenario</span>
@@ -365,6 +396,25 @@ body[data-scenario="active"] .for-new { display: none; }
 
   const sw = document.getElementById('autoRenew');
   sw.addEventListener('click', () => sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') === 'true' ? 'false' : 'true'));
+
+  // Buy → confirm modal → Stripe checkout mock (carries the quantity through)
+  const modal = document.getElementById('buyModal'),
+        modalBody = document.getElementById('buyModalBody'),
+        modalGo = document.getElementById('buyModalGo');
+  function openModal() {
+    const n = qty, plural = n > 1 ? 's' : '';
+    modalBody.textContent = `You'll be taken to Stripe Checkout to purchase ${n} job posting credit${plural}. A credit never expires — the 30-day posting period only begins when you publish a job.`;
+    modalGo.href = '../checkout-rebrand-proposal.html?qty=' + n;
+    modalGo.textContent = 'Continue to checkout';
+    modal.classList.add('open');
+    document.getElementById('buyModalCancel').focus();
+  }
+  function closeModal() { modal.classList.remove('open'); }
+  buyBtn.addEventListener('click', openModal);
+  document.getElementById('buyModalClose').addEventListener('click', closeModal);
+  document.getElementById('buyModalCancel').addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 </script>
 </body>
 </html>
