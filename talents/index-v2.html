@@ -276,6 +276,9 @@ color: var(--green);
 /* Signature avatar / logo rows */
 .hmc-avs { display: flex; align-items: center; gap: 9px; margin: 2px 0 11px; }
 .hmc-avs-lbl { font-size: 12px; font-weight: 600; color: var(--ink-3); }
+/* Real company logos (job-fair card) — grayscale for a clean "hiring companies" row */
+.hmc-logos { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin: 5px 0 12px; }
+.hmc-logo { height: 15px; width: auto; filter: grayscale(1); opacity: 0.72; flex-shrink: 0; }
 .av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 /* Scoped to this card so the page's other .av rule (line ~910, black border) can't clobber it:
    clean white separator ring on the speaker photos, only visible where they overlap. */
@@ -1093,21 +1096,17 @@ h1.display br { display: none; }
           <div class="hmc-face hmc-back" id="hmcBack">
             <div class="hmc-top">
               <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
-              <span class="hmc-live"><span class="match-live-dot"></span> Live</span>
             </div>
             <div class="hmc-role">12 companies hiring</div>
-            <div class="hmc-avs">
-              <span class="av-stack">
-                <span class="av"><img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
-                <span class="av"><img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
-                <span class="av"><img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
-                <span class="av"><img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
-              </span>
-              <span class="hmc-avs-lbl">recruiters online</span>
+            <div class="hmc-logos">
+              <img class="hmc-logo" src="../logos/google.png" alt="Google">
+              <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
+              <img class="hmc-logo" src="../logos/expedia.png" alt="Expedia">
+              <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
             </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Aug 14</span>
-              <span class="hmc-tag">600+ going</span>
+              <span class="hmc-tag">300+ open roles</span>
+              <span class="hmc-tag">Register free</span>
             </div>
           </div>
         </div>
@@ -1654,9 +1653,9 @@ PTF.initMarquee('talentLogos');
 (function() {
   // Real, diverse Pexels faces — each card gets its own set (no repeats across cards)
   var px = function(id){ return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'; };
-  var SPEAKERS   = [1181690, 1239291, 2182970, 3756679].map(px);   // summit
-  var RECRUITERS = [774909, 415829, 733872, 3785079].map(px);      // virtual job fair
-  var HOST       = px(1587009);                                    // meet-with-companies
+  var SPEAKERS = [1181690, 1239291, 2182970, 3756679].map(px);   // summit
+  var HOST     = px(1587009);                                    // meet-with-companies
+  var FAIR_LOGOS = ['google', 'visa', 'expedia', 'reddit'];      // virtual job fair (real client logos)
   var PIN = '<svg class="hmc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>';
 
   var actions = [
@@ -1692,25 +1691,27 @@ PTF.initMarquee('talentLogos');
         '<div class="hmc-rate">$115–140K · Remote</div>' +
         tags(['SQL + Python', 'Full-time']);
     } else if (a.type === 'fair') {
-      h = top('Virtual job fair', '<span class="hmc-live"><span class="match-live-dot"></span> Live</span>') +
+      // Brag: hiring volume — companies (logos) + open roles. No live/date (that was the contradiction).
+      h = top('Virtual job fair', '') +
         '<div class="hmc-role">12 companies hiring</div>' +
-        '<div class="hmc-avs"><span class="av-stack">' +
-          RECRUITERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">recruiters online</span></div>' +
-        tags(['Aug 14', '600+ going']);
+        '<div class="hmc-logos">' +
+          FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
+        '</div>' +
+        tags(['300+ open roles', 'Register free']);
     } else if (a.type === 'summit') {
+      // Brag: huge audience
       h = top('Summit', '') +
         '<div class="hmc-role">Diversity Reboot</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           SPEAKERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
         '</span><span class="hmc-avs-lbl">40+ speakers</span></div>' +
-        tags(['3 days', 'Free to attend']);
-    } else { // meet with companies — honest framing for a first-time visitor (request, not "you're invited")
-      h = top('Meet with companies', '') +
+        tags(['12K+ attending', 'Free to attend']);
+    } else { // meet with companies — brag: in-person + exclusive (scarcity), location leads
+      h = top('Meet with companies', '<span class="hmc-live">In person</span>') +
         '<div class="hmc-title-row"><span class="av"><img src="' + HOST + '" alt=""></span>' +
           '<div class="hmc-role">Meet the Expedia team</div></div>' +
-        '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Austin, TX · Aug 20</span></div>' +
-        tags(['Request an invite']);
+        '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Austin, TX</span></div>' +
+        tags(['20 seats', 'Invite-only']);
     }
     face.innerHTML = h;
   }
