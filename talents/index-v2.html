@@ -304,20 +304,20 @@ box-shadow: 0 1px 5px rgba(15,30,26,0.14);
 .hmc-meta { display: inline-flex; align-items: center; gap: 6px; }
 .hmc-role {
 font-family: 'Inter Tight', sans-serif;
-font-size: 15px;
+font-size: 19px;                 /* the headline — now the biggest text on the card */
 font-weight: 700;
 letter-spacing: -0.02em;
 color: var(--ink);
-line-height: 1.2;
-margin-bottom: 4px;
+line-height: 1.15;
+margin-bottom: 6px;
 }
 .hmc-rate {
 font-family: 'Inter Tight', sans-serif;
-font-size: 18px;
-font-weight: 700;
-letter-spacing: -0.02em;
-color: var(--ink);
-margin-bottom: 8px;
+font-size: 15px;                 /* supporting line (e.g. salary) — smaller than the title */
+font-weight: 600;
+letter-spacing: -0.01em;
+color: var(--ink-2);
+margin-bottom: 11px;
 }
 .hmc-tags {
 display: flex;
@@ -1099,26 +1099,28 @@ h1.display br { display: none; }
               <span class="hmc-score">94% match</span>
             </div>
             <div class="hmc-role">Senior Data Analyst</div>
-            <div class="hmc-rate">$115–140K · Remote</div>
+            <div class="hmc-rate">$115–140K</div>
             <div class="hmc-tags">
               <span class="hmc-tag">SQL + Python</span>
               <span class="hmc-tag">Full-time</span>
+              <span class="hmc-tag">Remote</span>
             </div>
           </div>
           <!-- BACK FACE — pre-loaded with next moment (idx 1: Virtual job fair) -->
           <div class="hmc-face hmc-back" id="hmcBack">
             <div class="hmc-top">
               <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
-              <span class="hmc-mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
             </div>
             <div class="hmc-role">100+ open roles</div>
             <div class="hmc-logos">
               <img class="hmc-logo" src="../logos/google.png" alt="Google">
               <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
+              <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
             </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Register free</span>
-              <span class="hmc-tag">Recruiters 1:1</span>
+              <span class="hmc-tag">Free</span>
+              <span class="hmc-tag">1:1 sessions</span>
+              <span class="hmc-tag">Resume shared</span>
             </div>
           </div>
         </div>
@@ -1665,9 +1667,9 @@ PTF.initMarquee('talentLogos');
 (function() {
   // Real, diverse Pexels faces — each card gets its own set (no repeats across cards)
   var px = function(id){ return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'; };
-  var SPEAKERS = [1181690, 1239291, 2182970, 3756679, 3785079].map(px);   // summit (5 = fuller row)
-  var HOST     = px(1587009);                                    // meet-with-companies
-  var FAIR_LOGOS = ['google', 'visa'];                          // virtual job fair — a couple of big-name companies
+  var SPEAKERS  = [1181690, 1239291, 2182970, 3756679, 3785079, 774909, 733872].map(px);   // summit (7 = full row)
+  var MEET_TEAM = [1587009, 415829, 1181686].map(px);           // meet-with-companies — leaders + recruiters (a real team)
+  var FAIR_LOGOS = ['google', 'visa', 'reddit'];                // virtual job fair — a few big-name companies
 
   // Icon paths (genuine MUI Outlined) — rendered plain ink at small size
   var PIN_D   = 'M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z';
@@ -1707,34 +1709,35 @@ PTF.initMarquee('talentLogos');
   // Each product moment renders its own distinct layout (COPY: confirm — illustrative)
   function renderFace(face, a) {
     var h;
-    // Same 4 slots on every card: [label + status] / headline / proof row / two pills.
+    // Same 4 slots on every card: [label + status] / headline / proof row / pills.
     if (a.type === 'match') {
       h = top('New match', '<span class="hmc-score">94% match</span>') +
         '<div class="hmc-role">Senior Data Analyst</div>' +
-        '<div class="hmc-rate">$115–140K · Remote</div>' +
-        tags(['SQL + Python', 'Full-time']);
+        '<div class="hmc-rate">$115–140K</div>' +
+        tags(['SQL + Python', 'Full-time', 'Remote']);
     } else if (a.type === 'fair') {
-      // Brag: big-name companies + volume of open roles (a fair usually has ~2 companies, not many).
-      h = top('Virtual job fair', mode('virtual')) +
+      // Brag: big-name companies + volume of open roles. Eyebrow already says "Virtual", so no corner tag.
+      h = top('Virtual job fair', '') +
         '<div class="hmc-role">100+ open roles</div>' +
         '<div class="hmc-logos">' +
           FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
         '</div>' +
-        tags(['Register free', 'Recruiters 1:1']);
+        tags(['Free', '1:1 sessions', 'Resume shared']);
     } else if (a.type === 'summit') {
-      // Brag: huge audience
+      // Brag: huge audience (eyebrow "Summit" doesn't say virtual, so the modality tag earns its place)
       h = top('Summit', mode('virtual')) +
         '<div class="hmc-role">Diversity Reboot</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           SPEAKERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">40+ speakers</span></div>' +
-        tags(['12K+ attending', 'Free to attend']);
-    } else { // meet with companies — brag: in-person + exclusive (scarcity), location leads
-      h = top('Meet with companies', mode('inperson')) +
-        '<div class="hmc-title-row"><span class="av"><img src="' + HOST + '" alt=""></span>' +
-          '<div class="hmc-role">Meet the Expedia team</div></div>' +
-        '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Austin, TX</span></div>' +
-        tags(['20 seats', 'Free']);
+        '</span><span class="hmc-avs-lbl">400+ speakers</span></div>' +
+        tags(['12K+ attending', '3 days', 'Free']);
+    } else { // meet with companies — a real team (leaders + recruiters); location + In person as pills, not a big line
+      h = top('Meet with companies', '') +
+        '<div class="hmc-role">Meet the Expedia team</div>' +
+        '<div class="hmc-avs"><span class="av-stack">' +
+          MEET_TEAM.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
+        '</span><span class="hmc-avs-lbl">leaders + recruiters</span></div>' +
+        tags(['In person', 'Austin, TX', '20 seats']);
     }
     face.innerHTML = h;
   }
