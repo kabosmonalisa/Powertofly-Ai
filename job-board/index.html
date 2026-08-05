@@ -546,36 +546,9 @@
           </svg>
         </div>
         <h1 class="display">Payment successful</h1>
-        <p class="jb-success-sub">Thank you for choosing PowerToFly. Your account is active and ready to go.</p>
+        <p class="jb-success-sub">Your account is active and ready. Reach PowerToFly's vetted talent and start getting applications within minutes — no sourcing required.</p>
 
-        <div class="jb-card jb-nextsteps">
-          <h3>Next steps</h3>
-          <div class="jb-nsrow is-active">
-            <span class="jb-nsnum">1</span>
-            <div>
-              <div class="jb-nstitle">
-                <svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
-                Complete your company profile
-              </div>
-              <div class="jb-nsdesc">Add your company details to build trust with candidates</div>
-            </div>
-          </div>
-          <div class="jb-nsrow">
-            <span class="jb-nsnum">2</span>
-            <div>
-              <div class="jb-nstitle">
-                <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
-                Start posting jobs
-              </div>
-              <div class="jb-nsdesc">Create job listings and start receiving applications</div>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn btn-primary jb-paybtn" type="button" style="margin-top:0">
-          <svg viewBox="0 0 24 24" style="margin:0 8px 0 0"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-          Go to your account
-        </button>
+        <button class="btn btn-primary jb-paybtn" type="button" style="justify-content:center">Post your first job</button>
         <p class="jb-contact">Need help? Contact us at <a href="mailto:support@powertofly.com">support@powertofly.com</a></p>
       </div>
     </section>
@@ -602,6 +575,16 @@
       <option value="5">5 · Suspended / blocked → contact</option>
       <option value="6">6 · Talent account → contact</option>
       <option value="7">7 · Existing co. + active jobs → checkout</option>
+    </select>
+    <select onchange="if(this.value)showScreen(this.value)" style="margin-top:8px">
+      <option value="">Jump to any step… (skip the forms)</option>
+      <option value="screen-package">Choose package</option>
+      <option value="screen-company">Create account</option>
+      <option value="screen-login">Log in to continue</option>
+      <option value="screen-verify">Verify your account</option>
+      <option value="screen-contact">Contact our team</option>
+      <option value="screen-checkout">Checkout</option>
+      <option value="screen-success">✓ Payment successful (last step)</option>
     </select>
     <div class="jb-demobar-hint">Or type on the form: verified@ · talent@ · suspended@ · pending@ · active@ · newclient@ — else = new company.</div>
   </div>
