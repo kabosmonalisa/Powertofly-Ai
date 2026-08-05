@@ -129,6 +129,14 @@ body { background: var(--bg); }
 .job-menu:hover { background: var(--surface-2); color: var(--ink); }
 .job-menu:active { transform: scale(0.92); }
 .job-menu svg { width: 20px; height: 20px; fill: currentColor; }
+/* Per-job actions dropdown */
+.job-menu-wrap { position: relative; }
+.job-actions { position: absolute; top: calc(100% + 6px); right: 0; z-index: 50; min-width: 208px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); box-shadow: 0 14px 38px rgba(10,10,10,0.16); padding: 6px; opacity: 0; visibility: hidden; transform: scale(0.96); transform-origin: top right; transition: opacity 160ms var(--ease-out), transform 160ms var(--ease-out), visibility 160ms; }
+.job-menu-wrap.open .job-actions { opacity: 1; visibility: visible; transform: scale(1); }
+.job-actions button { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; border: 0; background: none; cursor: pointer; padding: 9px 10px; border-radius: var(--r-sm); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); transition: background 120ms var(--ease-out); }
+.job-actions button:hover { background: var(--surface-2); }
+.job-actions button svg { width: 16px; height: 16px; fill: var(--ink-3); flex-shrink: 0; }
+@media (prefers-reduced-motion: reduce) { .job-actions { transition: opacity 120ms ease, visibility 120ms; transform: none; } .job-menu-wrap.open .job-actions { transform: none; } }
 .tag-muted { color: var(--ink-3); }
 .tag-muted .dot { background: var(--line-2); }
 .chg-neg { color: var(--ink-3); font-weight: 700; font-family: 'Inter Tight', sans-serif; font-variant-numeric: tabular-nums; }
@@ -320,7 +328,15 @@ body[data-scenario="active"] .for-new { display: none; }
               <span class="job-days-text">18 days left · auto-renews</span>
               <div class="job-days-meter"><div style="width:60%"></div></div>
             </div>
-            <button class="job-menu" aria-label="Job options"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+            <div class="job-menu-wrap">
+              <button class="job-menu" aria-label="Job options" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+              <div class="job-actions" role="menu">
+                <button role="menuitem" data-act="edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Edit job</button>
+                <button role="menuitem" data-act="pause"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span class="ja-label">Pause / unpublish</span></button>
+                <button role="menuitem" data-act="autorenew"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg><span class="ja-label">Turn off auto-renew</span></button>
+                <button role="menuitem" data-act="duplicate"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Duplicate</button>
+              </div>
+            </div>
           </div>
         </div>
         <div class="job">
@@ -336,7 +352,15 @@ body[data-scenario="active"] .for-new { display: none; }
               <span class="job-days-text">26 days left · auto-renews</span>
               <div class="job-days-meter"><div style="width:87%"></div></div>
             </div>
-            <button class="job-menu" aria-label="Job options"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+            <div class="job-menu-wrap">
+              <button class="job-menu" aria-label="Job options" aria-haspopup="true" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></button>
+              <div class="job-actions" role="menu">
+                <button role="menuitem" data-act="edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Edit job</button>
+                <button role="menuitem" data-act="pause"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span class="ja-label">Pause / unpublish</span></button>
+                <button role="menuitem" data-act="autorenew"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg><span class="ja-label">Turn off auto-renew</span></button>
+                <button role="menuitem" data-act="duplicate"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Duplicate</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -411,6 +435,49 @@ body[data-scenario="active"] .for-new { display: none; }
   document.getElementById('buyModalCancel').addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  // Per-job ⋮ menu — open/close (one at a time) + actions
+  function closeJobMenus() {
+    document.querySelectorAll('.job-menu-wrap.open').forEach(w => {
+      w.classList.remove('open');
+      w.querySelector('.job-menu').setAttribute('aria-expanded', 'false');
+    });
+  }
+  document.querySelectorAll('.job-menu').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const wrap = btn.closest('.job-menu-wrap'), willOpen = !wrap.classList.contains('open');
+      closeJobMenus();
+      if (willOpen) { wrap.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+    });
+  });
+  document.addEventListener('click', closeJobMenus);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeJobMenus(); });
+
+  document.querySelectorAll('.job-actions button').forEach(item => {
+    item.addEventListener('click', e => {
+      e.stopPropagation();
+      const job = item.closest('.job'), act = item.dataset.act;
+      if (act === 'pause') {
+        const tag = job.querySelector('.job-head .tag');
+        const paused = tag.classList.toggle('tag-muted');
+        const tn = [...tag.childNodes].find(n => n.nodeType === 3 && n.textContent.trim());
+        if (tn) tn.textContent = paused ? 'Paused' : 'Live';
+        item.querySelector('.ja-label').textContent = paused ? 'Resume / publish' : 'Pause / unpublish';
+      } else if (act === 'autorenew') {
+        const days = job.querySelector('.job-days-text'), lbl = item.querySelector('.ja-label');
+        if (days.textContent.includes('· auto-renews')) {
+          days.textContent = days.textContent.replace(' · auto-renews', '');
+          lbl.textContent = 'Turn on auto-renew';
+        } else {
+          days.textContent += ' · auto-renews';
+          lbl.textContent = 'Turn off auto-renew';
+        }
+      }
+      // 'edit' and 'duplicate' are prototype no-ops (would navigate in the real app)
+      closeJobMenus();
+    });
+  });
 </script>
 </body>
 </html>
