@@ -230,7 +230,7 @@ border: 1px solid var(--line);
 border-radius: 20px;
 box-shadow: var(--shadow-card);
 width: 320px;
-min-height: 158px;            /* stable box so the shorter face never clips the taller */
+min-height: 184px;            /* stable box so the shorter face never clips the taller */
 transform-style: preserve-3d;
 transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -336,7 +336,7 @@ transform: rotateY(180deg);
 /* Each face: hidden when facing away */
 .hmc-face {
 padding: 16px 18px;
-min-height: 158px;                 /* every face fills the card box... */
+min-height: 184px;                 /* every face fills the card box... */
 box-sizing: border-box;
 display: flex;
 flex-direction: column;
@@ -1115,13 +1115,13 @@ h1.display br { display: none; }
               <span class="hmc-score">Tomorrow</span>
             </div>
             <div class="hmc-role">Google &amp; Visa are hiring</div>
+            <div class="hmc-rate">100+ open roles</div>
             <div class="hmc-logos">
               <img class="hmc-logo" src="../logos/google.png" alt="Google">
               <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
               <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
             </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">100+ roles</span>
               <span class="hmc-tag">1:1 sessions</span>
               <span class="hmc-tag">Feedback</span>
             </div>
@@ -1711,10 +1711,11 @@ PTF.initMarquee('talentLogos');
       // Her feed: a fair she can join tomorrow, big names hiring.
       h = top('Virtual job fair', '<span class="hmc-score">Tomorrow</span>') +
         '<div class="hmc-role">Google &amp; Visa are hiring</div>' +
+        '<div class="hmc-rate">100+ open roles</div>' +
         '<div class="hmc-logos">' +
           FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
         '</div>' +
-        tags(['100+ roles', '1:1 sessions', 'Feedback']);
+        tags(['1:1 sessions', 'Feedback']);
     } else if (a.type === 'summit') {
       // Her feed: the summit is this weekend.
       h = top('Summit', '<span class="hmc-score">Saturday</span>') +
@@ -1724,11 +1725,11 @@ PTF.initMarquee('talentLogos');
         '</span><span class="hmc-avs-lbl">25 speakers</span></div>' +
         tags(['Free', '3 days', 'On-demand']);
     } else { // meet with companies — her feed: she's in, meeting a real team (leaders and recruiters)
-      h = top('Meet with companies', '<span class="hmc-score">You\'re in</span>') +
+      h = top('Meet with companies', '<span class="hmc-score">Request invite</span>') +
         '<div class="hmc-role">Meet the Expedia team</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           MEET_TEAM.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">leaders and recruiters</span></div>' +
+        '</span><span class="hmc-avs-lbl">Leaders and recruiters</span></div>' +
         tags(['In person', 'Austin, TX', 'Live Q&amp;A']);
     }
     face.innerHTML = h;
