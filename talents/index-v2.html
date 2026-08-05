@@ -285,8 +285,10 @@ white-space: nowrap;
 .hmc-avs { display: flex; align-items: center; gap: 9px; margin: 2px 0 11px; }
 .hmc-avs-lbl { font-size: 12px; font-weight: 600; color: var(--ink-3); }
 /* Real company logos (job-fair card) — grayscale for a clean "hiring companies" row */
-.hmc-logos { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin: 5px 0 12px; }
-.hmc-logo { height: 15px; width: auto; filter: grayscale(1); opacity: 0.72; flex-shrink: 0; }
+.hmc-logos { display: flex; align-items: center; gap: 16px; margin: 7px 0 13px; }
+/* Equal bounding box + contain = every logo reads at the same optical size,
+   regardless of its wordmark's aspect ratio; kept small so the title dominates. */
+.hmc-logo { width: 46px; height: 13px; object-fit: contain; object-position: left center; filter: grayscale(1); opacity: 0.68; flex-shrink: 0; }
 .av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
 /* Scoped to this card so the page's other .av rule (line ~910, black border) can't clobber it:
    clean white separator ring on the speaker photos, only visible where they overlap. */
@@ -1110,17 +1112,18 @@ h1.display br { display: none; }
           <div class="hmc-face hmc-back" id="hmcBack">
             <div class="hmc-top">
               <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
+              <span class="hmc-score">Tomorrow</span>
             </div>
-            <div class="hmc-role">100+ open roles</div>
+            <div class="hmc-role">Google &amp; Visa are hiring</div>
             <div class="hmc-logos">
               <img class="hmc-logo" src="../logos/google.png" alt="Google">
               <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
               <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
             </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Free</span>
+              <span class="hmc-tag">100+ roles</span>
               <span class="hmc-tag">1:1 sessions</span>
-              <span class="hmc-tag">Resume shared</span>
+              <span class="hmc-tag">Recruiter feedback</span>
             </div>
           </div>
         </div>
@@ -1671,17 +1674,6 @@ PTF.initMarquee('talentLogos');
   var MEET_TEAM = [1587009, 415829, 1181686].map(px);           // meet-with-companies — leaders + recruiters (a real team)
   var FAIR_LOGOS = ['google', 'visa', 'reddit'];                // virtual job fair — a few big-name companies
 
-  // Icon paths (genuine MUI Outlined) — rendered plain ink at small size
-  var PIN_D   = 'M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z';
-  var GLOBE_D = 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z';
-  var PIN = '<svg class="hmc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="' + PIN_D + '"/></svg>';
-  // Modality tag — same slot on every event card
-  function mode(kind) {
-    var d = kind === 'virtual' ? GLOBE_D : PIN_D;
-    var t = kind === 'virtual' ? 'Virtual' : 'In person';
-    return '<span class="hmc-mode"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + d + '"/></svg>' + t + '</span>';
-  }
-
   var actions = [
     { type: 'match' },        // pre-rendered as FRONT in HTML
     { type: 'fair' },         // pre-rendered as BACK in HTML
@@ -1716,28 +1708,28 @@ PTF.initMarquee('talentLogos');
         '<div class="hmc-rate">$115–140K</div>' +
         tags(['SQL + Python', 'Full-time', 'Remote']);
     } else if (a.type === 'fair') {
-      // Brag: big-name companies + volume of open roles. Eyebrow already says "Virtual", so no corner tag.
-      h = top('Virtual job fair', '') +
-        '<div class="hmc-role">100+ open roles</div>' +
+      // Her feed: a fair she can join tomorrow, big names hiring.
+      h = top('Virtual job fair', '<span class="hmc-score">Tomorrow</span>') +
+        '<div class="hmc-role">Google &amp; Visa are hiring</div>' +
         '<div class="hmc-logos">' +
           FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
         '</div>' +
-        tags(['Free', '1:1 sessions', 'Resume shared']);
+        tags(['100+ roles', '1:1 sessions', 'Recruiter feedback']);
     } else if (a.type === 'summit') {
-      // Brag: huge audience (eyebrow "Summit" doesn't say virtual, so the modality tag earns its place)
-      h = top('Summit', mode('virtual')) +
+      // Her feed: the summit is this weekend.
+      h = top('Summit', '<span class="hmc-score">Sat</span>') +
         '<div class="hmc-role">Diversity Reboot</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           SPEAKERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">400+ speakers</span></div>' +
-        tags(['12K+ attending', '3 days', 'Free']);
-    } else { // meet with companies — a real team (leaders + recruiters); location + In person as pills, not a big line
-      h = top('Meet with companies', '') +
+        '</span><span class="hmc-avs-lbl">25 speakers</span></div>' +
+        tags(['Free', '3 days', 'On-demand']);
+    } else { // meet with companies — her feed: she's in, meeting a real team (leaders and recruiters)
+      h = top('Meet with companies', '<span class="hmc-score">You\'re in</span>') +
         '<div class="hmc-role">Meet the Expedia team</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
           MEET_TEAM.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">leaders + recruiters</span></div>' +
-        tags(['In person', 'Austin, TX', '20 seats']);
+        '</span><span class="hmc-avs-lbl">leaders and recruiters</span></div>' +
+        tags(['In person', 'Austin, TX', 'Live Q&amp;A']);
     }
     face.innerHTML = h;
   }
