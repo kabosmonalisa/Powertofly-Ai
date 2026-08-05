@@ -281,16 +281,15 @@ color: var(--green);
    clean white separator ring on the speaker photos, only visible where they overlap. */
 .hmc-avs .av { width: 30px; height: 30px; border: 2px solid #fff; margin-left: -8px; }
 .hmc-avs .av:first-child { margin-left: 0; }
-/* Company monogram = rounded square tile (reads as a logo, not a person) */
-.av.tile {
-border-radius: 7px;
-border: 1px solid var(--line);
-background: var(--bg-soft);
-color: var(--ink);
-font-size: 10px;
-}
-.av.tile.lg { width: 36px; height: 36px; border-radius: 9px; font-size: 14px; margin-left: 0; }
+/* Single host/team photo beside a title (invite card) — real person, not a letter */
 .hmc-title-row { display: flex; align-items: center; gap: 11px; }
+.hmc-title-row .av {
+width: 42px; height: 42px;
+border: 2px solid #fff;
+margin-left: 0;
+flex-shrink: 0;
+box-shadow: 0 1px 5px rgba(15,30,26,0.14);
+}
 .hmc-meta { display: inline-flex; align-items: center; gap: 6px; }
 .hmc-role {
 font-family: 'Inter Tight', sans-serif;
@@ -1099,16 +1098,16 @@ h1.display br { display: none; }
             <div class="hmc-role">12 companies hiring</div>
             <div class="hmc-avs">
               <span class="av-stack">
-                <span class="av tile" style="--av-bg:var(--bg-soft)">E</span>
-                <span class="av tile" style="--av-bg:var(--bg-soft)">N</span>
-                <span class="av tile" style="--av-bg:var(--bg-soft)">V</span>
-                <span class="av tile" style="--av-bg:var(--bg-soft)">S</span>
+                <span class="av"><img src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
+                <span class="av"><img src="https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
+                <span class="av"><img src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
+                <span class="av"><img src="https://images.pexels.com/photos/3785079/pexels-photo-3785079.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces" alt=""></span>
               </span>
-              <span class="hmc-avs-lbl">+8 more</span>
+              <span class="hmc-avs-lbl">recruiters online</span>
             </div>
             <div class="hmc-tags">
               <span class="hmc-tag">Aug 14</span>
-              <span class="hmc-tag">Free</span>
+              <span class="hmc-tag">600+ going</span>
             </div>
           </div>
         </div>
@@ -1653,13 +1652,11 @@ PTF.initMarquee('talentLogos');
    than matching, not just claims it. COPY: confirm — roles/companies/dates are
    illustrative. Faces 0 + 1 are pre-rendered in the HTML; keep this in sync. */
 (function() {
-  // Real diverse Pexels faces (already used elsewhere on this page)
-  var FACES = [
-    'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
-    'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
-    'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
-    'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'
-  ];
+  // Real, diverse Pexels faces — each card gets its own set (no repeats across cards)
+  var px = function(id){ return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'; };
+  var SPEAKERS   = [1181690, 1239291, 2182970, 3756679].map(px);   // summit
+  var RECRUITERS = [774909, 415829, 733872, 3785079].map(px);      // virtual job fair
+  var HOST       = px(1587009);                                    // meet-with-companies
   var PIN = '<svg class="hmc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>';
 
   var actions = [
@@ -1698,22 +1695,22 @@ PTF.initMarquee('talentLogos');
       h = top('Virtual job fair', '<span class="hmc-live"><span class="match-live-dot"></span> Live</span>') +
         '<div class="hmc-role">12 companies hiring</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
-          ['E','N','V','S'].map(function(m){ return '<span class="av tile" style="--av-bg:var(--bg-soft)">' + m + '</span>'; }).join('') +
-        '</span><span class="hmc-avs-lbl">+8 more</span></div>' +
-        tags(['Aug 14', 'Free']);
+          RECRUITERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
+        '</span><span class="hmc-avs-lbl">recruiters online</span></div>' +
+        tags(['Aug 14', '600+ going']);
     } else if (a.type === 'summit') {
       h = top('Summit', '') +
         '<div class="hmc-role">Diversity Reboot</div>' +
         '<div class="hmc-avs"><span class="av-stack">' +
-          FACES.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
+          SPEAKERS.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
         '</span><span class="hmc-avs-lbl">40+ speakers</span></div>' +
         tags(['3 days', 'Free to attend']);
-    } else { // invite
-      h = top("You're invited", '') +
-        '<div class="hmc-title-row"><span class="av tile lg" style="--av-bg:var(--bg-soft)">E</span>' +
+    } else { // meet with companies — honest framing for a first-time visitor (request, not "you're invited")
+      h = top('Meet with companies', '') +
+        '<div class="hmc-title-row"><span class="av"><img src="' + HOST + '" alt=""></span>' +
           '<div class="hmc-role">Meet the Expedia team</div></div>' +
         '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Austin, TX · Aug 20</span></div>' +
-        tags(['Invite-only']);
+        tags(['Request an invite']);
     }
     face.innerHTML = h;
   }
