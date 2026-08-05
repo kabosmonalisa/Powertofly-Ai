@@ -325,7 +325,12 @@ transform: rotateY(180deg);
 }
 /* Each face: hidden when facing away */
 .hmc-face {
-padding: 14px 18px;
+padding: 16px 18px;
+min-height: 158px;                 /* every face fills the card box... */
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: center;           /* ...and centers its content, so sparser cards stay balanced */
 backface-visibility: hidden;
 -webkit-backface-visibility: hidden;
 }
