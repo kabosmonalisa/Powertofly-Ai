@@ -1097,16 +1097,14 @@ h1.display br { display: none; }
             <div class="hmc-top">
               <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
             </div>
-            <div class="hmc-role">12 companies hiring</div>
+            <div class="hmc-role">100+ open roles</div>
             <div class="hmc-logos">
               <img class="hmc-logo" src="../logos/google.png" alt="Google">
               <img class="hmc-logo" src="../logos/visa.png" alt="Visa">
-              <img class="hmc-logo" src="../logos/expedia.png" alt="Expedia">
-              <img class="hmc-logo" src="../logos/reddit.png" alt="Reddit">
             </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">300+ open roles</span>
               <span class="hmc-tag">Register free</span>
+              <span class="hmc-tag">Remote</span>
             </div>
           </div>
         </div>
@@ -1655,7 +1653,7 @@ PTF.initMarquee('talentLogos');
   var px = function(id){ return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'; };
   var SPEAKERS = [1181690, 1239291, 2182970, 3756679].map(px);   // summit
   var HOST     = px(1587009);                                    // meet-with-companies
-  var FAIR_LOGOS = ['google', 'visa', 'expedia', 'reddit'];      // virtual job fair (real client logos)
+  var FAIR_LOGOS = ['google', 'visa'];                          // virtual job fair — a couple of big-name companies
   var PIN = '<svg class="hmc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>';
 
   var actions = [
@@ -1691,13 +1689,13 @@ PTF.initMarquee('talentLogos');
         '<div class="hmc-rate">$115–140K · Remote</div>' +
         tags(['SQL + Python', 'Full-time']);
     } else if (a.type === 'fair') {
-      // Brag: hiring volume — companies (logos) + open roles. No live/date (that was the contradiction).
+      // Brag: big-name companies + volume of open roles (a fair usually has ~2 companies, not many).
       h = top('Virtual job fair', '') +
-        '<div class="hmc-role">12 companies hiring</div>' +
+        '<div class="hmc-role">100+ open roles</div>' +
         '<div class="hmc-logos">' +
           FAIR_LOGOS.map(function(n){ return '<img class="hmc-logo" src="../logos/' + n + '.png" alt="' + n + '">'; }).join('') +
         '</div>' +
-        tags(['300+ open roles', 'Register free']);
+        tags(['Register free', 'Remote']);
     } else if (a.type === 'summit') {
       // Brag: huge audience
       h = top('Summit', '') +
@@ -1711,7 +1709,7 @@ PTF.initMarquee('talentLogos');
         '<div class="hmc-title-row"><span class="av"><img src="' + HOST + '" alt=""></span>' +
           '<div class="hmc-role">Meet the Expedia team</div></div>' +
         '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Austin, TX</span></div>' +
-        tags(['20 seats', 'Invite-only']);
+        tags(['20 seats']);
     }
     face.innerHTML = h;
   }
