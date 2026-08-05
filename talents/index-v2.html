@@ -230,29 +230,68 @@ border: 1px solid var(--line);
 border-radius: 20px;
 box-shadow: var(--shadow-card);
 width: 320px;
+min-height: 158px;            /* stable box so the shorter face never clips the taller */
 transform-style: preserve-3d;
 transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Label row: plain green uppercase label (DS eyebrow rule — no pill) + optional status */
+.hmc-top {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 8px;
+margin-bottom: 10px;
 }
 .hmc-badge {
 display: inline-flex;
 align-items: center;
-gap: 5px;
+gap: 6px;
 font-size: 11px;
 font-weight: 600;
 letter-spacing: 0.04em;
 text-transform: uppercase;
 color: var(--green);
-background: rgba(79,232,169,0.16);
-padding: 4px 10px;
-border-radius: 999px;
-margin-bottom: 8px;
 }
 .hmc-badge .dot {
 width: 6px; height: 6px;
 border-radius: 50%;
-background: #4FE8A9;
+background: var(--green);
 flex-shrink: 0;
 }
+/* Right-side status chips */
+.hmc-score {
+font-family: 'Inter Tight', sans-serif;
+font-size: 12px; font-weight: 700;
+letter-spacing: -0.01em;
+color: var(--green);
+}
+.hmc-live {
+display: inline-flex; align-items: center; gap: 6px;
+font-size: 11px; font-weight: 700;
+letter-spacing: 0.04em; text-transform: uppercase;
+color: var(--green);
+}
+/* Small inline icon — plain ink, no gradient (DS icon rule for <40px) */
+.hmc-ico { width: 13px; height: 13px; fill: var(--ink-3); flex-shrink: 0; }
+/* Signature avatar / logo rows */
+.hmc-avs { display: flex; align-items: center; gap: 9px; margin: 2px 0 11px; }
+.hmc-avs-lbl { font-size: 12px; font-weight: 600; color: var(--ink-3); }
+.av img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+/* Scoped to this card so the page's other .av rule (line ~910, black border) can't clobber it:
+   clean white separator ring on the speaker photos, only visible where they overlap. */
+.hmc-avs .av { width: 30px; height: 30px; border: 2px solid #fff; margin-left: -8px; }
+.hmc-avs .av:first-child { margin-left: 0; }
+/* Company monogram = rounded square tile (reads as a logo, not a person) */
+.av.tile {
+border-radius: 7px;
+border: 1px solid var(--line);
+background: var(--bg-soft);
+color: var(--ink);
+font-size: 10px;
+}
+.av.tile.lg { width: 36px; height: 36px; border-radius: 9px; font-size: 14px; margin-left: 0; }
+.hmc-title-row { display: flex; align-items: center; gap: 11px; }
+.hmc-meta { display: inline-flex; align-items: center; gap: 6px; }
 .hmc-role {
 font-family: 'Inter Tight', sans-serif;
 font-size: 15px;
@@ -1037,26 +1076,39 @@ h1.display br { display: none; }
       >
       <div class="hmc-float-wrap">
         <div class="hero-match-card" id="hmcWrap" aria-live="polite">
-          <!-- FRONT FACE -->
+          <!-- FRONT FACE — a real product moment (idx 0: Matching) -->
+          <!-- COPY: confirm — illustrative product data (roles, companies, dates) -->
           <div class="hmc-face hmc-front" id="hmcFront">
-            <div class="hmc-badge"><span class="dot"></span> New match</div>
+            <div class="hmc-top">
+              <div class="hmc-badge"><span class="dot"></span> New match</div>
+              <span class="hmc-score">94% match</span>
+            </div>
             <div class="hmc-role">Senior Data Analyst</div>
-            <div class="hmc-rate">$115–140K</div>
+            <div class="hmc-rate">$115–140K · Remote</div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Remote</span>
               <span class="hmc-tag">SQL + Python</span>
               <span class="hmc-tag">Full-time</span>
             </div>
           </div>
-          <!-- BACK FACE (pre-loaded with next card) -->
+          <!-- BACK FACE — pre-loaded with next moment (idx 1: Virtual job fair) -->
           <div class="hmc-face hmc-back" id="hmcBack">
-            <div class="hmc-badge"><span class="dot"></span> New match</div>
-            <div class="hmc-role">Analytics Engineer</div>
-            <div class="hmc-rate">$130–160K</div>
+            <div class="hmc-top">
+              <div class="hmc-badge"><span class="dot"></span> Virtual job fair</div>
+              <span class="hmc-live"><span class="match-live-dot"></span> Live</span>
+            </div>
+            <div class="hmc-role">12 companies hiring</div>
+            <div class="hmc-avs">
+              <span class="av-stack">
+                <span class="av tile" style="--av-bg:var(--bg-soft)">E</span>
+                <span class="av tile" style="--av-bg:var(--bg-soft)">N</span>
+                <span class="av tile" style="--av-bg:var(--bg-soft)">V</span>
+                <span class="av tile" style="--av-bg:var(--bg-soft)">S</span>
+              </span>
+              <span class="hmc-avs-lbl">+8 more</span>
+            </div>
             <div class="hmc-tags">
-              <span class="hmc-tag">Hybrid</span>
-              <span class="hmc-tag">dbt + SQL</span>
-              <span class="hmc-tag">Full-time</span>
+              <span class="hmc-tag">Aug 14</span>
+              <span class="hmc-tag">Free</span>
             </div>
           </div>
         </div>
@@ -1595,12 +1647,26 @@ h1.display br { display: none; }
 /* ===== Client logo band — shared canonical list (PTF.LOGOS in ds/ptf.js) ===== */
 PTF.initMarquee('talentLogos');
 
-/* ===== Match card cycler — true two-face flip ===== */
+/* ===== Product-moment cycler — true two-face flip =====
+   Each flip = a real slice of the product talent uses on PowerToFly — a live
+   match, a job-fair card, a summit, an invite — so the hero SHOWS we do more
+   than matching, not just claims it. COPY: confirm — roles/companies/dates are
+   illustrative. Faces 0 + 1 are pre-rendered in the HTML; keep this in sync. */
 (function() {
-  var matches = [
-    { role: 'Senior Data Analyst', rate: '$115–140K', tags: ['Remote', 'SQL + Python', 'Full-time'] },
-    { role: 'Analytics Engineer',  rate: '$130–160K', tags: ['Hybrid', 'dbt + SQL', 'Full-time'] },
-    { role: 'Marketing Data Scientist', rate: '$140–175K', tags: ['Remote', 'ML / Python', 'Full-time'] },
+  // Real diverse Pexels faces (already used elsewhere on this page)
+  var FACES = [
+    'https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
+    'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
+    'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces',
+    'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=56&h=56&fit=crop&crop=faces'
+  ];
+  var PIN = '<svg class="hmc-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2c-4.2 0-8 3.22-8 8.2 0 3.32 2.67 7.25 8 11.8 5.33-4.55 8-8.48 8-11.8C20 5.22 16.2 2 12 2zm0 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>';
+
+  var actions = [
+    { type: 'match' },        // pre-rendered as FRONT in HTML
+    { type: 'fair' },         // pre-rendered as BACK in HTML
+    { type: 'summit' },
+    { type: 'invite' }
   ];
   var idx = 0;           // index currently visible
   var flipped = false;   // false = front visible, true = back visible
@@ -1610,34 +1676,65 @@ PTF.initMarquee('talentLogos');
   var back  = document.getElementById('hmcBack');
   if (!wrap || !front || !back) return;
 
-  function renderFace(face, match) {
-    face.innerHTML =
-      '<div class="hmc-badge"><span class="dot"></span> New match</div>' +
-      '<div class="hmc-role">' + match.role + '</div>' +
-      '<div class="hmc-rate">' + match.rate + '</div>' +
-      '<div class="hmc-tags">' + match.tags.map(function(t){ return '<span class="hmc-tag">' + t + '</span>'; }).join('') + '</div>';
+  function tags(list) {
+    return '<div class="hmc-tags">' +
+      list.map(function(t){ return '<span class="hmc-tag">' + t + '</span>'; }).join('') +
+      '</div>';
+  }
+  function top(badge, status) {
+    return '<div class="hmc-top"><div class="hmc-badge"><span class="dot"></span> ' + badge +
+      '</div>' + (status || '') + '</div>';
   }
 
-  // Back face is pre-loaded in HTML with match[1] — keep in sync with idx=1
-  var preloaded = 1;
+  // Each product moment renders its own distinct layout (COPY: confirm — illustrative)
+  function renderFace(face, a) {
+    var h;
+    if (a.type === 'match') {
+      h = top('New match', '<span class="hmc-score">94% match</span>') +
+        '<div class="hmc-role">Senior Data Analyst</div>' +
+        '<div class="hmc-rate">$115–140K · Remote</div>' +
+        tags(['SQL + Python', 'Full-time']);
+    } else if (a.type === 'fair') {
+      h = top('Virtual job fair', '<span class="hmc-live"><span class="match-live-dot"></span> Live</span>') +
+        '<div class="hmc-role">12 companies hiring</div>' +
+        '<div class="hmc-avs"><span class="av-stack">' +
+          ['E','N','V','S'].map(function(m){ return '<span class="av tile" style="--av-bg:var(--bg-soft)">' + m + '</span>'; }).join('') +
+        '</span><span class="hmc-avs-lbl">+8 more</span></div>' +
+        tags(['Aug 14', 'Free']);
+    } else if (a.type === 'summit') {
+      h = top('Summit', '') +
+        '<div class="hmc-role">Diversity Reboot</div>' +
+        '<div class="hmc-avs"><span class="av-stack">' +
+          FACES.map(function(u){ return '<span class="av"><img src="' + u + '" alt=""></span>'; }).join('') +
+        '</span><span class="hmc-avs-lbl">40+ speakers</span></div>' +
+        tags(['3 days', 'Free to attend']);
+    } else { // invite
+      h = top("You're invited", '') +
+        '<div class="hmc-title-row"><span class="av tile lg" style="--av-bg:var(--bg-soft)">E</span>' +
+          '<div class="hmc-role">Meet the Expedia team</div></div>' +
+        '<div class="hmc-rate" style="margin-top:8px"><span class="hmc-meta">' + PIN + 'Tokyo · Aug 20</span></div>' +
+        tags(['Invite-only']);
+    }
+    face.innerHTML = h;
+  }
 
-  function nextMatch() {
-    var nextIdx = (idx + 1) % matches.length;
-    var afterIdx = (nextIdx + 1) % matches.length;
+  function nextAction() {
+    var nextIdx = (idx + 1) % actions.length;
+    var afterIdx = (nextIdx + 1) % actions.length;
 
-    // The hidden face should already have nextIdx loaded — flip to reveal it
+    // The hidden face already holds nextIdx — flip to reveal it
     flipped = !flipped;
     wrap.classList.toggle('flipped', flipped);
     idx = nextIdx;
 
-    // After the transition completes (650ms), load afterIdx into the now-hidden face
+    // After the transition completes, load afterIdx into the now-hidden face
     setTimeout(function() {
       var hiddenFace = flipped ? front : back;
-      renderFace(hiddenFace, matches[afterIdx]);
+      renderFace(hiddenFace, actions[afterIdx]);
     }, 700);
   }
 
-  setInterval(nextMatch, 3500);
+  setInterval(nextAction, 3500);
 })();
 
 // Scroll fade-in for How It Works steps
