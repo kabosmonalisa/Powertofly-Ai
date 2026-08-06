@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerToFly AI — Deck system preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/* ============================================================
+   DECK-ONLY CSS — genuinely new (slides ≠ web sections).
+   Everything COLOUR / FONT / RULE comes from ptf.css tokens.
+   This block owns only: the 16:9 slide frame + a deck type
+   scale in container-query units so a slide scales crisply
+   to any width. Documented in decks/DECK-SYSTEM.md.
+   ============================================================ */
+  body{ background:#EEEDE7; margin:0; font-family:'Inter',sans-serif; color:var(--ink); }
+  .wrap{ max-width:1040px; margin:0 auto; padding:56px 24px 120px; }
+  .lede{ margin:0 0 8px; }
+  .lede h1{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:34px; letter-spacing:-.02em; margin:0 0 10px; }
+  .lede p{ color:var(--ink-2); font-size:16px; line-height:1.55; max-width:66ch; margin:0 0 4px; }
+  .slabel{ display:flex; align-items:baseline; gap:10px; margin:38px 0 12px; }
+  .slabel b{ font-family:'Inter Tight',sans-serif; font-size:18px; }
+  .slabel span{ font-size:13px; color:var(--ink-3); }
+  .slabel .fix{ color:var(--green); font-weight:600; }
+
+  /* --- the slide frame --- */
+  .slide{
+    container-type: inline-size;
+    aspect-ratio:16/9; width:100%;
+    background:var(--bg); color:var(--ink);
+    border-radius:14px; overflow:hidden; position:relative;
+    box-shadow:0 12px 40px rgba(10,10,10,.14); border:1px solid var(--line);
+  }
+  .slide.dark{ background:var(--ink); color:#fff; }
+  /* safe area + gradient hairline used on cover/dividers */
+  .pad{ position:absolute; inset:0; padding:5.6cqw 6.5cqw; display:flex; flex-direction:column; }
+  .hair{ position:absolute; left:0; right:0; height:.5cqw; background:linear-gradient(90deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); }
+
+  /* deck type scale (container-query units → scales with slide width) */
+  .d-eyebrow{ font-size:1.15cqw; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--green); display:inline-flex; align-items:center; gap:.7cqw; margin:0 0 2.4cqw; }
+  .d-eyebrow.on-dark{ color:var(--green-mid); }
+  .d-eyebrow .d-dot{ width:.9cqw; height:.9cqw; border-radius:50%; background:currentColor; display:inline-block; }
+  .d-h1{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5.4cqw; line-height:1.03; letter-spacing:-.03em; margin:0; }
+  .d-h2{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:4.2cqw; line-height:1.05; letter-spacing:-.03em; margin:0 0 2cqw; }
+  .d-body{ font-size:1.75cqw; line-height:1.5; color:var(--ink-2); margin:0; }
+  .slide.dark .d-body{ color:rgba(255,255,255,.82); }
+  .d-em{ font-style:italic; font-weight:800; } /* italic-plain: SAME colour, no gradient */
+  .d-foot{ margin-top:auto; display:flex; justify-content:space-between; align-items:center; font-size:1.15cqw; color:var(--ink-3); }
+  .slide.dark .d-foot{ color:rgba(255,255,255,.5); }
+  .d-logo{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.7cqw; letter-spacing:-.02em; }
+  .slide.dark .d-logo{ color:#fff; }
+  .d-logo .ai{ background:linear-gradient(120deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* two-column */
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:5cqw; flex:1; align-items:center; }
+  .visual{ background:var(--bg-soft); border-radius:2cqw; align-self:stretch; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:var(--ink-3); font-size:1.4cqw; border:1px solid var(--line); }
+
+  /* stat row */
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:4cqw 3cqw; margin-top:1cqw; }
+  .stat .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5.2cqw; line-height:1; color:var(--green); letter-spacing:-.02em; }
+  .stat .l{ font-size:1.5cqw; color:var(--ink-2); margin-top:.8cqw; }
+
+  /* 3-up feature cards */
+  .feat{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6cqw; flex:1; align-items:stretch; }
+  .fcard{ border:1px solid var(--line); border-radius:1.8cqw; padding:3cqw; display:flex; flex-direction:column; gap:1.4cqw; background:var(--bg); }
+  .fcard svg{ width:4.4cqw; height:4.4cqw; }
+  .fcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2cqw; margin:0; letter-spacing:-.01em; }
+  .fcard p{ font-size:1.4cqw; line-height:1.45; color:var(--ink-2); margin:0; }
+
+  /* agenda / steps */
+  .agenda{ display:flex; flex-direction:column; gap:2.2cqw; margin-top:1cqw; }
+  .arow{ display:flex; align-items:center; gap:2.4cqw; }
+  .arow .an{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.6cqw; color:var(--green); width:4cqw; }
+  .arow .at{ font-family:'Inter Tight',sans-serif; font-weight:600; font-size:2.4cqw; letter-spacing:-.01em; }
+
+  /* quote */
+  .quote{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .quote blockquote{ font-family:'Inter Tight',sans-serif; font-weight:600; font-size:3.4cqw; line-height:1.2; letter-spacing:-.02em; margin:0 0 3cqw; }
+  .quote .who{ font-size:1.5cqw; color:var(--ink-3); }
+  .quote .who b{ color:var(--ink); }
+
+  /* logo wall */
+  .logos{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; flex:1; align-items:center; margin-top:2cqw; }
+  .logos .lg{ height:7cqw; border-radius:1.2cqw; background:var(--bg-soft); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-3); font-size:1.3cqw; font-weight:600; }
+
+  /* differentiator grid (6-up) */
+  .grid6{ display:grid; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; gap:1.4cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .dcard{ border:1px solid var(--line); border-left:.5cqw solid var(--green); border-radius:1.2cqw; padding:1.5cqw 1.8cqw; display:flex; flex-direction:column; gap:.35cqw; justify-content:center; }
+  .dcard .dn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.2cqw; color:var(--green); }
+  .dcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:0; letter-spacing:-.01em; }
+  .dcard p{ font-size:1.25cqw; line-height:1.35; color:var(--ink-2); margin:0; }
+
+  /* problem / challenges (2×2) */
+  .probs{ display:grid; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; gap:2cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .pcard{ display:flex; flex-direction:column; gap:.5cqw; padding:2cqw 0 0; border-top:.25cqw solid var(--line); }
+  .pcard .ps{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.6cqw; color:var(--green); line-height:1; }
+  .pcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.8cqw; margin:.4cqw 0 0; }
+  .pcard p{ font-size:1.3cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* service 2-up with checklist */
+  .svc{ display:grid; grid-template-columns:1fr 1fr; gap:4cqw; flex:1; margin-top:1cqw; }
+  .svccol .svcnum{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.4cqw; color:var(--green); }
+  .svccol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2.4cqw; margin:.3cqw 0 .8cqw; letter-spacing:-.01em; }
+  .svccol > p{ font-size:1.4cqw; line-height:1.45; color:var(--ink-2); margin:0 0 1.4cqw; }
+  .checks{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7cqw; }
+  .checks li{ font-size:1.35cqw; color:var(--ink); display:flex; gap:1cqw; align-items:baseline; }
+  .checks li::before{ content:"✓"; color:var(--green); font-weight:700; }
+  .svclbl{ font-size:1.05cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin:1.4cqw 0 .6cqw; }
+
+  /* benefits / outcomes 4-up */
+  .bens{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; flex:1; align-items:start; margin-top:1cqw; }
+  .ben{ display:flex; flex-direction:column; gap:.7cqw; }
+  .ben .bnum{ width:3.4cqw; height:3.4cqw; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.5cqw; color:var(--green); }
+  .ben h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.4cqw 0 0; }
+  .ben p{ font-size:1.25cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* comparison matrix (4-col) */
+  .cmp{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6cqw; flex:1; margin-top:1cqw; }
+  .cmpcol{ border:1px solid var(--line); border-radius:1.2cqw; padding:1.8cqw 1.6cqw; display:flex; flex-direction:column; gap:.8cqw; }
+  .cmpcol--us{ border-color:var(--green); background:rgba(10,140,102,.05); }
+  .cmpcol .cat{ font-size:.95cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
+  .cmpcol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.1cqw 0 .6cqw; }
+  .cmpcol ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55cqw; }
+  .cmpcol li{ font-size:1.15cqw; color:var(--ink-2); display:flex; gap:.7cqw; align-items:baseline; }
+  .cmpcol li.y::before{ content:"✓"; color:var(--green); font-weight:700; }
+  .cmpcol li.n::before{ content:"✕"; color:var(--ink-3); font-weight:700; }
+
+  /* case study / client outcomes 3-up */
+  .cases{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6cqw; flex:1; margin-top:1cqw; }
+  .case{ border:1px solid var(--line); border-radius:1.4cqw; padding:2.2cqw; display:flex; flex-direction:column; gap:.6cqw; }
+  .case h3{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2cqw; margin:0; }
+  .case .tags{ font-size:1.1cqw; color:var(--ink-3); margin-bottom:1cqw; }
+  .cmetric{ display:flex; align-items:baseline; gap:1cqw; }
+  .cmetric .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.1cqw; color:var(--green); min-width:6cqw; }
+  .cmetric .l{ font-size:1.2cqw; color:var(--ink-2); }
+
+  /* testimonial grid (2×2) */
+  .tgrid{ display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:2cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .tqcard{ border:1px solid var(--line); border-radius:1.4cqw; padding:2cqw 2.2cqw; display:flex; flex-direction:column; gap:.8cqw; }
+  .tqcard .stars{ color:var(--green); font-size:1.2cqw; letter-spacing:.15cqw; }
+  .tqcard blockquote{ font-size:1.35cqw; line-height:1.45; margin:0; color:var(--ink); }
+  .tqcard .meta{ margin-top:auto; font-size:1.1cqw; color:var(--ink-3); }
+  .tqcard .meta b{ color:var(--ink); }
+
+  /* pricing table (3-up) */
+  .pricing{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.4cqw; flex:1; margin-top:1cqw; }
+  .pcol{ border:1px solid var(--line); border-radius:1.4cqw; padding:2.2cqw 2cqw; display:flex; flex-direction:column; gap:.5cqw; }
+  .pcol .peyebrow{ font-size:1cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--green); font-weight:700; }
+  .pcol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.9cqw; margin:.1cqw 0 .2cqw; }
+  .pcol > p{ font-size:1.15cqw; color:var(--ink-3); margin:0 0 1cqw; }
+  .prow{ display:flex; justify-content:space-between; gap:1cqw; padding:.7cqw 0; border-top:1px solid var(--line); font-size:1.2cqw; }
+  .prow b{ font-family:'Inter Tight',sans-serif; color:var(--green); font-weight:700; white-space:nowrap; }
+  .pfoot{ font-size:1cqw; color:var(--ink-3); margin-top:.8cqw; }
+
+  /* promise (dark + photo split) */
+  .promo{ display:grid; grid-template-columns:1.05fr .95fr; gap:4cqw; flex:1; align-items:center; }
+  .promo-img{ background-size:cover; background-position:center; border-radius:2cqw; align-self:stretch; min-height:34cqw; }
+
+  /* three-layer talent (dark) + avatar cluster */
+  .layers{ display:flex; flex-direction:column; gap:1.3cqw; }
+  .layer{ border-left:.45cqw solid var(--green); padding:.2cqw 0 .2cqw 2.2cqw; }
+  .layer h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2.1cqw; margin:0; }
+  .layer p{ font-size:1.3cqw; line-height:1.38; margin:.3cqw 0 0; color:rgba(255,255,255,.72); }
+  .avatars{ display:flex; align-items:center; margin-top:1.6cqw; }
+  .avatars img{ width:3.4cqw; height:3.4cqw; border-radius:50%; object-fit:cover; border:.28cqw solid var(--ink); margin-left:-.8cqw; }
+  .avatars img:first-child{ margin-left:0; }
+  .avatars .albl{ margin-left:1.4cqw; font-size:1.2cqw; color:rgba(255,255,255,.6); }
+
+  /* how-it-works process (horizontal) */
+  .proc{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; margin-top:1cqw; }
+  .pstep .pn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.8cqw; color:var(--green); line-height:1; }
+  .pstep h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.6cqw 0 .3cqw; }
+  .pstep p{ font-size:1.25cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* event sponsorship — audience + inclusions */
+  .audience{ display:grid; grid-template-columns:.85fr 1.15fr; gap:4cqw; flex:1; align-items:center; }
+  .aud-big .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5cqw; color:var(--green); line-height:1; }
+  .aud-big .l{ font-size:1.4cqw; color:var(--ink-2); margin-top:1cqw; line-height:1.4; }
+
+  /* event calendar */
+  .cal{ display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:1fr; gap:1.8cqw; flex:1; margin-top:1cqw; }
+  .calcard{ border:1px solid var(--line); border-radius:1.2cqw; padding:1.5cqw 1.7cqw; display:flex; flex-direction:column; gap:.25cqw; justify-content:center; }
+  .calcard .cmonth{ font-size:1cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--green); font-weight:700; }
+  .calcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.1cqw 0 0; }
+  .calcard p{ font-size:1.2cqw; color:var(--ink-3); margin:0; }
+
+  /* results band on dark (5-up) */
+  .stats.five{ grid-template-columns:repeat(5,1fr); gap:2cqw; }
+  .slide.dark .stat .l{ color:rgba(255,255,255,.7); }
+
+  /* closing CTA */
+  .cta-center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .cta-center .btn-pill{ display:inline-block; background:#fff; color:var(--ink); font-weight:600; font-size:1.7cqw; padding:1.5cqw 3.4cqw; border-radius:99px; margin-top:3cqw; }
+</style>
+</head>
+<body>
+<!-- shared gradient def for BIG icons (≥40px equivalent) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
+  </linearGradient>
+</defs></svg>
+
+<div class="wrap">
+  <div class="lede">
+    <h1>PowerToFly AI — deck system</h1>
+    <p>Every layout below is a real 16:9 slide, rendered from your live <code>ds/ptf.css</code> — same tokens, fonts, and rules as the website. This is the visual source of truth the Google&nbsp;Slides master gets built from. Scroll and react; nothing here is off-brand by accident.</p>
+  </div>
+
+  <!-- 1. COVER (rebuild of sales-deck slide 1) -->
+  <div class="slabel"><b>1 · Cover</b> <span>rebuild of the current slide 1 — <span class="fix">plain green eyebrow, italic-plain accent (not green), no black boxes</span></span></div>
+  <div class="slide dark">
+    <div class="hair" style="top:0"></div>
+    <div class="pad">
+      <div class="d-logo">PowerToFly <span class="ai">AI</span></div>
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+        <span class="d-eyebrow on-dark"><span class="d-dot"></span>Your AI workforce partner</span>
+        <h1 class="d-h1">Your AI is only as good as<br>the <em class="d-em">people</em> behind it.</h1>
+        <p class="d-body" style="margin-top:2.4cqw; max-width:70%;">PowerToFly connects organizations with an active global community of technologists and functional experts — native AI capability, AI fluency, and deep domain expertise.</p>
+      </div>
+      <div class="d-foot"><span>GTM sales overview</span><span>powertofly.com</span></div>
+    </div>
+  </div>
+
+  <!-- 2. SECTION DIVIDER -->
+  <div class="slabel"><b>2 · Section divider</b> <span>one big statement line — from <code>.section-mission</code></span></div>
+  <div class="slide dark">
+    <div class="pad">
+      <span class="d-eyebrow on-dark">01 — The problem</span>
+      <div style="flex:1; display:flex; align-items:center;">
+        <h2 class="d-h2" style="font-size:4.8cqw; margin:0;">Anonymous crowds don't ship AI. <em class="d-em">Verified experts</em> do.</h2>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>2</span></div>
+    </div>
+  </div>
+
+  <!-- 3. AGENDA -->
+  <div class="slabel"><b>3 · Agenda</b> <span>numbered steps — from <code>.steps</code></span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Agenda</span>
+      <h2 class="d-h2">What we'll cover</h2>
+      <div class="agenda">
+        <div class="arow"><span class="an">01</span><span class="at">The talent gap in AI</span></div>
+        <div class="arow"><span class="an">02</span><span class="at">Our verified community</span></div>
+        <div class="arow"><span class="an">03</span><span class="at">How engagements work</span></div>
+        <div class="arow"><span class="an">04</span><span class="at">Pricing &amp; next steps</span></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>3</span></div>
+    </div>
+  </div>
+
+  <!-- 4. STAT SLIDE (rebuild of slide 3) -->
+  <div class="slabel"><b>4 · Stat slide</b> <span>rebuild of the current slide 3 — <span class="fix">one green accent, no pills, no random underlines</span></span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">About us</span>
+      <h2 class="d-h2">Trusted by top brands globally</h2>
+      <div class="stats">
+        <div class="stat"><div class="n">80K+</div><div class="l">Verified experts</div></div>
+        <div class="stat"><div class="n">6,500</div><div class="l">AI professionals</div></div>
+        <div class="stat"><div class="n">190</div><div class="l">Countries</div></div>
+        <div class="stat"><div class="n">75%+</div><div class="l">Women &amp; BIPOC</div></div>
+        <div class="stat"><div class="n">70%+</div><div class="l">Mid–senior level</div></div>
+        <div class="stat"><div class="n">12+</div><div class="l">Years of trust</div></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>4</span></div>
+    </div>
+  </div>
+
+  <!-- 5. TWO-COLUMN -->
+  <div class="slabel"><b>5 · Two-column</b> <span>copy + visual — from <code>.expert-row</code></span></div>
+  <div class="slide">
+    <div class="pad">
+      <div class="cols">
+        <div>
+          <span class="d-eyebrow">How it works</span>
+          <h2 class="d-h2" style="font-size:3.6cqw;">Matched in days, not months</h2>
+          <p class="d-body">Tell us the role and the domain. We surface pre-vetted experts who already know your industry — you interview a shortlist, not a stack of résumés.</p>
+        </div>
+        <div class="visual" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg'); background-size:cover; background-position:center; color:transparent;"></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>5</span></div>
+    </div>
+  </div>
+
+  <!-- 6. 3-UP FEATURE -->
+  <div class="slabel"><b>6 · Feature trio</b> <span>3 cards + big gradient icons — from <code>.benefit-card</code></span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Why PowerToFly</span>
+      <h2 class="d-h2" style="margin-bottom:2.6cqw;">Smaller scale, bigger impact</h2>
+      <div class="feat">
+        <div class="fcard">
+          <svg viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-.35 0-.69.07-1 .18C15.63 6 16 7.06 16 8s-.37 1.99-1 2.82c.31.11.65.18 1 .18zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <h3>Verified, not anonymous</h3>
+          <p>Every expert is vetted for real AI capability — no crowd, no guesswork.</p>
+        </div>
+        <div class="fcard">
+          <svg viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+          <h3>Days to staffed</h3>
+          <p>A pre-built community means a shortlist in days, not a months-long search.</p>
+        </div>
+        <div class="fcard">
+          <svg viewBox="0 0 24 24"><path fill="url(#ptf-grad)" stroke="url(#ptf-grad)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+          <h3>Deep domain fit</h3>
+          <p>Experts who already know your industry — finance, healthcare, legal, and more.</p>
+        </div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>6</span></div>
+    </div>
+  </div>
+
+  <!-- 6b. DIFFERENTIATOR GRID (rebuild of the dense "Why PowerToFly" slide) -->
+  <div class="slabel"><b>10 · Differentiator grid</b> <span>rebuild of the 6-card wall — <span class="fix">one green accent, one tight line each, italic-plain headline</span></span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Why PowerToFly</span>
+      <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1cqw;">No one else is <em class="d-em">built like this</em></h2>
+      <div class="grid6">
+        <div class="dcard"><span class="dn">01</span><h3>A community you can't replicate</h3><p>Experts who chose to be here — a network, not a database.</p></div>
+        <div class="dcard"><span class="dn">02</span><h3>Verified domain expertise</h3><p>Matched on experience, not keywords.</p></div>
+        <div class="dcard"><span class="dn">03</span><h3>Global, locally compliant</h3><p>190 countries — compliance handled.</p></div>
+        <div class="dcard"><span class="dn">04</span><h3>Flexible, transparent pricing</h3><p>Full-time, fractional, or training pods.</p></div>
+        <div class="dcard"><span class="dn">05</span><h3>Intersectionality as an edge</h3><p>Reach talent competitors miss.</p></div>
+        <div class="dcard"><span class="dn">06</span><h3>Mid-to-senior only</h3><p>Fewer, better — ready day one.</p></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>10</span></div>
+    </div>
+  </div>
+
+  <!-- 7. QUOTE -->
+  <div class="slabel"><b>7 · Quote</b> <span>testimonial — from <code>.t-card</code></span></div>
+  <div class="slide dark">
+    <div class="pad">
+      <div class="quote">
+        <span class="d-eyebrow on-dark">What partners say</span>
+        <blockquote>"We had two vetted ML engineers in the pipeline within a week. That never happens."</blockquote>
+        <div class="who"><b>Head of AI</b> · Fortune 500 financial services</div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>7</span></div>
+    </div>
+  </div>
+
+  <!-- 8. LOGO WALL -->
+  <div class="slabel"><b>8 · Logo wall</b> <span>customers — real logos, even grid (the broken table on slide 3, fixed)</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Trusted by</span>
+      <h2 class="d-h2">Teams building AI with us</h2>
+      <div class="logos">
+        <div class="lg">logo</div><div class="lg">logo</div><div class="lg">logo</div><div class="lg">logo</div>
+        <div class="lg">logo</div><div class="lg">logo</div><div class="lg">logo</div><div class="lg">logo</div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>8</span></div>
+    </div>
+  </div>
+
+  <!-- 11. PROBLEM / CHALLENGES (from deck slide 4) -->
+  <div class="slabel"><b>11 · Problem / challenges</b> <span>from the deck's "The challenges" slide — numbered pain points</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">The challenges</span>
+      <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.4cqw;">AI initiatives stall without the right <em class="d-em">talent</em></h2>
+      <div class="probs">
+        <div class="pcard"><span class="ps">Supply gap</span><h3>Demand has outrun supply</h3><p>Every market is short on AI-native engineers, ML specialists, and domain experts.</p></div>
+        <div class="pcard"><span class="ps">45+ days</span><h3>Roles stay open</h3><p>Slipped roadmaps and lost ground while competitors ship and you're still interviewing.</p></div>
+        <div class="pcard"><span class="ps">1 model</span><h3>One hiring model isn't enough</h3><p>You need full-time, fractional, and model-training talent — often at the same time.</p></div>
+        <div class="pcard"><span class="ps">78%</span><h3>Homogeneous teams create risk</h3><p>Of AI researchers are male; the bias in who builds your models ships to production.</p></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>11</span></div>
+    </div>
+  </div>
+
+  <!-- 12. WHAT WE DO — service 2-up (from deck slides 5–7) -->
+  <div class="slabel"><b>12 · Service breakdown</b> <span>the deck's most-repeated slide (5,6,7,14) — offering + checklist + roles</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">What we do</span>
+      <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Flexible ways to scale your team</h2>
+      <div class="svc">
+        <div class="svccol">
+          <span class="svcnum">01</span>
+          <h3>Hire AI talent</h3>
+          <p>Verified, qualified professionals — full-time or fractional.</p>
+          <ul class="checks"><li>ML engineers &amp; applied research scientists</li><li>AI PMs &amp; solutions engineers</li><li>RLHF, MLOps, AI safety &amp; cyber</li></ul>
+          <div class="svclbl">Supported by</div>
+          <ul class="checks"><li>Talent acquisition services</li><li>Recruiting &amp; networking events</li></ul>
+        </div>
+        <div class="svccol">
+          <span class="svcnum">02</span>
+          <h3>Train your models</h3>
+          <p>Embedded teams to train, evaluate, and red-team your in-house models.</p>
+          <ul class="checks"><li>Domain evaluators &amp; annotation specialists</li><li>RLHF &amp; model evaluation</li><li>Red-teaming &amp; AI safety reviewers</li></ul>
+          <div class="svclbl">Engagement</div>
+          <ul class="checks"><li>Contract, contract-to-hire, or project</li></ul>
+        </div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>12</span></div>
+    </div>
+  </div>
+
+  <!-- 13. BENEFITS / OUTCOMES 4-up (from deck slide 8) -->
+  <div class="slabel"><b>13 · Outcomes 4-up</b> <span>from "The business impact of trusted AI expertise"</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Business impact</span>
+      <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:2cqw;">When they're interviewing, you're in <em class="d-em">production</em></h2>
+      <div class="bens">
+        <div class="ben"><span class="bnum">1</span><h3>Accelerate delivery</h3><p>Verified experts contribute from day one — not month three.</p></div>
+        <div class="ben"><span class="bnum">2</span><h3>Improve AI quality</h3><p>Domain experts who know your data produce better models and evals.</p></div>
+        <div class="ben"><span class="bnum">3</span><h3>Compete effectively</h3><p>Ship AI faster than competitors still searching for talent.</p></div>
+        <div class="ben"><span class="bnum">4</span><h3>Reduce risk</h3><p>Project-to-hire lets you validate fit before you commit.</p></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>13</span></div>
+    </div>
+  </div>
+
+  <!-- 14. COMPARISON MATRIX (from deck slide 9) -->
+  <div class="slabel"><b>14 · Comparison matrix</b> <span>from "What sets us apart" — us vs. the alternatives</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">What sets us apart</span>
+      <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">AI expertise. Representative talent. End-to-end hiring.</h2>
+      <div class="cmp">
+        <div class="cmpcol"><span class="cat">AI marketplaces</span><h3>Toptal · Scale · Andela</h3><ul><li class="y">AI &amp; technical vetting</li><li class="n">Homogeneous talent pool</li><li class="n">Premium-only pricing</li><li class="n">Limited hiring support</li></ul></div>
+        <div class="cmpcol"><span class="cat">Talent communities</span><h3>Handshake · Fairygodboss</h3><ul><li class="y">Engaged communities</li><li class="n">No AI specialization</li><li class="n">Limited vetting</li><li class="n">Limited hiring services</li></ul></div>
+        <div class="cmpcol"><span class="cat">Traditional staffing</span><h3>Robert Half · TEKsystems</h3><ul><li class="y">Recruiting &amp; placement</li><li class="n">Generalist talent pool</li><li class="n">No AI specialization</li><li class="n">No community access</li></ul></div>
+        <div class="cmpcol cmpcol--us"><span class="cat">PowerToFly</span><h3>AI + domain · 190 countries</h3><ul><li class="y">AI + domain expertise</li><li class="y">Representative community</li><li class="y">Flexible pricing &amp; hiring</li><li class="y">Full placement support</li></ul></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>14</span></div>
+    </div>
+  </div>
+
+  <!-- 15. CASE STUDY / CLIENT OUTCOMES (from deck slide 16) -->
+  <div class="slabel"><b>15 · Client outcomes</b> <span>from "Results that speak for themselves" — client + metrics</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Client outcomes</span>
+      <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Results that speak for themselves</h2>
+      <div class="cases">
+        <div class="case"><h3>Zapier</h3><div class="tags">ML Engineers · Data Scientists</div><div class="cmetric"><span class="n">12</span><span class="l">hires placed</span></div><div class="cmetric"><span class="n">3 wk</span><span class="l">avg. time to hire</span></div><div class="cmetric"><span class="n">91%</span><span class="l">retention at 1 yr</span></div></div>
+        <div class="case"><h3>Moody's</h3><div class="tags">AI Analysts · Prompt Engineers</div><div class="cmetric"><span class="n">8</span><span class="l">specialists placed</span></div><div class="cmetric"><span class="n">2</span><span class="l">verticals in parallel</span></div><div class="cmetric"><span class="n">4 wk</span><span class="l">to first hire</span></div></div>
+        <div class="case"><h3>Deloitte</h3><div class="tags">AI PMs · LLM Engineers</div><div class="cmetric"><span class="n">24</span><span class="l">candidates screened</span></div><div class="cmetric"><span class="n">18</span><span class="l">hires, 3 practices</span></div><div class="cmetric"><span class="n">6 wk</span><span class="l">ramp</span></div></div>
+      </div>
+      <div class="d-foot"><span>Sample data — replace with verified client results</span><span>15</span></div>
+    </div>
+  </div>
+
+  <!-- 16. TESTIMONIAL GRID (from deck slide 16) -->
+  <div class="slabel"><b>16 · Testimonial grid</b> <span>from "From the people who hired with us" — 4 quotes</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">From the people who hired with us</span>
+      <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">Trusted by talent teams</h2>
+      <div class="tgrid">
+        <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Exceptional talent around the world, and their events expanded our reach to representative talent."</blockquote><div class="meta"><b>Kimberly W.</b> · Head of Talent Attraction, Zapier</div></div>
+        <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"The team goes above and beyond. I can trust the quality of delivery and that I'll have their support."</blockquote><div class="meta"><b>Mayra M.</b> · Global TA Lead, RebelMouse</div></div>
+        <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Solid support — not just hiring but keeping candidates warm. They work like they're part of your org."</blockquote><div class="meta"><b>Navjyot K.</b> · Global Talent Lead, SoftwareOne</div></div>
+        <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Fantastic hires from our partnership. Candidate reach and benchmarking are why we partner with PTF."</blockquote><div class="meta"><b>Roberta S.</b> · Global TA Lead, Collins Aerospace</div></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>16</span></div>
+    </div>
+  </div>
+
+  <!-- 17. PRICING TABLE (from deck slide 18) -->
+  <div class="slabel"><b>17 · Pricing table</b> <span>from "Flexible engagement models" — tiers + rates</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Pricing</span>
+      <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Flexible engagement models</h2>
+      <div class="pricing">
+        <div class="pcol">
+          <span class="peyebrow">Recruiter-as-a-service</span>
+          <h3>Dedicated capacity</h3>
+          <p>No placement fees. Three-month minimum.</p>
+          <div class="prow"><span>Dedicated partner</span><b>$15k/mo</b></div>
+          <div class="prow"><span>Part-time partner</span><b>$7k/mo</b></div>
+          <div class="pfoot">Sourcing · screening · candidate management · delivery</div>
+        </div>
+        <div class="pcol">
+          <span class="peyebrow">Retained search</span>
+          <h3>Strategic permanent hires</h3>
+          <p>Of total first-year compensation.</p>
+          <div class="prow"><span>Executive (Dir &amp; above)</span><b>30%</b></div>
+          <div class="prow"><span>Sr. Manager &amp; below</span><b>20%</b></div>
+          <div class="pfoot">⅓ at start · ⅓ at shortlist · balance on placement</div>
+        </div>
+        <div class="pcol">
+          <span class="peyebrow">Contract to hire</span>
+          <h3>Flexible expertise</h3>
+          <p>Rates vary by role, experience, and location.</p>
+          <div class="prow"><span>AI trainers &amp; evaluators</span><b>$50+/hr</b></div>
+          <div class="prow"><span>Technical &amp; domain experts</span><b>$100+/hr</b></div>
+          <div class="prow"><span>Fractional leaders</span><b>$200+/hr</b></div>
+        </div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>17</span></div>
+    </div>
+  </div>
+
+  <!-- 18. PROMISE (dark + real photo) — from employers page -->
+  <div class="slabel"><b>18 · Promise (dark + photo)</b> <span>from the employers page — <span class="fix">uses black + a real photo</span></span></div>
+  <div class="slide dark">
+    <div class="pad">
+      <div class="promo">
+        <div>
+          <span class="d-eyebrow on-dark">Why companies choose PowerToFly</span>
+          <h2 class="d-h2" style="font-size:3.1cqw;">AI experts who understand your industry from <em class="d-em">day one</em></h2>
+          <p class="d-body" style="margin-top:1.6cqw;">Your business scales faster, builds better models, and competes more effectively.</p>
+        </div>
+        <div class="promo-img" style="background-image:url('../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg')"></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>18</span></div>
+    </div>
+  </div>
+
+  <!-- 19. THREE-LAYER TALENT (dark) + avatars — deck slide 1 + speaker notes -->
+  <div class="slabel"><b>19 · Three-layer talent</b> <span>the core promise (deck slide 1 + notes) — <span class="fix">black + real faces</span></span></div>
+  <div class="slide dark">
+    <div class="pad">
+      <span class="d-eyebrow on-dark">Your AI workforce partner</span>
+      <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1.6cqw;">Your AI is only as good as the <em class="d-em">people</em> behind it</h2>
+      <div class="layers">
+        <div class="layer"><h3>Native AI capability</h3><p>They build and work inside AI systems — prompting, fine-tuning, RLHF, red-teaming, evaluation.</p></div>
+        <div class="layer"><h3>AI fluency</h3><p>AI is woven into their daily workflow; they read outputs critically and know when to override.</p></div>
+        <div class="layer"><h3>Deep domain expertise</h3><p>Real functional credentials — engineers, scientists, marketers — not generalist AI enthusiasts.</p></div>
+      </div>
+      <div class="avatars">
+        <img src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="Verified expert">
+        <img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="Verified expert">
+        <img src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="Verified expert">
+        <img src="../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt="Verified expert">
+        <img src="../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg" alt="Verified expert">
+        <span class="albl">80K+ verified experts across 190 countries</span>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>19</span></div>
+    </div>
+  </div>
+
+  <!-- 20. HOW IT WORKS (process) — from hire & train pages -->
+  <div class="slabel"><b>20 · How it works</b> <span>from the hire &amp; train pages — the engagement process</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">How it works</span>
+      <h2 class="d-h2" style="font-size:3cqw; margin-bottom:2cqw;">One conversation to find the person who <em class="d-em">changes everything</em></h2>
+      <div class="proc">
+        <div class="pstep"><div class="pn">01</div><h3>Tell us the role</h3><p>The function, the domain, the timeline.</p></div>
+        <div class="pstep"><div class="pn">02</div><h3>We surface experts</h3><p>Pre-vetted people who already know your industry.</p></div>
+        <div class="pstep"><div class="pn">03</div><h3>You interview a shortlist</h3><p>A handful of strong fits, not a stack of résumés.</p></div>
+        <div class="pstep"><div class="pn">04</div><h3>Hire or engage</h3><p>Full-time, fractional, or to train your models.</p></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>20</span></div>
+    </div>
+  </div>
+
+  <!-- 21. EVENT SPONSORSHIP — from deck slide 11 -->
+  <div class="slabel"><b>21 · Event sponsorship</b> <span>from deck slide 11 — multi-sponsor virtual job fair</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">Multi-sponsor virtual job fair</span>
+      <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">Get your team in front of curated, engaged talent</h2>
+      <div class="audience">
+        <div class="aud-big"><div class="n">500–1,000</div><div class="l">AI-skilled professionals per event — main stage + breakout rooms, hosted on Zoom with full recording.</div></div>
+        <ul class="checks">
+          <li>Logo across all event marketing, registration &amp; emails</li>
+          <li>Post-event report — applications, attendees, conversion</li>
+          <li>On-demand candidate list — 500–1,000 warm registrants</li>
+          <li>Brand reach — post-event engagement campaigns &amp; video</li>
+        </ul>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>21</span></div>
+    </div>
+  </div>
+
+  <!-- 22. EVENT CALENDAR — from deck slide 11 -->
+  <div class="slabel"><b>22 · Event calendar</b> <span>from deck slide 11 — themed representative-talent events</span></div>
+  <div class="slide">
+    <div class="pad">
+      <span class="d-eyebrow">2026 schedule</span>
+      <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">A year of representative talent events</h2>
+      <div class="cal">
+        <div class="calcard"><span class="cmonth">February</span><h3>Empower Her</h3><p>Women &amp; non-binary talent</p></div>
+        <div class="calcard"><span class="cmonth">March</span><h3>Black Excellence</h3><p>Black professionals</p></div>
+        <div class="calcard"><span class="cmonth">June</span><h3>Pride Summit</h3><p>LGBTQIA+ leaders</p></div>
+        <div class="calcard"><span class="cmonth">September</span><h3>AI &amp; Emerging Tech</h3><p>Flagship AI talent</p></div>
+        <div class="calcard"><span class="cmonth">October</span><h3>Voices of Latinidad</h3><p>Multilingual AI talent</p></div>
+        <div class="calcard"><span class="cmonth">November</span><h3>Supporting Veterans</h3><p>Service members &amp; spouses</p></div>
+      </div>
+      <div class="d-foot"><span>PowerToFly AI</span><span>22</span></div>
+    </div>
+  </div>
+
+  <!-- 23. MEASURABLE RESULTS — dark band — from deck slide 12 -->
+  <div class="slabel"><b>23 · Measurable results (dark)</b> <span>from deck slide 12 — <span class="fix">black band, one green accent</span></span></div>
+  <div class="slide dark">
+    <div class="pad">
+      <span class="d-eyebrow on-dark">Measurable results</span>
+      <h2 class="d-h2" style="font-size:3.1cqw; margin-bottom:2.4cqw;">Events that convert to <em class="d-em">hires</em></h2>
+      <div class="stats five">
+        <div class="stat"><div class="n">1,000+</div><div class="l">Top-of-funnel reach</div></div>
+        <div class="stat"><div class="n">50–200</div><div class="l">RSVPs per event</div></div>
+        <div class="stat"><div class="n">40%</div><div class="l">Avg. attendance</div></div>
+        <div class="stat"><div class="n">55%</div><div class="l">Lift in interest</div></div>
+        <div class="stat"><div class="n">3–5</div><div class="l">Hires per event</div></div>
+      </div>
+      <div class="d-foot"><span>Best-practice benchmarks</span><span>23</span></div>
+    </div>
+  </div>
+
+  <!-- 9. CLOSING CTA -->
+  <div class="slabel"><b>9 · Closing CTA</b> <span>dark closer — from <code>.section-cta</code></span></div>
+  <div class="slide dark">
+    <div class="hair" style="bottom:0"></div>
+    <div class="pad">
+      <div class="cta-center">
+        <span class="d-eyebrow on-dark">Let's talk</span>
+        <h2 class="d-h2" style="font-size:4.4cqw; margin:0;">Build your AI team with people<br>who already <em class="d-em">know</em> your industry.</h2>
+        <span class="btn-pill">Book a call</span>
+      </div>
+      <div class="d-foot"><span class="d-logo" style="font-size:1.4cqw;">PowerToFly <span class="ai">AI</span></span><span>powertofly.com</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
