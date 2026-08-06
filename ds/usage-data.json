@@ -1,12 +1,14 @@
 {
  "meta": {
   "generated": "run `python3 ds/usage-scan.py` to refresh",
-  "pageCount": 22,
+  "pageCount": 25,
   "pages": [
    "employers/index.html",
    "talents/index-v2.html",
    "train/index.html",
    "hire/index.html",
+   "browse-talent/index.html",
+   "browse-talent/profile.html",
    "about/index.html",
    "events/index.html",
    "job-board/index.html",
@@ -24,13 +26,16 @@
    "sponsor/index.html",
    "event-company/index.html",
    "book/index.html",
+   "decks/preview.html",
    "nav-preview/index.html"
   ],
   "pageCss": {
    "employers/index.html": 848,
-   "talents/index-v2.html": 880,
+   "talents/index-v2.html": 925,
    "train/index.html": 393,
    "hire/index.html": 118,
+   "browse-talent/index.html": 53,
+   "browse-talent/profile.html": 53,
    "about/index.html": 440,
    "events/index.html": 120,
    "job-board/index.html": 142,
@@ -43,12 +48,13 @@
    "nav-options.html": 99,
    "top-alerts.html": 101,
    "checkout-rebrand-proposal.html": 34,
-   "event-common/index.html": 0,
+   "event-common/index.html": 18,
    "signup/index.html": 0,
    "sponsor/index.html": 0,
    "event-company/index.html": 0,
    "book/index.html": 123,
-   "nav-preview/index.html": 12
+   "decks/preview.html": 131,
+   "nav-preview/index.html": 9
   },
   "pageOwn": {
    "employers/index.html": [
@@ -96,6 +102,7 @@
     ".ai-next-art",
     ".ai-next-cta",
     ".av",
+    ".av-stack",
     ".benefit-insight",
     ".benefits-row",
     ".btn-search",
@@ -112,14 +119,20 @@
     ".hero-sub",
     ".hero-text",
     ".hero-visual",
+    ".hmc-avs",
+    ".hmc-avs-lbl",
     ".hmc-back",
     ".hmc-badge",
     ".hmc-face",
     ".hmc-float-wrap",
+    ".hmc-logo",
+    ".hmc-logos",
     ".hmc-rate",
     ".hmc-role",
+    ".hmc-score",
     ".hmc-tag",
     ".hmc-tags",
+    ".hmc-top",
     ".opp-badge",
     ".opp-card",
     ".opp-grid",
@@ -174,6 +187,57 @@
     ".hire-scroll-outer",
     ".hire-sticky-scene",
     ".section-experts"
+   ],
+   "browse-talent/index.html": [
+    ".dot-sep",
+    ".hero-ctas",
+    ".tal-card",
+    ".tal-card-body",
+    ".tal-card-meta",
+    ".tal-card-name",
+    ".tal-card-photo",
+    ".tal-card-role",
+    ".tal-card-sum",
+    ".tal-col",
+    ".tal-count",
+    ".tal-empty",
+    ".tal-grid",
+    ".tal-rail-cta",
+    ".tal-rate",
+    ".tal-sec",
+    ".tal-sec-count",
+    ".tal-sec-title"
+   ],
+   "browse-talent/profile.html": [
+    ".dot-sep",
+    ".prof-actions",
+    ".prof-back",
+    ".prof-back-wrap",
+    ".prof-body",
+    ".prof-do",
+    ".prof-exp",
+    ".prof-exp-co",
+    ".prof-exp-role",
+    ".prof-exp-row",
+    ".prof-exp-when",
+    ".prof-hero",
+    ".prof-hero-inner",
+    ".prof-id",
+    ".prof-id-avail",
+    ".prof-meta",
+    ".prof-photo",
+    ".prof-rate",
+    ".prof-role",
+    ".tal-card",
+    ".tal-card-body",
+    ".tal-card-meta",
+    ".tal-card-more",
+    ".tal-card-name",
+    ".tal-card-photo",
+    ".tal-card-role",
+    ".tal-card-sum",
+    ".tal-grid",
+    ".tal-rate"
    ],
    "about/index.html": [
     ".about-body",
@@ -278,12 +342,7 @@
     ".jb-flow-actions",
     ".jb-flow-head",
     ".jb-input-wrap",
-    ".jb-nextsteps",
     ".jb-note",
-    ".jb-nsdesc",
-    ".jb-nsnum",
-    ".jb-nsrow",
-    ".jb-nstitle",
     ".jb-pay-hd",
     ".jb-paybtn",
     ".jb-plan",
@@ -453,7 +512,20 @@
     ".wbtn",
     ".wrap"
    ],
-   "event-common/index.html": [],
+   "event-common/index.html": [
+    ".cd",
+    ".fl",
+    ".nm",
+    ".phone-cc",
+    ".phone-cc-code",
+    ".phone-cc-empty",
+    ".phone-cc-flag",
+    ".phone-cc-item",
+    ".phone-cc-list",
+    ".phone-cc-pop",
+    ".phone-cc-search",
+    ".phone-field"
+   ],
    "signup/index.html": [],
    "sponsor/index.html": [],
    "event-company/index.html": [],
@@ -472,12 +544,95 @@
     ".meta-icon",
     ".meta-item"
    ],
+   "decks/preview.html": [
+    ".agenda",
+    ".ai",
+    ".albl",
+    ".an",
+    ".arow",
+    ".at",
+    ".aud-big",
+    ".audience",
+    ".avatars",
+    ".ben",
+    ".bens",
+    ".bnum",
+    ".btn-pill",
+    ".cal",
+    ".calcard",
+    ".case",
+    ".cases",
+    ".cat",
+    ".checks",
+    ".cmetric",
+    ".cmonth",
+    ".cmp",
+    ".cmpcol",
+    ".cmpcol--us",
+    ".cols",
+    ".cta-center",
+    ".d-body",
+    ".d-dot",
+    ".d-em",
+    ".d-eyebrow",
+    ".d-foot",
+    ".d-h1",
+    ".d-h2",
+    ".d-logo",
+    ".dark",
+    ".dcard",
+    ".dn",
+    ".fcard",
+    ".feat",
+    ".five",
+    ".fix",
+    ".grid6",
+    ".hair",
+    ".l",
+    ".layer",
+    ".layers",
+    ".lede",
+    ".lg",
+    ".logos",
+    ".meta",
+    ".n",
+    ".on-dark",
+    ".pad",
+    ".pcard",
+    ".pcol",
+    ".peyebrow",
+    ".pfoot",
+    ".pn",
+    ".pricing",
+    ".probs",
+    ".proc",
+    ".promo",
+    ".promo-img",
+    ".prow",
+    ".ps",
+    ".pstep",
+    ".quote",
+    ".slabel",
+    ".slide",
+    ".stars",
+    ".stat",
+    ".stats",
+    ".svc",
+    ".svccol",
+    ".svclbl",
+    ".svcnum",
+    ".tags",
+    ".tgrid",
+    ".tqcard",
+    ".visual",
+    ".who",
+    ".wrap",
+    ".y"
+   ],
    "nav-preview/index.html": [
     ".np-block",
     ".np-frame",
     ".np-label",
-    ".np-sub",
-    ".np-title",
     ".np-wrap"
    ]
   }
@@ -513,7 +668,7 @@
    }
   },
   ".italic-plain": {
-   "total": 30,
+   "total": 31,
    "files": {
     "about/index.html": 5,
     "talents/index-v2.html": 4,
@@ -524,6 +679,7 @@
     "chat-learn/index.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1,
@@ -664,13 +820,15 @@
    }
   },
   ".section": {
-   "total": 38,
+   "total": 45,
    "files": {
     "talents/index-v2.html": 7,
     "job-board/index.html": 7,
     "meet-with-companies/index.html": 7,
+    "browse-talent/profile.html": 4,
     "chat-learn/index.html": 4,
     "employers/index.html": 3,
+    "browse-talent/index.html": 3,
     "summit/index.html": 3,
     "events/index.html": 2,
     "vjf/index.html": 2,
@@ -690,7 +848,7 @@
    }
   },
   ".section-head": {
-   "total": 39,
+   "total": 43,
    "files": {
     "meet-with-companies/index.html": 8,
     "talents/index-v2.html": 6,
@@ -698,9 +856,11 @@
     "hire/index.html": 4,
     "chat-learn/index.html": 4,
     "train/index.html": 3,
+    "browse-talent/index.html": 3,
     "summit/index.html": 3,
     "job-board/index.html": 2,
     "vjf/index.html": 2,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1
@@ -798,20 +958,24 @@
    }
   },
   ".sc-titles": {
-   "total": 8,
+   "total": 39,
    "files": {
+    "browse-talent/index.html": 30,
     "train/index.html": 3,
     "hire/index.html": 3,
-    "employers/index.html": 2
+    "employers/index.html": 2,
+    "browse-talent/profile.html": 1
    }
   },
   ".sc-title-chip": {
-   "total": 65,
+   "total": 162,
    "files": {
+    "browse-talent/index.html": 90,
     "hire/index.html": 20,
     "train/index.html": 17,
     "nav-options.html": 12,
     "employers/index.html": 10,
+    "browse-talent/profile.html": 7,
     "ds/ptf.js": 6
    }
   },
@@ -942,11 +1106,11 @@
    }
   },
   ".active": {
-   "total": 21,
+   "total": 22,
    "files": {
     "signup/index.html": 6,
+    "event-common/index.html": 4,
     "top-alerts.html": 3,
-    "event-common/index.html": 3,
     "event-company/index.html": 3,
     "employers/index.html": 2,
     "vjf/index.html": 1,
@@ -1244,12 +1408,14 @@
    }
   },
   ".section-cta": {
-   "total": 11,
+   "total": 13,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
@@ -1260,12 +1426,14 @@
    }
   },
   ".section-cta-inner": {
-   "total": 11,
+   "total": 13,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
@@ -1276,16 +1444,18 @@
    }
   },
   ".eyebrow": {
-   "total": 42,
+   "total": 47,
    "files": {
     "about/index.html": 8,
     "meet-with-companies/index.html": 8,
     "summit/index.html": 5,
     "chat-learn/index.html": 4,
+    "browse-talent/index.html": 3,
     "vjf/index.html": 3,
     "talents/index-v2.html": 2,
     "train/index.html": 2,
     "hire/index.html": 2,
+    "browse-talent/profile.html": 2,
     "events/index.html": 2,
     "resources/index.html": 2,
     "employers/index.html": 1,
@@ -1304,15 +1474,17 @@
    }
   },
   ".btn": {
-   "total": 58,
+   "total": 66,
    "files": {
     "job-board/index.html": 9,
+    "ds/ptf.js": 8,
     "talents/index-v2.html": 7,
-    "ds/ptf.js": 7,
+    "browse-talent/index.html": 4,
     "events/index.html": 4,
     "summit/index.html": 4,
     "top-alerts.html": 4,
     "train/index.html": 3,
+    "browse-talent/profile.html": 3,
     "vjf/index.html": 3,
     "chat-learn/index.html": 3,
     "nav-options.html": 3,
@@ -1327,12 +1499,14 @@
    }
   },
   ".btn-cta": {
-   "total": 11,
+   "total": 13,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
@@ -1373,22 +1547,26 @@
    }
   },
   ".open": {
-   "total": 39,
+   "total": 51,
    "files": {
     "ds/ptf.js": 12,
     "talents/index-v2.html": 8,
     "employers/index.html": 6,
     "hire/index.html": 6,
+    "browse-talent/index.html": 6,
+    "browse-talent/profile.html": 6,
     "top-alerts.html": 6,
     "event-common/index.html": 1
    }
   },
   ".on": {
-   "total": 15,
+   "total": 21,
    "files": {
     "employers/index.html": 3,
     "talents/index-v2.html": 3,
     "hire/index.html": 3,
+    "browse-talent/index.html": 3,
+    "browse-talent/profile.html": 3,
     "top-alerts.html": 3,
     "ds/ptf.js": 3
    }
@@ -1402,9 +1580,10 @@
    }
   },
   ".hero-glow": {
-   "total": 2,
+   "total": 3,
    "files": {
     "talents/index-v2.html": 1,
+    "browse-talent/index.html": 1,
     "job-board/index.html": 1
    }
   },
@@ -1416,10 +1595,11 @@
    }
   },
   ".display": {
-   "total": 11,
+   "total": 12,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1,
@@ -1457,7 +1637,7 @@
    }
   },
   ".btn-primary": {
-   "total": 25,
+   "total": 27,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 3,
@@ -1466,6 +1646,8 @@
     "events/index.html": 2,
     "top-alerts.html": 2,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "not-found/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -1539,6 +1721,12 @@
     "talents/index-v2.html": 1
    }
   },
+  ".hmc-top": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 3
+   }
+  },
   ".hmc-badge": {
    "total": 3,
    "files": {
@@ -1546,25 +1734,31 @@
    }
   },
   ".dot": {
-   "total": 12,
+   "total": 13,
    "files": {
     "talents/index-v2.html": 4,
     "meet-with-companies/index.html": 4,
-    "nav-preview/index.html": 2,
+    "nav-preview/index.html": 3,
     "resources/index.html": 1,
     "vjf/index.html": 1
    }
   },
-  ".hmc-role": {
-   "total": 3,
+  ".hmc-score": {
+   "total": 6,
    "files": {
-    "talents/index-v2.html": 3
+    "talents/index-v2.html": 6
+   }
+  },
+  ".hmc-role": {
+   "total": 6,
+   "files": {
+    "talents/index-v2.html": 6
    }
   },
   ".hmc-rate": {
-   "total": 3,
+   "total": 2,
    "files": {
-    "talents/index-v2.html": 3
+    "talents/index-v2.html": 2
    }
   },
   ".hmc-tags": {
@@ -1574,15 +1768,33 @@
    }
   },
   ".hmc-tag": {
-   "total": 7,
+   "total": 6,
    "files": {
-    "talents/index-v2.html": 7
+    "talents/index-v2.html": 6
    }
   },
   ".hmc-back": {
    "total": 1,
    "files": {
     "talents/index-v2.html": 1
+   }
+  },
+  ".hmc-logos": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 2
+   }
+  },
+  ".hmc-logo": {
+   "total": 3,
+   "files": {
+    "talents/index-v2.html": 3
+   }
+  },
+  ".hmc-avs-lbl": {
+   "total": 4,
+   "files": {
+    "talents/index-v2.html": 4
    }
   },
   ".logo-strip": {
@@ -1635,13 +1847,13 @@
    }
   },
   ".is-active": {
-   "total": 13,
+   "total": 14,
    "files": {
     "events/index.html": 4,
     "talents/index-v2.html": 3,
+    "browse-talent/index.html": 2,
     "nav-options.html": 2,
     "ds/ptf.js": 2,
-    "job-board/index.html": 1,
     "resources/index.html": 1
    }
   },
@@ -1653,9 +1865,9 @@
    }
   },
   ".av": {
-   "total": 8,
+   "total": 10,
    "files": {
-    "talents/index-v2.html": 4,
+    "talents/index-v2.html": 6,
     "train/index.html": 4
    }
   },
@@ -1673,11 +1885,12 @@
    }
   },
   ".how-inner": {
-   "total": 7,
+   "total": 8,
    "files": {
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -1685,11 +1898,12 @@
    }
   },
   ".how-portrait-card": {
-   "total": 7,
+   "total": 8,
    "files": {
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -1697,11 +1911,12 @@
    }
   },
   ".how-portrait-icon": {
-   "total": 7,
+   "total": 8,
    "files": {
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -1709,11 +1924,12 @@
    }
   },
   ".steps": {
-   "total": 7,
+   "total": 8,
    "files": {
     "talents/index-v2.html": 1,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -1721,7 +1937,7 @@
    }
   },
   ".step": {
-   "total": 26,
+   "total": 29,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
@@ -1729,11 +1945,12 @@
     "talents/index-v2.html": 3,
     "train/index.html": 3,
     "hire/index.html": 3,
+    "browse-talent/index.html": 3,
     "chat-learn/index.html": 3
    }
   },
   ".step-num": {
-   "total": 26,
+   "total": 29,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
@@ -1741,11 +1958,12 @@
     "talents/index-v2.html": 3,
     "train/index.html": 3,
     "hire/index.html": 3,
+    "browse-talent/index.html": 3,
     "chat-learn/index.html": 3
    }
   },
   ".step-content": {
-   "total": 26,
+   "total": 29,
    "files": {
     "meet-with-companies/index.html": 6,
     "vjf/index.html": 4,
@@ -1753,6 +1971,7 @@
     "talents/index-v2.html": 3,
     "train/index.html": 3,
     "hire/index.html": 3,
+    "browse-talent/index.html": 3,
     "chat-learn/index.html": 3
    }
   },
@@ -1799,12 +2018,13 @@
    }
   },
   ".btn-sm": {
-   "total": 19,
+   "total": 21,
    "files": {
-    "ds/ptf.js": 7,
+    "ds/ptf.js": 8,
     "top-alerts.html": 4,
     "talents/index-v2.html": 3,
     "nav-options.html": 3,
+    "browse-talent/index.html": 1,
     "job-board/index.html": 1,
     "event-company/index.html": 1
    }
@@ -1816,45 +2036,51 @@
    }
   },
   ".faq-list": {
-   "total": 2,
+   "total": 3,
    "files": {
     "talents/index-v2.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1
    }
   },
   ".faq-item": {
-   "total": 15,
+   "total": 20,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6
+    "talents/index-v2.html": 6,
+    "browse-talent/index.html": 5
    }
   },
   ".faq-q": {
-   "total": 15,
+   "total": 20,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6
+    "talents/index-v2.html": 6,
+    "browse-talent/index.html": 5
    }
   },
   ".faq-icon": {
-   "total": 15,
+   "total": 20,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6
+    "talents/index-v2.html": 6,
+    "browse-talent/index.html": 5
    }
   },
   ".faq-a": {
-   "total": 15,
+   "total": 20,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6
+    "talents/index-v2.html": 6,
+    "browse-talent/index.html": 5
    }
   },
   ".faq-a-inner": {
-   "total": 15,
+   "total": 20,
    "files": {
     "vjf/index.html": 9,
-    "talents/index-v2.html": 6
+    "talents/index-v2.html": 6,
+    "browse-talent/index.html": 5
    }
   },
   ".footer": {
@@ -1928,6 +2154,18 @@
     "ds/ptf.js": 1
    }
   },
+  ".hmc-avs": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 2
+   }
+  },
+  ".av-stack": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 2
+   }
+  },
   ".flipped": {
    "total": 1,
    "files": {
@@ -1935,12 +2173,13 @@
    }
   },
   ".visible": {
-   "total": 13,
+   "total": 15,
    "files": {
     "signup/index.html": 4,
     "talents/index-v2.html": 2,
     "train/index.html": 2,
     "hire/index.html": 2,
+    "browse-talent/index.html": 2,
     "sponsor/index.html": 2,
     "ds/ptf.js": 1
    }
@@ -1952,10 +2191,12 @@
    }
   },
   ".site-header": {
-   "total": 10,
+   "total": 12,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "resources/index.html": 1,
@@ -1967,10 +2208,12 @@
    }
   },
   ".top-alert": {
-   "total": 8,
+   "total": 10,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -1980,10 +2223,12 @@
    }
   },
   ".top-alert-close": {
-   "total": 8,
+   "total": 10,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -1993,10 +2238,11 @@
    }
   },
   ".hero-ctas": {
-   "total": 3,
+   "total": 4,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "not-found/index.html": 1
    }
   },
@@ -2158,10 +2404,11 @@
    }
   },
   ".how-outer": {
-   "total": 6,
+   "total": 7,
    "files": {
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
@@ -2169,11 +2416,13 @@
    }
   },
   ".hidden": {
-   "total": 5,
+   "total": 7,
    "files": {
     "top-alerts.html": 2,
     "train/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "ds/ptf.js": 1
    }
   },
@@ -2283,12 +2532,396 @@
    }
   },
   ".section-hero": {
-   "total": 4,
+   "total": 5,
    "files": {
+    "browse-talent/index.html": 1,
     "about/index.html": 1,
     "job-board/index.html": 1,
     "resources/index.html": 1,
     "not-found/index.html": 1
+   }
+  },
+  ".display-lg": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".ev-head": {
+   "total": 7,
+   "files": {
+    "events/index.html": 2,
+    "browse-talent/index.html": 1,
+    "resources/index.html": 1,
+    "vjf/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1
+   }
+  },
+  ".tal-count": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".ev-listing": {
+   "total": 4,
+   "files": {
+    "events/index.html": 2,
+    "browse-talent/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".ev-filter": {
+   "total": 4,
+   "files": {
+    "events/index.html": 2,
+    "browse-talent/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".ev-filter-btn": {
+   "total": 27,
+   "files": {
+    "browse-talent/index.html": 10,
+    "events/index.html": 10,
+    "resources/index.html": 7
+   }
+  },
+  ".tal-rail-cta": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".btn-block": {
+   "total": 11,
+   "files": {
+    "job-board/index.html": 6,
+    "browse-talent/index.html": 1,
+    "meet-with-companies/index.html": 1,
+    "event-common/index.html": 1,
+    "sponsor/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
+  ".tal-col": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".ev-search-wrap": {
+   "total": 3,
+   "files": {
+    "browse-talent/index.html": 1,
+    "events/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".ev-search": {
+   "total": 3,
+   "files": {
+    "browse-talent/index.html": 1,
+    "events/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".ev-search-clear": {
+   "total": 3,
+   "files": {
+    "browse-talent/index.html": 1,
+    "events/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".tal-sec": {
+   "total": 10,
+   "files": {
+    "browse-talent/index.html": 10
+   }
+  },
+  ".tal-sec-title": {
+   "total": 10,
+   "files": {
+    "browse-talent/index.html": 10
+   }
+  },
+  ".tal-sec-count": {
+   "total": 10,
+   "files": {
+    "browse-talent/index.html": 10
+   }
+  },
+  ".tal-grid": {
+   "total": 11,
+   "files": {
+    "browse-talent/index.html": 10,
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".tal-card": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-photo": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-body": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-name": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-role": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-sum": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-meta": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".dot-sep": {
+   "total": 32,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 2
+   }
+  },
+  ".tal-rate": {
+   "total": 33,
+   "files": {
+    "browse-talent/index.html": 30,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-empty": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".is-hidden": {
+   "total": 4,
+   "files": {
+    "browse-talent/index.html": 2,
+    "ds/ptf.js": 2
+   }
+  },
+  ".show": {
+   "total": 1,
+   "files": {
+    "browse-talent/index.html": 1
+   }
+  },
+  ".has-value": {
+   "total": 3,
+   "files": {
+    "browse-talent/index.html": 1,
+    "events/index.html": 1,
+    "resources/index.html": 1
+   }
+  },
+  ".prof-back-wrap": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-back": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-hero": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-hero-inner": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-photo": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-id": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-id-avail": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-role": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-meta": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-rate": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-actions": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-body": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".about-stat-grid": {
+   "total": 5,
+   "files": {
+    "browse-talent/profile.html": 1,
+    "about/index.html": 1,
+    "summit/index.html": 1,
+    "chat-learn/index.html": 1,
+    "meet-with-companies/index.html": 1
+   }
+  },
+  ".about-stat-card": {
+   "total": 27,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6,
+    "meet-with-companies/index.html": 6,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".about-stat-lbl": {
+   "total": 27,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6,
+    "meet-with-companies/index.html": 6,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".about-stat-rule": {
+   "total": 27,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6,
+    "meet-with-companies/index.html": 6,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".about-stat-num": {
+   "total": 27,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6,
+    "meet-with-companies/index.html": 6,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".about-stat-desc": {
+   "total": 27,
+   "files": {
+    "about/index.html": 6,
+    "summit/index.html": 6,
+    "chat-learn/index.html": 6,
+    "meet-with-companies/index.html": 6,
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".prof-do": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-exp": {
+   "total": 1,
+   "files": {
+    "browse-talent/profile.html": 1
+   }
+  },
+  ".prof-exp-row": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".prof-exp-role": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".prof-exp-co": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".prof-exp-when": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
+   }
+  },
+  ".tal-card-more": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 3
    }
   },
   ".about-hero-title": {
@@ -2343,60 +2976,6 @@
    "total": 1,
    "files": {
     "about/index.html": 1
-   }
-  },
-  ".about-stat-grid": {
-   "total": 4,
-   "files": {
-    "about/index.html": 1,
-    "summit/index.html": 1,
-    "chat-learn/index.html": 1,
-    "meet-with-companies/index.html": 1
-   }
-  },
-  ".about-stat-card": {
-   "total": 24,
-   "files": {
-    "about/index.html": 6,
-    "summit/index.html": 6,
-    "chat-learn/index.html": 6,
-    "meet-with-companies/index.html": 6
-   }
-  },
-  ".about-stat-lbl": {
-   "total": 24,
-   "files": {
-    "about/index.html": 6,
-    "summit/index.html": 6,
-    "chat-learn/index.html": 6,
-    "meet-with-companies/index.html": 6
-   }
-  },
-  ".about-stat-rule": {
-   "total": 24,
-   "files": {
-    "about/index.html": 6,
-    "summit/index.html": 6,
-    "chat-learn/index.html": 6,
-    "meet-with-companies/index.html": 6
-   }
-  },
-  ".about-stat-num": {
-   "total": 24,
-   "files": {
-    "about/index.html": 6,
-    "summit/index.html": 6,
-    "chat-learn/index.html": 6,
-    "meet-with-companies/index.html": 6
-   }
-  },
-  ".about-stat-desc": {
-   "total": 24,
-   "files": {
-    "about/index.html": 6,
-    "summit/index.html": 6,
-    "chat-learn/index.html": 6,
-    "meet-with-companies/index.html": 6
    }
   },
   ".about-leaders-2col": {
@@ -2729,37 +3308,6 @@
     "events/index.html": 1
    }
   },
-  ".ev-head": {
-   "total": 6,
-   "files": {
-    "events/index.html": 2,
-    "resources/index.html": 1,
-    "vjf/index.html": 1,
-    "summit/index.html": 1,
-    "chat-learn/index.html": 1
-   }
-  },
-  ".ev-listing": {
-   "total": 3,
-   "files": {
-    "events/index.html": 2,
-    "resources/index.html": 1
-   }
-  },
-  ".ev-filter": {
-   "total": 3,
-   "files": {
-    "events/index.html": 2,
-    "resources/index.html": 1
-   }
-  },
-  ".ev-filter-btn": {
-   "total": 17,
-   "files": {
-    "events/index.html": 10,
-    "resources/index.html": 7
-   }
-  },
   ".ev-list": {
    "total": 6,
    "files": {
@@ -2887,27 +3435,6 @@
     "resources/index.html": 1
    }
   },
-  ".ev-search-wrap": {
-   "total": 2,
-   "files": {
-    "events/index.html": 1,
-    "resources/index.html": 1
-   }
-  },
-  ".ev-search": {
-   "total": 2,
-   "files": {
-    "events/index.html": 1,
-    "resources/index.html": 1
-   }
-  },
-  ".ev-search-clear": {
-   "total": 2,
-   "files": {
-    "events/index.html": 1,
-    "resources/index.html": 1
-   }
-  },
   ".ev-empty": {
    "total": 2,
    "files": {
@@ -2975,17 +3502,11 @@
     "events/index.html": 1
    }
   },
-  ".has-value": {
-   "total": 2,
-   "files": {
-    "events/index.html": 1,
-    "resources/index.html": 1
-   }
-  },
   ".is-open": {
-   "total": 2,
+   "total": 4,
    "files": {
-    "events/index.html": 2
+    "events/index.html": 2,
+    "event-common/index.html": 2
    }
   },
   ".jb-screen": {
@@ -3082,16 +3603,6 @@
    "total": 1,
    "files": {
     "job-board/index.html": 1
-   }
-  },
-  ".btn-block": {
-   "total": 10,
-   "files": {
-    "job-board/index.html": 6,
-    "meet-with-companies/index.html": 1,
-    "event-common/index.html": 1,
-    "sponsor/index.html": 1,
-    "event-company/index.html": 1
    }
   },
   ".jb-plan-badge": {
@@ -3198,10 +3709,10 @@
    }
   },
   ".field": {
-   "total": 53,
+   "total": 54,
    "files": {
     "job-board/index.html": 12,
-    "event-common/index.html": 10,
+    "event-common/index.html": 11,
     "signup/index.html": 8,
     "event-company/index.html": 8,
     "sponsor/index.html": 6,
@@ -3210,11 +3721,11 @@
    }
   },
   ".field-row": {
-   "total": 8,
+   "total": 9,
    "files": {
     "sponsor/index.html": 3,
     "job-board/index.html": 2,
-    "event-common/index.html": 1,
+    "event-common/index.html": 2,
     "signup/index.html": 1,
     "event-company/index.html": 1
    }
@@ -3286,9 +3797,9 @@
    }
   },
   ".jb-card": {
-   "total": 5,
+   "total": 4,
    "files": {
-    "job-board/index.html": 5
+    "job-board/index.html": 4
    }
   },
   ".jb-summary": {
@@ -3423,36 +3934,6 @@
    "total": 1,
    "files": {
     "job-board/index.html": 1
-   }
-  },
-  ".jb-nextsteps": {
-   "total": 1,
-   "files": {
-    "job-board/index.html": 1
-   }
-  },
-  ".jb-nsrow": {
-   "total": 2,
-   "files": {
-    "job-board/index.html": 2
-   }
-  },
-  ".jb-nsnum": {
-   "total": 2,
-   "files": {
-    "job-board/index.html": 2
-   }
-  },
-  ".jb-nstitle": {
-   "total": 2,
-   "files": {
-    "job-board/index.html": 2
-   }
-  },
-  ".jb-nsdesc": {
-   "total": 2,
-   "files": {
-    "job-board/index.html": 2
    }
   },
   ".jb-contact": {
@@ -4033,43 +4514,43 @@
    }
   },
   ".nav-btn": {
-   "total": 21,
+   "total": 30,
    "files": {
+    "ds/ptf.js": 15,
     "nav-options.html": 10,
-    "ds/ptf.js": 6,
     "top-alerts.html": 5
    }
   },
   ".nav-drop": {
-   "total": 12,
+   "total": 13,
    "files": {
     "top-alerts.html": 5,
     "nav-options.html": 4,
-    "ds/ptf.js": 3
+    "ds/ptf.js": 4
    }
   },
   ".nav-chev": {
-   "total": 11,
+   "total": 12,
    "files": {
     "nav-options.html": 4,
     "top-alerts.html": 4,
-    "ds/ptf.js": 3
+    "ds/ptf.js": 4
    }
   },
   ".nav-fly": {
-   "total": 12,
+   "total": 13,
    "files": {
     "top-alerts.html": 5,
     "nav-options.html": 4,
-    "ds/ptf.js": 3
+    "ds/ptf.js": 4
    }
   },
   ".mega-inner": {
-   "total": 12,
+   "total": 13,
    "files": {
     "top-alerts.html": 5,
     "nav-options.html": 4,
-    "ds/ptf.js": 3
+    "ds/ptf.js": 4
    }
   },
   ".emp-mega": {
@@ -4101,19 +4582,19 @@
    }
   },
   ".fly-title": {
-   "total": 42,
+   "total": 45,
    "files": {
     "nav-options.html": 18,
-    "ds/ptf.js": 13,
+    "ds/ptf.js": 16,
     "top-alerts.html": 11
    }
   },
   ".fly-desc": {
-   "total": 25,
+   "total": 28,
    "files": {
     "top-alerts.html": 11,
     "nav-options.html": 9,
-    "ds/ptf.js": 5
+    "ds/ptf.js": 8
    }
   },
   ".fly-rule": {
@@ -4153,11 +4634,11 @@
    }
   },
   ".fly-item": {
-   "total": 33,
+   "total": 36,
    "files": {
+    "ds/ptf.js": 13,
     "nav-options.html": 12,
-    "top-alerts.html": 11,
-    "ds/ptf.js": 10
+    "top-alerts.html": 11
    }
   },
   ".emp-re-ic": {
@@ -4248,10 +4729,10 @@
    }
   },
   ".login-tx": {
-   "total": 16,
+   "total": 19,
    "files": {
-    "nav-options.html": 8,
-    "ds/ptf.js": 8
+    "ds/ptf.js": 11,
+    "nav-options.html": 8
    }
   },
   ".login-arrow": {
@@ -4478,9 +4959,10 @@
    }
   },
   ".wrap": {
-   "total": 1,
+   "total": 2,
    "files": {
-    "checkout-rebrand-proposal.html": 1
+    "checkout-rebrand-proposal.html": 1,
+    "decks/preview.html": 1
    }
   },
   ".frame": {
@@ -4860,6 +5342,48 @@
     "sponsor/index.html": 1
    }
   },
+  ".phone-field": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-flag": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-code": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-pop": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-search": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-list": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
   ".thanks-divider": {
    "total": 16,
    "files": {
@@ -5180,6 +5704,44 @@
     "event-common/index.html": 1
    }
   },
+  ".phone-cc-empty": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".phone-cc-item": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".fl": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".nm": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".cd": {
+   "total": 1,
+   "files": {
+    "event-common/index.html": 1
+   }
+  },
+  ".selected": {
+   "total": 4,
+   "files": {
+    "event-common/index.html": 2,
+    "signup/index.html": 1,
+    "event-company/index.html": 1
+   }
+  },
   ".invalid": {
    "total": 6,
    "files": {
@@ -5194,14 +5756,6 @@
     "event-common/index.html": 2,
     "signup/index.html": 2,
     "event-company/index.html": 2
-   }
-  },
-  ".selected": {
-   "total": 3,
-   "files": {
-    "event-common/index.html": 1,
-    "signup/index.html": 1,
-    "event-company/index.html": 1
    }
   },
   ".show-more": {
@@ -5358,46 +5912,550 @@
     "book/index.html": 1
    }
   },
+  ".lede": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".slabel": {
+   "total": 23,
+   "files": {
+    "decks/preview.html": 23
+   }
+  },
+  ".fix": {
+   "total": 6,
+   "files": {
+    "decks/preview.html": 6
+   }
+  },
+  ".slide": {
+   "total": 23,
+   "files": {
+    "decks/preview.html": 23
+   }
+  },
+  ".dark": {
+   "total": 7,
+   "files": {
+    "decks/preview.html": 7
+   }
+  },
+  ".hair": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".pad": {
+   "total": 23,
+   "files": {
+    "decks/preview.html": 23
+   }
+  },
+  ".d-logo": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".ai": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".d-eyebrow": {
+   "total": 23,
+   "files": {
+    "decks/preview.html": 23
+   }
+  },
+  ".on-dark": {
+   "total": 7,
+   "files": {
+    "decks/preview.html": 7
+   }
+  },
+  ".d-dot": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".d-h1": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".d-em": {
+   "total": 10,
+   "files": {
+    "decks/preview.html": 10
+   }
+  },
+  ".d-body": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".d-foot": {
+   "total": 23,
+   "files": {
+    "decks/preview.html": 23
+   }
+  },
+  ".d-h2": {
+   "total": 21,
+   "files": {
+    "decks/preview.html": 21
+   }
+  },
+  ".agenda": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".arow": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".an": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".at": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".stats": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".stat": {
+   "total": 11,
+   "files": {
+    "decks/preview.html": 11
+   }
+  },
+  ".n": {
+   "total": 30,
+   "files": {
+    "decks/preview.html": 30
+   }
+  },
+  ".l": {
+   "total": 21,
+   "files": {
+    "decks/preview.html": 21
+   }
+  },
+  ".cols": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".visual": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".feat": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".fcard": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".grid6": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".dcard": {
+   "total": 6,
+   "files": {
+    "decks/preview.html": 6
+   }
+  },
+  ".dn": {
+   "total": 6,
+   "files": {
+    "decks/preview.html": 6
+   }
+  },
+  ".quote": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".who": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".logos": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".lg": {
+   "total": 8,
+   "files": {
+    "decks/preview.html": 8
+   }
+  },
+  ".probs": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".pcard": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".ps": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".svc": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".svccol": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".svcnum": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".checks": {
+   "total": 5,
+   "files": {
+    "decks/preview.html": 5
+   }
+  },
+  ".svclbl": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".bens": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".ben": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".bnum": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".cmp": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".cmpcol": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".cat": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".y": {
+   "total": 7,
+   "files": {
+    "decks/preview.html": 7
+   }
+  },
+  ".cmpcol--us": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".cases": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".case": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".tags": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".cmetric": {
+   "total": 9,
+   "files": {
+    "decks/preview.html": 9
+   }
+  },
+  ".tgrid": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".tqcard": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".stars": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".meta": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".pricing": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".pcol": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".peyebrow": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".prow": {
+   "total": 7,
+   "files": {
+    "decks/preview.html": 7
+   }
+  },
+  ".pfoot": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   }
+  },
+  ".promo": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".promo-img": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".layers": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".layer": {
+   "total": 3,
+   "files": {
+    "decks/preview.html": 3
+   }
+  },
+  ".avatars": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".albl": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".proc": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".pstep": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".pn": {
+   "total": 4,
+   "files": {
+    "decks/preview.html": 4
+   }
+  },
+  ".audience": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".aud-big": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".cal": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".calcard": {
+   "total": 6,
+   "files": {
+    "decks/preview.html": 6
+   }
+  },
+  ".cmonth": {
+   "total": 6,
+   "files": {
+    "decks/preview.html": 6
+   }
+  },
+  ".five": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".cta-center": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
+  ".btn-pill": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
+   }
+  },
   ".np-wrap": {
    "total": 1,
    "files": {
     "nav-preview/index.html": 1
    }
   },
-  ".np-title": {
-   "total": 1,
-   "files": {
-    "nav-preview/index.html": 1
-   }
-  },
-  ".np-sub": {
-   "total": 1,
-   "files": {
-    "nav-preview/index.html": 1
-   }
-  },
   ".np-block": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "nav-preview/index.html": 2
+    "nav-preview/index.html": 3
    }
   },
   ".np-label": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "nav-preview/index.html": 2
+    "nav-preview/index.html": 3
    }
   },
   ".np-frame": {
-   "total": 2,
+   "total": 3,
    "files": {
-    "nav-preview/index.html": 2
+    "nav-preview/index.html": 3
    }
   },
   ".acct-ic": {
    "total": 6,
    "files": {
     "ds/ptf.js": 6
+   }
+  },
+  ".nav-drop-sol": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".sol-fly": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".switch-ic": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
+   }
+  },
+  ".switch-label": {
+   "total": 1,
+   "files": {
+    "ds/ptf.js": 1
    }
   },
   ".footer-social": {
@@ -5453,18 +6511,13 @@
    "files": {
     "ds/ptf.js": 1
    }
-  },
-  ".is-hidden": {
-   "total": 2,
-   "files": {
-    "ds/ptf.js": 2
-   }
   }
  },
  "tokens": {
   "--iri-green": {
-   "total": 4,
+   "total": 6,
    "files": {
+    "decks/preview.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
@@ -5474,8 +6527,9 @@
    "defined": true
   },
   "--iri-lime": {
-   "total": 4,
+   "total": 6,
    "files": {
+    "decks/preview.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
     "events/index.html": 1,
@@ -5485,7 +6539,7 @@
    "defined": true
   },
   "--bg": {
-   "total": 41,
+   "total": 47,
    "files": {
     "meet-with-companies/index.html": 8,
     "talents/index-v2.html": 6,
@@ -5495,6 +6549,10 @@
     "chat-learn/index.html": 4,
     "book/index.html": 4,
     "summit/index.html": 3,
+    "event-common/index.html": 2,
+    "decks/preview.html": 2,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1
    },
@@ -5502,13 +6560,15 @@
    "defined": true
   },
   "--ink-2": {
-   "total": 47,
+   "total": 66,
    "files": {
+    "decks/preview.html": 12,
+    "talents/index-v2.html": 7,
     "employers/index.html": 6,
-    "talents/index-v2.html": 6,
     "hire/index.html": 5,
     "events/index.html": 5,
     "meet-with-companies/index.html": 5,
+    "browse-talent/profile.html": 4,
     "about/index.html": 4,
     "job-board/index.html": 3,
     "chat-learn/index.html": 3,
@@ -5516,21 +6576,26 @@
     "vjf/index.html": 2,
     "summit/index.html": 2,
     "book/index.html": 2,
-    "train/index.html": 1
+    "train/index.html": 1,
+    "browse-talent/index.html": 1,
+    "event-common/index.html": 1
    },
    "cssRefs": 15,
    "defined": true
   },
   "--ink-3": {
-   "total": 124,
+   "total": 160,
    "files": {
     "job-board/index.html": 25,
-    "talents/index-v2.html": 13,
+    "talents/index-v2.html": 17,
+    "decks/preview.html": 13,
     "meet-with-companies/index.html": 11,
+    "event-common/index.html": 11,
     "employers/index.html": 10,
+    "browse-talent/profile.html": 10,
     "nav-options.html": 10,
     "hire/index.html": 9,
-    "event-common/index.html": 8,
+    "browse-talent/index.html": 7,
     "about/index.html": 6,
     "events/index.html": 5,
     "event-company/index.html": 5,
@@ -5541,22 +6606,25 @@
     "top-alerts.html": 3,
     "vjf/index.html": 2,
     "checkout-rebrand-proposal.html": 1,
-    "sponsor/index.html": 1,
-    "nav-preview/index.html": 1
+    "sponsor/index.html": 1
    },
    "cssRefs": 54,
    "defined": true
   },
   "--line": {
-   "total": 65,
+   "total": 91,
    "files": {
     "talents/index-v2.html": 15,
+    "decks/preview.html": 13,
     "employers/index.html": 10,
     "job-board/index.html": 9,
     "hire/index.html": 6,
     "train/index.html": 5,
+    "browse-talent/profile.html": 5,
     "meet-with-companies/index.html": 5,
     "book/index.html": 5,
+    "browse-talent/index.html": 4,
+    "event-common/index.html": 4,
     "events/index.html": 3,
     "about/index.html": 2,
     "nav-options.html": 2,
@@ -5581,40 +6649,45 @@
    "defined": true
   },
   "--ink": {
-   "total": 156,
+   "total": 177,
    "files": {
     "job-board/index.html": 28,
     "employers/index.html": 23,
-    "talents/index-v2.html": 23,
+    "talents/index-v2.html": 22,
     "meet-with-companies/index.html": 15,
     "hire/index.html": 11,
     "about/index.html": 11,
+    "decks/preview.html": 9,
     "top-alerts.html": 8,
+    "event-common/index.html": 7,
+    "browse-talent/profile.html": 6,
     "events/index.html": 6,
     "nav-options.html": 6,
     "book/index.html": 5,
     "train/index.html": 4,
+    "browse-talent/index.html": 4,
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
-    "event-common/index.html": 3,
     "checkout-rebrand-proposal.html": 2,
     "not-found/index.html": 1,
-    "event-company/index.html": 1,
-    "nav-preview/index.html": 1
+    "event-company/index.html": 1
    },
    "cssRefs": 82,
    "defined": true
   },
   "--green": {
-   "total": 29,
+   "total": 55,
    "files": {
+    "decks/preview.html": 20,
+    "talents/index-v2.html": 8,
     "nav-options.html": 6,
-    "talents/index-v2.html": 5,
     "employers/index.html": 4,
     "job-board/index.html": 4,
     "hire/index.html": 3,
     "top-alerts.html": 3,
     "train/index.html": 2,
+    "browse-talent/profile.html": 2,
+    "browse-talent/index.html": 1,
     "book/index.html": 1,
     "nav-preview/index.html": 1
    },
@@ -5622,11 +6695,13 @@
    "defined": true
   },
   "--bg-soft": {
-   "total": 19,
+   "total": 25,
    "files": {
     "talents/index-v2.html": 6,
     "employers/index.html": 4,
+    "event-common/index.html": 3,
     "book/index.html": 3,
+    "decks/preview.html": 3,
     "hire/index.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1,
@@ -5638,7 +6713,7 @@
    "defined": true
   },
   "--section-y": {
-   "total": 36,
+   "total": 37,
    "files": {
     "hire/index.html": 7,
     "about/index.html": 7,
@@ -5648,18 +6723,20 @@
     "vjf/index.html": 2,
     "summit/index.html": 2,
     "chat-learn/index.html": 2,
-    "meet-with-companies/index.html": 2
+    "meet-with-companies/index.html": 2,
+    "browse-talent/profile.html": 1
    },
    "cssRefs": 5,
    "defined": true
   },
   "--gutter": {
-   "total": 21,
+   "total": 23,
    "files": {
     "train/index.html": 5,
     "hire/index.html": 5,
     "employers/index.html": 3,
     "events/index.html": 3,
+    "browse-talent/profile.html": 2,
     "talents/index-v2.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -5679,23 +6756,25 @@
    "defined": true
   },
   "--purple-light": {
-   "total": 5,
+   "total": 6,
    "files": {
     "top-alerts.html": 2,
     "employers/index.html": 1,
     "train/index.html": 1,
-    "hire/index.html": 1
+    "hire/index.html": 1,
+    "browse-talent/index.html": 1
    },
    "cssRefs": 2,
    "defined": true
   },
   "--purple": {
-   "total": 5,
+   "total": 6,
    "files": {
     "top-alerts.html": 2,
     "employers/index.html": 1,
     "train/index.html": 1,
-    "hire/index.html": 1
+    "hire/index.html": 1,
+    "browse-talent/index.html": 1
    },
    "cssRefs": 2,
    "defined": true
@@ -5737,7 +6816,7 @@
    "defined": false
   },
   "--container": {
-   "total": 11,
+   "total": 10,
    "files": {
     "train/index.html": 2,
     "events/index.html": 2,
@@ -5745,20 +6824,21 @@
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "meet-with-companies/index.html": 1,
-    "nav-preview/index.html": 1
+    "meet-with-companies/index.html": 1
    },
    "cssRefs": 3,
    "defined": true
   },
   "--content-body": {
-   "total": 17,
+   "total": 21,
    "files": {
     "train/index.html": 4,
     "summit/index.html": 4,
     "chat-learn/index.html": 4,
+    "browse-talent/profile.html": 3,
     "vjf/index.html": 2,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "events/index.html": 1,
     "meet-with-companies/index.html": 1
    },
@@ -5766,21 +6846,24 @@
    "defined": true
   },
   "--r-xl": {
-   "total": 12,
+   "total": 14,
    "files": {
     "job-board/index.html": 4,
     "about/index.html": 3,
     "train/index.html": 2,
     "hire/index.html": 2,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "meet-with-companies/index.html": 1
    },
    "cssRefs": 8,
    "defined": true
   },
   "--r-2xl": {
-   "total": 6,
+   "total": 7,
    "files": {
     "hire/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
     "vjf/index.html": 1,
@@ -5790,21 +6873,50 @@
    "cssRefs": 5,
    "defined": true
   },
-  "--content-narrow": {
-   "total": 15,
+  "--surface-2": {
+   "total": 22,
    "files": {
-    "meet-with-companies/index.html": 7,
-    "about/index.html": 3,
-    "chat-learn/index.html": 3,
-    "summit/index.html": 2
+    "job-board/index.html": 9,
+    "browse-talent/profile.html": 4,
+    "browse-talent/index.html": 3,
+    "events/index.html": 2,
+    "chat-learn/index.html": 2,
+    "vjf/index.html": 1,
+    "summit/index.html": 1
    },
    "cssRefs": 3,
    "defined": true
   },
+  "--content-narrow": {
+   "total": 17,
+   "files": {
+    "meet-with-companies/index.html": 7,
+    "about/index.html": 3,
+    "chat-learn/index.html": 3,
+    "summit/index.html": 2,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1
+   },
+   "cssRefs": 3,
+   "defined": true
+  },
+  "--green-mid": {
+   "total": 16,
+   "files": {
+    "job-board/index.html": 8,
+    "nav-options.html": 4,
+    "event-common/index.html": 2,
+    "browse-talent/profile.html": 1,
+    "decks/preview.html": 1
+   },
+   "cssRefs": 25,
+   "defined": true
+  },
   "--accent": {
-   "total": 4,
+   "total": 6,
    "files": {
     "about/index.html": 3,
+    "browse-talent/profile.html": 2,
     "nav-options.html": 1
    },
    "cssRefs": 16,
@@ -5862,18 +6974,6 @@
    "cssRefs": 2,
    "defined": true
   },
-  "--surface-2": {
-   "total": 15,
-   "files": {
-    "job-board/index.html": 9,
-    "events/index.html": 2,
-    "chat-learn/index.html": 2,
-    "vjf/index.html": 1,
-    "summit/index.html": 1
-   },
-   "cssRefs": 3,
-   "defined": true
-  },
   "--grid": {
    "total": 7,
    "files": {
@@ -5893,15 +6993,6 @@
    "cssRefs": 5,
    "defined": true
   },
-  "--green-mid": {
-   "total": 12,
-   "files": {
-    "job-board/index.html": 8,
-    "nav-options.html": 4
-   },
-   "cssRefs": 25,
-   "defined": true
-  },
   "--line-2": {
    "total": 3,
    "files": {
@@ -5911,10 +7002,11 @@
    "defined": true
   },
   "--r-md": {
-   "total": 8,
+   "total": 10,
    "files": {
     "job-board/index.html": 6,
-    "meet-with-companies/index.html": 2
+    "meet-with-companies/index.html": 2,
+    "event-common/index.html": 2
    },
    "cssRefs": 2,
    "defined": true
@@ -5969,8 +7061,9 @@
    "defined": false
   },
   "--iri-cyan": {
-   "total": 1,
+   "total": 3,
    "files": {
+    "decks/preview.html": 2,
     "book/index.html": 1
    },
    "cssRefs": 3,
@@ -5984,25 +7077,33 @@
    "cssRefs": 1,
    "defined": true
   },
+  "--us": {
+   "total": 2,
+   "files": {
+    "decks/preview.html": 2
+   },
+   "cssRefs": 0,
+   "defined": false
+  },
+  "--hero-top": {
+   "total": 0,
+   "files": {},
+   "cssRefs": 1,
+   "defined": true
+  },
   "--section-y-loose": {
    "total": 0,
    "files": {},
    "cssRefs": 2,
    "defined": true
   },
-  "--btn-bg": {
-   "total": 0,
-   "files": {},
-   "cssRefs": 7,
-   "defined": true
-  },
-  "--btn-fg": {
+  "--btn-bg-hover": {
    "total": 0,
    "files": {},
    "cssRefs": 5,
    "defined": true
   },
-  "--btn-bg-hover": {
+  "--btn-fg": {
    "total": 0,
    "files": {},
    "cssRefs": 5,
@@ -6014,10 +7115,10 @@
    "cssRefs": 4,
    "defined": true
   },
-  "--hero-top": {
+  "--btn-bg": {
    "total": 0,
    "files": {},
-   "cssRefs": 1,
+   "cssRefs": 7,
    "defined": true
   }
  },
@@ -6030,14 +7131,14 @@
    }
   },
   "#fff": {
-   "total": 138,
+   "total": 149,
    "files": {
     "train/index.html": 20,
-    "talents/index-v2.html": 15,
+    "talents/index-v2.html": 17,
+    "event-common/index.html": 15,
     "event-company/index.html": 14,
     "employers/index.html": 13,
     "top-alerts.html": 13,
-    "event-common/index.html": 9,
     "about/index.html": 8,
     "hire/index.html": 7,
     "job-board/index.html": 6,
@@ -6048,6 +7149,7 @@
     "vjf/index.html": 3,
     "summit/index.html": 3,
     "chat-learn/index.html": 3,
+    "decks/preview.html": 3,
     "sponsor/index.html": 1,
     "nav-preview/index.html": 1
    }
@@ -6060,10 +7162,10 @@
    }
   },
   "#4fe8a9": {
-   "total": 120,
+   "total": 121,
    "files": {
     "train/index.html": 38,
-    "talents/index-v2.html": 29,
+    "talents/index-v2.html": 28,
     "employers/index.html": 16,
     "hire/index.html": 14,
     "top-alerts.html": 6,
@@ -6071,22 +7173,25 @@
     "job-board/index.html": 3,
     "book/index.html": 3,
     "nav-options.html": 2,
+    "browse-talent/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1
+    "event-company/index.html": 1,
+    "decks/preview.html": 1
    }
   },
   "#5bcfff": {
-   "total": 34,
+   "total": 36,
    "files": {
     "employers/index.html": 12,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "about/index.html": 1,
     "job-board/index.html": 1,
     "vjf/index.html": 1,
@@ -6095,17 +7200,19 @@
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1
+    "event-company/index.html": 1,
+    "decks/preview.html": 1
    }
   },
   "#d5ff66": {
-   "total": 32,
+   "total": 34,
    "files": {
     "employers/index.html": 10,
     "train/index.html": 5,
     "talents/index-v2.html": 4,
     "book/index.html": 3,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "about/index.html": 1,
     "job-board/index.html": 1,
     "vjf/index.html": 1,
@@ -6114,7 +7221,8 @@
     "event-common/index.html": 1,
     "signup/index.html": 1,
     "sponsor/index.html": 1,
-    "event-company/index.html": 1
+    "event-company/index.html": 1,
+    "decks/preview.html": 1
    }
   },
   "#000": {
@@ -6392,9 +7500,9 @@
    }
   },
   "#8a8a8a": {
-   "total": 9,
+   "total": 11,
    "files": {
-    "event-common/index.html": 2,
+    "event-common/index.html": 4,
     "event-company/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -6605,16 +7713,10 @@
     "book/index.html": 1
    }
   },
-  "#14140f": {
+  "#eeede7": {
    "total": 1,
    "files": {
-    "nav-preview/index.html": 1
-   }
-  },
-  "#6b6b63": {
-   "total": 1,
-   "files": {
-    "nav-preview/index.html": 1
+    "decks/preview.html": 1
    }
   },
   "#1f9e6b": {
@@ -6626,9 +7728,10 @@
  },
  "fonts": {
   "Inter Tight": {
-   "total": 77,
+   "total": 110,
    "files": {
-    "talents/index-v2.html": 18,
+    "decks/preview.html": 28,
+    "talents/index-v2.html": 19,
     "employers/index.html": 8,
     "job-board/index.html": 8,
     "train/index.html": 7,
@@ -6637,22 +7740,24 @@
     "events/index.html": 5,
     "top-alerts.html": 5,
     "nav-options.html": 4,
+    "browse-talent/profile.html": 3,
     "meet-with-companies/index.html": 3,
     "book/index.html": 3,
-    "nav-preview/index.html": 2,
+    "browse-talent/index.html": 2,
     "not-found/index.html": 1,
-    "chat-learn/index.html": 1
+    "chat-learn/index.html": 1,
+    "nav-preview/index.html": 1
    }
   },
   "Inter": {
-   "total": 26,
+   "total": 28,
    "files": {
     "employers/index.html": 5,
     "talents/index-v2.html": 3,
+    "event-common/index.html": 3,
     "train/index.html": 2,
     "hire/index.html": 2,
     "top-alerts.html": 2,
-    "event-common/index.html": 2,
     "about/index.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1,
@@ -6662,18 +7767,19 @@
     "meet-with-companies/index.html": 1,
     "signup/index.html": 1,
     "event-company/index.html": 1,
-    "book/index.html": 1
+    "book/index.html": 1,
+    "decks/preview.html": 1
    }
   }
  },
  "fontsize": {
   "18px": {
-   "total": 16,
+   "total": 18,
    "files": {
     "job-board/index.html": 3,
     "employers/index.html": 2,
     "train/index.html": 2,
-    "talents/index-v2.html": 1,
+    "browse-talent/profile.html": 2,
     "hire/index.html": 1,
     "about/index.html": 1,
     "events/index.html": 1,
@@ -6681,33 +7787,35 @@
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
     "meet-with-companies/index.html": 1,
-    "book/index.html": 1
+    "book/index.html": 1,
+    "decks/preview.html": 1
    }
   },
   "12px": {
-   "total": 51,
+   "total": 58,
    "files": {
-    "event-common/index.html": 9,
+    "event-common/index.html": 13,
     "hire/index.html": 7,
     "event-company/index.html": 7,
     "top-alerts.html": 5,
+    "talents/index-v2.html": 4,
     "signup/index.html": 4,
     "employers/index.html": 3,
     "meet-with-companies/index.html": 3,
     "checkout-rebrand-proposal.html": 3,
-    "talents/index-v2.html": 2,
     "events/index.html": 2,
     "book/index.html": 2,
     "train/index.html": 1,
+    "browse-talent/index.html": 1,
     "about/index.html": 1,
     "job-board/index.html": 1,
     "nav-options.html": 1
    }
   },
   "11px": {
-   "total": 40,
+   "total": 42,
    "files": {
-    "talents/index-v2.html": 9,
+    "talents/index-v2.html": 11,
     "employers/index.html": 7,
     "train/index.html": 7,
     "hire/index.html": 6,
@@ -6731,36 +7839,41 @@
    }
   },
   "13px": {
-   "total": 39,
+   "total": 47,
    "files": {
     "talents/index-v2.html": 8,
     "job-board/index.html": 8,
+    "browse-talent/index.html": 4,
     "employers/index.html": 3,
     "meet-with-companies/index.html": 3,
     "nav-options.html": 3,
     "top-alerts.html": 3,
     "train/index.html": 2,
+    "browse-talent/profile.html": 2,
     "checkout-rebrand-proposal.html": 2,
+    "event-common/index.html": 2,
     "hire/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "event-common/index.html": 1,
     "event-company/index.html": 1,
+    "decks/preview.html": 1,
     "nav-preview/index.html": 1
    }
   },
   "10px": {
-   "total": 42,
+   "total": 46,
    "files": {
     "train/index.html": 10,
     "talents/index-v2.html": 9,
     "employers/index.html": 4,
     "hire/index.html": 4,
+    "event-common/index.html": 4,
     "about/index.html": 3,
     "top-alerts.html": 2,
-    "event-common/index.html": 2,
     "event-company/index.html": 2,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "job-board/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
@@ -6770,7 +7883,7 @@
    }
   },
   "12.5px": {
-   "total": 18,
+   "total": 20,
    "files": {
     "employers/index.html": 3,
     "nav-options.html": 3,
@@ -6779,13 +7892,16 @@
     "talents/index-v2.html": 2,
     "meet-with-companies/index.html": 2,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
+    "browse-talent/profile.html": 1,
     "job-board/index.html": 1
    }
   },
   "13.5px": {
-   "total": 10,
+   "total": 13,
    "files": {
     "employers/index.html": 3,
+    "browse-talent/profile.html": 3,
     "meet-with-companies/index.html": 2,
     "talents/index-v2.html": 1,
     "hire/index.html": 1,
@@ -6802,20 +7918,22 @@
    }
   },
   "26px": {
-   "total": 3,
+   "total": 4,
    "files": {
     "employers/index.html": 1,
     "talents/index-v2.html": 1,
+    "browse-talent/profile.html": 1,
     "job-board/index.html": 1
    }
   },
   "14px": {
-   "total": 37,
+   "total": 43,
    "files": {
     "job-board/index.html": 14,
     "employers/index.html": 6,
+    "event-common/index.html": 5,
+    "browse-talent/profile.html": 4,
     "talents/index-v2.html": 3,
-    "event-common/index.html": 3,
     "book/index.html": 3,
     "about/index.html": 2,
     "checkout-rebrand-proposal.html": 2,
@@ -6826,7 +7944,7 @@
    }
   },
   "15px": {
-   "total": 37,
+   "total": 42,
    "files": {
     "job-board/index.html": 7,
     "talents/index-v2.html": 6,
@@ -6834,41 +7952,46 @@
     "train/index.html": 3,
     "employers/index.html": 2,
     "hire/index.html": 2,
+    "browse-talent/index.html": 2,
+    "browse-talent/profile.html": 2,
     "about/index.html": 2,
     "events/index.html": 2,
     "chat-learn/index.html": 2,
+    "event-common/index.html": 2,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "meet-with-companies/index.html": 1,
     "top-alerts.html": 1,
-    "book/index.html": 1,
-    "nav-preview/index.html": 1
+    "book/index.html": 1
    }
   },
   "17px": {
-   "total": 9,
+   "total": 12,
    "files": {
     "train/index.html": 3,
     "talents/index-v2.html": 2,
+    "event-common/index.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/index.html": 1,
     "job-board/index.html": 1,
     "nav-options.html": 1
    }
   },
   "9px": {
-   "total": 27,
+   "total": 28,
    "files": {
     "talents/index-v2.html": 10,
     "train/index.html": 10,
     "top-alerts.html": 3,
     "about/index.html": 2,
     "employers/index.html": 1,
-    "hire/index.html": 1
+    "hire/index.html": 1,
+    "browse-talent/index.html": 1
    }
   },
   "16px": {
-   "total": 31,
+   "total": 33,
    "files": {
     "talents/index-v2.html": 5,
     "events/index.html": 5,
@@ -6879,11 +8002,13 @@
     "top-alerts.html": 2,
     "employers/index.html": 1,
     "hire/index.html": 1,
+    "browse-talent/profile.html": 1,
     "about/index.html": 1,
     "vjf/index.html": 1,
     "summit/index.html": 1,
     "chat-learn/index.html": 1,
-    "book/index.html": 1
+    "book/index.html": 1,
+    "decks/preview.html": 1
    }
   },
   "10.5px": {
@@ -6901,6 +8026,13 @@
     "talents/index-v2.html": 1
    }
   },
+  "19px": {
+   "total": 2,
+   "files": {
+    "talents/index-v2.html": 1,
+    "events/index.html": 1
+   }
+  },
   "8px": {
    "total": 19,
    "files": {
@@ -6910,19 +8042,21 @@
    }
   },
   "22px": {
-   "total": 4,
+   "total": 5,
    "files": {
     "talents/index-v2.html": 1,
     "train/index.html": 1,
+    "browse-talent/profile.html": 1,
     "events/index.html": 1,
     "job-board/index.html": 1
    }
   },
   "20px": {
-   "total": 7,
+   "total": 8,
    "files": {
     "job-board/index.html": 3,
     "talents/index-v2.html": 1,
+    "browse-talent/index.html": 1,
     "chat-learn/index.html": 1,
     "top-alerts.html": 1,
     "book/index.html": 1
@@ -6938,6 +8072,13 @@
    "total": 2,
    "files": {
     "hire/index.html": 2
+   }
+  },
+  "15.5px": {
+   "total": 3,
+   "files": {
+    "browse-talent/profile.html": 2,
+    "meet-with-companies/index.html": 1
    }
   },
   "21px": {
@@ -6959,12 +8100,6 @@
     "events/index.html": 1
    }
   },
-  "19px": {
-   "total": 1,
-   "files": {
-    "events/index.html": 1
-   }
-  },
   "24px": {
    "total": 1,
    "files": {
@@ -6979,16 +8114,9 @@
    }
   },
   "30px": {
-   "total": 2,
-   "files": {
-    "job-board/index.html": 1,
-    "nav-preview/index.html": 1
-   }
-  },
-  "15.5px": {
    "total": 1,
    "files": {
-    "meet-with-companies/index.html": 1
+    "job-board/index.html": 1
    }
   },
   "23px": {
@@ -7001,6 +8129,12 @@
    "total": 1,
    "files": {
     "top-alerts.html": 1
+   }
+  },
+  "34px": {
+   "total": 1,
+   "files": {
+    "decks/preview.html": 1
    }
   }
  },
@@ -7267,6 +8401,7 @@
   ".nav-cta",
   ".nav-dark",
   ".nav-drop",
+  ".nav-drop-sol",
   ".nav-fly",
   ".nav-inner",
   ".nav-items",
@@ -7379,6 +8514,7 @@
   ".show-more",
   ".site-header",
   ".social-btns",
+  ".sol-fly",
   ".stacked",
   ".stat-big-label",
   ".stat-big-num",
@@ -7406,6 +8542,7 @@
   ".step-indicator",
   ".step-num",
   ".steps",
+  ".switch-ic",
   ".t-author",
   ".t-card",
   ".t-company",

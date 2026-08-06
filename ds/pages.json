@@ -38,6 +38,22 @@
    "status": "live"
   },
   {
+   "id": "p-browse-talent",
+   "name": "Browse talent",
+   "file": "browse-talent/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Client-facing talent directory — sticky side-filter rail (shared .ev-filter) over a grid of verified talent cards (photo + info, whole card clickable, DS card hover). 10 specialties are placeholders pending Fran/Milena. The talent card + on-photo Verified/Available badges are promote-to-system candidates."
+  },
+  {
+   "id": "p-browse-talent-profile",
+   "name": "Talent profile",
+   "file": "browse-talent/profile.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Individual talent profile reached from Browse talent — photo, verified, rate, Request to hire / Book a call, about + .about-stat-grid, experience, similar experts (reuses the talent card)."
+  },
+  {
    "id": "p-about",
    "name": "About",
    "file": "about/index.html",
@@ -63,7 +79,7 @@
    "name": "Resources",
    "file": "resources/index.html",
    "group": "Pages",
-   "status": "draft",
+   "status": "live",
    "desc": "The career blog index — hero + the shared .ev-* listing (topic filters, search, pagination) + the dark CTA closer. Zero page CSS."
   },
   {
@@ -102,7 +118,7 @@
    "name": "Meet with Companies",
    "file": "meet-with-companies/index.html",
    "group": "Pages",
-   "status": "live",
+   "status": "draft",
    "desc": "Event detail — invite-only company career event (Mitsubishi Power). Sibling of Summit/VJF/Chat & Learn; two-dial state switcher (event × viewer)."
   },
   {
@@ -218,6 +234,14 @@
    "group": "Flows",
    "status": "live",
    "desc": "The book-a-call flow."
+  },
+  {
+   "id": "slides-salesdeck",
+   "name": "Sales deck",
+   "file": "decks/preview.html",
+   "group": "Slides",
+   "status": "live",
+   "desc": "The GTM sales pitch deck, rebuilt on the deck design system — on-brand slide templates at true 16:9, from the live ds/ptf.css. The visual source of truth the Google Slides master gets built from."
   },
   {
    "id": "org-topnav-login",

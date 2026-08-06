@@ -170,6 +170,10 @@ button,a,label,summary{ touch-action:manipulation; }
   width:26px; height:26px; color:var(--sb-txt-2); text-decoration:none;
   border:1px solid var(--sb-line-2); border-radius:6px; }
 .sb-frame-bar a:hover{ color:var(--sb-green); border-color:var(--sb-green); }
+/* Per-page quick actions: Code (view source) + Live (open real page) */
+.sb-frame-bar .sbfb-actions{ margin-left:auto; display:inline-flex; gap:8px; }
+.sb-frame-bar .sbfb-act{ margin-left:0; width:auto; height:26px; padding:0 10px; gap:5px; display:inline-flex; align-items:center; color:var(--sb-txt-2); text-decoration:none; background:none; border:1px solid var(--sb-line-2); border-radius:6px; cursor:pointer; font:inherit; font-size:12px; }
+.sb-frame-bar .sbfb-act:hover{ color:var(--sb-green); border-color:var(--sb-green); }
 .sb-frame-vp{ position:relative; width:100%; height:74vh; min-height:520px; overflow:hidden; background:#fff; }
 .sb-frame{ position:absolute; top:0; left:0; border:0; display:block; background:#fff; transform-origin:0 0; }
 
@@ -2387,8 +2391,8 @@ function buildSide(){
   const VIS=S.filter(x=>x.status!=='archived');   // archived lives in its own gallery section, not the nav
   /* Ordered by what you do, not by how the system composes: Create, then the things
      you make, then the vocabulary you make them from. */
-  const GROUP_ORDER=['Pages','Flows','Foundations','Atoms','Form parts','Molecules','Organisms','Animations'];
-  const GALLERY=['Pages','Flows'];   // these open as tiles, they don't drop down
+  const GROUP_ORDER=['Pages','Flows','Slides','Foundations','Atoms','Form parts','Molecules','Organisms','Animations'];
+  const GALLERY=['Pages','Flows','Slides'];   // these open as tiles, they don't drop down
   // Foundations → Organisms ARE the storybook. Pages and Flows are what you make with it.
   const STORYBOOK_GROUPS=['Foundations','Atoms','Form parts','Molecules','Organisms','Animations'];
   let supraDone=false;
@@ -2466,7 +2470,7 @@ function select(id){
   /* Breadcrumb, not a back arrow: it says where you are AND takes you back. */
   const crumb=document.getElementById('sbCrumb'), ren=document.getElementById('sbRename');
   if(s.pageId){
-    const gal = s.g==='Flows' ? 'gal-flows' : (s.g==='Pages' ? 'gal-pages' : null);
+    const gal = s.g==='Flows' ? 'gal-flows' : (s.g==='Pages' ? 'gal-pages' : (s.g==='Slides' ? 'gal-slides' : null));
     crumb.hidden=!gal;
     /* it's a way back, so it points back — the arrow was on the right, pointing
        forward, on a link that takes you backwards */
@@ -2493,7 +2497,11 @@ function select(id){
     stageInner.style.padding='0';
     const bar = s.srcdoc
       ? '<div class="sb-frame-bar">Component · <code>'+esc((s.tags&&s.tags[0])||s.name)+'</code> · isolated, real ptf.css</div>'
-      : '<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code><a href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the real page in a new tab" aria-label="Open the real page in a new tab">'+uic('external',13)+'</a></div>';
+      : '<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code>'
+        +'<span class="sbfb-actions">'
+        +'<button type="button" class="sbfb-act" title="View page source" onclick="sbViewCode(\''+s.iframe+'\')">'+uic('code',13)+'Code</button>'
+        +'<a class="sbfb-act" href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the live page in a new tab" aria-label="Open the live page in a new tab">'+uic('external',13)+'Live</a>'
+        +'</span></div>';
     stageInner.innerHTML=bar+'<div class="sb-frame-vp"><iframe class="sb-frame"'+(s.iframe?' src="../'+s.iframe+'"':'')+'></iframe></div>';
     const fr=stageInner.querySelector('iframe');
     fr.onload=function(){
@@ -3820,6 +3828,20 @@ function a11yScan(doc){ const out=[];
   doc.querySelectorAll('a,button').forEach(el=>{ const txt=(el.textContent||'').trim(); const imgAlt=el.querySelector('img[alt]'); const named=txt||el.getAttribute('aria-label')||el.getAttribute('title')||(imgAlt&&imgAlt.getAttribute('alt').trim()); if(!named) out.push({el,label:el.tagName.toLowerCase()+' · no name'}); });
   return out.slice(0,120);
 }
+/* View a page's source code in a new tab (fetches the real file, same origin) */
+function sbViewCode(file){
+  if(!file) return;
+  fetch('../'+file,{cache:'no-store'}).then(r=>r.text()).then(src=>{
+    const w=window.open('','_blank');
+    if(!w){ alert('Pop-up blocked — allow pop-ups to view the code.'); return; }
+    const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    w.document.write('<!doctype html><meta charset="utf-8"><title>'+file+' — source</title>'
+      +'<body style="margin:0;background:#0e0f11;color:#e6e6e6;">'
+      +'<div style="position:sticky;top:0;background:#0e0f11;border-bottom:1px solid #2a2c30;padding:10px 16px;font:600 13px system-ui,sans-serif;color:#7fd6b0;">'+file+'</div>'
+      +'<pre style="white-space:pre-wrap;word-break:break-word;font:12px/1.6 ui-monospace,Menlo,monospace;padding:16px;margin:0;">'+esc(src)+'</pre>');
+    w.document.close();
+  }).catch(()=>alert('Could not load source for '+file));
+}
 function openPreview(file,key,mode){
   if(!file) return; HLS=[]; HI=0; mPrev.style.display=mNext.style.display='none';
   const a11y=mode==='a11y';
@@ -3872,8 +3894,10 @@ Promise.all([
           desc:'Every page in the playbook, newest work first. Drafts, then final, then archived.'});
   S.push({g:'Flows', id:'gal-flows', name:'Flows', special:'gallery', galleryOf:'Flows',
           desc:'Every flow in the playbook, newest work first.'});
+  S.push({g:'Slides', id:'gal-slides', name:'Slides', special:'gallery', galleryOf:'Slides',
+          desc:'Deck slide systems — on-brand templates built from ds/ptf.css, the source of truth for the Google Slides masters.'});
   if(pj&&pj.pages){
-    const ord={Organisms:0,Pages:1,Flows:2};
+    const ord={Organisms:0,Pages:1,Flows:2,Slides:3};
     pj.pages.slice().sort((a,b)=>(ord[a.group]==null?9:ord[a.group])-(ord[b.group]==null?9:ord[b.group])).forEach(p=>{
       if(S.some(s=>s.id===p.id)) return;
       S.push({g:p.group||'Pages', id:p.id, name:p.name, tags:[], iframe:p.file, scrollText:p.scrollText, scroll:p.scroll,

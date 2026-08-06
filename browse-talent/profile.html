@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ravi S. — Senior AI / ML engineer — PowerToFly AI</title>
+<meta property="og:title"       content="Ravi S. — Senior AI / ML engineer — PowerToFly AI">
+<meta property="og:description" content="Verified AI / ML engineer. 9 years shipping production LLM features. Available now.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="profile">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC — tokens only. New blocks (promote-to-system candidates, shared with index.html):
+ *   .prof-*  — the talent profile header + "what I can help with" + experience list
+ *   .tal-card — reused from browse-talent/index.html for "similar experts" (2nd use → promote)
+ */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* Back link */
+.prof-back-wrap { max-width: var(--content-body); margin: 0 auto; padding: 20px var(--gutter) 0; }
+.prof-back { font-size: 14px; font-weight: 600; color: var(--ink-3); text-decoration: none; }
+.prof-back:hover { color: var(--ink); }
+
+/* Profile header — 2-col: photo + identity/actions */
+.prof-hero { padding: 24px var(--gutter) var(--section-y); }
+.prof-hero-inner { max-width: var(--content-body); margin: 0 auto; display: grid; grid-template-columns: 380px 1fr; gap: 44px; align-items: start; }
+.prof-photo { position: relative; border-radius: var(--r-2xl); overflow: hidden; aspect-ratio: 4 / 5; background: var(--surface-2) center 20%/cover no-repeat; }
+.prof-id-avail { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 12px; }
+.prof-id-avail i { width: 7px; height: 7px; border-radius: 50%; background: var(--green-mid); }
+/* name uses the shared .display scale; only page-specific margin here */
+.prof-id .display { margin: 0; }
+.prof-role { font-size: 18px; color: var(--ink-2); margin: 8px 0 0; }
+.prof-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 18px 0 0; font-size: 14px; color: var(--ink-3); }
+.prof-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
+.prof-rate { margin: 20px 0 0; font-size: 15px; color: var(--ink-3); }
+.prof-rate b { font-family: 'Inter Tight', sans-serif; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+.prof-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 24px 0 22px; }
+.prof-hero .sc-titles { margin-top: 4px; }
+@media (max-width: 820px) { .prof-hero-inner { grid-template-columns: 1fr; gap: 24px; } .prof-photo { max-width: 340px; } }
+
+/* Body sections width */
+.prof-body { max-width: var(--content-narrow); margin: 0 auto; }
+.prof-body h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 22px; letter-spacing: -0.02em; margin: 0 0 14px; }
+.prof-body p { font-size: 16px; line-height: 1.65; color: var(--ink-2); }
+
+/* What I can help with — small ink check list */
+.prof-do { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.prof-do li { display: flex; align-items: flex-start; gap: 12px; font-size: 15.5px; line-height: 1.5; color: var(--ink-2); }
+.prof-do svg { width: 20px; height: 20px; flex: none; margin-top: 1px; fill: var(--accent); }
+
+/* Experience list */
+.prof-exp { display: grid; gap: 0; }
+.prof-exp-row { display: grid; grid-template-columns: 1fr auto; gap: 16px; padding: 18px 0; border-top: 1px solid var(--line); }
+.prof-exp-row:last-child { border-bottom: 1px solid var(--line); }
+.prof-exp-role { font-weight: 600; font-size: 15.5px; color: var(--ink); }
+.prof-exp-co { font-size: 14px; color: var(--ink-3); margin-top: 2px; }
+.prof-exp-when { font-size: 13.5px; color: var(--ink-3); white-space: nowrap; }
+
+/* Similar experts — reuse the talent card (2nd use of this block) */
+.tal-grid { max-width: var(--content-body); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+@media (max-width: 940px) { .tal-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .tal-grid { grid-template-columns: 1fr; } }
+.tal-card { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+/* hover = the shared clickable-card language (matches .ev-row / .up-card in ptf.css): lift, border → transparent, soft shadow */
+.tal-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
+.tal-card-photo { position: relative; aspect-ratio: 5 / 4; background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
+.tal-card-body { padding: 18px 18px 16px; display: flex; flex-direction: column; flex: 1; }
+.tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+.tal-card-role { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
+.tal-card-sum { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 12px 0 14px; }
+.tal-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
+.tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
+.tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
+.tal-card-more { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--accent); }
+
+@media (max-width: 900px) {
+  .mobile-drawer { display: none; }
+  .mobile-drawer.open { display: flex; }
+  .mobile-drawer .btn { display: flex; width: 100%; justify-content: center; box-sizing: border-box; }
+  .drawer-group { padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .drawer-cat { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; display: block; }
+  .drawer-group a { font-size: 15px; font-weight: 500; color: var(--ink); padding: 8px 0 8px 12px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-header" id="siteHeader">
+  <div class="top-alert" id="topAlert">
+    New: browse and shortlist AI talent yourself &nbsp;·&nbsp; 6,500+ verified experts
+    <a href="index.html#talent-grid">Start browsing →</a>
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div data-ptf-nav data-active="employers"></div>
+</div><!-- /site-header -->
+
+
+<main>
+
+<div class="prof-back-wrap"><a class="prof-back" href="index.html">← Back to browse talent</a></div>
+
+<!-- PROFILE HEADER -->
+<section class="prof-hero">
+  <div class="prof-hero-inner">
+    <div class="prof-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')">
+      
+    </div>
+    <div class="prof-id">
+      <div class="prof-id-avail"><i></i>Available now · open to contract or full-time</div>
+      <h1 class="display">Ravi S.</h1>
+      <p class="prof-role">Senior AI / ML engineer</p>
+      <div class="prof-meta">
+        <span>Bengaluru, IN</span><span class="dot-sep"></span>
+        <span>Remote · overlaps US &amp; EU hours</span><span class="dot-sep"></span>
+        <span>9 years experience</span>
+      </div>
+      <p class="prof-rate"><b>From $95</b> / hour · flexible on scope</p>
+      <div class="prof-actions">
+        <a href="../book/" class="btn btn-primary">Request to hire →</a>
+        <a href="../book/" class="btn">Book a call</a>
+      </div>
+      <div class="sc-titles">
+        <span class="sc-title-chip">PyTorch</span>
+        <span class="sc-title-chip">RAG</span>
+        <span class="sc-title-chip">LangChain</span>
+        <span class="sc-title-chip">Fine-tuning</span>
+        <span class="sc-title-chip">Python</span>
+        <span class="sc-title-chip">Evals</span>
+        <span class="sc-title-chip">Vector search</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT + HIGHLIGHT NUMBERS (shared .about-stat-grid) -->
+<section class="section" style="background:var(--surface-2)">
+  <div class="prof-body">
+    <h3>About Ravi</h3>
+    <p>Ravi builds LLM-powered features that hold up in production. Over nine years he's moved from backend engineering into applied AI, shipping retrieval systems, fine-tuned models, and evaluation pipelines for fintech and digital-health teams. He's the person who can take a promising prototype and make it reliable, observable, and safe to put in front of real users.</p>
+    <p style="margin-top:16px">He works best embedded with a small product team — pairing on architecture, setting up the eval harness early, and leaving the codebase in a state your own engineers can own.</p>
+    <div class="about-stat-grid" style="margin-top:36px;">
+      <div class="about-stat-card"><span class="about-stat-lbl">Experience</span><hr class="about-stat-rule"><span class="about-stat-num">9<span style="font-size:.5em">yrs</span></span><span class="about-stat-desc">In backend and applied AI engineering across four countries.</span></div>
+      <div class="about-stat-card"><span class="about-stat-lbl">Projects shipped</span><hr class="about-stat-rule"><span class="about-stat-num">40+</span><span class="about-stat-desc">LLM features, retrieval systems, and eval pipelines in production.</span></div>
+      <div class="about-stat-card"><span class="about-stat-lbl">Client rating</span><hr class="about-stat-rule"><span class="about-stat-num">4.9</span><span class="about-stat-desc">Average across 22 completed PowerToFly engagements.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I CAN HELP WITH -->
+<section class="section">
+  <div class="prof-body">
+    <h3>What Ravi can help with</h3>
+    <ul class="prof-do">
+      <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Standing up a retrieval-augmented generation (RAG) pipeline from scratch — chunking, embeddings, and vector search.</li>
+      <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Fine-tuning and evaluating open models against your own quality and safety rubrics.</li>
+      <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Building the eval harness and monitoring so you catch regressions before your users do.</li>
+      <li><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Mentoring an in-house team through their first production AI feature.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="section" style="background:var(--surface-2)">
+  <div class="prof-body">
+    <h3>Experience</h3>
+    <div class="prof-exp">
+      <div class="prof-exp-row"><div><div class="prof-exp-role">Senior ML engineer</div><div class="prof-exp-co">Series-B digital health startup</div></div><div class="prof-exp-when">2022 — now</div></div>
+      <div class="prof-exp-row"><div><div class="prof-exp-role">Machine learning engineer</div><div class="prof-exp-co">Fintech scale-up · payments risk</div></div><div class="prof-exp-when">2019 — 2022</div></div>
+      <div class="prof-exp-row"><div><div class="prof-exp-role">Backend engineer</div><div class="prof-exp-co">Enterprise SaaS · data platform</div></div><div class="prof-exp-when">2015 — 2019</div></div>
+    </div>
+    <p style="margin-top:18px;font-size:14px;color:var(--ink-3)">Education verified · Background check cleared · References confirmed by PowerToFly.</p>
+  </div>
+</section>
+
+<!-- SIMILAR EXPERTS -->
+<section class="section">
+  <div class="section-head"><span class="eyebrow">More like Ravi</span><h2>Similar experts</h2></div>
+  <div class="tal-grid">
+
+    <a class="tal-card" href="profile.html" data-group="aiml">
+      <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')">
+        
+      </div>
+      <div class="tal-card-body">
+        <div class="tal-card-name">Mateo G.</div>
+        <div class="tal-card-role">ML engineer · computer vision</div>
+        <p class="tal-card-sum">Computer-vision specialist shipping real-time models on-device.</p>
+        <div class="tal-card-meta"><span>Mexico City, MX</span><span class="tal-rate">From $92/hr</span></div>
+        <span class="tal-card-more">View profile →</span>
+      </div>
+    </a>
+
+    <a class="tal-card" href="profile.html" data-group="cloud">
+      <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')">
+        
+      </div>
+      <div class="tal-card-body">
+        <div class="tal-card-name">Daniel R.</div>
+        <div class="tal-card-role">Cloud &amp; MLOps engineer</div>
+        <p class="tal-card-sum">Builds the infrastructure that keeps models live and observable.</p>
+        <div class="tal-card-meta"><span>Lisbon, PT</span><span class="tal-rate">From $115/hr</span></div>
+        <span class="tal-card-more">View profile →</span>
+      </div>
+    </a>
+
+    <a class="tal-card" href="profile.html" data-group="security">
+      <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')">
+        
+      </div>
+      <div class="tal-card-body">
+        <div class="tal-card-name">Zoe A.</div>
+        <div class="tal-card-role">Security analyst · detection</div>
+        <p class="tal-card-sum">Threat hunting, SIEM, and incident response at scale.</p>
+        <div class="tal-card-meta"><span>Nairobi, KE</span><span class="tal-rate">From $85/hr</span></div>
+        <span class="tal-card-more">View profile →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Get started</span>
+    <h2>Ready to work with Ravi?</h2>
+    <p>Request an intro and we'll confirm availability and set up the first conversation — usually within a week.</p>
+    <a href="../book/" class="btn btn-cta">Request to hire →</a>
+  </div>
+</section>
+
+</main>
+
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+function syncHeaderOffset() {
+  var h = document.getElementById('siteHeader');
+  if (h) document.body.style.paddingTop = h.offsetHeight + 'px';
+}
+syncHeaderOffset();
+window.addEventListener('resize', syncHeaderOffset);
+(function(){
+  var btn = document.getElementById('topAlertClose');
+  if (btn) btn.addEventListener('click', function(){ document.getElementById('topAlert').classList.add('hidden'); syncHeaderOffset(); });
+}());
+/* Mega nav flyouts */
+(function () {
+  var btns = document.querySelectorAll('.nav-btn[data-fly]');
+  var overlay = document.getElementById('navOverlay');
+  var timer;
+  function closeAll() { document.querySelectorAll('.nav-fly').forEach(function(f){ f.classList.remove('open'); }); btns.forEach(function(b){ b.classList.remove('open'); }); if (overlay) overlay.classList.remove('on'); }
+  function scheduleClose(){ timer = setTimeout(closeAll, 220); }
+  function cancelClose(){ clearTimeout(timer); }
+  btns.forEach(function (btn) {
+    var drop = btn.closest('.nav-drop'); var fly = document.getElementById(btn.dataset.fly);
+    if (!drop || !fly) return;
+    drop.addEventListener('mouseenter', function(){ cancelClose(); closeAll(); fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); });
+    drop.addEventListener('mouseleave', scheduleClose);
+    fly.addEventListener('mouseenter', cancelClose);
+    fly.addEventListener('mouseleave', scheduleClose);
+    btn.addEventListener('click', function(e){ e.stopPropagation(); var isOpen = fly.classList.contains('open'); closeAll(); if (!isOpen){ fly.classList.add('open'); btn.classList.add('open'); if (overlay) overlay.classList.add('on'); } });
+  });
+  if (overlay) overlay.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
+}());
+</script>
+</body>
+</html>
