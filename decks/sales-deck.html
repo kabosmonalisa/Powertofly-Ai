@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PowerToFly AI — Sales deck (rebuilt)</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+
+/* ============================================================
+   DECK-ONLY CSS — genuinely new (slides ≠ web sections).
+   Everything COLOUR / FONT / RULE comes from ptf.css tokens.
+   This block owns only: the 16:9 slide frame + a deck type
+   scale in container-query units so a slide scales crisply
+   to any width. Documented in decks/DECK-SYSTEM.md.
+   ============================================================ */
+  body{ background:#EEEDE7; margin:0; font-family:'Inter',sans-serif; color:var(--ink); }
+  .wrap{ max-width:1040px; margin:0 auto; padding:56px 24px 120px; }
+  .lede{ margin:0 0 8px; }
+  .lede h1{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:34px; letter-spacing:-.02em; margin:0 0 10px; }
+  .lede p{ color:var(--ink-2); font-size:16px; line-height:1.55; max-width:66ch; margin:0 0 4px; }
+  .slabel{ display:flex; align-items:baseline; gap:10px; margin:38px 0 12px; }
+  .slabel b{ font-family:'Inter Tight',sans-serif; font-size:18px; }
+  .slabel span{ font-size:13px; color:var(--ink-3); }
+  .slabel .fix{ color:var(--green); font-weight:600; }
+
+  /* --- the slide frame --- */
+  .slide{
+    container-type: inline-size;
+    aspect-ratio:16/9; width:100%;
+    background:var(--bg); color:var(--ink);
+    border-radius:14px; overflow:hidden; position:relative;
+    box-shadow:0 12px 40px rgba(10,10,10,.14); border:1px solid var(--line);
+  }
+  .slide.dark{ background:var(--ink); color:#fff; }
+  /* safe area + gradient hairline used on cover/dividers */
+  .pad{ position:absolute; inset:0; padding:5.6cqw 6.5cqw; display:flex; flex-direction:column; }
+  .hair{ position:absolute; left:0; right:0; height:.5cqw; background:linear-gradient(90deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); }
+
+  /* deck type scale (container-query units → scales with slide width) */
+  .d-eyebrow{ font-size:1.15cqw; letter-spacing:.16em; text-transform:uppercase; font-weight:700; color:var(--green); display:inline-flex; align-items:center; gap:.7cqw; margin:0 0 2.4cqw; }
+  .d-eyebrow.on-dark{ color:var(--green-mid); }
+  .d-eyebrow .d-dot{ width:.9cqw; height:.9cqw; border-radius:50%; background:currentColor; display:inline-block; }
+  .d-h1{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5.4cqw; line-height:1.03; letter-spacing:-.03em; margin:0; }
+  .d-h2{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:4.2cqw; line-height:1.05; letter-spacing:-.03em; margin:0 0 2cqw; }
+  .d-body{ font-size:1.75cqw; line-height:1.5; color:var(--ink-2); margin:0; }
+  .slide.dark .d-body{ color:rgba(255,255,255,.82); }
+  .d-em{ font-style:italic; font-weight:800; } /* italic-plain: SAME colour, no gradient */
+  .d-foot{ margin-top:auto; display:flex; justify-content:space-between; align-items:center; font-size:1.15cqw; color:var(--ink-3); }
+  .slide.dark .d-foot{ color:rgba(255,255,255,.5); }
+  .d-logo{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.7cqw; letter-spacing:-.02em; }
+  .slide.dark .d-logo{ color:#fff; }
+  .d-logo .ai{ background:linear-gradient(120deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* two-column */
+  .cols{ display:grid; grid-template-columns:1fr 1fr; gap:5cqw; flex:1; align-items:center; }
+  .visual{ background:var(--bg-soft); border-radius:2cqw; align-self:stretch; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; color:var(--ink-3); font-size:1.4cqw; border:1px solid var(--line); }
+
+  /* stat row */
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:4cqw 3cqw; margin-top:1cqw; }
+  .stat .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5.2cqw; line-height:1; color:var(--green); letter-spacing:-.02em; }
+  .stat .l{ font-size:1.5cqw; color:var(--ink-2); margin-top:.8cqw; }
+
+  /* 3-up feature cards */
+  .feat{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6cqw; flex:1; align-items:stretch; }
+  .fcard{ border:1px solid var(--line); border-radius:1.8cqw; padding:3cqw; display:flex; flex-direction:column; gap:1.4cqw; background:var(--bg); }
+  .fcard svg{ width:4.4cqw; height:4.4cqw; }
+  .fcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2cqw; margin:0; letter-spacing:-.01em; }
+  .fcard p{ font-size:1.4cqw; line-height:1.45; color:var(--ink-2); margin:0; }
+
+  /* agenda / steps */
+  .agenda{ display:flex; flex-direction:column; gap:2.2cqw; margin-top:1cqw; }
+  .arow{ display:flex; align-items:center; gap:2.4cqw; }
+  .arow .an{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.6cqw; color:var(--green); width:4cqw; }
+  .arow .at{ font-family:'Inter Tight',sans-serif; font-weight:600; font-size:2.4cqw; letter-spacing:-.01em; }
+
+  /* quote */
+  .quote{ flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .quote blockquote{ font-family:'Inter Tight',sans-serif; font-weight:600; font-size:3.4cqw; line-height:1.2; letter-spacing:-.02em; margin:0 0 3cqw; }
+  .quote .who{ font-size:1.5cqw; color:var(--ink-3); }
+  .quote .who b{ color:var(--ink); }
+
+  /* logo wall */
+  .logos{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; flex:1; align-items:center; margin-top:2cqw; }
+  .logos .lg{ height:7cqw; border-radius:1.2cqw; background:var(--bg-soft); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; color:var(--ink-3); font-size:1.3cqw; font-weight:600; }
+
+  /* differentiator grid (6-up) */
+  .grid6{ display:grid; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; gap:1.4cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .dcard{ border:1px solid var(--line); border-left:.5cqw solid var(--green); border-radius:1.2cqw; padding:1.5cqw 1.8cqw; display:flex; flex-direction:column; gap:.35cqw; justify-content:center; }
+  .dcard .dn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.2cqw; color:var(--green); }
+  .dcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:0; letter-spacing:-.01em; }
+  .dcard p{ font-size:1.25cqw; line-height:1.35; color:var(--ink-2); margin:0; }
+
+  /* problem / challenges (2×2) */
+  .probs{ display:grid; grid-template-columns:repeat(2,1fr); grid-auto-rows:1fr; gap:2cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .pcard{ display:flex; flex-direction:column; gap:.5cqw; padding:2cqw 0 0; border-top:.25cqw solid var(--line); }
+  .pcard .ps{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.6cqw; color:var(--green); line-height:1; }
+  .pcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.8cqw; margin:.4cqw 0 0; }
+  .pcard p{ font-size:1.3cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* service 2-up with checklist */
+  .svc{ display:grid; grid-template-columns:1fr 1fr; gap:4cqw; flex:1; margin-top:1cqw; }
+  .svccol .svcnum{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.4cqw; color:var(--green); }
+  .svccol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2.4cqw; margin:.3cqw 0 .8cqw; letter-spacing:-.01em; }
+  .svccol > p{ font-size:1.4cqw; line-height:1.45; color:var(--ink-2); margin:0 0 1.4cqw; }
+  .checks{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.7cqw; }
+  .checks li{ font-size:1.35cqw; color:var(--ink); display:flex; gap:1cqw; align-items:baseline; }
+  .checks li::before{ content:"✓"; color:var(--green); font-weight:700; }
+  .svclbl{ font-size:1.05cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin:1.4cqw 0 .6cqw; }
+
+  /* benefits / outcomes 4-up */
+  .bens{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; flex:1; align-items:start; margin-top:1cqw; }
+  .ben{ display:flex; flex-direction:column; gap:.7cqw; }
+  .ben .bnum{ width:3.4cqw; height:3.4cqw; border-radius:50%; background:var(--bg-soft); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.5cqw; color:var(--green); }
+  .ben h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.4cqw 0 0; }
+  .ben p{ font-size:1.25cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* comparison matrix (4-col) */
+  .cmp{ display:grid; grid-template-columns:repeat(4,1fr); gap:1.6cqw; flex:1; margin-top:1cqw; }
+  .cmpcol{ border:1px solid var(--line); border-radius:1.2cqw; padding:1.8cqw 1.6cqw; display:flex; flex-direction:column; gap:.8cqw; }
+  .cmpcol--us{ border-color:var(--green); background:rgba(10,140,102,.05); }
+  .cmpcol .cat{ font-size:.95cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
+  .cmpcol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.1cqw 0 .6cqw; }
+  .cmpcol ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.55cqw; }
+  .cmpcol li{ font-size:1.15cqw; color:var(--ink-2); display:flex; gap:.7cqw; align-items:baseline; }
+  .cmpcol li.y::before{ content:"✓"; color:var(--green); font-weight:700; }
+  .cmpcol li.n::before{ content:"✕"; color:var(--ink-3); font-weight:700; }
+
+  /* case study / client outcomes 3-up */
+  .cases{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.6cqw; flex:1; margin-top:1cqw; }
+  .case{ border:1px solid var(--line); border-radius:1.4cqw; padding:2.2cqw; display:flex; flex-direction:column; gap:.6cqw; }
+  .case h3{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2cqw; margin:0; }
+  .case .tags{ font-size:1.1cqw; color:var(--ink-3); margin-bottom:1cqw; }
+  .cmetric{ display:flex; align-items:baseline; gap:1cqw; }
+  .cmetric .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.1cqw; color:var(--green); min-width:6cqw; }
+  .cmetric .l{ font-size:1.2cqw; color:var(--ink-2); }
+
+  /* testimonial grid (2×2) */
+  .tgrid{ display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:2cqw 2.6cqw; flex:1; margin-top:1cqw; }
+  .tqcard{ border:1px solid var(--line); border-radius:1.4cqw; padding:2cqw 2.2cqw; display:flex; flex-direction:column; gap:.8cqw; }
+  .tqcard .stars{ color:var(--green); font-size:1.2cqw; letter-spacing:.15cqw; }
+  .tqcard blockquote{ font-size:1.35cqw; line-height:1.45; margin:0; color:var(--ink); }
+  .tqcard .meta{ margin-top:auto; font-size:1.1cqw; color:var(--ink-3); }
+  .tqcard .meta b{ color:var(--ink); }
+
+  /* pricing table (3-up) */
+  .pricing{ display:grid; grid-template-columns:repeat(3,1fr); gap:2.4cqw; flex:1; margin-top:1cqw; }
+  .pcol{ border:1px solid var(--line); border-radius:1.4cqw; padding:2.2cqw 2cqw; display:flex; flex-direction:column; gap:.5cqw; }
+  .pcol .peyebrow{ font-size:1cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--green); font-weight:700; }
+  .pcol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.9cqw; margin:.1cqw 0 .2cqw; }
+  .pcol > p{ font-size:1.15cqw; color:var(--ink-3); margin:0 0 1cqw; }
+  .prow{ display:flex; justify-content:space-between; gap:1cqw; padding:.7cqw 0; border-top:1px solid var(--line); font-size:1.2cqw; }
+  .prow b{ font-family:'Inter Tight',sans-serif; color:var(--green); font-weight:700; white-space:nowrap; }
+  .pfoot{ font-size:1cqw; color:var(--ink-3); margin-top:.8cqw; }
+
+  /* promise (dark + photo split) */
+  .promo{ display:grid; grid-template-columns:1.05fr .95fr; gap:4cqw; flex:1; align-items:center; }
+  .promo-img{ background-size:cover; background-position:center; border-radius:2cqw; align-self:stretch; min-height:34cqw; }
+
+  /* three-layer talent (dark) + avatar cluster */
+  .layers{ display:flex; flex-direction:column; gap:1.3cqw; }
+  .layer{ border-left:.45cqw solid var(--green); padding:.2cqw 0 .2cqw 2.2cqw; }
+  .layer h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2.1cqw; margin:0; }
+  .layer p{ font-size:1.3cqw; line-height:1.38; margin:.3cqw 0 0; color:rgba(255,255,255,.72); }
+  .avatars{ display:flex; align-items:center; margin-top:1.6cqw; }
+  .avatars img{ width:3.4cqw; height:3.4cqw; border-radius:50%; object-fit:cover; border:.28cqw solid var(--ink); margin-left:-.8cqw; }
+  .avatars img:first-child{ margin-left:0; }
+  .avatars .albl{ margin-left:1.4cqw; font-size:1.2cqw; color:rgba(255,255,255,.6); }
+
+  /* how-it-works process (horizontal) */
+  .proc{ display:grid; grid-template-columns:repeat(4,1fr); gap:2.4cqw; margin-top:1cqw; }
+  .pstep .pn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.8cqw; color:var(--green); line-height:1; }
+  .pstep h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.6cqw 0 .3cqw; }
+  .pstep p{ font-size:1.25cqw; line-height:1.4; color:var(--ink-2); margin:0; }
+
+  /* event sponsorship — audience + inclusions */
+  .audience{ display:grid; grid-template-columns:.85fr 1.15fr; gap:4cqw; flex:1; align-items:center; }
+  .aud-big .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:5cqw; color:var(--green); line-height:1; }
+  .aud-big .l{ font-size:1.4cqw; color:var(--ink-2); margin-top:1cqw; line-height:1.4; }
+
+  /* event calendar */
+  .cal{ display:grid; grid-template-columns:repeat(3,1fr); grid-auto-rows:1fr; gap:1.8cqw; flex:1; margin-top:1cqw; }
+  .calcard{ border:1px solid var(--line); border-radius:1.2cqw; padding:1.5cqw 1.7cqw; display:flex; flex-direction:column; gap:.25cqw; justify-content:center; }
+  .calcard .cmonth{ font-size:1cqw; letter-spacing:.12em; text-transform:uppercase; color:var(--green); font-weight:700; }
+  .calcard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:.1cqw 0 0; }
+  .calcard p{ font-size:1.2cqw; color:var(--ink-3); margin:0; }
+
+  /* results band on dark (5-up) */
+  .stats.five{ grid-template-columns:repeat(5,1fr); gap:2cqw; }
+  .slide.dark .stat .l{ color:rgba(255,255,255,.7); }
+
+  /* closing CTA */
+  .cta-center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
+  .cta-center .btn-pill{ display:inline-block; background:#fff; color:var(--ink); font-weight:600; font-size:1.7cqw; padding:1.5cqw 3.4cqw; border-radius:99px; margin-top:3cqw; }
+
+  /* NEW TEMPLATE — media / video 2-up (Videos offering) */
+  .media{ display:grid; grid-template-columns:1fr 1fr; gap:3cqw; flex:1; margin-top:1cqw; align-items:start; }
+  .mediacard{ display:flex; flex-direction:column; gap:1.1cqw; }
+  .media-thumb{ background:var(--ink); border-radius:1.6cqw; aspect-ratio:16/9; display:flex; align-items:center; justify-content:center; }
+  .media-thumb .play{ width:5cqw; height:5cqw; border-radius:50%; background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center; }
+  .media-thumb .play svg{ width:2cqw; height:2cqw; }
+  .mediacard h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2cqw; margin:0; letter-spacing:-.01em; }
+  .mediacard p{ font-size:1.35cqw; line-height:1.42; color:var(--ink-2); margin:0; }
+  /* pricing variant — 4 event packages */
+  .pricing.four{ grid-template-columns:repeat(4,1fr); gap:1.7cqw; }
+  .pricing.four .pcol h3{ font-size:2.4cqw; }
+  /* NEW TEMPLATE — thank-you / contacts (dark) */
+  .contacts{ display:grid; grid-template-columns:1fr 1fr; gap:4cqw; flex:1; align-items:center; max-width:80%; }
+  .contact{ display:flex; align-items:center; gap:1.8cqw; }
+  .contact .ph{ width:5.5cqw; height:5.5cqw; flex:none; border-radius:50%; background:rgba(255,255,255,.07); border:.18cqw dashed rgba(255,255,255,.32); display:flex; align-items:center; justify-content:center; font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.9cqw; color:rgba(255,255,255,.55); }
+  .contact h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:2.3cqw; margin:0; color:#fff; }
+  .contact .role{ font-size:1.4cqw; color:rgba(255,255,255,.72); margin:.5cqw 0 .3cqw; }
+  .contact .email{ font-size:1.4cqw; color:var(--green-mid); }
+  /* section divider subline */
+  .div-sub{ font-size:1.7cqw; color:rgba(255,255,255,.7); margin-top:1.4cqw; max-width:60%; line-height:1.35; }
+  /* NEW — train-style product mock visual (replaces generic icons) */
+  .mockcol{ display:grid; grid-template-columns:1.05fr .95fr; gap:4cqw; flex:1; align-items:center; }
+  .covergrid{ display:grid; grid-template-columns:1.25fr .75fr; gap:4cqw; flex:1; align-items:center; }
+  .soln{ display:flex; flex-direction:column; gap:.6cqw; }
+  .solnrow{ display:flex; gap:1.6cqw; align-items:baseline; padding-top:.85cqw; border-top:.2cqw solid var(--line); }
+  .solnrow b{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.9cqw; color:var(--green); min-width:5cqw; }
+  .solnrow span{ font-size:1.35cqw; color:var(--ink-2); line-height:1.35; }
+  .deckmock{ background:#0C1410; border:1px solid rgba(255,255,255,.09); border-radius:1.8cqw; padding:1.9cqw; box-shadow:0 18px 50px rgba(0,0,0,.28); }
+  .dm-head{ display:flex; align-items:center; gap:1cqw; margin-bottom:1.3cqw; }
+  .dm-avs{ display:flex; }
+  .dm-avs img{ width:2.8cqw; height:2.8cqw; border-radius:50%; object-fit:cover; border:.22cqw solid #0C1410; margin-left:-.7cqw; }
+  .dm-avs img:first-child{ margin-left:0; }
+  .dm-ttl{ font-size:1.2cqw; font-weight:700; color:#fff; line-height:1.15; font-family:'Inter Tight',sans-serif; }
+  .dm-sub{ font-size:1cqw; color:rgba(255,255,255,.4); }
+  .dm-live{ margin-left:auto; display:flex; align-items:center; gap:.5cqw; font-size:.9cqw; letter-spacing:.1em; color:rgba(255,255,255,.5); }
+  .dm-dot{ width:.7cqw; height:.7cqw; border-radius:50%; background:var(--green-mid); }
+  .dm-row{ display:flex; align-items:center; gap:1cqw; padding:.95cqw 1.3cqw; border-radius:1.1cqw; background:rgba(255,255,255,.045); margin-bottom:.75cqw; font-size:1.15cqw; color:rgba(255,255,255,.82); }
+  .dm-row:last-child{ margin-bottom:0; }
+  .dm-row.active{ background:rgba(79,232,169,.13); border:1px solid rgba(79,232,169,.42); color:#fff; }
+  .dm-row .tag{ margin-left:auto; font-size:.92cqw; padding:.4cqw .9cqw; border-radius:99px; background:rgba(255,255,255,.09); color:rgba(255,255,255,.7); white-space:nowrap; }
+  .dm-row.active .tag{ background:var(--green-mid); color:#04231a; font-weight:700; }
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
+  </linearGradient>
+</defs></svg>
+<div class="wrap">
+
+  <div class="lede">
+    <h1>PowerToFly AI — sales deck</h1>
+    <p>The GTM sales deck, rebuilt from the <b>real content</b> of the current deck onto our on-brand templates — now with the five sections you asked to keep (dedicated events, contacts, extra proof stats, the Build·Hire·Train framing, and section dividers). Internal GTM / ICP / appendix slides remain dropped.</p>
+  </div>
+
+  <!-- 1 COVER -->
+  <div class="slabel"><b>1 · Cover</b> <span>Cover template</span></div>
+  <div class="slide dark"><div class="hair" style="top:0"></div><div class="pad">
+    <div class="d-logo">PowerToFly <span class="ai">AI</span></div>
+    <div class="covergrid">
+      <div>
+        <span class="d-eyebrow on-dark"><span class="d-dot"></span>Your AI workforce partner</span>
+        <h1 class="d-h1" style="font-size:4.6cqw;">Your AI is only as good as the <em class="d-em">people</em> behind it.</h1>
+        <p class="d-body" style="margin-top:2cqw;">An active global community of technologists and functional experts — native AI capability, AI fluency, and deep domain expertise.</p>
+      </div>
+      <div class="deckmock">
+        <div class="dm-head">
+          <div class="dm-avs"><img src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt=""></div>
+          <div><div class="dm-ttl">New match</div><div class="dm-sub">Senior ML Engineer · Fintech</div></div>
+          <div class="dm-live"><span class="dm-dot"></span>98% FIT</div>
+        </div>
+        <div class="dm-row"><span>Domain · Fraud &amp; risk</span><span class="tag">Verified</span></div>
+        <div class="dm-row"><span>AI · RLHF, fine-tuning</span><span class="tag">Verified</span></div>
+        <div class="dm-row active"><span>Trusted expert</span><span class="tag">Shortlist ✓</span></div>
+      </div>
+    </div>
+    <div class="d-foot"><span>GTM sales overview</span><span>powertofly.com</span></div>
+  </div></div>
+
+  <!-- 2 WHO WE ARE / STATS -->
+  <div class="slabel"><b>2 · Who we are</b> <span>Stat template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Who we are</span>
+    <h2 class="d-h2">Trusted by top brands, built on a community <em class="d-em">no platform can replicate</em></h2>
+    <div class="stats">
+      <div class="stat"><div class="n">115K+</div><div class="l">AI-skilled professionals</div></div>
+      <div class="stat"><div class="n">190</div><div class="l">Countries represented</div></div>
+      <div class="stat"><div class="n">80%</div><div class="l">Women or non-binary</div></div>
+      <div class="stat"><div class="n">70%</div><div class="l">BIPOC members</div></div>
+      <div class="stat"><div class="n">10 yrs+</div><div class="l">Community trust</div></div>
+      <div class="stat"><div class="n">&lt;14 days</div><div class="l">Avg. time to match</div></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>2</span></div>
+  </div></div>
+
+  <!-- 3 THE NUMBERS BEHIND THE COMMUNITY  [ADDED BACK #3] -->
+  <div class="slabel"><b>3 · The numbers</b> <span class="fix">added back — extra proof stats (old slide 62/63)</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">The numbers behind the community</span>
+    <h2 class="d-h2" style="margin-bottom:.4cqw;">Every claim, backed by <em class="d-em">proof</em></h2>
+    <div class="stats">
+      <div class="stat"><div class="n">400M+</div><div class="l">Professionals across networks</div></div>
+      <div class="stat"><div class="n">1.2M+</div><div class="l">Annual website visits</div></div>
+      <div class="stat"><div class="n">27%</div><div class="l">Hold a graduate degree</div></div>
+      <div class="stat"><div class="n">5 days</div><div class="l">Avg. weeks to hire</div></div>
+      <div class="stat"><div class="n">Since 2014</div><div class="l">Building the community</div></div>
+      <div class="stat"><div class="n">5 yrs</div><div class="l">Avg. retention of placed talent</div></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>3</span></div>
+  </div></div>
+
+  <!-- 4 PROBLEM -->
+  <div class="slabel"><b>4 · The problem</b> <span>Problem 2×2 template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">The problem</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.4cqw;">AI initiatives stall without the right <em class="d-em">talent</em></h2>
+    <div class="probs">
+      <div class="pcard"><span class="ps">Supply gap</span><h3>Demand has outrun supply</h3><p>Every major market is short on AI-native engineers, ML specialists, and domain experts.</p></div>
+      <div class="pcard"><span class="ps">45+ days</span><h3>Roles stay open</h3><p>Slipped roadmaps and lost ground while competitors ship and you're still interviewing.</p></div>
+      <div class="pcard"><span class="ps">1 model</span><h3>One hiring model isn't enough</h3><p>You need full-time, fractional, and model-training talent — often at the same time.</p></div>
+      <div class="pcard"><span class="ps">78%</span><h3>Homogeneous teams create risk</h3><p>Of AI researchers are male; the bias in who builds your models ships to production.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>4</span></div>
+  </div></div>
+
+  <!-- 5 THE TALENT (three-layer, dark) -->
+  <div class="slabel"><b>5 · The talent</b> <span>Three-layer template (dark)</span></div>
+  <div class="slide dark"><div class="pad">
+    <div class="mockcol">
+      <div>
+        <span class="d-eyebrow on-dark">The talent</span>
+        <h2 class="d-h2" style="font-size:2.7cqw; margin-bottom:1.2cqw;">AI-native, AI-fluent, and functional <em class="d-em">domain experts</em></h2>
+        <div class="layers">
+          <div class="layer"><h3>Native AI capability</h3><p>Fine-tuning, RLHF, red-teaming, and evaluation.</p></div>
+          <div class="layer"><h3>AI fluency</h3><p>AI woven into daily work, judged critically.</p></div>
+          <div class="layer"><h3>Deep domain expertise</h3><p>Came from your sector first — finance, healthcare, legal.</p></div>
+        </div>
+      </div>
+      <div class="deckmock">
+        <div class="dm-head">
+          <div class="dm-avs"><img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt=""></div>
+          <div><div class="dm-ttl">AI Engineer</div><div class="dm-sub">8 yrs · Healthcare AI</div></div>
+          <div class="dm-live"><span class="dm-dot"></span>VERIFIED</div>
+        </div>
+        <div class="dm-row"><span>Native · Fine-tuning, RLHF</span><span class="tag">Expert</span></div>
+        <div class="dm-row"><span>Fluent · Daily AI workflow</span><span class="tag">Yes</span></div>
+        <div class="dm-row active"><span>Domain · Clinical NLP</span><span class="tag">10 yrs ✓</span></div>
+      </div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>5</span></div>
+  </div></div>
+
+  <!-- 6 THE SOLUTION — BUILD/HIRE/TRAIN  [ADDED BACK #4] -->
+  <div class="slabel"><b>6 · The solution</b> <span class="fix">added back — Build·Hire·Train framing (old slide 65)</span></div>
+  <div class="slide"><div class="pad">
+    <div class="mockcol">
+      <div>
+        <span class="d-eyebrow">The solution</span>
+        <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1.4cqw;">Choose one, or combine all <em class="d-em">three</em></h2>
+        <div class="soln">
+          <div class="solnrow"><b>Build</b><span>Custom search &amp; staff augmentation to stand up an AI team.</span></div>
+          <div class="solnrow"><b>Hire</b><span>Direct or fractional — verified AI and domain talent.</span></div>
+          <div class="solnrow"><b>Train</b><span>Embedded teams to label, evaluate, and red-team your models.</span></div>
+        </div>
+      </div>
+      <div class="deckmock">
+        <div class="dm-head">
+          <div class="dm-avs">
+            <img src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="">
+            <img src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="">
+            <img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="">
+          </div>
+          <div><div class="dm-ttl">Your AI workforce</div><div class="dm-sub">3 engagements active</div></div>
+          <div class="dm-live"><span class="dm-dot"></span>LIVE</div>
+        </div>
+        <div class="dm-row"><span>Hire · Senior ML Engineer</span><span class="tag">Shortlisted</span></div>
+        <div class="dm-row"><span>Train · RLHF evaluation</span><span class="tag">In progress</span></div>
+        <div class="dm-row active"><span>Build · Custom AI pod</span><span class="tag">Staffing ✓</span></div>
+      </div>
+    </div>
+    <div class="d-foot"><span>A hybrid AI talent strategy</span><span>6</span></div>
+  </div></div>
+
+  <!-- 7 WHAT WE DO -->
+  <div class="slabel"><b>7 · What we do</b> <span>Service breakdown template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">What we do</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Flexible ways to scale your team</h2>
+    <div class="svc">
+      <div class="svccol"><span class="svcnum">01</span><h3>Hire AI talent</h3>
+        <p>Verified, qualified professionals — direct placement or fractional.</p>
+        <ul class="checks"><li>ML engineers, data & applied-research scientists</li><li>AI PMs & solutions engineers</li><li>RLHF, MLOps, AI safety & cyber</li></ul>
+        <div class="svclbl">Supported by</div>
+        <ul class="checks"><li>Talent acquisition services</li><li>Recruiting & networking events</li></ul></div>
+      <div class="svccol"><span class="svcnum">02</span><h3>Train your models</h3>
+        <p>Embedded and outsourced teams to train, evaluate, and red-team your models.</p>
+        <ul class="checks"><li>Domain evaluators & annotation specialists</li><li>RLHF & model evaluation</li><li>Red-teaming & AI safety reviewers</li></ul>
+        <div class="svclbl">Engagement</div>
+        <ul class="checks"><li>Contract, contract-to-hire, or project</li></ul></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>7</span></div>
+  </div></div>
+
+  <!-- 8 VERTICALS -->
+  <div class="slabel"><b>8 · Our verticals</b> <span>6-up grid template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Our verticals</span>
+    <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1cqw;">We know your industry, not just your <em class="d-em">job titles</em></h2>
+    <div class="grid6">
+      <div class="dcard"><span class="dn">01</span><h3>Financial services</h3><p>Quant, risk, compliance, fraud detection, algorithmic trading.</p></div>
+      <div class="dcard"><span class="dn">02</span><h3>Technology</h3><p>AI platform engineering, applied research, MLOps.</p></div>
+      <div class="dcard"><span class="dn">03</span><h3>Healthcare & life sciences</h3><p>Clinical annotation, regulatory and safety review.</p></div>
+      <div class="dcard"><span class="dn">04</span><h3>Legal & compliance</h3><p>Legal reviewers, policy, and red-team specialists.</p></div>
+      <div class="dcard"><span class="dn">05</span><h3>Media & consumer</h3><p>Content, multilingual and cultural reviewers.</p></div>
+      <div class="dcard"><span class="dn">06</span><h3>Manufacturing & more</h3><p>Domain evaluators across regulated industries.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>8</span></div>
+  </div></div>
+
+  <!-- 9 DIFFERENTIATORS -->
+  <div class="slabel"><b>9 · Why PowerToFly</b> <span>6-up grid template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Why PowerToFly</span>
+    <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1cqw;">No one else is <em class="d-em">built like this</em></h2>
+    <div class="grid6">
+      <div class="dcard"><span class="dn">01</span><h3>A community you can't replicate</h3><p>12 years of real relationships — a network, not a database.</p></div>
+      <div class="dcard"><span class="dn">02</span><h3>Verified domain expertise</h3><p>Matched on real experience, not keywords.</p></div>
+      <div class="dcard"><span class="dn">03</span><h3>Global, locally compliant</h3><p>190 countries — compliance handled.</p></div>
+      <div class="dcard"><span class="dn">04</span><h3>Flexible, transparent pricing</h3><p>Full-time, fractional, or training pods.</p></div>
+      <div class="dcard"><span class="dn">05</span><h3>Intersectionality as an edge</h3><p>Reach talent competitors miss.</p></div>
+      <div class="dcard"><span class="dn">06</span><h3>Mid-to-senior only</h3><p>Fewer, better — ready day one.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>9</span></div>
+  </div></div>
+
+  <!-- HOW WE VERIFY — transported from old deck (slide 39) -->
+  <div class="slabel"><b>10 · How we verify</b> <span class="fix">re-audit: transported from old deck (slide 39 — verify→trust)</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">How we verify</span>
+    <h2 class="d-h2" style="font-size:3cqw; margin-bottom:2cqw;">From <em class="d-em">verified</em> to trusted</h2>
+    <div class="proc">
+      <div class="pstep"><div class="pn">01</div><h3>Verified</h3><p>Real identity and core profile information confirmed.</p></div>
+      <div class="pstep"><div class="pn">02</div><h3>Vetted</h3><p>Skills and experience validated against the role.</p></div>
+      <div class="pstep"><div class="pn">03</div><h3>Qualified</h3><p>Assessed for genuine fit to your specific need.</p></div>
+      <div class="pstep"><div class="pn">04</div><h3>Trusted expert</h3><p>A track record you and your team can rely on.</p></div>
+    </div>
+    <div class="d-foot"><span>Every PowerToFly expert moves through this progression</span><span>10</span></div>
+  </div></div>
+
+  <!-- 10 PROCESS -->
+  <div class="slabel"><b>11 · The process</b> <span>How-it-works template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">The process</span>
+    <h2 class="d-h2" style="font-size:3cqw; margin-bottom:2cqw;">From brief to first match in <em class="d-em">under 14 days</em></h2>
+    <div class="proc">
+      <div class="pstep"><div class="pn">01</div><h3>Tell us what you need</h3><p>The role, the context, and what success looks like.</p></div>
+      <div class="pstep"><div class="pn">02</div><h3>We surface experts</h3><p>Pre-vetted people who already know your industry.</p></div>
+      <div class="pstep"><div class="pn">03</div><h3>You interview a shortlist</h3><p>A handful of strong fits, not a stack of résumés.</p></div>
+      <div class="pstep"><div class="pn">04</div><h3>Hire or engage</h3><p>Full-time, fractional, or to train your models.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>11</span></div>
+  </div></div>
+
+  <!-- 11 OUTCOMES -->
+  <div class="slabel"><b>12 · Business impact</b> <span>Outcomes 4-up template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Business impact</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:2cqw;">When they're interviewing, you're in <em class="d-em">production</em></h2>
+    <div class="bens">
+      <div class="ben"><span class="bnum">1</span><h3>Accelerate delivery</h3><p>Verified experts contribute from day one — not month three.</p></div>
+      <div class="ben"><span class="bnum">2</span><h3>Improve AI quality</h3><p>Domain experts who know your data produce better models and evals.</p></div>
+      <div class="ben"><span class="bnum">3</span><h3>Scale efficiently</h3><p>A verified bench that scales with your roadmap — no recruiting lag.</p></div>
+      <div class="ben"><span class="bnum">4</span><h3>Reduce risk</h3><p>Project-to-hire lets you validate fit before you commit.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>12</span></div>
+  </div></div>
+
+  <!-- 12 COMPARISON -->
+  <div class="slabel"><b>13 · What sets us apart</b> <span>Comparison template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">What sets us apart</span>
+    <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">AI expertise. Representative talent. End-to-end hiring.</h2>
+    <div class="cmp">
+      <div class="cmpcol"><span class="cat">AI marketplaces</span><h3>Toptal · Scale · Andela</h3><ul><li class="y">AI & technical vetting</li><li class="n">Homogeneous pool</li><li class="n">Premium-only pricing</li><li class="n">Limited hiring support</li></ul></div>
+      <div class="cmpcol"><span class="cat">Talent communities</span><h3>Handshake · Fairygodboss</h3><ul><li class="y">Engaged communities</li><li class="n">No AI specialization</li><li class="n">Limited vetting</li><li class="n">Limited hiring services</li></ul></div>
+      <div class="cmpcol"><span class="cat">Traditional staffing</span><h3>Robert Half · TEKsystems</h3><ul><li class="y">Recruiting & placement</li><li class="n">Generalist pool</li><li class="n">No AI specialization</li><li class="n">No community access</li></ul></div>
+      <div class="cmpcol cmpcol--us"><span class="cat">PowerToFly</span><h3>AI + domain · 190 countries</h3><ul><li class="y">AI + domain expertise</li><li class="y">Representative community</li><li class="y">Flexible pricing & hiring</li><li class="y">Full placement support</li></ul></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>13</span></div>
+  </div></div>
+
+  <!-- 13 DIVIDER — EVENTS  [ADDED BACK #5] -->
+  <div class="slabel"><b>14 · Divider</b> <span class="fix">added back — section divider</span></div>
+  <div class="slide dark"><div class="pad">
+    <span class="d-eyebrow on-dark">Section 02</span>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="d-h2" style="font-size:5.4cqw; margin:0;">Events</h2>
+      <p class="div-sub">Virtual and onsite events that put your team in front of curated, engaged talent.</p>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>14</span></div>
+  </div></div>
+
+  <!-- 14 EVENT SPONSORSHIP -->
+  <div class="slabel"><b>15 · Events</b> <span>Event sponsorship template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Multi-sponsor virtual job fair</span>
+    <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">We bring the right people into the room</h2>
+    <div class="audience">
+      <div class="aud-big"><div class="n">500–1,000</div><div class="l">AI-skilled professionals per event — main stage + breakout rooms, hosted on Zoom with full recording.</div></div>
+      <ul class="checks">
+        <li>Logo across all event marketing, registration & emails</li>
+        <li>Post-event report — applications, attendees, conversion</li>
+        <li>On-demand candidate list — 500–1,000 warm registrants</li>
+        <li>Brand reach — post-event engagement campaigns & video</li>
+      </ul>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>15</span></div>
+  </div></div>
+
+  <!-- 15 DEDICATED EVENTS — TRY BEFORE YOU APPLY  [ADDED BACK #1] -->
+  <div class="slabel"><b>16 · Dedicated events</b> <span class="fix">added back — "Try before you apply" (old slide 13)</span></div>
+  <div class="slide"><div class="pad">
+    <div class="mockcol">
+      <div>
+        <span class="d-eyebrow">Dedicated events</span>
+        <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1.4cqw;">"Try before you <em class="d-em">apply</em>"</h2>
+        <div class="soln">
+          <div class="solnrow"><b>Brand</b><span>Feature your own team and build authentic brand credibility.</span></div>
+          <div class="solnrow"><b>Reach</b><span>Convert active seekers and passive candidates into applicants.</span></div>
+          <div class="solnrow"><b>Quality</b><span>Strategically sourced, engaged talent — better conversations.</span></div>
+        </div>
+      </div>
+      <div class="deckmock">
+        <div class="dm-head">
+          <div class="dm-avs">
+            <img src="../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt="">
+            <img src="../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg" alt="">
+            <img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="">
+          </div>
+          <div><div class="dm-ttl">Empower Her · Job Fair</div><div class="dm-sub">Virtual · main stage + breakouts</div></div>
+          <div class="dm-live"><span class="dm-dot"></span>LIVE</div>
+        </div>
+        <div class="dm-row"><span>Registrations</span><span class="tag">842</span></div>
+        <div class="dm-row active"><span>Main stage · Live now</span><span class="tag">LIVE</span></div>
+        <div class="dm-row"><span>Breakout · AI &amp; Data</span><span class="tag">Starting</span></div>
+      </div>
+    </div>
+    <div class="d-foot"><span>66% of job seekers trust employees most on inclusion — Glassdoor</span><span>16</span></div>
+  </div></div>
+
+  <!-- 16 RESULTS BAND (dark) -->
+  <div class="slabel"><b>17 · Measurable results</b> <span>Results band template (dark)</span></div>
+  <div class="slide dark"><div class="pad">
+    <span class="d-eyebrow on-dark">Measurable results</span>
+    <h2 class="d-h2" style="font-size:3.1cqw; margin-bottom:2.4cqw;">Events that convert to <em class="d-em">hires</em></h2>
+    <p class="d-body" style="max-width:64%; margin:-1cqw 0 0;">One sponsored event moves talent from awareness all the way to hire — with the numbers to prove it at every step.</p>
+    <div class="stats five" style="flex:1; align-content:center; gap:2.6cqw 2cqw;">
+      <div class="stat"><div class="n">1,000+</div><div class="l">Top-of-funnel reach</div></div>
+      <div class="stat"><div class="n">50–200</div><div class="l">RSVPs per event</div></div>
+      <div class="stat"><div class="n">40%</div><div class="l">Avg. attendance</div></div>
+      <div class="stat"><div class="n">55%</div><div class="l">Lift in interest</div></div>
+      <div class="stat"><div class="n">3–5</div><div class="l">Hires per event</div></div>
+    </div>
+    <div class="d-foot"><span>Best-practice benchmarks</span><span>17</span></div>
+  </div></div>
+
+  <!-- 17 VIDEOS — NEW TEMPLATE -->
+  <div class="slabel"><b>18 · Employer brand videos</b> <span class="fix">NEW template — media / video 2-up</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Employer brand videos</span>
+    <h2 class="d-h2" style="font-size:3cqw; margin-bottom:1.4cqw;">Show candidates the <em class="d-em">team</em> behind the work</h2>
+    <div class="media">
+      <div class="mediacard">
+        <div class="media-thumb"><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <h3>Inside the Team</h3>
+        <p>A PowerToFly-produced video capturing the day-to-day work life of a professional on your team — shared in event invites and post-event campaigns.</p>
+      </div>
+      <div class="mediacard">
+        <div class="media-thumb"><span class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span></div>
+        <h3>Meet the Recruiter</h3>
+        <p>Highlights a member of your talent team and demystifies your process — building rapport with candidates and lifting conversion to hire.</p>
+      </div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>18</span></div>
+  </div></div>
+
+  <!-- 18 DIVIDER — CASE STUDIES  [ADDED BACK #5] -->
+  <div class="slabel"><b>19 · Divider</b> <span class="fix">added back — section divider</span></div>
+  <div class="slide dark"><div class="pad">
+    <span class="d-eyebrow on-dark">Section 03</span>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="d-h2" style="font-size:5cqw; margin:0;">Case studies &amp; <em class="d-em">testimonials</em></h2>
+      <p class="div-sub">From real engagements across industries and roles.</p>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>19</span></div>
+  </div></div>
+
+  <!-- 19 CLIENT OUTCOMES -->
+  <div class="slabel"><b>20 · Client outcomes</b> <span>Case study template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Client outcomes</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Results that speak for themselves</h2>
+    <div class="cases">
+      <div class="case"><h3>Zapier</h3><div class="tags">ML Engineers · Data Scientists</div><div class="cmetric"><span class="n">12</span><span class="l">hires placed</span></div><div class="cmetric"><span class="n">3 wk</span><span class="l">avg. time to hire</span></div><div class="cmetric"><span class="n">91%</span><span class="l">retention at 1 yr</span></div></div>
+      <div class="case"><h3>Moody's</h3><div class="tags">AI Analysts · Prompt Engineers</div><div class="cmetric"><span class="n">8</span><span class="l">specialists placed</span></div><div class="cmetric"><span class="n">2</span><span class="l">verticals in parallel</span></div><div class="cmetric"><span class="n">4 wk</span><span class="l">to first hire</span></div></div>
+      <div class="case"><h3>Deloitte</h3><div class="tags">AI PMs · LLM Engineers</div><div class="cmetric"><span class="n">24</span><span class="l">candidates screened</span></div><div class="cmetric"><span class="n">18</span><span class="l">hires, 3 practices</span></div><div class="cmetric"><span class="n">6 wk</span><span class="l">ramp</span></div></div>
+    </div>
+    <div class="d-foot"><span>Sample data — replace with verified client results</span><span>20</span></div>
+  </div></div>
+
+  <!-- 20 TESTIMONIALS -->
+  <div class="slabel"><b>21 · Testimonials</b> <span>Testimonial grid template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">From the people who hired with us</span>
+    <h2 class="d-h2" style="font-size:2.9cqw; margin-bottom:1.2cqw;">Trusted by talent teams</h2>
+    <div class="tgrid">
+      <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Exceptional talent around the world, and their events expanded our reach to representative talent."</blockquote><div class="meta"><b>Kimberly W.</b> · Head of Talent Attraction, Zapier</div></div>
+      <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"The team goes above and beyond. I can trust the quality of delivery and that I'll have their support."</blockquote><div class="meta"><b>Mayra M.</b> · Global TA Lead, RebelMouse</div></div>
+      <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Solid support — not just hiring but keeping candidates warm. They work like they're part of your org."</blockquote><div class="meta"><b>Navjyot K.</b> · Global Talent Lead, SoftwareOne</div></div>
+      <div class="tqcard"><div class="stars">★★★★★</div><blockquote>"Fantastic hires from our partnership. Candidate reach and benchmarking are why we partner with PTF."</blockquote><div class="meta"><b>Roberta S.</b> · Global TA Lead, Collins Aerospace</div></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>21</span></div>
+  </div></div>
+
+  <!-- LOGO WALL — breadth of social proof (paired with the 4 testimonials) -->
+  <div class="slabel"><b>22 · Logo wall</b> <span class="fix">added — breadth of proof to pair with the 4 quotes</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Trusted by</span>
+    <h2 class="d-h2">Teams building AI with us</h2>
+    <div class="logos" style="grid-template-columns:repeat(3,1fr);">
+      <div class="lg">Zapier</div><div class="lg">Moody's</div><div class="lg">Deloitte</div>
+      <div class="lg">RebelMouse</div><div class="lg">SoftwareOne</div><div class="lg">Collins Aerospace</div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>22</span></div>
+  </div></div>
+
+  <!-- DIVIDER — PRICING  [ADDED BACK #5] -->
+  <div class="slabel"><b>23 · Divider</b> <span class="fix">added back — section divider</span></div>
+  <div class="slide dark"><div class="pad">
+    <span class="d-eyebrow on-dark">Section 04</span>
+    <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+      <h2 class="d-h2" style="font-size:5.4cqw; margin:0;">Pricing</h2>
+      <p class="div-sub">Flexible pricing models for talent acquisition services and events.</p>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>23</span></div>
+  </div></div>
+
+  <!-- 22 PRICING -->
+  <div class="slabel"><b>24 · Pricing</b> <span>Pricing template</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Pricing</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Flexible engagement models</h2>
+    <div class="pricing">
+      <div class="pcol"><span class="peyebrow">Recruiter-as-a-service</span><h3>Dedicated capacity</h3><p>No placement fees. Three-month minimum.</p>
+        <div class="prow"><span>Dedicated partner</span><b>$15k/mo</b></div><div class="prow"><span>Part-time partner</span><b>$7k/mo</b></div>
+        <div class="pfoot">Sourcing · screening · candidate management · delivery</div></div>
+      <div class="pcol"><span class="peyebrow">Retained search</span><h3>Strategic permanent hires</h3><p>Of total first-year compensation.</p>
+        <div class="prow"><span>Executive (Dir & above)</span><b>30%</b></div><div class="prow"><span>Sr. Manager & below</span><b>20%</b></div>
+        <div class="pfoot">⅓ start · ⅓ shortlist · balance on placement</div></div>
+      <div class="pcol"><span class="peyebrow">Contract to hire</span><h3>Flexible expertise</h3><p>Rates vary by role, experience, and location.</p>
+        <div class="prow"><span>AI trainers & evaluators</span><b>$50+/hr</b></div><div class="prow"><span>Technical & domain experts</span><b>$100+/hr</b></div><div class="prow"><span>Fractional leaders</span><b>$200+/hr</b></div></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>24</span></div>
+  </div></div>
+
+  <!-- 23 EVENT PRICING (4-up) -->
+  <div class="slabel"><b>25 · Event services</b> <span>Pricing template — 4 packages</span></div>
+  <div class="slide"><div class="pad">
+    <span class="d-eyebrow">Event services</span>
+    <h2 class="d-h2" style="font-size:3.4cqw; margin-bottom:1.2cqw;">Event & campaign pricing</h2>
+    <div class="pricing four">
+      <div class="pcol"><span class="peyebrow">Awareness + hiring</span><h3>$12k</h3><p>Multi-sponsor virtual job fair — live 2-hour event, main stage & breakouts.</p></div>
+      <div class="pcol"><span class="peyebrow">Dedicated event</span><h3>$15k</h3><p>Growth — your own event with a curated, engaged audience.</p></div>
+      <div class="pcol"><span class="peyebrow">Dedicated event</span><h3>$25k</h3><p>Enterprise — full production, promotion, and post-event reporting.</p></div>
+      <div class="pcol"><span class="peyebrow">Engagement</span><h3>$20k</h3><p>Campaigns — sustained brand + pipeline engagement over time.</p></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>25</span></div>
+  </div></div>
+
+  <!-- 24 THANK YOU / CONTACTS  [ADDED BACK #2] -->
+  <div class="slabel"><b>26 · Thank you</b> <span class="fix">added back — NEW contacts template (old slide 24)</span></div>
+  <div class="slide dark"><div class="pad">
+    <span class="d-eyebrow on-dark">Thank you</span>
+    <h2 class="d-h2" style="font-size:3.6cqw; margin-bottom:2.4cqw;">Let's build your AI team <em class="d-em">together</em></h2>
+    <div class="contacts">
+      <div class="contact"><span class="ph">CD</span><div><h3>Cristina Duke</h3><div class="role">VP of Sales &amp; Customer Success</div><div class="email">cristina@powertofly.com</div></div></div>
+      <div class="contact"><span class="ph">SF</span><div><h3>Sabrina Fernandez</h3><div class="role">Customer Success Manager</div><div class="email">sabrina@powertofly.com</div></div></div>
+    </div>
+    <div class="d-foot"><span>PowerToFly AI</span><span>26</span></div>
+  </div></div>
+
+  <!-- 25 CLOSING -->
+  <div class="slabel"><b>27 · Closing</b> <span>Closing CTA template (dark)</span></div>
+  <div class="slide dark"><div class="hair" style="bottom:0"></div><div class="pad">
+    <div class="cta-center">
+      <span class="d-eyebrow on-dark">Ready when you are</span>
+      <h2 class="d-h2" style="font-size:4cqw; margin:0;">Built on a decade of real relationships.<br>Ready for whatever you're <em class="d-em">building</em>.</h2>
+      <span class="btn-pill">Start the conversation</span>
+    </div>
+    <div class="d-foot"><span class="d-logo" style="font-size:1.4cqw;">PowerToFly <span class="ai">AI</span></span><span>powertofly.com</span></div>
+  </div></div>
+
+</div>
+</body>
+</html>
