@@ -236,12 +236,28 @@
    "desc": "The book-a-call flow."
   },
   {
+   "id": "flow-talents-join",
+   "name": "Talents join",
+   "file": "https://kabosmonalisa.github.io/Powertofly-Ai-Talents/join.html",
+   "group": "Flows",
+   "status": "live",
+   "desc": "The talent join/signup flow — lives in the separate Powertofly-Ai-Talents repo, embedded here as an absolute URL."
+  },
+  {
    "id": "slides-salesdeck",
-   "name": "Sales deck",
+   "name": "Slide templates",
    "file": "decks/preview.html",
    "group": "Slides",
    "status": "live",
-   "desc": "The GTM sales pitch deck, rebuilt on the deck design system — on-brand slide templates at true 16:9, from the live ds/ptf.css. The visual source of truth the Google Slides master gets built from."
+   "desc": "The deck template LIBRARY — one of every on-brand slide layout at true 16:9, built from ds/ptf.css. The kit the actual decks are assembled from. Download: decks/PowerToFly-AI-Sales-Deck.pptx."
+  },
+  {
+   "id": "slides-salesdeck-built",
+   "name": "Sales deck",
+   "file": "decks/sales-deck.html",
+   "group": "Slides",
+   "status": "live",
+   "desc": "The GTM SALES DECK — the real deck content consolidated from the 67-slide original onto our templates (25 slides). Includes a new media/video template + contacts template. The Google Slides/.pptx download is generated once the look is approved."
   },
   {
    "id": "org-topnav-login",

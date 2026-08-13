@@ -2500,9 +2500,9 @@ function select(id){
       : '<div class="sb-frame-bar">Live page · <code>'+s.iframe+'</code>'
         +'<span class="sbfb-actions">'
         +'<button type="button" class="sbfb-act" title="View page source" onclick="sbViewCode(\''+s.iframe+'\')">'+uic('code',13)+'Code</button>'
-        +'<a class="sbfb-act" href="../'+s.iframe+'" target="_blank" rel="noopener" title="Open the live page in a new tab" aria-label="Open the live page in a new tab">'+uic('external',13)+'Live</a>'
+        +'<a class="sbfb-act" href="'+pgURL(s.iframe)+'" target="_blank" rel="noopener" title="Open the live page in a new tab" aria-label="Open the live page in a new tab">'+uic('external',13)+'Live</a>'
         +'</span></div>';
-    stageInner.innerHTML=bar+'<div class="sb-frame-vp"><iframe class="sb-frame"'+(s.iframe?' src="../'+s.iframe+'"':'')+'></iframe></div>';
+    stageInner.innerHTML=bar+'<div class="sb-frame-vp"><iframe class="sb-frame"'+(s.iframe?' src="'+pgURL(s.iframe)+'"':'')+'></iframe></div>';
     const fr=stageInner.querySelector('iframe');
     fr.onload=function(){
       fitFacade(fr);   // its own viewport, at the width toggle's size, scaled to fit — real responsive
@@ -2543,6 +2543,9 @@ function ago(ms){
   if(d<30) return d+' days ago';
   const m=Math.floor(d/30); return m===1?'a month ago':m+' months ago';
 }
+/* a page's file is normally repo-relative (../signup/index.html); an absolute
+   http(s) URL (a flow that lives in another repo/Pages) is used as-is. */
+function pgURL(f){ return /^https?:\/\//i.test(f) ? f : '../'+f; }
 function tileHTML(p){
   const st=p.status||'live';
   /* Two toggles, always visible. Draft isn't a button — it's what a page is when you
@@ -2553,7 +2556,7 @@ function tileHTML(p){
   const archT = arch ? 'Archived — click to bring it back to draft'
                      : 'Archive — leave it out of every scan, count and edit';
   return '<div class="sb-tile" data-goto="'+p.id+'" role="button" tabindex="0">'
-    + '<span class="sb-tile-shot"><iframe src="../'+p.file+'" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></span>'
+    + '<span class="sb-tile-shot"><iframe src="'+pgURL(p.file)+'" loading="lazy" scrolling="no" tabindex="-1" aria-hidden="true" title=""></iframe></span>'
     + '<span class="sb-tile-meta">'
       + '<span class="sb-tile-txt"><b>'+esc(p.name)+'</b>'
       + '<span class="sb-tile-sub">'+(p.mtime?ago(p.mtime*1000):'')
@@ -3846,7 +3849,7 @@ function openPreview(file,key,mode){
   if(!file) return; HLS=[]; HI=0; mPrev.style.display=mNext.style.display='none';
   const a11y=mode==='a11y';
   mPath.textContent=file; mKey.textContent=a11y?'A11Y':(key||''); mKey.style.display=(a11y||key)?'':'none';
-  mHint.textContent='loading…'; mOpen.href='../'+file; mFrame.src='../'+file; modal.classList.add('open');
+  mHint.textContent='loading…'; mOpen.href=pgURL(file); mFrame.src=pgURL(file); modal.classList.add('open');
   mFrame.onload=function(){
     try{ const d=mFrame.contentDocument; let items=[];
       if(a11y) items=a11yScan(d);
