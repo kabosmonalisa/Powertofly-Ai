@@ -267,7 +267,7 @@ window.PTF = (function () {
           </div></div>\
         </div>\
       </div>\
-      <a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get matched</a>\
+      <a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get started</a>\
     </div>\
     <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>\
   </div>\
@@ -278,10 +278,10 @@ window.PTF = (function () {
   <a href="https://powertofly.com/up">Resources</a>\
   <a href="../employers/">For employers</a>\
   <a href="../about/">About</a>\
-  <div class="drawer-cta"><a href="#" class="btn btn-sm">Log in</a><a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get matched</a></div>\
+  <div class="drawer-cta"><a href="#" class="btn btn-sm">Log in</a><a href="https://powertofly.com/talent" class="btn btn-primary btn-sm">Get started</a></div>\
 </div>';
 
-  /* Logged-in nav CTA — replaces "Log in" + "Get matched" when data-auth="in".
+  /* Logged-in nav CTA — replaces "Log in" + "Get started" when data-auth="in".
      {{INI}} {{NAME}} {{FULL}} are filled from data-initials / data-user / data-user-full
      (defaults below). Reuses the .login-fly flyout + .fly-item rows + the .avatar chip. */
   var NAV_CTA_IN = '\
@@ -303,7 +303,7 @@ window.PTF = (function () {
     </div></div>\
   </div>\
 </div>';
-  // Mobile drawer CTA when logged in (replaces Log in / Get matched).
+  // Mobile drawer CTA when logged in (replaces Log in / Get started).
   var DRAWER_CTA_IN = '<a href="#" class="btn btn-primary btn-sm">Dashboard</a><a href="#" class="btn btn-sm">Log out</a>';
 
   function renderNav(mount) {
@@ -400,7 +400,7 @@ window.PTF = (function () {
    * Put <div data-ptf-footer></div> on a page and this injects the footer
    * in its place. Columns + links mirror the Option 2 nav exactly:
    *   For employers   → the "For employers" mega (employers / hire / train / book)
-   *   For professionals → Jobs + Get matched + the "For professionals" portal
+   *   For professionals → Jobs + Get started + the "For professionals" portal
    *   Resources & events → the dropdown's Insights/Webinars + Events/Resources nav
    *   Company         → About
    * Edit the markup here once → every page updates.
