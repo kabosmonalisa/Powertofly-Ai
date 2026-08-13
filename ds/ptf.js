@@ -234,6 +234,7 @@ window.PTF = (function () {
               <div class="emp-svc">\
                 <a class="emp-svc-item" href="../hire/"><span class="emp-svc-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one — full-time, contract,<br>or project.</span></span></a>\
                 <a class="emp-svc-item" href="../train/"><span class="emp-svc-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span></a>\
+                <a class="emp-svc-item" href="../job-board/"><span class="emp-svc-tx"><span class="fly-title">Job board</span><span class="fly-desc">Post jobs and find AI talent.</span></span></a>\
               </div>\
               <hr class="fly-rule">\
               <div class="fly-eyebrow">Resources &amp; events</div>\
@@ -343,6 +344,7 @@ window.PTF = (function () {
       <a class="fly-item" href="../employers/"><span class="login-tx"><span class="fly-title">For employers</span><span class="fly-desc">The home for teams hiring and deploying AI talent.</span></span></a>\
       <a class="fly-item" href="../hire/"><span class="login-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one.</span></span></a>\
       <a class="fly-item" href="../train/"><span class="login-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span></a>\
+      <a class="fly-item" href="../job-board/"><span class="login-tx"><span class="fly-title">Job board</span><span class="fly-desc">Post jobs and find AI talent.</span></span></a>\
     </div>\
   </div>\
 </div>\
