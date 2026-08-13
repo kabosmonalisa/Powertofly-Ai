@@ -326,9 +326,9 @@ window.PTF = (function () {
         var drawerCta = drawer && drawer.querySelector('.drawer-cta');
         if (drawerCta) drawerCta.innerHTML = DRAWER_CTA_IN;
 
-        /* Logged-in nav is context-aware: a Talent view and an Employer view, with a
-           button to switch between them. Employer view flattens the "For employers" mega
-           into top-level items — Resources/Events are the employer-specific ones. */
+        /* Logged-in nav has two variants set by the account type (data-mode): a Talent view
+           and an Employer view. Employer view flattens the "For employers" mega into
+           top-level items — Resources/Events are the employer-specific ones. */
         var NAV_TALENT = '\
 <a class="nav-btn" data-nav="dashboard" href="#">Dashboard</a>\
 <a class="nav-btn" data-nav="jobs" href="https://powertofly.com/jobs/">Jobs</a>\
@@ -353,43 +353,17 @@ window.PTF = (function () {
 <a class="nav-btn" data-nav="emp-about" href="../about/">About</a>';
         var DRAWER_TALENT = '<a href="#">Dashboard</a><a href="https://powertofly.com/jobs/">Jobs</a><a href="https://powertofly.com/browse-events">Events</a><a href="https://powertofly.com/up">Resources</a><a href="../about/">About</a>';
         var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Resources</a><a href="#">Events</a><a href="../about/">About</a>';
-        var SWITCH_ICON = '<svg class="switch-ic" viewBox="0 0 24 24"><path d="M6.99 11L3 15l3.99 4v-3H14v-2H6.99v-3zM21 9l-3.99-4v3H10v2h7.01v3L21 9z"></path></svg>';
+        if (cta) cta.innerHTML = ctaHTML;
 
-        if (cta) cta.innerHTML =
-          '<button class="btn btn-sm" id="modeSwitch" type="button">' + SWITCH_ICON + '<span class="switch-label"></span></button>' + ctaHTML;
-
-        function ptfMode() {
-          var m = mount.getAttribute('data-mode');
-          if (m) return m;
-          try { return localStorage.getItem('ptf-nav-mode') || 'talent'; } catch (e) { return 'talent'; }
+        var mode = mount.getAttribute('data-mode') || 'talent';
+        var navItems = nav.querySelector('.nav-items');
+        if (navItems) navItems.innerHTML = (mode === 'employer' ? NAV_EMPLOYER : NAV_TALENT);
+        initMegaNav();  // wire the Solutions flyout injected in employer view (idempotent)
+        if (drawer) {
+          var dcta = drawer.querySelector('.drawer-cta');
+          [].forEach.call(drawer.querySelectorAll('a'), function (a) { if (a.parentNode === drawer) a.parentNode.removeChild(a); });
+          if (dcta) dcta.insertAdjacentHTML('beforebegin', (mode === 'employer' ? DRAWER_EMPLOYER : DRAWER_TALENT));
         }
-        function applyMode(mode) {
-          var items = nav.querySelector('.nav-items');
-          if (items) items.innerHTML = (mode === 'employer' ? NAV_EMPLOYER : NAV_TALENT);
-          initMegaNav();  // wire the Solutions flyout injected in employer view (idempotent)
-          var label = nav.querySelector('#modeSwitch .switch-label');
-          if (label) label.textContent = (mode === 'employer' ? 'Switch to talents' : 'Switch to employers');
-          if (drawer) {
-            var dcta = drawer.querySelector('.drawer-cta');
-            [].forEach.call(drawer.querySelectorAll('a'), function (a) { if (a.parentNode === drawer) a.parentNode.removeChild(a); });
-            var links = (mode === 'employer' ? DRAWER_EMPLOYER : DRAWER_TALENT)
-              + '<a href="#" id="drawerModeSwitch">' + (mode === 'employer' ? 'Switch to talents' : 'Switch to employers') + '</a>';
-            if (dcta) dcta.insertAdjacentHTML('beforebegin', links);
-          }
-        }
-        function toggleMode() {
-          var next = (ptfMode() === 'employer' ? 'talent' : 'employer');
-          try { localStorage.setItem('ptf-nav-mode', next); } catch (e) {}
-          mount.setAttribute('data-mode', next);
-          applyMode(next);
-        }
-        applyMode(ptfMode());
-        var sw = nav.querySelector('#modeSwitch');
-        if (sw) sw.addEventListener('click', toggleMode);
-        if (drawer) drawer.addEventListener('click', function (e) {
-          var hit = e.target.closest ? e.target.closest('#drawerModeSwitch') : null;
-          if (hit) { e.preventDefault(); toggleMode(); }
-        });
       }
     }
     mount.parentNode.removeChild(mount);
