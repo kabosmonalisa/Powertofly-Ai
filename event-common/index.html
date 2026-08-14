@@ -18,6 +18,41 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../ds/ptf.css">
+<style>
+  /* Phone number — a searchable COUNTRY picker + number input joined into ONE DS-style field.
+     You pick your country by NAME (type to search); the +dialing code fills in automatically.
+     Promote-to-DS candidate: .phone-field. Placed after ptf.css so :focus overrides win. */
+  .phone-field { position: relative; display: flex; align-items: stretch; border: 1.5px solid var(--line); border-radius: var(--r-md); background: var(--bg-soft); transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .phone-field.is-open, .phone-field:focus-within { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(79,232,169,0.15); background: var(--bg); }
+  .phone-field > input { border: none; background-color: transparent; box-shadow: none; border-radius: 0; color: var(--ink); width: auto; flex: 1; min-width: 0; padding: 10px 14px 10px 12px; font-family: 'Inter', sans-serif; font-size: 15px; }
+  .phone-field > input:focus { box-shadow: none; background-color: transparent; }
+  /* country trigger (closed state): flag + code + caret */
+  .phone-cc { display: flex; align-items: center; gap: 6px; padding: 10px 10px 10px 12px; border-right: 1.5px solid var(--line); cursor: pointer; user-select: none; white-space: nowrap; color: var(--ink); font-size: 15px; }
+  .phone-cc-flag { font-size: 17px; line-height: 1; }
+  .phone-cc-code { color: var(--ink-2); }
+  .phone-cc > svg { color: var(--ink-3); flex: none; }
+  /* searchable popover */
+  .phone-cc-pop { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; width: 300px; max-width: 84vw; background: var(--bg); border: 1.5px solid var(--line); border-radius: var(--r-md); box-shadow: 0 12px 34px rgba(0,0,0,.16); padding: 8px; }
+  .phone-cc-search { width: 100%; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); outline: none; margin-bottom: 6px; }
+  .phone-cc-search:focus { border-color: var(--green-mid); }
+  .phone-cc-list { list-style: none; margin: 0; padding: 0; max-height: 220px; overflow-y: auto; }
+  .phone-cc-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--ink); }
+  .phone-cc-item:hover, .phone-cc-item.active { background: var(--bg-soft); }
+  .phone-cc-item .fl { font-size: 17px; line-height: 1; flex: none; }
+  .phone-cc-item .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .phone-cc-item .cd { color: var(--ink-3); flex: none; }
+  .phone-cc-empty { padding: 12px 10px; color: var(--ink-3); font-size: 13px; text-align: center; }
+
+  /* Summit "+ more" pill — the speaker list's overflow control. Carries a mini stack of the
+     other speakers' faces + a "more" label (no count — the summit can't total its speakers). */
+  .more-pill { align-self: flex-start; margin-top: 14px; display: inline-flex; align-items: center; gap: 9px; height: 34px; padding: 0 15px 0 7px; border-radius: 17px; border: 1.5px solid var(--line); background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--ink-2); cursor: pointer; transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 120ms ease; }
+  .more-pill:hover { border-color: var(--ink-3); background: var(--bg); box-shadow: 0 3px 12px rgba(0,0,0,.07); }
+  .more-pill:active { transform: translateY(1px); }
+  .more-pill-faces { display: inline-flex; align-items: center; }
+  .more-pill-faces img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; object-position: center 35%; border: 2px solid var(--bg-soft); }
+  .more-pill:hover .more-pill-faces img { border-color: var(--bg); }
+  .more-pill-faces img + img { margin-left: -9px; }
+</style>
 </head>
 <body class="flow-shell">
 
@@ -96,7 +131,26 @@
               <div class="field"><label>First name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
               <div class="field"><label>Last name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
             </div>
-            <div class="field"><label>Work email</label><input type="email" oninput="clearError(this.closest('.field'))"></div>
+            <!-- Work email + phone on one row. Phone uses the DS .field select + input (no new component CSS);
+                 flag+dial-code options render from the COUNTRY_CODES list below. Flag emoji show natively on macOS. -->
+            <div class="field-row">
+              <div class="field"><label>Work email</label><input type="email" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field">
+                <label>Phone number</label>
+                <div class="phone-field" id="phoneField">
+                  <div class="phone-cc" id="ccBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select country">
+                    <span class="phone-cc-flag" id="ccFlag">🇺🇸</span>
+                    <span class="phone-cc-code" id="ccCode">+1</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                  </div>
+                  <input type="tel" id="phoneNumber" placeholder="(555) 000-0000" autocomplete="tel" oninput="clearError(this.closest('.field'))">
+                  <div class="phone-cc-pop" id="ccPop" role="listbox" hidden>
+                    <input type="text" class="phone-cc-search" id="ccSearch" placeholder="Search country" autocomplete="off">
+                    <ul class="phone-cc-list" id="ccList"></ul>
+                  </div>
+                </div>
+              </div>
+            </div>
             <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
             <button class="btn-auth" type="submit">Create my account →</button>
           </form>
@@ -130,7 +184,7 @@
                 <div class="upload-name"></div>
               </label>
             </div>
-            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
           </form>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
@@ -227,23 +281,35 @@
   </div>
 </main>
 
-<!-- DEV ONLY — preview how each event type looks (only the left card changes). Remove before launch. -->
-<div id="devTypeNav" style="position:fixed;left:14px;bottom:62px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
-  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">TYPE</span>
-  <button type="button" onclick="setEventType('cl')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">C&amp;L</button>
-  <button type="button" onclick="setEventType('vjf')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">VJF</button>
-  <button type="button" onclick="setEventType('summit')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">Summit</button>
-</div>
-
-<!-- DEV ONLY — click to jump between screens without filling anything in. Remove before launch. -->
-<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
-  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>
-  <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
-  <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
-  <button type="button" onclick="goToStep('2b')" style="all:unset;cursor:pointer;color:#9fe870;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2b</button>
-  <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
-  <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
-  <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+<!-- DEV ONLY — one stacked switcher (like Meet with Companies' dials). AUTH is the primary separator;
+     PROFILE nests under it (only meaningful when logged in). TYPE only changes the left card.
+     Remove this whole block before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;flex-direction:column;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">TYPE</span>
+    <button type="button" onclick="setEventType('cl')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">C&amp;L</button>
+    <button type="button" onclick="setEventType('vjf')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">VJF</button>
+    <button type="button" onclick="setEventType('summit')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">Summit</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">AUTH</span>
+    <button type="button" id="devAuthOut" onclick="setAuthMode('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+    <button type="button" id="devAuthIn" onclick="setAuthMode('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
+  </div>
+  <div id="profileDial" style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">PROFILE</span>
+    <button type="button" id="devProfNone" onclick="setProfile('none')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">No info</button>
+    <button type="button" id="devProfOnfile" onclick="setProfile('onfile')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">On file</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">STEP</span>
+    <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+    <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+    <button type="button" onclick="goToStep('2b')" style="all:unset;cursor:pointer;color:#9fe870;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2b</button>
+    <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+    <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
+    <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+  </div>
 </div>
 
 <script src="../ds/ptf.js"></script>
@@ -260,6 +326,67 @@
     goToStep(which === 'signin' ? 'signin' : 1);
     document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
     document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
+    return false;
+  }
+
+  // ── Entry path: logged out (create account first) vs logged in (skip the account step) ──
+  // Logged in is itself two cases, driven by the PROFILE dial:
+  //   · no info  → same profile steps, empty fields (they fill them in)
+  //   · on file  → same profile steps, PRE-FILLED + editable (update what changed)
+  // Either way the account step (1) is dropped, so we land on step 2 and hide its "← Back".
+  // Dev dials only — the real app derives auth + profile completeness from the session.
+  window._authMode = 'out';       // 'out' | 'in'
+  window._profileMode = 'none';   // 'none' | 'onfile'  (only meaningful when logged in)
+
+  // Fill (or clear) the profile fields with what's "on file". Editable — no locking.
+  function applyProfile(onfile) {
+    var li = document.querySelector('[data-step="2"] input[type=url]');
+    if (li) li.value = onfile ? 'linkedin.com/in/amara-okafor' : '';
+    // Step 3 demographics — pre-select the chips we already have on file
+    var prefill = { 'Area of experience': ['AI'], 'Self-identification': ['Woman'] };
+    document.querySelectorAll('[data-step="3"] .id-section').forEach(function (sec) {
+      var labelEl = sec.querySelector('.id-section-label');
+      var want = onfile && labelEl ? (prefill[labelEl.textContent.trim()] || []) : [];
+      sec.querySelectorAll('.id-chip').forEach(function (chip) {
+        chip.classList.toggle('selected', want.indexOf(chip.textContent.trim()) >= 0);
+      });
+      clearError(sec);
+    });
+  }
+
+  function setDialActive(el, on) {
+    if (!el) return;
+    el.style.background = on ? '#fff' : '';
+    el.style.color = on ? '#0A0A0A' : '#fff';
+  }
+  function applyAuthUI() {
+    var loggedIn = window._authMode === 'in';
+    var onfile   = loggedIn && window._profileMode === 'onfile';
+    // "Signed in as…" note + step-2 Back (Back would go to the skipped account step)
+    var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
+    var back = document.getElementById('step2Back');     if (back) back.style.display = loggedIn ? 'none' : '';
+    applyProfile(onfile);
+    // dial highlights
+    setDialActive(document.getElementById('devAuthIn'),  loggedIn);
+    setDialActive(document.getElementById('devAuthOut'), !loggedIn);
+    setDialActive(document.getElementById('devProfOnfile'), onfile);
+    setDialActive(document.getElementById('devProfNone'),   loggedIn && !onfile);
+    // PROFILE dial only matters when logged in — dim it otherwise (like MWC's contextual dials)
+    var pd = document.getElementById('profileDial');
+    if (pd) { pd.style.opacity = loggedIn ? '' : '.35'; pd.style.pointerEvents = loggedIn ? '' : 'none'; }
+  }
+  function setAuthMode(mode) {
+    window._authMode = mode === 'in' ? 'in' : 'out';
+    if (window._authMode === 'out') window._profileMode = 'none';
+    applyAuthUI();
+    goToStep(window._authMode === 'in' ? 2 : 1);  // land on the correct first step
+    return false;
+  }
+  function setProfile(state) {
+    window._authMode = 'in';                                   // choosing a profile implies logged in
+    window._profileMode = state === 'onfile' ? 'onfile' : 'none';
+    applyAuthUI();
+    goToStep(2);
     return false;
   }
   // ── Inline validation: button stays active; on click we check, show an error, and focus the gap ──
@@ -377,6 +504,32 @@
     return '<div class="event-host-text"><span class="event-host-name" style="margin-bottom:11px">Panelists</span>' +
            '<div style="display:flex;flex-direction:column;gap:11px">' + rows + '</div></div>';
   }
+  // Summit speakers — same NAMED-ROW layout as the Chat & Learn panelist list (SPEAKER_LIST),
+  // showing the first few speakers (3–5), with a "+ more" line UNDER the list. The system can list
+  // individual speakers but has no reliable total, so "+ more" carries no number.
+  function SUMMIT_PANEL(people) {
+    var rows = people.map(function (p) {
+      return '<div style="display:flex;align-items:center;gap:10px">' +
+        '<img src="' + p.img + '" alt="" style="width:34px;height:34px;border-radius:50%;object-fit:cover;object-position:center 35%;flex:none">' +
+        '<span style="line-height:1.3"><strong style="font-weight:600;color:var(--ink);font-size:14px">' + p.name + '</strong><br>' +
+        '<span style="font-size:12.5px;color:var(--ink-3)">' + p.role + '</span></span></div>';
+    }).join('');
+    // "+ more" pill carries a mini face-stack of the OTHER speakers (not the ones listed above)
+    var moreFaces = ['spk-08.jpg', 'spk-12.jpg', 'spk-07.jpg'].map(function (src) {
+      return '<img src="../photos/thumbs/' + src + '" alt="">';
+    }).join('');
+    var pill = '<button type="button" class="more-pill"><span class="more-pill-faces">' + moreFaces + '</span>+ more</button>';
+    return '<div class="event-host-text"><span class="event-host-name" style="margin-bottom:11px">Speakers</span>' +
+           '<div style="display:flex;flex-direction:column;gap:11px">' + rows + '</div>' + pill + '</div>';
+  }
+  // COPY: confirm summit speaker names / titles / companies (placeholders on diverse featured faces)
+  var SUMMIT_PANEL_DATA = [
+    { img:'../photos/13.latino-old-man-christian-buehner-h0_elok-uKI-unsplash.jpg', name:'David O.',  role:'Head of ML · Northwind' },
+    { img:'../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg',  name:'Elena K.',  role:'VP Engineering · Kestrel' },
+    { img:'../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg',  name:'Arjun P.',  role:'Staff Engineer · Vantage AI' },
+    { img:'../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg', name:'Hannah L.', role:'Director of Data · Lumen' },
+    { img:'../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg', name:'Marco T.', role:'Founder · Cirrus' }
+  ];
   var CL_PANEL = [
     { img:'spk-07.jpg', name:'Priya N.', role:'ML Lead · Acme AI' },
     { img:'spk-08.jpg', name:'Sofia M.', role:'AI Research · Beta Labs' }
@@ -401,7 +554,7 @@
     summit: {
       eyebrow: 'Summit',
       title: 'The AI Skills <em class="italic-plain">Summit 2026</em>',
-      host: '<div class="event-host-text"><span class="event-host-name">25+ speakers · 5,000+ attending</span><span class="event-host-role">A 2-day virtual summit</span></div>'
+      host: SUMMIT_PANEL(SUMMIT_PANEL_DATA)
     }
   };
   function setEventType(key) {
@@ -455,6 +608,92 @@
       }
     }
     window.addEventListener('scroll', check, { passive: true });
+  })();
+
+  // Phone country picker — pick your country by NAME (type to search); the +dialing code fills in
+  // automatically. Flag emoji render as flags on macOS/iOS; on Windows the country name carries it.
+  (function () {
+    var field = document.getElementById('phoneField'); if (!field) return;
+    var btn = document.getElementById('ccBtn'), pop = document.getElementById('ccPop'),
+        list = document.getElementById('ccList'), search = document.getElementById('ccSearch'),
+        flagEl = document.getElementById('ccFlag'), codeEl = document.getElementById('ccCode'),
+        number = document.getElementById('phoneNumber');
+    // [flag, name, dialing code] — sorted by name so the list reads alphabetically
+    var COUNTRIES = [
+      ['🇦🇷','Argentina','+54'],['🇦🇺','Australia','+61'],['🇦🇹','Austria','+43'],['🇧🇪','Belgium','+32'],
+      ['🇧🇷','Brazil','+55'],['🇨🇦','Canada','+1'],['🇨🇱','Chile','+56'],['🇨🇳','China','+86'],
+      ['🇨🇴','Colombia','+57'],['🇨🇿','Czechia','+420'],['🇩🇰','Denmark','+45'],['🇪🇬','Egypt','+20'],
+      ['🇫🇮','Finland','+358'],['🇫🇷','France','+33'],['🇩🇪','Germany','+49'],['🇬🇷','Greece','+30'],
+      ['🇭🇰','Hong Kong','+852'],['🇭🇺','Hungary','+36'],['🇮🇳','India','+91'],['🇮🇩','Indonesia','+62'],
+      ['🇮🇪','Ireland','+353'],['🇮🇱','Israel','+972'],['🇮🇹','Italy','+39'],['🇯🇵','Japan','+81'],
+      ['🇰🇪','Kenya','+254'],['🇲🇾','Malaysia','+60'],['🇲🇽','Mexico','+52'],['🇳🇱','Netherlands','+31'],
+      ['🇳🇿','New Zealand','+64'],['🇳🇬','Nigeria','+234'],['🇳🇴','Norway','+47'],['🇵🇭','Philippines','+63'],
+      ['🇵🇱','Poland','+48'],['🇵🇹','Portugal','+351'],['🇷🇴','Romania','+40'],['🇸🇦','Saudi Arabia','+966'],
+      ['🇸🇬','Singapore','+65'],['🇿🇦','South Africa','+27'],['🇰🇷','South Korea','+82'],['🇪🇸','Spain','+34'],
+      ['🇸🇪','Sweden','+46'],['🇨🇭','Switzerland','+41'],['🇹🇭','Thailand','+66'],['🇹🇷','Turkey','+90'],
+      ['🇺🇦','Ukraine','+380'],['🇦🇪','United Arab Emirates','+971'],['🇬🇧','United Kingdom','+44'],
+      ['🇺🇸','United States','+1'],['🇻🇳','Vietnam','+84']
+    ].sort(function (a, b) { return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0; });
+    var filtered = COUNTRIES, activeIdx = -1;
+
+    function render(items) {
+      filtered = items;
+      if (!items.length) { list.innerHTML = '<li class="phone-cc-empty">No country found</li>'; return; }
+      list.innerHTML = items.map(function (c, i) {
+        return '<li class="phone-cc-item" role="option" data-i="' + i + '"><span class="fl">' + c[0] +
+               '</span><span class="nm">' + c[1] + '</span><span class="cd">' + c[2] + '</span></li>';
+      }).join('');
+    }
+    function open() {
+      pop.hidden = false; field.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+      search.value = ''; activeIdx = -1; render(COUNTRIES);
+      setTimeout(function () { search.focus(); }, 0);
+    }
+    function close() { pop.hidden = true; field.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); }
+    function pick(c) { if (!c) return; flagEl.textContent = c[0]; codeEl.textContent = c[2]; close(); number.focus(); }
+
+    btn.addEventListener('click', function () { pop.hidden ? open() : close(); });
+    btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      activeIdx = -1;
+      render(!q ? COUNTRIES : COUNTRIES.filter(function (c) { return c[1].toLowerCase().indexOf(q) > -1 || c[2].indexOf(q) > -1; }));
+    });
+    list.addEventListener('click', function (e) {
+      var li = e.target.closest('.phone-cc-item'); if (!li || !li.hasAttribute('data-i')) return;
+      pick(filtered[+li.getAttribute('data-i')]);
+    });
+    search.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { close(); btn.focus(); return; }
+      var items = list.querySelectorAll('.phone-cc-item');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        activeIdx = e.key === 'ArrowDown' ? Math.min(activeIdx + 1, items.length - 1) : Math.max(activeIdx - 1, 0);
+        items.forEach(function (it, i) { it.classList.toggle('active', i === activeIdx); });
+        items[activeIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIdx >= 0) pick(filtered[activeIdx]); else if (filtered.length === 1) pick(filtered[0]);
+      }
+    });
+    document.addEventListener('click', function (e) { if (!field.contains(e.target)) close(); });
+    render(COUNTRIES);
+  })();
+
+  // Entry path from the event page: ?auth=in opens the logged-in path (account step skipped),
+  // ?profile=on additionally pre-fills the profile fields. Anything else = logged out.
+  (function () {
+    var loggedIn = /[?&]auth=in\b/.test(location.search);
+    var onfile   = /[?&]profile=(on|onfile)\b/.test(location.search);
+    if (loggedIn) { window._profileMode = onfile ? 'onfile' : 'none'; setAuthMode('in'); }
+    else setAuthMode('out');
+  })();
+
+  // DEV ONLY — open a specific event type directly via ?type=cl|vjf|summit (so a review link
+  // can land on the summit view without clicking the TYPE dial). Remove before launch.
+  (function () {
+    var m = (location.search || '').match(/[?&]type=(cl|vjf|summit)\b/);
+    if (m) setEventType(m[1]);
   })();
 
   // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
