@@ -113,14 +113,14 @@
       <div id="signupStep2" style="display:none">
         <div class="step-indicator">Step 2 of 3</div>
         <h1 class="auth-heading">Work experience</h1>
-        <p class="auth-sub">This helps us match you to roles that fit your background.</p>
+        <p class="auth-sub">Add your LinkedIn or upload a resume so we can match you to roles — whichever's easier. <strong>Just one is required</strong>, and you're welcome to add both.</p>
         <form class="auth-form" onsubmit="return validateStep2()">
           <div class="field" id="su-linkedin-field">
-            <label for="su-linkedin">LinkedIn profile <span class="req">*</span></label>
-            <input type="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off" oninput="clearErr(document.getElementById('su-linkedin-field'))">
+            <label for="su-linkedin">LinkedIn profile</label>
+            <input type="text" inputmode="url" id="su-linkedin" placeholder="linkedin.com/in/yourname" autocomplete="off" oninput="clearStep2Err()">
           </div>
           <div class="field">
-            <label>Resume or CV <span class="req">*</span></label>
+            <label>Resume or CV</label>
             <div class="upload-area" id="su-resume-area">
               <input type="file" accept=".pdf,.doc,.docx" onchange="handleFile(this)">
               <div class="upload-icon">📄</div>
@@ -129,6 +129,8 @@
               <div class="upload-name" id="uploadName"></div>
             </div>
           </div>
+          <!-- Group-level message: the requirement spans BOTH fields, so it lives below the pair (not under LinkedIn). -->
+          <div class="field-msg" id="su-step2-msg" style="margin-top:2px"><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="6.5" fill="#C0392B"/><path d="M6.5 3.5v3M6.5 9h.01" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/></svg>Add at least one — your LinkedIn or a resume</div>
           <div class="nav-row">
             <button class="btn-skip" type="button" onclick="goToStep1()">← Back</button>
             <button class="btn-auth" type="submit">Continue →</button>
@@ -147,7 +149,7 @@
           <div class="id-section">
             <div class="id-section-label">Area of experience</div>
             <div class="id-chips">
-              <span class="id-chip" onclick="toggleChip(this)">Data</span><span class="id-chip" onclick="toggleChip(this)">Design</span><span class="id-chip" onclick="toggleChip(this)">Engineering</span><span class="id-chip" onclick="toggleChip(this)">Product</span><span class="id-chip" onclick="toggleChip(this)">Marketing</span><span class="id-chip" onclick="toggleChip(this)">Operations</span><span class="id-chip" onclick="toggleChip(this)">Other</span>
+              <span class="id-chip" onclick="toggleChip(this)">AI</span><span class="id-chip" onclick="toggleChip(this)">Civil Engineering</span><span class="id-chip" onclick="toggleChip(this)">Customer Service</span><span class="id-chip" onclick="toggleChip(this)">Data</span><span class="id-chip" onclick="toggleChip(this)">Design</span><span class="id-chip" onclick="toggleChip(this)">DevOps</span><span class="id-chip" onclick="toggleChip(this)">Human Resources</span><span class="id-chip" onclick="toggleChip(this)">Finance</span><span class="id-chip" onclick="toggleChip(this)">Product Management</span><span class="id-chip" onclick="toggleChip(this)">Marketing</span><span class="id-chip" onclick="toggleChip(this)">Quality Assurance</span><span class="id-chip" onclick="toggleChip(this)">Software Engineering</span><span class="id-chip" onclick="toggleChip(this)">Sales</span><span class="id-chip" onclick="toggleChip(this)">Writing</span><span class="id-chip" onclick="toggleChip(this)">Operations</span>
             </div>
           </div>
           <div class="id-section">
@@ -240,7 +242,7 @@ function setFieldState(fieldId, msgId, isError){ var f=document.getElementById(f
 function validateEmail(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)); }
 function validatePassword(i,f,m){ var v=document.getElementById(i).value; if(!v){document.getElementById(f).classList.remove('has-error','is-valid');document.getElementById(m).classList.remove('visible');return;} setFieldState(f,m,v.length<8); }
 function validateRequired(i,f,m){ var v=document.getElementById(i).value.trim(); if(!v){document.getElementById(f).classList.add('has-error');document.getElementById(m).classList.add('visible');document.getElementById(f).classList.remove('is-valid');return;} setFieldState(f,m,false); }
-function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; if(n) clearErr(document.getElementById('su-resume-area')); }
+function handleFile(input){ var n=input.files[0]?input.files[0].name:''; var el=document.getElementById('uploadName'); el.textContent=n; el.style.display=n?'block':'none'; if(n){ clearStep2Err(); } }
 // Step 1 — all fields required; block Continue until name, a valid email, and an 8+ char password are given.
 function validateStep1(){
   var ok = true, firstBad = null;
@@ -253,17 +255,30 @@ function validateStep1(){
   goToStep2();
   return false;
 }
-// Step 2 — LinkedIn URL and resume are both required; block Continue until filled.
+// Step 2 — LinkedIn OR resume: at least one required, no preference between them.
+// Either one satisfies it; both is fine. Only block when neither is provided.
+function hideLinkedinMsg(){ var m=document.getElementById('su-step2-msg'); if(m) m.classList.remove('visible'); }
+function clearStep2Err(){
+  clearErr(document.getElementById('su-linkedin-field'));
+  clearErr(document.getElementById('su-resume-area'));
+  hideLinkedinMsg();
+}
 function validateStep2(){
-  var ok=true, firstBad=null;
   var li=document.getElementById('su-linkedin');
-  if(!li.value.trim()){ setErr(document.getElementById('su-linkedin-field')); ok=false; firstBad=firstBad||li; }
-  else clearErr(document.getElementById('su-linkedin-field'));
   var fileInput=document.querySelector('#signupStep2 input[type=file]');
-  if(!fileInput.files.length){ setErr(document.getElementById('su-resume-area')); ok=false; firstBad=firstBad||fileInput; }
-  else clearErr(document.getElementById('su-resume-area'));
-  if(!ok){ shakeBtn(document.querySelector('#signupStep2 button[type=submit]')); if(firstBad) firstBad.focus(); return false; }
-  goToStep3();
+  var hasLi=li.value.trim()!=='';
+  var hasResume=fileInput.files.length>0;
+  if(hasLi||hasResume){
+    clearStep2Err();
+    goToStep3();
+    return false;
+  }
+  // Neither provided → flag both fields equally and explain.
+  setErr(document.getElementById('su-linkedin-field'));
+  setErr(document.getElementById('su-resume-area'));
+  document.getElementById('su-step2-msg').classList.add('visible');
+  shakeBtn(document.querySelector('#signupStep2 button[type=submit]'));
+  li.focus();
   return false;
 }
 </script>
