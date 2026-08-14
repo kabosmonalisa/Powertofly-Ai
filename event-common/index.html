@@ -45,12 +45,9 @@
 
   /* Summit "+ more" pill — the speaker list's overflow control. Carries a mini stack of the
      other speakers' faces + a "more" label (no count — the summit can't total its speakers). */
-  .more-pill { align-self: flex-start; margin-top: 14px; display: inline-flex; align-items: center; gap: 9px; height: 34px; padding: 0 15px 0 7px; border-radius: 17px; border: 1.5px solid var(--line); background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--ink-2); cursor: pointer; transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 120ms ease; }
-  .more-pill:hover { border-color: var(--ink-3); background: var(--bg); box-shadow: 0 3px 12px rgba(0,0,0,.07); }
-  .more-pill:active { transform: translateY(1px); }
+  .more-pill { align-self: flex-start; margin-top: 14px; display: inline-flex; align-items: center; gap: 9px; height: 34px; padding: 0 15px 0 7px; border-radius: 17px; border: 1.5px solid var(--line); background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 700; color: var(--ink-2); }
   .more-pill-faces { display: inline-flex; align-items: center; }
   .more-pill-faces img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; object-position: center 35%; border: 2px solid var(--bg-soft); }
-  .more-pill:hover .more-pill-faces img { border-color: var(--bg); }
   .more-pill-faces img + img { margin-left: -9px; }
 </style>
 </head>
@@ -518,7 +515,7 @@
     var moreFaces = ['spk-08.jpg', 'spk-12.jpg', 'spk-07.jpg'].map(function (src) {
       return '<img src="../photos/thumbs/' + src + '" alt="">';
     }).join('');
-    var pill = '<button type="button" class="more-pill"><span class="more-pill-faces">' + moreFaces + '</span>+ more</button>';
+    var pill = '<span class="more-pill"><span class="more-pill-faces">' + moreFaces + '</span>+ more</span>';
     return '<div class="event-host-text"><span class="event-host-name" style="margin-bottom:11px">Speakers</span>' +
            '<div style="display:flex;flex-direction:column;gap:11px">' + rows + '</div>' + pill + '</div>';
   }
