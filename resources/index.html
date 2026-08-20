@@ -368,7 +368,7 @@
       <div class="ev-loading" data-ev-loading hidden aria-hidden="true"></div>
       <!-- after 3 automatic batches the reader takes over, so the footer stops running away -->
       <div class="ev-more" data-ev-more hidden>
-        <button class="btn btn-primary" type="button">Load more</button>
+        <button class="btn" type="button">Load more</button>
       </div>
 
       <div class="ev-end" data-ev-end hidden>
@@ -377,7 +377,9 @@
 
       <!-- floating back-to-top: appears once you're inside the list and stays put -->
       <div class="ev-to-top" hidden>
-        <button class="btn btn-primary btn-sm" type="button" data-ev-top>Back to top ↑</button>
+        <button class="btn btn-primary btn-sm" type="button" data-ev-top aria-label="Back to top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+        </button>
       </div>
 
       <div class="ev-pager" data-ev-pages></div>

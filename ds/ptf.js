@@ -492,6 +492,8 @@ window.PTF = (function () {
         }
       }
       btns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-filter') === filter); });
+      /* the More/end blocks just changed, so re-test the floating button's clash rule */
+      if (syncTopFloat) syncTopFloat();
     }
     /* a new filter or term is a fresh list — the auto-load budget starts over */
     btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; autoLoads = 0; render(); maybeFill(); }); });
@@ -554,10 +556,11 @@ window.PTF = (function () {
           rows.filter(matches).slice(startIdx, page * per).forEach(function (r, i) {
             r.style.animationDelay = (i * 70) + 'ms';
             r.classList.add('is-new');
-            r.addEventListener('animationend', function done() {
-              r.classList.remove('is-new'); r.style.animationDelay = '';
-              r.removeEventListener('animationend', done);
-            });
+            function settle() { r.classList.remove('is-new'); r.style.animationDelay = ''; }
+            r.addEventListener('animationend', function done() { settle(); r.removeEventListener('animationend', done); });
+            /* backstop: where animations are frozen, animationend never fires and the card
+               would sit at the 0% frame (invisible). Drop the class regardless after ~1s. */
+            setTimeout(settle, 1000 + i * 70);
           });
           busy = false;
           if (after) after();
@@ -601,7 +604,12 @@ window.PTF = (function () {
     if (topFloat) {
       syncTopFloat = function () {
         var l = wrap.querySelector('.ev-list');
-        topFloat.hidden = !(l && l.getBoundingClientRect().top < -120);
+        var inside = l && l.getBoundingClientRect().top < -120;
+        /* stand down once the footer is on screen: it is an always-dark block, so an ink
+           button sitting on it disappears */
+        var footer = document.querySelector('.footer');
+        var overFooter = footer && footer.getBoundingClientRect().top < window.innerHeight - 40;
+        topFloat.hidden = !inside || !!overFooter;
       };
       window.addEventListener('scroll', syncTopFloat, { passive: true });
       window.addEventListener('resize', syncTopFloat);

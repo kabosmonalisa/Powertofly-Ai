@@ -1694,21 +1694,31 @@ img { display: block; max-width: 100%; }
 
 /* Each newly loaded card fades and lifts into place, staggered — so a batch arriving reads
    as "these just landed" instead of the page silently getting longer. Delay set by the JS. */
-.ev-row.is-new { animation: evCardIn 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+/* NO fill-mode: the resting state must be the visible one. With `both` the element is pinned
+   to the 0% frame (opacity 0) whenever animations don't actually run — throttled tabs, some
+   embedded webviews — and the cards you just loaded render invisible. Motion is enhancement. */
+.ev-row.is-new { animation: evCardIn 0.42s cubic-bezier(0.22, 0.61, 0.36, 1); }
 @keyframes evCardIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 
 .ev-end-note { font-size: 14px; color: var(--ink-3); }
 /* Floating "back to top" — bottom CENTRE, present the whole way down an infinite list.
    The wrapper carries the elevation so the .btn inside stays an untouched .btn. */
-/* elevation is stronger than a card's — this floats over scrolling content, so it has to sit
-   clearly above it. Built from --ink, never a raw hex. */
-.ev-to-top { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translateX(-50%);
+/* Icon-only circle, deliberately NOT a labelled pill: "Load more" is a wide black pill in the
+   same place, and two identical pills stacking read as a mistake. Elevation is stronger than a
+   card's — this floats over scrolling content. Built from --ink, never a raw hex. */
+.ev-to-top .btn { width: 46px; height: 46px; padding: 0; justify-content: center; }
+.ev-to-top .btn svg { width: 20px; height: 20px; fill: currentColor; display: block; }
+/* Right edge lines up with the nav's right edge (the "Get started" button), so it sits on the
+   page's own grid instead of floating loose — and being off to the side it can never overlap
+   "Load more". No fill-mode on the animation: the resting state must be the visible one. */
+.ev-to-top { position: fixed; bottom: 28px; z-index: 60;
+  right: max(var(--gutter), calc((100vw - var(--container)) / 2));
   border-radius: var(--r-pill);
   box-shadow: 0 10px 30px color-mix(in srgb, var(--ink) 26%, transparent),
-              0 2px 8px color-mix(in srgb, var(--ink) 14%, transparent);
-  animation: evPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-@keyframes evPopIn { from { opacity: 0; transform: translateX(-50%) scale(0.9); }
-                       to { opacity: 1; transform: translateX(-50%) scale(1); } }
+              0 2px 8px color-mix(in srgb, var(--ink) 14%, transparent); }
+/* deliberately NOT animated: a control whose only job is "get me out of here" must never
+   depend on animation running to be visible. Contexts that freeze animations (embedded
+   webviews, throttled tabs) would pin it at opacity 0 and the button would simply not exist. */
 .ev-to-top[hidden] { display: none; }
 @media (max-width: 600px) { .ev-to-top { bottom: 18px; } }
 
