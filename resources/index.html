@@ -361,6 +361,10 @@
       <div class="ev-loading" data-ev-loading hidden aria-hidden="true"><span class="ev-spinner"></span></div>
       <div class="ev-end" data-ev-end hidden>
         <p class="ev-end-note">That's everything we have for now.</p>
+      </div>
+
+      <!-- floating back-to-top: appears once you're inside the list and stays put -->
+      <div class="ev-to-top" hidden>
         <button class="btn btn-sm" type="button" data-ev-top>Back to top ↑</button>
       </div>
 
@@ -394,7 +398,20 @@
 <script>
   PTF.initMegaNav();
   PTF.initHeader();
-  PTF.initEventList();   // topic filters + search + numbered pagination for [data-ev-list]
+  /* ── PROTOTYPE ONLY — delete before launch ──
+     Infinite scroll needs a deep list to feel like anything. The CMS will supply it; until then
+     we clone the 14 real cards twice so there are ~42 (7 batches of 6) to scroll through.
+     Runs BEFORE initEventList so the clones are part of the list it wires. ── */
+  (function () {
+    var list = document.querySelector('.ev-list');
+    if (!list) return;
+    var originals = [].slice.call(list.querySelectorAll('.ev-row'));
+    for (var round = 0; round < 2; round++) {
+      originals.forEach(function (row) { list.appendChild(row.cloneNode(true)); });
+    }
+  })();
+
+  PTF.initEventList();   // topic filters + search + infinite scroll for [data-ev-list]
 
   /* ── Hero search: filtering is live (PTF.initEventList listens on `input`), so the
         Search button must not submit the form and reload the page. It jumps to the

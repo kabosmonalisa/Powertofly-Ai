@@ -453,7 +453,8 @@ window.PTF = (function () {
        reaches the end of the list. */
     var infinite = wrap.hasAttribute('data-ev-infinite');
     var filter = 'all', term = '', page = 1;
-    var maybeFill = function () {};   /* replaced below when data-ev-infinite is set */
+    var maybeFill = function () {};      /* replaced below when data-ev-infinite is set */
+    var syncTopFloat = null;             /* replaced below when a .ev-to-top button exists */
     function matches(r) {
       if (filter !== 'all' && r.getAttribute('data-type') !== filter) return false;
       return !term || r.textContent.toLowerCase().indexOf(term) !== -1;
@@ -547,8 +548,25 @@ window.PTF = (function () {
       try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (e) { /* older browsers */ }
       /* some embedded/preview contexts ignore the options form entirely and never move —
          if nothing has happened a frame later, jump there outright rather than leave a dead button */
-      setTimeout(function () { if (window.scrollY === from) window.scrollTo(0, y); }, 60);
+      setTimeout(function () {
+        if (window.scrollY === from) window.scrollTo(0, y);
+        /* re-check the floating button ourselves: a programmatic scroll does not fire a
+           scroll event in every context, which would strand it on screen at the top */
+        if (typeof syncTopFloat === 'function') syncTopFloat();
+      }, 60);
     });
+    /* The floating variant shows as soon as the reader is inside the list and stays there —
+       on an infinite list the way back has to be reachable at any depth, not only at the end. */
+    var topFloat = wrap.querySelector('.ev-to-top');
+    if (topFloat) {
+      syncTopFloat = function () {
+        var l = wrap.querySelector('.ev-list');
+        topFloat.hidden = !(l && l.getBoundingClientRect().top < -120);
+      };
+      window.addEventListener('scroll', syncTopFloat, { passive: true });
+      window.addEventListener('resize', syncTopFloat);
+      syncTopFloat();
+    }
   }
 
   /**

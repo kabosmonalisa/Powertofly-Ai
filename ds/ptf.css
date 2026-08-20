@@ -1678,6 +1678,12 @@ img { display: block; max-width: 100%; }
   animation: evSpin 0.7s linear infinite; }
 @keyframes evSpin { to { transform: rotate(360deg); } }
 .ev-end-note { font-size: 14px; color: var(--ink-3); }
+/* Floating "back to top" — present the whole way down an infinite list, not just at the end.
+   The wrapper carries the elevation so the .btn inside stays an untouched .btn. */
+.ev-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 60;
+  border-radius: var(--r-pill); box-shadow: var(--shadow-card); }
+.ev-to-top[hidden] { display: none; }
+@media (max-width: 600px) { .ev-to-top { right: 16px; bottom: 16px; } }
 @media (prefers-reduced-motion: reduce) { .ev-spinner { animation-duration: 2.4s; } }
 
 /* ── Hero search bar (.hero-search) ─────────────────────────────────────────────
