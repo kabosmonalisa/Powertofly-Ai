@@ -1699,8 +1699,12 @@ img { display: block; max-width: 100%; }
 .ev-end-note { font-size: 14px; color: var(--ink-3); }
 /* Floating "back to top" — bottom CENTRE, present the whole way down an infinite list.
    The wrapper carries the elevation so the .btn inside stays an untouched .btn. */
+/* elevation is stronger than a card's — this floats over scrolling content, so it has to sit
+   clearly above it. Built from --ink, never a raw hex. */
 .ev-to-top { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translateX(-50%);
-  border-radius: var(--r-pill); box-shadow: var(--shadow-card);
+  border-radius: var(--r-pill);
+  box-shadow: 0 10px 30px color-mix(in srgb, var(--ink) 26%, transparent),
+              0 2px 8px color-mix(in srgb, var(--ink) 14%, transparent);
   animation: evPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 @keyframes evPopIn { from { opacity: 0; transform: translateX(-50%) scale(0.9); }
                        to { opacity: 1; transform: translateX(-50%) scale(1); } }
@@ -1749,9 +1753,12 @@ img { display: block; max-width: 100%; }
 /* SMALL modifier — the same bar, sized to sit in a control row beside filter chips. Same pill,
    same magnifier, same elevation; no submit button, because a list it filters live has nothing
    to submit. Use this for a "quick search" so it reads as family with the hero bar. */
-.hero-search-sm { max-width: 300px; gap: 4px; padding: 5px 6px 5px 14px; }
-.hero-search-sm .hero-search-ico { width: 17px; height: 17px; }
-.hero-search-sm .hero-search-input { font-size: 14px; padding: 9px 6px 9px 8px; }
+.hero-search-sm { max-width: 300px; gap: 4px; padding: 5px 6px 5px 16px; }
+.hero-search-sm .hero-search-input { font-size: 14px; padding: 9px 6px 9px 0; }
+/* the magnifier moves INTO the button and the label drops — same black pill as the big bar,
+   just icon-only. Sizing the .btn is the component's job (as above), not a new button class. */
+.hero-search-sm .btn { width: 38px; height: 38px; padding: 0; justify-content: center; }
+.hero-search-sm .btn svg { width: 17px; height: 17px; fill: currentColor; display: block; }
 /* mobile: full-width input over a full-width button, so the placeholder never truncates.
    The small variant has no button and keeps its pill. */
 @media (max-width: 600px) {
