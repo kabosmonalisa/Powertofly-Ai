@@ -112,7 +112,7 @@
      .ev-filter-btn chips and the pager INSIDE one [data-ev-list]. Wrapping both sections in
      that scope is what makes the search box in the hero the listing's real search — no page
      JS, no second search. This div carries no class and no styling: it is a scope, not a layout. -->
-<div data-ev-list data-ev-per="6" data-ev-infinite>
+<div data-ev-list data-ev-per="6" data-ev-infinite data-ev-auto="3">
 
 <!-- ═══ 01. HERO — .section-hero (plain --bg, no wash), composed as the shared .section-head
      + search beside the featured story. The story is built from the shared listing parts:
@@ -166,9 +166,10 @@
      ═══ -->
 <section class="section">
   <div class="ev-head">
-    <!-- COPY: confirm — "Recent articles" was wrong twice over: the list is no longer
-         date-limited (it's everything, filtered) and it isn't only articles. -->
-    <h2>All resources</h2>
+    <!-- COPY: confirm — not "Resources": the hero eyebrow already says that, and repeating it
+         two blocks later reads as a stutter. This heading sits above the filters, so it names
+         the action instead. -->
+    <h2>Browse all</h2>
   </div>
 
   <div class="ev-listing ev-listing--grid">
@@ -365,6 +366,11 @@
 
       <!-- infinite-scroll states, both driven by PTF.initEventList() -->
       <div class="ev-loading" data-ev-loading hidden aria-hidden="true"></div>
+      <!-- after 3 automatic batches the reader takes over, so the footer stops running away -->
+      <div class="ev-more" data-ev-more hidden>
+        <button class="btn btn-primary" type="button">Load more</button>
+      </div>
+
       <div class="ev-end" data-ev-end hidden>
         <p class="ev-end-note">That's everything we have for now.</p>
       </div>

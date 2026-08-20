@@ -452,6 +452,11 @@ window.PTF = (function () {
     /* data-ev-infinite → no page numbers; the next batch of `per` appends as the reader
        reaches the end of the list. */
     var infinite = wrap.hasAttribute('data-ev-infinite');
+    /* data-ev-auto="N" → auto-load N batches, then hand over to a [data-ev-more] button.
+       Without it the list auto-loads forever, which walls the footer off on a long list. */
+    var autoMax  = parseInt(wrap.getAttribute('data-ev-auto'), 10);
+    if (isNaN(autoMax)) autoMax = Infinity;
+    var autoLoads = 0;
     var filter = 'all', term = '', page = 1;
     var maybeFill = function () {};      /* replaced below when data-ev-infinite is set */
     var syncTopFloat = null;             /* replaced below when a .ev-to-top button exists */
@@ -472,6 +477,9 @@ window.PTF = (function () {
          "that's everything" under two cards would be noise */
       var endEl = wrap.querySelector('[data-ev-end]');
       if (endEl) endEl.hidden = !(infinite && visible.length > per && page * per >= visible.length);
+      /* "Load more" appears once the auto-load budget is spent and there is still more to see */
+      var moreEl = wrap.querySelector('[data-ev-more]');
+      if (moreEl) moreEl.hidden = !(infinite && autoLoads >= autoMax && page * per < visible.length);
       if (pager) {
         if (pages > 1 && !infinite) {
           var html = '';
@@ -485,7 +493,8 @@ window.PTF = (function () {
       }
       btns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-filter') === filter); });
     }
-    btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; render(); maybeFill(); }); });
+    /* a new filter or term is a fresh list — the auto-load budget starts over */
+    btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; autoLoads = 0; render(); maybeFill(); }); });
     fields.forEach(function (f) {
       var wrapEl = f.closest('.ev-search-wrap');
       var clear  = wrapEl && wrapEl.querySelector('.ev-search-clear');
@@ -495,7 +504,7 @@ window.PTF = (function () {
         fields.forEach(function (o) {                       // keep every field showing the same term
           if (o !== f) { o.value = f.value; o.dispatchEvent(new CustomEvent('ev-sync')); }
         });
-        syncClear(); page = 1; render(); maybeFill();
+        syncClear(); page = 1; autoLoads = 0; render(); maybeFill();
       });
       f.addEventListener('ev-sync', syncClear);             // mirrored fields update their own × too
       if (clear) clear.addEventListener('click', function () {
@@ -519,14 +528,16 @@ window.PTF = (function () {
     if (infinite) {
       var list    = wrap.querySelector('.ev-list');
       var loading = wrap.querySelector('[data-ev-loading]');
+      var moreBtn = wrap.querySelector('[data-ev-more]');
       var busy    = false;
-      maybeFill = function () {
-        if (!list || busy) return;
-        if (page * per >= rows.filter(matches).length) return;          // nothing left to load
-        if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
-        busy = true;
+
+      function loadBatch(after) {
+        if (busy) return;
         var startIdx = page * per;
         var waiting  = rows.filter(matches).length - startIdx;
+        if (waiting <= 0) return;
+        busy = true;
+        if (moreBtn) moreBtn.hidden = true;                             // one control at a time
         if (loading) {                                                  // blocked-out cards + shimmer
           var tiles = Math.min(per, waiting, 3), html = '';
           for (var t = 0; t < tiles; t++) {
@@ -549,9 +560,19 @@ window.PTF = (function () {
             });
           });
           busy = false;
-          maybeFill();                                                  // still short? keep going
+          if (after) after();
         }, 900);
+      }
+
+      maybeFill = function () {
+        if (!list || busy) return;
+        if (autoLoads >= autoMax) { render(); return; }                 // budget spent → the button takes over
+        if (page * per >= rows.filter(matches).length) return;          // nothing left to load
+        if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
+        autoLoads++;
+        loadBatch(maybeFill);                                           // still short? keep going
       };
+      if (moreBtn) moreBtn.addEventListener('click', function () { loadBatch(); });
       window.addEventListener('scroll', maybeFill, { passive: true });
       window.addEventListener('resize', maybeFill);
       maybeFill();
