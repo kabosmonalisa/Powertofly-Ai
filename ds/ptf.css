@@ -1670,20 +1670,46 @@ img { display: block; max-width: 100%; }
    The two states an infinite list needs: a spinner while the next batch loads, and an
    end-of-list note with a way back to the top. Both belong to `[data-ev-infinite]` and are
    driven by PTF.initEventList() — a page only supplies the markup. */
-.ev-loading { display: flex; justify-content: center; padding: 34px 0 6px; }
+/* SKELETON batch — placeholder tiles the exact shape of the cards they become, with a
+   shimmer sweeping across them. A bare spinner for half a second reads as nothing; seeing
+   the next row of cards blocked out is what makes the loading legible. JS fills this. */
+.ev-loading { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+@media (max-width: 900px) { .ev-loading { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .ev-loading { grid-template-columns: 1fr; } }
 .ev-end     { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 38px 0 0; }
-.ev-loading[hidden], .ev-end[hidden] { display: none; }   /* [hidden] must beat display:flex */
-.ev-spinner { width: 22px; height: 22px; border-radius: 50%;
-  border: 2px solid var(--line-2); border-top-color: var(--accent);
-  animation: evSpin 0.7s linear infinite; }
-@keyframes evSpin { to { transform: rotate(360deg); } }
+.ev-loading[hidden], .ev-end[hidden] { display: none; }   /* [hidden] must beat display:grid/flex */
+.ev-skeleton { border: 1px solid var(--line); border-radius: var(--r-xl); background: var(--bg-soft);
+  padding: 0 22px 26px; overflow: hidden; }
+.ev-sk-img  { height: 200px; margin: 0 -22px 16px; }
+.ev-sk-line { height: 11px; border-radius: var(--r-sm); margin-bottom: 11px; }
+.ev-sk-line:nth-child(2) { width: 34%; }
+.ev-sk-line:nth-child(3) { width: 92%; }
+.ev-sk-line:nth-child(4) { width: 74%; }
+.ev-sk-img, .ev-sk-line {
+  background: linear-gradient(90deg, var(--surface-2) 0%,
+              color-mix(in srgb, var(--surface-2) 45%, var(--bg)) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%; animation: evShimmer 1.25s linear infinite; }
+@keyframes evShimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+
+/* Each newly loaded card fades and lifts into place, staggered — so a batch arriving reads
+   as "these just landed" instead of the page silently getting longer. Delay set by the JS. */
+.ev-row.is-new { animation: evCardIn 0.42s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+@keyframes evCardIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
 .ev-end-note { font-size: 14px; color: var(--ink-3); }
-/* Floating "back to top" — present the whole way down an infinite list, not just at the end.
+/* Floating "back to top" — bottom CENTRE, present the whole way down an infinite list.
    The wrapper carries the elevation so the .btn inside stays an untouched .btn. */
-.ev-to-top { position: fixed; right: 24px; bottom: 24px; z-index: 60;
-  border-radius: var(--r-pill); box-shadow: var(--shadow-card); }
+.ev-to-top { position: fixed; left: 50%; bottom: 28px; z-index: 60; transform: translateX(-50%);
+  border-radius: var(--r-pill); box-shadow: var(--shadow-card);
+  animation: evPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+@keyframes evPopIn { from { opacity: 0; transform: translateX(-50%) scale(0.9); }
+                       to { opacity: 1; transform: translateX(-50%) scale(1); } }
 .ev-to-top[hidden] { display: none; }
-@media (max-width: 600px) { .ev-to-top { right: 16px; bottom: 16px; } }
+@media (max-width: 600px) { .ev-to-top { bottom: 18px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ev-sk-img, .ev-sk-line, .ev-row.is-new, .ev-to-top { animation: none; }
+}
 @media (prefers-reduced-motion: reduce) { .ev-spinner { animation-duration: 2.4s; } }
 
 /* ── Hero search bar (.hero-search) ─────────────────────────────────────────────
@@ -1720,10 +1746,17 @@ img { display: block; max-width: 100%; }
 .hero-search-input::placeholder { color: var(--ink-3); }
 /* no new button class — the closed set stays closed; the bar just fits the .btn to the pill */
 .hero-search .btn { flex-shrink: 0; padding: 14px 26px; font-weight: 700; }
-/* mobile: full-width input over a full-width button, so the placeholder never truncates */
+/* SMALL modifier — the same bar, sized to sit in a control row beside filter chips. Same pill,
+   same magnifier, same elevation; no submit button, because a list it filters live has nothing
+   to submit. Use this for a "quick search" so it reads as family with the hero bar. */
+.hero-search-sm { max-width: 300px; gap: 4px; padding: 5px 6px 5px 14px; }
+.hero-search-sm .hero-search-ico { width: 17px; height: 17px; }
+.hero-search-sm .hero-search-input { font-size: 14px; padding: 9px 6px 9px 8px; }
+/* mobile: full-width input over a full-width button, so the placeholder never truncates.
+   The small variant has no button and keeps its pill. */
 @media (max-width: 600px) {
-  .hero-search { flex-wrap: wrap; border-radius: 22px; padding: 8px; gap: 8px; }
-  .hero-search-ico { margin-left: 8px; }
-  .hero-search-input { flex: 1 1 0; padding: 12px 4px; font-size: 16px; }  /* 16px stops iOS zooming on focus */
+  .hero-search:not(.hero-search-sm) { flex-wrap: wrap; border-radius: 22px; padding: 8px; gap: 8px; }
+  .hero-search:not(.hero-search-sm) .hero-search-ico { margin-left: 8px; }
+  .hero-search:not(.hero-search-sm) .hero-search-input { flex: 1 1 0; padding: 12px 4px; font-size: 16px; }  /* 16px stops iOS zooming on focus */
   .hero-search .btn { flex: 1 0 100%; width: 100%; justify-content: center; text-align: center; }
 }

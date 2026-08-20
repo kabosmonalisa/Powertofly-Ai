@@ -525,13 +525,32 @@ window.PTF = (function () {
         if (page * per >= rows.filter(matches).length) return;          // nothing left to load
         if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
         busy = true;
-        if (loading) loading.hidden = false;
-        setTimeout(function () {                                        // let the spinner register
+        var startIdx = page * per;
+        var waiting  = rows.filter(matches).length - startIdx;
+        if (loading) {                                                  // blocked-out cards + shimmer
+          var tiles = Math.min(per, waiting, 3), html = '';
+          for (var t = 0; t < tiles; t++) {
+            html += '<div class="ev-skeleton"><div class="ev-sk-img"></div>' +
+                    '<div class="ev-sk-line"></div><div class="ev-sk-line"></div><div class="ev-sk-line"></div></div>';
+          }
+          loading.innerHTML = html;
+          loading.hidden = false;
+        }
+        setTimeout(function () {                                        // long enough to read as loading
           page++; render();
-          if (loading) loading.hidden = true;
+          if (loading) { loading.hidden = true; loading.innerHTML = ''; }
+          /* stagger the arrivals so a batch announces itself */
+          rows.filter(matches).slice(startIdx, page * per).forEach(function (r, i) {
+            r.style.animationDelay = (i * 70) + 'ms';
+            r.classList.add('is-new');
+            r.addEventListener('animationend', function done() {
+              r.classList.remove('is-new'); r.style.animationDelay = '';
+              r.removeEventListener('animationend', done);
+            });
+          });
           busy = false;
           maybeFill();                                                  // still short? keep going
-        }, 420);
+        }, 900);
       };
       window.addEventListener('scroll', maybeFill, { passive: true });
       window.addEventListener('resize', maybeFill);
