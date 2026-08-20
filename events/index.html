@@ -30,35 +30,41 @@
 .site-header .nav { position: static; }
 
 /* ── Hero (page-unique composition, tokens only) ── */
+/* Same recipe as the Resources hero: copy on the left, the featured thing as ONE object on the
+   right, plain --bg (no wash), --container width so it lines up with the nav. */
 .hero {
   position: relative;
   overflow: hidden;
-  padding: 48px var(--gutter) 56px;
-  background: radial-gradient(ellipse 1100px 720px at 50% -10%, color-mix(in srgb, var(--iri-green) 22%, transparent) 0%, color-mix(in srgb, var(--iri-lime) 12%, transparent) 35%, var(--bg) 70%);
-  text-align: center;
+  padding: 100px var(--gutter) var(--section-y);
 }
-.hero-inner { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto; }
+.hero-inner { position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  column-gap: clamp(32px, 5vw, 64px); align-items: center; }
+.hero-text { text-align: left; }
 h1.hero-headline {
   font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
   font-weight: 700;
   font-size: clamp(36px, 5.5vw, 68px);
   line-height: 1.0; letter-spacing: -0.04em;
-  max-width: 20ch; margin: 0 auto;
+  max-width: 15ch; margin: 0;
 }
-.hero-sub { max-width: 60ch; margin: 24px auto 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); }
-.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 36px; flex-wrap: wrap; }
+.hero-sub { max-width: 48ch; margin: 20px 0 0; font-size: 16.5px; line-height: 1.6; color: var(--ink-3); }
+.hero-ctas { display: flex; gap: 12px; margin-top: 34px; flex-wrap: wrap; }
 
 /* ── Featured "happening now / up next" event promo (Handshake-style 2-col) ── */
-.hero-feature {
-  max-width: var(--content-body); margin: 48px auto 0;
-  display: grid; grid-template-columns: 1fr 1.15fr;
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--r-2xl); overflow: hidden;
-  box-shadow: var(--shadow-card); text-align: left;
-}
+/* ONE object, like the Resources featured story: the copy sits ON the image over a scrim
+   instead of in a card beside it. --r-2xl per the feature-image radius rule. */
+.hero-feature { position: relative; border-radius: var(--r-2xl); overflow: hidden; text-align: left; }
 .hero-feature-text {
-  padding: 58px 48px; display: flex; flex-direction: column;
-  align-items: flex-start; gap: 22px; justify-content: center;
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 130px 32px 30px;
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--bg) 94%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 86%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%);
+  display: flex; flex-direction: column;
+  align-items: flex-start; gap: 14px; justify-content: flex-end;
 }
 /* CTA row: Register button + minimalist countdown beside it */
 .hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 24px; }
@@ -99,10 +105,19 @@ h1.hero-headline {
 .hero-feature-media video { opacity: 0; transition: opacity 1.1s ease; }
 .hero-feature-media video.is-active { opacity: 1; }
 
+/* stack below 1000, matching the Resources hero — two columns any narrower squeezes both */
+@media (max-width: 1000px) {
+  .hero { padding-top: 64px; }
+  .hero-inner { grid-template-columns: 1fr; row-gap: 32px; }
+  h1.hero-headline, .hero-sub { max-width: none; }
+  .hero-feature-media { min-height: 400px; }
+}
+/* Narrow: this featured event carries five meta facts, a CTA and a countdown — far more than
+   the Resources story — and that stack is taller than the image, so an overlay would clip it.
+   Below 760 the copy sits UNDER the image in a solid dark block instead. Still one object. */
 @media (max-width: 760px) {
-  .hero-feature { grid-template-columns: 1fr; margin-top: 36px; }
-  .hero-feature-media { order: -1; min-height: 220px; }
-  .hero-feature-text { padding: 30px 26px; }
+  .hero-feature-media { min-height: 300px; }
+  .hero-feature-text { position: static; padding: 26px 22px 28px; background: var(--bg); }
   /* full-width, easy-to-tap CTA on mobile; countdown drops to its own row below */
   .hf-cta-row { gap: 16px; }
   .hf-cta-row .btn { width: 100%; justify-content: center; }
@@ -219,13 +234,21 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 <!-- 01. HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">Events</div>
-    <h1 class="hero-headline">Build connections that <em class="italic-plain">move you forward.</em></h1>
-    <p class="hero-sub">Join a virtual event to meet people shaping what's next in tech, learn from their experience, and grow your own.</p>
+    <div class="hero-text">
+      <div class="eyebrow">Events</div>
+      <h1 class="hero-headline">Build connections that <em class="italic-plain">move you forward.</em></h1>
+      <p class="hero-sub">Join a virtual event to meet people shaping what's next in tech, learn from their experience, and grow your own.</p>
+    </div>
 
-    <!-- Featured "happening now / up next" event promo — filled by JS (next flagship + live countdown) -->
+    <!-- Featured "happening now / up next" event — filled by JS (next flagship + live countdown).
+         The copy sits ON the image, carrying `theme-dark` so every part recolours from the dark
+         tokens exactly as it does on a dark page. -->
     <div class="hero-feature" id="hfFeature">
-      <div class="hero-feature-text">
+      <div class="hero-feature-media">
+        <!-- Topic (AI & emerging tech) + PowerToFly diversity: a diverse woman at glowing screens (Pexels) -->
+        <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1000&h=760&fit=crop" alt="Professionals at glowing data screens — AI and emerging tech shaping tomorrow">
+      </div>
+      <div class="hero-feature-text theme-dark">
         <span class="sc-tag" id="hfTag">Summit</span>
         <h2 class="hero-feature-title" id="hfTitle">The Next Wave: AI &amp; Emerging Tech Shaping Tomorrow</h2>
         <div class="hf-meta" id="hfMeta"><!-- filled by JS: date · participants · speakers · format · duration --></div>
@@ -234,10 +257,6 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
           <a class="btn btn-primary" id="hfCta" href="https://powertofly.com/browse-events" target="_blank" rel="noopener">Register →</a>
           <div class="hf-countdown" id="hfCountdown"><!-- filled by JS: minimalist live countdown --></div>
         </div>
-      </div>
-      <div class="hero-feature-media">
-        <!-- Topic (AI & emerging tech) + PowerToFly diversity: a diverse woman at glowing screens (Pexels) -->
-        <img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=1000&h=760&fit=crop" alt="Professionals at glowing data screens — AI and emerging tech shaping tomorrow">
       </div>
     </div>
   </div>
