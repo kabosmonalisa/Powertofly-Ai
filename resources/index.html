@@ -16,10 +16,87 @@
 <!-- Design system -->
 <link rel="stylesheet" href="../ds/ptf.css">
 <!--
-  No page <style> block. Every block on this page maps to an existing component:
-  .section-hero (hero) · .ev-head + .ev-listing--grid (the article listing, incl. its
-  filter chips, search and pagination) · .section-cta (closer). See ds/COMPONENT-INVENTORY.md.
+  Every block on this page maps to an existing component:
+  .section-hero + .section-head (hero) · .ev-head + .ev-listing--grid (the article listing,
+  incl. its filter chips and pagination) · .ev-thumb / .sc-tag / .ev-row-title / .ev-row-date /
+  .ev-row-link (the featured story in the hero) · .section-cta (closer). See ds/COMPONENT-INVENTORY.md.
 -->
+<style>
+/* ── PAGE-SPECIFIC: the Resources hero composition only (text + search beside the featured
+   story). Allowed by COMPONENT-INVENTORY → "Allowed page-specific CSS": a genuinely unique
+   hero composition. LAYOUT ONLY — tokens, no raw hex, and it does not restyle any shared
+   component (.eyebrow / .display / .ev-thumb / .sc-tag / .ev-row-* / .ev-search-wrap keep
+   their own rules; the one scoped tweak below is placement margin, not styling).
+   NOTE for the system: this is the same "text left, feature media right" hero that vjf /
+   summit / chat-learn / meet-with-companies each rebuild as .ev-hero. Fifth copy — it wants
+   promoting to ptf.css as one shared two-column hero. ── */
+/* Two columns, two rows: the copy sits above the topic chips on the left, the featured
+   story spans both rows on the right — so the two columns start AND end level.
+   WIDTH = var(--container). This site has TWO hero recipes and the width follows which
+   one you are in:
+     • text-only, centered  → .section-hero + .section-head = --content (1080), left 100.
+                              About, Browse talent, Job board.
+     • two columns + media  → --container (1400), flush with the nav edge (left 32 @1280).
+                              vjf, summit, chat-learn, meet-with-companies, events, hire,
+                              employers, employers-ceo, talents — measured, all of them.
+   This hero is text + media, so it is the second family. Column ratio and the 520px media
+   height match vjf/summit (media is the larger column). NOT --content-body (1200) — that is
+   the body-section width the article grid uses, and no hero on the site uses it. */
+/* More air above the hero, matching the talents hero (100px top there vs .section-hero's
+   56px --hero-top). Hero top padding is a named exception to the spacing law. */
+.section-hero { padding-top: 100px; }
+.res-hero-inner { max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  column-gap: clamp(32px, 5vw, 64px); align-items: center; }
+/* The text column IS the shared .section-head (eyebrow + .display h1 + p) — same component,
+   same type scale and spacing as every other hero. Only PLACEMENT is overridden here: a
+   two-column hero can't use its centered, --content-wide default. No type, colour or
+   margin values are restated; they stay the component's. */
+/* .section-hero .section-head is (0,2,0) — a (0,1,0) rule here loses to it, so these
+   placement overrides are written at the same weight. */
+.section-hero .res-hero-text { grid-column: 1; max-width: none; margin: 0; text-align: left; }
+.res-feature       { grid-column: 2; }
+.res-hero-text p { margin-left: 0; margin-right: 0; }  /* the component centers itself with auto margins; a left-aligned column can't */
+.res-hero-text .hero-search { margin: 34px 0 0; }      /* same offset .hero-ctas uses for the action row under a hero sub */
+.res-hero-controls .ev-filter { margin-bottom: 0; }    /* placement only — the hero ends here, no trailing gap */
+/* Featured story = ONE object: the shared .ev-thumb image with the shared row parts sitting
+   ON it, over a scrim, instead of floating underneath. The caption carries `theme-dark`, so
+   .sc-tag / .ev-row-title / .ev-row-date / .ev-row-link recolor themselves from the dark
+   tokens exactly as they do on a dark page — no hand-picked white, no re-styled component.
+   The scrim is var(--bg) (which IS #0A0A0A inside theme-dark), never a raw hex. */
+.res-feature { position: relative; }
+/* --r-2xl, not the .ev-thumb default --r-lg: DESIGN-SYSTEM "Border-radius — what gets which"
+   puts large feature images (hero image, portraits, big media) on --r-2xl. This is a hero
+   feature image, not a listing thumbnail. */
+.res-feature .ev-thumb { height: 520px; border-radius: var(--r-2xl); }
+.res-feature-cap { position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 120px 32px 30px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--bg) 94%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 86%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%); }
+.res-feature-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
+.res-feature-meta .ev-row-date { padding-top: 0; }
+
+/* Control row above the grid: topic chips left, quick search right. Layout only — both are the
+   shared components (.ev-filter chips, .ev-search field), just placed on one line.
+   Candidate for the system: Events stacks the same two controls instead of pairing them. */
+.res-controls { display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.res-controls .ev-filter { margin-bottom: 0; flex: 1 1 340px; }
+.res-controls .ev-search-wrap { margin: 0; flex: 0 1 260px; }
+
+/* Stack at 1000, not 900: between 900 and 1000 the two columns are ~430px each, which
+   squeezes the .display headline and runs the story title to three lines. */
+@media (max-width: 1000px) {
+  .section-hero { padding-top: 64px; }        /* talents drops to 64 on small screens too */
+  .res-hero-inner { grid-template-columns: 1fr; row-gap: 32px; }
+  .res-hero-text, .res-feature { grid-column: 1; }
+  .res-feature .ev-thumb { height: 380px; }        /* taller than a plain thumb: the copy lives inside it now */
+  .res-feature-cap { padding: 80px 22px 24px; }
+}
+</style>
 </head>
 <body>
 
@@ -30,48 +107,90 @@
 
 <main>
 
-<!-- ═══ 01. HERO — .section-hero (the standard first-section recipe: tighter top, --content headline column) ═══ -->
+<!-- ═══ ONE [data-ev-list] SCOPE around the hero + the listing ═══
+     PTF.initEventList() works per container: it finds [data-ev-search], the .ev-row tiles,
+     .ev-filter-btn chips and the pager INSIDE one [data-ev-list]. Wrapping both sections in
+     that scope is what makes the search box in the hero the listing's real search — no page
+     JS, no second search. This div carries no class and no styling: it is a scope, not a layout. -->
+<div data-ev-list data-ev-per="6" data-ev-infinite>
+
+<!-- ═══ 01. HERO — .section-hero (plain --bg, no wash), composed as the shared .section-head
+     + search beside the featured story. The story is built from the shared listing parts:
+     .ev-thumb + .sc-tag + .ev-row-title + .ev-row-date + .ev-row-link. ═══ -->
 <section class="section-hero">
-  <div class="section-narrow">
-    <div class="section-head">
-      <span class="eyebrow"><span class="dot"></span>Resources</span>
+  <div class="res-hero-inner">
+
+    <div class="section-head res-hero-text">
+      <span class="eyebrow">Resources</span>
       <h1 class="display">Take the next step in your <em class="italic-plain">career path.</em></h1>
       <p>Career advice, diverse stories, and more — from the people building working lives they actually want.</p>
+
+      <!-- THE shared hero search bar (ds/ptf.css → .hero-search) — the same bar as the
+           talents hero, not a second shape. Its input carries [data-ev-search], so it is
+           still the article listing's real search inside the page's one [data-ev-list]
+           scope: typing filters the grid live. -->
+      <form class="hero-search" role="search" aria-label="Search all resources">
+        <svg class="hero-search-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <!-- The placeholder names what is IN the library — it never tells anyone what to type.
+             COPY: confirm — "guides" is a claim; today this page holds articles only.
+             Keep any replacement under ~37 characters or it truncates at 375px.
+             The aria-label stays plainly descriptive for screen readers. -->
+        <input class="hero-search-input" data-ev-search type="text" placeholder="Articles, guides, and stories" aria-label="Search all resources">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
     </div>
+
+    <!-- COPY: confirm — featured story (headline, standfirst date and link come from the CMS' latest post) -->
+    <div class="res-feature">
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1000&h=760&fit=crop" alt="A diverse team working together around a table with laptops and printed charts" loading="eager"></div>
+      <div class="res-feature-cap theme-dark">
+        <span class="sc-tag">AI &amp; artificial intelligence</span>
+        <h2 class="ev-row-title">Building digital fluency: how companies are training their teams for AI</h2>
+        <div class="res-feature-meta">
+          <div class="ev-row-date">August 11, 2026</div>
+          <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read the article →</a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <!-- ═══ 02. RECENT ARTICLES — the shared .ev-* listing, grid variant.
-     "Popular topics" from the brief ARE this listing's filter chips (.ev-filter-btn[data-filter]),
-     and "Search all resources" is its [data-ev-search] input — both only work wired inside
-     [data-ev-list]. Filter + search + numbered pagination come free from PTF.initEventList().
+     Both of this listing's controls now live in the hero — "Popular topics" ARE its filter chips
+     (.ev-filter-btn[data-filter]) and "Search all resources" is its [data-ev-search] input — in the
+     same [data-ev-list] scope, so there is exactly one of each on the page. Filter + search +
+     numbered pagination come free from PTF.initEventList().
      ═══ -->
 <section class="section">
   <div class="ev-head">
     <h2>Recent articles</h2>
-    <!-- COPY: confirm — "View all" target (full blog archive) -->
-    <a class="ev-head-link" href="https://powertofly.com/up" target="_blank" rel="noopener">View all →</a>
   </div>
 
-  <div class="ev-listing ev-listing--grid" data-ev-list data-ev-per="6">
+  <div class="ev-listing ev-listing--grid">
 
-    <!-- Popular topics -->
-    <div class="ev-filter">
-      <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
-      <button class="ev-filter-btn" data-filter="job-search">Job search</button>
-      <button class="ev-filter-btn" data-filter="ai">AI &amp; artificial intelligence</button>
-      <button class="ev-filter-btn" data-filter="career">Career development</button>
-      <button class="ev-filter-btn" data-filter="worklife">Work-life integration</button>
-      <button class="ev-filter-btn" data-filter="inclusion">Workplace inclusion</button>
-      <button class="ev-filter-btn" data-filter="remote">Remote work</button>
+    <!-- Controls sit directly above the grid they act on, so changing a topic or a term never
+         means scrolling back up. The quick search is the shared .ev-search field; it mirrors
+         the hero bar (both are [data-ev-search] in the same scope). -->
+    <div class="res-controls">
+      <div class="ev-filter">
+        <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+        <button class="ev-filter-btn" data-filter="job-search">Job search</button>
+        <button class="ev-filter-btn" data-filter="ai">AI &amp; artificial intelligence</button>
+        <button class="ev-filter-btn" data-filter="career">Career development</button>
+        <button class="ev-filter-btn" data-filter="worklife">Work-life integration</button>
+        <button class="ev-filter-btn" data-filter="inclusion">Workplace inclusion</button>
+        <button class="ev-filter-btn" data-filter="remote">Remote work</button>
+      </div>
+      <div class="ev-search-wrap">
+        <input class="ev-search" data-ev-search type="search" placeholder="Quick search" aria-label="Search articles">
+        <button class="ev-search-clear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
+      </div>
     </div>
 
     <div>
-      <div class="ev-search-wrap">
-        <input class="ev-search" data-ev-search type="search" placeholder="Search all resources…" aria-label="Search all resources">
-        <button class="ev-search-clear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
-      </div>
-
       <!-- COPY: confirm — excerpts below are written from each headline; swap in the real standfirst from the CMS. -->
       <div class="ev-list">
 
@@ -80,7 +199,7 @@
           <div class="ev-row-date">July 9, 2026</div>
           <div class="ev-row-body">
             <span class="sc-tag">Remote work</span>
-            <h3 class="ev-row-title">Beyond hybrid work: How employers are redefining workplace flexibility</h3>
+            <h3 class="ev-row-title">Beyond hybrid work: how employers are redefining workplace flexibility</h3>
             <p class="ev-row-desc">Three days in the office isn't a flexibility policy. We asked employers what's replacing the hybrid compromise — and what autonomy actually looks like when it's designed on purpose.</p>
             <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
           </div>
@@ -113,7 +232,7 @@
           <div class="ev-row-date">June 16, 2026</div>
           <div class="ev-row-body">
             <span class="sc-tag">AI &amp; artificial intelligence</span>
-            <h3 class="ev-row-title">GenAI Careers at Moody's: Meet the GenAI Implementation Team</h3>
+            <h3 class="ev-row-title">GenAI careers at Moody's: meet the GenAI implementation team</h3>
             <p class="ev-row-desc">What does a GenAI implementation team actually do all day? The people building it at Moody's walk through the roles, the skills they hire for, and how they got there.</p>
             <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
           </div>
@@ -135,8 +254,99 @@
           <div class="ev-row-date">June 9, 2026</div>
           <div class="ev-row-body">
             <span class="sc-tag">Work-life integration</span>
-            <h3 class="ev-row-title">Workplace wellness &amp; mental health: How companies are getting it right</h3>
+            <h3 class="ev-row-title">Workplace wellness &amp; mental health: how companies are getting it right</h3>
             <p class="ev-row-desc">Meditation apps don't fix a broken workload. A look at the companies treating wellbeing as a design problem — and the practices their people say make a difference.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <!-- COPY: confirm — the eight articles below are placeholders written in PTF voice so the
+             infinite scroll has something to scroll. Swap for real CMS entries. -->
+
+        <article class="ev-row" data-type="job-search">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Three colleagues smiling around a table with printed charts and a laptop" loading="lazy"></div>
+          <div class="ev-row-date">June 2, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Job search</span>
+            <h3 class="ev-row-title">What hiring managers actually look at in the first ten seconds</h3>
+            <p class="ev-row-desc">We asked recruiters to talk through a real screening pass. What they skip, what stops them, and the one line at the top that decides the rest.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="career">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A team meeting where two colleagues shake hands across the table" loading="lazy"></div>
+          <div class="ev-row-date">May 28, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Career development</span>
+            <h3 class="ev-row-title">The sideways move that turns into a promotion</h3>
+            <p class="ev-row-desc">Going sideways looks like standing still until you see where it lands. Three people explain the move that looked like a detour and wasn't.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="remote">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/4064840/pexels-photo-4064840.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A person working alone at a home desk with a laptop and coffee" loading="lazy"></div>
+          <div class="ev-row-date">May 21, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Remote work</span>
+            <h3 class="ev-row-title">Working from home without disappearing from your team</h3>
+            <p class="ev-row-desc">Visibility isn't about being online more. It's about where your work shows up, and remote leaders are surprisingly blunt about what counts.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="inclusion">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/6592651/pexels-photo-6592651.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A colleague presenting at a flip chart to a teammate who uses a wheelchair" loading="lazy"></div>
+          <div class="ev-row-date">May 14, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Workplace inclusion</span>
+            <h3 class="ev-row-title">Accessibility at work: the part most teams skip</h3>
+            <p class="ev-row-desc">Ramps and screen readers are the start, not the finish. What changes when accessibility is a default in how meetings, docs and hiring are run.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="job-search">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/5673488/pexels-photo-5673488.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Two professionals shaking hands over a desk after a meeting" loading="lazy"></div>
+          <div class="ev-row-date">May 7, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Job search</span>
+            <h3 class="ev-row-title">Salary conversations: how to open one without flinching</h3>
+            <p class="ev-row-desc">The number is the easy part. Scripts, timing, and what to do when they ask what you're making now.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Two colleagues reviewing printed charts and data together at a desk" loading="lazy"></div>
+          <div class="ev-row-date">April 30, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">The AI skills employers are hiring for right now</h3>
+            <p class="ev-row-desc">Not prompt engineering. We went through six months of job postings to find what companies keep asking for, and what they've quietly stopped asking for.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="worklife">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A team working together around a wooden table, seen from above" loading="lazy"></div>
+          <div class="ev-row-date">April 23, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Work-life integration</span>
+            <h3 class="ev-row-title">Boundaries that survive a busy quarter</h3>
+            <p class="ev-row-desc">Anyone can hold a boundary in a calm week. What holds when the quarter goes sideways, from people who've tested it.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="inclusion">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8867482/pexels-photo-8867482.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse team of colleagues standing together in an office" loading="lazy"></div>
+          <div class="ev-row-date">April 16, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Workplace inclusion</span>
+            <h3 class="ev-row-title">Building teams where people actually stay</h3>
+            <p class="ev-row-desc">Retention isn't a perks problem. The companies keeping their people are doing a handful of unglamorous things consistently.</p>
             <a class="ev-row-link" href="https://powertofly.com/up" target="_blank" rel="noopener">Read more →</a>
           </div>
         </article>
@@ -150,6 +360,8 @@
 
   </div><!-- /.ev-listing -->
 </section>
+
+</div><!-- /[data-ev-list] — hero search + listing share one scope -->
 
 <!-- ═══ 03. EMAIL UPDATES — the shared dark CTA closer (.section-cta).
      NOTE: there is no inline email-capture component in the inventory, so this hands off to
@@ -175,20 +387,17 @@
   PTF.initHeader();
   PTF.initEventList();   // topic filters + search + numbered pagination for [data-ev-list]
 
-  /* ── Search clear (×) button: show when non-empty, clear on click.
-        Same page-local snippet as events/index.html — the .has-value toggle isn't in ptf.js yet. ── */
+  /* ── Hero search: filtering is live (PTF.initEventList listens on `input`), so the
+        Search button must not submit the form and reload the page. It jumps to the
+        results instead — the useful thing left for it to do. ── */
   (function () {
-    var wrap = document.querySelector('.ev-search-wrap');
-    if (!wrap) return;
-    var input = wrap.querySelector('.ev-search'), clear = wrap.querySelector('.ev-search-clear');
-    function sync() { wrap.classList.toggle('has-value', !!input.value); }
-    input.addEventListener('input', sync);
-    clear.addEventListener('click', function () {
-      input.value = '';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.focus();
+    var form = document.querySelector('.hero-search');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var head = document.querySelector('.ev-head');
+      if (head) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
-    sync();
   })();
 </script>
 </body>

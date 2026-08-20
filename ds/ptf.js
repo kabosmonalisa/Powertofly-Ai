@@ -441,13 +441,19 @@ window.PTF = (function () {
     [].slice.call((root || document).querySelectorAll('[data-ev-list]')).forEach(setupEventList);
   }
   function setupEventList(wrap) {
-    var rows   = [].slice.call(wrap.querySelectorAll('.ev-row'));
-    var btns   = [].slice.call(wrap.querySelectorAll('.ev-filter-btn'));
-    var search = wrap.querySelector('[data-ev-search]');
-    var empty  = wrap.querySelector('[data-ev-empty]');
-    var pager  = wrap.querySelector('.ev-pager');
-    var per    = parseInt(wrap.getAttribute('data-ev-per'), 10) || 6;
+    var rows    = [].slice.call(wrap.querySelectorAll('.ev-row'));
+    var btns    = [].slice.call(wrap.querySelectorAll('.ev-filter-btn'));
+    /* every [data-ev-search] in the scope drives the same list and they mirror each other,
+       so a page can offer more than one way in (e.g. a hero bar + a quick search by the chips) */
+    var fields  = [].slice.call(wrap.querySelectorAll('[data-ev-search]'));
+    var empty   = wrap.querySelector('[data-ev-empty]');
+    var pager   = wrap.querySelector('.ev-pager');
+    var per     = parseInt(wrap.getAttribute('data-ev-per'), 10) || 6;
+    /* data-ev-infinite → no page numbers; the next batch of `per` appends as the reader
+       reaches the end of the list. */
+    var infinite = wrap.hasAttribute('data-ev-infinite');
     var filter = 'all', term = '', page = 1;
+    var maybeFill = function () {};   /* replaced below when data-ev-infinite is set */
     function matches(r) {
       if (filter !== 'all' && r.getAttribute('data-type') !== filter) return false;
       return !term || r.textContent.toLowerCase().indexOf(term) !== -1;
@@ -457,10 +463,12 @@ window.PTF = (function () {
       var pages = Math.max(1, Math.ceil(visible.length / per));
       if (page > pages) page = pages;
       rows.forEach(function (r) { r.classList.add('is-hidden'); });
-      visible.forEach(function (r, i) { if (i >= (page - 1) * per && i < page * per) r.classList.remove('is-hidden'); });
+      /* infinite keeps every earlier batch on screen; paged shows only the current one */
+      var from = infinite ? 0 : (page - 1) * per;
+      visible.forEach(function (r, i) { if (i >= from && i < page * per) r.classList.remove('is-hidden'); });
       if (empty) empty.hidden = visible.length > 0;
       if (pager) {
-        if (pages > 1) {
+        if (pages > 1 && !infinite) {
           var html = '';
           for (var i = 1; i <= pages; i++) html += '<button class="ev-page' + (i === page ? ' is-active' : '') + '" data-ev-page="' + i + '">' + i + '</button>';
           pager.innerHTML = html;
@@ -472,13 +480,51 @@ window.PTF = (function () {
       }
       btns.forEach(function (b) { b.classList.toggle('is-active', b.getAttribute('data-filter') === filter); });
     }
-    btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; render(); }); });
-    if (search) search.addEventListener('input', function () { term = search.value.trim().toLowerCase(); page = 1; render(); });
+    btns.forEach(function (b) { b.addEventListener('click', function () { filter = b.getAttribute('data-filter'); page = 1; render(); maybeFill(); }); });
+    fields.forEach(function (f) {
+      var wrapEl = f.closest('.ev-search-wrap');
+      var clear  = wrapEl && wrapEl.querySelector('.ev-search-clear');
+      function syncClear() { if (wrapEl) wrapEl.classList.toggle('has-value', !!f.value); }
+      f.addEventListener('input', function () {
+        term = f.value.trim().toLowerCase();
+        fields.forEach(function (o) {                       // keep every field showing the same term
+          if (o !== f) { o.value = f.value; o.dispatchEvent(new CustomEvent('ev-sync')); }
+        });
+        syncClear(); page = 1; render(); maybeFill();
+      });
+      f.addEventListener('ev-sync', syncClear);             // mirrored fields update their own × too
+      if (clear) clear.addEventListener('click', function () {
+        f.value = '';
+        f.dispatchEvent(new Event('input', { bubbles: true }));
+        f.focus();
+      });
+      syncClear();
+    });
     if (pager) pager.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ev-page]');
       if (b) { page = parseInt(b.getAttribute('data-ev-page'), 10); render(); }
     });
     render();
+
+    /* Infinite scroll: when the bottom of the list comes within 300px of the viewport, append
+       the next batch of `per`. A plain scroll check rather than IntersectionObserver — IO does
+       not fire in every embedded/preview context, and a stalled list is worse than a cheap
+       rect read. Loops until the list is long enough again, so one scroll can add several
+       batches, and re-checks after a filter or search narrows the results. */
+    if (infinite) {
+      var list = wrap.querySelector('.ev-list');
+      maybeFill = function () {
+        if (!list) return;
+        var guard = 0;
+        while (page * per < rows.filter(matches).length && guard++ < 50) {
+          if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
+          page++; render();
+        }
+      };
+      window.addEventListener('scroll', maybeFill, { passive: true });
+      window.addEventListener('resize', maybeFill);
+      maybeFill();
+    }
   }
 
   /**

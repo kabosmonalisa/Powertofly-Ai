@@ -422,33 +422,10 @@ color: var(--ink-3);
 white-space: nowrap;
 }
 
-/* ===== Hero job search (v2 — talent-focused) ===== */
-.hero-search {
-display: flex;
-align-items: center;
-gap: 6px;
-width: 100%;
-max-width: 540px;
-background: #fff;
-border: 1px solid var(--line);
-border-radius: 999px;
-box-shadow: var(--shadow-card);
-padding: 6px 6px 6px 18px;
-}
-.hero-search-ico { width: 20px; height: 20px; flex-shrink: 0; color: var(--ink-3); }
-.hero-search-input {
-flex: 1;
-min-width: 0;
-border: none;
-background: none;
-outline: none;
-font-family: 'Inter', sans-serif;
-font-size: 15px;
-color: var(--ink);
-padding: 12px 8px 12px 12px;
-}
-.hero-search-input::placeholder { color: var(--ink-3); }
-.hero-search .btn-search { flex-shrink: 0; padding: 14px 26px; font-size: 15px; font-weight: 700; }
+/* Hero job search → PROMOTED to ds/ptf.css as the shared `.hero-search` component
+   (2026-08-20), so Resources and this page use the same bar. The page-local copy that
+   lived here is gone — do not re-add it. Raw `#fff` became var(--bg) and the hand-styled
+   `.btn-search` class was dropped (the inline button is a plain `.btn`) on the way in. */
 /* Quick-search pills — links into the job board */
 .search-quick {
 display: flex;
@@ -474,28 +451,8 @@ transition: border-color .12s, color .12s, background .12s;
 }
 .search-pill:hover { border-color: var(--ink); color: var(--ink); background: var(--bg-soft); }
 
-/* Hero search — mobile: stack a full-width input over a full-width button (placeholder no longer truncates) */
+/* The .hero-search mobile stack now ships with the component in ds/ptf.css. */
 @media (max-width: 600px) {
-  .hero-search {
-    flex-wrap: wrap;
-    border-radius: 22px;
-    padding: 8px;
-    gap: 8px;
-  }
-  .hero-search-ico { margin-left: 8px; }
-  .hero-search-input {
-    flex: 1 1 0;
-    padding: 12px 4px;
-    font-size: 16px; /* 16px keeps iOS from zooming the page on focus */
-  }
-  .hero-search .btn-search {
-    flex: 1 0 100%;
-    width: 100%;
-    justify-content: center;
-    text-align: center;
-    padding: 14px 24px;
-    border-radius: 999px;
-  }
   /* center the quick pills under the stacked search */
   .search-quick { justify-content: center; }
 }
@@ -1065,7 +1022,7 @@ h1.display br { display: none; }
         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
       </svg>
       <input class="hero-search-input" type="text" name="keywords" placeholder="Search by role, skill, or keyword" aria-label="Search by role, skill, or keyword">
-      <button type="submit" class="btn btn-primary btn-search">Search jobs</button>
+      <button type="submit" class="btn btn-primary">Search jobs</button>
     </form>
 
     <!-- Quick-search pills — popular job categories -->
