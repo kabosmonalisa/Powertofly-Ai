@@ -133,29 +133,38 @@ h1.hero-headline {
 
 /* ── Full-page live event hero — takes over the first screen while an event is live; all info above the fold ── */
 .live-hero { display: none; }
-/* Pull up under the fixed header (body has 126px top padding) so the image bleeds to the very top, under the transparent nav — like the train hero. */
-.live-hero.is-open { display: grid; grid-template-columns: 1.1fr 0.9fr; min-height: 88vh; max-height: 940px; margin-top: -126px; animation: ltFade 0.4s ease; }
+/* Same recipe as the marketing hero above: --container width, copy left, media as one rounded
+   object right, plain --bg. It used to bleed full-width under the nav with the copy on a grey
+   panel, which no longer matches anything else on the site. */
+.live-hero.is-open { display: grid; grid-template-columns: 1fr 1.1fr;
+  column-gap: clamp(32px, 5vw, 64px); align-items: center;
+  max-width: var(--container); margin: 0 auto; padding: 100px var(--gutter) var(--section-y);
+  animation: ltFade 0.4s ease; }
 .live-hero.is-open + .hero { display: none; }   /* the marketing hero steps aside while live */
 @keyframes ltFade { from { opacity: 0; } to { opacity: 1; } }
-.live-hero-media { order: 2; position: relative; min-height: 380px; background: var(--surface-2); overflow: hidden; border-radius: 0 0 0 28px; -webkit-mask-image: -webkit-radial-gradient(white, black); }
+.live-hero-media { order: 2; position: relative; min-height: 560px; background: var(--surface-2);
+  overflow: hidden; border-radius: var(--r-2xl); }
 .live-hero-media img, .live-hero-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .live-hero-eyebrows { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin: 0 0 20px; }
 /* elegant "live" cue: just a small pulsing red dot next to the green eyebrow — no pill */
 .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #E5372F; flex: none; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: livepulse 1.6s ease-in-out infinite; }
-.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; padding: 226px clamp(48px, 5vw, 72px) 64px max(var(--gutter), calc((100vw - var(--container)) / 2)); background: var(--surface); }
+.live-hero-content { order: 1; display: flex; flex-direction: column; justify-content: center; text-align: left; }
 .live-hero-content .sc-tag { margin: 0; }
 .live-hero-title { font-family: 'Inter Tight', sans-serif; font-size: clamp(36px, 4.6vw, 58px); line-height: 1.0; font-weight: 700; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 24px; }
 .live-hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(162px, 1fr)); gap: 18px 30px; max-width: 520px; margin: 0 0 36px; padding-top: 26px; border-top: 1px solid var(--line); }
 .lh-stat { display: flex; align-items: center; gap: 11px; }
 .lh-stat .mi { width: 19px; height: 19px; fill: var(--ink-3); }
 .lh-stat-value { font-size: 16px; font-weight: 400; color: var(--ink); line-height: 1.3; }
-/* Live state only: the nav's Log in button drops its white fill so it doesn't sit as a white block over the image (Get started, the dark primary, is unchanged) */
-body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { background: transparent !important; }
+/* (the nav no longer sits over the image, so its Log in button keeps its normal fill) */
 .live-hero-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+@media (max-width: 1000px) {
+  .live-hero.is-open { grid-template-columns: 1fr; row-gap: 32px; padding-top: 64px; }
+  .live-hero-media { order: -1; min-height: 400px; }
+  .live-hero-content { order: 0; }
+  .live-hero-title { max-width: none; }
+}
 @media (max-width: 860px) {
-  .live-hero.is-open { grid-template-columns: 1fr; min-height: 0; }
-  .live-hero-media { order: -1; min-height: 44vh; border-radius: 0 0 0 28px; }
-  .live-hero-content { order: 0; padding: 40px 26px 48px; }
+  .live-hero-media { min-height: 320px; }
   /* full-width, stacked CTAs on mobile */
   .live-hero-ctas { flex-direction: column; align-items: stretch; }
   .live-hero-ctas .btn { width: 100%; justify-content: center; }
