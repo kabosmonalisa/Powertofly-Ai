@@ -76,6 +76,9 @@
     color-mix(in srgb, var(--bg) 86%, transparent) 34%,
     color-mix(in srgb, var(--bg) 55%, transparent) 62%,
     transparent 100%); }
+/* hold the headline to a readable measure — full-width over the image it runs ~60 characters
+   a line, which is long for a 20px bold title. The meta row keeps the full width. */
+.res-feature-cap .ev-row-title { max-width: 30ch; }
 .res-feature-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
 .res-feature-meta .ev-row-date { padding-top: 0; }
 
