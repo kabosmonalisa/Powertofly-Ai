@@ -467,6 +467,10 @@ window.PTF = (function () {
       var from = infinite ? 0 : (page - 1) * per;
       visible.forEach(function (r, i) { if (i >= from && i < page * per) r.classList.remove('is-hidden'); });
       if (empty) empty.hidden = visible.length > 0;
+      /* end-of-list note: only once everything is shown AND there was more than one batch —
+         "that's everything" under two cards would be noise */
+      var endEl = wrap.querySelector('[data-ev-end]');
+      if (endEl) endEl.hidden = !(infinite && visible.length > per && page * per >= visible.length);
       if (pager) {
         if (pages > 1 && !infinite) {
           var html = '';
@@ -512,19 +516,39 @@ window.PTF = (function () {
        rect read. Loops until the list is long enough again, so one scroll can add several
        batches, and re-checks after a filter or search narrows the results. */
     if (infinite) {
-      var list = wrap.querySelector('.ev-list');
+      var list    = wrap.querySelector('.ev-list');
+      var loading = wrap.querySelector('[data-ev-loading]');
+      var busy    = false;
       maybeFill = function () {
-        if (!list) return;
-        var guard = 0;
-        while (page * per < rows.filter(matches).length && guard++ < 50) {
-          if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
+        if (!list || busy) return;
+        if (page * per >= rows.filter(matches).length) return;          // nothing left to load
+        if (list.getBoundingClientRect().bottom - 300 > window.innerHeight) return;
+        busy = true;
+        if (loading) loading.hidden = false;
+        setTimeout(function () {                                        // let the spinner register
           page++; render();
-        }
+          if (loading) loading.hidden = true;
+          busy = false;
+          maybeFill();                                                  // still short? keep going
+        }, 420);
       };
       window.addEventListener('scroll', maybeFill, { passive: true });
       window.addEventListener('resize', maybeFill);
       maybeFill();
     }
+    /* "Back to top" returns to the top of the LIST, not the page — after a long scroll the
+       reader wants the filters and the first card, not the site header. */
+    var topBtn = wrap.querySelector('[data-ev-top]');
+    if (topBtn) topBtn.addEventListener('click', function () {
+      var head = wrap.querySelector('.ev-head') || wrap.querySelector('.ev-filter') || wrap.querySelector('.ev-list');
+      if (!head) return;
+      var y = head.getBoundingClientRect().top + window.scrollY - 100;   // clear the fixed header
+      var from = window.scrollY;
+      try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (e) { /* older browsers */ }
+      /* some embedded/preview contexts ignore the options form entirely and never move —
+         if nothing has happened a frame later, jump there outright rather than leave a dead button */
+      setTimeout(function () { if (window.scrollY === from) window.scrollTo(0, y); }, 60);
+    });
   }
 
   /**

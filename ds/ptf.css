@@ -1666,6 +1666,20 @@ img { display: block; max-width: 100%; }
   .cl-speaker-photo { width: 72px; height: 72px; }
 }
 
+/* ── Infinite-scroll parts (.ev-loading / .ev-end) ──────────────────────────────
+   The two states an infinite list needs: a spinner while the next batch loads, and an
+   end-of-list note with a way back to the top. Both belong to `[data-ev-infinite]` and are
+   driven by PTF.initEventList() — a page only supplies the markup. */
+.ev-loading { display: flex; justify-content: center; padding: 34px 0 6px; }
+.ev-end     { display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 38px 0 0; }
+.ev-loading[hidden], .ev-end[hidden] { display: none; }   /* [hidden] must beat display:flex */
+.ev-spinner { width: 22px; height: 22px; border-radius: 50%;
+  border: 2px solid var(--line-2); border-top-color: var(--accent);
+  animation: evSpin 0.7s linear infinite; }
+@keyframes evSpin { to { transform: rotate(360deg); } }
+.ev-end-note { font-size: 14px; color: var(--ink-3); }
+@media (prefers-reduced-motion: reduce) { .ev-spinner { animation-duration: 2.4s; } }
+
 /* ── Hero search bar (.hero-search) ─────────────────────────────────────────────
    THE hero search bar — magnifier + input + submit button in one pill. There is only
    one search bar for hero areas; use this, never build a second shape.
