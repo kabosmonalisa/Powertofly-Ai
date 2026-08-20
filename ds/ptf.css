@@ -1360,13 +1360,17 @@ img { display: block; max-width: 100%; }
 .ev-list { display: flex; flex-direction: column; }
 .ev-row { display: grid; grid-template-columns: 118px 1fr 176px; gap: 28px; padding: 28px 0; border-top: 1px solid var(--line); align-items: start; }
 .ev-row:last-child { border-bottom: 1px solid var(--line); }
-@media (max-width: 700px) { .ev-row { grid-template-columns: 1fr; gap: 12px; align-items: start; } .ev-row > .ev-thumb { order: -1; width: 100%; height: 190px; } }
+@media (max-width: 700px) { .ev-row { grid-template-columns: 1fr; gap: 12px; align-items: start; } }
 .ev-row.is-hidden { display: none !important; }
 
 /* Event thumbnail + speaker faces / company logos (Mara feedback) */
 .ev-thumb { overflow: hidden; border-radius: var(--r-lg); background: var(--surface-2); }
 .ev-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .ev-row > .ev-thumb { width: 176px; height: 118px; align-self: start; }
+/* Must come AFTER the 176px rule above — it used to sit in the ≤700 block higher up, where the
+   later base rule beat it at equal specificity and every list row kept a 176px-wide thumbnail
+   floating in a full-width column on mobile. */
+@media (max-width: 700px) { .ev-row > .ev-thumb { order: -1; width: 100%; height: 190px; } }
 .ev-people { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 2px 0 14px; }
 .ev-faces { display: flex; }
 .ev-faces img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); margin-left: -10px; }
@@ -1677,6 +1681,7 @@ img { display: block; max-width: 100%; }
   gap: 20px 24px; flex-wrap: wrap; margin-bottom: 24px; }
 .ev-controls .ev-filter { margin-bottom: 0; flex: 1 1 340px; }
 .ev-controls .hero-search-sm { flex: 0 1 300px; }
+@media (max-width: 600px) { .ev-controls .hero-search-sm { flex: 1 1 100%; } }
 
 /* SKELETON batch — placeholder tiles the exact shape of the cards they become, with a
    shimmer sweeping across them. A bare spinner for half a second reads as nothing; seeing
@@ -1784,5 +1789,7 @@ img { display: block; max-width: 100%; }
   .hero-search:not(.hero-search-sm) { flex-wrap: wrap; border-radius: 22px; padding: 8px; gap: 8px; }
   .hero-search:not(.hero-search-sm) .hero-search-ico { margin-left: 8px; }
   .hero-search:not(.hero-search-sm) .hero-search-input { flex: 1 1 0; padding: 12px 4px; font-size: 16px; }  /* 16px stops iOS zooming on focus */
-  .hero-search .btn { flex: 1 0 100%; width: 100%; justify-content: center; text-align: center; }
+  /* :not(...) matters — the small variant's button is a 38px icon, not a full-width bar */
+  .hero-search:not(.hero-search-sm) .btn { flex: 1 0 100%; width: 100%; justify-content: center; text-align: center; }
+  .hero-search-sm { max-width: none; }        /* let the quick search use the full column */
 }

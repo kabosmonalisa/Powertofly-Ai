@@ -125,7 +125,8 @@ h1.hero-headline {
 }
 
 @media (max-width: 600px) {
-  .hero { padding: 48px 20px 40px; }
+  /* leave the hero padding to the rules above — raw 48/40 here made this hero sit tighter
+     than the Resources one at the same width, and broke the shared --section-y rhythm */
   h1, h2, h3 { text-wrap: pretty; }
   h1.hero-headline { font-size: clamp(32px, 8vw, 48px); }
   .hero-sub { font-size: 16px; text-wrap: pretty; }
