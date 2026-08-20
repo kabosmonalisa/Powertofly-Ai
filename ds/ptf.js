@@ -584,7 +584,11 @@ window.PTF = (function () {
        reader wants the filters and the first card, not the site header. */
     var topBtn = wrap.querySelector('[data-ev-top]');
     if (topBtn) topBtn.addEventListener('click', function () {
-      var head = wrap.querySelector('.ev-head') || wrap.querySelector('.ev-filter') || wrap.querySelector('.ev-list');
+      /* the .ev-head may sit outside the [data-ev-list] scope (Events) or inside it (Resources,
+         where the scope spans the hero too) — look in the section before falling back */
+      var section = wrap.closest('section');
+      var head = wrap.querySelector('.ev-head') || (section && section.querySelector('.ev-head')) ||
+                 wrap.querySelector('.ev-filter') || wrap.querySelector('.ev-list');
       if (!head) return;
       var y = head.getBoundingClientRect().top + window.scrollY - 100;   // clear the fixed header
       var from = window.scrollY;

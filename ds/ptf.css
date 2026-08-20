@@ -1670,6 +1670,14 @@ img { display: block; max-width: 100%; }
    The two states an infinite list needs: a spinner while the next batch loads, and an
    end-of-list note with a way back to the top. Both belong to `[data-ev-infinite]` and are
    driven by PTF.initEventList() — a page only supplies the markup. */
+/* Control row above a listing: topic chips on the left, quick search on the right. Promoted
+   from resources/index.html on 2026-08-20 when Events needed the same pairing. Both children
+   are the shared components — this only puts them on one line. */
+.ev-controls { display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 20px 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.ev-controls .ev-filter { margin-bottom: 0; flex: 1 1 340px; }
+.ev-controls .hero-search-sm { flex: 0 1 300px; }
+
 /* SKELETON batch — placeholder tiles the exact shape of the cards they become, with a
    shimmer sweeping across them. A bare spinner for half a second reads as nothing; seeing
    the next row of cards blocked out is what makes the loading legible. JS fills this. */

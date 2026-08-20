@@ -417,25 +417,49 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
     <h2>Past events</h2>
   </div>
 
-  <div class="ev-listing ev-listing--grid" data-ev-list data-ev-per="9">
+  <!-- Same browsing experience as Resources: chips + quick search on one row, 3 auto batches
+       then a Load more, skeleton loading, floating back-to-top. -->
+  <div class="ev-listing ev-listing--grid" data-ev-list data-ev-per="9" data-ev-infinite data-ev-auto="3">
 
-    <div class="ev-filter">
-      <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
-      <button class="ev-filter-btn" data-filter="job-fair">Virtual job fairs</button>
-      <button class="ev-filter-btn" data-filter="summit">Summits</button>
-      <button class="ev-filter-btn" data-filter="meet">Meet with companies</button>
-      <button class="ev-filter-btn" data-filter="chat-learn">Chat &amp; Learns</button>
+    <div class="ev-controls">
+      <div class="ev-filter">
+        <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+        <button class="ev-filter-btn" data-filter="job-fair">Virtual job fairs</button>
+        <button class="ev-filter-btn" data-filter="summit">Summits</button>
+        <button class="ev-filter-btn" data-filter="meet">Meet with companies</button>
+        <button class="ev-filter-btn" data-filter="chat-learn">Chat &amp; Learns</button>
+      </div>
+      <form class="hero-search hero-search-sm" role="search" aria-label="Search past events">
+        <input class="hero-search-input" data-ev-search type="text" placeholder="Quick search" aria-label="Search past events">
+        <button class="btn btn-primary" type="submit" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </button>
+      </form>
     </div>
 
     <div>
-      <div class="ev-search-wrap">
-        <input class="ev-search" data-ev-search type="search" placeholder="Search past events by topic…" aria-label="Search past events">
-        <button class="ev-search-clear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
-      </div>
       <!-- COPY: confirm — past events are generated placeholders (see the pastList generator script below) -->
       <div class="ev-list" id="pastList"></div>
 
       <p class="ev-empty" data-ev-empty hidden>No past events match your search.</p>
+
+      <div class="ev-loading" data-ev-loading hidden aria-hidden="true"></div>
+
+      <div class="ev-more" data-ev-more hidden>
+        <button class="btn" type="button">Load more</button>
+      </div>
+
+      <div class="ev-end" data-ev-end hidden>
+        <p class="ev-end-note">That's the whole archive.</p>
+      </div>
+
+      <div class="ev-to-top" hidden>
+        <button class="btn btn-primary btn-sm" type="button" data-ev-top aria-label="Back to top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+        </button>
+      </div>
 
       <div class="ev-pager" data-ev-pages></div>
     </div>
@@ -532,19 +556,22 @@ body:has(.live-hero.is-open) #mainNav .nav-cta .btn:not(.btn-primary) { backgrou
 
   window.PTF && PTF.initEventList && PTF.initEventList();  // paginate both listings (now incl. the generated archive)
 
-  /* ── Search clear (×) button: show when non-empty, clear on click ── */
+  /* ── Quick search: filtering is live, so the button must not submit and reload. It blurs the
+        field (dismisses the mobile keyboard) and jumps to the archive. ── */
   (function () {
-    var wrap = document.querySelector('.ev-search-wrap');
-    if (!wrap) return;
-    var input = wrap.querySelector('.ev-search'), clear = wrap.querySelector('.ev-search-clear');
-    function sync() { wrap.classList.toggle('has-value', !!input.value); }
-    input.addEventListener('input', sync);
-    clear.addEventListener('click', function () {
-      input.value = '';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      input.focus();
+    [].slice.call(document.querySelectorAll('form.hero-search')).forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var field = form.querySelector('input');
+        if (field) field.blur();
+        var head = form.closest('section').querySelector('.ev-head');
+        if (!head) return;
+        var y = head.getBoundingClientRect().top + window.scrollY - 100;
+        var from = window.scrollY;
+        try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (err) {}
+        setTimeout(function () { if (window.scrollY === from) window.scrollTo(0, y); }, 60);
+      });
     });
-    sync();
   })();
 
   /* ── Featured media: crossfade between the event video and the topic (AI) video ── */

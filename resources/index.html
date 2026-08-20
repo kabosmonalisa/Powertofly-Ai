@@ -82,13 +82,7 @@
 .res-feature-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
 .res-feature-meta .ev-row-date { padding-top: 0; }
 
-/* Control row above the grid: topic chips left, quick search right. Layout only — both are the
-   shared components (.ev-filter chips, .ev-search field), just placed on one line.
-   Candidate for the system: Events stacks the same two controls instead of pairing them. */
-.res-controls { display: flex; align-items: flex-start; justify-content: space-between;
-  gap: 20px 24px; flex-wrap: wrap; margin-bottom: 24px; }
-.res-controls .ev-filter { margin-bottom: 0; flex: 1 1 340px; }
-.res-controls .hero-search-sm { flex: 0 1 300px; }
+/* (the chips + quick-search control row is now the shared .ev-controls in ds/ptf.css) */
 
 /* Stack at 1000, not 900: between 900 and 1000 the two columns are ~430px each, which
    squeezes the .display headline and runs the story title to three lines. */
@@ -180,7 +174,7 @@
     <!-- Controls sit directly above the grid they act on, so changing a topic or a term never
          means scrolling back up. The quick search is the shared .ev-search field; it mirrors
          the hero bar (both are [data-ev-search] in the same scope). -->
-    <div class="res-controls">
+    <div class="ev-controls">
       <div class="ev-filter">
         <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
         <button class="ev-filter-btn" data-filter="job-search">Job search</button>
