@@ -79,8 +79,16 @@
    "name": "Resources",
    "file": "resources/index.html",
    "group": "Pages",
-   "status": "live",
+   "status": "draft",
    "desc": "The career blog index — hero + the shared .ev-* listing (topic filters, search, pagination) + the dark CTA closer. Zero page CSS."
+  },
+  {
+   "id": "p-employers-resources",
+   "name": "Employer resources",
+   "file": "employers-resources/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The employer resource library — the twin of Resources: same hero recipe, .ev-controls (chips + quick search) and infinite-scroll listing. Articles, reports and case studies in one filtered library."
   },
   {
    "id": "p-404",

@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Employer resources — PowerToFly AI</title>
+<!-- OG -->
+<meta property="og:title"       content="Employer resources — PowerToFly AI">
+<meta property="og:description" content="Learn how to build high-performing teams. Articles, reports and case studies on AI governance, leadership, retention, and inclusive hiring.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<!--
+  The employer-side twin of resources/index.html — same recipe, same components:
+  .section-hero + .section-head (hero) · .ev-controls (chips + quick search) ·
+  .ev-listing--grid (the listing, infinite scroll) · .ev-thumb / .sc-tag / .ev-row-* (the
+  featured story in the hero) · .section-cta (closer). See ds/COMPONENT-INVENTORY.md.
+-->
+<style>
+/* ── PAGE-SPECIFIC: the hero composition only (text + search beside the featured story),
+   identical to resources/index.html. Allowed by COMPONENT-INVENTORY → "Allowed page-specific
+   CSS": a genuinely unique hero composition. LAYOUT ONLY — tokens, no raw hex, and it does not
+   restyle any shared component.
+   NOTE for the system: this is now the SIXTH page carrying this same two-column hero block
+   (vjf / summit / chat-learn / meet-with-companies / resources / here). It should be promoted
+   to ptf.css as one shared hero rather than copied again. ── */
+.section-hero { padding-top: 100px; }   /* matches the talents hero; hero top padding is a named exception to the spacing law */
+.res-hero-inner { max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  column-gap: clamp(32px, 5vw, 64px); align-items: center; }
+/* .section-hero .section-head is (0,2,0) — these placement overrides match that weight */
+.section-hero .res-hero-text { grid-column: 1; max-width: none; margin: 0; text-align: left; }
+.res-feature { grid-column: 2; position: relative; }
+.res-hero-text p { margin-left: 0; margin-right: 0; }  /* the component centres itself; a left-aligned column can't */
+.res-hero-text .hero-search { margin: 34px 0 0; }      /* same offset .hero-ctas uses under a hero sub */
+/* Featured story = ONE object: the shared .ev-thumb with the shared row parts sitting ON it
+   over a scrim. The caption carries `theme-dark`, so .sc-tag / .ev-row-* recolour themselves
+   from the dark tokens. The scrim is var(--bg) (which IS #0A0A0A inside theme-dark). */
+.res-feature .ev-thumb { height: 520px; border-radius: var(--r-2xl); }   /* --r-2xl: feature image, not a listing thumbnail */
+.res-feature-cap { position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 120px 32px 30px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--bg) 94%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 86%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%); }
+.res-feature-cap .ev-row-title { max-width: 30ch; }   /* readable measure over the image */
+.res-feature-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; }
+.res-feature-meta .ev-row-date { padding-top: 0; }
+
+@media (max-width: 1000px) {
+  .section-hero { padding-top: 64px; }
+  .res-hero-inner { grid-template-columns: 1fr; row-gap: 32px; }
+  .res-hero-text, .res-feature { grid-column: 1; }
+  .res-feature .ev-thumb { height: 380px; }
+  .res-feature-cap { padding: 80px 22px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ FIXED SITE HEADER + shared injected nav ═══ -->
+<div class="site-header" id="siteHeader">
+  <div data-ptf-nav data-active="employers"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- ═══ ONE [data-ev-list] SCOPE around the hero + the listing ═══
+     PTF.initEventList() works per container, so wrapping both sections in one scope is what
+     makes the hero search the listing's real search. No class, no styling — a scope. -->
+<div data-ev-list data-ev-per="6" data-ev-infinite data-ev-auto="3">
+
+<!-- ═══ 01. HERO — .section-hero (plain --bg), the shared .section-head + search beside the
+     featured story, built from .ev-thumb + .sc-tag + .ev-row-title + .ev-row-date + .ev-row-link ═══ -->
+<section class="section-hero">
+  <div class="res-hero-inner">
+
+    <div class="section-head res-hero-text">
+      <span class="eyebrow">Employer resources</span>
+      <!-- COPY: from powertofly.com/up/employers -->
+      <h1 class="display">Learn how to build <em class="italic-plain">high-performing teams.</em></h1>
+      <p>Research, playbooks and case studies for creating a more engaged, capable and inclusive workforce.</p>
+      <form class="hero-search" role="search" aria-label="Search employer resources">
+        <svg class="hero-search-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        <!-- keep under ~270px at 16px or it truncates in the field at 375px -->
+        <input class="hero-search-input" data-ev-search type="text" placeholder="Search reports, guides, and cases" aria-label="Search employer resources">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+    </div>
+
+    <!-- COPY: featured story from the live employer blog (headline + date) -->
+    <div class="res-feature">
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1000&h=760&fit=crop" alt="A leadership team in discussion around a meeting table" loading="eager"></div>
+      <div class="res-feature-cap theme-dark">
+        <span class="sc-tag">AI &amp; artificial intelligence</span>
+        <h2 class="ev-row-title">AI governance: why AI transformation stalls and the accountability framework that fixes it</h2>
+        <div class="res-feature-meta">
+          <div class="ev-row-date">August 19, 2026</div>
+          <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read the article →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ 02. THE LIBRARY — the shared .ev-* listing, grid variant, infinite scroll.
+     Articles, reports and case studies live in ONE filtered library rather than three
+     separate sections (the live page splits them); the type is carried by the .sc-tag so
+     nothing is lost. Say the word if you want them split back out. ═══ -->
+<section class="section">
+  <div class="ev-head">
+    <h2>Browse all</h2>
+  </div>
+
+  <div class="ev-listing ev-listing--grid">
+
+    <!-- Popular topics — the live employer taxonomy. Controls sit with the grid they act on. -->
+    <div class="ev-controls">
+      <div class="ev-filter">
+        <button class="ev-filter-btn is-active" data-filter="all">Show all</button>
+        <button class="ev-filter-btn" data-filter="ai">AI &amp; artificial intelligence</button>
+        <button class="ev-filter-btn" data-filter="skills">Skills-based workforce</button>
+        <button class="ev-filter-btn" data-filter="retention">Employee retention</button>
+        <button class="ev-filter-btn" data-filter="future">Future of work</button>
+        <button class="ev-filter-btn" data-filter="leadership">Leadership</button>
+        <button class="ev-filter-btn" data-filter="teams">Building engaged teams</button>
+        <button class="ev-filter-btn" data-filter="hiring">Inclusive hiring</button>
+        <button class="ev-filter-btn" data-filter="development">Employee development</button>
+      </div>
+      <form class="hero-search hero-search-sm" role="search" aria-label="Search employer resources">
+        <input class="hero-search-input" data-ev-search type="text" placeholder="Search" aria-label="Search employer resources">
+        <button class="btn btn-primary" type="submit" aria-label="Search">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+
+    <div>
+      <!-- COPY: confirm — titles and dates are the live employer blog's; the standfirsts are
+           written from each headline and want swapping for the real CMS text. -->
+      <div class="ev-list">
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7681091/pexels-photo-7681091.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Two colleagues reviewing performance charts together" loading="lazy"></div>
+          <div class="ev-row-date">August 12, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">How to evaluate AI models: methods, metrics, and who should actually be doing it</h3>
+            <p class="ev-row-desc">BLEU and F1 tell you something, but not whether the output is any good. What systematic evaluation looks like, and why the people who know the domain have to be in the room.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A team working through documents around a table, seen from above" loading="lazy"></div>
+          <div class="ev-row-date">August 5, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">EU AI Act: what's in force, what it requires, and what your business needs to do now</h3>
+            <p class="ev-row-desc">The deadlines that have already passed, the ones coming, and the practical work — risk management, data pipelines, model evaluation — behind each of them.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/6592651/pexels-photo-6592651.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A colleague presenting at a flip chart to a teammate who uses a wheelchair" loading="lazy"></div>
+          <div class="ev-row-date">July 30, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">Human in the loop AI: what it means and how to build it</h3>
+            <p class="ev-row-desc">"A human reviews it" is not a design. Where review actually belongs in the pipeline, who is accountable for the call, and how to keep it from becoming a rubber stamp.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="leadership">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Three colleagues talking over printed charts and a laptop" loading="lazy"></div>
+          <div class="ev-row-date">July 28, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Leadership</span>
+            <h3 class="ev-row-title">How to create a workplace that encourages leadership skills</h3>
+            <p class="ev-row-desc">Leadership development that isn't a training budget line: the everyday conditions — continuous learning, real ownership, emotional intelligence — that produce leaders.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8438940/pexels-photo-8438940.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A professional playing chess against a robotic arm" loading="lazy"></div>
+          <div class="ev-row-date">July 20, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">High-risk AI systems under the EU AI Act: what it is and who needs to worry</h3>
+            <p class="ev-row-desc">Most teams assume this isn't about them. A plain read of what counts as high-risk, the assessments required, and the compliance dates that decide your timeline.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/4384666/pexels-photo-4384666.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Professionals collaborating at glowing data screens" loading="lazy"></div>
+          <div class="ev-row-date">July 16, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">Why AI implementations fail (and what to do instead)</h3>
+            <p class="ev-row-desc">The failure is rarely the technology. Where implementations actually break down — bias, unclear ownership, no evaluation loop — and what teams that get it right do differently.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/5673488/pexels-photo-5673488.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Two professionals shaking hands over a desk" loading="lazy"></div>
+          <div class="ev-row-date">July 9, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">AI red teaming: why domain experts catch what generalists miss</h3>
+            <p class="ev-row-desc">A security exercise is only as good as the people probing it. Why failure-mode testing needs people who know the domain, and how to run it without theatre.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <!-- ── Reports & toolkits (the live page groups these separately; here they carry a
+             "Report" tag so they stay findable in one library) ── -->
+        <article class="ev-row" data-type="future">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A team reviewing plans together at a shared table" loading="lazy"></div>
+          <div class="ev-row-date">June 30, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Report · Future of work</span>
+            <h3 class="ev-row-title">Talent Trends 2026: pulse report</h3>
+            <p class="ev-row-desc">What talent leaders are budgeting for, hiring for and worrying about this year, drawn from our own network of employers and candidates.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Get the report →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="teams">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8867482/pexels-photo-8867482.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse team standing together in an office" loading="lazy"></div>
+          <div class="ev-row-date">June 18, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Report · Building engaged teams</span>
+            <h3 class="ev-row-title">Building high-performing AI teams</h3>
+            <p class="ev-row-desc">How the teams shipping real AI work are staffed: the mix of skills, the roles people underestimate, and where the hiring bottlenecks actually sit.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Get the report →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="hiring">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7495555/pexels-photo-7495555.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse group of colleagues collaborating around a table" loading="lazy"></div>
+          <div class="ev-row-date">June 4, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Toolkit · Inclusive hiring</span>
+            <h3 class="ev-row-title">Boost your employer brand with these best practices</h3>
+            <p class="ev-row-desc">A practical toolkit for the work candidates actually see: your careers page, your job posts, and what your own people say about working with you.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Get the toolkit →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="ai">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/4064840/pexels-photo-4064840.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A person working alone at a desk with a laptop" loading="lazy"></div>
+          <div class="ev-row-date">May 21, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Report · AI &amp; artificial intelligence</span>
+            <h3 class="ev-row-title">Why AI implementation fails: the Human Gap 2026 report</h3>
+            <p class="ev-row-desc">Our research into the gap between what AI tools promise and what teams get, and the human capability that closes it.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Get the report →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="hiring">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A smiling professional standing on a city street" loading="lazy"></div>
+          <div class="ev-row-date">May 7, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Toolkit · Inclusive hiring</span>
+            <h3 class="ev-row-title">ChatGPT &amp; DEIB</h3>
+            <p class="ev-row-desc">Where generative tools help inclusion work and where they quietly undo it, with prompts and guardrails your team can use today.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Get the toolkit →</a>
+          </div>
+        </article>
+
+        <!-- ── Case studies ── -->
+        <article class="ev-row" data-type="skills">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A leadership team in discussion around a meeting table" loading="lazy"></div>
+          <div class="ev-row-date">April 22, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Case study · Skills-based workforce</span>
+            <h3 class="ev-row-title">How Salesforce made 57 quality hires while shifting to a hub-based workforce model</h3>
+            <p class="ev-row-desc">Moving to hubs changed where the talent had to come from. How the team rebuilt sourcing around skills and what the first year produced.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read the case study →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="hiring">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Colleagues in conversation over documents at a table" loading="lazy"></div>
+          <div class="ev-row-date">April 8, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Case study · Inclusive hiring</span>
+            <h3 class="ev-row-title">How Autodesk accelerated tech hiring and boosted their employer brand</h3>
+            <p class="ev-row-desc">Faster technical hiring without lowering the bar, and the employer-brand work that made candidates say yes.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read the case study →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="hiring">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/5439381/pexels-photo-5439381.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="Colleagues working together in a bright office" loading="lazy"></div>
+          <div class="ev-row-date">March 25, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Case study · Inclusive hiring</span>
+            <h3 class="ev-row-title">Chubbies: a shift towards inclusive hiring</h3>
+            <p class="ev-row-desc">A small team rebuilding how they hire, and what changed in the pipeline once they did.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read the case study →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="retention">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7295483/pexels-photo-7295483.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A person taking a calm, restorative moment" loading="lazy"></div>
+          <div class="ev-row-date">March 11, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Case study · Employee retention</span>
+            <h3 class="ev-row-title">Off the courts: how the NBA scored higher with diverse talent</h3>
+            <p class="ev-row-desc">Hiring was never the hard part. What the NBA changed about the first ninety days, and what it did to retention.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read the case study →</a>
+          </div>
+        </article>
+
+        <!-- COPY: confirm — the three below are placeholders written in PTF voice so every topic
+             chip returns something. The live blog has no recent items under these topics. -->
+        <article class="ev-row" data-type="retention">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/3183197/pexels-photo-3183197.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A team working together around a table, seen from above" loading="lazy"></div>
+          <div class="ev-row-date">February 26, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Employee retention</span>
+            <h3 class="ev-row-title">The quiet reasons good people leave</h3>
+            <p class="ev-row-desc">Exit interviews rarely surface the real cause. What managers can see months earlier, and the small interventions that actually hold.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="development">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/8867482/pexels-photo-8867482.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse team standing together in an office" loading="lazy"></div>
+          <div class="ev-row-date">February 12, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Employee development</span>
+            <h3 class="ev-row-title">Career paths people can actually see</h3>
+            <p class="ev-row-desc">Most development plans die in a document. How to make progression legible enough that people can plan around it.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+        <article class="ev-row" data-type="skills">
+          <div class="ev-thumb"><img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" alt="A diverse team working together around a table with laptops and charts" loading="lazy"></div>
+          <div class="ev-row-date">January 29, 2026</div>
+          <div class="ev-row-body">
+            <span class="sc-tag">Skills-based workforce</span>
+            <h3 class="ev-row-title">Hiring for skills when the job titles keep changing</h3>
+            <p class="ev-row-desc">Titles date fast in AI-adjacent work. How teams are writing roles around capability instead, and what it takes to assess for it.</p>
+            <a class="ev-row-link" href="https://powertofly.com/up/employers" target="_blank" rel="noopener">Read more →</a>
+          </div>
+        </article>
+
+      </div><!-- /.ev-list -->
+
+      <p class="ev-empty" data-ev-empty hidden>No resources match your search.</p>
+
+      <!-- infinite-scroll states, all driven by PTF.initEventList() -->
+      <div class="ev-loading" data-ev-loading hidden aria-hidden="true"></div>
+
+      <div class="ev-more" data-ev-more hidden>
+        <button class="btn" type="button">Load more</button>
+      </div>
+
+      <div class="ev-end" data-ev-end hidden>
+        <p class="ev-end-note">That's everything we have for now.</p>
+      </div>
+
+      <div class="ev-to-top" hidden>
+        <button class="btn btn-primary btn-sm" type="button" data-ev-top aria-label="Back to top">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
+        </button>
+      </div>
+
+      <div class="ev-pager" data-ev-pages></div>
+    </div>
+
+  </div><!-- /.ev-listing -->
+</section>
+
+</div><!-- /[data-ev-list] — hero search + listing share one scope -->
+
+<!-- ═══ 03. CLOSER — the shared dark CTA band ═══ -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Stay in the loop</span>
+    <!-- COPY: from the live employer newsletter block -->
+    <h2>Get PowerToFly's monthly newsletter</h2>
+    <p>The future of work, leadership and technology — for the people building teams. Once a month, in your inbox.</p>
+    <a href="../signup/" class="btn btn-cta">Sign up for updates →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initMegaNav();
+  PTF.initHeader();
+  PTF.initEventList();   // topic filters + search + infinite scroll for [data-ev-list]
+
+  /* ── Both search forms filter live, so they must not submit and reload. They blur the field
+        (dismisses the mobile keyboard) and jump to the results. ── */
+  (function () {
+    [].slice.call(document.querySelectorAll('form.hero-search')).forEach(function (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var field = form.querySelector('input');
+        if (field) field.blur();
+        var head = document.querySelector('.ev-head');
+        if (!head) return;
+        var y = head.getBoundingClientRect().top + window.scrollY - 100;
+        var from = window.scrollY;
+        try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (err) {}
+        setTimeout(function () { if (window.scrollY === from) window.scrollTo(0, y); }, 60);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
