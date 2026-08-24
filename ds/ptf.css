@@ -1719,7 +1719,10 @@ img { display: block; max-width: 100%; }
 /* Icon-only circle, deliberately NOT a labelled pill: "Load more" is a wide black pill in the
    same place, and two identical pills stacking read as a mistake. Elevation is stronger than a
    card's — this floats over scrolling content. Built from --ink, never a raw hex. */
-.ev-to-top .btn { width: 46px; height: 46px; padding: 0; justify-content: center; }
+/* thin ring in the page background colour so the ink circle still reads on the always-dark
+   footer. var(--bg), not #fff — it stays the opposite of the button fill in either theme. */
+.ev-to-top .btn { width: 46px; height: 46px; padding: 0; justify-content: center;
+  border-color: var(--bg); }
 .ev-to-top .btn svg { width: 20px; height: 20px; fill: currentColor; display: block; }
 /* Right edge lines up with the nav's right edge (the "Get started" button), so it sits on the
    page's own grid instead of floating loose — and being off to the side it can never overlap

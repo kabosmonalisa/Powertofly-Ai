@@ -609,11 +609,9 @@ window.PTF = (function () {
       syncTopFloat = function () {
         var l = wrap.querySelector('.ev-list');
         var inside = l && l.getBoundingClientRect().top < -120;
-        /* stand down once the footer is on screen: it is an always-dark block, so an ink
-           button sitting on it disappears */
-        var footer = document.querySelector('.footer');
-        var overFooter = footer && footer.getBoundingClientRect().top < window.innerHeight - 40;
-        topFloat.hidden = !inside || !!overFooter;
+        /* stays visible over the footer — the button carries a --bg ring so the ink circle
+           still reads against that always-dark block */
+        topFloat.hidden = !inside;
       };
       window.addEventListener('scroll', syncTopFloat, { passive: true });
       window.addEventListener('resize', syncTopFloat);
