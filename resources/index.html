@@ -394,8 +394,16 @@
   <div class="section-cta-inner">
     <span class="eyebrow">Stay in the loop</span>
     <h2>Get email updates from PowerToFly</h2>
-    <p>New articles, upcoming events, and roles worth knowing about — in your inbox, not your feed.</p>
-    <a href="../signup/" class="btn btn-cta">Sign up for updates →</a>
+    <!-- COPY: Mara -->
+    <p>New articles, upcoming events, and roles worth knowing about, sent straight to your inbox.</p>
+    <!-- Sign up without leaving the page (.cta-signup). BACKEND: confirm — there is no
+         newsletter endpoint yet, so submitting only confirms in place. The address is never
+         put in a URL. -->
+    <form class="cta-signup" novalidate>
+      <input class="cta-signup-input" type="email" name="email" required placeholder="Your email address" aria-label="Your email address">
+      <button class="btn btn-cta" type="submit">Sign up →</button>
+    </form>
+    <p class="cta-signup-note" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -422,6 +430,29 @@
   })();
 
   PTF.initEventList();   // topic filters + search + infinite scroll for [data-ev-list]
+
+  /* ── Newsletter sign-up: no endpoint yet, so confirm in place rather than navigate away.
+        BACKEND: confirm — swap this for the real subscribe call. The address is never put
+        into a URL or a query string. ── */
+  (function () {
+    var form = document.querySelector('.cta-signup');
+    if (!form) return;
+    var note = document.querySelector('.cta-signup-note');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var field = form.querySelector('input');
+      if (!field.value.trim() || !field.checkValidity()) {
+        note.textContent = 'Enter an email address so we know where to send it.';
+        note.classList.remove('is-ok');
+        field.focus();
+        return;
+      }
+      note.textContent = "You're on the list. Look out for the next one.";
+      note.classList.add('is-ok');
+      form.reset();
+      field.blur();
+    });
+  })();
 
   /* ── Hero search: filtering is live (PTF.initEventList listens on `input`), so the
         Search button must not submit the form and reload the page. It jumps to the

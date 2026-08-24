@@ -1046,6 +1046,33 @@ img { display: block; max-width: 100%; }
 }
 .section-cta p { font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.6; margin: 0 auto 32px; max-width: 56ch; }
 
+/* ── Inline email capture for the CTA band (.cta-signup) ────────────────────────
+   Sign up without leaving the page: one field + the band's own .btn-cta in a single pill,
+   the same molecule as .hero-search so the site has one "field + button" shape. The band is
+   always dark, so the pill is built from the dark values the band already uses.
+   Markup:
+     <form class="cta-signup" novalidate>
+       <input class="cta-signup-input" type="email" name="email" required placeholder="…" aria-label="…">
+       <button class="btn btn-cta" type="submit">Sign up →</button>
+     </form>
+     <p class="cta-signup-note" role="status"></p>   ← optional, JS writes the confirmation here
+   Behaviour is the page's: there is no newsletter endpoint in this prototype. */
+.cta-signup { display: flex; align-items: center; gap: 6px; width: 100%; max-width: 520px;
+  margin: 0 auto; padding: 6px 6px 6px 22px;
+  background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: var(--r-pill); }
+.cta-signup-input { flex: 1; min-width: 0; border: none; background: none; outline: none;
+  font-family: 'Inter', sans-serif; font-size: 15px; color: #fff; padding: 13px 8px 13px 0; }
+.cta-signup-input::placeholder { color: rgba(255,255,255,0.5); }
+.cta-signup .btn { flex-shrink: 0; }
+.cta-signup-note { font-size: 14px; color: rgba(255,255,255,0.55); margin: 16px auto 0; min-height: 20px; }
+.cta-signup-note.is-ok { color: var(--green-mid); }
+@media (max-width: 600px) {
+  .cta-signup { flex-wrap: wrap; border-radius: 24px; padding: 8px; gap: 8px; }
+  .cta-signup-input { flex: 1 1 0; padding: 12px 14px; font-size: 16px; }   /* 16px stops iOS zooming on focus */
+  .cta-signup .btn { flex: 1 0 100%; width: 100%; justify-content: center; }
+}
+
 /* ===== Dark theme — SCOPED. Add class="theme-dark" to the page <body> (or any section). =====
  * THE FLIP: re-defines the semantic tokens with dark values. Any component that references
  * tokens (--ink, --bg, --surface, --line, --accent…) recolors automatically — no per-component
