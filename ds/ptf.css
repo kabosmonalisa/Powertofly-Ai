@@ -1760,7 +1760,7 @@ img { display: block; max-width: 100%; }
 /* thin ring in the page background colour so the ink circle still reads on the always-dark
    footer. var(--bg), not #fff — it stays the opposite of the button fill in either theme. */
 .ev-to-top .btn { width: 46px; height: 46px; padding: 0; justify-content: center;
-  border-color: var(--bg); }
+  border-color: var(--bg); border-width: 1px; }
 .ev-to-top .btn svg { width: 20px; height: 20px; fill: currentColor; display: block; }
 /* Right edge lines up with the nav's right edge (the "Get started" button), so it sits on the
    page's own grid instead of floating loose — and being off to the side it can never overlap
