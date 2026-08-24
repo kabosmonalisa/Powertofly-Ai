@@ -74,7 +74,10 @@
 <!-- ═══ ONE [data-ev-list] SCOPE around the hero + the listing ═══
      PTF.initEventList() works per container, so wrapping both sections in one scope is what
      makes the hero search the listing's real search. No class, no styling — a scope. -->
-<div data-ev-list data-ev-per="6" data-ev-infinite data-ev-auto="3">
+<!-- Numbered pages, NOT infinite scroll: two more sections follow this list, and every
+     auto-loaded batch would push them further out of reach. Infinite scroll is for a list
+     that is the last thing on the page (see resources/index.html). -->
+<div data-ev-list data-ev-per="9">
 
 <!-- ═══ 01. HERO — .section-hero (plain --bg), the shared .section-head + search beside the
      featured story, built from .ev-thumb + .sc-tag + .ev-row-title + .ev-row-date + .ev-row-link ═══ -->
@@ -300,23 +303,9 @@
 
       <p class="ev-empty" data-ev-empty hidden>No resources match your search.</p>
 
-      <!-- infinite-scroll states, all driven by PTF.initEventList() -->
-      <div class="ev-loading" data-ev-loading hidden aria-hidden="true"></div>
-
-      <div class="ev-more" data-ev-more hidden>
-        <button class="btn" type="button">Load more</button>
-      </div>
-
-      <div class="ev-end" data-ev-end hidden>
-        <p class="ev-end-note">That's everything we have for now.</p>
-      </div>
-
-      <div class="ev-to-top" hidden>
-        <button class="btn btn-primary btn-sm" type="button" data-ev-top aria-label="Back to top">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>
-        </button>
-      </div>
-
+      <!-- The skeleton / Load more / end-of-list states belong to infinite scroll; this list
+           paginates, so the pager below is the whole control. No floating back-to-top either:
+           a page of nine keeps the section heading within easy reach. -->
       <div class="ev-pager" data-ev-pages></div>
     </div>
 
