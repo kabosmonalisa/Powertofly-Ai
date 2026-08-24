@@ -1681,7 +1681,18 @@ img { display: block; max-width: 100%; }
   gap: 20px 24px; flex-wrap: wrap; margin-bottom: 24px; }
 .ev-controls .ev-filter { margin-bottom: 0; flex: 1 1 340px; }
 .ev-controls .hero-search-sm { flex: 0 1 300px; }
-@media (max-width: 600px) { .ev-controls .hero-search-sm { flex: 1 1 100%; } }
+/* Phone: seven chips wrapping cost 200px+ of height before the first card, so they scroll
+   sideways in one row instead. The row is keyboard- and swipe-scrollable; the trailing
+   padding keeps the last chip from sitting flush against the edge. */
+@media (max-width: 700px) {
+  .ev-controls { gap: 14px; }
+  .ev-controls .ev-filter { flex: 1 1 100%; flex-wrap: nowrap; overflow-x: auto;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+    margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .ev-controls .ev-filter::-webkit-scrollbar { display: none; }
+  .ev-controls .ev-filter-btn { flex: none; }
+  .ev-controls .hero-search-sm { flex: 1 1 100%; }
+}
 
 /* SKELETON batch — placeholder tiles the exact shape of the cards they become, with a
    shimmer sweeping across them. A bare spinner for half a second reads as nothing; seeing
