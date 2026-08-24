@@ -606,12 +606,25 @@ window.PTF = (function () {
        on an infinite list the way back has to be reachable at any depth, not only at the end. */
     var topFloat = wrap.querySelector('.ev-to-top');
     if (topFloat) {
+      /* read the resting offset from the CSS once, before we ever write an inline bottom —
+         otherwise the measurement feeds back on itself */
+      var baseBottom = parseFloat(getComputedStyle(topFloat).bottom) || 28;
       syncTopFloat = function () {
         var l = wrap.querySelector('.ev-list');
         var inside = l && l.getBoundingClientRect().top < -120;
         /* stays visible over the footer — the button carries a --bg ring so the ink circle
            still reads against that always-dark block */
         topFloat.hidden = !inside;
+        /* …but it comes to REST on the footer's last divider rather than sliding over
+           "Legal and privacy": once that rule scrolls up past the button's parking spot,
+           the button rides up with it and the page keeps moving underneath. */
+        var line = document.querySelector('.footer-bottom');
+        var bottom = '';
+        if (line) {
+          var lift = window.innerHeight - line.getBoundingClientRect().top + 20;
+          if (lift > baseBottom) bottom = lift + 'px';
+        }
+        topFloat.style.bottom = bottom;
       };
       window.addEventListener('scroll', syncTopFloat, { passive: true });
       window.addEventListener('resize', syncTopFloat);
