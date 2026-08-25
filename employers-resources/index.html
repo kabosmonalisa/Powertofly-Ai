@@ -446,8 +446,15 @@
     <span class="eyebrow">Stay in the loop</span>
     <!-- COPY: from the live employer newsletter block -->
     <h2>Get PowerToFly's monthly newsletter</h2>
-    <p>The future of work, leadership and technology — for the people building teams. Once a month, in your inbox.</p>
-    <a href="../signup/" class="btn btn-cta">Sign up for updates →</a>
+    <p>The future of work, leadership and technology — for the people building teams. Once a month, sent straight to your inbox.</p>
+    <!-- Same inline capture as the talent closer (.cta-signup). BACKEND: confirm — there is no
+         newsletter endpoint yet, so submitting only confirms in place. The address is never
+         put in a URL. -->
+    <form class="cta-signup" novalidate>
+      <input class="cta-signup-input" type="email" name="email" required placeholder="Your work email address" aria-label="Your work email address">
+      <button class="btn btn-cta" type="submit">Sign up →</button>
+    </form>
+    <p class="cta-signup-note" role="status" aria-live="polite"></p>
   </div>
 </section>
 
@@ -461,6 +468,29 @@
   PTF.initMegaNav();
   PTF.initHeader();
   PTF.initEventList();   // topic filters + search + infinite scroll for [data-ev-list]
+
+  /* ── Newsletter sign-up: no endpoint yet, so confirm in place rather than navigate away.
+        BACKEND: confirm — swap this for the real subscribe call. The address is never put
+        into a URL or a query string. ── */
+  (function () {
+    var form = document.querySelector('.cta-signup');
+    if (!form) return;
+    var note = document.querySelector('.cta-signup-note');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var field = form.querySelector('input');
+      if (!field.value.trim() || !field.checkValidity()) {
+        note.textContent = 'Enter an email address so we know where to send it.';
+        note.classList.remove('is-ok');
+        field.focus();
+        return;
+      }
+      note.textContent = "You're on the list. Look out for the next one.";
+      note.classList.add('is-ok');
+      form.reset();
+      field.blur();
+    });
+  })();
 
   /* ── Both search forms filter live, so they must not submit and reload. They blur the field
         (dismisses the mobile keyboard) and jump to the results. ── */
