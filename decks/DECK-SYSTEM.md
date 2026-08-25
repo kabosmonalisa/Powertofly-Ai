@@ -72,6 +72,20 @@ mismatched greens). This file + `preview.html` + the Google Slides master close 
 | 21 | Event sponsorship | deck slide 11 — audience + inclusions |
 | 22 | Event calendar | deck slide 11 — themed representative-talent events |
 | 23 | Measurable results (dark band) | deck slide 12 — event benchmarks |
+| 24 | Role matrix (`.roles`) | 3 columns of role titles — the community/roles taxonomy |
+| 25 | Comparison table (`.dtbl`) | real rows × columns — package inclusions, competitors, verticals |
+| 26 | Buyer persona (`.persona`) | internal GTM — identity, quote, needs/how-they-buy, the pitch |
+| 27 | Two headed lists (`.twolist`) | two parallel lists — triggers vs. signals |
+
+**Imagery on slides — same library as the marketing pages, never new stock.** Faces come from the
+local `photos/` set (the ones `employers/` and `about/` already use); scenes come from the Pexels set
+already on `events/`, `hire/`, `train/`. Four places a deck may carry a photo:
+`.slide-photo` (divider — sits in the right 60%, ink gradient keeps the headline on solid black),
+`.photoband` (a wide band under a 4-up), `.facerow` (round crops of the community),
+and a background image on `.media-thumb` / `.visual`. Never a photo behind body copy.
+
+24–27 were added for the 70-slide GTM deck (`gtm-deck.html`), where the source had content the
+first 23 layouts had no home for. They are templates, not one-offs — reuse them.
 
 New layout needed? Add it here + to `preview.html` first, then to the Slides master. Don't let a
 deck invent a layout the system hasn't claimed (that's how the current deck drifted).

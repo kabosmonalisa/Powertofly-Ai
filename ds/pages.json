@@ -268,6 +268,14 @@
    "desc": "The GTM SALES DECK — the real deck content consolidated from the 67-slide original onto our templates (25 slides). Includes a new media/video template + contacts template. The Google Slides/.pptx download is generated once the look is approved."
   },
   {
+   "id": "slides-gtmdeck",
+   "name": "GTM sales deck",
+   "file": "decks/gtm-deck.html",
+   "group": "Slides",
+   "status": "live",
+   "desc": "Milena's 70-slide GTM Sales Pitch Deck rebranded onto our templates — 44 slides in the source deck's own order (client deck, go-to-market section, appendix). Adds four deck layouts: role matrix, comparison table, buyer persona, two headed lists. Download: decks/PowerToFly-GTM-Sales-Deck.pptx (editable, imports into Google Slides)."
+  },
+  {
    "id": "org-topnav-login",
    "name": "Top nav — login states",
    "file": "nav-preview/index.html",
