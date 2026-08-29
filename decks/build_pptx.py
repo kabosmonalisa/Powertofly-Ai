@@ -304,7 +304,7 @@ def L_facerow(sl, el, d):
     for i, im in enumerate(imgs):
         x = PAD_X + i * (sz + gap)
         pic = picture(sl, x, yy, sz, sz, im['src'])
-        pic._element.spPr.append(_oval_geom())
+        _make_oval(pic)
     lbl = fr.select_one('.fr-label')
     if lbl:
         lx = PAD_X + len(imgs) * (sz + gap) + .6
@@ -312,10 +312,22 @@ def L_facerow(sl, el, d):
         write(para(tf, True), txt(lbl), 1.2, INK3, line=1.3)
 
 
-def _oval_geom():
+def _make_oval(pic):
+    """Crop a picture to a circle by REPLACING its geometry.
+
+    Appending a second <a:prstGeom> leaves two geometries in one <a:spPr>.
+    PowerPoint forgives that; Google Slides rejects the whole file."""
     from pptx.oxml import parse_xml
     from pptx.oxml.ns import nsdecls
-    return parse_xml('<a:prstGeom %s prst="ellipse"><a:avLst/></a:prstGeom>' % nsdecls('a'))
+    spPr = pic._element.spPr
+    new = parse_xml('<a:prstGeom %s prst="ellipse"><a:avLst/></a:prstGeom>' % nsdecls('a'))
+    for tag in ('a:prstGeom', 'a:custGeom'):
+        old = spPr.find(qn(tag))
+        if old is not None:
+            spPr.replace(old, new)
+            return
+    xfrm = spPr.find(qn('a:xfrm'))
+    spPr.insert(list(spPr).index(xfrm) + 1 if xfrm is not None else 0, new)
 
 
 def L_probs(sl, el, y, d):
@@ -832,7 +844,9 @@ def _strip_table_style(tbl):
         for tc in tr.findall(qn('a:tc')):
             tcPr = tc.find(qn('a:tcPr'))
             if tcPr is None: continue
-            tcPr.append(parse_xml(
+            # CT_TableCellProperties is a sequence: lnL, lnR, lnT, lnB, ... then fill.
+            # Appending after the fill produces a file Google Slides refuses to open.
+            tcPr.insert(0, parse_xml(
                 '<a:lnB %s w="9525" cap="flat"><a:solidFill><a:srgbClr val="E7E7E5"/>'
                 '</a:solidFill></a:lnB>' % nsdecls('a')))
 
@@ -1014,7 +1028,51 @@ def build(html='gtm-deck.html', out='PowerToFly-GTM-Sales-Deck.pptx'):
 
     dest = os.path.join(HERE, out)
     prs.save(dest)
+    problems = validate(dest)
+    if problems:
+        os.remove(dest)
+        raise SystemExit('REFUSED TO SHIP — %d schema problems Google Slides would '
+                         'reject:\n  ' % len(problems) + '\n  '.join(problems[:10]))
     return dest, len(slides)
+
+
+
+
+# ================================================================ validation
+def validate(path):
+    """Refuse to ship a file Google Slides would reject.
+
+    Google Slides validates the OOXML sequence strictly; PowerPoint does not.
+    Every hand-written bit of XML in this file gets checked here, because a
+    deck that only opens in PowerPoint is a deck that failed.
+    """
+    import zipfile
+    from lxml import etree
+    A = '{http://schemas.openxmlformats.org/drawingml/2006/main}'
+    SP = {'xfrm': 0, 'custGeom': 1, 'prstGeom': 1, 'noFill': 2, 'solidFill': 2,
+          'gradFill': 2, 'blipFill': 2, 'pattFill': 2, 'grpFill': 2, 'ln': 3,
+          'effectLst': 4, 'effectDag': 4, 'scene3d': 5, 'sp3d': 6, 'extLst': 9}
+    TC = {'lnL': 0, 'lnR': 1, 'lnT': 2, 'lnB': 3, 'lnTlToBr': 4, 'lnBlToTr': 5,
+          'cell3D': 6, 'noFill': 7, 'solidFill': 7, 'gradFill': 7, 'blipFill': 7,
+          'pattFill': 7, 'grpFill': 7, 'headers': 8, 'extLst': 9}
+    problems = []
+    with zipfile.ZipFile(path) as z:
+        for name in z.namelist():
+            if not (name.startswith('ppt/slides/slide') and name.endswith('.xml')):
+                continue
+            root = etree.fromstring(z.read(name))
+            for el in root.iter():
+                local = etree.QName(el).localname
+                if local not in ('spPr', 'tcPr'):
+                    continue
+                kids = [etree.QName(k).localname for k in el]
+                table = SP if local == 'spPr' else TC
+                if local == 'spPr' and kids.count('prstGeom') + kids.count('custGeom') > 1:
+                    problems.append('%s: two geometries in one spPr (%s)' % (name, kids))
+                seq = [table[k] for k in kids if k in table]
+                if seq != sorted(seq):
+                    problems.append('%s: %s out of schema order (%s)' % (name, local, kids))
+    return problems
 
 
 if __name__ == '__main__':
