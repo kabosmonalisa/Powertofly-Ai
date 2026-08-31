@@ -488,8 +488,18 @@ window.PTF = (function () {
              behind it; disabled ends can't be clicked. */
           var html = '<button class="ev-page ev-page-nav" data-ev-page="' + (page - 1) + '"' +
                      (page === 1 ? ' disabled' : '') + ' aria-label="Previous page">← Prev</button>';
-          var win = [], i;
-          for (i = 1; i <= pages; i++) if (i === 1 || i === pages || Math.abs(i - page) <= 1) win.push(i);
+          /* Show real numbers, not dots: up to SPAN pages are listed in full. Only past that
+             does it slide a SPAN-wide window around the current page, still anchored by the
+             first and last so you always know how far the archive goes. */
+          var SPAN = 7, win = [], i;
+          if (pages <= SPAN) {
+            for (i = 1; i <= pages; i++) win.push(i);
+          } else {
+            var start = Math.max(1, Math.min(page - Math.floor(SPAN / 2), pages - SPAN + 1));
+            for (i = start; i < start + SPAN; i++) win.push(i);
+            if (win[0] !== 1) win[0] = 1;                       // keep the first page reachable
+            if (win[win.length - 1] !== pages) win[win.length - 1] = pages;
+          }
           var prev = 0;
           win.forEach(function (n) {
             if (prev && n - prev > 1) html += '<span class="ev-page-gap" aria-hidden="true">…</span>';
