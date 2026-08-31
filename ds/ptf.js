@@ -482,8 +482,23 @@ window.PTF = (function () {
       if (moreEl) moreEl.hidden = !(infinite && autoLoads >= autoMax && page * per < visible.length);
       if (pager) {
         if (pages > 1 && !infinite) {
-          var html = '';
-          for (var i = 1; i <= pages; i++) html += '<button class="ev-page' + (i === page ? ' is-active' : '') + '" data-ev-page="' + i + '">' + i + '</button>';
+          /* Prev / Next flank the numbers — on a long archive the numbers alone are a poor
+             target, and "next" is the move most people actually want. The number list is
+             windowed (1 … 5 6 7 … 20) so it can't run off the page once the real CMS is
+             behind it; disabled ends can't be clicked. */
+          var html = '<button class="ev-page ev-page-nav" data-ev-page="' + (page - 1) + '"' +
+                     (page === 1 ? ' disabled' : '') + ' aria-label="Previous page">← Prev</button>';
+          var win = [], i;
+          for (i = 1; i <= pages; i++) if (i === 1 || i === pages || Math.abs(i - page) <= 1) win.push(i);
+          var prev = 0;
+          win.forEach(function (n) {
+            if (prev && n - prev > 1) html += '<span class="ev-page-gap" aria-hidden="true">…</span>';
+            html += '<button class="ev-page' + (n === page ? ' is-active' : '') + '" data-ev-page="' + n + '"' +
+                    (n === page ? ' aria-current="page"' : '') + '>' + n + '</button>';
+            prev = n;
+          });
+          html += '<button class="ev-page ev-page-nav" data-ev-page="' + (page + 1) + '"' +
+                  (page === pages ? ' disabled' : '') + ' aria-label="Next page">Next →</button>';
           pager.innerHTML = html;
           pager.style.display = 'flex';
         } else {

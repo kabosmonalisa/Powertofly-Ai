@@ -1424,6 +1424,12 @@ img { display: block; max-width: 100%; }
 .ev-page:hover { color: var(--ink); }
 /* Active page mirrors the top-nav "you are here": dark text + thin mint underline */
 .ev-page.is-active { color: var(--ink); border-bottom-width: 1.5px; border-bottom-color: var(--green-mid); font-weight: 600; }
+/* Prev / Next sit either side of the numbers; the ends grey out rather than disappearing, so
+   the control keeps its shape. .ev-page-gap is the "…" where the number list is windowed. */
+.ev-page-nav { font-weight: 600; color: var(--ink-2); }
+.ev-page-nav:disabled { color: var(--ink-3); opacity: 0.4; cursor: default; }
+.ev-page-nav:disabled:hover { color: var(--ink-3); }
+.ev-page-gap { align-self: center; padding: 0 2px; font-size: 15px; color: var(--ink-3); user-select: none; }
 
 /* ── GRID variant (.ev-listing--grid) = top filters + 3-up text tiles (Past-events archive) ── */
 .ev-listing--grid { display: block; }
