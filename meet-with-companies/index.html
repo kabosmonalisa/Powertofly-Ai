@@ -653,8 +653,8 @@
         if (ev === 'live')  // 6
           return status('<span class="dot"></span>Live now', 'is-live') +
                  '<h3 class="mwc-action-title">The session is live</h3>' +
-                 '<p class="mwc-action-body">You\'re registered. Click below to join.</p>' +
-                 '<div class="mwc-action-actions">' + btn('Join now →', 'btn-primary', '#') + '</div>';
+                 '<p class="mwc-action-body">You\'re registered — jump straight in.</p>' +
+                 '<div class="mwc-action-actions">' + btn('Join event →', 'btn-primary', '#') + '</div>';
         // upcoming (3) or closed (9)
         return status(REG_BADGE, '') + '<h3 class="mwc-action-title">You\'re registered</h3>' +
                '<p class="mwc-action-body">' + (ev === 'closed'
