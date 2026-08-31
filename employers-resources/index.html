@@ -467,7 +467,26 @@
 <script>
   PTF.initMegaNav();
   PTF.initHeader();
-  PTF.initEventList();   // topic filters + search + infinite scroll for [data-ev-list]
+  /* ── PROTOTYPE ONLY — delete before launch ──
+     Pad "Recent articles" out to a realistic archive so the pager can be exercised past two
+     pages. Clones the real cards, re-dating each one and cycling the topic so every chip
+     still returns results. Runs BEFORE initEventList so the clones are part of the list. ── */
+  (function () {
+    var list = document.querySelector('[data-ev-list] .ev-list');
+    if (!list) return;
+    var originals = [].slice.call(list.querySelectorAll('.ev-row'));
+    var months = ['October','September','August','July','June','May','April','March','February','January'];
+    for (var round = 0; round < 3; round++) {
+      originals.forEach(function (row, i) {
+        var copy = row.cloneNode(true);
+        var d = copy.querySelector('.ev-row-date');
+        if (d) d.textContent = months[(round * 4 + i) % months.length] + ' ' + (24 - round) + ', 2025';
+        list.appendChild(copy);
+      });
+    }
+  })();
+
+  PTF.initEventList();   // topic filters + search + numbered pagination for [data-ev-list]
 
   /* ── Newsletter sign-up: no endpoint yet, so confirm in place rather than navigate away.
         BACKEND: confirm — swap this for the real subscribe call. The address is never put

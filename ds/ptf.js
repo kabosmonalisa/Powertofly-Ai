@@ -533,7 +533,19 @@ window.PTF = (function () {
     });
     if (pager) pager.addEventListener('click', function (e) {
       var b = e.target.closest('[data-ev-page]');
-      if (b) { page = parseInt(b.getAttribute('data-ev-page'), 10); render(); }
+      if (!b || b.disabled) return;
+      page = parseInt(b.getAttribute('data-ev-page'), 10);
+      render();
+      /* The pager sits under the list, so changing page from there would otherwise leave the
+         reader at the bottom looking at the END of the new page. Return to the top of the list
+         — but only when it has scrolled off, so a short list doesn't jump under you. */
+      var anchor = (wrap.closest('section') || wrap).querySelector('.ev-head') ||
+                   wrap.querySelector('.ev-controls') || wrap.querySelector('.ev-list');
+      if (!anchor || anchor.getBoundingClientRect().top >= 0) return;
+      var y = anchor.getBoundingClientRect().top + window.scrollY - 100;
+      var from = window.scrollY;
+      try { window.scrollTo({ top: y, behavior: 'smooth' }); } catch (err) {}
+      setTimeout(function () { if (window.scrollY === from) window.scrollTo(0, y); }, 60);
     });
     render();
 
