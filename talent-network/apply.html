@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply — AI Product Talent Network — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  CANDIDATE APPLICATION FLOW — "apply to join a talent community".
+  This is the EXISTING application flow (ds/flow-event.html two-column shell),
+  with the event panel carrying the community instead of an event. Dina's brief:
+  reuse the job application flow where possible — so nothing here is new:
+  · shell    → .flow-shell / .auth-bg / .auth-nav / .reg-wrap / .reg-layout
+  · left     → .event-card (+ .event-pill / .event-host / .event-meta)
+  · steps    → .auth-card / .flow-step / .step-indicator / .auth-heading
+  · fields   → .field / .field-row / .upload-area / .q-group / .check-row / .id-chips
+  · submitted→ .thanks-icon / .thanks-eyebrow / .thanks-body / .thanks-divider
+  To spin up another community: copy this file and change the left panel + the
+  step-3 screening questions. Nothing else moves.
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Apply — AI Product Talent Network — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for icons (the submitted check + .event-ico) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a class="nav-brand" href="../index.html">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="index.html">← Back to the community</a>
+</nav>
+
+<main class="reg-wrap">
+  <div class="reg-layout">
+
+    <!-- ══════ LEFT — the community panel (change per community) ══════ -->
+    <aside class="event-card">
+      <div class="event-top">
+        <span class="event-pill">Talent Network</span>
+      </div>
+      <h1 class="event-title">AI Product <em>Talent Network</em></h1>
+      <div class="event-host">
+        <img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="">
+        <div class="event-host-text">
+          <span class="event-host-name">Reviewed by PowerToFly</span>
+          <span class="event-host-role">Every application read by a person</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg></span>
+          <span class="event-meta-text"><strong>Batch 1 — open now</strong><span>Closes when the batch is full</span></span><!-- COPY: confirm batch naming -->
+        </div>
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+          <span class="event-meta-text"><strong>About 5 minutes</strong><span>Reviewed within two weeks</span></span><!-- COPY: confirm review SLA -->
+        </div>
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10z"/></svg></span>
+          <span class="event-meta-text"><strong>Anonymous to companies</strong><span>We ask before sharing your name</span></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══════ RIGHT — the application (steps) ══════ -->
+    <div class="reg-form">
+      <div class="auth-card" id="card">
+
+        <!-- Sign in / Sign up toggle — the auth step only -->
+        <div class="auth-toggle" id="authToggle">
+          <button id="tabSignIn" type="button" onclick="showAuth('signin')">Sign in</button>
+          <button class="active" id="tabSignUp" type="button" onclick="showAuth('signup')">Sign up</button>
+        </div>
+
+        <!-- Sign in — an existing member applying to another community -->
+        <div class="flow-step" data-step="signin" hidden>
+          <h1 class="auth-heading">Welcome back</h1>
+          <p class="auth-sub">Sign in and we will fill in everything we already know about you.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+            <button class="btn-auth" type="submit">Sign in</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">New here? <a href="#" onclick="showAuth('signup');return false">Create an account</a></p>
+        </div>
+
+        <!-- Step 1 — who you are -->
+        <div class="flow-step" data-step="1">
+          <div class="step-indicator">Step 1 of 4</div>
+          <h1 class="auth-heading">Apply to join</h1>
+          <p class="auth-sub">Start with the basics. You can finish the rest in about five minutes.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field-row">
+              <div class="field"><label>First name</label><input type="text" autocomplete="given-name" required></div>
+              <div class="field"><label>Last name</label><input type="text" autocomplete="family-name" required></div>
+            </div>
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" required></div>
+            <button class="btn-auth" type="submit">Continue →</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-fineprint">By applying you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+
+        <!-- Step 2 — your background (the standard job-application step) -->
+        <div class="flow-step" data-step="2" hidden>
+          <div class="step-indicator">Step 2 of 4</div>
+          <h1 class="auth-heading">Your background</h1>
+          <p class="auth-sub">The same details you would send with any application.</p>
+          <form class="auth-form" onsubmit="return goToStep(3)">
+            <label class="upload-area">
+              <input type="file" accept=".pdf,.doc,.docx">
+              <div class="upload-icon">📄</div>
+              <p><strong>Click to upload</strong> your resume</p>
+              <p style="font-size:13px;color:var(--ink-3)">PDF, DOC, DOCX — max 5MB</p>
+              <div class="upload-name"></div>
+            </label>
+            <div class="field"><label>LinkedIn</label><input type="url" placeholder="linkedin.com/in/…"></div>
+            <div class="field"><label>Current or most recent title</label><input type="text" placeholder="Senior product manager"></div>
+            <div class="field"><label>Where you are based</label><input type="text" placeholder="City, country"></div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+        </div>
+
+        <!-- Step 3 — SCREENING QUESTIONS (the part that changes per community) -->
+        <div class="flow-step" data-step="3" hidden>
+          <div class="step-indicator">Step 3 of 4</div>
+          <h1 class="auth-heading auth-heading--sm">How you work with AI</h1>
+          <p class="auth-sub">These are the questions our team uses to review your application. Short answers are fine.</p>
+          <form class="auth-form" onsubmit="return goToStep(4)">
+            <div class="field">
+              <label>Your focus in AI product</label>
+              <select required>
+                <option value="" selected disabled>Choose one</option>
+                <option>AI product management</option>
+                <option>Platform / infrastructure product</option>
+                <option>Data product</option>
+                <option>Growth product</option>
+                <option>Product operations</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Years working in product</label>
+              <select required>
+                <option value="" selected disabled>Choose one</option>
+                <option>Less than 2 years</option>
+                <option>2–5 years</option>
+                <option>5–10 years</option>
+                <option>More than 10 years</option>
+              </select>
+            </div>
+            <div class="q-group">
+              <div class="q-label">Which of these have you actually shipped?</div>
+              <div class="event-list">
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>An AI feature that reached real users</span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>An evaluation or quality process for model output</span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>A roadmap where AI was the core bet, not a feature</span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>Model or vendor selection, including the cost case</span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>None of these yet</span></label>
+              </div>
+            </div>
+            <div class="id-grid">
+              <div class="id-section">
+                <div class="id-section-label">Tools you work with</div>
+                <div class="id-chips">
+                  <button type="button" class="id-chip">OpenAI</button><button type="button" class="id-chip">Anthropic</button><button type="button" class="id-chip">LangChain</button><button type="button" class="id-chip">Vector DBs</button><button type="button" class="id-chip">Evals</button><button type="button" class="id-chip">Figma</button><button type="button" class="id-chip">SQL</button><button type="button" class="id-chip">Amplitude</button>
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <label>Tell us about one AI product you shipped</label>
+              <textarea placeholder="What it did, what you owned, and what happened when it met real users."></textarea>
+            </div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(2)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+        </div>
+
+        <!-- Step 4 — availability + consent, then submit for review -->
+        <div class="flow-step" data-step="4" hidden>
+          <div class="step-indicator">Step 4 of 4</div>
+          <h1 class="auth-heading auth-heading--sm">Availability and consent</h1>
+          <p class="auth-sub">The last part. This is what companies see first, and it is the only part that mentions money.</p>
+          <form class="auth-form" onsubmit="return goToStep(5)">
+            <div class="field">
+              <label>What kind of work are you open to?</label>
+              <select required>
+                <option value="" selected disabled>Choose one</option>
+                <option>Full-time</option>
+                <option>Part-time or fractional</option>
+                <option>Project-based</option>
+                <option>Open to anything</option>
+                <option>Not looking right now — keep me in the community</option>
+              </select>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Hours per week</label>
+                <select><option value="" selected disabled>Choose one</option><option>Under 10</option><option>10–20</option><option>20–30</option><option>Full-time</option></select>
+              </div>
+              <div class="field"><label>Rate expectation</label><input type="text" placeholder="e.g. $95/hr or $150k"></div>
+            </div>
+            <div class="field"><label>Where you can work</label><input type="text" placeholder="e.g. EU remote, US work authorization"></div>
+            <div class="q-group">
+              <div class="q-label">Before we show your profile to a company</div>
+              <div class="event-list">
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span>Show my profile anonymously — role, years, region, skills and rate, no name or employer</span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box"><span>Email me when a company asks to be introduced</span></label>
+              </div>
+            </div>
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox" onchange="document.getElementById('submitBtn').disabled=!this.checked"><span>Everything here is accurate, and I accept PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span style="color:#C0392B">*</span></span></label>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit" id="submitBtn" disabled>Submit for review</button></div>
+          </form>
+        </div>
+
+        <!-- Step 5 — submitted / pending review. The gate, said out loud. -->
+        <div class="flow-step" data-step="5" hidden>
+          <div class="thanks-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="thanks-eyebrow">Application received</div>
+          <h1 class="auth-heading">You are in the review queue.</h1>
+          <p class="thanks-body">Your profile is not visible to anyone yet. A member of our team reads every application for the AI Product community and you will hear back either way, usually within two weeks.<!-- COPY: confirm review SLA --></p>
+          <div class="q-group">
+            <div class="q-label">What happens next</div>
+            <div class="event-list">
+              <div class="event-opt"><span class="event-opt-title">We review your application</span><span class="event-opt-date">A person, not a score</span></div>
+              <div class="event-opt"><span class="event-opt-title">You get an email with the outcome</span><span class="event-opt-date">Accepted, held for a later batch, or not this time</span></div>
+              <div class="event-opt"><span class="event-opt-title">Accepted members go in front of companies</span><span class="event-opt-date">Anonymously, and we ask you before any introduction</span></div>
+            </div>
+          </div>
+          <a class="btn-dashboard btn-block" href="../job-board/index.html">Browse open roles while you wait →</a>
+          <div class="thanks-divider"></div>
+          <p class="auth-fineprint">Something to add? <a href="mailto:hi@powertofly.com">Email the team</a></p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  function goToStep(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
+    window.scrollTo(0, 0);
+    return false;
+  }
+  function showAuth(which) {
+    document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
+    document.getElementById('tabSignUp').classList.toggle('active', which === 'signup');
+    goToStep(which === 'signin' ? 'signin' : 1);
+    document.getElementById('authToggle').style.display = 'flex';
+    return false;
+  }
+  // chips are multi-select, same behavior as the signup flow
+  document.querySelectorAll('.id-chip').forEach(function (c) {
+    c.addEventListener('click', function () { c.classList.toggle('selected'); });
+  });
+  // resume filename echo, same as the shared flows
+  document.querySelectorAll('.upload-area input[type=file]').forEach(function (i) {
+    i.addEventListener('change', function () {
+      var el = i.closest('.upload-area').querySelector('.upload-name');
+      el.textContent = i.files[0] ? i.files[0].name : '';
+      el.style.display = i.files[0] ? 'block' : 'none';
+    });
+  });
+</script>
+</body>
+</html>

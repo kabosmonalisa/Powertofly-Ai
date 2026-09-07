@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open your cohort — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  CLIENT ACCESS GATE — the door to a private cohort page.
+  Deliberately NOT an account: the client gets one private link plus a code by
+  email after their scoping call, so there is nothing to create or remember.
+  Built from the shared signup-flow shell (ds/flow-signup.html) — no new parts:
+  · shell  → .flow-shell / .auth-bg / .auth-nav / .auth-wrap / .auth-card
+  · copy   → .auth-heading / .auth-sub / .auth-note / .auth-fineprint
+  · fields → .auth-form / .field  + .btn-auth
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Open your cohort — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a class="nav-brand" href="../index.html">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="../employers/index.html">← PowerToFly for employers</a>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <div class="auth-panel active">
+      <div class="step-indicator">Private cohort</div>
+      <h1 class="auth-heading auth-heading--sm">Open your AI Product cohort</h1>
+      <p class="auth-sub">Enter the work email we sent the link to, plus the six-character code from that email.</p>
+      <form class="auth-form" onsubmit="window.location.href='cohort.html';return false">
+        <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
+        <div class="field"><label>Access code</label><input type="text" placeholder="NW4K2P" autocomplete="one-time-code" required></div>
+        <button class="btn-auth" type="submit">Open the cohort →</button>
+      </form>
+      <p class="auth-note">Lost the code? <a href="mailto:hi@powertofly.com">Ask your PowerToFly contact</a></p>
+      <p class="auth-fineprint">This link is unique to your team and expires when the cohort closes. Profiles inside are anonymized, and introductions are made by our team once the candidate agrees.</p>
+    </div>
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+</body>
+</html>

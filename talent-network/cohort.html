@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your AI Product cohort — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  CLIENT COHORT PAGE — anonymized profiles, shortlist, request an introduction.
+  Reached from cohort-access.html. No dashboard in v1: the page does one job —
+  let a client decide who they want to meet, then hand that to our team.
+
+  Built from the shared design system:
+  · nav + footer → injected (data-ptf-nav / data-ptf-footer)
+  · header       → .section-hero + .section-head + .eyebrow
+  · listing      → .ev-head / .ev-listing / .ev-filter / .ev-filter-btn / .ev-search
+  · skills       → .sc-title-chip        · select → .check-row / .check-box
+  · closer       → .section-cta
+
+  ⚠️ PAGE-OWN, ON PURPOSE — two things the design system does not have yet:
+  1. .tal-card — the talent card, copied from browse-talent/index.html. This is
+     now its SECOND page, which by our own audit rule makes it a promote-to-
+     system candidate, not a page style. The .tal-card--anon modifier (no photo,
+     a reference instead of a name) is the anonymized variant the Talent Network
+     needs. Decide both before final UI.
+  2. .tn-shortlist — the sticky "3 selected → request introductions" bar. The
+     system has no multi-select-then-act pattern at all.
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Your AI Product cohort — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
+ * See the ⚠️ note in the head comment: .tal-card and .tn-shortlist are flagged
+ * promote-to-system candidates, not permanent page styles.
+ */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+
+/* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
+.tal-col { min-width: 0; }
+.tal-count { font-size: 13px; color: var(--ink-3); margin: 0; white-space: nowrap; }
+.tal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+@media (max-width: 460px) { .tal-grid { grid-template-columns: 1fr; } }
+.tal-card {
+  display: flex; flex-direction: column; text-decoration: none; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.tal-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
+.tal-card.is-hidden { display: none; }
+.tal-card-body { padding: 16px 16px 15px; display: flex; flex-direction: column; flex: 1; }
+.tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+.tal-card-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+.tal-card-sum { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 11px 0 13px; }
+.tal-card .sc-titles { margin-bottom: 14px; }
+.tal-card-meta {
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line);
+  font-size: 12px; color: var(--ink-3);
+}
+.tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
+.tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
+
+/* ── The anonymized variant: no photo, a reference where the name goes, and the
+      whole card is the selection control (a <label> wrapping the shared .check-box). ── */
+.tal-card--anon { position: relative; cursor: pointer; }
+.tal-card--anon .tal-card-body { padding-right: 52px; }
+.tal-card--anon .check-box { position: absolute; top: 16px; right: 16px; }
+.tal-card--anon:has(.check-box:checked) { border-color: var(--ink); }
+.tal-card-ref { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+
+/* ── Sticky shortlist bar — the system has no multi-select-then-act pattern (promote candidate).
+      Hidden until something is selected, so it never covers the list for nothing. ── */
+.tn-shortlist {
+  position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); z-index: 180;
+  display: flex; align-items: center; gap: 18px; opacity: 0; pointer-events: none;
+  background: var(--ink); color: var(--bg); padding: 12px 12px 12px 22px; border-radius: var(--r-pill);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.24); transition: opacity 180ms ease, transform 180ms ease;
+}
+.tn-shortlist.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.tn-shortlist-count { font-size: 14px; font-weight: 600; white-space: nowrap; }
+/* ≤600px the two halves stack — side by side, the button's label wrapped to two lines */
+@media (max-width: 600px) {
+  .tn-shortlist {
+    left: 20px; right: 20px; transform: translateY(20px);
+    flex-direction: column; align-items: stretch; gap: 10px;
+    padding: 14px; border-radius: var(--r-xl);
+  }
+  .tn-shortlist.is-on { transform: translateY(0); }
+  .tn-shortlist-count { font-size: 13px; text-align: center; }
+  .tn-shortlist .btn { justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <div data-ptf-nav data-active="employers"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HEADER — whose cohort, when it was made, and what is deliberately missing -->
+<section class="section-hero hero-glow">
+  <div class="section-head">
+    <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
+    <h1 class="display-lg">Nine AI product people, picked for your <em class="italic-plain">platform team.</em></h1>
+    <p>Prepared 4 September 2026 by your PowerToFly team. Every profile here has been reviewed and is open to the kind of work you described. Names, photos and current employers are hidden until the person agrees to an introduction — everything you need to judge the fit is on the card.</p>
+    <div class="hero-ctas">
+      <a href="#profiles" class="btn btn-primary">See the profiles ↓</a>
+      <a href="request-intro.html#needs" class="btn">Send us a hiring need →</a>
+    </div>
+  </div>
+</section>
+
+<!-- 02. THE PROFILES — shared listing chrome + the anonymized card -->
+<section class="section" id="profiles" style="background:var(--surface-2)">
+  <div class="ev-head">
+    <h2>Anonymized profiles</h2>
+    <p class="tal-count" id="talCount">9 profiles</p>
+  </div>
+
+  <div class="ev-listing ev-listing--grid">
+    <!-- shared filter chips (horizontal variant of .ev-filter) -->
+    <div class="ev-filter" id="cohortFilter">
+      <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
+      <button class="ev-filter-btn" type="button" data-filter="fulltime">Full-time</button>
+      <button class="ev-filter-btn" type="button" data-filter="fractional">Fractional</button>
+      <button class="ev-filter-btn" type="button" data-filter="project">Project-based</button>
+    </div>
+
+    <div class="tal-col">
+      <div class="tal-grid" id="talGrid">
+
+        <label class="tal-card tal-card--anon" data-avail="fulltime">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-014">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-014</div>
+            <div class="tal-card-name">Senior AI product manager</div>
+            <div class="tal-card-role">B2B SaaS · platform</div>
+            <p class="tal-card-sum">Took an LLM assistant from prototype to general availability, and built the eval process that let the team ship it safely.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Evals</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">Roadmap</span></div>
+            <div class="tal-card-meta"><span>Western Europe</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$110/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fulltime">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-021">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-021</div>
+            <div class="tal-card-name">Group product manager</div>
+            <div class="tal-card-role">AI infrastructure</div>
+            <p class="tal-card-sum">Owns model and vendor selection across three product lines, including the cost case that made the switch defensible.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Vendor strategy</span><span class="sc-title-chip">Cost modeling</span><span class="sc-title-chip">Platform</span></div>
+            <div class="tal-card-meta"><span>US East</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$135/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fractional">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-007">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-007</div>
+            <div class="tal-card-name">AI product manager</div>
+            <div class="tal-card-role">Consumer · search</div>
+            <p class="tal-card-sum">Rebuilt retrieval and ranking for a multilingual consumer app, cutting empty-result searches by half.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Search</span><span class="sc-title-chip">Multilingual</span><span class="sc-title-chip">Experimentation</span></div>
+            <div class="tal-card-meta"><span>Latin America</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$85/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="project">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-033">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-033</div>
+            <div class="tal-card-name">Principal product manager</div>
+            <div class="tal-card-role">Regulated fintech</div>
+            <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight — model risk documentation, human review, and the audit trail behind both.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
+            <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fulltime">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-018">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-018</div>
+            <div class="tal-card-name">Product lead</div>
+            <div class="tal-card-role">Marketplace · 0 → 1</div>
+            <p class="tal-card-sum">Starts AI products from nothing: three launches in four years, two of which are still the team's main line of revenue.</p>
+            <div class="sc-titles"><span class="sc-title-chip">0 → 1</span><span class="sc-title-chip">Marketplace</span><span class="sc-title-chip">Discovery</span></div>
+            <div class="tal-card-meta"><span>South Asia</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$78/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fractional">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-025">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-025</div>
+            <div class="tal-card-name">Technical product manager</div>
+            <div class="tal-card-role">ML platform</div>
+            <p class="tal-card-sum">Builds the tooling other teams evaluate models with — pipelines, dashboards, and the definition of "good enough to ship".</p>
+            <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
+            <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fulltime">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-041">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-041</div>
+            <div class="tal-card-name">Director of product</div>
+            <div class="tal-card-role">Health data</div>
+            <p class="tal-card-sum">Leads a product group building clinical decision tools, where the bar for a wrong answer is a clinical incident.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Health data</span><span class="sc-title-chip">Safety</span><span class="sc-title-chip">Leadership</span></div>
+            <div class="tal-card-meta"><span>West Africa</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$120/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="project">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-012">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-012</div>
+            <div class="tal-card-name">Product operations lead</div>
+            <div class="tal-card-role">Data quality</div>
+            <p class="tal-card-sum">Runs annotation and data-quality operations at scale — the unglamorous work that decides whether a model is any good.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Annotation</span><span class="sc-title-chip">Data quality</span><span class="sc-title-chip">Vendor ops</span></div>
+            <div class="tal-card-meta"><span>Southeast Asia</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$62/hr</span></div>
+          </div>
+        </label>
+
+        <label class="tal-card tal-card--anon" data-avail="fractional">
+          <input type="checkbox" class="check-box" aria-label="Shortlist AP-029">
+          <div class="tal-card-body">
+            <div class="tal-card-ref">AP-029</div>
+            <div class="tal-card-name">Founder · product</div>
+            <div class="tal-card-role">AI developer tooling</div>
+            <p class="tal-card-sum">Built and sold an AI tooling company, and has been on both sides of the buy-or-build conversation you are probably having.</p>
+            <div class="sc-titles"><span class="sc-title-chip">Dev tools</span><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">0 → 1</span></div>
+            <div class="tal-card-meta"><span>Central Europe</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$140/hr</span></div>
+          </div>
+        </label>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. NOBODY QUITE RIGHT — the second thing a client can do here -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">No match in this batch?</div>
+      <h2>Tell us what you are actually <em class="italic-plain">looking for.</em></h2>
+      <p>A cohort is a snapshot of one batch. If the fit is not here, send us the brief and we will build the next cohort around it — usually within a week.<!-- COPY: confirm turnaround --></p>
+      <p style="margin-top:22px"><a href="request-intro.html#needs" class="btn">Submit a hiring need →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- 04. CLOSER -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Your PowerToFly team</span>
+    <h2>Questions about anyone here?</h2>
+    <p>The team who put this cohort together can talk you through any profile, including the parts we have hidden.</p>
+    <a href="../book/index.html" class="btn btn-cta">Book a call →</a>
+  </div>
+</section>
+
+</main>
+
+<!-- Sticky shortlist bar — appears once something is ticked -->
+<div class="tn-shortlist" id="shortlistBar" role="status">
+  <span class="tn-shortlist-count" id="shortlistCount">1 profile selected</span>
+  <a class="btn btn-primary btn-sm" href="request-intro.html">Request introductions →</a>
+</div>
+
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed nav offset
+
+  /* ── Shortlist: count the ticked cards and show the bar. Selection is kept in the
+        page only — nothing is sent until the client submits the request form. ── */
+  (function () {
+    var bar = document.getElementById('shortlistBar');
+    var label = document.getElementById('shortlistCount');
+    var boxes = document.querySelectorAll('#talGrid .check-box');
+    function sync() {
+      var n = document.querySelectorAll('#talGrid .check-box:checked').length;
+      bar.classList.toggle('is-on', n > 0);
+      label.textContent = n === 1 ? '1 profile selected' : n + ' profiles selected';
+    }
+    boxes.forEach(function (b) { b.addEventListener('change', sync); });
+    sync();
+  })();
+
+  /* ── Availability filter — the shared .ev-filter chips over the card grid. ── */
+  (function () {
+    var chips = document.querySelectorAll('#cohortFilter .ev-filter-btn');
+    var cards = document.querySelectorAll('#talGrid .tal-card');
+    var count = document.getElementById('talCount');
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        var f = chip.dataset.filter;
+        chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
+        var shown = 0;
+        cards.forEach(function (card) {
+          var hit = (f === 'all' || card.dataset.avail === f);
+          card.classList.toggle('is-hidden', !hit);
+          if (hit) shown++;
+        });
+        count.textContent = shown === 1 ? '1 profile' : shown + ' profiles';
+      });
+    });
+  })();
+</script>
+</body>
+</html>

@@ -282,6 +282,54 @@
    "group": "Organisms",
    "status": "draft",
    "desc": "The top navigation for logged-in users, switching between a Talent context and an Employer context (Switch to employers / Switch to talents). Logged-out shows the marketing nav. Account menu uses MUI-outlined icons; dropdowns and the switch are live. Dev reference for the login experience."
+  },
+  {
+   "id": "p-tn-flow",
+   "name": "Talent Network — the flow",
+   "file": "talent-network/flow.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The overall Talent Network flow for review with Dina — candidate journey and client journey side by side, plus the manual middle our team runs in email + HubSpot. Built from .steps; the only page CSS is the two-column map."
+  },
+  {
+   "id": "p-tn-community",
+   "name": "Talent Network — community",
+   "file": "talent-network/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The talent-community landing page a candidate applies from ('Apply to join the AI Product Talent Network'). ONE template for every community — copy it and change the name, the screening promise, the title chips and the FAQ."
+  },
+  {
+   "id": "p-tn-cohort",
+   "name": "Talent Network — client cohort",
+   "file": "talent-network/cohort.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "The private client cohort — anonymized profiles, availability filter, tick to shortlist, sticky request bar. Carries the SECOND copy of .tal-card (promote-to-system candidate) plus its new .tal-card--anon variant and the .tn-shortlist bar the system has no pattern for."
+  },
+  {
+   "id": "flow-tn-apply",
+   "name": "Talent Network application",
+   "file": "talent-network/apply.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "Candidate application to join a talent community — the existing job-application flow with the community in the left panel. Four steps: details, background, screening questions (the per-community part), availability and consent, then submitted-for-review."
+  },
+  {
+   "id": "flow-tn-access",
+   "name": "Cohort access",
+   "file": "talent-network/cohort-access.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "The client gate — work email plus the code from their invitation email. Deliberately not an account."
+  },
+  {
+   "id": "flow-tn-intro",
+   "name": "Request an introduction",
+   "file": "talent-network/request-intro.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "What a client sends from a cohort: an introduction request for their shortlist, or (at #needs) a hiring brief when nobody in the batch fits. Both end in an email to the team and a HubSpot record."
   }
  ]
 }

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Request an introduction — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  CLIENT REQUEST FLOW — the two things a client can ask for from a cohort:
+  · "Request introductions"  → the profiles they shortlisted        (default)
+  · "Submit a hiring need"   → a brief, when nobody in the batch fits (#needs)
+  Both land in the same place: an email to our team and a HubSpot record. No
+  dashboard, no status screen — v1 is deliberately one form and one reply.
+
+  Built from the shared event/registration flow (ds/flow-event.html) — nothing new:
+  · shell  → .flow-shell / .auth-bg / .auth-nav / .reg-wrap / .reg-layout
+  · left   → .event-card (+ .event-pill / .event-host / .event-meta)
+  · steps  → .auth-card / .flow-step / .step-indicator / .auth-heading
+  · fields → .auth-form / .field / .field-row / .q-group / .check-row / .agree-row
+  · done   → .thanks-icon / .thanks-eyebrow / .thanks-body / .thanks-divider
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Request an introduction — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+</head>
+<body class="flow-shell">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a class="nav-brand" href="../index.html">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="cohort.html">← Back to the cohort</a>
+</nav>
+
+<main class="reg-wrap">
+  <div class="reg-layout">
+
+    <!-- ══════ LEFT — which cohort this request belongs to ══════ -->
+    <aside class="event-card">
+      <div class="event-top">
+        <span class="event-pill">Private cohort</span>
+      </div>
+      <h1 class="event-title">AI Product — <em>Northwind Robotics</em></h1><!-- COPY: client name per cohort -->
+      <div class="event-host">
+        <img class="event-avatar" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="">
+        <div class="event-host-text">
+          <span class="event-host-name">PowerToFly</span>
+          <span class="event-host-role">Your contact for this cohort</span>
+        </div>
+      </div>
+      <div class="event-meta">
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></span>
+          <span class="event-meta-text"><strong>9 reviewed profiles</strong><span>Batch 1 · prepared 4 September 2026</span></span>
+        </div>
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg></span>
+          <span class="event-meta-text"><strong>Reply within one business day</strong><span>Introductions once the candidate agrees</span></span><!-- COPY: confirm response time -->
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══════ RIGHT — the request ══════ -->
+    <div class="reg-form">
+      <div class="auth-card">
+
+        <!-- Request introductions — arriving from the shortlist bar -->
+        <div class="flow-step" data-step="intro">
+          <div class="step-indicator">Introduction request</div>
+          <h1 class="auth-heading auth-heading--sm">Ask to meet the people you picked</h1>
+          <p class="auth-sub">We contact each person first. If they are interested, we introduce you by email the same day they say yes.</p>
+          <form class="auth-form" onsubmit="return goToStep('done')">
+            <div class="q-group">
+              <div class="q-label">Your shortlist</div>
+              <div class="event-list">
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-014 · Senior AI product manager</span><span class="event-opt-date">Western Europe · 9 yrs · full-time</span></span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-021 · Group product manager</span><span class="event-opt-date">US East · 12 yrs · full-time</span></span></label>
+                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-033 · Principal product manager</span><span class="event-opt-date">United Kingdom · 14 yrs · project-based</span></span></label>
+              </div>
+            </div>
+            <div class="field"><label>What role are you hiring for?</label><input type="text" placeholder="e.g. Senior PM, robotics platform" required></div>
+            <div class="field-row">
+              <div class="field">
+                <label>Engagement</label>
+                <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
+              </div>
+              <div class="field">
+                <label>Timeline</label>
+                <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Anything you want us to pass on? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
+              <textarea placeholder="What the team is building, and what you would want to talk about on a first call."></textarea>
+            </div>
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>I understand PowerToFly makes the introduction, and I will not attempt to contact anyone in this cohort directly. <span style="color:#C0392B">*</span></span></label>
+            <button class="btn-auth btn-block" type="submit" id="introBtn" disabled>Send request</button>
+          </form>
+          <p class="auth-note">Nobody quite right? <a href="#needs" onclick="goToStep('needs');return false">Send us a hiring need instead</a></p>
+        </div>
+
+        <!-- Submit a hiring need — the brief, when the batch does not fit -->
+        <div class="flow-step" data-step="needs" hidden>
+          <div class="step-indicator">Hiring need</div>
+          <h1 class="auth-heading auth-heading--sm">Tell us what you are looking for</h1>
+          <p class="auth-sub">We will build the next cohort around this brief and send you a new link when it is ready.</p>
+          <form class="auth-form" onsubmit="return goToStep('done')">
+            <div class="field"><label>Role title</label><input type="text" placeholder="e.g. Staff PM, perception platform" required></div>
+            <div class="field-row">
+              <div class="field">
+                <label>Seniority</label>
+                <select required><option value="" selected disabled>Choose one</option><option>Mid</option><option>Senior</option><option>Staff / principal</option><option>Director and above</option></select>
+              </div>
+              <div class="field">
+                <label>Engagement</label>
+                <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option></select>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field"><label>Budget or range</label><input type="text" placeholder="e.g. $160–190k, or $120/hr"></div>
+              <div class="field"><label>Where they can sit</label><input type="text" placeholder="e.g. EU remote, or Berlin hybrid"></div>
+            </div>
+            <div class="field">
+              <label>What would make someone right for this?</label>
+              <textarea placeholder="The two or three things you would not compromise on — and the ones you would." required></textarea>
+            </div>
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeNeeds" onchange="document.getElementById('needsBtn').disabled=!this.checked"><span>PowerToFly can use this brief to source candidates and contact me about it. <span style="color:#C0392B">*</span></span></label>
+            <button class="btn-auth btn-block" type="submit" id="needsBtn" disabled>Send hiring need</button>
+          </form>
+          <p class="auth-note">Changed your mind? <a href="#" onclick="goToStep('intro');return false">Back to your shortlist</a></p>
+        </div>
+
+        <!-- Done -->
+        <div class="flow-step" data-step="done" hidden>
+          <div class="thanks-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="thanks-eyebrow">Request sent</div>
+          <h1 class="auth-heading">We have it.</h1>
+          <p class="thanks-body">You will get a reply within one business day. We contact each person on your shortlist first, and introduce you by email as soon as they agree — so the next thing in your inbox is either an introduction or a straight answer about who is not available.</p>
+          <a class="btn-dashboard btn-block" href="cohort.html">Back to the cohort →</a>
+          <div class="thanks-divider"></div>
+          <p class="auth-fineprint">Need it faster? <a href="mailto:hi@powertofly.com">Email the team directly</a></p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  function goToStep(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    window.scrollTo(0, 0);
+    return false;
+  }
+  // Arriving from "Submit a hiring need" on the cohort page opens the brief instead of the shortlist.
+  if (location.hash === '#needs') goToStep('needs');
+</script>
+</body>
+</html>

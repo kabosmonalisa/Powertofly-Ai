@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply to join the AI Product Talent Network — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  TALENT COMMUNITY LANDING — the "job posting" a candidate lands on.
+  ONE template for every community (AI Product, AI Engineering, Data, …):
+  copy this file and change ONLY the community name, the screening promise,
+  the "what we look for" chips and the FAQ. Do not add components.
+
+  Built from the shared design system:
+  · nav + footer   → injected (data-ptf-nav / data-ptf-footer)
+  · hero           → .section-hero + .section-head + .eyebrow  (centered recipe)
+  · how it works   → .section-how / .how-inner / .steps  + photos/how_it_works.png
+  · what we look for → .sc-title-chip chips
+  · FAQ            → .faq-* (shared, PTF.initFaq auto-runs)
+  · closer         → .section-cta
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Apply to join the AI Product Talent Network — PowerToFly AI">
+<meta property="og:description" content="A reviewed community of AI product professionals. Apply once, and we put you in front of the companies hiring.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC ONLY (tokens, never raw hex — COMPONENT-INVENTORY "Allowed page-specific CSS").
+ * 1. .site-header — the standard fixed-header wiring used on every page.
+ * 2. .how-portrait-card image — the generic how-it-works portrait, same as every event page.
+ * 3. .hero-ctas — hero composition is page-specific by design (same row as browse-talent).
+ */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
+.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for any ≥40px gradient icon -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <div data-ptf-nav data-active=""></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — the community, and the one action -->
+<section class="section-hero hero-glow">
+  <div class="section-head">
+    <div class="eyebrow">AI Product · Talent Network</div>
+    <h1 class="display-lg">Apply to join the AI Product <em class="italic-plain">Talent Network.</em></h1>
+    <p>A reviewed community of product people building with AI. Apply once, answer a few questions about how you work, and we put you in front of the companies hiring — without your profile sitting on a public job board.</p>
+    <div class="hero-ctas">
+      <a href="apply.html" class="btn btn-primary">Apply to join →</a>
+      <a href="#how" class="btn">See how review works</a>
+    </div>
+  </div>
+</section>
+
+<!-- 02. HOW JOINING WORKS — shared how-it-works (portrait + numbered steps) -->
+<section class="section-how" id="how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>How joining works</h2>
+      <p>Every application is read by a person. Here is the whole path, including the part where you wait.</p>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h4>Apply</h4>
+            <p>Your details, your resume, and your LinkedIn — the same application you would fill in for a role. About five minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h4>Answer the screening questions</h4>
+            <p>What you have shipped with AI, the tools you use, your availability and your rate. Short answers are fine.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h4>We review</h4>
+            <p>Our team reads every application. You hear back either way, usually within two weeks. <!-- COPY: confirm review SLA --></p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h4>You are in the batch</h4>
+            <p>Accepted members go in front of companies we are actively hiring for. We ask before we ever share your name.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. WHO IT'S FOR — chips, no new component -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">Who this community is for</div>
+      <h2>Product people who have actually <em class="italic-plain">shipped</em> with AI</h2>
+      <p>Titles vary more than the work does. If you have taken an AI feature from idea to something real users touched, this is your community.</p>
+    </div>
+    <div class="sc-titles" style="margin-top:6px">
+      <span class="sc-title-chip">AI product manager</span>
+      <span class="sc-title-chip">Product lead</span>
+      <span class="sc-title-chip">Technical PM</span>
+      <span class="sc-title-chip">Product owner</span>
+      <span class="sc-title-chip">Group PM</span>
+      <span class="sc-title-chip">Director of product</span>
+      <span class="sc-title-chip">Founder / product</span>
+      <span class="sc-title-chip">Product operations</span>
+      <!-- COPY: confirm the title list with Fran / Milena -->
+    </div>
+  </div>
+</section>
+
+<!-- 04. FAQ — the questions people actually ask before applying (shared accordion) -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>Before you apply</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Is this a job I am applying to?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No. You are applying to join a community, not a specific role. Once you are in, we introduce you to companies as their needs come up — so one application covers many opportunities instead of one.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Who sees my profile, and how much of it?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Companies see an anonymized version first: your role, seniority, years of experience, region, skills, availability and rate. Not your name, your photo, or where you work now. We ask your permission before we introduce you to anyone.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">What happens after I submit?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Your application goes into a review queue that a person works through. You will get an email either way — accepted into the current batch, held for a future one, or not this time. <!-- COPY: confirm wording of the decline --></div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Does it cost anything?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No. Joining a talent community is free, and it always will be. Companies pay us to find people, never the other way around.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">I applied to PowerToFly before. Do I need to apply again?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes, for now. Each community has its own screening questions, so we need your answers for this one — but if you have a PowerToFly account we will fill in everything we already know.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">Can I be in more than one community?
+          <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Apply to each one that fits — each has its own questions and its own review. <!-- COPY: confirm with Dina whether v1 allows multiple communities --></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05. CLOSER — the one action again -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">AI Product community</span>
+    <h2>Ready to put your name in?</h2>
+    <p>Five minutes now, and one team reading every word of it. Applications for the current batch are open.</p>
+    <a href="apply.html" class="btn btn-cta">Apply to join →</a>
+  </div>
+</section>
+
+</main>
+
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed nav offset
+  // FAQ accordion + how-it-works steps auto-wire via PTF.initFaq() / PTF.initSteps() (shared)
+</script>
+</body>
+</html>

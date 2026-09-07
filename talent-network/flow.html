@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talent Network — the flow — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  TALENT NETWORK — THE OVERALL FLOW (the thing to review before any UI).
+  Dina's brief: candidates apply to join a talent community and are reviewed;
+  clients open a secure cohort page, see anonymized profiles, shortlist, and
+  request an introduction or submit hiring needs. No client dashboard in v1 —
+  the team runs introductions and follow-ups by email + HubSpot.
+
+  Built ENTIRELY from the shared design system:
+  · nav + footer   → injected (data-ptf-nav / data-ptf-footer)
+  · hero           → .section-hero + .section-head + .eyebrow
+  · every journey  → .steps / .step / .step-num / .step-content
+  · labels         → .eyebrow (plain green, never a pill) + .sc-title-chip
+  · closer         → .section-cta
+  Page-specific CSS is limited to ONE thing: the two-column map layout, so the
+  candidate and client journeys can be read side by side. Tokens only.
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<meta property="og:title"       content="Talent Network — the flow — PowerToFly AI">
+<meta property="og:description" content="The end-to-end flow for the PowerToFly AI Talent Network — candidate side and client side.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC ONLY (tokens, never raw hex — COMPONENT-INVENTORY "Allowed page-specific CSS").
+ * 1. .site-header — the standard fixed-header wiring used on every page.
+ * 2. .tn-map — the two-column flow map. A flow diagram read side by side is genuinely
+ *    page-unique layout; the CONTENT of each column is the shared .steps component.
+ */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+.tn-map { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+@media (max-width: 900px) { .tn-map { grid-template-columns: 1fr; gap: 48px; } }
+.tn-col-head { margin-bottom: 26px; }
+.tn-col-head h3 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 24px; letter-spacing: -0.02em; margin: 10px 0 6px; }
+.tn-col-head p { font-size: 15px; line-height: 1.55; color: var(--ink-3); margin: 0; max-width: 46ch; }
+/* a step our team does by hand in v1 — muted number, so the manual seams are visible at a glance */
+.tn-manual .step-num { color: var(--ink-3); opacity: .55; }
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for any ≥40px gradient icon -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <div data-ptf-nav data-active=""></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — what this page is -->
+<section class="section-hero hero-glow">
+  <div class="section-head">
+    <div class="eyebrow">Talent Network</div>
+    <h1 class="display-lg">Two journeys, one <em class="italic-plain">manual middle.</em></h1>
+    <p>Candidates apply to join a talent community and wait for review. Clients open a private cohort, shortlist anonymized profiles, and ask for introductions. In version one, everything between the two sides is our team, working in email and HubSpot.</p>
+  </div>
+</section>
+
+<!-- 02. THE MAP — both journeys side by side, each one the shared .steps component -->
+<section class="section">
+  <div class="content">
+    <div class="tn-map">
+
+      <!-- ── Candidate ── -->
+      <div>
+        <div class="tn-col-head">
+          <div class="eyebrow">Candidate</div>
+          <h3>Apply to join a community</h3>
+          <p>Reuses the job application flow. A community is posted like a role, so applying feels like something people already know how to do.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Find the community</h4>
+              <p>"Apply to join the AI Product Talent Network" is posted like a job — on the job board, in the newsletter, and shared by the team.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Start the application</h4>
+              <p>Name, work email, resume, LinkedIn. The same first step as every other application on PowerToFly.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Answer the screening questions</h4>
+              <p>A short set owned per community: focus area, years of experience, tools, availability, rate, work authorization.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h4>Submit for review</h4>
+              <p>The confirmation is honest about the gate: nothing is live yet, a human reads it, and here is roughly when you will hear back.</p>
+            </div>
+          </div>
+          <div class="step tn-manual">
+            <div class="step-num">05</div>
+            <div class="step-content">
+              <h4>We review — by hand</h4>
+              <p>The team approves, holds for a later batch, or declines. No automated scoring in v1.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">06</div>
+            <div class="step-content">
+              <h4>Accepted into the batch</h4>
+              <p>An email confirms it, and the anonymized version of the profile becomes available to put in front of clients.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Client ── -->
+      <div>
+        <div class="tn-col-head">
+          <div class="eyebrow">Client</div>
+          <h3>Open a cohort, ask for an introduction</h3>
+          <p>A private page per client, per cohort. No dashboard, no account, no contact details — the introduction has to come through us.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">01</div>
+            <div class="step-content">
+              <h4>Get the link</h4>
+              <p>After a scoping call we email one private cohort link with an access code. It belongs to that client and that batch.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">02</div>
+            <div class="step-content">
+              <h4>Unlock the cohort</h4>
+              <p>Work email plus the code from the email. Nothing to create, nothing to remember.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">03</div>
+            <div class="step-content">
+              <h4>Review anonymized profiles</h4>
+              <p>Role, seniority, years, region, skills, availability, rate. No name, no photo, no current employer.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content">
+              <h4>Shortlist</h4>
+              <p>Tick the people worth meeting. The count follows down the page so the ask is always one click away.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">05</div>
+            <div class="step-content">
+              <h4>Request introductions — or send hiring needs</h4>
+              <p>One short form: who you picked, the role, the timeline. If nobody fits, the same form takes the brief instead.</p>
+            </div>
+          </div>
+          <div class="step tn-manual">
+            <div class="step-num">06</div>
+            <div class="step-content">
+              <h4>We introduce — by hand</h4>
+              <p>The team emails both sides, gets consent from the candidate, and logs the whole thread in HubSpot.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 03. THE MANUAL MIDDLE — the work that has no screen in v1, named out loud -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">Internal · no screens in v1</div>
+      <h2>What the team does <em class="italic-plain">between</em> the two sides</h2>
+      <p>Naming this is the point of version one. Every step below is a person in an inbox, not a feature — which is what keeps the first release small.</p>
+    </div>
+    <div class="steps">
+      <div class="step tn-manual">
+        <div class="step-num">01</div>
+        <div class="step-content">
+          <h4>Work the review queue</h4>
+          <p>Read each application, decide accept / hold / decline, and send the outcome email.</p>
+        </div>
+      </div>
+      <div class="step tn-manual">
+        <div class="step-num">02</div>
+        <div class="step-content">
+          <h4>Anonymize the profile</h4>
+          <p>Strip name, photo, and employer; keep what a client needs to judge. This is a judgement call today, not a rule the system enforces.</p>
+        </div>
+      </div>
+      <div class="step tn-manual">
+        <div class="step-num">03</div>
+        <div class="step-content">
+          <h4>Assemble the cohort and send the link</h4>
+          <p>Pick who goes in front of which client, then email the private link and code.</p>
+        </div>
+      </div>
+      <div class="step tn-manual">
+        <div class="step-num">04</div>
+        <div class="step-content">
+          <h4>Make the introduction and follow up</h4>
+          <p>Ask the candidate first, introduce both sides, and keep the deal moving in HubSpot.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04. WHAT IT'S BUILT FROM — so the review can be about the flow, not the pixels -->
+<section class="section">
+  <div class="section-narrow">
+    <div class="section-head">
+      <h2>What these wireframes are built from</h2>
+      <p>Everything below already exists and is already responsive. The short second list is what the Talent Network needs that the design system has never had — worth deciding before final UI.</p>
+    </div>
+    <div class="eyebrow">Reused, unchanged</div>
+    <div class="sc-titles" style="margin:10px 0 30px">
+      <span class="sc-title-chip">Job application flow</span>
+      <span class="sc-title-chip">Flow shell + steps</span>
+      <span class="sc-title-chip">Screening questions</span>
+      <span class="sc-title-chip">Talent card</span>
+      <span class="sc-title-chip">Filter rail + search</span>
+      <span class="sc-title-chip">How it works</span>
+      <span class="sc-title-chip">FAQ</span>
+      <span class="sc-title-chip">Nav, footer, closer</span>
+    </div>
+    <div class="eyebrow">New — needs a decision</div>
+    <div class="sc-titles" style="margin:10px 0 0">
+      <span class="sc-title-chip">Anonymized profile card</span>
+      <span class="sc-title-chip">Shortlist bar</span>
+      <span class="sc-title-chip">Access gate</span>
+      <span class="sc-title-chip">Application status</span>
+    </div>
+  </div>
+</section>
+
+<!-- 05. CLOSER — where to go next -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Walk the screens</span>
+    <h2>See both sides end to end</h2>
+    <p>The wireframes are clickable, built from the live design system, and work at phone width — so the review can be about the flow itself.</p>
+    <a href="index.html" class="btn btn-cta">Start with the candidate side →</a>
+  </div>
+</section>
+
+</main>
+
+<div data-ptf-footer></div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed nav offset
+
+  /* This page is a review document, not a marketing page — so the shared .steps
+     scroll-stagger is switched off by revealing every step at once. Without it a
+     reader who jumps down the page (or prints it) meets rows still at opacity 0. */
+  document.querySelectorAll('.step').forEach(function (s) { s.classList.add('visible'); });
+</script>
+</body>
+</html>
