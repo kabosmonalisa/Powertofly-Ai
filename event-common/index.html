@@ -128,9 +128,9 @@
               <div class="field"><label>First name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
               <div class="field"><label>Last name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
             </div>
-            <!-- Work email + phone on one row. Phone uses the DS .field select + input (no new component CSS);
-                 flag+dial-code options render from the COUNTRY_CODES list below. Flag emoji show natively on macOS. -->
-            <div class="field-row">
+            <!-- Work email + phone on one row. Email gets more width than phone (1.6fr / 1fr).
+                 Phone is the searchable country picker + number (.phone-field); country data below. -->
+            <div class="field-row" style="grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)">
               <div class="field"><label>Work email</label><input type="email" oninput="clearError(this.closest('.field'))"></div>
               <div class="field">
                 <label>Phone number</label>
@@ -262,13 +262,17 @@
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">You're all set!</h1>
           <p class="thanks-body">We've sent an invite link straight to your inbox.</p>
+          <!-- LIVE-ONLY: primary Join button when the just-registered event is in progress (Patricia's request). Shown by setEventStatus(true); toggle via the EVENT dev control. -->
+          <div class="live-cta" id="liveCta" hidden>
+            <a class="btn btn-primary" href="#" id="liveJoinBtn">Join live event →</a>
+          </div>
           <!-- The next few upcoming events (chronological, not topic-matched) — real 3-up .ev-listing--grid tiles; full-width via .reg-wrap.is-done -->
           <div class="q-label" style="margin:26px 0 14px">More events coming up</div>
           <!-- Cards rendered by renderUpcoming() from the UPCOMING array — up to 10 events, first 6 shown,
                the rest reveal on scroll (mimics infinite scroll). Real events/speakers/logos — COPY: confirm -->
           <div class="up-grid" id="upGrid"></div>
           <div id="upSentinel" aria-hidden="true" style="height:1px"></div>
-          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse all events →</a>
+          <a class="ev-head-link" id="browseAllBtn" href="https://powertofly.com/browse-events">Browse all events →</a>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">Have any questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>
@@ -287,6 +291,11 @@
     <button type="button" onclick="setEventType('cl')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">C&amp;L</button>
     <button type="button" onclick="setEventType('vjf')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">VJF</button>
     <button type="button" onclick="setEventType('summit')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">Summit</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">EVENT</span>
+    <button type="button" id="devEvtUpcoming" onclick="setEventStatus('upcoming')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Upcoming</button>
+    <button type="button" id="devEvtLive" onclick="setEventStatus('live')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Live</button>
   </div>
   <div style="display:flex;align-items:center;gap:4px">
     <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:52px;padding-left:2px">AUTH</span>
@@ -554,6 +563,18 @@
       host: SUMMIT_PANEL(SUMMIT_PANEL_DATA)
     }
   };
+  // LIVE state — show/hide the "Join live event" CTA on the confirmation step (Patricia's request).
+  function setEventStatus(s) {
+    var live = s === 'live';
+    var cta = document.getElementById('liveCta'); if (cta) cta.hidden = !live;   // Browse-all is always a tertiary link (.ev-head-link); only the live Join CTA toggles
+    var u = document.getElementById('devEvtUpcoming'), l = document.getElementById('devEvtLive');
+    if (u && l) {
+      u.style.background = live ? '' : '#fff'; u.style.color = live ? '#fff' : '#0A0A0A';
+      l.style.background = live ? '#fff' : ''; l.style.color = live ? '#0A0A0A' : '#fff';
+    }
+    return false;
+  }
+  setEventStatus('upcoming');  // default: not live
   function setEventType(key) {
     var t = EVENT_TYPES[key]; if (!t) return;
     document.getElementById('evEyebrow').textContent = t.eyebrow;

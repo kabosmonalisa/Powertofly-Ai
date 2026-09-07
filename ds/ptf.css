@@ -1502,8 +1502,8 @@ img { display: block; max-width: 100%; }
 /* White cards on the confirmation (not the soft-gray archive tiles) */
 .reg-wrap.is-done .ev-listing--grid .ev-row { background: var(--surface); }
 .reg-wrap.is-done .ev-listing--grid .ev-faces img { border-color: var(--surface); }
-/* See-more sits centered as an inline button, not a full-width block, with room above the cards */
-.reg-wrap.is-done .btn-dashboard.btn-block { display: inline-flex; width: auto; margin-top: 32px; }
+/* Browse-all button: centered inline pill (.btn already handles display/width), room above the cards */
+.reg-wrap.is-done #browseAllBtn { margin-top: 32px; }
 
 /* Entrance — each piece fades + rises in, gently staggered (check → headline → cards → button).
    A once-per-registration moment, so a little delight earns its place. */
@@ -1514,7 +1514,7 @@ img { display: block; max-width: 100%; }
 .reg-wrap.is-done .thanks-body,
 .reg-wrap.is-done .q-label,
 .reg-wrap.is-done .ev-row,
-.reg-wrap.is-done .btn-dashboard.btn-block { animation: ptf-rise .5s cubic-bezier(0.23, 1, 0.32, 1) both; }
+.reg-wrap.is-done #browseAllBtn { animation: ptf-rise .5s cubic-bezier(0.23, 1, 0.32, 1) both; }
 .reg-wrap.is-done .thanks-icon    { animation-delay: .02s; }
 .reg-wrap.is-done .thanks-eyebrow { animation-delay: .07s; }
 .reg-wrap.is-done .auth-heading   { animation-delay: .12s; }
@@ -1523,7 +1523,7 @@ img { display: block; max-width: 100%; }
 .reg-wrap.is-done .ev-row:nth-child(1) { animation-delay: .30s; }
 .reg-wrap.is-done .ev-row:nth-child(2) { animation-delay: .36s; }
 .reg-wrap.is-done .ev-row:nth-child(3) { animation-delay: .42s; }
-.reg-wrap.is-done .btn-dashboard.btn-block { animation-delay: .48s; }
+.reg-wrap.is-done #browseAllBtn { animation-delay: .48s; }
 @media (prefers-reduced-motion: reduce) { .reg-wrap.is-done [class] { animation: none !important; } }
 
 /* ── "More events coming up" promo cards — complete event tiles in the AI design system:
@@ -1570,6 +1570,10 @@ img { display: block; max-width: 100%; }
 .up-grid.show-more .up-more:nth-child(9)  { animation-delay: .29s; }
 .up-grid.show-more .up-more:nth-child(10) { animation-delay: .41s; }
 
+/* ── Live "Join event" CTA on the confirmation step (shown only when the event is in progress).
+   Uses the closed button set: Join is .btn.btn-primary (primary); while it's present, "Browse all
+   events" drops from .btn-primary to the outlined secondary .btn. Sits above "More events". */
+.live-cta { margin: 8px 0 6px; }
 /* ===== Stat-card grid — open editorial stats (label / hairline / big number / description).
    Promoted from the about page so any page can reuse it (about/index.html, summit/index.html).
    3-up desktop → 2-up ≤768 → 1-up ≤480. Theme-aware via tokens. ===== */
