@@ -89,9 +89,9 @@
 
 /* "More upcoming summits" — hold head + tiles to the shared content column (--content-body),
    so they align with the hero instead of spilling to the nav edge */
-.ev-more { max-width: var(--content-body); margin: 0 auto; }
+.ev-upnext { max-width: var(--content-body); margin: 0 auto; }
 /* drop the closing hairline under the last tile (this is a short static list, not a full listing) */
-.ev-more .ev-list .ev-row:last-child { border-bottom: none; }
+.ev-upnext .ev-list .ev-row:last-child { border-bottom: none; }
 
 /* "See upcoming summits" jump target — offset for the fixed header */
 #summits { scroll-margin-top: 140px; }
@@ -176,7 +176,7 @@
 <section class="section-how" id="how">
   <div class="how-outer">
     <div class="section-head">
-      <h2>What you'll get out of the summit</h2>
+      <h2>What you'll get out of the&nbsp;summit</h2><!-- nbsp keeps "the summit" together (Rob) -->
       <p>From fresh ideas to meaningful connections, here are four reasons to be there</p>
     </div>
     <div class="how-inner">
@@ -224,7 +224,7 @@
 <section class="section" style="background: var(--bg)">
   <div class="section-head">
     <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Virtual job fair</div>
-    <h2>Close the summit with a virtual job fair</h2>
+    <h2>Close the summit with a virtual job&nbsp;fair</h2><!-- nbsp keeps "job fair" together (Rob) -->
     <p>Meet recruiters and hiring managers from companies actively hiring, and find out where you could fit in.</p>
   </div>
   <div style="text-align:center"><a class="btn" href="../vjf/index.html">Save your spot →</a></div><!-- COPY: confirm target — currently the vjf/ page; switch to ../event-common/ if it should register directly -->
@@ -282,7 +282,7 @@
 
 <!-- 05. MORE UPCOMING SUMMITS — shared event tiles (static, no filter/pager) -->
 <section class="section" id="summits">
-  <div class="ev-more">
+  <div class="ev-upnext">
   <div class="ev-head">
     <h2>Upcoming summits</h2>
     <a class="ev-head-link" href="../events/index.html">See all events →</a>
@@ -349,7 +349,7 @@
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
   </div>
-  </div><!-- /.ev-more -->
+  </div><!-- /.ev-upnext -->
 </section>
 
 <!-- 06. JOIN US — shared dark closer band -->
