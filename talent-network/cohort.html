@@ -44,6 +44,18 @@
 .site-header .nav { position: static; }
 
 /* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
+/* ── Dashboard header type scale. Page-specific per COMPONENT-INVENTORY "Allowed
+      page-specific CSS": tokens only, restyles no shared component. The h2 itself
+      is NOT styled here — it takes the system's .ev-head h2 scale.
+      Before this, the meta and the note were both .tal-count: identical 13px grey,
+      so the header had three lines and no hierarchy. Three steps now:
+      h2 (ink) → meta (15px, count in ink) → note (13.5px, ink-3).
+      ⚠️ PROMOTE CANDIDATE: any dashboard-style page needs this identity trio. ── */
+.cohort-id { min-width: 0; }
+.cohort-meta { margin-top: 12px; font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+.cohort-meta strong { color: var(--ink); font-weight: 600; }
+.cohort-note { margin-top: 4px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
+
 .tal-col { min-width: 0; }
 .tal-count { font-size: 13px; color: var(--ink-3); margin: 0; white-space: nowrap; }
 .tal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
@@ -104,7 +116,10 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
 
 <div class="site-header" id="siteHeader">
-  <div data-ptf-nav data-active="employers"></div>
+  <!-- Logged-in employer: a client reading their private cohort arrived from an
+       invitation and is signed in. data-auth="in" swaps Log in / Get started for
+       the account menu (inventory: "Logged-in nav"). -->
+  <div data-ptf-nav data-active="employers" data-auth="in" data-user="Dana" data-user-full="Dana Whitfield · Northwind Robotics"></div>
 </div><!-- /site-header -->
 
 <main>
@@ -135,15 +150,21 @@
      no hero-glow, no headline shouting the count: the count belongs on the list.
      Left = whose cohort and when. Right = the one action that is not the list. -->
 <section class="section-tight">
-  <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
-  <h2>Your AI Product cohort</h2>
-  <!-- The count leads: it is the fact the client came for. It used to sit grey and
-       floated right of the filter row, which is a footnote position for the most
-       important number on the page. No header action here — the only other thing a
-       client can do ("no match in this batch") belongs AFTER the profiles, not level
-       with the title where it invites leaving before looking at anyone. -->
-  <p class="tal-count" style="margin-top:10px"><strong style="color:var(--ink)">9 reviewed profiles</strong> · Batch 1 · prepared 4 September 2026</p>
-  <p class="tal-count" style="margin-top:6px">Names and current employers stay hidden until the person agrees to an introduction.</p>
+  <!-- .ev-head so the h2 picks up the design system's listing-head scale
+       (clamp 26→38px, Inter Tight, -0.03em). A bare <h2> outside .section-head /
+       .ev-head inherits no heading treatment at all — it was rendering at 24px with
+       letter-spacing:normal, which is why it read weak.
+       The count leads the meta: it is the fact the client came for, and it used to
+       sit grey and floated right of the filter row. No header action — the bail-out
+       ("no match in this batch") belongs AFTER the profiles. -->
+  <div class="ev-head">
+    <div class="cohort-id">
+      <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
+      <h2>Your AI Product cohort</h2>
+      <p class="cohort-meta"><strong>9 reviewed profiles</strong> · Batch 1 · prepared 4 September 2026</p>
+      <p class="cohort-note">Names and current employers stay hidden until the person agrees to an introduction.</p>
+    </div>
+  </div>
 </section>
 
 <!-- 02. THE PROFILES — on the soft tone so the white cards separate from the page.
