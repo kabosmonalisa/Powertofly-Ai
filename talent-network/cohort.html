@@ -291,16 +291,37 @@
 <script>
   PTF.initHeader();  // fixed nav offset
 
-  /* ── Shortlist: count the ticked cards and show the bar. Selection is kept in the
-        page only — nothing is sent until the client submits the request form. ── */
+  /* ── Shortlist: count the ticked cards, show the bar, and HAND THE SELECTION ON.
+        The picked profiles are written to sessionStorage so request-intro.html can
+        show the people the client actually chose. Without this the next page fell
+        back to a hardcoded list and the whole "select candidates" step was
+        decorative. sessionStorage (not a URL) — a shortlist is client data and must
+        never end up in a query string or a shared link. ── */
   (function () {
     var bar = document.getElementById('shortlistBar');
     var label = document.getElementById('shortlistCount');
     var boxes = document.querySelectorAll('#talGrid .check-box');
+    function picked() {
+      return [].slice.call(document.querySelectorAll('#talGrid .check-box:checked')).map(function (b) {
+        var card = b.closest('.tal-card');
+        // Build meta from the child spans — .dot-sep is an empty element, so reading
+        // the parent's textContent would run the parts together ("US East12 yrs$135/hr").
+        var meta = [].slice.call(card.querySelectorAll('.tal-card-meta > span'))
+          .map(function (s) { return s.textContent.trim(); })
+          .filter(Boolean).join(' · ');
+        return {
+          ref:  (card.querySelector('.tal-card-ref')  || {}).textContent || '',
+          name: (card.querySelector('.tal-card-name') || {}).textContent || '',
+          role: (card.querySelector('.tal-card-role') || {}).textContent || '',
+          meta: meta
+        };
+      });
+    }
     function sync() {
-      var n = document.querySelectorAll('#talGrid .check-box:checked').length;
-      bar.classList.toggle('is-on', n > 0);
-      label.textContent = n === 1 ? '1 profile selected' : n + ' profiles selected';
+      var sel = picked();
+      bar.classList.toggle('is-on', sel.length > 0);
+      label.textContent = sel.length === 1 ? '1 profile selected' : sel.length + ' profiles selected';
+      try { sessionStorage.setItem('ptf-shortlist', JSON.stringify(sel)); } catch (e) {}
     }
     boxes.forEach(function (b) { b.addEventListener('change', sync); });
     sync();

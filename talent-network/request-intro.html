@@ -82,7 +82,9 @@
           <form class="auth-form" onsubmit="return goToStep('done')">
             <div class="q-group">
               <div class="q-label">Your shortlist</div>
-              <div class="event-list">
+              <!-- Filled from the cohort page's selection (sessionStorage). The rows below are
+                   the fallback for opening this page directly, e.g. from the storybook. -->
+              <div class="event-list" id="shortlistList">
                 <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-014 · Senior AI product manager</span><span class="event-opt-date">Western Europe · 9 yrs · full-time</span></span></label>
                 <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-021 · Group product manager</span><span class="event-opt-date">US East · 12 yrs · full-time</span></span></label>
                 <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AP-033 · Principal product manager</span><span class="event-opt-date">United Kingdom · 14 yrs · project-based</span></span></label>
@@ -170,6 +172,29 @@
   }
   // Arriving from "Submit a hiring need" on the cohort page opens the brief instead of the shortlist.
   if (location.hash === '#needs') goToStep('needs');
+
+  /* ── Show the people the client actually picked on the cohort page. Read from
+        sessionStorage (never a URL — a shortlist is client data). If there is no
+        selection, the markup's fallback rows stay, so opening this page on its own
+        still reads properly. ── */
+  (function () {
+    var list = document.getElementById('shortlistList');
+    if (!list) return;
+    var sel;
+    try { sel = JSON.parse(sessionStorage.getItem('ptf-shortlist') || '[]'); } catch (e) { return; }
+    if (!Array.isArray(sel) || !sel.length) return;
+    list.innerHTML = sel.map(function (p) {
+      var title = [p.ref, p.name].filter(Boolean).join(' · ');
+      return '<label class="check-row event-opt"><input type="checkbox" class="check-box" checked>' +
+             '<span><span class="event-opt-title"></span>' +
+             '<span class="event-opt-date"></span></span></label>';
+    }).join('');
+    // set text via textContent so a profile summary can never inject markup
+    [].forEach.call(list.querySelectorAll('.event-opt'), function (row, i) {
+      row.querySelector('.event-opt-title').textContent = [sel[i].ref, sel[i].name].filter(Boolean).join(' · ');
+      row.querySelector('.event-opt-date').textContent  = [sel[i].role, sel[i].meta].filter(Boolean).join(' · ');
+    });
+  })();
 </script>
 
 <!-- DEV ONLY — click to jump between screens without filling anything in (same switcher as signup/ and
