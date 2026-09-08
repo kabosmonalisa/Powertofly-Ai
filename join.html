@@ -236,16 +236,11 @@ input[type="file"] { display: none; }
 /* spots — plain green label, NOT a pill (eyebrow/label rule) */
 .webinar-spots { font-size: 12px; font-weight: 600; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
 
-/* ── CTA row + primary button = DS button recipe (pill, Inter Tight, ink fill, green-glow hover) ── */
+/* ── CTA row. The buttons in it are the DS closed set (.btn / .btn-primary / .btn-sm) above —
+      there is no page button class here. .btn-ok / .btn-cal / .btn-community used to live here at
+      14px 24px and 13px 20px, which is why the continue button was a different shape to every
+      other primary button in the system. Never re-add them. ── */
 .cta-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-.btn-ok {
-  display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px;
-  background: var(--btn-bg); color: var(--btn-fg);
-  font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.01em;
-  border: 1.5px solid var(--btn-bg); border-radius: var(--r-pill); cursor: pointer;
-  transition: background 180ms, box-shadow 180ms, transform 180ms;
-}
-.btn-ok:hover { background: var(--btn-bg-hover); border-color: var(--btn-bg-hover); box-shadow: var(--btn-glow); transform: translateY(-1px); }
 .key-hint { font-size: 12px; color: var(--ink-3); display: flex; align-items: center; gap: 5px; }
 .key-pill { padding: 2px 7px; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--surface-2); font-size: 11px; font-weight: 600; color: var(--ink-3); }
 .skip-link { font-size: 13px; color: var(--ink-3); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; transition: color 160ms; }
@@ -266,12 +261,8 @@ input[type="file"] { display: none; }
 .confirm-card-label { font-size: 11px; color: var(--ink-3); }
 .confirm-card-val { font-size: 14px; font-weight: 600; color: var(--ink); }
 .confirm-actions { display: flex; gap: 9px; flex-wrap: wrap; }
-/* secondary = DS .btn (white, 1.5px ink border, ink-fill hover) */
-.btn-cal { display: inline-flex; align-items: center; gap: 7px; padding: 13px 20px; border-radius: var(--r-pill); border: 1.5px solid var(--ink); background: var(--bg); font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 600; color: var(--ink); cursor: pointer; text-decoration: none; transition: background 180ms, color 180ms, transform 180ms; }
-.btn-cal:hover { background: var(--ink); color: #fff; transform: translateY(-1px); }
-/* primary = DS ink pill */
-.btn-community { display: inline-flex; align-items: center; gap: 7px; padding: 13px 20px; border-radius: var(--r-pill); border: 1.5px solid var(--btn-bg); background: var(--btn-bg); color: var(--btn-fg); font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; transition: background 180ms, box-shadow 180ms, transform 180ms; }
-.btn-community:hover { background: var(--btn-bg-hover); box-shadow: var(--btn-glow); transform: translateY(-1px); }
+/* The two buttons here are .btn.btn-sm (secondary) and .btn.btn-primary.btn-sm (primary) — the
+   closed set, no page button classes. */
 
 /* ── Footer arrows ── */
 .foot { position: fixed; bottom: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: flex-end; padding: 16px 40px; pointer-events: none; z-index: 3; }
@@ -365,7 +356,7 @@ input[type="file"] { display: none; }
       <div class="q-text">Join the AI talent community.</div>
       <p class="q-sub">We connect domain experts with AI companies that need real human judgment to train their models. This takes about 4 minutes to complete.</p>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">Get started <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">Get started <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
       </div>
       <p class="login-line">Already signed up? <a href="#">Log in</a></p>
@@ -383,7 +374,7 @@ input[type="file"] { display: none; }
         <div class="field-item"><label>Password</label><input type="password" id="password" placeholder="At least 8 characters" autocomplete="new-password" onkeydown="handleEnter(event,next)"></div>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
         <span class="error-msg" id="err-1"></span>
       </div>
@@ -404,7 +395,7 @@ input[type="file"] { display: none; }
         <span class="tf-select-arr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg></span>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
         <span class="error-msg" id="err-2">Please select your country.</span>
       </div>
@@ -427,7 +418,7 @@ input[type="file"] { display: none; }
       </label>
       <input type="file" id="resumeFile" accept=".pdf,.doc,.docx">
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
         <span class="error-msg" id="err-3"></span>
       </div>
@@ -455,7 +446,7 @@ input[type="file"] { display: none; }
       </div>
       <div class="other-wrap" id="expertiseOtherWrap"><input type="text" id="expertiseOther" placeholder="Describe your field…" onkeydown="handleEnter(event,next)"></div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="error-msg" id="err-4">Pick one to continue.</span>
       </div>
     </div>
@@ -473,7 +464,7 @@ input[type="file"] { display: none; }
         <label class="choice" data-val="More than 10 years"><input type="radio" name="years"><span class="choice-key">D</span>More than 10 years</label>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="error-msg" id="err-5">Pick one to continue.</span>
       </div>
     </div>
@@ -492,7 +483,7 @@ input[type="file"] { display: none; }
         <label class="choice" data-val="Advanced"><input type="radio" name="aiLevel"><span class="choice-key">D</span><span><strong>Advanced</strong> — build, fine-tune, or evaluate AI</span></label>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="error-msg" id="err-6">Pick one to continue.</span>
       </div>
     </div>
@@ -512,7 +503,7 @@ input[type="file"] { display: none; }
         <label class="choice" data-val="To hear about opportunities first"><input type="checkbox" name="goals"><span class="choice-key">E</span>To hear about opportunities first</label>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="error-msg" id="err-7">Pick at least one.</span>
       </div>
     </div>
@@ -530,7 +521,7 @@ input[type="file"] { display: none; }
         <label class="choice" data-val="20+ hours"><input type="radio" name="hours"><span class="choice-key">D</span>20+ hours</label>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="error-msg" id="err-8">Pick one to continue.</span>
       </div>
     </div>
@@ -551,7 +542,7 @@ input[type="file"] { display: none; }
       </div>
       <div class="lang-tags" id="langTags"></div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <button class="skip-link" onclick="next()">Skip for now</button>
       </div>
     </div>
@@ -565,7 +556,7 @@ input[type="file"] { display: none; }
       <p class="q-sub">A few sentences is plenty. This is optional but people who fill it in tend to get matched to projects faster.</p>
       <textarea class="tf-textarea" id="whyText" placeholder="Tell us what draws you to this kind of work…" rows="4"></textarea>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <button class="skip-link" onclick="next()">Skip for now</button>
       </div>
     </div>
@@ -596,7 +587,7 @@ input[type="file"] { display: none; }
         </label>
       </div>
       <div class="cta-row">
-        <button class="btn-ok" onclick="next()">Reserve my spot <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+        <button class="btn btn-primary" onclick="next()">Reserve my spot <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
         <span class="error-msg" id="err-11">Pick a date to continue.</span>
       </div>
     </div>
@@ -616,8 +607,8 @@ input[type="file"] { display: none; }
         <div><div class="confirm-card-label">Your onboarding webinar</div><div class="confirm-card-val" id="confirmedDateDetail"></div></div>
       </div>
       <div class="confirm-actions">
-        <a href="#" class="btn-cal"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>Add to calendar</a>
-        <a href="#" class="btn-community">Join community <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></a>
+        <a href="#" class="btn btn-sm"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2z"/></svg>Add to calendar</a>
+        <a href="#" class="btn btn-primary btn-sm">Join community <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></a>
       </div>
     </div>
   </div>
