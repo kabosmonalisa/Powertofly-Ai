@@ -87,11 +87,12 @@
 .about-head .section-head,
 .about-head .about-stat-grid { max-width: var(--content-narrow); }
 
-/* "More upcoming summits" — hold head + tiles to the shared content column (--content-body),
-   so they align with the hero instead of spilling to the nav edge */
-.ev-upnext { max-width: var(--content-body); margin: 0 auto; }
+/* The body-section column. Schedule, Speakers and Upcoming summits are all LISTS and
+   share ONE width (--content-body) and ONE head (.ev-head), so they read as a family
+   instead of three different section treatments. */
+.smt-col { max-width: var(--content-body); margin: 0 auto; }
 /* drop the closing hairline under the last tile (this is a short static list, not a full listing) */
-.ev-upnext .ev-list .ev-row:last-child { border-bottom: none; }
+.smt-col .ev-list .ev-row:last-child { border-bottom: none; }
 
 /* "See upcoming summits" jump target — offset for the fixed header */
 #summits, #schedule, #speakers { scroll-margin-top: 140px; }
@@ -235,10 +236,9 @@
      every .agenda-action swaps from "Add to calendar" to "Watch the recording", and the
      hero's "Watch the recordings" button scrolls here. One section, two states. -->
 <section class="section" id="schedule">
-  <div class="section-head">
-    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Schedule</div>
-    <h2 id="scheduleTitle">Two days, back to back</h2>
-    <p id="scheduleSub">Sessions run live and are recorded — join what you can, catch the rest after.</p>
+  <div class="smt-col">
+  <div class="ev-head">
+    <h2 id="scheduleTitle">Schedule</h2>
   </div>
   <p class="agenda-note">Times shown in your local timezone. Subject to change.</p><!-- COPY: confirm — sample times below are as captured (EEST); live page localizes -->
   <ol class="agenda">
@@ -334,6 +334,7 @@
       </div>
     </li>
   </ol>
+  </div><!-- /.smt-col -->
 </section>
 
 <!-- 05. SPEAKERS — the .speaker-grid component (promoted to ds/ptf.css 2026-09-08).
@@ -341,10 +342,9 @@
      Mara Gates and Rob Ribar, whose real photos we hold. Swap the rest for the real
      headshots off the live event page before this goes anywhere near a customer. -->
 <section class="section" id="speakers">
-  <div class="section-head">
-    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Speakers</div>
-    <h2>Who you'll hear from</h2>
-    <p>Sixteen speakers from across engineering, talent, leadership and career coaching.</p>
+  <div class="smt-col">
+  <div class="ev-head">
+    <h2>Speakers</h2>
   </div>
   <div class="speaker-grid">
     <div>
@@ -428,6 +428,7 @@
       <p class="speaker-role">Founder, Plumwheel · PowerToFly Virtual Event Host</p>
     </div>
   </div>
+  </div><!-- /.smt-col -->
 </section>
 
 <!-- 06. ABOUT POWERTOFLY — editorial header + the shared stat-card grid (.about-stat-*,
@@ -482,7 +483,7 @@
 
 <!-- 07. MORE UPCOMING SUMMITS — shared event tiles (static, no filter/pager) -->
 <section class="section" id="summits">
-  <div class="ev-upnext">
+  <div class="smt-col">
   <div class="ev-head">
     <h2>Upcoming summits</h2>
     <a class="ev-head-link" href="../events/index.html">See all events →</a>
@@ -549,7 +550,7 @@
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
   </div>
-  </div><!-- /.ev-upnext -->
+  </div><!-- /.smt-col -->
 </section>
 
 <!-- 08. JOIN US — shared dark closer band -->
@@ -605,8 +606,7 @@
         alert: 'This summit has ended &nbsp;·&nbsp; Watch the recordings',
         alertCta: { t: 'Watch the recordings →', href: '#schedule' },
         recordings: true,
-        scheduleTitle: 'Watch the recordings',
-        scheduleSub: 'Every session from both days, on demand.'
+        scheduleTitle: 'Recordings'
       }
     };
 
@@ -618,7 +618,6 @@
     var alertText = document.getElementById('alertText');
     var alertCta = document.getElementById('alertCta');
     var scheduleTitle = document.getElementById('scheduleTitle');
-    var scheduleSub = document.getElementById('scheduleSub');
     var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
     function apply(name) {
       var s = STATES[name]; if (!s) return;
@@ -631,8 +630,7 @@
       [].forEach.call(document.querySelectorAll('.agenda-action'), function (a) {
         a.innerHTML = (s.recordings ? ICO_PLAY + 'Watch the recording' : ICO_CAL + 'Add to calendar');
       });
-      if (scheduleTitle) scheduleTitle.textContent = s.scheduleTitle || 'Two days, back to back';
-      if (scheduleSub) scheduleSub.textContent = s.scheduleSub || 'Sessions run live and are recorded — join what you can, catch the rest after.';
+      if (scheduleTitle) scheduleTitle.textContent = s.scheduleTitle || 'Schedule';
       if (alertText) alertText.innerHTML = s.alert;
       if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
       btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });

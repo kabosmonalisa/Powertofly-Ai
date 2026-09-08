@@ -1857,8 +1857,8 @@ img { display: block; max-width: 100%; }
    from "Add to calendar" to "Watch the recording". The component is agnostic —
    which is exactly why the schedule can double as the recordings list.
    ═══════════════════════════════════════════════════════════════════════════ */
-.agenda { max-width: var(--content-narrow); margin: 0 auto; list-style: none; padding: 0; }
-.agenda-note { max-width: var(--content-narrow); margin: 0 auto 24px; font-size: 13px; color: var(--ink-3); }
+.agenda { max-width: var(--content-narrow); margin: 0; list-style: none; padding: 0; }
+.agenda-note { max-width: var(--content-narrow); margin: 0 0 24px; font-size: 13px; color: var(--ink-3); }
 /* Day heading INSIDE a schedule. Not an h2 — the section already owns that. */
 .agenda-day { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin: 48px 0 0; padding-bottom: 14px; border-bottom: 1.5px solid var(--ink); }
 .agenda-day:first-child { margin-top: 0; }
