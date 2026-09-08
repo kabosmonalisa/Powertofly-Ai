@@ -43,19 +43,20 @@
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .site-header .nav { position: static; }
 
-/* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
-/* ── Dashboard header type scale. Page-specific per COMPONENT-INVENTORY "Allowed
-      page-specific CSS": tokens only, restyles no shared component. The h2 itself
-      is NOT styled here — it takes the system's .ev-head h2 scale.
-      Before this, the meta and the note were both .tal-count: identical 13px grey,
-      so the header had three lines and no hierarchy. Three steps now:
-      h2 (ink) → meta (15px, count in ink) → note (13.5px, ink-3).
-      ⚠️ PROMOTE CANDIDATE: any dashboard-style page needs this identity trio. ── */
+/* ── Dashboard header meta line. Page-specific per COMPONENT-INVENTORY "Allowed
+      page-specific CSS": tokens only, restyles no shared component.
+      Nothing here sets a heading size — the page h2 takes the system's .ev-head
+      scale and the list title takes .card-title. The type ramp on this page is:
+        h2 clamp(26→38)  →  .card-title 20px  →  body 16px  →  .tal-count 13px
+      all of which are design-system values; this rule only sets the ONE thing the
+      system has no component for, a header meta line, and it sits at the DS body
+      size rather than a hand-picked in-between number.
+      ⚠️ PROMOTE CANDIDATE: any dashboard page needs a page-identity meta line. ── */
 .cohort-id { min-width: 0; }
-.cohort-meta { margin-top: 12px; font-size: 15px; line-height: 1.5; color: var(--ink-3); }
+.cohort-meta { margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--ink-3); }
 .cohort-meta strong { color: var(--ink); font-weight: 600; }
-.cohort-note { margin-top: 4px; font-size: 13.5px; line-height: 1.5; color: var(--ink-3); }
 
+/* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
 .tal-col { min-width: 0; }
 .tal-count { font-size: 13px; color: var(--ink-3); margin: 0; white-space: nowrap; }
 .tal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
@@ -133,7 +134,7 @@
       <h2>Open your <em class="italic-plain">cohort.</em></h2>
       <p>Use the work email the invitation was sent to, and the code from that email. This is not an account — the link and code are all you need.</p>
     </div>
-    <div class="content-narrow">
+    <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" onsubmit="return openCohort()">
       <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
       <div class="field"><label>Access code</label><input type="text" placeholder="From your invitation email" required></div>
@@ -162,7 +163,6 @@
       <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
       <h2>Your AI Product cohort</h2>
       <p class="cohort-meta"><strong>9 reviewed profiles</strong> · Batch 1 · prepared 4 September 2026</p>
-      <p class="cohort-note">Names and current employers stay hidden until the person agrees to an introduction.</p>
     </div>
   </div>
 </section>
@@ -171,7 +171,14 @@
      Colour sits on this section, which owns its own --section-y, so it never bleeds
      into the neutral gap between sections. -->
 <section class="section" id="profiles" style="background:var(--surface-2)">
-  <div class="ev-listing ev-listing--grid">
+  <!-- The list needs its own title. .card-title is the design system's sub-section
+       scale (20px Inter Tight, -0.025em) — a step below the page h2, so it reads as
+       part of this page rather than competing with it. The privacy line lives here,
+       under the title, because it describes THESE cards, not the cohort. -->
+  <h3 class="card-title">Anonymized profiles</h3>
+  <p class="tal-count" style="margin-top:6px">Names and current employers stay hidden until the person agrees to an introduction.</p>
+
+  <div class="ev-listing ev-listing--grid" style="margin-top:28px">
     <div class="ev-controls">
       <div class="ev-filter" id="cohortFilter">
         <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
@@ -308,7 +315,7 @@
       <p>We contact each person first. If they are interested, we introduce you by email the same day they say yes.</p>
     </div>
 
-    <div class="content-narrow">
+    <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" id="introForm" onsubmit="return sendIntro()">
       <div class="q-group">
         <div class="q-label">Your shortlist</div>
@@ -355,7 +362,7 @@
       <p>A cohort is a snapshot of one batch. If the fit is not here, send us the brief and we will build the next cohort around it — usually within a week.<!-- COPY: confirm turnaround --></p>
     </div>
 
-    <div class="content-narrow">
+    <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" id="needsForm" onsubmit="return sendNeeds()">
       <div class="field"><label>What role are you trying to fill?</label><input type="text" placeholder="e.g. Staff PM, robotics platform" required></div>
       <div class="field-row">
