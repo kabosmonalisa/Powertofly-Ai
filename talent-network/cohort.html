@@ -171,14 +171,17 @@
      Colour sits on this section, which owns its own --section-y, so it never bleeds
      into the neutral gap between sections. -->
 <section class="section" id="profiles" style="background:var(--surface-2)">
-  <!-- The list needs its own title. .card-title is the design system's sub-section
-       scale (20px Inter Tight, -0.025em) — a step below the page h2, so it reads as
-       part of this page rather than competing with it. The privacy line lives here,
-       under the title, because it describes THESE cards, not the cohort. -->
-  <h3 class="card-title">Anonymized profiles</h3>
-  <p class="tal-count" style="margin-top:6px">Names and current employers stay hidden until the person agrees to an introduction.</p>
+  <div class="ev-listing ev-listing--grid">
+    <!-- Title and note live INSIDE .ev-listing so they take its width
+         (max-width: var(--content-body), margin 0 auto) and line up with the grid.
+         As direct children of .section they only picked up --gutter, which put them
+         at 32px from the edge while the cards started at 200px — three different
+         left edges on a wide screen. .card-title is the design system's sub-section
+         scale, a step below the page h2. The privacy line sits under it because it
+         describes THESE cards, not the cohort. -->
+    <h3 class="card-title">Anonymized profiles</h3>
+    <p class="tal-count" style="margin:6px 0 28px">Names and current employers stay hidden until the person agrees to an introduction.</p>
 
-  <div class="ev-listing ev-listing--grid" style="margin-top:28px">
     <div class="ev-controls">
       <div class="ev-filter" id="cohortFilter">
         <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
