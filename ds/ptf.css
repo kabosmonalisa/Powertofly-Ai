@@ -1860,12 +1860,12 @@ img { display: block; max-width: 100%; }
 .agenda { max-width: var(--content-narrow); margin: 0; list-style: none; padding: 0; }
 .agenda-note { max-width: var(--content-narrow); margin: 0 0 24px; font-size: 13px; color: var(--ink-3); }
 /* Day heading INSIDE a schedule. Not an h2 — the section already owns that. */
-.agenda-day { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin: 48px 0 0; padding-bottom: 14px; border-bottom: 1.5px solid var(--ink); }
+.agenda-day { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin: 48px 0 6px; }
 .agenda-day:first-child { margin-top: 0; }
 .agenda-row { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
-/* first row of the schedule, and the first row under any day heading, already
-   have a rule above them — don't double it up */
-.agenda-row:first-child, .agenda-day + .agenda-row { border-top: none; }
+/* only the very first row skips its rule — every other row, including the first
+   under a day heading, keeps the hairline that separates it from what's above */
+.agenda-row:first-child { border-top: none; }
 .agenda-time { font-size: 13.5px; font-weight: 600; color: var(--ink-3); line-height: 1.4; }
 .agenda-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; line-height: 1.35; color: var(--ink); margin: 0; }
 .agenda-desc { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 8px 0 0; }

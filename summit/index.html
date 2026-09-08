@@ -93,6 +93,9 @@
 .smt-col { max-width: var(--content-body); margin: 0 auto; }
 /* drop the closing hairline under the last tile (this is a short static list, not a full listing) */
 .smt-col .ev-list .ev-row:last-child { border-bottom: none; }
+/* Schedule is a NARROW list with nothing beside it — a 720 column pinned to the left of a
+   1200 shell just leaves a hole on the right. Centre the whole block instead. */
+.smt-col-narrow { max-width: var(--content-narrow); margin: 0 auto; }
 
 /* "See upcoming summits" jump target — offset for the fixed header */
 #summits, #schedule, #speakers { scroll-margin-top: 140px; }
@@ -236,7 +239,7 @@
      every .agenda-action swaps from "Add to calendar" to "Watch the recording", and the
      hero's "Watch the recordings" button scrolls here. One section, two states. -->
 <section class="section" id="schedule">
-  <div class="smt-col">
+  <div class="smt-col-narrow">
   <div class="ev-head">
     <h2 id="scheduleTitle">Schedule</h2>
   </div>
@@ -334,7 +337,7 @@
       </div>
     </li>
   </ol>
-  </div><!-- /.smt-col -->
+  </div><!-- /.smt-col-narrow -->
 </section>
 
 <!-- 05. SPEAKERS — the .speaker-grid component (promoted to ds/ptf.css 2026-09-08).
