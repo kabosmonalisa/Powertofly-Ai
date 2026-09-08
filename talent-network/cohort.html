@@ -110,6 +110,28 @@
 
 <main>
 
+<!-- 00. THE GATE — "open a secure cohort page". Same page, not a separate step:
+     the cohort stays sealed until the work email + invitation code are entered. -->
+<section class="section-hero hero-glow" id="gate">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">Private cohort · Northwind Robotics</div>
+      <h2>Open your <em class="italic-plain">cohort.</em></h2>
+      <p>Use the work email the invitation was sent to, and the code from that email. This is not an account — the link and code are all you need.</p>
+    </div>
+    <div class="content-narrow">
+    <form class="auth-form" onsubmit="return openCohort()">
+      <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
+      <div class="field"><label>Access code</label><input type="text" placeholder="From your invitation email" required></div>
+      <button class="btn btn-primary btn-block" type="submit">Open the cohort →</button>
+    </form>
+    </div>
+  </div>
+</section>
+
+<!-- Everything below is the dashboard — hidden until the gate is passed. -->
+<div id="dash" hidden>
+
 <!-- 01. HEADER — whose cohort, when it was made, and what is deliberately missing -->
 <section class="section-hero hero-glow">
   <div class="section-head">
@@ -118,7 +140,7 @@
     <p>Prepared 4 September 2026 by your PowerToFly team. Every profile here has been reviewed and is open to the kind of work you described. Names, photos and current employers are hidden until the person agrees to an introduction — everything you need to judge the fit is on the card.</p>
     <div class="hero-ctas">
       <a href="#profiles" class="btn btn-primary">See the profiles ↓</a>
-      <a href="request-intro.html#needs" class="btn">Send us a hiring need →</a>
+      <a href="#needs" class="btn">Send us a hiring need →</a>
     </div>
   </div>
 </section>
@@ -255,14 +277,90 @@
   </div>
 </section>
 
-<!-- 03. NOBODY QUITE RIGHT — the second thing a client can do here -->
-<section class="section">
+<!-- 03. REQUEST INTRODUCTIONS — inline on this page. The client never leaves the
+     cohort: they tick profiles above and the ask happens right here. -->
+<section class="section" id="request" hidden>
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">Introduction request</div>
+      <h2>Ask to meet the people you <em class="italic-plain">picked.</em></h2>
+      <p>We contact each person first. If they are interested, we introduce you by email the same day they say yes.</p>
+    </div>
+
+    <div class="content-narrow">
+    <form class="auth-form" id="introForm" onsubmit="return sendIntro()">
+      <div class="q-group">
+        <div class="q-label">Your shortlist</div>
+        <!-- filled from the ticked cards above -->
+        <div class="event-list" id="shortlistList"></div>
+      </div>
+      <div class="field"><label>What role are you hiring for?</label><input type="text" placeholder="e.g. Senior PM, robotics platform" required></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Engagement</label>
+          <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
+        </div>
+        <div class="field">
+          <label>Timeline</label>
+          <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>Anything you want us to pass on? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
+        <textarea placeholder="What the team is building, and what you would want to talk about on a first call."></textarea>
+      </div>
+      <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>I understand PowerToFly makes the introduction, and I will not attempt to contact anyone in this cohort directly.</span></label>
+      <button class="btn btn-primary btn-block" id="introBtn" type="submit" disabled>Send the request →</button>
+    </form>
+
+    </div>
+    <!-- confirmation, same place — no page change -->
+    <div id="introDone" hidden>
+      <div class="section-head">
+        <div class="eyebrow">Request sent</div>
+        <h2>We have it.</h2>
+        <p>You will get a reply within one business day. We contact each person on your shortlist first, and introduce you by email as soon as they agree.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04. NOBODY QUITE RIGHT — the second thing a client can do here, also inline -->
+<section class="section" id="needs">
   <div class="section-narrow">
     <div class="section-head">
       <div class="eyebrow">No match in this batch?</div>
       <h2>Tell us what you are actually <em class="italic-plain">looking for.</em></h2>
       <p>A cohort is a snapshot of one batch. If the fit is not here, send us the brief and we will build the next cohort around it — usually within a week.<!-- COPY: confirm turnaround --></p>
-      <p style="margin-top:22px"><a href="request-intro.html#needs" class="btn">Submit a hiring need →</a></p>
+    </div>
+
+    <div class="content-narrow">
+    <form class="auth-form" id="needsForm" onsubmit="return sendNeeds()">
+      <div class="field"><label>What role are you trying to fill?</label><input type="text" placeholder="e.g. Staff PM, robotics platform" required></div>
+      <div class="field-row">
+        <div class="field">
+          <label>Engagement</label>
+          <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
+        </div>
+        <div class="field">
+          <label>Timeline</label>
+          <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
+        </div>
+      </div>
+      <div class="field">
+        <label>What does good look like?</label>
+        <textarea placeholder="The problem the person would own, the experience that matters, and anything this batch was missing." required></textarea>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Send the brief →</button>
+    </form>
+
+    </div>
+    <div id="needsDone" hidden>
+      <div class="section-head">
+        <div class="eyebrow">Brief received</div>
+        <h2>We have it.</h2>
+        <p>Your PowerToFly team will come back within one business day, and the next cohort will be built around this brief.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -277,12 +375,14 @@
   </div>
 </section>
 
+</div><!-- /dash -->
+
 </main>
 
 <!-- Sticky shortlist bar — appears once something is ticked -->
 <div class="tn-shortlist" id="shortlistBar" role="status">
   <span class="tn-shortlist-count" id="shortlistCount">1 profile selected</span>
-  <a class="btn btn-primary btn-sm" href="request-intro.html">Request introductions →</a>
+  <button class="btn btn-primary btn-sm" type="button" onclick="openRequest()">Request introductions →</button>
 </div>
 
 <div data-ptf-footer></div>
@@ -321,11 +421,51 @@
       var sel = picked();
       bar.classList.toggle('is-on', sel.length > 0);
       label.textContent = sel.length === 1 ? '1 profile selected' : sel.length + ' profiles selected';
-      try { sessionStorage.setItem('ptf-shortlist', JSON.stringify(sel)); } catch (e) {}
+      renderShortlist(sel);
+    }
+    // The request panel lives on this page, so the shortlist is rendered straight
+    // into it — no storage, no second page, nothing leaves the browser.
+    function renderShortlist(sel) {
+      var list = document.getElementById('shortlistList');
+      if (!list) return;
+      list.innerHTML = sel.map(function () {
+        return '<label class="check-row event-opt"><input type="checkbox" class="check-box" checked>' +
+               '<span><span class="event-opt-title"></span><span class="event-opt-date"></span></span></label>';
+      }).join('');
+      // textContent, so a profile summary can never inject markup
+      [].forEach.call(list.querySelectorAll('.event-opt'), function (row, i) {
+        row.querySelector('.event-opt-title').textContent = [sel[i].ref, sel[i].name].filter(Boolean).join(' · ');
+        row.querySelector('.event-opt-date').textContent  = [sel[i].role, sel[i].meta].filter(Boolean).join(' · ');
+      });
     }
     boxes.forEach(function (b) { b.addEventListener('change', sync); });
     sync();
   })();
+
+  /* ── The three things a client does here, all on this page ── */
+  function openCohort() {
+    document.getElementById('gate').hidden = true;
+    document.getElementById('dash').hidden = false;
+    window.scrollTo(0, 0);
+    return false;
+  }
+  function openRequest() {
+    var s = document.getElementById('request');
+    s.hidden = false;
+    s.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function sendIntro() {
+    document.getElementById('introForm').hidden = true;
+    document.getElementById('introDone').hidden = false;
+    document.getElementById('request').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return false;
+  }
+  function sendNeeds() {
+    document.getElementById('needsForm').hidden = true;
+    document.getElementById('needsDone').hidden = false;
+    document.getElementById('needs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return false;
+  }
 
   /* ── Availability filter — the shared .ev-filter chips over the card grid. ── */
   (function () {
