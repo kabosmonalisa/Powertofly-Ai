@@ -42,7 +42,6 @@
  */
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .site-header .nav { position: static; }
-.hero-ctas { display: flex; gap: 12px; justify-content: center; margin-top: 34px; flex-wrap: wrap; }
 
 /* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
 .tal-col { min-width: 0; }
@@ -132,33 +131,32 @@
 <!-- Everything below is the dashboard — hidden until the gate is passed. -->
 <div id="dash" hidden>
 
-<!-- 01. HEADER — whose cohort, when it was made, and what is deliberately missing -->
-<section class="section-hero hero-glow">
-  <div class="section-head">
-    <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
-    <h1 class="display-lg">Nine AI product people, picked for your <em class="italic-plain">platform team.</em></h1>
-    <p>Prepared 4 September 2026 by your PowerToFly team. Every profile here has been reviewed and is open to the kind of work you described. Names, photos and current employers are hidden until the person agrees to an introduction — everything you need to judge the fit is on the card.</p>
-    <div class="hero-ctas">
-      <a href="#profiles" class="btn btn-primary">See the profiles ↓</a>
-      <a href="#needs" class="btn">Send us a hiring need →</a>
-    </div>
-  </div>
-</section>
-
-<!-- 02. THE PROFILES — shared listing chrome + the anonymized card -->
-<section class="section" id="profiles" style="background:var(--surface-2)">
+<!-- 01. DASHBOARD HEADER — a working header, NOT a marketing hero. No display-lg,
+     no hero-glow, no headline shouting the count: the count belongs on the list.
+     Left = whose cohort and when. Right = the one action that is not the list. -->
+<section class="section-tight" id="profiles">
   <div class="ev-head">
-    <h2>Anonymized profiles</h2>
-    <p class="tal-count" id="talCount">9 profiles</p>
+    <div>
+      <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
+      <h2>Your AI Product cohort</h2>
+      <p class="tal-count">Batch 1 · prepared 4 September 2026 · reviewed by your PowerToFly team</p>
+    </div>
+    <a href="#needs" class="btn btn-sm">Send us a hiring need →</a>
   </div>
 
-  <div class="ev-listing ev-listing--grid">
-    <!-- shared filter chips (horizontal variant of .ev-filter) -->
-    <div class="ev-filter" id="cohortFilter">
-      <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
-      <button class="ev-filter-btn" type="button" data-filter="fulltime">Full-time</button>
-      <button class="ev-filter-btn" type="button" data-filter="fractional">Fractional</button>
-      <button class="ev-filter-btn" type="button" data-filter="project">Project-based</button>
+  <p class="tal-count" style="margin:18px 0 0">Names, photos and current employers stay hidden until the person agrees to an introduction. Everything you need to judge the fit is on the card.</p>
+
+  <!-- The list belongs to this header — one heading on the page, not two competing
+       ones. The filter row carries the count, so nothing has to announce "9". -->
+  <div class="ev-listing ev-listing--grid" style="margin-top:34px">
+    <div class="ev-controls">
+      <div class="ev-filter" id="cohortFilter">
+        <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
+        <button class="ev-filter-btn" type="button" data-filter="fulltime">Full-time</button>
+        <button class="ev-filter-btn" type="button" data-filter="fractional">Fractional</button>
+        <button class="ev-filter-btn" type="button" data-filter="project">Project-based</button>
+      </div>
+      <p class="tal-count" id="talCount">9 profiles</p>
     </div>
 
     <div class="tal-col">
