@@ -171,5 +171,42 @@
   // Arriving from "Submit a hiring need" on the cohort page opens the brief instead of the shortlist.
   if (location.hash === '#needs') goToStep('needs');
 </script>
+
+<!-- DEV ONLY — click to jump between screens without filling anything in (same switcher as signup/ and
+     event-common/). Builds itself from the .flow-step data-step values. Remove before launch. -->
+<script>
+(function () {
+  var LABEL = { signin: 'sign in', done: '✓', thanks: '✓' };
+  var steps = [].map.call(document.querySelectorAll('.flow-step'), function (s) { return s.dataset.step; });
+  if (!steps.length) return;
+  var bar = document.createElement('div');
+  bar.id = 'devNav';
+  bar.style.cssText = "position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:6px 8px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif";
+  bar.innerHTML = '<span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;padding:0 6px 0 2px">DEV</span>';
+  steps.forEach(function (n) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.dataset.go = n;
+    b.textContent = LABEL[n] || (isNaN(n) ? n : n);
+    b.style.cssText = 'all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px';
+    b.onclick = function () { goToStep(isNaN(n) ? n : Number(n)); mark(); };
+    bar.appendChild(b);
+  });
+  function mark() {
+    var open = [].filter.call(document.querySelectorAll('.flow-step'), function (s) { return !s.hidden; })[0];
+    var cur = open && open.dataset.step;
+    [].forEach.call(bar.querySelectorAll('[data-go]'), function (b) {
+      var on = b.dataset.go === cur;
+      b.style.background = on ? '#4FE8A9' : 'transparent';
+      b.style.color = on ? '#0A0A0A' : '#fff';
+    });
+  }
+  document.body.appendChild(bar);
+  mark();
+  // keep the highlight honest when the flow moves via its own Continue buttons
+  var real = window.goToStep;
+  window.goToStep = function (n) { var r = real.apply(this, arguments); mark(); return r; };
+})();
+</script>
 </body>
 </html>
