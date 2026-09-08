@@ -246,10 +246,10 @@
   {
    "id": "flow-talents-join",
    "name": "Talents join",
-   "file": "https://kabosmonalisa.github.io/Powertofly-Ai-Talents/join.html",
+   "file": "join.html",
    "group": "Flows",
    "status": "live",
-   "desc": "The talent join/signup flow — lives in the separate Powertofly-Ai-Talents repo, embedded here as an absolute URL."
+   "desc": "The talent join/signup flow — one question per screen, keyboard-driven. Deploys to the separate Powertofly-Ai-Talents repo, but the storybook now renders the LOCAL join.html so edits are visible here; the published copy is behind until it is pushed."
   },
   {
    "id": "slides-salesdeck",
