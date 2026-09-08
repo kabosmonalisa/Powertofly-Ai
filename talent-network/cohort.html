@@ -134,21 +134,23 @@
 <!-- 01. DASHBOARD HEADER — a working header, NOT a marketing hero. No display-lg,
      no hero-glow, no headline shouting the count: the count belongs on the list.
      Left = whose cohort and when. Right = the one action that is not the list. -->
-<section class="section-tight" id="profiles">
-  <div class="ev-head">
-    <div>
-      <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
-      <h2>Your AI Product cohort</h2>
-      <p class="tal-count">Batch 1 · prepared 4 September 2026 · reviewed by your PowerToFly team</p>
-    </div>
-    <a href="#needs" class="btn btn-sm">Send us a hiring need →</a>
-  </div>
+<section class="section-tight">
+  <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
+  <h2>Your AI Product cohort</h2>
+  <!-- The count leads: it is the fact the client came for. It used to sit grey and
+       floated right of the filter row, which is a footnote position for the most
+       important number on the page. No header action here — the only other thing a
+       client can do ("no match in this batch") belongs AFTER the profiles, not level
+       with the title where it invites leaving before looking at anyone. -->
+  <p class="tal-count" style="margin-top:10px"><strong style="color:var(--ink)">9 reviewed profiles</strong> · Batch 1 · prepared 4 September 2026</p>
+  <p class="tal-count" style="margin-top:6px">Names and current employers stay hidden until the person agrees to an introduction.</p>
+</section>
 
-  <p class="tal-count" style="margin:18px 0 0">Names, photos and current employers stay hidden until the person agrees to an introduction. Everything you need to judge the fit is on the card.</p>
-
-  <!-- The list belongs to this header — one heading on the page, not two competing
-       ones. The filter row carries the count, so nothing has to announce "9". -->
-  <div class="ev-listing ev-listing--grid" style="margin-top:34px">
+<!-- 02. THE PROFILES — on the soft tone so the white cards separate from the page.
+     Colour sits on this section, which owns its own --section-y, so it never bleeds
+     into the neutral gap between sections. -->
+<section class="section" id="profiles" style="background:var(--surface-2)">
+  <div class="ev-listing ev-listing--grid">
     <div class="ev-controls">
       <div class="ev-filter" id="cohortFilter">
         <button class="ev-filter-btn is-active" type="button" data-filter="all">All</button>
@@ -156,7 +158,7 @@
         <button class="ev-filter-btn" type="button" data-filter="fractional">Fractional</button>
         <button class="ev-filter-btn" type="button" data-filter="project">Project-based</button>
       </div>
-      <p class="tal-count" id="talCount">9 profiles</p>
+      <p class="tal-count" id="talCount">Showing all 9</p>
     </div>
 
     <div class="tal-col">
@@ -480,7 +482,9 @@
           card.classList.toggle('is-hidden', !hit);
           if (hit) shown++;
         });
-        count.textContent = shown === 1 ? '1 profile' : shown + ' profiles';
+        // "Showing all 9" / "Showing 4 of 9" — the filter row reports what the filter
+        // did; the header carries the cohort's total.
+        count.textContent = (f === 'all') ? 'Showing all ' + cards.length : 'Showing ' + shown + ' of ' + cards.length;
       });
     });
   })();
