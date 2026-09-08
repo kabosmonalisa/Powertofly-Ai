@@ -66,8 +66,15 @@ h1.hero-headline {
   display: flex; flex-direction: column;
   align-items: flex-start; gap: 14px; justify-content: flex-end;
 }
-/* CTA row: Register button + minimalist countdown beside it */
-.hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px; margin-top: 24px; }
+/* CTA row: Register + countdown, on a SOLID band flush to the card's bottom edge.
+   It used to sit on the gradient scrim, i.e. a white pill floating over a moving
+   photograph — the button vanished into the picture. Flat colour underneath is the
+   whole fix. Negative margins cancel .hero-feature-text's padding so the band runs
+   edge to edge; --bg (not white) because this block is .theme-dark, and the gradient
+   above already ends at 94% --bg, so the scrim just solidifies into the bar. */
+.hf-cta-row { display: flex; align-items: center; flex-wrap: wrap; gap: 16px 22px;
+  align-self: stretch;   /* the parent is align-items:flex-start — without this the band shrinks to its content and stops mid-photo */
+  margin: 24px -32px -30px; padding: 20px 32px; background: var(--bg); }
 .hf-countdown { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; font-variant-numeric: tabular-nums; }
 .hf-cd-label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .hf-cd-units { display: inline-flex; align-items: baseline; }
@@ -118,8 +125,10 @@ h1.hero-headline {
 @media (max-width: 760px) {
   .hero-feature-media { min-height: 300px; }
   .hero-feature-text { position: static; padding: 26px 22px 28px; background: var(--bg); }
-  /* full-width, easy-to-tap CTA on mobile; countdown drops to its own row below */
-  .hf-cta-row { gap: 16px; }
+  /* full-width, easy-to-tap CTA on mobile; countdown drops to its own row below.
+     The block is already solid down here, so the band only needs to re-bleed to
+     the narrower padding. */
+  .hf-cta-row { gap: 16px; margin: 16px -22px -28px; padding: 18px 22px; }
   .hf-cta-row .btn { width: 100%; justify-content: center; }
   .hf-countdown { width: 100%; }
 }
