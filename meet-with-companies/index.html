@@ -130,17 +130,9 @@
    Photo by www.kaboompics.com via Pexels (pexels.com/photo/5237973). */
 .how-portrait-card { background-image: url('https://images.pexels.com/photos/5237973/pexels-photo-5237973.jpeg?auto=compress&cs=tinysrgb&w=1000&h=1500&fit=crop'); background-position: center; }
 
-/* ── AGENDA timeline (page-specific — no component exists yet; flagged as a
-      Design Opportunity). Time rail + content, with a nested panelist list. ── */
-.mwc-agenda { max-width: var(--content-narrow); margin: 0; list-style: none; padding: 0; }
-.mwc-agenda-note { font-size: 13px; color: var(--ink-3); margin: 0 0 20px; }
-.mwc-ag-row { display: grid; grid-template-columns: 130px 1fr; gap: 20px; padding: 16px 0; border-top: 1px solid var(--line); }
-.mwc-ag-row:first-of-type { border-top: none; }
-.mwc-ag-time { font-size: 13.5px; font-weight: 600; color: var(--ink-3); line-height: 1.4; }
-.mwc-ag-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: var(--ink); margin: 0; }
-.mwc-ag-people { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 4px; }
-.mwc-ag-people li { font-size: 14px; color: var(--ink-2); line-height: 1.45; }
-.mwc-ag-people li span { color: var(--ink-3); }
+/* Agenda is now the shared .agenda-* component (ds/ptf.css). The ONLY page override:
+   this agenda is left-aligned inside .mwc-copy, not centered like Summit's. */
+.agenda, .agenda-note { margin-left: 0; margin-right: 0; }
 
 /* ── PRIORITY ROLES → recommended-job cards (page-specific; no DS job-card component
       exists yet — built from tokens, flagged as a candidate component). ── */
@@ -190,7 +182,7 @@
   .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
   .ev-hero-sub { font-size: 16px; }
   .ev-hero-meta { grid-template-columns: 1fr; }
-  .mwc-ag-row { grid-template-columns: 1fr; gap: 4px; }
+  .agenda-row { grid-template-columns: 1fr; gap: 4px; }
   #devDials .dial-label { width: 52px; }
   #devDials button { padding: 7px 10px; font-size: 12px; }
 }
@@ -336,27 +328,27 @@
     <div class="section-head">
       <h2>Agenda</h2>
     </div>
-    <p class="mwc-agenda-note">All times ET. Subject to change.</p>
-    <ol class="mwc-agenda">
-      <li class="mwc-ag-row">
-        <div class="mwc-ag-time">5:30 – 5:35 PM</div>
-        <div><h3 class="mwc-ag-title">Kickoff with PowerToFly</h3></div>
+    <p class="agenda-note">All times ET. Subject to change.</p>
+    <ol class="agenda">
+      <li class="agenda-row">
+        <div class="agenda-time">5:30 – 5:35 PM</div>
+        <div><h3 class="agenda-title">Kickoff with PowerToFly</h3></div>
       </li>
-      <li class="mwc-ag-row">
-        <div class="mwc-ag-time">5:35 – 5:45 PM</div>
+      <li class="agenda-row">
+        <div class="agenda-time">5:35 – 5:45 PM</div>
         <div>
-          <h3 class="mwc-ag-title">Welcome address</h3>
-          <ul class="mwc-ag-people">
+          <h3 class="agenda-title">Welcome address</h3>
+          <ul class="agenda-people">
             <li>Michael Glover <span>· SVP, New Generation Systems</span></li>
             <li>Prasanth Thupili <span>· SVP, Power Generation Services</span></li>
           </ul>
         </div>
       </li>
-      <li class="mwc-ag-row">
-        <div class="mwc-ag-time">5:45 – 6:30 PM</div>
+      <li class="agenda-row">
+        <div class="agenda-time">5:45 – 6:30 PM</div>
         <div>
-          <h3 class="mwc-ag-title">Panel discussion featuring leaders from Mitsubishi Power</h3>
-          <ul class="mwc-ag-people">
+          <h3 class="agenda-title">Panel discussion featuring leaders from Mitsubishi Power</h3>
+          <ul class="agenda-people">
             <li>Matthew Ellithorpe <span>· VP, Service Engineering</span></li>
             <li>Chaya Springer <span>· Director, Project Management Office</span></li>
             <li>Brian Subasavage <span>· VP, Project Management</span></li>
@@ -364,13 +356,13 @@
           </ul>
         </div>
       </li>
-      <li class="mwc-ag-row">
-        <div class="mwc-ag-time">6:30 – 6:55 PM</div>
-        <div><h3 class="mwc-ag-title">Breakout rooms</h3></div>
+      <li class="agenda-row">
+        <div class="agenda-time">6:30 – 6:55 PM</div>
+        <div><h3 class="agenda-title">Breakout rooms</h3></div>
       </li>
-      <li class="mwc-ag-row">
-        <div class="mwc-ag-time">6:55 – 7:00 PM</div>
-        <div><h3 class="mwc-ag-title">Closing remarks</h3></div>
+      <li class="agenda-row">
+        <div class="agenda-time">6:55 – 7:00 PM</div>
+        <div><h3 class="agenda-title">Closing remarks</h3></div>
       </li>
     </ol>
   </div>

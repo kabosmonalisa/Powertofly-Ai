@@ -94,7 +94,7 @@
 .ev-upnext .ev-list .ev-row:last-child { border-bottom: none; }
 
 /* "See upcoming summits" jump target — offset for the fixed header */
-#summits { scroll-margin-top: 140px; }
+#summits, #schedule, #speakers { scroll-margin-top: 140px; }
 
 /* ── PROTOTYPE: hero event-state cues (upcoming / live / past) + dev switcher ── */
 .eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: smtLivePulse 1.6s ease-in-out infinite; }
@@ -230,7 +230,207 @@
   <div style="text-align:center"><a class="btn" href="../vjf/index.html">Save your spot →</a></div><!-- COPY: confirm target — currently the vjf/ page; switch to ../event-common/ if it should register directly -->
 </section>
 
-<!-- 04. ABOUT POWERTOFLY — editorial header + the shared stat-card grid (.about-stat-*,
+<!-- 04. SCHEDULE — the .agenda component (promoted to ds/ptf.css 2026-09-08 from the
+     page-local .mwc-agenda). This section IS the recordings once the summit is past:
+     every .agenda-action swaps from "Add to calendar" to "Watch the recording", and the
+     hero's "Watch the recordings" button scrolls here. One section, two states. -->
+<section class="section" id="schedule">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Schedule</div>
+    <h2 id="scheduleTitle">Two days, back to back</h2>
+    <p id="scheduleSub">Sessions run live and are recorded — join what you can, catch the rest after.</p>
+  </div>
+  <p class="agenda-note">Times shown in your local timezone. Subject to change.</p><!-- COPY: confirm — sample times below are as captured (EEST); live page localizes -->
+  <ol class="agenda">
+    <li class="agenda-day">Wednesday, September 16, 2026</li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">7:00 – 7:30 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Not one or the other: today's workforce needs a collaborative human/AI hybrid</h3>
+        <p class="agenda-desc">What happens to output when skilled people and capable tools work together? Pranav Dalal, Founder &amp; CEO of Office Beacon, on why leaders cannot unlock productivity without a skilled human foundation first.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">7:30 – 8:00 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Navigating career relaunches and pivots in the AI age</h3>
+        <p class="agenda-desc">Kelley Biskupiak and Susan Rietano Davey of Prepare to Launch U on closing resume gaps, reframing transitional skills, and using AI tools to your advantage as you re-enter or reshape your career.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">8:30 – 9:00 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Beyond the AI umbrella: training, building, and engineering explained</h3>
+        <p class="agenda-desc">Plumwheel founder Hunter Lee Canning breaks down what separates someone who trains AI models from someone who builds AI systems — and why those roles deserve their own hiring criteria.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">9:00 – 9:30 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Cracking the code: AI and ATS secrets for job search success</h3>
+        <p class="agenda-desc">Rachel Serwetz, CEO and Founder of WOKEN, demystifies how AI and applicant tracking systems shape your application — and how to optimize your materials for both.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">9:00 – 9:30 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">How to get the most out of a job fair</h3>
+        <p class="agenda-desc">An interactive session on preparing for a virtual job fair, working out what values-fit really means for you, and turning short conversations into connections that last beyond the day.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">9:30 – 10:00 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Debiasing by design: building fairer hiring with AI</h3>
+        <p class="agenda-desc">Tristan Law, Talent Acquisition Partner at Simply Business, on how AI can flag biased language and inconsistent criteria before they shape a candidate pool — and where human judgement still has to lead.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">10:00 – 10:30 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">The best engineer in the room doesn't write code</h3>
+        <p class="agenda-desc">Emilie Schario, VP of Engineering at Anaconda, on using AI coding tools without running up costs, where they still fall short, and what to highlight to show you work well alongside them.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">10:00 – 11:00 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">AI won't replace leaders, but AI-powered leaders will</h3>
+        <p class="agenda-desc">How AI is reshaping communication, decision-making and strategic thinking in HR and talent acquisition — and how to keep empathy and trust front and centre. Eligible for SHRM credits.</p>
+      </div>
+    </li>
+
+    <li class="agenda-row">
+      <div class="agenda-time">10:30 – 11:00 PM
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Intro to AI agents: how to build AI-powered workflows</h3>
+        <p class="agenda-desc">Tauri StClaire of Skillcrush by PowerToFly on the real difference between a chatbot and an agent, where these tools fall short, and how to spot the tasks in your own role worth automating.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<!-- 05. SPEAKERS — the .speaker-grid component (promoted to ds/ptf.css 2026-09-08).
+     ⚠️ HEADSHOTS ARE PLACEHOLDERS from the shared photos/ library, except Cristina Duke,
+     Mara Gates and Rob Ribar, whose real photos we hold. Swap the rest for the real
+     headshots off the live event page before this goes anywhere near a customer. -->
+<section class="section" id="speakers">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Speakers</div>
+    <h2>Who you'll hear from</h2>
+    <p>Sixteen speakers from across engineering, talent, leadership and career coaching.</p>
+  </div>
+  <div class="speaker-grid">
+    <div>
+      <img class="speaker-photo" src="../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg" alt="Tristan Law"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Tristan Law</p>
+      <p class="speaker-role">Talent Acquisition Partner, Simply Business</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg" alt="Emilie Schario"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Emilie Schario</p>
+      <p class="speaker-role">VP, Engineering at Anaconda</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="Pranav Dalal"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Pranav Dalal</p>
+      <p class="speaker-role">Founder and CEO, Office Beacon</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="Rodney H. Scaife"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Rodney H. Scaife</p>
+      <p class="speaker-role">Head of People, Emerson Collective</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg" alt="Paul Eschen"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Paul Eschen</p>
+      <p class="speaker-role">Chief Marketing Officer, BizLibrary</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="Meredith Haberfeld"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Meredith Haberfeld</p>
+      <p class="speaker-role">Founder &amp; CEO, ThinkHuman</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/cristina-duke.jpg" alt="Cristina Duke">
+      <p class="speaker-name">Cristina Duke</p>
+      <p class="speaker-role">VP of Sales &amp; Customer Success, PowerToFly</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/13.latino-old-man-christian-buehner-h0_elok-uKI-unsplash.jpg" alt="John Adcock"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">John Adcock</p>
+      <p class="speaker-role">Co-Founder, Kinsugi Labs</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt="Lyndsay Sanborn"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Lyndsay Sanborn</p>
+      <p class="speaker-role">AI strategist and founder, Frame + Forge AI Strategy Studio</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg" alt="Tauri StClaire"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Tauri StClaire</p>
+      <p class="speaker-role">Instructor and Enrollment Counselor, Skillcrush by PowerToFly</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg" alt="Kelly Blackmon"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Kelly Blackmon</p>
+      <p class="speaker-role">Founder, B.E. Consulting</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/mara-gates.jpg" alt="Mara Gates">
+      <p class="speaker-name">Mara Gates</p>
+      <p class="speaker-role">Director, Content Marketing, PowerToFly</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg" alt="Sanmaya Mohanty"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Sanmaya Mohanty</p>
+      <p class="speaker-role">Founder, QriusAI Foundation · Product Marketing Manager, PowerToFly</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/rob-director.jpg" alt="Rob Ribar">
+      <p class="speaker-name">Rob Ribar</p>
+      <p class="speaker-role">Director, Events &amp; Marketing, PowerToFly</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="Rachel Serwetz"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Rachel Serwetz</p>
+      <p class="speaker-role">CEO, Founder &amp; Career Exploration Coach, WOKEN</p>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg" alt="Hunter Lee Canning"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Hunter Lee Canning</p>
+      <p class="speaker-role">Founder, Plumwheel · PowerToFly Virtual Event Host</p>
+    </div>
+  </div>
+</section>
+
+<!-- 06. ABOUT POWERTOFLY — editorial header + the shared stat-card grid (.about-stat-*,
      promoted from the about page). Mirrors the about page's "Our community" treatment. -->
 <section class="section" style="background: var(--bg)">
   <div class="about-head">
@@ -280,7 +480,7 @@
   </div>
 </section>
 
-<!-- 05. MORE UPCOMING SUMMITS — shared event tiles (static, no filter/pager) -->
+<!-- 07. MORE UPCOMING SUMMITS — shared event tiles (static, no filter/pager) -->
 <section class="section" id="summits">
   <div class="ev-upnext">
   <div class="ev-head">
@@ -352,7 +552,7 @@
   </div><!-- /.ev-upnext -->
 </section>
 
-<!-- 06. JOIN US — shared dark closer band -->
+<!-- 08. JOIN US — shared dark closer band -->
 <section class="section-cta">
   <div class="section-cta-inner">
     <span class="eyebrow">Join us</span>
@@ -399,15 +599,26 @@
       },
       past: {
         dot: false, eyebrowCls: ' is-past', eyebrow: 'Past event',
-        cta1: { t: 'Watch the recordings →', href: '#' }, // COPY: confirm recording target
+        // Rob's ask: "Watch the recordings" scrolls DOWN to the schedule, because once the
+        // summit is over the schedule IS the recordings (see `recordings` below).
+        cta1: { t: 'Watch the recordings →', href: '#schedule' },
         alert: 'This summit has ended &nbsp;·&nbsp; Watch the recordings',
-        alertCta: { t: 'Watch the recordings →', href: '#' }
+        alertCta: { t: 'Watch the recordings →', href: '#schedule' },
+        recordings: true,
+        scheduleTitle: 'Watch the recordings',
+        scheduleSub: 'Every session from both days, on demand.'
       }
     };
+
+    /* Small MUI Outlined paths for the per-session action — plain ink, no gradient. */
+    var ICO_CAL  = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>';
+    var ICO_PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>';
     var eyebrow = document.getElementById('heroEyebrow');
     var cta1 = document.getElementById('heroCta1');
     var alertText = document.getElementById('alertText');
     var alertCta = document.getElementById('alertCta');
+    var scheduleTitle = document.getElementById('scheduleTitle');
+    var scheduleSub = document.getElementById('scheduleSub');
     var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
     function apply(name) {
       var s = STATES[name]; if (!s) return;
@@ -415,6 +626,13 @@
       // dot only renders when a state opts in (live). upcoming/past have dot:false → no dot.
       eyebrow.innerHTML = (s.dot === false ? '' : '<span class="dot' + s.dot + '"></span>') + s.eyebrow;
       cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
+      // Past → the schedule becomes the recordings list: same rows, same order, but every
+      // "Add to calendar" turns into "Watch the recording". No second section, no second page.
+      [].forEach.call(document.querySelectorAll('.agenda-action'), function (a) {
+        a.innerHTML = (s.recordings ? ICO_PLAY + 'Watch the recording' : ICO_CAL + 'Add to calendar');
+      });
+      if (scheduleTitle) scheduleTitle.textContent = s.scheduleTitle || 'Two days, back to back';
+      if (scheduleSub) scheduleSub.textContent = s.scheduleSub || 'Sessions run live and are recorded — join what you can, catch the rest after.';
       if (alertText) alertText.innerHTML = s.alert;
       if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
       btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });

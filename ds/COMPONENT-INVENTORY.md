@@ -147,6 +147,43 @@ legacy purple design. Signing up goes to the common event flow (`event-common/`)
 ## Hero glow — one wash, one owner (`.hero-glow`)
 The iridescent radial wash behind a light hero lives in `ds/ptf.css` as `.hero-glow`, built from `--iri-green` / `--iri-lime` / `--bg`. Add `hero-glow` to the hero section — do not paste the `radial-gradient(...)` into a page's own `.hero` rule. It was promoted from three inline copies on 2026-07-07; Employers, Hire and Events kept re-typing it and were re-pointed at the token version (identical on light, correct in dark). If you need the wash, use the class.
 
+## Schedule / agenda (`.agenda-*`)
+A time rail beside the session, for any event that publishes what happens when. Promoted 2026-09-08 from `meet-with-companies`' page-local `.mwc-agenda` (which was commented there as "no component exists yet") once Summit needed the same shape. ONE component covers both sizes of event: a short in-person agenda (time + title + panelists) and a multi-day summit schedule (day headings + descriptions + a per-session action).
+
+Parts: `.agenda` (the `<ol>`) · `.agenda-note` (the "times shown in…" line above it) · `.agenda-day` (a day heading INSIDE the list — not an `h2`, the section owns that) · `.agenda-row` (time rail | content) · `.agenda-time` · `.agenda-title` · `.agenda-desc` · `.agenda-action` (the per-session link) · `.agenda-people` (panelists under a session). Collapses to a single column ≤640px. Centered by default; a page that needs it left-aligned in a column overrides `margin-left/right` only (see `meet-with-companies`).
+
+❗ **The past state belongs to the PAGE, not the component.** Once an event is over its schedule *is* its recordings: the page swaps each `.agenda-action` from "Add to calendar" to "Watch the recording" and points the hero's "Watch the recordings" button at `#schedule`. One section, two states — never build a second recordings list. Live example: `summit/index.html` (its `STATES.past.recordings` flag drives the swap).
+
+```html
+<ol class="agenda">
+  <li class="agenda-day">Wednesday, September 16, 2026</li>
+  <li class="agenda-row">
+    <div class="agenda-time">7:00 – 7:30 PM
+      <a class="agenda-action" href="#"><svg …/>Add to calendar</a>
+    </div>
+    <div>
+      <h3 class="agenda-title">Session title</h3>
+      <p class="agenda-desc">One short paragraph.</p>
+    </div>
+  </li>
+</ol>
+```
+
+## Speaker grid (`.speaker-*`)
+The wall of faces for an event with MANY speakers: headshot, name, role, **no bio**. 4-up → 3 ≤900px → 2 ≤640px. Square photos at `--r-2xl` (they are feature portraits). Built for Summit (16 speakers) 2026-09-08.
+
+❗ **Not a replacement for `.cl-speaker`** — that is a photo *beside a bio*, for the two or three people a small event is built around. **Few speakers with bios → `.cl-speakers`. Many speakers, no bios → `.speaker-grid`.** Picking the wrong one is what produces a 2,000px column of empty rows.
+
+```html
+<div class="speaker-grid">
+  <div>
+    <img class="speaker-photo" src="…" alt="Name">
+    <p class="speaker-name">Name</p>
+    <p class="speaker-role">Title, Company</p>
+  </div>
+</div>
+```
+
 ## Speaker bio card (`.cl-speaker`)
 A photo beside name / role / bio, stacked in a `.cl-speakers` column. 96px round photo (`--r-pill`, `--surface-2` placeholder), 20px/700 name, 14px `--ink-3` role, 15px `--ink-2` bio; drops to a 72px photo under 700px. Promoted from identical copies on Chat & Learn and Meet with companies. Part of the Event-detail recipe (see that Page Recipe) — use it for 'meet the speakers', never rebuild it on the page.
 

@@ -1844,3 +1844,54 @@ img { display: block; max-width: 100%; }
   .hero-search:not(.hero-search-sm) .btn { flex: 1 0 100%; width: 100%; justify-content: center; text-align: center; }
   .hero-search-sm { max-width: none; }        /* let the quick search use the full column */
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SCHEDULE / AGENDA  (.agenda-*)
+   Promoted 2026-09-08. The shape existed as page-local `.mwc-agenda` on
+   meet-with-companies, commented there as "no component exists yet". Summit
+   then needed the same time-rail + content row, so the system was told twice.
+   ONE shape, two sizes of event: a short in-person agenda (time + title +
+   panelists) and a multi-day summit schedule (day headings + descriptions +
+   a per-session action).
+   Past state is the PAGE's job: it swaps each .agenda-action's text and href
+   from "Add to calendar" to "Watch the recording". The component is agnostic —
+   which is exactly why the schedule can double as the recordings list.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.agenda { max-width: var(--content-narrow); margin: 0 auto; list-style: none; padding: 0; }
+.agenda-note { max-width: var(--content-narrow); margin: 0 auto 24px; font-size: 13px; color: var(--ink-3); }
+/* Day heading INSIDE a schedule. Not an h2 — the section already owns that. */
+.agenda-day { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; color: var(--ink); margin: 48px 0 0; padding-bottom: 14px; border-bottom: 1.5px solid var(--ink); }
+.agenda-day:first-child { margin-top: 0; }
+.agenda-row { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 22px 0; border-top: 1px solid var(--line); }
+/* first row of the schedule, and the first row under any day heading, already
+   have a rule above them — don't double it up */
+.agenda-row:first-child, .agenda-day + .agenda-row { border-top: none; }
+.agenda-time { font-size: 13.5px; font-weight: 600; color: var(--ink-3); line-height: 1.4; }
+.agenda-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 17px; letter-spacing: -0.01em; line-height: 1.35; color: var(--ink); margin: 0; }
+.agenda-desc { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 8px 0 0; }
+/* Per-session action, under the time so it reads as belonging to the slot.
+   Icon is a small MUI Outlined path — plain ink, no gradient (rule #5). */
+.agenda-action { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; transition: gap 200ms ease; }
+.agenda-action:hover { gap: 9px; }
+.agenda-action svg { width: 15px; height: 15px; fill: currentColor; flex: none; }
+/* Panelists under a session — carried over from the in-person agenda. */
+.agenda-people { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-direction: column; gap: 4px; }
+.agenda-people li { font-size: 14px; color: var(--ink-2); line-height: 1.45; }
+.agenda-people li span { color: var(--ink-3); }
+@media (max-width: 640px) {
+  .agenda-row { grid-template-columns: 1fr; gap: 6px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SPEAKER GRID  (.speaker-*)
+   The wall of faces for an event with MANY speakers: headshot, name, role, no bio.
+   ❗ Not a replacement for `.cl-speaker` — that is a photo BESIDE a bio, for the
+   two or three people a small event is built around. Few speakers with bios →
+   `.cl-speakers`. Many speakers, no bios → this. Built for Summit (16) 2026-09-08.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.speaker-grid { max-width: var(--content-body); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 36px 24px; }
+.speaker-photo { width: 100%; aspect-ratio: 1; border-radius: var(--r-2xl); object-fit: cover; background: var(--surface-2); display: block; }
+.speaker-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: -0.02em; line-height: 1.3; color: var(--ink); margin: 14px 0 0; }
+.speaker-role { font-size: 13.5px; line-height: 1.45; color: var(--ink-3); margin: 4px 0 0; }
+@media (max-width: 900px) { .speaker-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .speaker-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; } }
