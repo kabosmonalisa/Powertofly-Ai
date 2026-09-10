@@ -246,10 +246,10 @@
   {
    "id": "flow-talents-join",
    "name": "Talents join",
-   "file": "join.html",
+   "file": "https://kabosmonalisa.github.io/Powertofly-Ai-Talents/join.html",
    "group": "Flows",
    "status": "live",
-   "desc": "The talent join/signup flow — one question per screen, keyboard-driven. Deploys to the separate Powertofly-Ai-Talents repo, but the storybook now renders the LOCAL join.html so edits are visible here; the published copy is behind until it is pushed."
+   "desc": "The talent join/signup flow — one question per screen, keyboard-driven. It lives ONLY in the separate Powertofly-Ai-Talents repo; the local mirror was deleted on 2026-09-09 so the two copies could not drift. This embeds the published page, so edits show up here once they are pushed."
   },
   {
    "id": "slides-salesdeck",
@@ -282,6 +282,14 @@
    "group": "Organisms",
    "status": "draft",
    "desc": "The top navigation for logged-in users, switching between a Talent context and an Employer context (Switch to employers / Switch to talents). Logged-out shows the marketing nav. Account menu uses MUI-outlined icons; dropdowns and the switch are live. Dev reference for the login experience."
+  },
+  {
+   "id": "org-profile-enrich",
+   "name": "Profile enrichment modal",
+   "file": "profile-enrich/index.html",
+   "group": "Organisms",
+   "status": "draft",
+   "desc": "On login after connecting LinkedIn: the talent reviews what we found and keeps, edits or drops each field — contact, profiles, experience — with a live completeness meter and a count on the save button. Built from .auth-card / .field / .check-box / .id-section-label / .id-privacy. Unchecked rows stay legible (no dimming) because they aren't disabled. The modal shell (.modal-scrim/.modal-card) and the completeness meter are promote-to-system candidates — the DS has no modal or meter today."
   },
   {
    "id": "p-tn-flow",
