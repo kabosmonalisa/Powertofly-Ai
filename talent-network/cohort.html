@@ -132,12 +132,14 @@
     <div class="section-head">
       <div class="eyebrow">Private cohort · Northwind Robotics</div>
       <h2>Open your <em class="italic-plain">cohort.</em></h2>
-      <p>Use the work email the invitation was sent to, and the code from that email. This is not an account — the link and code are all you need.</p>
+      <!-- No access code — Dina, 8 Sep. The private link IS the credential; the work
+           email only confirms who is looking, so we know who saw the cohort. Asking
+           people to copy a code out of an email was friction with no security gain. -->
+      <p>Confirm the work email your invitation was sent to. This is not an account — your invitation link is all you need.</p>
     </div>
     <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" onsubmit="return openCohort()">
       <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
-      <div class="field"><label>Access code</label><input type="text" placeholder="From your invitation email" required></div>
       <button class="btn btn-primary btn-block" type="submit">Open the cohort →</button>
     </form>
     </div>

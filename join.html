@@ -225,6 +225,18 @@ input[type="file"] { display: none; }
       14px 24px and 13px 20px, which is why the continue button was a different shape to every
       other primary button in the system. Never re-add them. ── */
 .cta-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+/* ── Divider + social buttons for the sign-up screen. Copied VERBATIM from
+      ds/ptf.css (.auth-divider / .social-btns / .btn-social) so screen 1 is the
+      same regular sign up as signup/index.html, not a second version of it. ── */
+.auth-divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; color: var(--ink-3); font-size: 13px; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.social-btns { display: flex; flex-direction: column; gap: 10px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 600px) { .field-row { grid-template-columns: 1fr; } }
+.btn-social { width: 100%; padding: 10px 16px; border-radius: var(--r-md); border: 1.5px solid var(--line); background: var(--bg); font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: border-color 180ms ease, background 180ms ease; }
+.btn-social:hover { border-color: rgba(10,10,10,0.2); background: var(--bg-soft); }
+.btn-social svg { flex-shrink: 0; }
+
 .key-hint { font-size: 12px; color: var(--ink-3); display: flex; align-items: center; gap: 5px; }
 .key-pill { padding: 2px 7px; border-radius: var(--r-sm); border: 1px solid var(--line); background: var(--surface-2); font-size: 11px; font-weight: 600; color: var(--ink-3); }
 .skip-link { font-size: 13px; color: var(--ink-3); background: none; border: none; cursor: pointer; padding: 0; text-decoration: underline; text-underline-offset: 3px; transition: color 160ms; }
@@ -310,36 +322,22 @@ input[type="file"] { display: none; }
       <div class="eyebrow"><span class="dot"></span>Join PowerToFly AI</div>
       <div class="q-text">Join the AI talent community.</div>
       <p class="q-sub">We connect domain experts with AI companies that need real human judgment to train their models. This takes about 4 minutes to complete.</p>
+      <!-- Identity comes from the account, not from this flow. Per Dina: name, email
+           and password belong to the normal sign up or an event registration, and are
+           never asked again here. -->
+      <p class="q-sub" style="margin-top:-8px">Continuing as <strong style="color:var(--ink)">Amara Osei</strong> · <a href="#">Not you?</a></p>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">Get started <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
       </div>
-      <p class="login-line">Already signed up? <a href="#">Log in</a></p>
-    </div>
-  </div>
-
-  <!-- 1: Account (name + email + password) -->
-  <div class="slide state-below" data-index="1">
-    <div class="slide-inner">
-      <div class="q-num">Question 1</div>
-      <div class="q-text">Let's get you set up.</div>
-      <div class="field-stack">
-        <div class="field-item"><label>Full name</label><input type="text" id="fullname" placeholder="Your name" autocomplete="name"></div>
-        <div class="field-item"><label>Email</label><input type="email" id="email" placeholder="you@example.com" autocomplete="email"></div>
-        <div class="field-item"><label>Password</label><input type="password" id="password" placeholder="At least 8 characters" autocomplete="new-password" onkeydown="handleEnter(event,next)"></div>
-      </div>
-      <div class="cta-row">
-        <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
-        <span class="error-msg" id="err-1"></span>
-      </div>
+      <p class="login-line">No account yet? <a href="#">Sign up first</a></p>
     </div>
   </div>
 
   <!-- 2: Country -->
-  <div class="slide state-below" data-index="2">
+  <div class="slide state-below" data-index="1">
     <div class="slide-inner">
-      <div class="q-num">Question 2</div>
+      <div class="q-num">Question 1</div>
       <div class="q-text">Where are you based?</div>
       <p class="q-sub">Your location won't hold you back. We have paid AI opportunities in over 40 countries.</p>
       <div class="tf-select-wrap">
@@ -352,15 +350,15 @@ input[type="file"] { display: none; }
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
-        <span class="error-msg" id="err-2">Please select your country.</span>
+        <span class="error-msg" id="err-1">Please select your country.</span>
       </div>
     </div>
   </div>
 
   <!-- 3: LinkedIn + CV (same step) -->
-  <div class="slide state-below" data-index="3">
+  <div class="slide state-below" data-index="2">
     <div class="slide-inner">
-      <div class="q-num">Question 3</div>
+      <div class="q-num">Question 2</div>
       <div class="q-text">Your professional background.</div>
       <p class="q-sub">We review every profile before matching anyone to paid work. Your LinkedIn and CV help us understand your experience and place you correctly.</p>
       <input class="tf-input" id="linkedin" type="url" placeholder="LinkedIn profile URL" onkeydown="handleEnter(event, ()=>document.getElementById('resumeLabel').click())">
@@ -375,15 +373,15 @@ input[type="file"] { display: none; }
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
         <span class="key-hint"><span class="key-pill">Enter ↵</span></span>
-        <span class="error-msg" id="err-3"></span>
+        <span class="error-msg" id="err-2"></span>
       </div>
     </div>
   </div>
 
   <!-- 4: Expertise -->
-  <div class="slide state-below" data-index="4">
+  <div class="slide state-below" data-index="3">
     <div class="slide-inner">
-      <div class="q-num">Question 4</div>
+      <div class="q-num">Question 3</div>
       <div class="q-text">Your main area of expertise?</div>
       <div class="choices grid-2" id="expertiseGrid">
         <label class="choice" data-val="Healthcare &amp; medicine"><input type="radio" name="expertise"><span class="choice-key">A</span>Healthcare &amp; medicine</label>
@@ -402,15 +400,15 @@ input[type="file"] { display: none; }
       <div class="other-wrap" id="expertiseOtherWrap"><input type="text" id="expertiseOther" placeholder="Describe your field…" onkeydown="handleEnter(event,next)"></div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="error-msg" id="err-4">Pick one to continue.</span>
+        <span class="error-msg" id="err-3">Pick one to continue.</span>
       </div>
     </div>
   </div>
 
   <!-- 5: Years -->
-  <div class="slide state-below" data-index="5">
+  <div class="slide state-below" data-index="4">
     <div class="slide-inner">
-      <div class="q-num">Question 5</div>
+      <div class="q-num">Question 4</div>
       <div class="q-text">Years of experience in that field?</div>
       <div class="choices" id="yearsGrid">
         <label class="choice" data-val="Less than 2 years"><input type="radio" name="years"><span class="choice-key">A</span>Less than 2 years</label>
@@ -420,15 +418,15 @@ input[type="file"] { display: none; }
       </div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="error-msg" id="err-5">Pick one to continue.</span>
+        <span class="error-msg" id="err-4">Pick one to continue.</span>
       </div>
     </div>
   </div>
 
   <!-- 6: AI level -->
-  <div class="slide state-below" data-index="6">
+  <div class="slide state-below" data-index="5">
     <div class="slide-inner">
-      <div class="q-num">Question 6</div>
+      <div class="q-num">Question 5</div>
       <div class="q-text">Your experience with AI?</div>
       <div class="honesty">Please answer honestly. We verify everyone before matching them to paid work. Accurate answers mean faster, better matches for you.</div>
       <div class="choices" id="aiLevelGrid">
@@ -439,15 +437,15 @@ input[type="file"] { display: none; }
       </div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="error-msg" id="err-6">Pick one to continue.</span>
+        <span class="error-msg" id="err-5">Pick one to continue.</span>
       </div>
     </div>
   </div>
 
   <!-- 7: Goals -->
-  <div class="slide state-below" data-index="7">
+  <div class="slide state-below" data-index="6">
     <div class="slide-inner">
-      <div class="q-num">Question 7</div>
+      <div class="q-num">Question 6</div>
       <div class="q-text">What are you looking for?</div>
       <p class="q-sub">Pick any that apply.</p>
       <div class="choices" id="goalsGrid">
@@ -459,15 +457,15 @@ input[type="file"] { display: none; }
       </div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="error-msg" id="err-7">Pick at least one.</span>
+        <span class="error-msg" id="err-6">Pick at least one.</span>
       </div>
     </div>
   </div>
 
   <!-- 8: Hours -->
-  <div class="slide state-below" data-index="8">
+  <div class="slide state-below" data-index="7">
     <div class="slide-inner">
-      <div class="q-num">Question 8</div>
+      <div class="q-num">Question 7</div>
       <div class="q-text">Hours per week you could commit?</div>
       <div class="choices grid-2" id="hoursGrid">
         <label class="choice" data-val="Under 5 hours"><input type="radio" name="hours"><span class="choice-key">A</span>Under 5 hours</label>
@@ -477,15 +475,15 @@ input[type="file"] { display: none; }
       </div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">OK <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></button>
-        <span class="error-msg" id="err-8">Pick one to continue.</span>
+        <span class="error-msg" id="err-7">Pick one to continue.</span>
       </div>
     </div>
   </div>
 
   <!-- 9: Languages — optional -->
-  <div class="slide state-below" data-index="9">
+  <div class="slide state-below" data-index="8">
     <div class="slide-inner">
-      <div class="q-num">Question 9</div>
+      <div class="q-num">Question 8</div>
       <div class="q-text">Languages you speak fluently? <span class="q-opt">Optional</span></div>
       <p class="q-sub">Some projects are language specific. Add any languages you are comfortable working in professionally.</p>
       <div class="tf-select-wrap">
@@ -504,9 +502,9 @@ input[type="file"] { display: none; }
   </div>
 
   <!-- 10: Why — optional -->
-  <div class="slide state-below" data-index="10">
+  <div class="slide state-below" data-index="9">
     <div class="slide-inner">
-      <div class="q-num">Question 10</div>
+      <div class="q-num">Question 9</div>
       <div class="q-text">Why do you want to do AI training work? <span class="q-opt">Optional</span></div>
       <p class="q-sub">A few sentences is plenty. This is optional but people who fill it in tend to get matched to projects faster.</p>
       <textarea class="tf-textarea" id="whyText" placeholder="Tell us what draws you to this kind of work…" rows="4"></textarea>
@@ -518,9 +516,9 @@ input[type="file"] { display: none; }
   </div>
 
   <!-- 11: Webinar -->
-  <div class="slide state-below" data-index="11">
+  <div class="slide state-below" data-index="10">
     <div class="slide-inner">
-      <div class="q-num">Question 11</div>
+      <div class="q-num">Question 10</div>
       <div class="q-text">Pick your onboarding session.</div>
       <p class="q-sub">Join a 45-minute live session to meet the team, see how projects work, and find out what happens after you sign up.</p>
       <div class="webinar-list">
@@ -543,13 +541,13 @@ input[type="file"] { display: none; }
       </div>
       <div class="cta-row">
         <button class="btn btn-primary" onclick="next()">Reserve my spot <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
-        <span class="error-msg" id="err-11">Pick a date to continue.</span>
+        <span class="error-msg" id="err-10">Pick a date to continue.</span>
       </div>
     </div>
   </div>
 
   <!-- 12: Confirmation -->
-  <div class="slide state-below" data-index="12">
+  <div class="slide state-below" data-index="11">
     <div class="slide-inner">
       <div class="thanks-icon">
         <svg width="56" height="56" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg>
@@ -598,12 +596,14 @@ input[type="file"] { display: none; }
 </footer>
 
 <script>
-const TOTAL = 11;
+const TOTAL = 10;
 let cur = 0, animating = false;
 const slides = Array.from(document.querySelectorAll('.slide'));
 
 const profile = {
-  fullname:'', email:'', password:'', country:'',
+  // Identity comes from the account, not this flow — set at sign up or event
+  // registration and read back here. Never collected again.
+  fullname:'Amara Osei', email:'amara@example.com', country:'',
   linkedin:'', resume:null,
   expertise:'', expertiseOther:'', yearsExperience:'',
   aiLevel:'', goals:[], weeklyHours:'',
@@ -626,7 +626,7 @@ function render(idx) {
 }
 
 function updateMeta() {
-  const isConfirm = cur === 12, isWelcome = cur === 0;
+  const isConfirm = cur === 11, isWelcome = cur === 0;
   document.getElementById('progFill').style.width = isConfirm ? '100%' : isWelcome ? '0%' : (cur / TOTAL * 100) + '%';
   document.getElementById('hdCount').textContent = (isConfirm || isWelcome) ? '' : cur + ' / ' + TOTAL;
   document.getElementById('btnBack').style.display = (cur > 0 && !isConfirm) ? '' : 'none';
@@ -637,7 +637,7 @@ function updateMeta() {
 function next() {
   if (!validate(cur)) return;
   collect(cur);
-  if (cur === 11) { finalise(); render(12); return; }
+  if (cur === 10) { finalise(); render(11); return; }
   if (cur < 12) render(cur + 1);
 }
 function goBack() { if (cur > 0) render(cur - 1); }
@@ -652,32 +652,22 @@ function handleEnter(e, fn) { if (e.key === 'Enter') { e.preventDefault(); fn();
 function validate(idx) {
   document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
   if (idx === 0) return true;
-  if (idx === 1) {
-    const n = document.getElementById('fullname').value.trim();
-    const em = document.getElementById('email').value.trim();
-    const pw = document.getElementById('password').value;
-    const err = document.getElementById('err-1');
-    if (!n) { err.textContent = 'Please enter your name.'; err.classList.add('show'); return false; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) { err.textContent = 'Please enter a valid email.'; err.classList.add('show'); return false; }
-    if (pw.length < 8) { err.textContent = 'Password must be at least 8 characters.'; err.classList.add('show'); return false; }
-    return true;
-  }
-  if (idx === 2) return req('err-2', document.getElementById('country').value !== '');
-  if (idx === 3) {
+  if (idx === 1) return req('err-1', document.getElementById('country').value !== '');
+  if (idx === 2) {
     const li = document.getElementById('linkedin').value.trim();
     const cv = document.getElementById('resumeFile').files[0];
-    const err = document.getElementById('err-3');
+    const err = document.getElementById('err-2');
     if (!li) { err.textContent = 'Please enter your LinkedIn URL.'; err.classList.add('show'); return false; }
     if (!cv) { err.textContent = 'Please upload your resume or CV.'; err.classList.add('show'); return false; }
     return true;
   }
-  if (idx === 4) return req('err-4', !!document.querySelector('#expertiseGrid .choice.sel'), 'Pick one to continue.');
-  if (idx === 5) return req('err-5', !!document.querySelector('#yearsGrid .choice.sel'), 'Pick one to continue.');
-  if (idx === 6) return req('err-6', !!document.querySelector('#aiLevelGrid .choice.sel'), 'Pick one to continue.');
-  if (idx === 7) return req('err-7', document.querySelectorAll('#goalsGrid .choice.sel').length > 0, 'Pick at least one.');
-  if (idx === 8) return req('err-8', !!document.querySelector('#hoursGrid .choice.sel'), 'Pick one to continue.');
-  if (idx === 9 || idx === 10) return true;
-  if (idx === 11) return req('err-11', !!document.querySelector('.webinar-opt.sel'), 'Pick a date to continue.');
+  if (idx === 3) return req('err-3', !!document.querySelector('#expertiseGrid .choice.sel'), 'Pick one to continue.');
+  if (idx === 4) return req('err-4', !!document.querySelector('#yearsGrid .choice.sel'), 'Pick one to continue.');
+  if (idx === 5) return req('err-5', !!document.querySelector('#aiLevelGrid .choice.sel'), 'Pick one to continue.');
+  if (idx === 6) return req('err-6', document.querySelectorAll('#goalsGrid .choice.sel').length > 0, 'Pick at least one.');
+  if (idx === 7) return req('err-7', !!document.querySelector('#hoursGrid .choice.sel'), 'Pick one to continue.');
+  if (idx === 8 || idx === 9) return true;
+  if (idx === 10) return req('err-10', !!document.querySelector('.webinar-opt.sel'), 'Pick a date to continue.');
   return true;
 }
 
@@ -687,16 +677,17 @@ function req(errId, cond, msg) {
 }
 
 function collect(idx) {
-  if (idx === 1) { profile.fullname = document.getElementById('fullname').value.trim(); profile.email = document.getElementById('email').value.trim(); profile.password = document.getElementById('password').value; }
-  if (idx === 2) profile.country = document.getElementById('country').value;
-  if (idx === 3) { profile.linkedin = document.getElementById('linkedin').value.trim(); profile.resume = document.getElementById('resumeFile').files[0] || null; }
-  if (idx === 4) { const c = document.querySelector('#expertiseGrid .choice.sel'); profile.expertise = c ? c.dataset.val : ''; profile.expertiseOther = document.getElementById('expertiseOther').value.trim(); }
-  if (idx === 5) { const c = document.querySelector('#yearsGrid .choice.sel'); profile.yearsExperience = c ? c.dataset.val : ''; }
-  if (idx === 6) { const c = document.querySelector('#aiLevelGrid .choice.sel'); profile.aiLevel = c ? c.dataset.val : ''; }
-  if (idx === 7) profile.goals = [...document.querySelectorAll('#goalsGrid .choice.sel')].map(c => c.dataset.val);
-  if (idx === 8) { const c = document.querySelector('#hoursGrid .choice.sel'); profile.weeklyHours = c ? c.dataset.val : ''; }
-  if (idx === 10) profile.whyText = document.getElementById('whyText').value.trim();
-  if (idx === 11) { const c = document.querySelector('.webinar-opt.sel'); profile.webinarDate = c ? c.dataset.val : ''; }
+  // No name / email / password here — the account already exists. Per Dina: this
+  // flow reuses the identity from the normal sign up or an event registration.
+  if (idx === 1) profile.country = document.getElementById('country').value;
+  if (idx === 2) { profile.linkedin = document.getElementById('linkedin').value.trim(); profile.resume = document.getElementById('resumeFile').files[0] || null; }
+  if (idx === 3) { const c = document.querySelector('#expertiseGrid .choice.sel'); profile.expertise = c ? c.dataset.val : ''; profile.expertiseOther = document.getElementById('expertiseOther').value.trim(); }
+  if (idx === 4) { const c = document.querySelector('#yearsGrid .choice.sel'); profile.yearsExperience = c ? c.dataset.val : ''; }
+  if (idx === 5) { const c = document.querySelector('#aiLevelGrid .choice.sel'); profile.aiLevel = c ? c.dataset.val : ''; }
+  if (idx === 6) profile.goals = [...document.querySelectorAll('#goalsGrid .choice.sel')].map(c => c.dataset.val);
+  if (idx === 7) { const c = document.querySelector('#hoursGrid .choice.sel'); profile.weeklyHours = c ? c.dataset.val : ''; }
+  if (idx === 9) profile.whyText = document.getElementById('whyText').value.trim();
+  if (idx === 10) { const c = document.querySelector('.webinar-opt.sel'); profile.webinarDate = c ? c.dataset.val : ''; }
 }
 
 function finalise() {
