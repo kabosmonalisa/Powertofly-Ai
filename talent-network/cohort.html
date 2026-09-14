@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914p">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914s">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -103,7 +103,13 @@
    left on this page are the ones that send something. */
 .tal-actions { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
 .tal-actions .btn { padding-left: 18px; padding-right: 18px; }
-.tal-more { background: none; border: 0; cursor: pointer; font-family: inherit; padding: 0; }
+/* .ev-row-link is borrowed for its look (14px 600 accent, no box). It also carries
+   `.ev-listing--grid .ev-row-link { margin-top: auto }`, which exists to push the
+   link to the bottom of an event tile — inside this flex row that shoved it 13px
+   below the Select button. Neutralised here; the look is what we wanted, not the
+   tile layout. */
+.tal-actions .tal-more { background: none; border: 0; cursor: pointer; font-family: inherit; padding: 0; margin-top: 0; }
+/* two classes, so it outranks `.ev-listing--grid .ev-row-link { margin-top: auto }` */
 .tal-card--anon { cursor: default; }
 
 /* Picked state, built from what the system already has: the card's own elevation
@@ -503,20 +509,27 @@
 
     <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" id="needsForm" onsubmit="return sendNeeds()">
-      <div class="field"><label>What role are you trying to fill?</label><input type="text" placeholder="e.g. Staff PM, robotics platform" required></div>
-      <div class="field-row">
-        <div class="field">
-          <label>Engagement</label>
-          <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
-        </div>
-        <div class="field">
-          <label>Timeline</label>
-          <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
-        </div>
+      <!-- We already have the brief — it is what this batch was built from. Showing it
+           back and asking for the delta beats asking for the role from scratch, which
+           reads as though nobody was listening. Engagement and timeline stay editable
+           because those are the parts that genuinely move. -->
+      <div class="q-group">
+        <div class="q-label">What we built this batch from</div>
+        <p class="tal-count" style="white-space:normal;margin-bottom:14px">AI product manager · platform team · full-time · starting this quarter<!-- COPY: per cohort --></p>
       </div>
       <div class="field">
-        <label>What would make this hire a success?</label>
-        <textarea placeholder="The problem the person would own, the experience that matters, and anything this batch was missing." required></textarea>
+        <label>What was missing?</label>
+        <textarea placeholder="What these nine did not have, or what you would change about the brief above." required></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Engagement <span style="font-weight:500;color:var(--ink-3)">(if it has changed)</span></label>
+          <select><option value="" selected>Same as above</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
+        </div>
+        <div class="field">
+          <label>Timeline <span style="font-weight:500;color:var(--ink-3)">(if it has changed)</span></label>
+          <select><option value="" selected>Same as above</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
+        </div>
       </div>
       <button class="btn btn-primary btn-block" type="submit">Send my request →</button>
     </form>
@@ -613,7 +626,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914p"></script>
+<script src="../ds/ptf.js?v=20260914s"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
