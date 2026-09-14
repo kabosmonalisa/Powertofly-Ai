@@ -733,7 +733,60 @@ window.PTF = (function () {
     sweep();
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, initSteps, renderNav, renderFooter, LOGOS };
+
+  /* ──────────────────────────────────────────────────────────────────────────
+   * initModal()
+   * Opens/closes the shared .modal-scrim shell. Any element with
+   * data-modal="<scrim id>" opens it; the X, the scrim itself and Esc close it.
+   * Auto-runs on DOMContentLoaded, so a page only needs the markup.
+   * Scroll is locked while open, and focus returns to whatever opened it.
+   * ────────────────────────────────────────────────────────────────────────── */
+  function initModal() {
+    var scrims = document.querySelectorAll('.modal-scrim');
+    if (!scrims.length) return;
+    var lastTrigger = null;
+
+    function open(scrim, trigger) {
+      lastTrigger = trigger || null;
+      scrim.hidden = false;
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(function () { scrim.classList.add('is-open'); });
+      var first = scrim.querySelector('.modal-close');
+      if (first) first.focus();
+      scrim.dispatchEvent(new CustomEvent('modal:open', { bubbles: true }));
+    }
+    function close(scrim) {
+      scrim.classList.remove('is-open');
+      document.body.style.overflow = '';
+      window.setTimeout(function () { scrim.hidden = true; }, 180);
+      if (lastTrigger) { lastTrigger.focus(); lastTrigger = null; }
+      scrim.dispatchEvent(new CustomEvent('modal:close', { bubbles: true }));
+    }
+
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-modal]');
+      if (t) {
+        var scrim = document.getElementById(t.getAttribute('data-modal'));
+        if (scrim) { e.preventDefault(); open(scrim, t); }
+        return;
+      }
+      if (e.target.closest('.modal-close')) {
+        close(e.target.closest('.modal-scrim')); return;
+      }
+      // a click on the scrim itself (not inside the card) closes
+      if (e.target.classList && e.target.classList.contains('modal-scrim')) close(e.target);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var openScrim = document.querySelector('.modal-scrim.is-open');
+      if (openScrim) close(openScrim);
+    });
+
+    // expose so a page can open/close its own modal programmatically
+    PTF._modal = { open: open, close: close };
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, initSteps, initModal, renderNav, renderFooter, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -759,4 +812,5 @@ document.addEventListener('DOMContentLoaded', function () {
   PTF.initEventList();  // no-ops unless the page has a [data-ev-list] container
   PTF.initFaq();  // no-ops unless the page has a .faq-list container
   PTF.initSteps();  // no-ops unless the page has .step rows (how-it-works reveal)
+  PTF.initModal();  // no-ops unless the page has a .modal-scrim
 });

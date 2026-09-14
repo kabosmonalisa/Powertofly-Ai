@@ -169,6 +169,28 @@ Parts: `.agenda` (the `<ol>`) · `.agenda-note` (the "times shown in…" line ab
 </ol>
 ```
 
+## Modal (`.modal-*`)
+A dialog over a scrim, for a record that is too long for a card but does not deserve its own page. Promoted 2026-09-14: `plan-details/` and `profile-enrich/` had each hand-built one with *different* class names (`.modal`/`.modal-body`/`.modal-actions` vs `.modal-card`/`.modal-scroll`/`.modal-foot`), and the cohort page would have been the third. This is the merged shell — plan-details' naming, profile-enrich's head / scrolling body / pinned foot.
+
+Parts: `.modal-scrim` (the overlay; starts `hidden`, gets `.is-open`) · `.modal` (the card, 560px; `.modal-lg` = 920px) · `.modal-close` (X, top-right) · `.modal-head` · `.modal-body` (**this is what scrolls** — the modal never exceeds the viewport) · `.modal-foot` > `.modal-actions`. Under 640px it becomes a bottom sheet.
+
+Behavior: **`PTF.initModal()` auto-runs.** Any element with `data-modal="<scrim id>"` opens that modal; the X, a click on the scrim, and Esc all close it. Page scroll locks while open and focus returns to the trigger. A page needs markup only — no per-page open/close script.
+
+```html
+<button class="btn btn-sm" data-modal="profileModal">View profile →</button>
+
+<div class="modal-scrim" id="profileModal" hidden>
+  <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="pmName">
+    <button class="modal-close" type="button" aria-label="Close"><svg …/></button>
+    <div class="modal-head">…</div>
+    <div class="modal-body">…</div>
+    <div class="modal-foot"><div class="modal-actions">…</div></div>
+  </div>
+</div>
+```
+
+❗ Opening a modal is **reading, not choosing**. If the modal offers an action (pick, add, confirm), that action is an explicit button inside it — closing must never commit anything. Live example: `talent-network/cohort.html`.
+
 ## Speaker grid (`.speaker-*`)
 The wall of faces for an event with MANY speakers: headshot, name, role, **no bio**. 4-up → 3 ≤900px → 2 ≤640px. Square photos at `--r-2xl` (they are feature portraits). Built for Summit (16 speakers) 2026-09-08.
 

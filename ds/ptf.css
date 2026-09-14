@@ -1898,3 +1898,52 @@ img { display: block; max-width: 100%; }
 .speaker-role { font-size: 13.5px; line-height: 1.45; color: var(--ink-3); margin: 4px 0 0; }
 @media (max-width: 900px) { .speaker-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 640px) { .speaker-grid { grid-template-columns: repeat(2, 1fr); gap: 28px 16px; } }
+
+/* ═══ Modal — promoted 2026-09-14 ════════════════════════════════════════════
+   Two pages had each hand-built one (plan-details: .modal/.modal-body/
+   .modal-actions; profile-enrich: .modal-card/.modal-scroll/.modal-foot) with
+   different class names. The cohort page would have been the third. This is the
+   merged shell: plan-details' naming, profile-enrich's head / scrolling body /
+   pinned foot, which is what a long record needs.
+   Markup:
+     .modal-scrim[hidden] > .modal(.modal-lg) > .modal-close
+                                              > .modal-head
+                                              > .modal-body     (scrolls)
+                                              > .modal-foot > .modal-actions
+   Behaviour: PTF.initModal() auto-runs. Open with [data-modal="<id>"] on any
+   button; close via the X, the scrim, or Esc. Never taller than the viewport. */
+.modal-scrim {
+  position: fixed; inset: 0; z-index: 900; background: rgba(10,10,10,0.45);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; transition: opacity 180ms ease;
+}
+.modal-scrim.is-open { opacity: 1; }
+.modal {
+  position: relative; display: flex; flex-direction: column;
+  width: 100%; max-width: 560px; max-height: calc(100vh - 48px);
+  background: var(--surface); border-radius: var(--r-2xl);
+  box-shadow: 0 24px 64px rgba(10,10,10,0.28);
+  transform: scale(0.97); transition: transform 180ms ease;
+}
+.modal-scrim.is-open .modal { transform: scale(1); }
+.modal-lg { max-width: 920px; }
+.modal-head { padding: 34px 34px 0; }
+.modal-body { overflow-y: auto; padding: 22px 34px; }
+.modal-foot { padding: 18px 34px 22px; border-top: 1px solid var(--line); }
+.modal-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.modal-close {
+  position: absolute; top: 18px; right: 18px; z-index: 2;
+  width: 34px; height: 34px; border: 0; background: var(--surface); cursor: pointer;
+  color: var(--ink-3); border-radius: var(--r-pill);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 160ms ease, color 160ms ease;
+}
+.modal-close:hover { background: var(--surface-2); color: var(--ink); }
+.modal-close svg { width: 18px; height: 18px; fill: currentColor; }
+@media (max-width: 640px) {
+  .modal-scrim { padding: 0; align-items: flex-end; }
+  .modal, .modal-lg { max-width: none; max-height: 92vh; border-radius: var(--r-2xl) var(--r-2xl) 0 0; }
+  .modal-head { padding: 28px 22px 0; }
+  .modal-body { padding: 18px 22px; }
+  .modal-foot { padding: 16px 22px 20px; }
+}

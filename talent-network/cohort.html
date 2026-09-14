@@ -88,18 +88,30 @@
 /* ── The selectable variant: the whole card is the control (a <label> wrapping the
       shared .check-box). The tick sits over the photo, on a white disc so it reads
       against any image. ── */
-.tal-card--anon { position: relative; cursor: pointer; }
-/* Position only, plus a white ring so the tick reads against any photo. Do NOT
-   restyle the control itself — it is the shared .check-box and owns its own size,
-   radius (7px), border and green checked state. An earlier version set
-   border-radius: var(--r-sm) here, which silently made it 8px on this page only. */
-.tal-card--anon .check-box { position: absolute; top: 12px; right: 12px; z-index: 1;
-  box-shadow: 0 0 0 3px var(--bg); }
+.tal-card--anon { position: relative; }
+/* The pick control. Position only — it is the shared .check-box and owns its own
+   size, radius, border and green checked state. A soft shadow (not a solid ring)
+   lifts it off the photo without reading as a second border. */
+.tal-pick { position: absolute; top: 12px; right: 12px; z-index: 2; line-height: 0; cursor: pointer; }
+.tal-pick .check-box { box-shadow: 0 2px 10px rgba(10,10,10,0.35); }
+/* "View profile" sits at the foot of every card, so the row of cards ends on one
+   line and the action is discoverable rather than hidden behind a whole-card click. */
+.tal-more { margin-top: 14px; justify-content: center; }
+.tal-card--anon { cursor: default; }
 .tal-card--anon:has(.check-box:checked) { border-color: var(--ink); }
 /* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
    The 2026-09-14 copy handoff replaced codes with first name + last initial,
    so this is now a name and is set like one. */
 .tal-card-ref { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-3); margin-bottom: 6px; }
+
+
+/* Profile modal internals — layout only; type comes from .card-title and the
+   shared card classes. */
+.pm-top { display: flex; gap: 24px; align-items: flex-start; }
+.pm-photo { width: 168px; flex-shrink: 0; aspect-ratio: 5 / 4; border-radius: var(--r-xl); background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
+.pm-top h2 { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.03em; line-height: 1.1; color: var(--ink); margin-top: 6px; }
+.pm-text { font-size: 15.5px; line-height: 1.6; color: var(--ink-2); margin-top: 8px; }
+@media (max-width: 640px) { .pm-top { gap: 16px; } .pm-photo { width: 104px; } .pm-top h2 { font-size: 24px; } }
 
 /* ── Sticky shortlist bar — the system has no multi-select-then-act pattern (promote candidate).
       Hidden until something is selected, so it never covers the list for nothing. ── */
@@ -204,8 +216,8 @@
     <div class="tal-col">
       <div class="tal-grid" id="talGrid">
 
-        <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Priya S.">
+        <div class="tal-card tal-card--anon" data-avail="fulltime">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Priya S."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Priya S.</div>
             <div class="tal-card-name">Senior AI product manager</div>
@@ -213,11 +225,12 @@
             <p class="tal-card-sum">Took an LLM assistant from prototype to general availability, and built the eval process that let the team ship it safely. Off the clock, she's training for her fourth marathon, same discipline, different finish line.</p>
             <div class="sc-titles"><span class="sc-title-chip">Evals</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">Roadmap</span></div>
             <div class="tal-card-meta"><span>Western Europe</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$110/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Malik Q.">
+        <div class="tal-card tal-card--anon" data-avail="fulltime">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Malik Q."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Malik Q.</div>
             <div class="tal-card-name">Group product manager</div>
@@ -225,11 +238,12 @@
             <p class="tal-card-sum">Owns model and vendor selection across three product lines, including the cost case that made the switch defensible. Has visited 89 countries and counting, always chasing the next unfamiliar system to figure out.</p>
             <div class="sc-titles"><span class="sc-title-chip">Vendor strategy</span><span class="sc-title-chip">Cost modeling</span><span class="sc-title-chip">Platform</span></div>
             <div class="tal-card-meta"><span>US East</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$135/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Renata O.">
+        <div class="tal-card tal-card--anon" data-avail="fractional">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Renata O."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Renata O.</div>
             <div class="tal-card-name">AI product manager</div>
@@ -237,11 +251,12 @@
             <p class="tal-card-sum">Rebuilt retrieval and ranking for a multilingual consumer app, cutting empty-result searches by half. Grew up speaking three languages at home, which might explain why multilingual keeps showing up on her resume.</p>
             <div class="sc-titles"><span class="sc-title-chip">Search</span><span class="sc-title-chip">Multilingual</span><span class="sc-title-chip">Experimentation</span></div>
             <div class="tal-card-meta"><span>Latin America</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$85/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="project">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Tobias N.">
+        <div class="tal-card tal-card--anon" data-avail="project">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Tobias N."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
@@ -249,11 +264,12 @@
             <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight — model risk documentation, human review, and the audit trail behind both. Restores old motorcycles on weekends, another hobby that rewards getting the paperwork right.</p>
             <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
             <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Ishaan R.">
+        <div class="tal-card tal-card--anon" data-avail="fulltime">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Ishaan R."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Ishaan R.</div>
             <div class="tal-card-name">Product lead</div>
@@ -261,11 +277,12 @@
             <p class="tal-card-sum">Starts AI products from nothing: three launches in four years, two of which are still the team's main line of revenue. Took over a neglected allotment two years ago, which is also mostly the work of starting something from nothing.</p>
             <div class="sc-titles"><span class="sc-title-chip">0 → 1</span><span class="sc-title-chip">Marketplace</span><span class="sc-title-chip">Discovery</span></div>
             <div class="tal-card-meta"><span>South Asia</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$78/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Noor H.">
+        <div class="tal-card tal-card--anon" data-avail="fractional">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Noor H."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
@@ -273,11 +290,12 @@
             <p class="tal-card-sum">Builds the tooling other teams evaluate models with — pipelines, dashboards, and the definition of "good enough to ship". Builds modular synthesizers at home, where the interesting part is also the instrumentation.</p>
             <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
             <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Adaeze K.">
+        <div class="tal-card tal-card--anon" data-avail="fulltime">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Adaeze K."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Adaeze K.</div>
             <div class="tal-card-name">Director of product</div>
@@ -285,11 +303,12 @@
             <p class="tal-card-sum">Leads a product group building clinical decision tools, where the bar for a wrong answer is a clinical incident. Coaches a youth debate team, another setting where being confidently wrong has consequences.</p>
             <div class="sc-titles"><span class="sc-title-chip">Health data</span><span class="sc-title-chip">Safety</span><span class="sc-title-chip">Leadership</span></div>
             <div class="tal-card-meta"><span>West Africa</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$120/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="project">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Linh P.">
+        <div class="tal-card tal-card--anon" data-avail="project">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Linh P."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Linh P.</div>
             <div class="tal-card-name">Product operations lead</div>
@@ -297,11 +316,12 @@
             <p class="tal-card-sum">Runs annotation and data-quality operations at scale — the unglamorous work that decides whether a model is any good. Bakes on a strict schedule and has opinions about the value of unglamorous maintenance.</p>
             <div class="sc-titles"><span class="sc-title-chip">Annotation</span><span class="sc-title-chip">Data quality</span><span class="sc-title-chip">Vendor ops</span></div>
             <div class="tal-card-meta"><span>Southeast Asia</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$62/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
-        <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist Tomasz W.">
+        <div class="tal-card tal-card--anon" data-avail="fractional">
+          <label class="tal-pick"><input type="checkbox" class="check-box" aria-label="Shortlist Tomasz W."></label>
           <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Tomasz W.</div>
             <div class="tal-card-name">Founder · product</div>
@@ -309,8 +329,9 @@
             <p class="tal-card-sum">Built and sold an AI tooling company, and has been on both sides of the buy-or-build conversation you are probably having. Rebuilds vintage bicycles, and still cannot resist arguing for building over buying.</p>
             <div class="sc-titles"><span class="sc-title-chip">Dev tools</span><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">0 → 1</span></div>
             <div class="tal-card-meta"><span>Central Europe</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$140/hr</span></div>
+            <button type="button" class="btn btn-sm btn-block tal-more" data-modal="profileModal">View profile →</button>
           </div>
-        </label>
+        </div>
 
       </div>
     </div>
@@ -425,6 +446,55 @@
   <button class="btn btn-primary btn-sm" type="button" onclick="openRequest()">Request introductions →</button>
 </div>
 
+
+<!-- PROFILE MODAL — the shared .modal shell (ds/ptf.css, PTF.initModal). Filled
+     from whichever card was opened, so there is one modal, not nine. -->
+<div class="modal-scrim" id="profileModal" hidden>
+  <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="pmName">
+    <button class="modal-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+
+    <div class="modal-head">
+      <div class="pm-top">
+        <div class="pm-photo" id="pmPhoto"></div>
+        <div>
+          <div class="eyebrow" id="pmAvail">Full-time</div>
+          <h2 id="pmName">Name</h2>
+          <p class="cohort-meta" id="pmRole" style="margin-top:6px">Role</p>
+          <div class="tal-card-meta" id="pmMeta" style="border:0;padding:0;margin-top:12px"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <h3 class="card-title">What they have done</h3>
+      <p class="pm-text" id="pmWork"></p>
+
+      <h3 class="card-title" style="margin-top:26px">Away from work</h3>
+      <p class="pm-text" id="pmPersonal"></p>
+
+      <h3 class="card-title" style="margin-top:26px">Why we picked them for you</h3>
+      <!-- COPY: confirm — one line per person from the team who built the cohort.
+           Placeholder until Mara writes them; it is the only thing on the page that
+           shows the cohort was curated rather than filtered. -->
+      <p class="pm-text" id="pmWhy"></p>
+
+      <h3 class="card-title" style="margin-top:26px">Strengths</h3>
+      <div class="sc-titles" id="pmChips"></div>
+    </div>
+
+    <div class="modal-foot">
+      <div class="modal-actions">
+        <button class="btn btn-primary" type="button" id="pmPick">Add to shortlist</button>
+        <button class="btn btn-sm" type="button" id="pmPrev">← Previous</button>
+        <button class="btn btn-sm" type="button" id="pmNext">Next →</button>
+        <span class="tal-count" id="pmPos" style="margin-left:auto"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div data-ptf-footer></div>
 
 <script src="../ds/ptf.js"></script>
@@ -510,6 +580,82 @@
     document.getElementById('needs').scrollIntoView({ behavior: 'smooth', block: 'start' });
     return false;
   }
+
+
+  /* ── Profile modal ───────────────────────────────────────────────────────────
+        One modal, filled from whichever card opened it. Opening is READING, not
+        choosing: closing never picks anyone. The only way to pick is the tick on
+        the card or the button in here, and the two stay in sync. ── */
+  (function () {
+    var scrim = document.getElementById('profileModal');
+    if (!scrim) return;
+    var cards = [].slice.call(document.querySelectorAll('#talGrid .tal-card'));
+    var at = 0;
+
+    // COPY: confirm — one line per person, from the team who built the cohort.
+    var WHY = {
+      'Priya S.':  'You said the platform team needs someone who has taken an AI feature all the way to GA, not just to demo. She has, twice.',
+      'Malik Q.':  'You were weighing build versus buy on model infrastructure. He has made that call across three product lines and can show the cost case.',
+      'Renata O.': 'Your search quality problem is the one she solved at consumer scale, in more than one language.',
+      'Tobias N.': 'You mentioned the compliance review that slowed the last launch. He has shipped inside a regulator\'s line of sight and knows what the auditors ask for.',
+      'Ishaan R.': 'You need a first hire who can start something with no existing process around it. That is the only kind of work he has done.',
+      'Noor H.':   'Your team evaluates models by hand today. He builds the tooling that replaces that.',
+      'Adaeze K.': 'You wanted someone who has led a group, not just a product, in a domain where mistakes are expensive.',
+      'Linh P.':   'The data-quality work behind your model is the part nobody wants to own. She has run it at scale.',
+      'Tomasz W.': 'She has sat on both sides of the buy-or-build conversation you are having, and has no stake in either answer.'
+    };
+
+    function field(card, cls) { var e = card.querySelector(cls); return e ? e.textContent.trim() : ''; }
+
+    function fill(i) {
+      at = i;
+      var c = cards[i];
+      var name = field(c, '.tal-card-ref');
+      var sum  = field(c, '.tal-card-sum');
+      // the personal clause is the last sentence of the summary
+      var parts = sum.split(/(?<=\.)\s+/);
+      var personal = parts.length > 1 ? parts.pop() : '';
+      document.getElementById('pmPhoto').style.backgroundImage = c.querySelector('.tal-card-photo').style.backgroundImage;
+      document.getElementById('pmName').textContent = name;
+      document.getElementById('pmRole').textContent = field(c, '.tal-card-name') + ' · ' + field(c, '.tal-card-role');
+      document.getElementById('pmAvail').textContent = ({fulltime:'Full-time', fractional:'Fractional', project:'Project-based'})[c.dataset.avail] || '';
+      document.getElementById('pmWork').textContent = parts.join(' ');
+      document.getElementById('pmPersonal').textContent = personal || '—';
+      document.getElementById('pmWhy').textContent = WHY[name] || '';
+      document.getElementById('pmMeta').innerHTML = c.querySelector('.tal-card-meta').innerHTML;
+      document.getElementById('pmChips').innerHTML = c.querySelector('.sc-titles').innerHTML;
+      document.getElementById('pmPos').textContent = (i + 1) + ' of ' + cards.length;
+      syncPick();
+    }
+    function box(i) { return cards[i].querySelector('.check-box'); }
+    function syncPick() {
+      var on = box(at).checked;
+      var b = document.getElementById('pmPick');
+      b.textContent = on ? 'Added to shortlist ✓' : 'Add to shortlist';
+      b.classList.toggle('btn-primary', !on);
+    }
+
+    // open: remember which card, then fill
+    document.addEventListener('click', function (e) {
+      var t = e.target.closest('.tal-more');
+      if (!t) return;
+      fill(cards.indexOf(t.closest('.tal-card')));
+    });
+
+    document.getElementById('pmPick').addEventListener('click', function () {
+      var b = box(at); b.checked = !b.checked;
+      b.dispatchEvent(new Event('change', { bubbles: true }));
+      syncPick();
+    });
+    document.getElementById('pmPrev').addEventListener('click', function () { fill((at - 1 + cards.length) % cards.length); });
+    document.getElementById('pmNext').addEventListener('click', function () { fill((at + 1) % cards.length); });
+    // arrow keys move through the cohort while the modal is open
+    document.addEventListener('keydown', function (e) {
+      if (!scrim.classList.contains('is-open')) return;
+      if (e.key === 'ArrowLeft')  document.getElementById('pmPrev').click();
+      if (e.key === 'ArrowRight') document.getElementById('pmNext').click();
+    });
+  })();
 
   /* ── Availability filter — the shared .ev-filter chips over the card grid. ── */
   (function () {
