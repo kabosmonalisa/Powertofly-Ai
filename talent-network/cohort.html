@@ -98,24 +98,23 @@
 .tal-actions .btn { justify-content: center; padding-left: 10px; padding-right: 10px; }
 .tal-card--anon { cursor: default; }
 
-/* A picked card has to be obvious from across the grid: ink outline, a ring, and a
-   green check over the photo — not just a button label change. */
-.tal-card--anon.is-picked { border-color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
-.tal-card--anon.is-picked .tal-card-photo::after {
-  content: ''; position: absolute; top: 12px; right: 12px; width: 26px; height: 26px;
-  border-radius: var(--r-pill); background: var(--green-mid);
-  box-shadow: 0 2px 8px rgba(10,10,10,0.3);
+/* Picked state, built from what the system already has: the card's own elevation
+   (--shadow-card) and a .sc-badge.sc-badge-green chip. No ink ring, no hand-drawn
+   tick — an outline that heavy competes with the photograph, and the grid should
+   read as photographs first. The chip says "Selected" in words, which is plainer
+   than a bare check. */
+.tal-card--anon.is-picked { border-color: var(--line-2); box-shadow: var(--shadow-card); }
+.tal-badge-sel {
+  position: absolute; top: 12px; left: 12px; z-index: 1;
+  display: none; align-items: center; gap: 5px;
+  background: var(--green-mid); color: #0A2A1F;
 }
-.tal-card--anon.is-picked .tal-card-photo::before {
-  content: ''; position: absolute; z-index: 1; top: 20px; right: 22px;
-  width: 5px; height: 10px; border: solid #0A2A1F; border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-/* when picked, Select steps back to outlined so "Selected" reads as a state, not a
-   call to action — the dark fill belongs to the thing you have not done yet */
-.tal-pick[aria-pressed="true"] { background: var(--bg); color: var(--ink); border-color: var(--ink); }
-/* a picked card is outlined in ink, so the grid shows the choice at a glance */
-.tal-card--anon.is-picked { border-color: var(--ink); }
+.tal-card--anon.is-picked .tal-badge-sel { display: inline-flex; }
+.tal-badge-sel svg { width: 13px; height: 13px; fill: currentColor; }
+/* Picked: Select becomes quiet. The dark fill belongs to the action not yet taken. */
+.tal-pick[aria-pressed="true"] { background: var(--bg); color: var(--ink-3); border-color: var(--line-2); }
+.tal-pick[aria-pressed="true"]:hover { color: var(--ink); border-color: var(--ink); }
+
 /* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
    The 2026-09-14 copy handoff replaced codes with first name + last initial,
    so this is now a name and is set like one. */
@@ -261,7 +260,7 @@
       <div class="tal-grid" id="talGrid">
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Priya S.</div>
             <div class="tal-card-name">Senior AI product manager</div>
             <div class="tal-card-role">B2B SaaS · platform</div>
@@ -276,7 +275,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Malik Q.</div>
             <div class="tal-card-name">Group product manager</div>
             <div class="tal-card-role">AI infrastructure</div>
@@ -291,7 +290,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Renata O.</div>
             <div class="tal-card-name">AI product manager</div>
             <div class="tal-card-role">Consumer · search</div>
@@ -306,7 +305,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="project">
-          <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
             <div class="tal-card-role">Regulated fintech</div>
@@ -321,7 +320,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Ishaan R.</div>
             <div class="tal-card-name">Product lead</div>
             <div class="tal-card-role">Marketplace · 0 → 1</div>
@@ -336,7 +335,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
             <div class="tal-card-role">ML platform</div>
@@ -351,7 +350,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Adaeze K.</div>
             <div class="tal-card-name">Director of product</div>
             <div class="tal-card-role">Health data</div>
@@ -366,7 +365,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="project">
-          <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Linh P.</div>
             <div class="tal-card-name">Product operations lead</div>
             <div class="tal-card-role">Data quality</div>
@@ -381,7 +380,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
             <div class="tal-card-ref">Tomasz W.</div>
             <div class="tal-card-name">Founder · product</div>
             <div class="tal-card-role">AI developer tooling</div>
@@ -637,7 +636,7 @@
     window.setPicked = function (card, on) {
       var btn = card.querySelector('.tal-pick');
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      btn.textContent = on ? 'Selected ✓' : 'Select';
+      btn.textContent = on ? 'Selected' : 'Select';
       btn.classList.toggle('btn-primary', on);
       card.classList.toggle('is-picked', on);
       sync();
