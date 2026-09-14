@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914b">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914d">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -136,7 +136,10 @@
 /* Grid + shortlist rail. The rail is sticky so the choice stays in view while the
    grid scrolls. Below 1000px there is no room for it — it hides and the sticky
    bottom bar (.tn-shortlist) does the job instead. */
-.tal-layout { display: grid; grid-template-columns: 1fr 290px; gap: 32px; align-items: start; }
+.tal-layout { display: grid; grid-template-columns: 290px 1fr; gap: 32px; align-items: start; }
+/* rail first in the layout, but it comes after the grid in the DOM so the cards
+   stay the first thing read and the first thing reached by keyboard */
+.tal-rail { order: -1; }
 .tal-rail { position: sticky; top: 104px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 18px; }
 .rail-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
 .rail-badge { min-width: 24px; height: 24px; padding: 0 7px; border-radius: var(--r-pill); background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
@@ -574,7 +577,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914b"></script>
+<script src="../ds/ptf.js?v=20260914d"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 

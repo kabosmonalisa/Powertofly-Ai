@@ -1917,6 +1917,12 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: center; padding: 24px;
   opacity: 0; transition: opacity 180ms ease;
 }
+/* REQUIRED. `display: flex` above beats the browser's `[hidden] { display: none }`,
+   so without this a closed modal stays laid out — an invisible full-screen layer at
+   z-index 900 that swallows every click on the page behind it. Scripted .click()
+   still works (it skips hit-testing), so this fails silently in testing and only
+   shows up when a person uses a mouse. */
+.modal-scrim[hidden] { display: none; }
 .modal-scrim.is-open { opacity: 1; }
 .modal {
   position: relative; display: flex; flex-direction: column;
