@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914m">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914n">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -112,13 +112,17 @@
    read as photographs first. The chip says "Selected" in words, which is plainer
    than a bare check. */
 .tal-card--anon.is-picked { border-color: var(--line-2); box-shadow: var(--shadow-card); }
+/* A check bubble, nothing else — the card is already outlined and its button says
+   Selected, so the mark only has to be spottable across the grid. */
 .tal-badge-sel {
   position: absolute; top: 12px; left: 12px; z-index: 1;
-  display: none; align-items: center; gap: 5px;
+  display: none; align-items: center; justify-content: center;
+  width: 26px; height: 26px; border-radius: var(--r-pill);
   background: var(--green-mid); color: #0A2A1F;
+  box-shadow: 0 2px 8px rgba(10,10,10,0.28);
 }
 .tal-card--anon.is-picked .tal-badge-sel { display: inline-flex; }
-.tal-badge-sel svg { width: 13px; height: 13px; fill: currentColor; }
+.tal-badge-sel svg { width: 14px; height: 14px; fill: currentColor; }
 /* Picked: the outline fills with ink, so done reads as done next to an unpicked
    outlined Select without adding a dark button to every card up front. */
 .tal-pick[aria-pressed="true"] { background: var(--ink); color: var(--btn-fg); border-color: var(--ink); }
@@ -313,7 +317,7 @@
       <div class="tal-grid" id="talGrid">
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Priya S.</div>
             <div class="tal-card-name">Senior AI product manager</div>
             <div class="tal-card-role">B2B SaaS · platform</div>
@@ -328,7 +332,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Malik Q.</div>
             <div class="tal-card-name">Group product manager</div>
             <div class="tal-card-role">AI infrastructure</div>
@@ -343,7 +347,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Renata O.</div>
             <div class="tal-card-name">AI product manager</div>
             <div class="tal-card-role">Consumer · search</div>
@@ -358,7 +362,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="project">
-          <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
             <div class="tal-card-role">Regulated fintech</div>
@@ -373,7 +377,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Ishaan R.</div>
             <div class="tal-card-name">Product lead</div>
             <div class="tal-card-role">Marketplace · 0 → 1</div>
@@ -388,7 +392,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
             <div class="tal-card-role">ML platform</div>
@@ -403,7 +407,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fulltime">
-          <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Adaeze K.</div>
             <div class="tal-card-name">Director of product</div>
             <div class="tal-card-role">Health data</div>
@@ -418,7 +422,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="project">
-          <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Linh P.</div>
             <div class="tal-card-name">Product operations lead</div>
             <div class="tal-card-role">Data quality</div>
@@ -433,7 +437,7 @@
         </div>
 
         <div class="tal-card tal-card--anon" data-avail="fractional">
-          <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><span class="sc-badge sc-badge-green tal-badge-sel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Selected</span><div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><span class="tal-badge-sel" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span><div class="tal-card-body">
             <div class="tal-card-ref">Tomasz W.</div>
             <div class="tal-card-name">Founder · product</div>
             <div class="tal-card-role">AI developer tooling</div>
@@ -607,7 +611,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914m"></script>
+<script src="../ds/ptf.js?v=20260914n"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
