@@ -99,8 +99,8 @@
 .cl-speaker-bio { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 
 /* "More Chat & Learns" — hold head + tiles to the shared content column. */
-.ev-more { max-width: var(--content-body); margin: 0 auto; }
-.ev-more .ev-list .ev-row:last-child { border-bottom: none; }
+.ev-upnext { max-width: var(--content-body); margin: 0 auto; }
+.ev-upnext .ev-list .ev-row:last-child { border-bottom: none; }
 
 /* jump targets — offset for the fixed header */
 #covers, #speakers, #more { scroll-margin-top: 140px; }
@@ -110,7 +110,7 @@
 .eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: clLivePulse 1.6s ease-in-out infinite; }
 .eyebrow.is-past { color: var(--ink-3); }
 @keyframes clLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
-#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
+#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
 #devStates button:hover { background: rgba(255,255,255,0.12); }
 #devStates button.active { background: #fff; color: #0A0A0A; }
 #devStates button.active:hover { background: #fff; }
@@ -310,7 +310,7 @@
 
 <!-- 06. MORE CHAT & LEARNS — shared event tiles (static, no filter/pager) -->
 <section class="section" id="more">
-  <div class="ev-more">
+  <div class="ev-upnext">
   <div class="ev-head">
     <h2>More Chat &amp; Learns</h2>
     <a class="ev-head-link" href="../events/index.html">See all events →</a>
@@ -353,7 +353,7 @@
       <div class="ev-thumb"><img src="https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
     </article>
   </div>
-  </div><!-- /.ev-more -->
+  </div><!-- /.ev-upnext -->
 </section>
 
 <!-- 07. CLOSER — shared dark closer band -->
@@ -377,6 +377,10 @@
   <button type="button" data-state="upcoming">Upcoming</button>
   <button type="button" data-state="live">Live</button>
   <button type="button" data-state="past">Past</button>
+  <span style="width:1px;align-self:stretch;background:#2a2a2a;margin:0 4px"></span>
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 0">VIEWER</span>
+  <button type="button" data-viewer="guest">Not registered</button>
+  <button type="button" data-viewer="registered">Registered</button>
 </div>
 
 <script src="../ds/ptf.js"></script>
@@ -390,12 +394,15 @@
       upcoming: {
         dot: false, eyebrowCls: '', eyebrow: 'Chat &amp; Learn',
         cta1: { t: 'Register now →', href: '../event-common/index.html' },
+        cta1Registered: { t: "You're registered", href: '#' }, // no action to offer yet — state only
         alert: 'Chat &amp; Learn &nbsp;·&nbsp; Beyond the résumé &nbsp;·&nbsp; Aug 6',
-        alertCta: { t: 'Register now →', href: '../event-common/index.html' }
+        alertCta: { t: 'Register now →', href: '../event-common/index.html' },
+        alertCtaRegistered: null   // registered viewer: promo text only, no register button
       },
       live: {
         dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
         cta1: { t: 'Join now →', href: '#' },              // COPY: confirm live/join target
+        cta1Registered: { t: 'Already registered! Join now →', href: '#' }, // live + already-registered viewer
         alert: 'Live now &nbsp;·&nbsp; Beyond the résumé',
         alertCta: { t: 'Join now →', href: '#' }
       },
@@ -411,17 +418,31 @@
     var alertText = document.getElementById('alertText');
     var alertCta = document.getElementById('alertCta');
     var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
+    var vBtns = [].slice.call(document.querySelectorAll('#devStates [data-viewer]'));
+    var current = 'upcoming', viewer = 'guest';
     function apply(name) {
       var s = STATES[name]; if (!s) return;
+      current = name;
       eyebrow.className = 'eyebrow' + s.eyebrowCls;
       eyebrow.innerHTML = (s.dot === false ? '' : '<span class="dot' + s.dot + '"></span>') + s.eyebrow;
-      cta1.textContent = s.cta1.t; cta1.setAttribute('href', s.cta1.href);
+      // a registered viewer gets the state's registered CTA where one exists (live), otherwise the default
+      var c = (viewer === 'registered' && s.cta1Registered) ? s.cta1Registered : s.cta1;
+      cta1.textContent = c.t; cta1.setAttribute('href', c.href);
       if (alertText) alertText.innerHTML = s.alert;
-      if (alertCta) { alertCta.textContent = s.alertCta.t; alertCta.setAttribute('href', s.alertCta.href); }
+      // a null alertCtaRegistered means: registered viewer sees the promo text with no button
+      var ac = (viewer === 'registered' && 'alertCtaRegistered' in s) ? s.alertCtaRegistered : s.alertCta;
+      if (alertCta) {
+        alertCta.hidden = !ac;
+        if (ac) { alertCta.textContent = ac.t; alertCta.setAttribute('href', ac.href); }
+      }
       btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });
+      vBtns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-viewer') === viewer); });
     }
     btns.forEach(function (b) {
       b.addEventListener('click', function () { var n = b.getAttribute('data-state'); apply(n); history.replaceState(null, '', n === 'upcoming' ? location.pathname : '#' + n); });
+    });
+    vBtns.forEach(function (b) {
+      b.addEventListener('click', function () { viewer = b.getAttribute('data-viewer'); apply(current); });
     });
     var h = (location.hash || '').replace('#', '');
     apply(STATES[h] ? h : 'upcoming');
