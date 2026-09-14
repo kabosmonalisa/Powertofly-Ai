@@ -82,11 +82,15 @@
 .tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
 .tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
 
-/* ── The anonymized variant: no photo, a reference where the name goes, and the
-      whole card is the selection control (a <label> wrapping the shared .check-box). ── */
+/* Photo — copied VERBATIM from browse-talent/index.html (.tal-card-photo). */
+.tal-card-photo { position: relative; aspect-ratio: 5 / 4; background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
+
+/* ── The selectable variant: the whole card is the control (a <label> wrapping the
+      shared .check-box). The tick sits over the photo, on a white disc so it reads
+      against any image. ── */
 .tal-card--anon { position: relative; cursor: pointer; }
-.tal-card--anon .tal-card-body { padding-right: 52px; }
-.tal-card--anon .check-box { position: absolute; top: 16px; right: 16px; }
+.tal-card--anon .check-box { position: absolute; top: 12px; right: 12px; z-index: 1;
+  box-shadow: 0 0 0 3px var(--bg); border-radius: var(--r-sm); }
 .tal-card--anon:has(.check-box:checked) { border-color: var(--ink); }
 /* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
    The 2026-09-14 copy handoff replaced codes with first name + last initial,
@@ -192,7 +196,7 @@
          left edges on a wide screen. .card-title is the design system's sub-section
          scale, a step below the page h2. The privacy line sits under it because it
          describes THESE cards, not the cohort. -->
-    <h3 class="card-title">Anonymized profiles</h3>
+    <h3 class="card-title">Selected profiles</h3>
     <p class="tal-count" style="margin:6px 0 28px">Full names and other details are hidden until candidates agree to an introduction.</p>
 
     <div class="ev-controls">
@@ -210,7 +214,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
           <input type="checkbox" class="check-box" aria-label="Shortlist Priya S.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Priya S.</div>
             <div class="tal-card-name">Senior AI product manager</div>
             <div class="tal-card-role">B2B SaaS · platform</div>
@@ -222,7 +226,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
           <input type="checkbox" class="check-box" aria-label="Shortlist Malik Q.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Malik Q.</div>
             <div class="tal-card-name">Group product manager</div>
             <div class="tal-card-role">AI infrastructure</div>
@@ -234,7 +238,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
           <input type="checkbox" class="check-box" aria-label="Shortlist Renata O.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Renata O.</div>
             <div class="tal-card-name">AI product manager</div>
             <div class="tal-card-role">Consumer · search</div>
@@ -246,7 +250,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="project">
           <input type="checkbox" class="check-box" aria-label="Shortlist Tobias N.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
             <div class="tal-card-role">Regulated fintech</div>
@@ -258,7 +262,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
           <input type="checkbox" class="check-box" aria-label="Shortlist Ishaan R.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Ishaan R.</div>
             <div class="tal-card-name">Product lead</div>
             <div class="tal-card-role">Marketplace · 0 → 1</div>
@@ -270,7 +274,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
           <input type="checkbox" class="check-box" aria-label="Shortlist Noor H.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
             <div class="tal-card-role">ML platform</div>
@@ -282,7 +286,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
           <input type="checkbox" class="check-box" aria-label="Shortlist Adaeze K.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/03.back-lady-no-revisions-UhpAf0ySwuk-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Adaeze K.</div>
             <div class="tal-card-name">Director of product</div>
             <div class="tal-card-role">Health data</div>
@@ -294,7 +298,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="project">
           <input type="checkbox" class="check-box" aria-label="Shortlist Linh P.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Linh P.</div>
             <div class="tal-card-name">Product operations lead</div>
             <div class="tal-card-role">Data quality</div>
@@ -306,7 +310,7 @@
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
           <input type="checkbox" class="check-box" aria-label="Shortlist Tomasz W.">
-          <div class="tal-card-body">
+          <div class="tal-card-photo" style="background-image:url('../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg')"></div><div class="tal-card-body">
             <div class="tal-card-ref">Tomasz W.</div>
             <div class="tal-card-name">Founder · product</div>
             <div class="tal-card-role">AI developer tooling</div>
