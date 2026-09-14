@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914k">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914m">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -97,10 +97,13 @@
 /* Two actions at the foot of every card: Select (the choice) and See profile
    (reading). Equal width so neither reads as the default, and both are the shared
    .btn — Select flips to .btn-primary when it is on. */
-/* Two actions, NOT equal: Select is the decision (dark primary), See profile is
-   the secondary read (outlined). Select is also the wider of the two. */
-.tal-actions { display: grid; grid-template-columns: 1.15fr 1fr; gap: 8px; margin-top: 14px; }
-.tal-actions .btn { justify-content: center; padding-left: 10px; padding-right: 10px; }
+/* Three levels, not two boxes. Nine dark buttons in a grid is a wall of black, so
+   Select is the outlined secondary and See profile drops to a plain text link
+   (.ev-row-link — the system's existing in-card "read more"). The only dark fills
+   left on this page are the ones that send something. */
+.tal-actions { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.tal-actions .btn { padding-left: 18px; padding-right: 18px; }
+.tal-more { background: none; border: 0; cursor: pointer; font-family: inherit; padding: 0; }
 .tal-card--anon { cursor: default; }
 
 /* Picked state, built from what the system already has: the card's own elevation
@@ -116,15 +119,38 @@
 }
 .tal-card--anon.is-picked .tal-badge-sel { display: inline-flex; }
 .tal-badge-sel svg { width: 13px; height: 13px; fill: currentColor; }
-/* Picked: Select becomes quiet. The dark fill belongs to the action not yet taken. */
-.tal-pick[aria-pressed="true"] { background: var(--bg); color: var(--ink-3); border-color: var(--line-2); }
-.tal-pick[aria-pressed="true"]:hover { color: var(--ink); border-color: var(--ink); }
+/* Picked: the outline fills with ink, so done reads as done next to an unpicked
+   outlined Select without adding a dark button to every card up front. */
+.tal-pick[aria-pressed="true"] { background: var(--ink); color: var(--btn-fg); border-color: var(--ink); }
 
 /* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
    The 2026-09-14 copy handoff replaced codes with first name + last initial,
    so this is now a name and is set like one. */
 .tal-card-ref { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-3); margin-bottom: 6px; }
 
+
+
+/* Modal paging — round icon buttons on the scrim, either side of the card, so the
+   footer holds one decision instead of three competing buttons. Below 900px there
+   is no room beside the card, so they tuck into its bottom corners. */
+.pm-nav {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+  width: 46px; height: 46px; border: 0; border-radius: var(--r-pill);
+  background: var(--bg); color: var(--ink); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 20px rgba(10,10,10,0.28);
+  transition: transform 160ms ease, background 160ms ease;
+}
+.pm-nav:hover { background: var(--surface-2); transform: translateY(-50%) scale(1.06); }
+.pm-nav svg { width: 22px; height: 22px; fill: currentColor; }
+.pm-nav-prev { left: 26px; }
+.pm-nav-next { right: 26px; }
+@media (max-width: 900px) {
+  .pm-nav { top: auto; bottom: 18px; transform: none; width: 40px; height: 40px; }
+  .pm-nav:hover { transform: none; }
+  .pm-nav-prev { left: 22px; }
+  .pm-nav-next { left: 70px; right: auto; }
+}
 
 /* Profile modal internals — layout only; type comes from .card-title and the
    shared card classes. */
@@ -295,8 +321,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Evals</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">Roadmap</span></div>
             <div class="tal-card-meta"><span>Western Europe</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$110/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -310,8 +336,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Vendor strategy</span><span class="sc-title-chip">Cost modeling</span><span class="sc-title-chip">Platform</span></div>
             <div class="tal-card-meta"><span>US East</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$135/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -325,8 +351,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Search</span><span class="sc-title-chip">Multilingual</span><span class="sc-title-chip">Experimentation</span></div>
             <div class="tal-card-meta"><span>Latin America</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$85/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -340,8 +366,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
             <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -355,8 +381,8 @@
             <div class="sc-titles"><span class="sc-title-chip">0 → 1</span><span class="sc-title-chip">Marketplace</span><span class="sc-title-chip">Discovery</span></div>
             <div class="tal-card-meta"><span>South Asia</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$78/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -370,8 +396,8 @@
             <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
             <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -385,8 +411,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Health data</span><span class="sc-title-chip">Safety</span><span class="sc-title-chip">Leadership</span></div>
             <div class="tal-card-meta"><span>West Africa</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$120/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -400,8 +426,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Annotation</span><span class="sc-title-chip">Data quality</span><span class="sc-title-chip">Vendor ops</span></div>
             <div class="tal-card-meta"><span>Southeast Asia</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$62/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -415,8 +441,8 @@
             <div class="sc-titles"><span class="sc-title-chip">Dev tools</span><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">0 → 1</span></div>
             <div class="tal-card-meta"><span>Central Europe</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$140/hr</span></div>
             <div class="tal-actions">
-              <button type="button" class="btn btn-primary btn-sm tal-pick" aria-pressed="false">Select</button>
-              <button type="button" class="btn btn-sm tal-more" data-modal="profileModal">See profile</button>
+              <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
+              <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
             </div>
           </div>
         </div>
@@ -560,20 +586,28 @@
 
     <div class="modal-foot">
       <div class="modal-actions">
-        <button class="btn btn-primary" type="button" id="pmPick">Add to shortlist</button>
-        <button class="btn btn-sm" type="button" id="pmPrev">← Previous</button>
-        <button class="btn btn-sm" type="button" id="pmNext">Next →</button>
+        <!-- Same label as the card. One action, one word, wherever it appears. -->
+        <button class="btn btn-primary" type="button" id="pmPick">Select</button>
         <span class="tal-count" id="pmPos" style="margin-left:auto"></span>
       </div>
     </div>
   </div>
+
+  <!-- Paging sits either side of the record, not in the footer competing with the
+       one decision. Icon-only, plain ink per the icon rule (<40px = no gradient). -->
+  <button class="pm-nav pm-nav-prev" type="button" id="pmPrev" aria-label="Previous profile">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+  </button>
+  <button class="pm-nav pm-nav-next" type="button" id="pmNext" aria-label="Next profile">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+  </button>
 </div>
 
 
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914k"></script>
+<script src="../ds/ptf.js?v=20260914m"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
@@ -777,7 +811,7 @@
     function syncPick() {
       var on = window.isPicked(cards[at]);
       var b = document.getElementById('pmPick');
-      b.textContent = on ? 'Added to shortlist ✓' : 'Add to shortlist';
+      b.textContent = on ? 'Selected' : 'Select';
       b.classList.toggle('btn-primary', !on);
     }
 
