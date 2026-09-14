@@ -47,8 +47,8 @@
 /* ── Dashboard header meta line. Page-specific per COMPONENT-INVENTORY "Allowed
       page-specific CSS": tokens only, restyles no shared component.
       Nothing here sets a heading size — the page h2 takes the system's .ev-head
-      scale and the list title takes .card-title. The type ramp on this page is:
-        h2 clamp(26→38)  →  .card-title 20px  →  body 16px  →  .tal-count 13px
+      scale. The type ramp on this page is:
+        h2 clamp(26→38)  →  body 16px  →  .tal-count 13px
       all of which are design-system values; this rule only sets the ONE thing the
       system has no component for, a header meta line, and it sits at the DS body
       size rather than a hand-picked in-between number.
@@ -183,18 +183,10 @@
         <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
         <h2>Your AI Product cohort</h2>
         <p class="cohort-meta"><strong>9 selected profiles</strong> · Batch 1 · curated September 4, 2026</p>
+        <p class="tal-count" style="margin-top:6px">Full names and other details are hidden until candidates agree to an introduction.</p>
       </div>
     </div>
 
-    <!-- Title and note live INSIDE .ev-listing so they take its width
-         (max-width: var(--content-body), margin 0 auto) and line up with the grid.
-         As direct children of .section they only picked up --gutter, which put them
-         at 32px from the edge while the cards started at 200px — three different
-         left edges on a wide screen. .card-title is the design system's sub-section
-         scale, a step below the page h2. The privacy line sits under it because it
-         describes THESE cards, not the cohort. -->
-    <h3 class="card-title">Selected profiles</h3>
-    <p class="tal-count" style="margin:6px 0 28px">Full names and other details are hidden until candidates agree to an introduction.</p>
 
     <div class="ev-controls">
       <div class="ev-filter" id="cohortFilter">
