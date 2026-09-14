@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914s">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914t">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -198,6 +198,16 @@
 @media (max-width: 900px) {
   .tal-layout { grid-template-columns: 1fr; }
 }
+
+
+/* Brief form rhythm. .auth-form is a flex column with an 8px gap — right for one
+   field after another, wrong for everything. Two deliberate breaks:
+   the recap is what we already know, so it is separated from the questions by a
+   rule; and the submit is a decision, not another field, so it gets air. */
+#needsForm .q-group { padding-bottom: 20px; border-bottom: 1px solid var(--line); margin-bottom: 12px; }
+#needsForm .q-group .q-label { margin-bottom: 6px; }
+#needsForm .field-row { margin-top: 8px; }
+#needsForm button[type="submit"] { margin-top: 18px; }
 
 /* Fields inside the rail: narrower column, so tighter type and a short textarea. */
 .rail-field { margin-top: 16px; }
@@ -515,7 +525,7 @@
            because those are the parts that genuinely move. -->
       <div class="q-group">
         <div class="q-label">What we built this batch from</div>
-        <p class="tal-count" style="white-space:normal;margin-bottom:14px">AI product manager · platform team · full-time · starting this quarter<!-- COPY: per cohort --></p>
+        <p class="tal-count" style="white-space:normal">AI product manager · platform team · full-time · starting this quarter<!-- COPY: per cohort --></p>
       </div>
       <div class="field">
         <label>What was missing?</label>
@@ -626,7 +636,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914s"></script>
+<script src="../ds/ptf.js?v=20260914t"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
