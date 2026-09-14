@@ -90,6 +90,12 @@ body {
   line-height: 1.55;
 }
 img { display: block; max-width: 100%; }
+/* [hidden] must actually hide. Any component that sets `display` (flex/grid/block)
+   outranks the browser's `[hidden] { display: none }`, so hiding it in markup or JS
+   silently does nothing — it stays laid out and can even sit over the page and eat
+   clicks. Bitten twice: .modal-scrim (blocked every click on the cohort page) and
+   .auth-form (confirmation rendered underneath the form instead of replacing it). */
+[hidden] { display: none !important; }
 
 /* ===== Typography ===== */
 /* Hero headlines — two official sizes. Pick ONE per page; never hand-set a clamp. */
@@ -1917,12 +1923,7 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; justify-content: center; padding: 24px;
   opacity: 0; transition: opacity 180ms ease;
 }
-/* REQUIRED. `display: flex` above beats the browser's `[hidden] { display: none }`,
-   so without this a closed modal stays laid out — an invisible full-screen layer at
-   z-index 900 that swallows every click on the page behind it. Scripted .click()
-   still works (it skips hit-testing), so this fails silently in testing and only
-   shows up when a person uses a mouse. */
-.modal-scrim[hidden] { display: none; }
+/* see the global [hidden] rule at the top — it covers this */
 .modal-scrim.is-open { opacity: 1; }
 .modal {
   position: relative; display: flex; flex-direction: column;
