@@ -164,31 +164,28 @@
 <!-- Everything below is the dashboard — hidden until the gate is passed. -->
 <div id="dash" hidden>
 
-<!-- 01. DASHBOARD HEADER — a working header, NOT a marketing hero. No display-lg,
-     no hero-glow, no headline shouting the count: the count belongs on the list.
-     Left = whose cohort and when. Right = the one action that is not the list. -->
-<section class="section-tight">
-  <!-- .ev-head so the h2 picks up the design system's listing-head scale
-       (clamp 26→38px, Inter Tight, -0.03em). A bare <h2> outside .section-head /
-       .ev-head inherits no heading treatment at all — it was rendering at 24px with
-       letter-spacing:normal, which is why it read weak.
-       The count leads the meta: it is the fact the client came for, and it used to
-       sit grey and floated right of the filter row. No header action — the bail-out
-       ("no match in this batch") belongs AFTER the profiles. -->
-  <div class="ev-head">
-    <div class="cohort-id">
-      <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
-      <h2>Your AI Product cohort</h2>
-      <p class="cohort-meta"><strong>9 selected profiles</strong> · Batch 1 · curated September 4, 2026</p>
-    </div>
-  </div>
-</section>
-
 <!-- 02. THE PROFILES — on the soft tone so the white cards separate from the page.
      Colour sits on this section, which owns its own --section-y, so it never bleeds
      into the neutral gap between sections. -->
 <section class="section" id="profiles" style="background:var(--surface-2)">
   <div class="ev-listing ev-listing--grid">
+
+    <!-- 01. DASHBOARD HEADER — inside the grey band with the cards, not on a white
+         strip above it, so the whole dashboard reads as one surface. It sits inside
+         .ev-listing for the same reason the list title does: that wrapper carries
+         max-width var(--content-body), so the header, the title, the filter row and
+         the grid all share one left edge.
+         .ev-head gives the h2 the system's listing-head scale (clamp 26→38px); a
+         bare <h2> outside .section-head/.ev-head inherits no heading treatment.
+         The count leads the meta — it is the fact the client came for. -->
+    <div class="ev-head" style="margin-bottom:38px">
+      <div class="cohort-id">
+        <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
+        <h2>Your AI Product cohort</h2>
+        <p class="cohort-meta"><strong>9 selected profiles</strong> · Batch 1 · curated September 4, 2026</p>
+      </div>
+    </div>
+
     <!-- Title and note live INSIDE .ev-listing so they take its width
          (max-width: var(--content-body), margin 0 auto) and line up with the grid.
          As direct children of .section they only picked up --gutter, which put them
