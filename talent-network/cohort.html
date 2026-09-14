@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914j">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914k">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -57,7 +57,9 @@
       size rather than a hand-picked in-between number.
       ⚠️ PROMOTE CANDIDATE: any dashboard page needs a page-identity meta line. ── */
 .cohort-id { min-width: 0; }
-.cohort-meta { margin-top: 12px; font-size: 16px; line-height: 1.55; color: var(--ink-3); }
+/* 14px, not body 16px: this is a supporting line under the title, not prose. The
+   count stays ink + 600 so it is still the first thing read. */
+.cohort-meta { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
 .cohort-meta strong { color: var(--ink); font-weight: 600; }
 
 /* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
@@ -571,7 +573,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914j"></script>
+<script src="../ds/ptf.js?v=20260914k"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
