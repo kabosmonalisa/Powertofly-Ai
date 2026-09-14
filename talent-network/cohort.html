@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914n">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914p">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -115,7 +115,7 @@
 /* A check bubble, nothing else — the card is already outlined and its button says
    Selected, so the mark only has to be spottable across the grid. */
 .tal-badge-sel {
-  position: absolute; top: 12px; left: 12px; z-index: 1;
+  position: absolute; top: 12px; right: 12px; z-index: 1;
   display: none; align-items: center; justify-content: center;
   width: 26px; height: 26px; border-radius: var(--r-pill);
   background: var(--green-mid); color: #0A2A1F;
@@ -174,7 +174,9 @@
 .tal-rail { order: -1; }
 .tal-rail { position: sticky; top: 104px; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); padding: 18px; }
 .rail-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px; }
-.rail-badge { min-width: 24px; height: 24px; padding: 0 7px; border-radius: var(--r-pill); background: var(--ink); color: var(--bg); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
+/* green, same as the check bubble on a picked card — one colour means 'chosen'
+   everywhere on this page */
+.rail-badge { min-width: 24px; height: 24px; padding: 0 7px; border-radius: var(--r-pill); background: var(--green-mid); color: #0A2A1F; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; }
 .rail-row { display: flex; align-items: center; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
 .rail-thumb { width: 38px; height: 38px; flex-shrink: 0; border-radius: var(--r-md); background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
 .rail-text { min-width: 0; display: flex; flex-direction: column; }
@@ -611,7 +613,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914n"></script>
+<script src="../ds/ptf.js?v=20260914p"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
