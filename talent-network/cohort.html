@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914d">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914e">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -435,20 +435,13 @@
         <!-- filled from the ticked cards above -->
         <div class="event-list" id="shortlistList"></div>
       </div>
-      <div class="field"><label>What role are you hiring for?</label><input type="text" placeholder="e.g. Senior PM, robotics platform" required></div>
-      <div class="field-row">
-        <div class="field">
-          <label>Engagement</label>
-          <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
-        </div>
-        <div class="field">
-          <label>Timeline</label>
-          <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
-        </div>
-      </div>
+      <!-- No role / engagement / timeline here. This cohort was built from that brief,
+           so we already have it — asking again at the moment they pick someone says we
+           were not listening. Those fields live on the "no match" brief below, where we
+           genuinely do not know. All this step needs is who, and anything to pass on. -->
       <div class="field">
         <label>Anything you want us to pass on? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
-        <textarea placeholder="What the team is building, and what you would want to talk about on a first call."></textarea>
+        <textarea placeholder="What you would want to cover on a first call."></textarea>
       </div>
       <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>I understand PowerToFly makes the introduction, and I will not attempt to contact anyone in this cohort directly.</span></label>
       <button class="btn btn-primary btn-block" id="introBtn" type="submit" disabled>Send the request →</button>
@@ -577,7 +570,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914d"></script>
+<script src="../ds/ptf.js?v=20260914e"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
