@@ -6,9 +6,9 @@
 <title>Your AI Product cohort — PowerToFly AI</title>
 <!--
   ════════════════════════════════════════════════════════════════════════════
-  CLIENT COHORT PAGE — anonymized profiles, shortlist, request an introduction.
-  Reached from cohort-access.html. No dashboard in v1: the page does one job —
-  let a client decide who they want to meet, then hand that to our team.
+  CLIENT COHORT DASHBOARD — one page, not a flow: email gate, then the cohort
+  (profiles, shortlist, request an introduction, or send a brief when nobody fits).
+  cohort-access.html and request-intro.html are superseded by this page.
 
   Built from the shared design system:
   · nav + footer → injected (data-ptf-nav / data-ptf-footer)
@@ -22,7 +22,8 @@
      now its SECOND page, which by our own audit rule makes it a promote-to-
      system candidate, not a page style. The .tal-card--anon modifier (no photo,
      a reference instead of a name) is the anonymized variant the Talent Network
-     needs. Decide both before final UI.
+     needs. Cards now show first name + last initial (2026-09-14 copy handoff),
+     not an AP-0xx code. Decide both before final UI.
   2. .tn-shortlist — the sticky "3 selected → request introductions" bar. The
      system has no multi-select-then-act pattern at all.
   ════════════════════════════════════════════════════════════════════════════
@@ -87,7 +88,10 @@
 .tal-card--anon .tal-card-body { padding-right: 52px; }
 .tal-card--anon .check-box { position: absolute; top: 16px; right: 16px; }
 .tal-card--anon:has(.check-box:checked) { border-color: var(--ink); }
-.tal-card-ref { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 8px; }
+/* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
+   The 2026-09-14 copy handoff replaced codes with first name + last initial,
+   so this is now a name and is set like one. */
+.tal-card-ref { font-size: 13px; font-weight: 700; letter-spacing: -0.01em; color: var(--ink-3); margin-bottom: 6px; }
 
 /* ── Sticky shortlist bar — the system has no multi-select-then-act pattern (promote candidate).
       Hidden until something is selected, so it never covers the list for nothing. ── */
@@ -131,16 +135,23 @@
   <div class="section-narrow">
     <div class="section-head">
       <div class="eyebrow">Private cohort · Northwind Robotics</div>
-      <h2>Open your <em class="italic-plain">cohort.</em></h2>
+      <h2>Meet your <em class="italic-plain">cohort.</em></h2>
       <!-- No access code — Dina, 8 Sep. The private link IS the credential; the work
            email only confirms who is looking, so we know who saw the cohort. Asking
            people to copy a code out of an email was friction with no security gain. -->
-      <p>Confirm the work email your invitation was sent to. This is not an account — your invitation link is all you need.</p>
+      <p>Enter your work email to unlock the cohort we curated for you.</p>
     </div>
     <div class="auth-card" style="margin:0 auto">
     <form class="auth-form" onsubmit="return openCohort()">
-      <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
-      <button class="btn btn-primary btn-block" type="submit">Open the cohort →</button>
+      <div class="field">
+        <label>Work email</label>
+        <input type="email" id="gateEmail" placeholder="you@company.com" autocomplete="email" required>
+        <!-- Error state from the copy handoff. Every email opens the cohort in this
+             prototype (there is no invite list to check against), so the state is here
+             but not triggered by a guessed rule. Add ?error=1 to the URL to review it. -->
+        <div class="field-msg" id="gateError">Use the email your invitation was sent to. Can’t find it? <a href="mailto:hi@powertofly.com">Contact us</a></div>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">Unlock my cohort →</button>
     </form>
     </div>
   </div>
@@ -164,7 +175,7 @@
     <div class="cohort-id">
       <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
       <h2>Your AI Product cohort</h2>
-      <p class="cohort-meta"><strong>9 reviewed profiles</strong> · Batch 1 · prepared 4 September 2026</p>
+      <p class="cohort-meta"><strong>9 selected profiles</strong> · Batch 1 · curated September 4, 2026</p>
     </div>
   </div>
 </section>
@@ -182,7 +193,7 @@
          scale, a step below the page h2. The privacy line sits under it because it
          describes THESE cards, not the cohort. -->
     <h3 class="card-title">Anonymized profiles</h3>
-    <p class="tal-count" style="margin:6px 0 28px">Names and current employers stay hidden until the person agrees to an introduction.</p>
+    <p class="tal-count" style="margin:6px 0 28px">Full names and other details are hidden until candidates agree to an introduction.</p>
 
     <div class="ev-controls">
       <div class="ev-filter" id="cohortFilter">
@@ -198,108 +209,108 @@
       <div class="tal-grid" id="talGrid">
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-014">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Priya S.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-014</div>
+            <div class="tal-card-ref">Priya S.</div>
             <div class="tal-card-name">Senior AI product manager</div>
             <div class="tal-card-role">B2B SaaS · platform</div>
-            <p class="tal-card-sum">Took an LLM assistant from prototype to general availability, and built the eval process that let the team ship it safely.</p>
+            <p class="tal-card-sum">Took an LLM assistant from prototype to general availability, and built the eval process that let the team ship it safely. Off the clock, she's training for her fourth marathon, same discipline, different finish line.</p>
             <div class="sc-titles"><span class="sc-title-chip">Evals</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">Roadmap</span></div>
             <div class="tal-card-meta"><span>Western Europe</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$110/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-021">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Malik Q.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-021</div>
+            <div class="tal-card-ref">Malik Q.</div>
             <div class="tal-card-name">Group product manager</div>
             <div class="tal-card-role">AI infrastructure</div>
-            <p class="tal-card-sum">Owns model and vendor selection across three product lines, including the cost case that made the switch defensible.</p>
+            <p class="tal-card-sum">Owns model and vendor selection across three product lines, including the cost case that made the switch defensible. Has visited 89 countries and counting, always chasing the next unfamiliar system to figure out.</p>
             <div class="sc-titles"><span class="sc-title-chip">Vendor strategy</span><span class="sc-title-chip">Cost modeling</span><span class="sc-title-chip">Platform</span></div>
             <div class="tal-card-meta"><span>US East</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$135/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-007">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Renata O.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-007</div>
+            <div class="tal-card-ref">Renata O.</div>
             <div class="tal-card-name">AI product manager</div>
             <div class="tal-card-role">Consumer · search</div>
-            <p class="tal-card-sum">Rebuilt retrieval and ranking for a multilingual consumer app, cutting empty-result searches by half.</p>
+            <p class="tal-card-sum">Rebuilt retrieval and ranking for a multilingual consumer app, cutting empty-result searches by half. Grew up speaking three languages at home, which might explain why multilingual keeps showing up on her resume.</p>
             <div class="sc-titles"><span class="sc-title-chip">Search</span><span class="sc-title-chip">Multilingual</span><span class="sc-title-chip">Experimentation</span></div>
             <div class="tal-card-meta"><span>Latin America</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$85/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="project">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-033">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Tobias N.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-033</div>
+            <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
             <div class="tal-card-role">Regulated fintech</div>
-            <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight — model risk documentation, human review, and the audit trail behind both.</p>
+            <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight — model risk documentation, human review, and the audit trail behind both. Restores old motorcycles on weekends, another hobby that rewards getting the paperwork right.</p>
             <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
             <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-018">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Ishaan R.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-018</div>
+            <div class="tal-card-ref">Ishaan R.</div>
             <div class="tal-card-name">Product lead</div>
             <div class="tal-card-role">Marketplace · 0 → 1</div>
-            <p class="tal-card-sum">Starts AI products from nothing: three launches in four years, two of which are still the team's main line of revenue.</p>
+            <p class="tal-card-sum">Starts AI products from nothing: three launches in four years, two of which are still the team's main line of revenue. Took over a neglected allotment two years ago, which is also mostly the work of starting something from nothing.</p>
             <div class="sc-titles"><span class="sc-title-chip">0 → 1</span><span class="sc-title-chip">Marketplace</span><span class="sc-title-chip">Discovery</span></div>
             <div class="tal-card-meta"><span>South Asia</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$78/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-025">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Noor H.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-025</div>
+            <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
             <div class="tal-card-role">ML platform</div>
-            <p class="tal-card-sum">Builds the tooling other teams evaluate models with — pipelines, dashboards, and the definition of "good enough to ship".</p>
+            <p class="tal-card-sum">Builds the tooling other teams evaluate models with — pipelines, dashboards, and the definition of "good enough to ship". Builds modular synthesizers at home, where the interesting part is also the instrumentation.</p>
             <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
             <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fulltime">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-041">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Adaeze K.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-041</div>
+            <div class="tal-card-ref">Adaeze K.</div>
             <div class="tal-card-name">Director of product</div>
             <div class="tal-card-role">Health data</div>
-            <p class="tal-card-sum">Leads a product group building clinical decision tools, where the bar for a wrong answer is a clinical incident.</p>
+            <p class="tal-card-sum">Leads a product group building clinical decision tools, where the bar for a wrong answer is a clinical incident. Coaches a youth debate team, another setting where being confidently wrong has consequences.</p>
             <div class="sc-titles"><span class="sc-title-chip">Health data</span><span class="sc-title-chip">Safety</span><span class="sc-title-chip">Leadership</span></div>
             <div class="tal-card-meta"><span>West Africa</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$120/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="project">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-012">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Linh P.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-012</div>
+            <div class="tal-card-ref">Linh P.</div>
             <div class="tal-card-name">Product operations lead</div>
             <div class="tal-card-role">Data quality</div>
-            <p class="tal-card-sum">Runs annotation and data-quality operations at scale — the unglamorous work that decides whether a model is any good.</p>
+            <p class="tal-card-sum">Runs annotation and data-quality operations at scale — the unglamorous work that decides whether a model is any good. Bakes on a strict schedule and has opinions about the value of unglamorous maintenance.</p>
             <div class="sc-titles"><span class="sc-title-chip">Annotation</span><span class="sc-title-chip">Data quality</span><span class="sc-title-chip">Vendor ops</span></div>
             <div class="tal-card-meta"><span>Southeast Asia</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$62/hr</span></div>
           </div>
         </label>
 
         <label class="tal-card tal-card--anon" data-avail="fractional">
-          <input type="checkbox" class="check-box" aria-label="Shortlist AP-029">
+          <input type="checkbox" class="check-box" aria-label="Shortlist Tomasz W.">
           <div class="tal-card-body">
-            <div class="tal-card-ref">AP-029</div>
+            <div class="tal-card-ref">Tomasz W.</div>
             <div class="tal-card-name">Founder · product</div>
             <div class="tal-card-role">AI developer tooling</div>
-            <p class="tal-card-sum">Built and sold an AI tooling company, and has been on both sides of the buy-or-build conversation you are probably having.</p>
+            <p class="tal-card-sum">Built and sold an AI tooling company, and has been on both sides of the buy-or-build conversation you are probably having. Rebuilds vintage bicycles, and still cannot resist arguing for building over buying.</p>
             <div class="sc-titles"><span class="sc-title-chip">Dev tools</span><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">0 → 1</span></div>
             <div class="tal-card-meta"><span>Central Europe</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$140/hr</span></div>
           </div>
@@ -363,8 +374,8 @@
   <div class="section-narrow">
     <div class="section-head">
       <div class="eyebrow">No match in this batch?</div>
-      <h2>Tell us what you are actually <em class="italic-plain">looking for.</em></h2>
-      <p>A cohort is a snapshot of one batch. If the fit is not here, send us the brief and we will build the next cohort around it — usually within a week.<!-- COPY: confirm turnaround --></p>
+      <h2>Didn’t find who you were <em class="italic-plain">looking for?</em></h2>
+      <p>Give us more detail about what you’re looking for, and we’ll build the next batch around it.</p>
     </div>
 
     <div class="auth-card" style="margin:0 auto">
@@ -381,18 +392,18 @@
         </div>
       </div>
       <div class="field">
-        <label>What does good look like?</label>
+        <label>What would make this hire a success?</label>
         <textarea placeholder="The problem the person would own, the experience that matters, and anything this batch was missing." required></textarea>
       </div>
-      <button class="btn btn-primary btn-block" type="submit">Send the brief →</button>
+      <button class="btn btn-primary btn-block" type="submit">Send my request →</button>
     </form>
 
     </div>
     <div id="needsDone" hidden>
       <div class="section-head">
-        <div class="eyebrow">Brief received</div>
-        <h2>We have it.</h2>
-        <p>Your PowerToFly team will come back within one business day, and the next cohort will be built around this brief.</p>
+        <div class="eyebrow">Request received</div>
+        <h2>We’re on it.</h2>
+        <p>We’ll be in touch shortly. You can expect your next batch to be ready in about a week.</p>
       </div>
     </div>
   </div>
@@ -401,9 +412,9 @@
 <!-- 04. CLOSER -->
 <section class="section-cta">
   <div class="section-cta-inner">
-    <span class="eyebrow">Your PowerToFly team</span>
-    <h2>Questions about anyone here?</h2>
-    <p>The team who put this cohort together can talk you through any profile, including the parts we have hidden.</p>
+    <span class="eyebrow">Got questions?</span>
+    <h2>We’ll talk you through it.</h2>
+    <p>Set up a call with the team who hand-selected this cohort. They’ll walk you through anything, including the parts we’ve kept hidden.</p>
     <a href="../book/index.html" class="btn btn-cta">Book a call →</a>
   </div>
 </section>
@@ -476,6 +487,10 @@
   })();
 
   /* ── The three things a client does here, all on this page ── */
+  // Review hook for the error state above — not a validation rule.
+  if (new URLSearchParams(location.search).get('error') === '1') {
+    document.getElementById('gateError').classList.add('visible');
+  }
   function openCohort() {
     document.getElementById('gate').hidden = true;
     document.getElementById('dash').hidden = false;
