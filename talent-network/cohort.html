@@ -89,8 +89,12 @@
       shared .check-box). The tick sits over the photo, on a white disc so it reads
       against any image. ── */
 .tal-card--anon { position: relative; cursor: pointer; }
+/* Position only, plus a white ring so the tick reads against any photo. Do NOT
+   restyle the control itself — it is the shared .check-box and owns its own size,
+   radius (7px), border and green checked state. An earlier version set
+   border-radius: var(--r-sm) here, which silently made it 8px on this page only. */
 .tal-card--anon .check-box { position: absolute; top: 12px; right: 12px; z-index: 1;
-  box-shadow: 0 0 0 3px var(--bg); border-radius: var(--r-sm); }
+  box-shadow: 0 0 0 3px var(--bg); }
 .tal-card--anon:has(.check-box:checked) { border-color: var(--ink); }
 /* Was an anonymised code (AP-014) styled as a code: uppercase, letter-spaced.
    The 2026-09-14 copy handoff replaced codes with first name + last initial,
