@@ -438,15 +438,24 @@
       btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });
       vBtns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-viewer') === viewer); });
     }
+    function syncHash() {
+      var h = current + (viewer === 'registered' ? '-registered' : '');
+      history.replaceState(null, '', h === 'upcoming' ? location.pathname : '#' + h);
+    }
     btns.forEach(function (b) {
-      b.addEventListener('click', function () { var n = b.getAttribute('data-state'); apply(n); history.replaceState(null, '', n === 'upcoming' ? location.pathname : '#' + n); });
+      b.addEventListener('click', function () { apply(b.getAttribute('data-state')); syncHash(); });
     });
     vBtns.forEach(function (b) {
-      b.addEventListener('click', function () { viewer = b.getAttribute('data-viewer'); apply(current); });
+      b.addEventListener('click', function () { viewer = b.getAttribute('data-viewer'); apply(current); syncHash(); });
     });
-    var h = (location.hash || '').replace('#', '');
-    apply(STATES[h] ? h : 'upcoming');
-    window.addEventListener('hashchange', function () { var k = (location.hash || '').replace('#', ''); if (STATES[k]) apply(k); });
+    // hash carries both dials so a state is shareable: #live, #live-registered, #upcoming-registered …
+    function fromHash() {
+      var parts = (location.hash || '').replace('#', '').split('-');
+      if (parts[1] === 'registered' || parts[0] === 'registered') viewer = 'registered';
+      apply(STATES[parts[0]] ? parts[0] : 'upcoming');
+    }
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
   })();
 </script>
 </body>
