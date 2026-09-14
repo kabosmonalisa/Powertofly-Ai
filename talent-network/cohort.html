@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914i">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260914j">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -441,7 +441,7 @@
           <label>Anything to pass on? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
           <textarea rows="3" placeholder="What you would want to cover on a first call."></textarea>
         </div>
-        <label class="check-row agree-row rail-agree"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>PowerToFly makes the introduction. I will not contact anyone in this cohort directly.</span></label>
+        <label class="check-row agree-row rail-agree"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>We make the introduction. I will not contact them directly.</span></label>
         <button class="btn btn-primary btn-block" id="introBtn" type="submit" disabled>Send the request →</button>
       </form>
 
@@ -571,7 +571,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914i"></script>
+<script src="../ds/ptf.js?v=20260914j"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
