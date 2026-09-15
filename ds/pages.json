@@ -252,6 +252,14 @@
    "desc": "The talent join/signup flow — one question per screen, keyboard-driven. It lives ONLY in the separate Powertofly-Ai-Talents repo; the local mirror was deleted on 2026-09-09 so the two copies could not drift. This embeds the published page, so edits show up here once they are pushed."
   },
   {
+   "id": "flow-talents-join-v2",
+   "name": "Talents join (v2)",
+   "file": "https://kabosmonalisa.github.io/Powertofly-Ai-Talents/join-v2.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "Registration flow rebuilt from Fran Griffin's review (2026-09-15): required LinkedIn + résumé, roles, five-level AI experience, conditional AI areas / hours / availability, per-language proficiency, review-and-submit with consent. No onboarding webinar. v1 is 'Talents join'. Parsing and data-use wording pending Dina."
+  },
+  {
    "id": "slides-salesdeck",
    "name": "Slide templates",
    "file": "decks/preview.html",
