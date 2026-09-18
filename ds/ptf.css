@@ -1935,6 +1935,11 @@ img { display: block; max-width: 100%; }
 .modal-scrim.is-open .modal { transform: scale(1); }
 .modal-lg { max-width: 920px; }
 .modal-head { padding: 34px 34px 0; }
+/* The close button is absolutely positioned over the card, so a head that
+   sits under it must keep its right edge clear — otherwise a two-line
+   heading runs straight into the X (bit us at 375px). Only applies when the
+   X is a SIBLING of the head; modals that nest it inside are unaffected. */
+.modal-close + .modal-head { padding-right: 62px; }
 .modal-body { overflow-y: auto; padding: 22px 34px; }
 .modal-foot { padding: 18px 34px 22px; border-top: 1px solid var(--line); }
 .modal-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
