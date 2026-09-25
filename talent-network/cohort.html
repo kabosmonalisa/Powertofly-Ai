@@ -37,7 +37,7 @@
 <!-- ?v= is a cache-buster. Without it browsers hold an old ptf.css/ptf.js and the
      page silently loses whatever was added most recently — selection styling and
      the modal both disappeared this way. Bump on any ds/ change this page needs. -->
-<link rel="stylesheet" href="../ds/ptf.css?v=20260914u">
+<link rel="stylesheet" href="../ds/ptf.css?v=20260925a">
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
@@ -388,7 +388,7 @@
             <div class="tal-card-ref">Tobias N.</div>
             <div class="tal-card-name">Principal product manager</div>
             <div class="tal-card-role">Regulated fintech</div>
-            <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight — model risk documentation, human review, and the audit trail behind both. Restores old motorcycles on weekends, another hobby that rewards getting the paperwork right.</p>
+            <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight: model risk documentation, human review, and the audit trail behind both. Restores old motorcycles on weekends, another hobby that rewards getting the paperwork right.</p>
             <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
             <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
             <div class="tal-actions">
@@ -418,7 +418,7 @@
             <div class="tal-card-ref">Noor H.</div>
             <div class="tal-card-name">Technical product manager</div>
             <div class="tal-card-role">ML platform</div>
-            <p class="tal-card-sum">Builds the tooling other teams evaluate models with — pipelines, dashboards, and the definition of "good enough to ship". Builds modular synthesizers at home, where the interesting part is also the instrumentation.</p>
+            <p class="tal-card-sum">Builds the tooling other teams evaluate models with: pipelines, dashboards, and the definition of "good enough to ship". Builds modular synthesizers at home, where the interesting part is also the instrumentation.</p>
             <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
             <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
             <div class="tal-actions">
@@ -492,11 +492,11 @@
            No role / engagement / timeline — this cohort was built from that brief. -->
       <form class="auth-form" id="introForm" onsubmit="return sendIntro()">
         <div class="field rail-field">
-          <label>Anything to pass on? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
-          <textarea rows="3" placeholder="What you would want to cover on a first call."></textarea>
+          <label>Any notes? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
+          <textarea rows="3" placeholder="Is there anything we or the candidate should know before we connect you?"></textarea>
         </div>
-        <label class="check-row agree-row rail-agree"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>We make the introduction. I will not contact them directly.</span></label>
-        <button class="btn btn-primary btn-block" id="introBtn" type="submit" disabled>Send the request →</button>
+        <label class="check-row agree-row rail-agree"><input type="checkbox" class="check-box" id="agreeIntro" onchange="document.getElementById('introBtn').disabled=!this.checked"><span>I agree not to contact candidates directly until PowerToFly makes the introduction.</span></label>
+        <button class="btn btn-primary btn-block" id="introBtn" type="submit" disabled>Submit intro request →</button>
       </form>
 
       <div id="introDone" hidden>
@@ -640,7 +640,7 @@
 
 <div data-ptf-footer></div>
 
-<script src="../ds/ptf.js?v=20260914u"></script>
+<script src="../ds/ptf.js?v=20260925a"></script>
 <script>
   PTF.initHeader();  // fixed nav offset
 
@@ -809,9 +809,9 @@
     // COPY: confirm — one line per person, from the team who built the cohort.
     var WHY = {
       'Priya S.':  'You said the platform team needs someone who has taken an AI feature all the way to GA, not just to demo. She has, twice.',
-      'Malik Q.':  'You were weighing build versus buy on model infrastructure. He has made that call across three product lines and can show the cost case.',
-      'Renata O.': 'Your search quality problem is the one she solved at consumer scale, in more than one language.',
-      'Tobias N.': 'You mentioned the compliance review that slowed the last launch. He has shipped inside a regulator\'s line of sight and knows what the auditors ask for.',
+      'Malik Q.':  'You said you needed someone who\'s actually led a vendor switch, not just evaluated options on paper. Malik has, and he can show you the cost model that got leadership to sign off.',
+      'Renata O.': 'You said search quality in your non-English markets is where things break down. Renata\'s already solved exactly that, and cut empty results in half doing it.',
+      'Tobias N.': 'You said whoever owns this needs to survive an audit, not just a demo. Tobias has built the documentation and review process regulators actually sign off on.',
       'Ishaan R.': 'You need a first hire who can start something with no existing process around it. That is the only kind of work he has done.',
       'Noor H.':   'Your team evaluates models by hand today. He builds the tooling that replaces that.',
       'Adaeze K.': 'You wanted someone who has led a group, not just a product, in a domain where mistakes are expensive.',
