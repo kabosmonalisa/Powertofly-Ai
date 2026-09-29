@@ -970,6 +970,13 @@ h1.hero-headline {
 .logo-row-static-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 28px 56px; margin-top: 20px; }
 .logo-row-static .fh-logo-img { height: 30px; width: 130px; object-fit: contain; }  /* fixed box so wide + square marks read the same size */
 
+
+/* Hire: the animated candidate card sits over the photo, where the static person card was (layout only) */
+.sc-right-hire .sci { position: absolute; left: 28px; bottom: 28px; width: min(260px, calc(100% - 56px)); }
+@media (max-width: 600px) {
+  .sc-right-hire { height: 460px !important; }   /* taller than the shared 300px so the face stays visible above the card */
+  .sc-right-hire .sci { left: 16px; top: 16px; bottom: auto; width: calc(100% - 32px); }  /* card on top; her face sits low in the photo */
+}
 /* Nav + mega-flyout + overlay styles all come from ds/ptf.css (no inline duplicate). */
 </style>
 </head>
@@ -1040,8 +1047,8 @@ h1.hero-headline {
               <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
             </div>
             <div class="cta-actions fh-card-actions">
-              <a href="../book/" class="fh-cta">Book a call →</a>
-              <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn">Post a job →</a>
+              <a href="../book/" class="fh-cta">Book a call</a>
+              <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn">Post a job</a>
             </div>
           </div>
         </div>
@@ -1081,14 +1088,14 @@ h1.hero-headline {
         </div>
         <div class="sc-right sc-right-hire">
           <img class="sc-photo" src="https://images.unsplash.com/photo-1765648496288-e1760f547711?w=800&h=1000&fit=crop&crop=top&q=80" alt="Sofia M. — AI Application Engineer">
-          <div class="sc-person-card">
-            <div class="sc-person-name">Sofia M.</div>
-            <div class="sc-person-role">AI Application Engineer</div>
-            <hr class="sc-person-sep">
-            <div class="sc-person-verify">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-              GitHub verified
-              <span class="sc-verify-dot"><svg width="8" height="8" viewBox="0 0 12 12"><path d="M2.5 6.5l2.5 2.5L9.5 4" stroke="#0A8C66" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <!-- Animated candidate card over the photo: shared .sci kit, driven by PTF.initIllustrations() -->
+          <div class="sci sci-card" data-sci-hold="1300">
+            <div class="sci-card-hd"><div><div class="sci-card-title">Sofia M.</div><div class="sci-card-sub">AI application engineer</div></div></div>
+            <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+            <div class="sci-rows">
+              <div class="sci-row" data-sci-step="1">GitHub verified <span class="sci-chip" data-sci-step="1">Verified</span></div>
+              <div class="sci-row" data-sci-step="2">Healthcare AI experience <span class="sci-chip" data-sci-step="2">Match</span></div>
+              <div class="sci-row" data-sci-step="3">Intro call <span class="sci-chip" data-sci-step="3">Booked</span></div>
             </div>
           </div>
         </div>
@@ -1110,47 +1117,25 @@ h1.hero-headline {
           <a href="../train/" class="sc-more">Explore model training →</a>
         </div>
         <div class="sc-right sc-right-train">
+          <!-- Animated project list: shared .sci kit — each project gets approved in turn, then the expert team shows -->
           <div class="sc-mock-wrap">
-            <div class="sc-mock-stack">
-              <div class="sc-mock-peek-card"></div>
-              <div class="sc-mock">
-                <div class="sc-mock-hd">
-                  <div class="sc-mock-icon-box">
-                    <svg width="14" height="14" viewBox="0 0 16 16" fill="#0A8C66" aria-hidden="true"><path d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"/></svg>
-                  </div>
-                  <span class="sc-mock-title">Active AI projects</span>
-                </div>
-                <div class="sc-mock-sub">4 specialists engaged</div>
-                <hr class="sc-mock-hr">
-                <div class="sc-mock-rows">
-                  <div class="sc-mock-row">
-                    <span class="sc-mock-row-lbl">RAG eval rubric</span>
-                    <span class="sc-badge sc-badge-green">In review</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                  <div class="sc-mock-row active">
-                    <span class="sc-mock-row-lbl">Fine-tuning dataset curation</span>
-                    <span class="sc-badge sc-badge-amber">In progress</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                  <div class="sc-mock-row">
-                    <span class="sc-mock-row-lbl">Agent harness build</span>
-                    <span class="sc-badge sc-badge-gray">Kickoff</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                  <div class="sc-mock-row">
-                    <span class="sc-mock-row-lbl">LLM observability setup</span>
-                    <span class="sc-badge sc-badge-gray">Scoping</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                </div>
+            <div class="sci sci-card" data-sci-hold="1300" style="width:100%;max-width:360px">
+              <div class="sci-card-hd"><div><div class="sci-card-title">Active AI projects</div><div class="sci-card-sub">4 specialists engaged</div></div></div>
+              <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+              <div class="sci-rows">
+                <div class="sci-row" data-sci-step="1">RAG eval rubric <span class="sci-chip" data-sci-step="1">Approved</span></div>
+                <div class="sci-row" data-sci-step="2">Fine-tuning dataset curation <span class="sci-chip" data-sci-step="2">Approved</span></div>
+                <div class="sci-row" data-sci-step="3">Red-team pass <span class="sci-chip" data-sci-step="3">Approved</span></div>
+              </div>
+              <div class="sci-reveal" data-sci-step="3">
+                <div class="sci-avatars" style="margin-top:14px"><span class="sci-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=80&h=80&fit=crop&crop=faces" alt=""></span><span class="sci-av"><img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?w=80&h=80&fit=crop&crop=faces" alt=""></span><span class="sci-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=faces" alt=""></span><span class="sci-av"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=80&h=80&fit=crop&crop=faces" alt=""></span><span class="sci-av-lbl">Reviewed by domain experts</span></div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 03 — POST A JOB (visual = the same .sc-mock card as Train, showing a live posting) -->
+      <!-- 03 — POST A JOB -->
       <div class="expert-row">
         <div class="sc-left">
           <span class="sc-tag">03 · Post a job</span>
@@ -1169,7 +1154,7 @@ h1.hero-headline {
                 <div class="sci-row">Senior ML engineer · Remote, US</div>
                 <div class="sci-row" data-sci-step="1">$499/month · cancel anytime <span class="sci-chip" data-sci-step="1">Selected</span></div>
                 <div class="sci-row" data-sci-step="2">Send applicants to your ATS <span class="sci-chip" data-sci-step="2">On</span></div>
-                <div class="sci-row" data-sci-step="3">Publish job → <span class="sci-chip" data-sci-step="3">Live</span></div>
+                <div class="sci-row" data-sci-step="3">Publish job <span class="sci-chip" data-sci-step="3">Live</span></div>
               </div>
               <div class="sci-reveal" data-sci-step="3">
                 <div class="sci-avatars" style="margin-top:14px"><span class="sci-av"><img src="photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg" alt=""></span><span class="sci-av"><img src="photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt=""></span><span class="sci-av"><img src="photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt=""></span><span class="sci-av"><img src="photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt=""></span><span class="sci-av-lbl">New applicants, straight to your ATS</span></div>
@@ -1343,8 +1328,8 @@ h1.hero-headline {
     <h2>Let's find the people your AI needs.</h2>
     <p>Spend 30 minutes with a team that's been connecting companies with hard-to-find experts for 12+ years.</p>
     <div class="cta-actions">
-      <a href="../book/" class="btn-cta">Book a call →</a>
-      <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn-ghost-dark">Post a job →</a>
+      <a href="../book/" class="btn-cta">Book a call</a>
+      <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn-ghost-dark">Post a job</a>
     </div>
   </div>
 </section>
