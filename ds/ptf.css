@@ -1579,6 +1579,12 @@ img { display: block; max-width: 100%; }
   padding: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 .logo-tile img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .logo-tile--count { padding: 0; font-size: 11px; font-weight: 700; color: var(--ink-3); background: var(--bg-soft); box-shadow: none; }
+/* Size modifier — a brand mark standing alone on a hero image, not one of a row of logos.
+   32px is right for a cluster in a card; on a 540px+ feature image it disappears. The plate is
+   WIDTH-FLEXIBLE here, unlike the fixed square of a cluster: a square tile sizes a wordmark by
+   its width, so "zapier" lands ~9px tall and still reads as missing. Height is what's fixed, so
+   every logo — square mark or long wordmark — gets the same optical weight. */
+.logo-tile--lg { width: auto; min-width: 56px; height: 56px; padding: 11px 16px; border-radius: var(--r-md); }
 
 /* Infinite-scroll mimic on the confirmation cards: first 6 show, the rest reveal on scroll.
    The revealed cards fade + rise + settle from a slight scale, STAGGERED so the cascade
