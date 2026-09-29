@@ -1159,35 +1159,20 @@ h1.hero-headline {
           <a href="https://powertofly.com/common/products/job-board/subscribe" class="sc-more">Post a job →</a>
         </div>
         <div class="sc-right sc-right-consult">
+          <!-- Post-a-job flow: shared .sci illustration kit (ds/ptf.css), driven by PTF.initIllustrations().
+               Cursor picks the plan → turns on ATS sync → publishes → applicants arrive. -->
           <div class="sc-mock-wrap">
-            <div class="sc-mock-stack">
-              <div class="sc-mock-peek-card"></div>
-              <div class="sc-mock">
-                <div class="sc-mock-hd">
-                  <div class="sc-mock-icon-box">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#0A8C66" aria-hidden="true"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.990.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
-                  </div>
-                  <span class="sc-mock-title">Senior ML engineer</span>
-                </div>
-                <div class="sc-mock-sub">Live on the job board · synced to your ATS</div>
-                <hr class="sc-mock-hr">
-                <div class="sc-mock-rows">
-                  <div class="sc-mock-row active">
-                    <span class="sc-mock-row-lbl">New applicant, healthcare ML</span>
-                    <span class="sc-badge sc-badge-green">In ATS</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                  <div class="sc-mock-row">
-                    <span class="sc-mock-row-lbl">New applicant, MLOps lead</span>
-                    <span class="sc-badge sc-badge-green">In ATS</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                  <div class="sc-mock-row">
-                    <span class="sc-mock-row-lbl">New applicant, applied scientist</span>
-                    <span class="sc-badge sc-badge-amber">Screening</span>
-                    <div class="sc-row-av"><img src="https://images.unsplash.com/photo-1551836022-deb4988cc6c0?w=40&h=40&fit=crop&crop=faces" alt=""></div>
-                  </div>
-                </div>
+            <div class="sci sci-card" data-sci-hold="1300" style="width:100%;max-width:360px">
+              <div class="sci-card-hd"><div><div class="sci-card-title">Post a job</div><div class="sci-card-sub">PowerToFly job board</div></div></div>
+              <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+              <div class="sci-rows">
+                <div class="sci-row">Senior ML engineer · Remote, US</div>
+                <div class="sci-row" data-sci-step="1">$499/month · cancel anytime <span class="sci-chip" data-sci-step="1">Selected</span></div>
+                <div class="sci-row" data-sci-step="2">Send applicants to your ATS <span class="sci-chip" data-sci-step="2">On</span></div>
+                <div class="sci-row" data-sci-step="3">Publish job → <span class="sci-chip" data-sci-step="3">Live</span></div>
+              </div>
+              <div class="sci-reveal" data-sci-step="3">
+                <div class="sci-avatars" style="margin-top:14px"><span class="sci-av"><img src="photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg" alt=""></span><span class="sci-av"><img src="photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt=""></span><span class="sci-av"><img src="photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt=""></span><span class="sci-av"><img src="photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt=""></span><span class="sci-av-lbl">New applicants, straight to your ATS</span></div>
               </div>
             </div>
           </div>
