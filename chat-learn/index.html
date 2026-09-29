@@ -198,7 +198,7 @@
 
       <div class="ev-hero-ctas">
         <a class="btn btn-primary" id="heroCta1" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
-        <a class="btn" href="#speakers">Meet the speaker</a><!-- state-agnostic -->
+        <a class="btn" id="heroCta2" href="#speakers">Meet the speaker</a><!-- state-agnostic; pluralized by the speaker renderer -->
       </div>
     </div>
 
@@ -282,20 +282,11 @@
 <section class="section" id="speakers" style="background: var(--bg)">
   <div class="cl-copy">
     <div class="section-head" style="text-align:left; margin:0 0 36px">
-      <h2>Meet the speaker</h2>
+      <h2 id="speakersHeading">Meet the speaker</h2>
     </div>
   </div>
-  <div class="cl-speakers">
-    <!-- COPY: confirm — speaker photo -->
-    <div class="cl-speaker">
-      <img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=31" alt="" loading="lazy">
-      <div class="cl-speaker-body">
-        <h3 class="cl-speaker-name">Colette Hart</h3>
-        <p class="cl-speaker-role">Co-founder &amp; CEO, Idonea</p>
-        <p class="cl-speaker-bio">Colette is a human-centered AI systems architect with nearly 30 years of experience across UX, product design, and digital strategy. At Idonea, she's building AI designed to reveal real capability — not just keywords and credentials — while keeping people in control of their own information every step of the way.</p>
-      </div>
-    </div>
-  </div>
+  <!-- bios — rendered from the same list as the hero stack, so the SPEAKERS dial moves both -->
+  <div class="cl-speakers" id="speakerBios"></div>
 </section>
 
 <!-- 05. ABOUT POWERTOFLY — editorial header + shared stat-card grid (identical to summit/) -->
@@ -440,15 +431,24 @@
      COPY: confirm speakers. ── */
   (function () {
     var SPEAKERS = [
-      { name: 'Colette Hart',  role: 'Co-founder &amp; CEO, Idonea', img: 'https://i.pravatar.cc/64?img=31' },
-      { name: 'Dana Ruiz',     role: 'Head of Talent, Zapier',       img: 'https://i.pravatar.cc/64?img=45' },
-      { name: 'Sam Okonjo',    role: 'Staff Engineer, Zapier',       img: 'https://i.pravatar.cc/64?img=12' },
-      { name: 'Priya Raman',   role: 'Design Lead, Idonea',          img: 'https://i.pravatar.cc/64?img=27' },
-      { name: 'Marcus Webb',   role: 'Recruiting Partner',           img: 'https://i.pravatar.cc/64?img=68' },
-      { name: 'Aisha Bello',   role: 'Community Lead',               img: 'https://i.pravatar.cc/64?img=49' }
-    ];
+      { name: 'Colette Hart', role: 'Co-founder &amp; CEO, Idonea', face: 31,
+        bio: "Colette is a human-centered AI systems architect with nearly 30 years of experience across UX, product design, and digital strategy. At Idonea, she's building AI designed to reveal real capability — not just keywords and credentials — while keeping people in control of their own information every step of the way." },
+      { name: 'Dana Ruiz', role: 'Head of Talent, Zapier', face: 45,
+        bio: 'Dana leads hiring at Zapier, where her team rebuilt the interview process around demonstrated skill rather than pedigree. She writes about what actually predicts performance once someone is in the job.' },
+      { name: 'Sam Okonjo', role: 'Staff Engineer, Zapier', face: 12,
+        bio: 'Sam builds the systems behind Zapier\u2019s hiring tools and has spent the last three years on the question of how a technical assessment can measure ability without measuring free time.' },
+      { name: 'Priya Raman', role: 'Design Lead, Idonea', face: 27,
+        bio: 'Priya designs the interfaces people use to describe their own work. Her focus is consent — making it obvious what a system knows about you and what it does with it.' },
+      { name: 'Marcus Webb', role: 'Recruiting Partner, PowerToFly', face: 68,
+        bio: 'Marcus has placed candidates across 40+ companies and argues that most r\u00e9sum\u00e9 screens throw away the people who would have been best at the job.' },
+      { name: 'Aisha Bello', role: 'Community Lead, PowerToFly', face: 49,
+        bio: 'Aisha runs the community programs that connect our members to the teams hiring them, and hosts the conversations that follow.' }
+    ];   /* COPY: confirm every speaker + bio — placeholders past the first */
     var MAX_FACES = 3, MAX_NAMES = 3;
     var box = document.getElementById('heroSpeakers');
+    var bios = document.getElementById('speakerBios');
+    var heading = document.getElementById('speakersHeading');
+    var cta2 = document.getElementById('heroCta2');
 
     function names(list) {
       var n = list.map(function (s) { return s.name; });
@@ -461,7 +461,7 @@
     window.renderSpeakers = function (count) {
       var list = SPEAKERS.slice(0, count);
       var faces = list.slice(0, MAX_FACES).map(function (s) {
-        return '<img src="' + s.img + '" alt="" loading="lazy">';
+        return '<img src="https://i.pravatar.cc/64?img=' + s.face + '" alt="" loading="lazy">';
       }).join('');
       if (list.length > MAX_FACES) faces += '<span class="ev-faces-count">+' + (list.length - MAX_FACES) + '</span>';
       box.innerHTML =
@@ -470,6 +470,21 @@
           '<span class="event-host-name">' + names(list) + '</span>' +
           (list.length === 1 ? '<span class="event-host-role">' + list[0].role + '</span>' : '') +
         '</div>';
+
+      /* the bio section shows EVERY speaker — the hero summarises, this is the full list */
+      bios.innerHTML = list.map(function (s) {
+        return '<div class="cl-speaker">' +
+          '<img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=' + s.face + '" alt="" loading="lazy">' +
+          '<div class="cl-speaker-body">' +
+            '<h3 class="cl-speaker-name">' + s.name + '</h3>' +
+            '<p class="cl-speaker-role">' + s.role + '</p>' +
+            '<p class="cl-speaker-bio">' + s.bio + '</p>' +
+          '</div></div>';
+      }).join('');
+
+      var plural = list.length > 1;
+      heading.textContent = plural ? 'Meet the speakers' : 'Meet the speaker';
+      if (cta2) cta2.textContent = plural ? 'Meet the speakers' : 'Meet the speaker';
     };
 
     var sBtns = [].slice.call(document.querySelectorAll('#devStates [data-speakers]'));
