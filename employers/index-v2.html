@@ -929,6 +929,10 @@ h1.hero-headline {
   .fh-card-outer { min-width: calc(100vw - 40px); top: 68%; }
   .fh-controls { right: 16px; bottom: 16px; }
   .fh-cta { padding: 12px 22px; font-size: 14px; }
+  /* card holds two CTAs → title on its own line, buttons share the row below */
+  .fh-card-bottom { flex-direction: column; align-items: stretch; gap: 14px; text-align: left; }
+  .fh-card-actions { flex-wrap: nowrap; }
+  .fh-card-actions > a { flex: 1 1 0; justify-content: center; text-align: center; }
   .fh-typed { font-size: clamp(18px, 4vw, 26px); }
   .fh-card { padding: 18px 20px 20px; }
 }
@@ -1013,10 +1017,6 @@ h1.hero-headline {
     <span class="eyebrow">Your AI workforce partner</span>
     <h1 class="hero-headline"><span style="white-space:nowrap">Your AI is only as good as</span><br>the <em class="italic-plain">humans</em> behind it.</h1>
     <p class="hero-sub">Hire AI experts and train your models with people who know your industry.</p>
-    <div class="hero-ctas">
-      <a href="../book/" class="btn btn-primary">Book a call →</a>
-      <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn">Post a job →</a>
-    </div>
 
     <!-- Figma-style hero carousel -->
     <div class="fh-wrap">
@@ -1039,7 +1039,10 @@ h1.hero-headline {
               <div class="fh-ghost" id="fhGhost" aria-hidden="true"></div>
               <span class="fh-typed" id="fhTyped"></span><span class="fh-cursor" id="fhCursor"></span>
             </div>
-            <a href="../book/" class="fh-cta">Book a call →</a>
+            <div class="cta-actions fh-card-actions">
+              <a href="../book/" class="fh-cta">Book a call →</a>
+              <a href="https://powertofly.com/common/products/job-board/subscribe" class="btn">Post a job →</a>
+            </div>
           </div>
         </div>
       </div>
