@@ -198,14 +198,14 @@
   .cs-logo{ font-family:"Inter Tight",sans-serif; font-weight:800; font-size:1.6cqw; white-space:nowrap; display:flex; align-items:center; }
   .cs-logo .ai{ background:linear-gradient(120deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .cs-sub{ font-size:1.4cqw; color:var(--ink-3); margin:.8cqw 0 0; }
-  .ca{ display:grid; grid-template-columns:1fr 1fr; gap:2.8cqw; margin-top:2cqw; }
-  .cacard{ border:1px solid var(--line); border-radius:1.4cqw; padding:2cqw 2.2cqw; }
-  .cacard .d-eyebrow{ margin-bottom:.9cqw; }
+  .slide .d-eyebrow{ margin-bottom:.8cqw; display:flex; }
+  .ca{ display:grid; grid-template-columns:1fr 1fr; gap:2.4cqw; margin-top:2.6cqw; align-items:start; }
+  .cacard{ border:1px solid var(--line); border-radius:1.4cqw; padding:1.7cqw 1.9cqw; }
   .cacard p{ font-size:1.2cqw; line-height:1.5; color:var(--ink-2); margin:0; }
   .cs-cklogo{ height:2cqw; vertical-align:middle; margin-left:.6cqw; }
   .cs-x{ color:var(--ink-3); margin:0 .1cqw; font-weight:400; }
-  .outcome{ background:var(--ink); border-radius:1.8cqw; padding:2.2cqw 2.4cqw; margin-top:2cqw; display:grid; grid-template-columns:1.25fr 1.2fr; gap:2.4cqw; align-items:center; }
-  .oc-person{ display:flex; gap:1.4cqw; align-items:center; margin-top:1cqw; }
+  .outcome{ background:var(--ink); border-radius:1.8cqw; padding:2cqw 2.4cqw; margin-top:2.6cqw; display:grid; grid-template-columns:1.25fr 1.2fr; gap:2.4cqw; align-items:center; }
+  .oc-person{ display:flex; gap:1.4cqw; align-items:center; margin-top:0; }
   .oc-photo{ width:4.6cqw; height:4.6cqw; border-radius:50%; object-fit:cover; flex:none; border:.2cqw solid rgba(255,255,255,.15); }
   .oc-name{ font-family:"Inter Tight",sans-serif; font-weight:700; font-size:1.6cqw; color:#fff; margin:0 0 .5cqw; line-height:1.2; }
   .oc-note b{ color:var(--green-mid); font-weight:700; }
@@ -218,7 +218,12 @@
   .fstep .fn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.7cqw; color:var(--green); line-height:1; }
   .fstep .fl{ font-size:1.05cqw; color:var(--ink-2); margin-top:.5cqw; line-height:1.25; }
   .whycol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:0 0 .8cqw; }
-  .pad{ padding:4.2cqw 5.8cqw; }
+  .pad{ padding:4.2cqw 5.8cqw; justify-content:space-between; }
+  .slide .pad > *{ margin-top:0 !important; margin-bottom:0 !important; }
+  .cs-title .d-h2{ margin:0; }
+  .cs-title .cs-sub{ margin:.6cqw 0 0; }
+  .cs-pipe-lbl{ font-size:1.05cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:700; }
+  .cs-pipe .funnel{ margin:.9cqw 0 0; }
 
 </style>
 </head>
@@ -233,8 +238,8 @@
   <div class="slabel"><b>1 · Case study — overview</b> <span>from slide 1</span></div>
   <div class="slide"><div class="pad">
     <div class="cs-head"><span class="cs-logo">PowerToFly <span class="ai">AI</span> <span class="cs-x">×</span> <img class="cs-cklogo" src="_assets/ckeditor-logo.png" alt="CKEditor"></span><span class="d-eyebrow" style="margin:0;">Client case study</span></div>
-    <h2 class="d-h2" style="font-size:3cqw; margin:1.4cqw 0 0;">From a complex AI talent need to the right hire — <em class="d-em">in 8 weeks</em></h2>
-    <div class="cs-sub" style="margin-top:.5cqw;">Tiugo Technologies · CKEditor · Search brief: Principal AI Engineer</div>
+    <div class="cs-title"><h2 class="d-h2" style="font-size:3cqw;">From a complex AI talent need to the right hire — <em class="d-em">in 8 weeks</em></h2>
+    <div class="cs-sub">Tiugo Technologies · CKEditor · Search brief: Principal AI Engineer</div></div>
     <div class="ca">
       <div class="cacard"><span class="d-eyebrow">The challenge</span><p>CKEditor needed a senior product engineer combining deep TypeScript &amp; Node.js architecture with production AI experience — a rare mix — plus extra capacity for its lean internal HR team.</p></div>
       <div class="cacard"><span class="d-eyebrow">The approach</span><p>PowerToFly calibrated the target profile up front, then ran sourcing, screening and submissions with targeted, personalised outreach to the right candidates.</p></div>
@@ -254,16 +259,16 @@
   <div class="slabel"><b>2 · Case study — detail</b> <span>from slide 2</span></div>
   <div class="slide"><div class="pad">
     <div class="cs-head"><span class="d-eyebrow" style="margin:0;">Case study · Tiugo / CKEditor</span><span class="cs-logo">PowerToFly <span class="ai">AI</span></span></div>
-    <h2 class="d-h2" style="font-size:3cqw; margin:1.2cqw 0 0;">Senior AI Engineering hire</h2>
-    <div class="cs-sub">The top profile identified at the outset became the successful hire.</div>
-    <div style="font-size:1.05cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); font-weight:700; margin:1.6cqw 0 0;">Search pipeline</div>
+    <div class="cs-title"><h2 class="d-h2" style="font-size:3cqw;">Senior AI Engineering hire</h2>
+    <div class="cs-sub">The top profile identified at the outset became the successful hire.</div></div>
+    <div class="cs-pipe"><div class="cs-pipe-lbl">Search pipeline</div>
     <div class="funnel">
       <div class="fstep"><div class="fn">54</div><div class="fl">Potential candidates identified</div></div>
       <div class="fstep"><div class="fn">14</div><div class="fl">Interested candidates</div></div>
       <div class="fstep"><div class="fn">11</div><div class="fl">Candidates screened</div></div>
       <div class="fstep"><div class="fn">10</div><div class="fl">Candidates submitted</div></div>
       <div class="fstep"><div class="fn">8</div><div class="fl">Profiles approved</div></div>
-    </div>
+    </div></div>
     <div class="ca" style="grid-template-columns:1.3fr 1fr; align-items:stretch;">
       <div class="whycol"><h3>Why Daniel stood out</h3>
         <ul class="checks"><li>Deep Node.js &amp; TypeScript architecture experience</li><li>Production RAG, knowledge base &amp; AI agent experience</li><li>Strong product judgement, relevant editor/CMS experience</li><li>Able to integrate AI into an established engineering team</li></ul></div>
