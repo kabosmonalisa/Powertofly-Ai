@@ -1585,6 +1585,10 @@ img { display: block; max-width: 100%; }
    its width, so "zapier" lands ~9px tall and still reads as missing. Height is what's fixed, so
    every logo — square mark or long wordmark — gets the same optical weight. */
 .logo-tile--lg { width: auto; min-width: 56px; height: 56px; padding: 11px 16px; border-radius: var(--r-md); }
+/* A logo plate sitting inside a DARK scope — a scrim over an image, a dark band. The plate has
+   to stay light wherever it sits: that pale card is the whole reason a dark logo is readable.
+   So it pins the two values it paints with rather than inheriting .theme-dark's. */
+.logo-tile--plate { background: #ffffff; border-color: rgba(10,10,10,0.10); }
 
 /* Infinite-scroll mimic on the confirmation cards: first 6 show, the rest reveal on scroll.
    The revealed cards fade + rise + settle from a slight scale, STAGGERED so the cascade
