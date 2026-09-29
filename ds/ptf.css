@@ -184,6 +184,21 @@ img { display: block; max-width: 100%; }
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 .btn-cta:hover { transform: translateY(-1px); background: #ffffff; color: #0A0A0A; box-shadow: 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }  /* hover = same subtle lift + green-glow shadow as .btn-primary. MUST re-assert white-on-dark fill so the shared .btn:hover (background:var(--ink)) can't swap it dark. NO colour change, ever. */
+/* Secondary action on a dark band — white label + white outline, never filled. Sits beside .btn-cta.
+   Same box as .btn-cta (equal height by construction); the outline is an inset ring, so it never adds height. */
+.btn-ghost-dark {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 20px 32px; border-radius: 999px;
+  font-family: 'Inter Tight', 'Inter', sans-serif;
+  font-size: 16px; font-weight: 700; letter-spacing: -0.01em;
+  text-decoration: none; cursor: pointer; border: none;
+  background: transparent; color: #ffffff;
+  box-shadow: inset 0 0 0 1.5px #ffffff;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.btn-ghost-dark:hover { transform: translateY(-1px); color: #ffffff; box-shadow: inset 0 0 0 1.5px #ffffff, 0 12px 28px rgba(79,232,169,0.25), 0 4px 12px rgba(0,0,0,0.18); }  /* same lift + green glow as .btn-cta; no fill swap */
+/* Two buttons side by side in a dark CTA band */
+.cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
 /* ===== Nav ===== */
 .nav {

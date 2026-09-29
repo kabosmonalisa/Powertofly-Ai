@@ -62,6 +62,7 @@ To scaffold: run **`/new-page`** (marketing page) or **`/new-flow`** (signup/eve
 - `.btn` — **secondary/outlined** pill (white bg, `1.5px solid var(--ink)` border, ink-fill hover). The outlined button: "Log in", "Find work".
 - `.btn-primary` — **primary** dark pill (ink fill, inverts white in dark).
 - `.btn-cta` — primary for the always-dark final CTA band (white-on-dark, fixed black label).
+- `.btn-ghost-dark` — **secondary on dark**: transparent, white label + white outline (inset ring, so it's exactly `.btn-cta`'s height). Use beside `.btn-cta`; wrap the pair in `.cta-actions`. Added 2026-09-28 for the Employers closer (resolves f-ghost-dark).
 - `.btn-light`, `.btn-sm` (smaller), `.btn-block` (full-width) — **modifiers**; combine, e.g. `class="btn btn-sm"`.
 - Flow buttons: `.btn-auth` (primary, inverts), `.btn-social`, `.btn-dashboard`, `.btn-skip`.
 
