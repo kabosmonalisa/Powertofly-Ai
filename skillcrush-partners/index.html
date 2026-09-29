@@ -22,7 +22,7 @@
  */
 
 /* Photos for the portrait slots (the components take the image via background-image). */
-.how-portrait-card { background-image: url('../photos/pexels-7858823-woman-typing-home.jpg'); background-position: center 30%; }
+.how-portrait-card { background-image: url('../photos/pexels-1181243-woman-coding-laptop.jpg'); background-position: center 40%; }
 
 /* Card grid for "Who we work with" — page layout only, same page-local wrapper as talents/ + summit/ (.benefits-row). 2×2 here. */
 .benefits-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: var(--content); margin: 0 auto; }
@@ -33,6 +33,10 @@
 /* Stat band with 3 items (ds assumes 4): when it wraps to 2-up, the odd last item takes the full row instead of leaving an empty cell. */
 @media (max-width: 900px) { .statband-item:last-child:nth-child(odd) { flex-basis: 100%; grid-column: 1 / -1; border-right: none; } }
 @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
+/* Two ways to partner: photo on top of each card; links stack at the bottom so both cards line up. Page layout only. */
+.partner-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-lg); margin-bottom: 8px; }
+.partner-cards .sc-bullets { margin: 4px 0 8px; }
+.partner-cards .sc-more:first-of-type { margin-top: auto; }
 /* Testimonials with a large recipient photo on top of each .t-card — page-local; no photo-card variant of .t-card exists yet (candidate for ds). */
 .t-photo { width: 100%; margin: 0 0 20px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--r-lg); }
 /* Zero Irving: the real cohort photo, full content width (one-off feature image — no component for a wide photo). */
@@ -105,50 +109,41 @@
     </div>
   </section>
 
-  <!-- ④ TWO WAYS TO PARTNER — .experts-list rows (photo panels = people learning) -->
+  <!-- ④ TWO WAYS TO PARTNER — two side-by-side .benefit-card columns with a big number (Kristina: "large 1 & 2, vertical so you see it at a glance"; Mara's doc: side-by-side cards) -->
   <section class="section">
-    <div class="experts-inner">
+    <div class="section-narrow">
       <div class="section-head">
         <h2>Two ways to <em class="italic-plain">partner</em></h2>
       </div>
-      <div class="experts-list">
-
-        <div class="expert-row" id="custom-programs">
-          <div class="sc-left">
-            <span class="sc-tag">Custom programs</span>
-            <h3>We build it with you.</h3>
-            <p class="sc-body">Tell us who you want to reach, and we'll handle the rest.</p>
-            <ul class="sc-bullets">
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Curriculum and live instruction</li>
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Learner support like laptops, transportation, and mentorship</li>
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Career coaching, plus reporting for funders and boards</li>
-            </ul>
-            <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Build a program with us →</a>
-          </div>
-          <div class="sc-right sc-tint-green">
-            <img class="sc-photo" src="../photos/pexels-7983552-adult-learners-instructor.jpg" alt="An instructor helping adult learners on their laptops in a classroom">
-          </div>
+    </div>
+    <div class="benefits-row partner-cards">
+        <div class="benefit-card" id="custom-programs">
+          <img class="partner-photo" src="../photos/pexels-30879378-coding-class-instructor.jpg" alt="Adult learners coding in a computer lab while an instructor teaches">
+          <span class="about-stat-num">1</span>
+          <span class="sc-tag">Custom programs</span>
+          <h3>We build it with you.</h3>
+          <p>Tell us who you want to reach, and we'll handle the rest.</p>
+          <ul class="sc-bullets">
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Curriculum and live instruction</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Learner support like laptops, transportation, and mentorship</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Career coaching, plus reporting for funders and boards</li>
+          </ul>
+          <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Build a program with us →</a>
         </div>
-
-        <div class="expert-row" id="licensing">
-          <div class="sc-left">
-            <span class="sc-tag">Licensing</span>
-            <h3>Use what we've already built.</h3>
-            <p class="sc-body">Give your learners or employees access to Skillcrush tracks and courses.</p>
-            <ul class="sc-bullets">
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>AI Developer, Full Stack, and Front End tracks, plus courses in Python, AI, and UX</li>
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Launch immediately</li>
-              <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Built for beginners and career changers</li>
-            </ul>
-            <a href="https://skillcrush.com/courses/" class="sc-more" target="_blank" rel="noopener">Explore tracks →</a>
-            <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Talk to us about licensing →</a>
-          </div>
-          <div class="sc-right sc-tint-blue">
-            <img class="sc-photo" src="../photos/pexels-5486004-woman-studying-notes.jpg" alt="A woman taking notes while studying on her laptop at home">
-          </div>
+        <div class="benefit-card" id="licensing">
+          <img class="partner-photo" src="../photos/pexels-1181471-two-women-coding.jpg" alt="Two women working through code together at a computer">
+          <span class="about-stat-num">2</span>
+          <span class="sc-tag">Licensing</span>
+          <h3>Use what we've already built.</h3>
+          <p>Give your learners or employees access to Skillcrush tracks and courses.</p>
+          <ul class="sc-bullets">
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>AI Developer, Full Stack, and Front End tracks, plus courses in Python, AI, and UX</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Launch immediately</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Built for beginners and career changers</li>
+          </ul>
+          <a href="https://skillcrush.com/courses/" class="sc-more" target="_blank" rel="noopener">Explore tracks →</a>
+          <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Talk to us about licensing →</a>
         </div>
-
-      </div>
     </div>
   </section>
 
