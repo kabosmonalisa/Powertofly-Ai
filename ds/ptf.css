@@ -1586,6 +1586,11 @@ img { display: block; max-width: 100%; }
   padding: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
 .logo-tile img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .logo-tile--count { padding: 0; font-size: 11px; font-weight: 700; color: var(--ink-3); background: var(--bg-soft); box-shadow: none; }
+/* Size modifier — a brand mark carrying a hero or a dark band, not one of a row of logos. The
+   plate is WIDTH-FLEXIBLE, unlike the fixed square of a cluster: a square sizes a wordmark by
+   its width, so a long one lands a few px tall. Fixing the HEIGHT gives a square mark and a
+   long wordmark the same optical weight. */
+.logo-tile--lg { width: auto; min-width: 48px; height: 48px; padding: 9px 14px; border-radius: var(--r-md); }
 /* A logo plate sitting inside a DARK scope — a scrim over an image, a dark band. The plate has
    to stay light wherever it sits: that pale card is the whole reason a dark logo is readable.
    So it pins the two values it paints with rather than inheriting .theme-dark's. */
