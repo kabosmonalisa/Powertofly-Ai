@@ -71,16 +71,22 @@
 /* theme-dark sits on THIS element, not a child: var(--bg) resolves where the class is, so the
    scrim reads #0A0A0A instead of the light theme's near-white. */
 .ev-hero-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: 110px 24px 22px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
+  padding: 120px 26px 26px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
   background: linear-gradient(to top,
     color-mix(in srgb, var(--bg) 94%, transparent) 0%,
     color-mix(in srgb, var(--bg) 86%, transparent) 34%,
     color-mix(in srgb, var(--bg) 55%, transparent) 62%,
     transparent 100%); }
-.ev-hero-cap-text { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-/* the host sits WITH its logo — a label and a mark for the same company are one thing */
-.ev-hero-host { display: flex; align-items: center; gap: 10px; }
-.ev-hero-cap-org { font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--ink-2); }
+/* The caption is two rows on one left edge: who is hosting, then who is speaking. Both rows
+   lead with a small muted label-or-face and settle on the same baseline rhythm. */
+.ev-hero-cap-text { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; min-width: 0; }
+/* The host STACKS: label over mark, so the plate keeps a clean left edge with the speaker
+   face below it instead of having text hanging off its side at a different height.
+   The label is a plain muted uppercase, deliberately NOT .eyebrow — the hero already has one
+   green eyebrow ("Chat & Learn") and a second would compete with it. */
+.ev-hero-host { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+.ev-hero-cap-org { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.ev-hero-cap-org.is-name { text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); }
 /* two or more speakers: the stack keeps the names on one line, so they get no role line */
 .ev-hero-cap .event-host-name { font-size: 15px; }
 .ev-hero-cap .event-host { margin-bottom: 0; }
@@ -208,8 +214,11 @@
           <!-- hosting client — delete this row for an event with no partner logo. The logo needs
                --plate because the caption is theme-dark and the tile would otherwise go dark. -->
           <div class="ev-hero-host">
-            <div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt=""></span></div>
-            <span class="ev-hero-cap-org">Hosted by Zapier</span><!-- COPY: confirm host. The NAME stays in text: plenty of logos are a symbol with no wordmark, and then the mark alone names nobody. -->
+            <span class="ev-hero-cap-org">Hosted by</span>
+            <div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div>
+            <!-- A wordmark logo already says the name — printing it again reads as a stutter.
+                 For a SYMBOL-ONLY logo (no name in the mark), add the name back here:
+                 <span class="ev-hero-cap-org is-name">Esri</span> -->
           </div>
           <!-- speakers — rendered by the prototype script so the switcher can show 1 / 2 / 3 / 6 -->
           <div class="event-host" id="heroSpeakers"></div>
