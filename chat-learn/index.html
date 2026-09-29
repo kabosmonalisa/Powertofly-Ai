@@ -79,8 +79,10 @@
     transparent 100%); }
 .ev-hero-cap-text { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 /* the host sits WITH its logo — a label and a mark for the same company are one thing */
-.ev-hero-host { display: flex; align-items: center; gap: 12px; }
-.ev-hero-cap-org { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--ink-3); }
+.ev-hero-host { display: flex; align-items: center; gap: 10px; }
+.ev-hero-cap-org { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--ink-2); }
+/* two or more speakers: the stack keeps the names on one line, so they get no role line */
+.ev-hero-cap .event-host-name { font-size: 15px; }
 .ev-hero-cap .event-host { margin-bottom: 0; }
 .ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 26px 0 0; }
 .ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
@@ -206,16 +208,11 @@
           <!-- hosting client — delete this row for an event with no partner logo. The logo needs
                --plate because the caption is theme-dark and the tile would otherwise go dark. -->
           <div class="ev-hero-host">
-            <span class="ev-hero-cap-org">Hosted by</span><!-- COPY: confirm host — placeholder stands in for Esri -->
-            <div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div>
+            <div class="logo-cluster"><span class="logo-tile logo-tile--plate"><img src="../logos/zapier.png" alt=""></span></div>
+            <span class="ev-hero-cap-org">Hosted by Zapier</span><!-- COPY: confirm host. The NAME stays in text: plenty of logos are a symbol with no wordmark, and then the mark alone names nobody. -->
           </div>
-          <div class="event-host">
-            <div class="ev-faces"><img src="https://i.pravatar.cc/64?img=31" alt="" loading="lazy"></div>
-            <div class="event-host-text">
-              <span class="event-host-name">Colette Hart</span><!-- COPY: confirm speaker -->
-              <span class="event-host-role">Co-founder &amp; CEO, Idonea</span>
-            </div>
-          </div>
+          <!-- speakers — rendered by the prototype script so the switcher can show 1 / 2 / 3 / 6 -->
+          <div class="event-host" id="heroSpeakers"></div>
         </div>
       </div>
     </div>
@@ -414,11 +411,68 @@
   <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 0">VIEWER</span>
   <button type="button" data-viewer="guest">Not registered</button>
   <button type="button" data-viewer="registered">Registered</button>
+  <span style="width:1px;align-self:stretch;background:#2a2a2a;margin:0 4px"></span>
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 0">SPEAKERS</span>
+  <button type="button" data-speakers="1">1</button>
+  <button type="button" data-speakers="2">2</button>
+  <button type="button" data-speakers="3">3</button>
+  <button type="button" data-speakers="6">6</button>
 </div>
 
 <script src="../ds/ptf.js"></script>
 <script>
   PTF.initHeader();  // fixed alert + nav offset
+
+  /* ── PROTOTYPE: speaker stack. ONE block covers 1..N speakers:
+       faces  — up to 3, then .ev-faces-count "+N" (the DS overflow disc)
+       names  — up to 3 listed; past that the first two + "and N others", because a
+                fourth name pushes the line past the caption and gets clipped
+       role   — only when there is exactly ONE speaker; two names already fill the line.
+     COPY: confirm speakers. ── */
+  (function () {
+    var SPEAKERS = [
+      { name: 'Colette Hart',  role: 'Co-founder &amp; CEO, Idonea', img: 'https://i.pravatar.cc/64?img=31' },
+      { name: 'Dana Ruiz',     role: 'Head of Talent, Zapier',       img: 'https://i.pravatar.cc/64?img=45' },
+      { name: 'Sam Okonjo',    role: 'Staff Engineer, Zapier',       img: 'https://i.pravatar.cc/64?img=12' },
+      { name: 'Priya Raman',   role: 'Design Lead, Idonea',          img: 'https://i.pravatar.cc/64?img=27' },
+      { name: 'Marcus Webb',   role: 'Recruiting Partner',           img: 'https://i.pravatar.cc/64?img=68' },
+      { name: 'Aisha Bello',   role: 'Community Lead',               img: 'https://i.pravatar.cc/64?img=49' }
+    ];
+    var MAX_FACES = 3, MAX_NAMES = 3;
+    var box = document.getElementById('heroSpeakers');
+
+    function names(list) {
+      var n = list.map(function (s) { return s.name; });
+      if (n.length === 1) return n[0];
+      if (n.length <= MAX_NAMES) return n.slice(0, -1).join(', ') + ' and ' + n[n.length - 1];
+      var rest = n.length - 2;
+      return n[0] + ', ' + n[1] + ' and ' + rest + ' others';
+    }
+
+    window.renderSpeakers = function (count) {
+      var list = SPEAKERS.slice(0, count);
+      var faces = list.slice(0, MAX_FACES).map(function (s) {
+        return '<img src="' + s.img + '" alt="" loading="lazy">';
+      }).join('');
+      if (list.length > MAX_FACES) faces += '<span class="ev-faces-count">+' + (list.length - MAX_FACES) + '</span>';
+      box.innerHTML =
+        '<div class="ev-faces">' + faces + '</div>' +
+        '<div class="event-host-text">' +
+          '<span class="event-host-name">' + names(list) + '</span>' +
+          (list.length === 1 ? '<span class="event-host-role">' + list[0].role + '</span>' : '') +
+        '</div>';
+    };
+
+    var sBtns = [].slice.call(document.querySelectorAll('#devStates [data-speakers]'));
+    function applySpeakers(n) {
+      window.renderSpeakers(n);
+      sBtns.forEach(function (b) { b.classList.toggle('active', +b.getAttribute('data-speakers') === n); });
+    }
+    sBtns.forEach(function (b) {
+      b.addEventListener('click', function () { applySpeakers(+b.getAttribute('data-speakers')); });
+    });
+    applySpeakers(1);
+  })();
 
   /* ── PROTOTYPE: event-state switcher (upcoming / live / past). Also reachable via #live / #past.
      Only the hero eyebrow + primary CTA + alert change per state. Same wiring as summit/. ── */
