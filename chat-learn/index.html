@@ -64,12 +64,23 @@
 .ev-hero h1 { margin: 18px 0 0; max-width: 20ch; }
 .ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
 .ev-hero .event-host { margin: 26px 0 0; }
-/* Page-specific hero composition: "Hosted by [logo] Company". The hero image is plain stock now,
-   so the client's brand lives here instead of being baked into the artwork. Layout only — the
-   logo itself is the DS .logo-cluster / .logo-tile at its native size. */
-.ev-hero-org { display: flex; align-items: center; gap: 10px; margin: 26px 0 0; font-size: 15px; color: var(--ink-2); }
-.ev-hero-org strong { color: var(--ink); font-weight: 700; }
-.ev-hero .ev-hero-org + .event-host { margin-top: 18px; }
+/* Page-specific hero composition: the host logo + speaker sit ON the image over a scrim,
+   the same object the Resources hero makes of its featured story. Placement only — the scrim
+   is built from var(--bg) inside .theme-dark (never a raw hex) and no shared component is
+   restyled. The stock photo carries the session's identity instead of baked-in artwork. */
+.ev-hero-brand { position: absolute; left: 20px; top: 20px; z-index: 3; }
+/* theme-dark sits on THIS element, not a child: var(--bg) resolves where the class is, so the
+   scrim reads #0A0A0A instead of the light theme's near-white. */
+.ev-hero-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 110px 24px 22px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--bg) 94%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 86%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%); }
+.ev-hero-cap-text { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.ev-hero-cap-org { font-size: 13px; font-weight: 600; letter-spacing: .02em; color: var(--ink-2); }
+.ev-hero-cap .event-host { margin-bottom: 0; }
 .ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 26px 0 0; }
 .ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
 .ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
@@ -81,7 +92,9 @@
   position: relative; border-radius: var(--r-2xl); overflow: hidden;
   aspect-ratio: 4 / 3; align-self: center; background: var(--surface-2);
 }
-.ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* DIRECT child only — the slot now also holds the logo tile and the speaker avatar, and a
+   blanket `.ev-hero-media img` rule stretched those to fill the frame too. */
+.ev-hero-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* "About this session" — the per-event description, left-aligned readable column ── */
 .cl-copy { max-width: var(--content-body); margin: 0 auto; }
@@ -166,23 +179,6 @@
       <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1><!-- COPY: confirm title -->
       <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
 
-      <!-- hosting client — omit this whole block for an event with no partner logo -->
-      <div class="ev-hero-org">
-        <div class="logo-cluster"><span class="logo-tile"><img src="../logos/zapier.png" alt=""></span></div>
-        <span>Hosted by <strong>Zapier</strong></span><!-- COPY: confirm host — placeholder logo stands in for Esri -->
-      </div>
-
-      <!-- speaker chip — shared .event-host + .ev-faces (single speaker) -->
-      <div class="event-host">
-        <div class="ev-faces">
-          <img src="https://i.pravatar.cc/64?img=31" alt="" loading="lazy">
-        </div>
-        <div class="event-host-text">
-          <span class="event-host-name">Colette Hart</span><!-- COPY: confirm speaker -->
-          <span class="event-host-role">Co-founder &amp; CEO, Idonea</span>
-        </div>
-      </div>
-
       <div class="ev-hero-meta">
         <!-- MUI Outlined paths, plain ink (small = no gradient) -->
         <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
@@ -200,6 +196,28 @@
     <div class="ev-hero-media">
       <!-- A virtual session in progress — reads as a Chat & Learn (Pexels, verified) -->
       <img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop" alt="A professional joining a virtual session from home — a PowerToFly Chat &amp; Learn">
+      <!-- WHO is behind the session, sitting ON the image (same recipe as the Resources
+           featured story): the caption carries theme-dark so .event-host recolors itself from
+           the dark tokens — no hand-picked white. The client logo stays OUTSIDE theme-dark so
+           .logo-tile keeps its light plate; a dark tile would swallow a dark logo. -->
+      <!-- hosting client — delete this block for an event with no partner logo. It sits on the
+           plain image, NOT inside the theme-dark caption: .logo-tile's light plate is what makes
+           a dark logo readable, and inside theme-dark the tile would go dark too. -->
+      <div class="ev-hero-brand">
+        <div class="logo-cluster"><span class="logo-tile"><img src="../logos/zapier.png" alt="Zapier"></span></div>
+      </div>
+      <div class="ev-hero-cap theme-dark">
+        <div class="ev-hero-cap-text">
+          <span class="ev-hero-cap-org">Hosted by Zapier</span><!-- COPY: confirm host — placeholder stands in for Esri -->
+          <div class="event-host">
+            <div class="ev-faces"><img src="https://i.pravatar.cc/64?img=31" alt="" loading="lazy"></div>
+            <div class="event-host-text">
+              <span class="event-host-name">Colette Hart</span><!-- COPY: confirm speaker -->
+              <span class="event-host-role">Co-founder &amp; CEO, Idonea</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>

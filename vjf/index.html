@@ -76,7 +76,9 @@
   position: relative; border-radius: var(--r-2xl); overflow: hidden;
   aspect-ratio: 4 / 3; align-self: center; background: var(--surface-2);
 }
-.ev-hero-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+/* DIRECT child only — the slot now also holds the logo tile and the speaker avatar, and a
+   blanket `.ev-hero-media img` rule stretched those to fill the frame too. */
+.ev-hero-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* "More upcoming job fairs" — hold head + tiles to the shared content column (--content-body),
    so they align with the hero / how instead of spilling to the nav edge */
