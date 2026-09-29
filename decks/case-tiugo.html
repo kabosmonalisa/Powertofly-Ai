@@ -195,24 +195,29 @@
 
   /* case-study templates */
   .cs-head{ display:flex; justify-content:space-between; align-items:center; }
-  .cs-logo{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.6cqw; }
+  .cs-logo{ font-family:"Inter Tight",sans-serif; font-weight:800; font-size:1.6cqw; white-space:nowrap; display:flex; align-items:center; }
   .cs-logo .ai{ background:linear-gradient(120deg,var(--iri-cyan),var(--iri-green),var(--iri-lime)); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .cs-sub{ font-size:1.4cqw; color:var(--ink-3); margin:.8cqw 0 0; }
-  .ca{ display:grid; grid-template-columns:1fr 1fr; gap:2.4cqw; margin-top:1cqw; }
-  .cacard{ border:1px solid var(--line); border-radius:1.4cqw; padding:1.6cqw 1.9cqw; }
-  .cacard p{ font-size:1.12cqw; line-height:1.42; color:var(--ink-2); margin:.6cqw 0 0; }
-  .outcome{ background:var(--ink); border-radius:1.8cqw; padding:1.9cqw 2.2cqw; margin-top:auto; display:grid; grid-template-columns:1.05fr 1.5fr; gap:3cqw; align-items:center; }
-  .oc-name{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.9cqw; color:#fff; margin:.6cqw 0 1.2cqw; }
+  .ca{ display:grid; grid-template-columns:1fr 1fr; gap:2.8cqw; margin-top:2cqw; }
+  .cacard{ border:1px solid var(--line); border-radius:1.4cqw; padding:2cqw 2.2cqw; }
+  .cacard p{ font-size:1.2cqw; line-height:1.5; color:var(--ink-2); margin:.6cqw 0 0; }
+  .cs-cklogo{ height:2cqw; vertical-align:middle; margin-left:.6cqw; }
+  .cs-x{ color:var(--ink-3); margin:0 .1cqw; font-weight:400; }
+  .outcome{ background:var(--ink); border-radius:1.8cqw; padding:2.2cqw 2.4cqw; margin-top:2cqw; display:grid; grid-template-columns:1.4fr 1fr; gap:2.6cqw; align-items:center; }
+  .oc-left{ display:flex; gap:1.5cqw; align-items:flex-start; }
+  .oc-photo{ width:5cqw; height:5cqw; border-radius:50%; object-fit:cover; flex:none; border:.2cqw solid rgba(255,255,255,.15); }
+  .oc-name{ font-family:"Inter Tight",sans-serif; font-weight:700; font-size:1.75cqw; color:#fff; margin:.5cqw 0 1cqw; line-height:1.15; }
   .oc-note b{ color:var(--green-mid); font-weight:700; }
   .oc-note{ font-size:1.15cqw; color:rgba(255,255,255,.7); line-height:1.4; }
   .oc-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.6cqw; }
   .oc-stats .n{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.6cqw; color:var(--green-mid); line-height:1; }
   .oc-stats .l{ font-size:1cqw; color:rgba(255,255,255,.65); margin-top:.6cqw; line-height:1.3; }
   /* pipeline funnel */
-  .funnel{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.2cqw; margin:1.2cqw 0; }
-  .fstep .fn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:3cqw; color:var(--green); line-height:1; }
+  .funnel{ display:grid; grid-template-columns:repeat(5,1fr); gap:1.2cqw; margin:1cqw 0 .4cqw; }
+  .fstep .fn{ font-family:'Inter Tight',sans-serif; font-weight:800; font-size:2.7cqw; color:var(--green); line-height:1; }
   .fstep .fl{ font-size:1.05cqw; color:var(--ink-2); margin-top:.5cqw; line-height:1.25; }
   .whycol h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.7cqw; margin:0 0 .8cqw; }
+  .pad{ padding:4.2cqw 5.8cqw; }
 
 </style>
 </head>
@@ -226,15 +231,15 @@
   <!-- SLIDE 1 -->
   <div class="slabel"><b>1 · Case study — overview</b> <span>from slide 1</span></div>
   <div class="slide"><div class="pad">
-    <div class="cs-head"><span class="cs-logo">PowerToFly <span class="ai">AI</span></span><span class="d-eyebrow" style="margin:0;">Client case study</span></div>
-    <h2 class="d-h2" style="font-size:3cqw; margin:1cqw 0 0;">From a complex AI talent need to the right hire — <em class="d-em">in 8 weeks</em></h2>
+    <div class="cs-head"><span class="cs-logo">PowerToFly <span class="ai">AI</span> <span class="cs-x">×</span> <img class="cs-cklogo" src="_assets/ckeditor-logo.png" alt="CKEditor"></span><span class="d-eyebrow" style="margin:0;">Client case study</span></div>
+    <h2 class="d-h2" style="font-size:3cqw; margin:1.4cqw 0 0;">From a complex AI talent need to the right hire — <em class="d-em">in 8 weeks</em></h2>
     <div class="cs-sub" style="margin-top:.5cqw;">Tiugo Technologies · CKEditor · Search brief: Principal AI Engineer</div>
     <div class="ca">
-      <div class="cacard"><span class="d-eyebrow">The challenge</span><p>CKEditor needed a senior product engineer combining deep TypeScript &amp; Node.js architecture with production AI experience and sound product judgement. Candidates offered one or the other — rarely both — and its lean HR team needed capacity to run the search.</p></div>
-      <div class="cacard"><span class="d-eyebrow">The approach</span><p>PowerToFly aligned with the hiring team on the critical capabilities and calibrated the target profile up front, then managed sourcing, screening and submissions with targeted, personalised outreach.</p></div>
+      <div class="cacard"><span class="d-eyebrow">The challenge</span><p>CKEditor needed a senior product engineer combining deep TypeScript &amp; Node.js architecture with production AI experience — a rare mix — plus extra capacity for its lean internal HR team.</p></div>
+      <div class="cacard"><span class="d-eyebrow">The approach</span><p>PowerToFly calibrated the target profile up front, then ran sourcing, screening and submissions with targeted, personalised outreach to the right candidates.</p></div>
     </div>
     <div class="outcome">
-      <div><span class="d-eyebrow on-dark">The outcome</span><div class="oc-name">Daniel Wojno joined CKEditor as Senior Staff Engineer, September 2026.</div><div class="oc-note"><b>Right profile from the start</b> — a profile presented during the initial calibration became the successful hire.</div></div>
+      <div class="oc-left"><img class="oc-photo" src="_assets/daniel-wojno.jpg" alt="Daniel Wojno"><div><span class="d-eyebrow on-dark">The outcome</span><div class="oc-name">Daniel Wojno — Senior Staff Engineer, CKEditor</div><div class="oc-note"><b>Right profile from the start</b> — a profile presented during the initial calibration became the successful hire.</div></div></div>
       <div class="oc-stats">
         <div><div class="n">5 days</div><div class="l">Intake call to first candidate submitted</div></div>
         <div><div class="n">8 of 10</div><div class="l">Submitted profiles approved by Tiugo</div></div>
