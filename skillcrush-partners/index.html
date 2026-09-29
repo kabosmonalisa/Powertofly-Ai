@@ -22,7 +22,7 @@
  */
 
 /* Photos for the portrait slots (the components take the image via background-image). */
-.how-portrait-card { background-image: url('../photos/skillcrush-partner-03.jpg'); background-position: center 20%; }
+.how-portrait-card { background-image: url('../photos/pexels-7858823-woman-typing-home.jpg'); background-position: center 30%; }
 
 /* Card grid for "Who we work with" — page layout only, same page-local wrapper as talents/ + summit/ (.benefits-row). 2×2 here. */
 .benefits-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: var(--content); margin: 0 auto; }
@@ -33,6 +33,8 @@
 /* Stat band with 3 items (ds assumes 4): when it wraps to 2-up, the odd last item takes the full row instead of leaving an empty cell. */
 @media (max-width: 900px) { .statband-item:last-child:nth-child(odd) { flex-basis: 100%; grid-column: 1 / -1; border-right: none; } }
 @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
+/* Testimonials with a large recipient photo on top of each .t-card — page-local; no photo-card variant of .t-card exists yet (candidate for ds). */
+.t-photo { width: 100%; margin: 0 0 20px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--r-lg); }
 /* Zero Irving: the real cohort photo, full content width (one-off feature image — no component for a wide photo). */
 .zi-photo { width: 100%; max-width: var(--content); margin: 0 auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: var(--r-2xl); }
 /* Four cohort stats → 4-up (ds .about-stat-grid is 3-up); centered under the photo. */
@@ -124,7 +126,7 @@
             <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Build a program with us →</a>
           </div>
           <div class="sc-right sc-tint-green">
-            <img class="sc-photo" src="../photos/skillcrush-partner-01.jpg" alt="Portrait of a woman in a striped shirt">
+            <img class="sc-photo" src="../photos/pexels-7983552-adult-learners-instructor.jpg" alt="An instructor helping adult learners on their laptops in a classroom">
           </div>
         </div>
 
@@ -142,7 +144,7 @@
             <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Talk to us about licensing →</a>
           </div>
           <div class="sc-right sc-tint-blue">
-            <img class="sc-photo" src="../photos/skillcrush-partner-02.jpg" alt="Portrait of a smiling woman in a denim shirt">
+            <img class="sc-photo" src="../photos/pexels-5486004-woman-studying-notes.jpg" alt="A woman taking notes while studying on her laptop at home">
           </div>
         </div>
 
@@ -202,7 +204,7 @@
     </div>
   </section>
 
-  <!-- ⑧ TESTIMONIALS — .testimonials > .t-card ×3. Initials .avatar until real photos arrive (Bethany checking LinkedIns) → then swap to .t-logo > img. -->
+  <!-- ⑧ TESTIMONIALS — .testimonials > .t-card ×3, each with a big photo of the recipient on top (.t-photo, page-local). -->
   <section class="section">
     <div class="section-narrow">
       <div class="section-head">
@@ -212,16 +214,19 @@
     <div class="experts-inner">
       <div class="testimonials">
         <div class="t-card">
+          <img class="t-photo" src="../photos/testimonial-charlene-brown.jpg" alt="Charlene B., Zero Irving scholarship recipient">
           <p class="t-quote">"I almost talked myself out of applying. The biggest wall in front of you is the one you build yourself."</p>
-          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Charlene B.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div><span class="avatar avatar-lg" aria-hidden="true">CB</span></div>
+          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Charlene B.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div></div>
         </div>
         <div class="t-card">
+          <img class="t-photo" src="../photos/testimonial-abby-addis.jpg" alt="Abby A., Zero Irving scholarship recipient">
           <p class="t-quote">"Getting this scholarship felt like validation that this pivot was a real, structured path forward."</p>
-          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Abby A.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div><span class="avatar avatar-lg" aria-hidden="true">AA</span></div>
+          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Abby A.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div></div>
         </div>
         <div class="t-card">
+          <img class="t-photo" src="../photos/testimonial-tshewang-dema.jpg" alt="Tshewang D., Zero Irving scholarship recipient">
           <p class="t-quote">"Success here doesn't require a traditional engineering background."</p>
-          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Tshewang D.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div><span class="avatar avatar-lg" aria-hidden="true">TD</span></div>
+          <div class="t-meta"><div class="t-meta-info"><div class="t-author">Tshewang D.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div></div>
         </div>
       </div>
     </div>
