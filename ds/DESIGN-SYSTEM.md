@@ -327,7 +327,8 @@ You should never have to say "no pills on the labels" or "align the nav to the f
 ### Headline / heading scale
 - `.display` — standard hero headline, `clamp(36px, 5.5vw, 68px)`.
 - `.display-lg` — large hero (talents/train scale), `clamp(44px, 7vw, 80px)`.
-- `.section-head h2` — section headline, `clamp(32px, 4vw, 52px)`, `-0.03em`/1.05. Don't override per page.
+- `.section-head h2` — section headline, `clamp(30px, 3.6vw, 44px)`, `-0.03em`/1.05. Don't override per page.
+- **Readability floor (2026-09-29):** text people *read* (body, card copy, bullets, quotes, stat labels) is **≥16px**; only captions, eyebrows and meta may drop to 13–14px. Lives in the "Readability floor" block at the end of `ptf.css` — change sizes there, never per page. (Mara + Kristina: copy was unreadable on a 14" laptop while headings and big stats were oversized.)
 - `.card-title` — card / sub-section heading, 20px. Replaces hardcoded 17/22/26px.
 - Pick `.display` **or** `.display-lg` per page — never hand-write a hero clamp.
 
