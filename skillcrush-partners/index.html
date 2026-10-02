@@ -38,8 +38,6 @@
 .partner-head { display: flex; align-items: baseline; gap: 14px; }
 .partner-head h3 { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -0.03em; }
 .partner-cards .partner-promise { font-weight: 600; color: var(--ink); font-size: 18px; }
-/* Small footnote asterisks on the cohort stats (Kristina: big ones read like terms & conditions). */
-.zi-stats sup { font-size: 16px; font-weight: 600; vertical-align: top; position: relative; top: 4px; margin-left: 2px; }
 /* Closing headline stays on one line on desktop (Kristina: broken in two it loses impact). */
 @media (min-width: 900px) { .section-cta-inner:has(.cta-oneline) { max-width: var(--content); } .cta-oneline { white-space: nowrap; } }
 @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
@@ -47,14 +45,25 @@
 .partner-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-lg); margin-bottom: 8px; }
 .partner-cards .sc-bullets { margin: 4px 0 8px; }
 .partner-cards .sc-more:first-of-type { margin-top: auto; }
+/* Zero Irving cohort panel: ds .stats-card-dark under the photo, stats 4-up in one row, footnote inside at the bottom. */
+.zi-panel { max-width: var(--content); margin: 12px auto 0; padding: 44px 48px 32px; gap: 28px; text-align: left; }
+.zi-panel .eyebrow { color: var(--green-mid); margin-bottom: 0; }
+.zi-panel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+.zi-panel .stat-big-num { font-size: clamp(44px, 4.6vw, 64px); }
+.zi-panel sup { font-size: 18px; font-weight: 600; vertical-align: top; position: relative; top: 6px; margin-left: 2px; color: rgba(255,255,255,0.58); }  /* small asterisks (Kristina) */
+.zi-panel-note { font-size: 14px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 18px; }
+/* Participant supports: .statband icon tiles, 5 across, wrapping on small screens. */
+.zi-supports-head { margin: 48px auto 12px; }
+.zi-supports { max-width: var(--content); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.zi-supports .statband-item { padding: 22px 12px; }
+.zi-supports .statband-lbl { font-weight: 600; color: var(--ink); line-height: 1.3; }
+.zi-supports .statband-icon { display: flex; }  /* keep the support icons on mobile (ds hides statband icons ≤600px) */
+@media (max-width: 900px) { .zi-panel-grid { grid-template-columns: 1fr 1fr; } .zi-panel { padding: 32px 24px 24px; } }
+@media (max-width: 900px) { .zi-supports { display: grid; grid-template-columns: 1fr 1fr; } .zi-supports .statband-item { border-right: none; border-bottom: 1px solid var(--line); justify-content: flex-start; } .zi-supports .statband-item:last-child { grid-column: 1 / -1; border-bottom: none; } }
 /* Testimonials with a large recipient photo on top of each .t-card — page-local; no photo-card variant of .t-card exists yet (candidate for ds). */
 .t-photo { width: 100%; margin: 0 0 20px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--r-lg); }
 /* Zero Irving: the real cohort photo, full content width (one-off feature image — no component for a wide photo). */
 .zi-photo { width: 100%; max-width: var(--content); margin: 0 auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: var(--r-2xl); }
-/* Four cohort stats → 4-up (ds .about-stat-grid is 3-up); centered under the photo. */
-.zi-stats { grid-template-columns: repeat(4, 1fr); max-width: var(--content); margin: 40px auto 0; }
-.zi-note { max-width: var(--content); margin: 20px auto 0; font-size: 14px; color: var(--ink-3); text-align: right; }  /* right-aligned so it reads as a footnote, not part of the 100% stat */
-@media (max-width: 768px) { .zi-stats { grid-template-columns: 1fr 1fr; gap: 32px 20px; } }
 @media (max-width: 600px) { .benefits-row { grid-template-columns: 1fr; } }
 </style>
 </head>
@@ -179,42 +188,32 @@
 
       <img class="zi-photo" src="../photos/zero-irving-cohort.jpg" alt="The Zero Irving scholarship cohort together at Civic Hall in New York">
 
-      <!-- COPY: the copy doc still has [X]% placeholders; these are the confirmed figures (Mara OK'd 2026-09-28). -->
-      <div class="about-stat-grid zi-stats">
-        <div class="about-stat-card">
-          <hr class="about-stat-rule">
-          <span class="about-stat-num">100%</span>
-          <p class="about-stat-desc">From communities underrepresented in tech</p>
+      <!-- Cohort stats on a dark panel directly under the photo; footnote sits inside the panel.
+           Stats: confirmed figures (doc still has [X]% placeholders; Mara OK'd 2026-09-28). -->
+      <div class="stats-card-dark zi-panel">
+        <span class="eyebrow">The cohort</span>
+        <div class="zi-panel-grid">
+          <div><div class="stat-big-num">100%</div><div class="stat-big-label">From communities underrepresented in tech</div></div>
+          <div><div class="stat-big-num">77%<sup>*</sup></div><div class="stat-big-label">Women</div></div>
+          <div><div class="stat-big-num">69%<sup>*</sup></div><div class="stat-big-label">Age 41+</div></div>
+          <div><div class="stat-big-num">62%<sup>*</sup></div><div class="stat-big-label">Household income under $25K</div></div>
         </div>
-        <div class="about-stat-card">
-          <hr class="about-stat-rule">
-          <span class="about-stat-num">77%<sup>*</sup></span>
-          <p class="about-stat-desc">Women</p>
-        </div>
-        <div class="about-stat-card">
-          <hr class="about-stat-rule">
-          <span class="about-stat-num">69%<sup>*</sup></span>
-          <p class="about-stat-desc">Age 41+</p>
-        </div>
-        <div class="about-stat-card">
-          <hr class="about-stat-rule">
-          <span class="about-stat-num">62%<sup>*</sup></span>
-          <p class="about-stat-desc">Household income under $25K</p>
-        </div>
+        <p class="zi-panel-note">*Demographic percentages reflect confirmed application data.</p>
       </div>
-      <p class="zi-note">*Demographic percentages reflect confirmed application data.</p>
 
-      <div class="section-head" style="margin-top:40px; margin-bottom:16px">
-        <h3>Included</h3>
+      <!-- Participant supports — .statband icon tiles (replaces the plain pills; Kristina: frame "Included" as participant supports) -->
+      <div class="section-head zi-supports-head">
+        <span class="eyebrow">Participant supports built into the program</span>
       </div>
-      <div class="cs-cta-row">
-        <span class="sc-title-chip">Laptop</span>
-        <span class="sc-title-chip">Transportation support</span>
-        <span class="sc-title-chip">Live instruction</span>
-        <span class="sc-title-chip">Mentorship</span>
-        <span class="sc-title-chip">Six months of career coaching</span>
+      <div class="statband-inner zi-supports">
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></div><div class="statband-text"><span class="statband-lbl">Laptop</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg></div><div class="statband-text"><span class="statband-lbl">Transportation support</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg></div><div class="statband-text"><span class="statband-lbl">Live instruction</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div><div class="statband-text"><span class="statband-lbl">Mentorship</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg></div><div class="statband-text"><span class="statband-lbl">Six months of career coaching</span></div></div>
       </div>
-      <div class="cs-cta-row" style="margin-top:32px">
+
+      <div class="cs-cta-row" style="margin-top:40px">
         <a href="https://skillcrush.com/blog/nyc-ai-developer-scholarship/" class="btn" target="_blank" rel="noopener">See the full story →</a>
       </div>
     </div>
