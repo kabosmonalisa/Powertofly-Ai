@@ -31,7 +31,8 @@
 /* Small check in .sc-bullets — plain ink, sized to the .sc-ck dot. */
 .sc-ck svg { width: 12px; height: 12px; fill: var(--ink); }
 /* Hero proof stats — .about-stat-grid, centred under the CTA. */
-.hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: left; }
+.hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: center; }
+.hero-stats .about-stat-card { align-items: center; }
 @media (max-width: 768px) { .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .hero-stats .about-stat-num { font-size: clamp(28px, 8vw, 40px); } }
 /* Partner cards: the offer name sits next to its big number at heading size, so "Custom programs" / "Licensing" read as the two headline offers. */
 .partner-head { display: flex; align-items: baseline; gap: 14px; }
