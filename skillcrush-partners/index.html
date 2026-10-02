@@ -30,6 +30,9 @@
 .testimonials { grid-template-columns: repeat(3, 1fr); }
 /* Small check in .sc-bullets — plain ink, sized to the .sc-ck dot. */
 .sc-ck svg { width: 12px; height: 12px; fill: var(--ink); }
+/* Skillcrush by PowerToFly logo above the hero headline (replaces the eyebrow). */
+.hero-logo { display: block; height: 72px; width: auto; margin: 0 auto 28px; }
+@media (max-width: 600px) { .hero-logo { height: 52px; margin-bottom: 20px; } }
 /* Hero proof stats — .about-stat-grid, centred under the CTA. */
 .hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: center; }
 .hero-stats .about-stat-card { align-items: center; }
@@ -82,7 +85,7 @@
   <section class="section-hero hero-glow">
     <div class="section-narrow">
       <div class="section-head">
-        <span class="eyebrow">Skillcrush by PowerToFly</span>
+        <img class="hero-logo" src="../logos/skillcrush-by-powertofly.png" alt="Skillcrush by PowerToFly">
         <h1 class="display">Tech and AI training for your <em class="italic-plain">team or community.</em></h1>
         <p>Skillcrush by PowerToFly designs beginner-friendly tech and AI training for workforce organizations, colleges, community groups, and employers.</p>
       </div>
