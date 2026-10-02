@@ -55,14 +55,22 @@
 .zi-panel .stat-big-num { font-size: clamp(44px, 4.6vw, 64px); }
 .zi-panel sup { font-size: 18px; font-weight: 600; vertical-align: top; position: relative; top: 6px; margin-left: 2px; color: rgba(255,255,255,0.58); }  /* small asterisks (Kristina) */
 .zi-panel-note { font-size: 14px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 18px; }
-/* Participant supports: .statband icon tiles, 5 across, wrapping on small screens. */
+/* What we built: 4 numbered cards in a row. */
+.zi-built { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: var(--content); margin: 0 auto; }
+.zi-built .benefit-card { padding: 24px 22px 26px; gap: 8px; }
+.zi-built .step-num { margin-bottom: 4px; }
+@media (max-width: 900px) { .zi-built { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .zi-built { grid-template-columns: 1fr; } }
+/* Path section closing line, centred under the steps. */
+.path-note { max-width: 60ch; margin: 48px auto 0; text-align: center; font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+/* What every participant gets: .statband icon tiles, 4 across, 2×2 on small screens. */
 .zi-supports-head { margin: 48px auto 12px; }
 .zi-supports { max-width: var(--content); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .zi-supports .statband-item { padding: 22px 12px; }
 .zi-supports .statband-lbl { font-weight: 600; color: var(--ink); line-height: 1.3; }
 .zi-supports .statband-icon { display: flex; }  /* keep the support icons on mobile (ds hides statband icons ≤600px) */
 @media (max-width: 900px) { .zi-panel-grid { grid-template-columns: 1fr 1fr; } .zi-panel { padding: 32px 24px 24px; } }
-@media (max-width: 900px) { .zi-supports { display: grid; grid-template-columns: 1fr 1fr; } .zi-supports .statband-item { border-right: none; border-bottom: 1px solid var(--line); justify-content: flex-start; } .zi-supports .statband-item:last-child { grid-column: 1 / -1; border-bottom: none; } }
+@media (max-width: 900px) { .zi-supports { display: grid; grid-template-columns: 1fr 1fr; } .zi-supports .statband-item { border-right: none; border-bottom: 1px solid var(--line); justify-content: flex-start; } .zi-supports .statband-item:nth-last-child(-n+2) { border-bottom: none; } }
 /* Testimonials with a large recipient photo on top of each .t-card — page-local; no photo-card variant of .t-card exists yet (candidate for ds). */
 .t-photo { width: 100%; margin: 0 0 20px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--r-lg); }
 /* Zero Irving: the real cohort photo, full content width (one-off feature image — no component for a wide photo). */
@@ -124,22 +132,22 @@
       <div class="benefit-card">
         <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww1)" stroke="url(#ww1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zm-7-6.74L16.71 6H6.29l5.21-2.74m0-2.26L2 6v2h19V6l-9.5-5z"/></svg>
         <h3>Government &amp; economic development</h3>
-        <p>City and state agencies, economic development corporations, and workforce boards</p>
+        <p>Turn workforce funding into training that prepares residents for tech and AI jobs.</p>
       </div>
       <div class="benefit-card">
         <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww2)" stroke="url(#ww2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
-        <h3>Education</h3>
-        <p>Community colleges, universities, and training institutions</p>
+        <h3>Educational institutions</h3>
+        <p>Add career-focused tech and AI training to your offering without building curriculum from scratch.</p>
       </div>
       <div class="benefit-card">
         <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww3)" stroke="url(#ww3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>
         <h3>Community organizations</h3>
-        <p>Nonprofits serving local populations</p>
+        <p>Give the people you serve a supported path into tech, with laptops, coaching, and community built in.</p>
       </div>
       <div class="benefit-card">
         <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww4)" stroke="url(#ww4)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
         <h3>Employers</h3>
-        <p>Companies reskilling their teams for AI</p>
+        <p>Reskill your team for AI and fill new roles with people who already know your business.</p>
       </div>
     </div>
   </section>
@@ -186,7 +194,7 @@
       <div class="section-head">
         <span class="eyebrow">In action: Zero Irving × Skillcrush by PowerToFly</span>
         <h2>15 New Yorkers. Six months. Beginner to <em class="italic-plain">AI developer.</em></h2>
-        <p>A fully funded scholarship for New Yorkers underrepresented in tech, now underway at Civic Hall.</p>
+        <p>A fully funded, six-month workforce program for New Yorkers underrepresented in tech, built with Zero Irving and now underway at Civic Hall.</p>
       </div>
 
       <img class="zi-photo" src="../photos/zero-irving-cohort.jpg" alt="The Zero Irving scholarship cohort together at Civic Hall in New York">
@@ -204,16 +212,42 @@
         <p class="zi-panel-note">*Demographic percentages reflect confirmed application data.</p>
       </div>
 
-      <!-- Participant supports — .statband icon tiles (replaces the plain pills; Kristina: frame "Included" as participant supports) -->
+      <!-- What we built — 4 numbered .benefit-card items (Mara's copy update) -->
       <div class="section-head zi-supports-head">
-        <span class="eyebrow">Participant supports built into the program</span>
+        <span class="eyebrow">What we built</span>
+      </div>
+      <div class="zi-built">
+        <div class="benefit-card">
+          <span class="step-num">01</span>
+          <h3>Recruitment</h3>
+          <p>Outreach and selection of 15 learners from communities underrepresented in tech</p>
+        </div>
+        <div class="benefit-card">
+          <span class="step-num">02</span>
+          <h3>Curriculum</h3>
+          <p>Web foundations through full-stack and AI application development</p>
+        </div>
+        <div class="benefit-card">
+          <span class="step-num">03</span>
+          <h3>Hybrid instruction</h3>
+          <p>Weekly in-person classes at Civic Hall, plus self-paced online coursework</p>
+        </div>
+        <div class="benefit-card">
+          <span class="step-num">04</span>
+          <h3>Career support</h3>
+          <p>Six months of career coaching after training</p>
+        </div>
+      </div>
+
+      <!-- What every participant gets — .statband icon tiles (replaces "Included") -->
+      <div class="section-head zi-supports-head">
+        <span class="eyebrow">What every participant gets</span>
       </div>
       <div class="statband-inner zi-supports">
         <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></div><div class="statband-text"><span class="statband-lbl">Laptop</span></div></div>
         <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/></svg></div><div class="statband-text"><span class="statband-lbl">Transportation support</span></div></div>
-        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 8v8H5V8h10m1-2H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4V7c0-.55-.45-1-1-1z"/></svg></div><div class="statband-text"><span class="statband-lbl">Live instruction</span></div></div>
         <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div><div class="statband-text"><span class="statband-lbl">Mentorship</span></div></div>
-        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg></div><div class="statband-text"><span class="statband-lbl">Six months of career coaching</span></div></div>
+        <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></div><div class="statband-text"><span class="statband-lbl">A cohort community</span></div></div>
       </div>
 
       <div class="cs-cta-row" style="margin-top:40px">
@@ -226,7 +260,7 @@
   <section class="section">
     <div class="section-narrow">
       <div class="section-head">
-        <h2>In their <em class="italic-plain">words</em></h2>
+        <h2>Hear from the <em class="italic-plain">Zero Irving cohort</em></h2>
       </div>
     </div>
     <div class="experts-inner">
@@ -250,13 +284,13 @@
     </div>
   </section>
 
-  <!-- ⑨ SKILLCRUSH BY POWERTOFLY — portrait + 3-step journey. Step copy: Mara, option 1 (talent-facing). Option 2 (employer-friendly) pending Kristina:
-       h2 "Skillcrush builds the skills. PowerToFly opens the doors." · Build skills / Put them to work / Grow into new roles -->
+  <!-- ⑨ THE PATH — portrait + 4-step journey (copy update) + closing line -->
   <section class="section-how">
     <div class="how-outer">
       <div class="section-head">
         <span class="eyebrow">Skillcrush by PowerToFly</span>
-        <h2>Skillcrush teaches the skills. PowerToFly connects people with <em class="italic-plain">employers.</em></h2>
+        <h2>From first lesson to <em class="italic-plain">first job.</em></h2>
+        <p>Skillcrush is part of PowerToFly, a community of 1.1M+ professionals connected with employers who are hiring.</p>
       </div>
       <div class="how-inner">
         <div class="how-portrait-card">
@@ -265,18 +299,23 @@
         <div class="steps">
           <div class="step">
             <div class="step-num">01</div>
-            <div class="step-content"><h4>Build skills</h4><p>Beginner-friendly courses and live instruction in AI, web development, and UX.</p></div>
+            <div class="step-content"><h4>Build skills</h4><p>Beginner-friendly curriculum and live instruction in AI, web development, and UX.</p></div>
           </div>
           <div class="step">
             <div class="step-num">02</div>
-            <div class="step-content"><h4>Prepare for the job search</h4><p>Career coaching on resumes, LinkedIn, portfolios, and interviews.</p></div>
+            <div class="step-content"><h4>Finish the program</h4><p>Support designed around your learners helps them stay on track and complete.</p></div>
           </div>
           <div class="step">
             <div class="step-num">03</div>
-            <div class="step-content"><h4>Land the role</h4><p>PowerToFly connects job-ready talent with employers hiring now.</p></div>
+            <div class="step-content"><h4>Get job-ready</h4><p>Career coaching on resumes, LinkedIn, portfolios, and interviews.</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">04</div>
+            <div class="step-content"><h4>Get hired</h4><p>PowerToFly’s employer network connects graduates with companies hiring now.</p></div>
           </div>
         </div>
       </div>
+      <p class="path-note">We measure every cohort at each step, so you can show funders and boards what your investment made possible.</p>
     </div>
   </section>
 
