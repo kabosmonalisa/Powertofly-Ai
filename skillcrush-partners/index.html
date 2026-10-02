@@ -30,8 +30,17 @@
 .testimonials { grid-template-columns: repeat(3, 1fr); }
 /* Small check in .sc-bullets — plain ink, sized to the .sc-ck dot. */
 .sc-ck svg { width: 12px; height: 12px; fill: var(--ink); }
-/* Stat band with 3 items (ds assumes 4): when it wraps to 2-up, the odd last item takes the full row instead of leaving an empty cell. */
-@media (max-width: 900px) { .statband-item:last-child:nth-child(odd) { flex-basis: 100%; grid-column: 1 / -1; border-right: none; } }
+/* Hero proof stats — .about-stat-grid, centred under the CTA. */
+.hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: left; }
+@media (max-width: 768px) { .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .hero-stats .about-stat-num { font-size: clamp(28px, 8vw, 40px); } }
+/* Partner cards: the offer name sits next to its big number at heading size, so "Custom programs" / "Licensing" read as the two headline offers. */
+.partner-head { display: flex; align-items: baseline; gap: 14px; }
+.partner-head h3 { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -0.03em; }
+.partner-cards .partner-promise { font-weight: 600; color: var(--ink); font-size: 18px; }
+/* Small footnote asterisks on the cohort stats (Kristina: big ones read like terms & conditions). */
+.zi-stats sup { font-size: 16px; font-weight: 600; vertical-align: top; position: relative; top: 4px; margin-left: 2px; }
+/* Closing headline stays on one line on desktop (Kristina: broken in two it loses impact). */
+@media (min-width: 900px) { .section-cta-inner:has(.cta-oneline) { max-width: var(--content); } .cta-oneline { white-space: nowrap; } }
 @media (max-width: 900px) { .testimonials { grid-template-columns: 1fr; } }
 /* Two ways to partner: photo on top of each card; links stack at the bottom so both cards line up. Page layout only. */
 .partner-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-lg); margin-bottom: 8px; }
@@ -43,7 +52,7 @@
 .zi-photo { width: 100%; max-width: var(--content); margin: 0 auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: var(--r-2xl); }
 /* Four cohort stats → 4-up (ds .about-stat-grid is 3-up); centered under the photo. */
 .zi-stats { grid-template-columns: repeat(4, 1fr); max-width: var(--content); margin: 40px auto 0; }
-.zi-note { max-width: var(--content); margin: 16px auto 0; font-size: 14px; color: var(--ink-3); }
+.zi-note { max-width: var(--content); margin: 20px auto 0; font-size: 14px; color: var(--ink-3); text-align: right; }  /* right-aligned so it reads as a footnote, not part of the 100% stat */
 @media (max-width: 768px) { .zi-stats { grid-template-columns: 1fr 1fr; gap: 32px 20px; } }
 @media (max-width: 600px) { .benefits-row { grid-template-columns: 1fr; } }
 </style>
@@ -70,19 +79,28 @@
       <div class="cs-cta-row">
         <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-primary" target="_blank" rel="noopener">Talk to us about a partnership →</a>
       </div>
+      <!-- PROOF STATS — .about-stat-grid (was a thin .statband; Kristina: these proof points disappear, esp. on mobile) -->
+      <div class="about-stat-grid hero-stats">
+        <div class="about-stat-card">
+          <hr class="about-stat-rule">
+          <span class="about-stat-num">14</span>
+          <p class="about-stat-desc">Years teaching tech</p>
+        </div>
+        <div class="about-stat-card">
+          <hr class="about-stat-rule">
+          <span class="about-stat-num">200K+</span>
+          <p class="about-stat-desc">Students</p>
+        </div>
+        <div class="about-stat-card">
+          <hr class="about-stat-rule">
+          <span class="about-stat-num">148</span>
+          <p class="about-stat-desc">Countries</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ② PROOF BAR — .section-statband (flush strip, spacing exception) -->
-  <section class="section-statband">
-    <div class="statband-inner">
-      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg></div><div class="statband-text"><span class="statband-num">14 years</span><span class="statband-lbl">teaching tech</span></div></div>
-      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div><div class="statband-text"><span class="statband-num">200K+</span><span class="statband-lbl">students</span></div></div>
-      <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg></div><div class="statband-text"><span class="statband-num">148</span><span class="statband-lbl">countries</span></div></div>
-    </div>
-  </section>
-
-  <!-- ③ WHO WE WORK WITH — .benefit-card ×4 -->
+  <!-- ③ WHO WE WORK WITH — .benefit-card ×4 with .benefit-sparkle icons (MUI Outlined, gradient recipe; Kristina: an ecosystem, not a plain list) -->
   <section class="section" id="who-we-work-with">
     <div class="section-narrow">
       <div class="section-head">
@@ -91,18 +109,22 @@
     </div>
     <div class="benefits-row">
       <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww1)" stroke="url(#ww1)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M6.5 10h-2v7h2v-7zm6 0h-2v7h2v-7zm8.5 9H2v2h19v-2zm-2.5-9h-2v7h2v-7zm-7-6.74L16.71 6H6.29l5.21-2.74m0-2.26L2 6v2h19V6l-9.5-5z"/></svg>
         <h3>Government &amp; economic development</h3>
         <p>City and state agencies, economic development corporations, and workforce boards</p>
       </div>
       <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww2)" stroke="url(#ww2)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M12 3 1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/></svg>
         <h3>Education</h3>
         <p>Community colleges, universities, and training institutions</p>
       </div>
       <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww3)" stroke="url(#ww3)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>
         <h3>Community organizations</h3>
         <p>Nonprofits serving local populations</p>
       </div>
       <div class="benefit-card">
+        <svg class="benefit-sparkle" viewBox="0 0 24 24" aria-hidden="true"><defs><linearGradient id="ww4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs><path fill="url(#ww4)" stroke="url(#ww4)" stroke-width="1.4" stroke-linejoin="miter" stroke-linecap="square" d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
         <h3>Employers</h3>
         <p>Companies reskilling their teams for AI</p>
       </div>
@@ -119,9 +141,8 @@
     <div class="benefits-row partner-cards">
         <div class="benefit-card" id="custom-programs">
           <img class="partner-photo" src="../photos/pexels-30879378-coding-class-instructor.jpg" alt="Adult learners coding in a computer lab while an instructor teaches">
-          <span class="about-stat-num">1</span>
-          <span class="sc-tag">Custom programs</span>
-          <h3>We build it with you.</h3>
+          <div class="partner-head"><span class="about-stat-num">1</span><h3>Custom programs</h3></div>
+          <p class="partner-promise">We build it with you.</p>
           <p>Tell us who you want to reach, and we'll handle the rest.</p>
           <ul class="sc-bullets">
             <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Curriculum and live instruction</li>
@@ -132,9 +153,8 @@
         </div>
         <div class="benefit-card" id="licensing">
           <img class="partner-photo" src="../photos/pexels-1181471-two-women-coding.jpg" alt="Two women working through code together at a computer">
-          <span class="about-stat-num">2</span>
-          <span class="sc-tag">Licensing</span>
-          <h3>Use what we've already built.</h3>
+          <div class="partner-head"><span class="about-stat-num">2</span><h3>Licensing</h3></div>
+          <p class="partner-promise">Use what we've already built.</p>
           <p>Give your learners or employees access to Skillcrush tracks and courses.</p>
           <ul class="sc-bullets">
             <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>AI Developer, Full Stack, and Front End tracks, plus courses in Python, AI, and UX</li>
@@ -167,17 +187,17 @@
         </div>
         <div class="about-stat-card">
           <hr class="about-stat-rule">
-          <span class="about-stat-num">77%*</span>
+          <span class="about-stat-num">77%<sup>*</sup></span>
           <p class="about-stat-desc">Women</p>
         </div>
         <div class="about-stat-card">
           <hr class="about-stat-rule">
-          <span class="about-stat-num">69%*</span>
+          <span class="about-stat-num">69%<sup>*</sup></span>
           <p class="about-stat-desc">Age 41+</p>
         </div>
         <div class="about-stat-card">
           <hr class="about-stat-rule">
-          <span class="about-stat-num">62%*</span>
+          <span class="about-stat-num">62%<sup>*</sup></span>
           <p class="about-stat-desc">Household income under $25K</p>
         </div>
       </div>
@@ -261,7 +281,7 @@
   <section class="section-cta" id="partner">
     <div class="section-cta-inner">
       <span class="eyebrow">Partner with us</span>
-      <h2>Serving 15 people or <em class="italic-plain">1,500?</em></h2>
+      <h2 class="cta-oneline">Serving 15 people or <em class="italic-plain">1,500?</em></h2>
       <p>Tell us who you want to reach, and we'll build the plan together.</p>
       <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-cta" target="_blank" rel="noopener">Talk to us about a partnership →</a>
     </div>

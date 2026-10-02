@@ -2000,7 +2000,8 @@ img { display: block; max-width: 100%; }
 .section-head p  { font-size: 18px; }
 .sc-body         { font-size: 17px; }
 .sc-bullets li   { font-size: 16px; }
-.sc-tag          { font-size: 12px; }
+.sc-tag          { font-size: 13px; }
+.eyebrow         { font-size: 13px; }   /* was 11px — Kristina: "Skillcrush by PowerToFly" labels too small, esp. on mobile */
 .sc-title-chip   { font-size: 14px; }
 .benefit-card p  { font-size: 16px; }
 .t-quote         { font-size: 17px; }
