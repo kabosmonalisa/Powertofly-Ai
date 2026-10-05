@@ -122,6 +122,14 @@
    "desc": "Event detail — the summit. Sibling of Virtual job fair and Chat & Learn."
   },
   {
+   "id": "p-summit2027",
+   "name": "Summit & Job Fair 2027",
+   "file": "summit-2027/index.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Event detail — the 2027 Summit & Job Fair series. One page for all six events (#empower-her, #pride, #next-wave, #latinidad, #veterans); preview bar switches them."
+  },
+  {
    "id": "p-chatlearn",
    "name": "Chat & Learn",
    "file": "chat-learn/index.html",
