@@ -30,6 +30,7 @@
 .s-item{margin-top:52px}
 .s-item .lbl{font-size:15px;color:rgba(255,255,255,.7);margin-bottom:6px}   /* Stripe's line-item label */
 .s-item .amt{font-size:44px;font-weight:600;letter-spacing:-.5px}           /* Stripe's amount type, NOT ours */
+.s-item .desc{font-size:14px;color:rgba(255,255,255,.7);margin-top:10px;line-height:1.5;max-width:340px}  /* Stripe's product description line — the text is ours (set on the Price/Product) */
 
 /* RIGHT — Stripe's own chrome, unchanged & unstylable. Context only. */
 .payside{padding:48px 52px;background:#fff;color:#30313d;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
@@ -74,6 +75,8 @@
       <div class="s-item">
         <div class="lbl">Job credits</div>
         <div class="amt">$499.00</div>
+        <!-- One-time Price (mode: payment), NOT a subscription — so Stripe shows no "per month" -->
+        <div class="desc">One-time payment. Publishes one job for 30 days — no automatic renewal.</div>
       </div>
     </div>
 

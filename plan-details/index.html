@@ -226,7 +226,7 @@ body[data-scenario="active"] .for-new { display: none; }
     <div class="page-head">
       <p class="mini-label">newjobboard · Billing</p>
       <h1 class="page-h1">Job postings</h1>
-      <p class="page-desc">Buy posting credits, manage renewals, and track your history. Each credit publishes one job for 30 days.</p>
+      <p class="page-desc">Buy posting credits, manage renewals, and track your history. Each credit is a one-time purchase that publishes one job for 30 days.</p>
     </div>
 
     <!-- MASTHEAD: balance + buy -->
@@ -252,17 +252,17 @@ body[data-scenario="active"] .for-new { display: none; }
           </div>
           <button class="btn btn-primary btn-sm" id="buyBtn">Buy 1 posting</button>
         </div>
-        <p class="mh-buy-note">$499 each · publishes one job for 30 days</p>
+        <p class="mh-buy-note">$499 each · one-time payment · publishes one job for 30 days</p>
       </div>
     </section>
 
     <!-- SETTING: auto-renew -->
     <section class="setting divide">
       <div>
-        <p class="setting-title">Auto-renew jobs by default</p>
-        <p class="setting-desc">When a job's 30 days end, it renews automatically so it never quietly disappears. You can change this per job after it's published.</p>
+        <p class="setting-title">Auto-renew new jobs</p>
+        <p class="setting-desc">Off by default: a job ends after its 30 days and you're never charged again. Turn this on if you hire for the same role on an ongoing basis — each renewal is $499 for another 30 days, and we email you 3 days before. You can also turn it on or off for each job.</p>
       </div>
-      <button class="switch" role="switch" aria-checked="true" id="autoRenew" aria-label="Auto-renew jobs by default"></button>
+      <button class="switch" role="switch" aria-checked="false" id="autoRenew" aria-label="Auto-renew new jobs"></button>
     </section>
 
     <!-- HISTORY -->
@@ -325,7 +325,7 @@ body[data-scenario="active"] .for-new { display: none; }
           </div>
           <div class="job-right">
             <div class="job-days">
-              <span class="job-days-text">18 days left · auto-renews</span>
+              <span class="job-days-text">18 days left · ends Aug 22</span>
               <div class="job-days-meter"><div style="width:60%"></div></div>
             </div>
             <div class="job-menu-wrap">
@@ -333,7 +333,7 @@ body[data-scenario="active"] .for-new { display: none; }
               <div class="job-actions" role="menu">
                 <button role="menuitem" data-act="edit"><svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>Edit job</button>
                 <button role="menuitem" data-act="pause"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg><span class="ja-label">Pause / unpublish</span></button>
-                <button role="menuitem" data-act="autorenew"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg><span class="ja-label">Turn off auto-renew</span></button>
+                <button role="menuitem" data-act="autorenew"><svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg><span class="ja-label">Turn on auto-renew</span></button>
                 <button role="menuitem" data-act="duplicate"><svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>Duplicate</button>
               </div>
             </div>
@@ -349,7 +349,7 @@ body[data-scenario="active"] .for-new { display: none; }
           </div>
           <div class="job-right">
             <div class="job-days">
-              <span class="job-days-text">26 days left · auto-renews</span>
+              <span class="job-days-text">26 days left · renews Aug 29 for $499</span>
               <div class="job-days-meter"><div style="width:87%"></div></div>
             </div>
             <div class="job-menu-wrap">
@@ -375,7 +375,7 @@ body[data-scenario="active"] .for-new { display: none; }
       <h2 id="buyModalTitle">Buy job postings</h2>
       <button class="modal-close" id="buyModalClose" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
     </div>
-    <p class="modal-body" id="buyModalBody">You'll be taken to Stripe Checkout to purchase 1 job posting credit. A credit never expires — the 30-day posting period only begins when you publish a job.</p>
+    <p class="modal-body" id="buyModalBody">You'll be taken to Stripe Checkout for a one-time payment of $499 for 1 job posting credit. This is not a subscription — you won't be charged again unless you turn on auto-renew for a job. A credit never expires; the 30-day posting period only begins when you publish a job.</p>
     <div class="modal-actions">
       <button class="btn btn-sm" id="buyModalCancel">Cancel</button>
       <a class="btn btn-primary btn-sm" id="buyModalGo" href="../checkout-rebrand-proposal.html?qty=1">Continue to checkout</a>
@@ -423,7 +423,8 @@ body[data-scenario="active"] .for-new { display: none; }
         modalGo = document.getElementById('buyModalGo');
   function openModal() {
     const n = qty, plural = n > 1 ? 's' : '';
-    modalBody.textContent = `You'll be taken to Stripe Checkout to purchase ${n} job posting credit${plural}. A credit never expires — the 30-day posting period only begins when you publish a job.`;
+    const total = '$' + (n * PRICE).toLocaleString('en-US');
+    modalBody.textContent = `You'll be taken to Stripe Checkout for a one-time payment of ${total} for ${n} job posting credit${plural}. This is not a subscription — you won't be charged again unless you turn on auto-renew for a job. A credit never expires; the 30-day posting period only begins when you publish a job.`;
     modalGo.href = '../checkout-rebrand-proposal.html?qty=' + n;
     modalGo.textContent = 'Continue to checkout';
     modal.classList.add('open');
@@ -465,14 +466,12 @@ body[data-scenario="active"] .for-new { display: none; }
         if (tn) tn.textContent = paused ? 'Paused' : 'Live';
         item.querySelector('.ja-label').textContent = paused ? 'Resume / publish' : 'Pause / unpublish';
       } else if (act === 'autorenew') {
+        // Opt-in: a job ends on its end date unless the employer turns renewal on
         const days = job.querySelector('.job-days-text'), lbl = item.querySelector('.ja-label');
-        if (days.textContent.includes('· auto-renews')) {
-          days.textContent = days.textContent.replace(' · auto-renews', '');
-          lbl.textContent = 'Turn on auto-renew';
-        } else {
-          days.textContent += ' · auto-renews';
-          lbl.textContent = 'Turn off auto-renew';
-        }
+        const [left, date] = days.textContent.split(' · ').map((t, k) => k ? t.replace(/^(ends|renews) /, '').replace(/ for \$\d+$/, '') : t);
+        const renewing = days.textContent.includes('· renews');
+        days.textContent = renewing ? `${left} · ends ${date}` : `${left} · renews ${date} for $${PRICE}`;
+        lbl.textContent = renewing ? 'Turn on auto-renew' : 'Turn off auto-renew';
       }
       // 'edit' and 'duplicate' are prototype no-ops (would navigate in the real app)
       closeJobMenus();
