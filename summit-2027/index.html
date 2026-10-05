@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amplifying Black Excellence — 2027 Summit &amp; Job Fair — PowerToFly AI</title>
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  SUMMIT 2027 — the 2027 "Summit & Job Fair" series, ONE template for all six
+  events (sibling of summit/ and vjf/). Same Event-detail recipe as summit/:
+  · nav + footer        → injected (data-ptf-nav / data-ptf-footer)
+  · hero                → .ev-hero (verbatim from summit/)
+  · something for you   → .section-how / .steps (Learn · Connect · Explore what's next)
+  · Day 1 / Day 2       → .experts-list / .expert-row (.sc-tag day label + h3 + .sc-body,
+                          Day 2 adds .sc-bullets; .sc-right holds an .sc-photo)
+  · see you live        → calm .section + .section-head (same as summit/'s job-fair note)
+  · more 2027 events    → .ev-head / .ev-list / .ev-row (same tiles as summit/)
+  · closer              → .section-cta
+  The six events are data (EVENTS below). The static markup is Amplifying Black
+  Excellence; #empower-her, #pride, #next-wave, #latinidad, #veterans swap the copy.
+  Page CSS is limited to what summit/ already carries (fixed header, event hero,
+  how portrait, column widths) + the .sc-ck check size from skillcrush-partners/.
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<!-- OG -->
+<meta property="og:title"       content="Amplifying Black Excellence — 2027 Summit &amp; Job Fair — PowerToFly AI">
+<meta property="og:description" content="February 3 &amp; 4, 2027. Free and virtual. Two days of conversation, community, and career-building with Black professionals and allies.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY (tokens, never raw hex — see COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"). Copied verbatim from summit/index.html so the two
+ * summit pages stay one recipe. Everything else comes from ptf.css.
+ */
+
+/* ── Fixed site header (alert + nav) — same wiring as events/hire/vjf/summit ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Event-detail hero — shared verbatim with summit/ and vjf/ ── */
+.ev-hero {
+  position: relative; overflow: hidden;
+  padding: var(--section-y) var(--gutter);
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%,
+              rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
+}
+.ev-hero-inner {
+  position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: clamp(28px, 4vw, 56px); align-items: stretch;
+}
+.ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+.ev-hero h1 { margin: 18px 0 0; max-width: 20ch; }
+.ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+.ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 30px 0 0; }
+.ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
+.ev-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
+/* fixed 4:3 hero image slot (one spec for every event: 1600 x 1200) */
+.ev-hero-media {
+  position: relative; border-radius: var(--r-2xl); overflow: hidden;
+  aspect-ratio: 4 / 3; align-self: center; background: var(--surface-2);
+}
+.ev-hero-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* how-it-works portrait — the generic event mockup, reused on every event page */
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
+
+/* Small check in .sc-bullets — plain ink, sized to the .sc-ck dot (same as skillcrush-partners/). */
+.sc-ck svg { width: 12px; height: 12px; fill: var(--ink); }
+
+/* List column — same width wrapper as summit/ */
+.smt-col { max-width: var(--content-body); margin: 0 auto; }
+.smt-col .ev-list .ev-row:last-child { border-bottom: none; }
+
+#days, #live, #summits { scroll-margin-top: 140px; }
+
+/* ── PROTOTYPE: event switcher (same dev-bar styling as summit/'s #devStates) ── */
+#devEvents button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 9px; white-space: nowrap; transition: background .12s ease, color .12s ease; }
+#devEvents button:hover { background: rgba(255,255,255,0.12); }
+#devEvents button.active { background: #fff; color: #0A0A0A; }
+#devEvents button.active:hover { background: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 820px) {
+  .ev-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .ev-hero-media { order: -1; }
+  .ev-hero h1 { max-width: none; }
+}
+@media (max-width: 560px) {
+  .ev-hero { padding: 40px 20px var(--section-y); }
+  h1, h2, h3 { text-wrap: pretty; }
+  .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  .ev-hero-sub { font-size: 16px; }
+  .ev-hero-meta { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for any ≥40px gradient icon -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="site-header" id="siteHeader">
+  <!-- ═══ TOP ALERT ═══ -->
+  <div class="top-alert" id="topAlert">
+    <span id="alertText">Summit &amp; job fair &nbsp;·&nbsp; Amplifying Black Excellence &nbsp;·&nbsp; Feb 3–4</span>
+    <a href="../event-common/index.html" rel="noopener">Save your spot →</a><!-- COPY: confirm target -->
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- ═══ NAV — shared injected nav ═══ -->
+  <div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO -->
+<section class="ev-hero">
+  <div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow">2027 Summit &amp; Job Fair</div>
+      <h1 class="display" data-slot="title">Amplifying Black <em class="italic-plain">Excellence</em></h1>
+      <p class="ev-hero-sub" data-slot="intro">You're invited to two days of conversation, community, and career-building with Black professionals and allies from every industry and career stage. Come to learn from leaders you admire, meet people who share your ambitions, and connect with companies that are excited to meet you.</p>
+
+      <div class="ev-hero-meta">
+        <!-- MUI Outlined paths, plain ink (small = no gradient) -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg><span data-slot="dates">February 3 &amp; 4, 2027</span></span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>Summit + virtual job fair</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual · free to attend</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>Both days recorded</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" href="../event-common/index.html" rel="noopener">Save your spot →</a><!-- COPY: confirm target -->
+        <a class="btn" href="../sponsor/index.html">Become a sponsor</a>
+      </div>
+    </div>
+
+    <div class="ev-hero-media">
+      <img data-slot="heroImg" src="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=1000&h=750&fit=crop" alt="Black professionals talking over charts and a laptop">
+    </div>
+  </div>
+</section>
+
+<!-- 02. SOMETHING FOR WHEREVER YOU ARE — how-it-works steps (check marks, plain ink) -->
+<section class="section-how" id="how">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>Something for wherever you&nbsp;are</h2>
+      <p>Come for one part or stay for all of it.</p><!-- COPY: confirm — subline added for the section head -->
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Learn</h4>
+            <p data-slot="learn">Pick up new ideas and practical skills from executives, founders, and industry leaders.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Connect</h4>
+            <p data-slot="connect">Meet fellow professionals, recruiters, and hiring managers, and grow a network that can support you for years.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Explore what's next</h4>
+            <p data-slot="explore">Hear about open roles and get direct advice from the people doing the hiring.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03. THE TWO DAYS — expert rows (copy beside a photo; row 2 flips sides via ptf.css) -->
+<section class="section" id="days">
+  <div class="experts-inner">
+    <div class="section-head">
+      <h2>Two days, built to work&nbsp;together</h2><!-- COPY: confirm — section heading added -->
+    </div>
+    <div class="experts-list">
+
+      <div class="expert-row">
+        <div class="sc-left">
+          <span class="sc-tag" data-slot="day1Label">Day 1 · Wednesday, February 3</span>
+          <h3>The Summit</h3>
+          <p class="sc-body" data-slot="day1a">Settle in for a couple of hours of panels and fireside chats with Black leaders who are shaping their industries. They'll share how they built their careers, what leadership has taught them, how they open doors for the people coming up behind them, and the advice they wish they'd heard earlier.</p>
+          <p class="sc-body" data-slot="day1b">We'll close with a friendly prep session for the job fair. We'll help you get comfortable introducing yourself, think through what you'd like to ask, and feel ready to make the most of the next day.</p>
+        </div>
+        <div class="sc-right">
+          <img class="sc-photo" src="../photos/pexels-30879378-coding-class-instructor.jpg" alt="A speaker leading a session for a room of professionals">
+        </div>
+      </div>
+
+      <div class="expert-row">
+        <div class="sc-left">
+          <span class="sc-tag" data-slot="day2Label">Day 2 · Thursday, February 4</span>
+          <h3>The Virtual Job Fair</h3>
+          <p class="sc-body" data-slot="day2a">The job fair is where everything comes together. We'll start on the main stage, where each participating company introduces itself and joins a roundtable on amplifying Black excellence, their approach to inclusion, and what it's like to work on their teams. It's a relaxed way to get to know a company and picture yourself there.</p>
+          <p class="sc-body" data-slot="day2b">Then you'll join breakout rooms with recruiters and hiring managers who are glad to answer your questions and share advice you can put to use right away, including:</p>
+          <ul class="sc-bullets" data-slot="bullets">
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Tips for resumes and applications</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>How to prepare for interviews, from the first screen to the final round</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Open roles and what their teams are looking for</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>The technology and tools their teams use every day</li>
+          </ul>
+        </div>
+        <div class="sc-right">
+          <img class="sc-photo" src="../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg" alt="A professional joining a virtual conversation from her laptop">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 04. SEE YOU LIVE — calm section (eyebrow + heading + one paragraph), as summit/'s job-fair note -->
+<section class="section" id="live" style="background: var(--bg)">
+  <div class="section-head">
+    <div class="eyebrow" style="justify-content:center; margin-bottom:16px">Join the job fair live</div>
+    <h2>We'd love to see you&nbsp;live</h2>
+    <p data-slot="live">Both days are recorded, so you can catch up anytime. If you can, we hope you'll join the job fair live. It's the best way to take part in the conversation, and we let our hiring partners know who attended live. That's a nice boost if you're looking for your next opportunity.</p>
+  </div>
+</section>
+
+<!-- 05. MORE 2027 EVENTS — shared event tiles (static, no filter/pager). JS lists the other five. -->
+<section class="section" id="summits">
+  <div class="smt-col">
+  <div class="ev-head">
+    <h2>More 2027 summits</h2>
+    <a class="ev-head-link" href="../events/index.html">See all events →</a>
+  </div>
+  <div class="ev-list" id="moreEvents"></div>
+  </div>
+</section>
+
+<!-- 06. CLOSER — shared dark band -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Free and virtual</span>
+    <h2 data-slot="ctaTitle">Save your spot for February 3 and&nbsp;4.</h2>
+    <p data-slot="ctaBody">Attendance is free and there's room for everyone. We can't wait to see you there.</p>
+    <a href="../event-common/index.html" class="btn btn-cta">Save your spot →</a><!-- COPY: confirm target -->
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<!-- PROTOTYPE-ONLY — switch between the six 2027 events. Delete #devEvents before launch. -->
+<div id="devEvents" style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:4px;max-width:calc(100vw - 32px);overflow-x:auto;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.34);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 4px;white-space:nowrap">PREVIEW EVENT</span>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed alert + nav offset
+
+  (function () {
+    var BULLETS = [
+      'Tips for resumes and applications',
+      'How to prepare for interviews, from the first screen to the final round',
+      'Open roles and what their teams are looking for',
+      'The technology and tools their teams use every day'
+    ];
+    function img(id, w, h) { return 'https://images.pexels.com/photos/' + id + '/pexels-photo-' + id + '.jpeg?auto=compress&cs=tinysrgb&w=' + w + '&h=' + h + '&fit=crop'; }
+
+    /* The six 2027 events — copy as supplied, word for word. Images are Pexels photos
+       already used elsewhere in the project. COPY: confirm the Pride image (7495555 is a generic diverse team). */
+    var EVENTS = [
+      { id: 'black-excellence', tab: 'Black Excellence', alert: 'Amplifying Black Excellence', short: 'Feb 3–4',
+        title: 'Amplifying Black <em class="italic-plain">Excellence</em>', plain: 'Amplifying Black Excellence',
+        dates: 'February 3 &amp; 4, 2027', day1: 'Wednesday, February 3', day2: 'Thursday, February 4', save: 'February 3 and&nbsp;4',
+        photo: 3184338, alt: 'Black professionals talking over charts and a laptop',
+        intro: "You're invited to two days of conversation, community, and career-building with Black professionals and allies from every industry and career stage. Come to learn from leaders you admire, meet people who share your ambitions, and connect with companies that are excited to meet you.",
+        learn: 'Pick up new ideas and practical skills from executives, founders, and industry leaders.',
+        connect: 'Meet fellow professionals, recruiters, and hiring managers, and grow a network that can support you for years.',
+        explore: 'Hear about open roles and get direct advice from the people doing the hiring.',
+        day1a: "Settle in for a couple of hours of panels and fireside chats with Black leaders who are shaping their industries. They'll share how they built their careers, what leadership has taught them, how they open doors for the people coming up behind them, and the advice they wish they'd heard earlier.",
+        day1b: "We'll close with a friendly prep session for the job fair. We'll help you get comfortable introducing yourself, think through what you'd like to ask, and feel ready to make the most of the next day.",
+        day2a: "The job fair is where everything comes together. We'll start on the main stage, where each participating company introduces itself and joins a roundtable on amplifying Black excellence, their approach to inclusion, and what it's like to work on their teams. It's a relaxed way to get to know a company and picture yourself there.",
+        day2b: "Then you'll join breakout rooms with recruiters and hiring managers who are glad to answer your questions and share advice you can put to use right away, including:",
+        bullets: BULLETS,
+        live: "Both days are recorded, so you can catch up anytime. If you can, we hope you'll join the job fair live. It's the best way to take part in the conversation, and we let our hiring partners know who attended live. That's a nice boost if you're looking for your next opportunity.",
+        close: "We can't wait to see you there." },
+
+      { id: 'empower-her', tab: 'Empower Her', alert: 'Empower Her', short: 'Mar 17–18',
+        title: 'Empower <em class="italic-plain">Her</em>', plain: 'Empower Her',
+        dates: 'March 17 &amp; 18, 2027', day1: 'Wednesday, March 17', day2: 'Thursday, March 18', save: 'March 17 and&nbsp;18',
+        photo: 3756679, alt: 'A woman smiling during a video call at her laptop',
+        intro: "Join us for two days built for women who are growing, learning, and dreaming a little bigger about their careers. Whether you're sharpening your skills, looking for your people, or ready for a new role, you'll find a warm welcome here.",
+        learn: 'Get practical guidance from women leaders on everything from negotiating to leading teams.',
+        connect: 'Meet women who are working toward the same goals you are, along with recruiters and hiring managers who want to know you.',
+        explore: 'Discover open roles and get advice straight from the people who make hiring decisions.',
+        day1a: "Our panels and fireside chats bring together women executives, founders, and industry leaders for conversations that feel like advice from a trusted mentor. They'll talk about asking for what you're worth, stepping into leadership, making a career change, returning to work after time away, and building confidence and influence along the way. You'll leave with ideas you can use right away (and probably a few new people to follow).",
+        day1b: "We'll finish the day with a prep session for the job fair. It's a supportive space to practice how you present your experience, plan your questions, and get ready for the next day.",
+        day2a: "The job fair is the heart of Empower Her. On the main stage, each participating company introduces itself and joins a roundtable on supporting women in the workplace (and beyond), how they approach inclusion, and what their culture and teams are like. You'll get a real feel for each company and what it offers the women who work there.",
+        day2b: "Afterward, you'll join breakout rooms with recruiters and hiring managers who are there to help. Ask them anything, and they'll share practical advice on:",
+        bullets: BULLETS,
+        live: "Both days are recorded, so you can watch whenever it suits you. If your schedule allows, we hope you'll join the job fair live. You'll get to be part of the conversation, and we let our hiring partners know who attended live, which can really help if you're exploring new opportunities.",
+        close: "We're so glad you're here." },
+
+      { id: 'pride', tab: 'Pride', alert: 'Pride: Championing LGBTQIA+ Leaders', short: 'Jun 16–17',
+        title: 'Pride: Championing LGBTQIA+ <em class="italic-plain">Leaders</em> in the Workplace &amp; Beyond', plain: 'Pride: Championing LGBTQIA+ Leaders in the Workplace & Beyond',
+        dates: 'June 16 &amp; 17, 2027', day1: 'Wednesday, June 16', day2: 'Thursday, June 17', save: 'June 16 and&nbsp;17',
+        photo: 7495555, alt: 'A diverse group of colleagues collaborating around a table',
+        intro: "Come as you are and celebrate Pride with us! This two-day event brings together LGBTQIA+ professionals, allies, and leaders who are building workplaces where everyone can thrive. Join us to learn, connect with community, and meet companies that would love to have you on their teams.",
+        learn: 'Hear from LGBTQIA+ leaders about growing your career and leading with authenticity.',
+        connect: 'Meet people who get it, from fellow professionals to recruiters and hiring managers who care about inclusion.',
+        explore: 'Learn about open roles and get direct advice on landing the right one.',
+        day1a: "LGBTQIA+ executives, founders, and industry leaders join us for panels and fireside chats about leadership, visibility, and community. They'll talk about deciding how you want to show up at work, finding teams where you can do your best work, supporting the people around you, and the moments that shaped their careers. These conversations are personal, uplifting, and full of practical advice.",
+        day1b: "We'll wrap up with a prep session for the job fair, so you can walk into the next day feeling ready, confident, and excited for the conversations ahead.",
+        day2a: "The job fair is the centerpiece of our Pride event. On the main stage, each participating company introduces itself and joins a roundtable on championing LGBTQIA+ leaders in the workplace (and beyond), how they approach inclusion, and what their culture, benefits, and everyday work look like. It's a chance to hear how each company supports LGBTQIA+ employees and to find places that feel like a good fit.",
+        day2b: "Next, you'll head into breakout rooms with recruiters and hiring managers who are happy to answer your questions. They'll share practical advice on:",
+        bullets: BULLETS,
+        live: "Both days are recorded, so you can always catch up later. If you're able to, we hope you'll join the job fair live. It's more fun in the room, and we let our hiring partners know who attended live, which is a great help if you're looking for your next role.",
+        close: "Happy Pride, and we'll see you there!" },
+
+      { id: 'next-wave', tab: 'The Next Wave', alert: 'The Next Wave: AI and the Future of Tech', short: 'Sep 15–16',
+        title: 'The Next Wave: AI and the <em class="italic-plain">Future</em> of Tech', plain: 'The Next Wave: AI and the Future of Tech',
+        dates: 'September 15 &amp; 16, 2027', day1: 'Wednesday, September 15', day2: 'Thursday, September 16', save: 'September 15 and&nbsp;16',
+        photo: 4384666, alt: 'Professionals collaborating at data screens',
+        intro: "AI is changing how we all work, and this is a great moment to learn, grow, and find your place in it. Whether you're building AI, starting to use it in your role, or simply curious about where it's headed, you're welcome at The Next Wave.",
+        learn: 'Build your understanding of AI and discover which skills matter most right now, with insights from people working at the forefront.',
+        connect: 'Meet professionals from across tech and beyond, plus recruiters and hiring managers building AI-ready teams.',
+        explore: 'Find out about open roles and get advice on moving your career in the direction you want.',
+        day1a: "Tech leaders, researchers, and industry experts join us for panels and fireside chats that make AI approachable and practical. They'll share where things are headed, which skills companies need most, how roles are evolving across engineering, product, data, and operations, and why your industry knowledge is an asset in AI work. Come with questions; there's no such thing as too basic or too technical here.",
+        day1b: "We'll close the day with a prep session for the job fair. You'll get tips on talking about your skills, planning your questions, and making great connections the next day.",
+        day2a: "The job fair is the centerpiece of The Next Wave. It begins on the main stage, where each participating company introduces itself and joins a roundtable on how they're using AI, their approach to inclusion, and what their culture and teams are like. You'll hear how each company is thinking about the future and where people like you fit in.",
+        day2b: "Then you'll join breakout rooms with recruiters and hiring managers who are eager to answer your questions and share practical advice on:",
+        bullets: ['Tips for resumes and applications', 'How to prepare for interviews, including technical rounds', 'Open roles and what their teams are looking for', 'The AI tools and technology their teams use every day'],
+        live: "Both days are recorded, so you can watch on your own schedule. If you can, we hope you'll join the job fair live. You'll be able to ask questions in real time, and we let our hiring partners know who attended live, which is a real plus if you're exploring new opportunities in tech.",
+        close: "We look forward to learning alongside you." },
+
+      { id: 'latinidad', tab: 'Latinidad', alert: 'Beyond Boundaries: Voices of Latinidad', short: 'Oct 20–21',
+        title: 'Beyond Boundaries: Voices of <em class="italic-plain">Latinidad</em>', plain: 'Beyond Boundaries: Voices of Latinidad',
+        dates: 'October 20 &amp; 21, 2027', day1: 'Wednesday, October 20', day2: 'Thursday, October 21', save: 'October 20 and&nbsp;21',
+        photo: 15177076, alt: 'Latinx professionals in conversation',
+        intro: "¡Bienvenidos! Join us for two days celebrating Latinx professionals and the rich mix of cultures, languages, and stories within Latinidad. Come to learn from inspiring leaders, connect with your community, and meet companies that are excited to get to know you.",
+        learn: 'Get career advice and new perspectives from Latinx leaders across industries.',
+        connect: 'Grow your network with professionals who share your roots and your goals, along with recruiters and hiring managers who are ready to meet you.',
+        explore: 'Discover open roles and get direct advice from the people doing the hiring.',
+        day1a: "Latinx executives, founders, and industry leaders join us for panels and fireside chats about building careers that honor where you come from. They'll share what it's like to be the first in their families on a certain path, how being bilingual and bicultural has become a professional strength, how to find mentors and sponsors, and how to lift others along the way. Expect a wide range of voices and plenty of inspiration.",
+        day1b: "We'll end the day with a prep session for the job fair, so you feel ready to introduce yourself, ask great questions, and make meaningful connections the next day.",
+        day2a: "The job fair is the heart of Beyond Boundaries. We'll kick off on the main stage, where each participating company introduces itself and joins a roundtable on uplifting Latinx team members in the workplace (and beyond), their approach to inclusion, and what their culture and teams are like. It's a welcoming way to learn about each company and picture yourself there.",
+        day2b: "From there, you'll join breakout rooms with recruiters and hiring managers who are glad to answer your questions and share practical advice on:",
+        bullets: BULLETS,
+        live: "Both days are recorded, so you can catch up whenever it works for you. If you can make it, we hope you'll join the job fair live. You'll be part of the conversation, and we let our hiring partners know who attended live, which can make a real difference if you're looking for your next opportunity.",
+        close: "¡Nos vemos pronto!" },
+
+      { id: 'veterans', tab: 'Veterans', alert: 'Supporting Veterans, Service Members &amp; Military Spouses', short: 'Nov 17–18',
+        title: 'Supporting <em class="italic-plain">Veterans</em>, Active Service Members and Military Spouses', plain: 'Supporting Veterans, Active Service Members and Military Spouses',
+        dates: 'November 17 &amp; 18, 2027', day1: 'Wednesday, November 17', day2: 'Thursday, November 18', save: 'November 17 and&nbsp;18',
+        photo: 7468063, alt: 'A service member in uniform',
+        intro: "Thank you for all you've given. We'd love to help with what comes next. Join us for two days designed for veterans, active service members, and military spouses who want to keep learning, build connections, and explore career opportunities with companies that value military experience.",
+        learn: "Get practical guidance from people who've made the move into civilian careers and succeeded.",
+        connect: 'Meet others in the military community, plus recruiters and hiring managers who understand your experience.',
+        explore: 'Learn about open roles, including remote and flexible options, and get advice on landing them.',
+        day1a: "Veteran leaders, military spouses, and industry experts join us for panels and fireside chats about building a fulfilling civilian career. They'll talk about translating military experience into language hiring teams understand, finding roles that put your leadership and training to use, building a career that can move with you through PCS moves and deployments, and talking about resume gaps with confidence. It's encouraging, practical advice from people who've been in your shoes.",
+        day1b: "We'll wrap up with a prep session for the job fair, where you'll get support presenting your background, planning your questions, and following up after the event.",
+        day2a: "The job fair is the centerpiece of the event. On the main stage, each participating company introduces itself and joins a roundtable on how they support veterans and military families, their approach to inclusion, and what their culture and teams are like. You'll get to know companies that are eager to welcome people with your experience.",
+        day2b: "Afterward, you'll join breakout rooms with recruiters and hiring managers who are ready to answer your questions and share practical advice on:",
+        bullets: ['Tips for resumes and applications, including how to frame military experience', 'How to prepare for interviews, from the first screen to the final round', 'Open roles, including remote and flexible options', 'The technology and tools their teams use every day'],
+        live: "Both days are recorded, so you can watch later if your schedule doesn't allow it. If you can, we hope you'll join the job fair live. You'll be able to ask questions in real time, and we let our hiring partners know who attended live, which is a great help if you're looking for new opportunities.",
+        close: "We're honored to have you with us." }
+    ];
+
+    var CK = '<span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>';
+    function esc(s) { return String(s).replace(/&(?!amp;|nbsp;)/g, '&amp;').replace(/</g, '&lt;'); }
+    function slot(name) { return document.querySelector('[data-slot="' + name + '"]'); }
+    function setText(name, v) { var el = slot(name); if (el) el.textContent = v; }
+    function setHTML(name, v) { var el = slot(name); if (el) el.innerHTML = v; }
+    function firstSentence(s) { var m = s.match(/^.*?[.!?](\s|$)/); return m ? m[0].trim() : s; }
+
+    function tile(e) {
+      return '<article class="ev-row" data-type="summit">' +
+        '<div class="ev-row-date">' + e.dates + '</div>' +
+        '<div class="ev-row-body">' +
+          '<span class="sc-tag">Summit &amp; job fair</span>' +
+          '<h3 class="ev-row-title">' + esc(e.plain) + '</h3>' +
+          '<p class="ev-row-desc">' + esc(e.intro) + '</p>' +
+          '<a class="ev-row-link" href="#' + e.id + '">See the event →</a>' +
+        '</div>' +
+        '<div class="ev-thumb"><img src="' + img(e.photo, 400, 300) + '" alt="" loading="lazy"></div>' +
+      '</article>';
+    }
+
+    var bar = document.getElementById('devEvents');
+    EVENTS.forEach(function (e) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.setAttribute('data-event', e.id); b.textContent = e.tab;
+      b.addEventListener('click', function () { location.hash = e.id; });
+      bar.appendChild(b);
+    });
+
+    function apply(id, scroll) {
+      var e = EVENTS.filter(function (x) { return x.id === id; })[0] || EVENTS[0];
+      document.title = e.plain + ' — 2027 Summit & Job Fair — PowerToFly AI';
+      setHTML('title', e.title);
+      setText('intro', e.intro);
+      setHTML('dates', e.dates);
+      var hi = slot('heroImg'); hi.src = img(e.photo, 1000, 750); hi.alt = e.alt;
+      setText('learn', e.learn); setText('connect', e.connect); setText('explore', e.explore);
+      setText('day1Label', 'Day 1 · ' + e.day1); setText('day2Label', 'Day 2 · ' + e.day2);
+      setText('day1a', e.day1a); setText('day1b', e.day1b);
+      setText('day2a', e.day2a); setText('day2b', e.day2b);
+      setHTML('bullets', e.bullets.map(function (b) { return '<li>' + CK + esc(b) + '</li>'; }).join(''));
+      setText('live', e.live);
+      setHTML('ctaTitle', 'Save your spot for ' + e.save + '.');
+      setText('ctaBody', "Attendance is free and there's room for everyone. " + e.close);
+      document.getElementById('alertText').innerHTML = 'Summit &amp; job fair &nbsp;·&nbsp; ' + e.alert + ' &nbsp;·&nbsp; ' + e.short;
+      document.getElementById('moreEvents').innerHTML = EVENTS.filter(function (x) { return x !== e; }).map(tile).join('');
+      [].forEach.call(bar.querySelectorAll('button'), function (b) { b.classList.toggle('active', b.getAttribute('data-event') === e.id); });
+      if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function fromHash() { return (location.hash || '').replace('#', ''); }
+    var ids = EVENTS.map(function (e) { return e.id; });
+    apply(ids.indexOf(fromHash()) > -1 ? fromHash() : ids[0], false);
+    window.addEventListener('hashchange', function () { var h = fromHash(); if (ids.indexOf(h) > -1) apply(h, true); });
+  })();
+</script>
+</body>
+</html>
