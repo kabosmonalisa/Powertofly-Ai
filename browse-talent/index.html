@@ -58,6 +58,11 @@
 .tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
 .tal-empty { color: var(--ink-3); font-size: 15px; padding: 32px 0; display: none; }
 .tal-empty.show { display: block; }
+[hidden] { display: none !important; }
+#briefForm label { margin-bottom: 8px; }
+#briefForm textarea { min-height: 104px; }
+#briefForm button[type="submit"] { margin-top: 18px; }
+#brief .auth-card { padding: 34px 40px 32px; }
 .tal-sec-note { font-size: 14px; line-height: 1.55; color: var(--ink-3); margin-top: 10px; max-width: 52ch; }
 .tal-sec-note a { color: var(--ink); font-weight: 600; text-decoration: none; }
 .tal-sec-note a:hover { text-decoration: underline; }
@@ -118,8 +123,8 @@
     <h1 class="display-lg">Meet the people who move your work <em class="italic-plain">forward.</em></h1>
     <p>Browse 6,500+ pre-screened experts across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
     <div class="hero-ctas">
-      <a href="#browse" class="btn btn-primary">Browse all talent ↓</a>
-      <a href="../book/" class="btn">Book a discovery call →</a>
+      <a href="#brief" class="btn btn-primary">Tell us what you're looking for →</a>
+      <a href="#browse" class="btn">See who's in our communities ↓</a>
     </div>
   </div>
 </section>
@@ -266,6 +271,52 @@
         </section>
 
       </div>
+    </div><!-- /.tal-col -->
+  </div><!-- /.ev-listing -->
+</section><!-- /#browse -->
+
+<!-- 04. THE ASK — the one thing this page is for. Employers tell us what they need and
+     we build them a curated list; they do not hire from this page, and there is nothing
+     here to save or sign up for. Browsing above exists as proof that the people exist. -->
+<section class="section" id="brief" style="background:var(--surface-2)">
+  <div class="section-narrow">
+    <div class="section-head">
+      <div class="eyebrow">Tell us what you need</div>
+      <h2>We'll build you a list, <em class="italic-plain">not a search box.</em></h2>
+      <p>Tell us the role and we'll come back with a shortlist of people who fit it, each one reviewed by our team. You tell us who you'd like to meet, and we make the introductions.</p>
+    </div>
+
+    <div class="auth-card" style="margin:0 auto">
+      <form class="auth-form" id="briefForm" onsubmit="return sendBrief()">
+        <div class="field"><label>What role are you hiring for?</label><input type="text" placeholder="e.g. Senior PM, AI platform" required></div>
+        <div class="field-row">
+          <div class="field">
+            <label>Engagement</label>
+            <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
+          </div>
+          <div class="field">
+            <label>Timeline</label>
+            <select required><option value="" selected disabled>Choose one</option><option>This month</option><option>Next quarter</option><option>Exploring for later</option></select>
+          </div>
+        </div>
+        <div class="field">
+          <label>What would make this hire a success?</label>
+          <textarea placeholder="The problem the person would own, the experience that matters, and anything you have struggled to find." required></textarea>
+        </div>
+        <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
+        <button class="btn btn-primary btn-block" type="submit">Send my brief →</button>
+      </form>
+
+      <div id="briefDone" hidden>
+        <div class="eyebrow">Brief received</div>
+        <h3 class="card-title" style="margin-top:6px">We're on it.</h3>
+        <p class="tal-count" style="white-space:normal;margin-top:8px">We'll come back within one business day with a shortlist built for this brief.<!-- COPY: confirm turnaround --></p>
+      </div>
+    </div>
+
+    <p class="tal-count" style="white-space:normal;text-align:center;margin-top:18px">Prefer to talk it through first? <a href="../book/">Book a call</a>.</p>
+  </div>
+</section>
 
 <script src="../ds/ptf.js"></script>
 <script>
@@ -326,6 +377,14 @@ function positionDrawer() {
   if (overlay) overlay.addEventListener('click', closeAll);
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeAll(); });
 }());
+
+/* ── The brief: confirmation replaces the form in place. ── */
+function sendBrief() {
+  document.getElementById('briefForm').hidden = true;
+  document.getElementById('briefDone').hidden = false;
+  document.getElementById('brief').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return false;
+}
 
 /* ── Talent directory: grouped sections + side jump-nav (scrollspy) + text search ── */
 (function () {
