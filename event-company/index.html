@@ -20,6 +20,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../ds/ptf.css">
+<style>
+  /* Phone number — a searchable COUNTRY picker + number input joined into ONE DS-style field.
+     You pick your country by NAME (type to search); the +dialing code fills in automatically.
+     Promote-to-DS candidate: .phone-field. Placed after ptf.css so :focus overrides win. */
+  .phone-field { position: relative; display: flex; align-items: stretch; border: 1.5px solid var(--line); border-radius: var(--r-md); background: var(--bg-soft); transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .phone-field.is-open, .phone-field:focus-within { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(79,232,169,0.15); background: var(--bg); }
+  .phone-field > input { border: none; background-color: transparent; box-shadow: none; border-radius: 0; color: var(--ink); width: auto; flex: 1; min-width: 0; padding: 10px 14px 10px 12px; font-family: 'Inter', sans-serif; font-size: 15px; }
+  .phone-field > input:focus { box-shadow: none; background-color: transparent; }
+  /* country trigger (closed state): flag + code + caret */
+  .phone-cc { display: flex; align-items: center; gap: 6px; padding: 10px 10px 10px 12px; border-right: 1.5px solid var(--line); cursor: pointer; user-select: none; white-space: nowrap; color: var(--ink); font-size: 15px; }
+  .phone-cc-flag { font-size: 17px; line-height: 1; }
+  .phone-cc-code { color: var(--ink-2); }
+  .phone-cc > svg { color: var(--ink-3); flex: none; }
+  /* searchable popover */
+  .phone-cc-pop { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; width: 300px; max-width: 84vw; background: var(--bg); border: 1.5px solid var(--line); border-radius: var(--r-md); box-shadow: 0 12px 34px rgba(0,0,0,.16); padding: 8px; }
+  .phone-cc-search { width: 100%; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); outline: none; margin-bottom: 6px; }
+  .phone-cc-search:focus { border-color: var(--green-mid); }
+  .phone-cc-list { list-style: none; margin: 0; padding: 0; max-height: 220px; overflow-y: auto; }
+  .phone-cc-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--ink); }
+  .phone-cc-item:hover, .phone-cc-item.active { background: var(--bg-soft); }
+  .phone-cc-item .fl { font-size: 17px; line-height: 1; flex: none; }
+  .phone-cc-item .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .phone-cc-item .cd { color: var(--ink-3); flex: none; }
+  .phone-cc-empty { padding: 12px 10px; color: var(--ink-3); font-size: 13px; text-align: center; }
+  .field.invalid .phone-field { border-color: #E8843C; }
+  .field.invalid .phone-field:focus-within { box-shadow: 0 0 0 3px rgba(232,132,60,0.15); }
+</style>
 </head>
 <body class="flow-shell">
 
@@ -158,6 +185,23 @@
           <h1 class="auth-heading">A couple last things</h1>
           <p class="auth-sub">Tell us what you want to get out of the event, then confirm to lock in your spot.</p>
           <form class="auth-form" onsubmit="return validateStep4()">
+            <!-- Phone — REQUIRED for Meet with the Company (companies/our team reach you about your meeting slot). -->
+            <div class="field">
+              <label>Phone number <span class="req">*</span></label>
+              <div class="phone-field" id="phoneField">
+                <div class="phone-cc" id="ccBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select country">
+                  <span class="phone-cc-flag" id="ccFlag">🇺🇸</span>
+                  <span class="phone-cc-code" id="ccCode">+1</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <input type="tel" id="phoneNumber" placeholder="(555) 000-0000" autocomplete="tel" required oninput="clearError(this.closest('.field'))">
+                <div class="phone-cc-pop" id="ccPop" role="listbox" hidden>
+                  <input type="text" class="phone-cc-search" id="ccSearch" placeholder="Search country" autocomplete="off">
+                  <ul class="phone-cc-list" id="ccList"></ul>
+                </div>
+              </div>
+              <p style="margin:6px 0 0;font-size:13px;color:var(--ink-3)">So we can reach you about your meeting time on event day.</p>
+            </div>
             <div class="field" id="questionsBlock">
               <label>Questions for the company <span style="font-weight:500;color:var(--ink-3)">(optional — up to 3)</span></label>
               <textarea placeholder="e.g. What does the team structure look like?"></textarea>
@@ -304,11 +348,84 @@
     return goToStep(4);
   }
   function validateStep4() {
+    var phone = document.getElementById('phoneNumber'), phoneOk = phone.value.replace(/\D/g, '').length >= 6;
     var agree = document.getElementById('agreeBox'), row = agree.closest('.agree-row');
     clearError(row);
-    if (!agree.checked) { setError(row, 'Please confirm to continue'); shake(4); return false; }
+    if (phoneOk) clearError(phone.closest('.field')); else setError(phone.closest('.field'), 'Required');
+    if (!agree.checked) setError(row, 'Please confirm to continue');
+    if (!phoneOk || !agree.checked) { shake(4); if (!phoneOk) phone.focus(); return false; }
     return goToStep(5);
   }
+
+  // Phone country picker — pick your country by NAME (type to search); the +dialing code fills in
+  // automatically. Flag emoji render as flags on macOS/iOS; on Windows the country name carries it.
+  (function () {
+    var field = document.getElementById('phoneField'); if (!field) return;
+    var btn = document.getElementById('ccBtn'), pop = document.getElementById('ccPop'),
+        list = document.getElementById('ccList'), search = document.getElementById('ccSearch'),
+        flagEl = document.getElementById('ccFlag'), codeEl = document.getElementById('ccCode'),
+        number = document.getElementById('phoneNumber');
+    // [flag, name, dialing code] — sorted by name so the list reads alphabetically
+    var COUNTRIES = [
+      ['🇦🇷','Argentina','+54'],['🇦🇺','Australia','+61'],['🇦🇹','Austria','+43'],['🇧🇪','Belgium','+32'],
+      ['🇧🇷','Brazil','+55'],['🇨🇦','Canada','+1'],['🇨🇱','Chile','+56'],['🇨🇳','China','+86'],
+      ['🇨🇴','Colombia','+57'],['🇨🇿','Czechia','+420'],['🇩🇰','Denmark','+45'],['🇪🇬','Egypt','+20'],
+      ['🇫🇮','Finland','+358'],['🇫🇷','France','+33'],['🇩🇪','Germany','+49'],['🇬🇷','Greece','+30'],
+      ['🇭🇰','Hong Kong','+852'],['🇭🇺','Hungary','+36'],['🇮🇳','India','+91'],['🇮🇩','Indonesia','+62'],
+      ['🇮🇪','Ireland','+353'],['🇮🇱','Israel','+972'],['🇮🇹','Italy','+39'],['🇯🇵','Japan','+81'],
+      ['🇰🇪','Kenya','+254'],['🇲🇾','Malaysia','+60'],['🇲🇽','Mexico','+52'],['🇳🇱','Netherlands','+31'],
+      ['🇳🇿','New Zealand','+64'],['🇳🇬','Nigeria','+234'],['🇳🇴','Norway','+47'],['🇵🇭','Philippines','+63'],
+      ['🇵🇱','Poland','+48'],['🇵🇹','Portugal','+351'],['🇷🇴','Romania','+40'],['🇸🇦','Saudi Arabia','+966'],
+      ['🇸🇬','Singapore','+65'],['🇿🇦','South Africa','+27'],['🇰🇷','South Korea','+82'],['🇪🇸','Spain','+34'],
+      ['🇸🇪','Sweden','+46'],['🇨🇭','Switzerland','+41'],['🇹🇭','Thailand','+66'],['🇹🇷','Turkey','+90'],
+      ['🇺🇦','Ukraine','+380'],['🇦🇪','United Arab Emirates','+971'],['🇬🇧','United Kingdom','+44'],
+      ['🇺🇸','United States','+1'],['🇻🇳','Vietnam','+84']
+    ].sort(function (a, b) { return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0; });
+    var filtered = COUNTRIES, activeIdx = -1;
+
+    function render(items) {
+      filtered = items;
+      if (!items.length) { list.innerHTML = '<li class="phone-cc-empty">No country found</li>'; return; }
+      list.innerHTML = items.map(function (c, i) {
+        return '<li class="phone-cc-item" role="option" data-i="' + i + '"><span class="fl">' + c[0] +
+               '</span><span class="nm">' + c[1] + '</span><span class="cd">' + c[2] + '</span></li>';
+      }).join('');
+    }
+    function open() {
+      pop.hidden = false; field.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+      search.value = ''; activeIdx = -1; render(COUNTRIES);
+      setTimeout(function () { search.focus(); }, 0);
+    }
+    function close() { pop.hidden = true; field.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); }
+    function pick(c) { if (!c) return; flagEl.textContent = c[0]; codeEl.textContent = c[2]; close(); number.focus(); }
+
+    btn.addEventListener('click', function () { pop.hidden ? open() : close(); });
+    btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      activeIdx = -1;
+      render(!q ? COUNTRIES : COUNTRIES.filter(function (c) { return c[1].toLowerCase().indexOf(q) > -1 || c[2].indexOf(q) > -1; }));
+    });
+    list.addEventListener('click', function (e) {
+      var li = e.target.closest('.phone-cc-item'); if (!li || !li.hasAttribute('data-i')) return;
+      pick(filtered[+li.getAttribute('data-i')]);
+    });
+    search.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { close(); btn.focus(); return; }
+      var items = list.querySelectorAll('.phone-cc-item');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        activeIdx = e.key === 'ArrowDown' ? Math.min(activeIdx + 1, items.length - 1) : Math.max(activeIdx - 1, 0);
+        items.forEach(function (it, i) { it.classList.toggle('active', i === activeIdx); });
+        items[activeIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIdx >= 0) pick(filtered[activeIdx]); else if (filtered.length === 1) pick(filtered[0]);
+      }
+    });
+    document.addEventListener('click', function (e) { if (!field.contains(e.target)) close(); });
+    render(COUNTRIES);
+  })();
 
   // Step 4 — up to 3 questions for the company; each added one can be removed.
   function syncAddBtn() {
