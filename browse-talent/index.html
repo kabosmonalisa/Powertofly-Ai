@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Browse AI talent — PowerToFly AI</title>
 <meta property="og:title"       content="Browse verified talent — PowerToFly AI">
-<meta property="og:description" content="Browse 6,500+ pre-screened experts across ten talent communities. Filter by community, meet your match, hire in days.">
+<meta property="og:description" content="Browse 6,500+ pre-screened experts across twelve talent communities. Filter by community, meet your match, hire in days.">
 <meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
 <meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,6 +58,10 @@
 .tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
 .tal-empty { color: var(--ink-3); font-size: 15px; padding: 32px 0; display: none; }
 .tal-empty.show { display: block; }
+.tal-sec-note { font-size: 14px; line-height: 1.55; color: var(--ink-3); margin-top: 10px; max-width: 52ch; }
+.tal-sec-note a { color: var(--ink); font-weight: 600; text-decoration: none; }
+.tal-sec-note a:hover { text-decoration: underline; }
+
 /* "Not sure who you need?" CTA pinned to the bottom of the filter rail */
 .tal-rail-cta { width: 100%; margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
 .tal-rail-cta p { font-size: 13px; color: var(--ink-3); line-height: 1.45; margin: 0 0 12px; }
@@ -112,7 +116,7 @@
   <div class="section-head">
     <div class="eyebrow">Browse talent</div>
     <h1 class="display-lg">Meet the people who move your work <em class="italic-plain">forward.</em></h1>
-    <p>Browse 6,500+ pre-screened experts across ten talent communities — from AI/ML and data engineering to cloud, security, product, software, and domain specialists.</p>
+    <p>Browse 6,500+ pre-screened experts across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
     <div class="hero-ctas">
       <a href="#browse" class="btn btn-primary">Browse all talent ↓</a>
       <a href="../book/" class="btn">Book a discovery call →</a>
@@ -128,18 +132,22 @@
   </div>
 
   <div class="ev-listing">
-    <!-- side filter rail — the shared .ev-filter (sticky on its own). 10 talent communities (Fran Griffin). -->
+    <!-- side filter rail — the shared .ev-filter (sticky on its own). The twelve talent
+         communities candidates are sorted into (Iuliia Velikaya, 2026-10-06). All data
+         stays in one community per Fran Griffin. -->
     <div class="ev-filter" id="talFilter">
-      <a class="ev-filter-btn" href="#sec-aiml">AI / ML</a>
-      <a class="ev-filter-btn" href="#sec-dataeng">Data engineering</a>
-      <a class="ev-filter-btn" href="#sec-dataarch">Data architecture</a>
-      <a class="ev-filter-btn" href="#sec-analytics">Analytics / BI</a>
-      <a class="ev-filter-btn" href="#sec-datagov">Data governance</a>
-      <a class="ev-filter-btn" href="#sec-cloud">Cloud &amp; infrastructure</a>
-      <a class="ev-filter-btn" href="#sec-security">Cybersecurity</a>
-      <a class="ev-filter-btn" href="#sec-product">Product &amp; AI product</a>
-      <a class="ev-filter-btn" href="#sec-software">Software engineering</a>
-      <a class="ev-filter-btn" href="#sec-domain">Domain experts</a>
+      <a class="ev-filter-btn" href="#sec-aiml">AI &amp; ML</a>
+      <a class="ev-filter-btn" href="#sec-data">Data &amp; Analytics</a>
+      <a class="ev-filter-btn" href="#sec-software">Software Engineering</a>
+      <a class="ev-filter-btn" href="#sec-cloud">Cloud &amp; Infrastructure</a>
+      <a class="ev-filter-btn" href="#sec-security">Cybersecurity &amp; Privacy</a>
+      <a class="ev-filter-btn" href="#sec-product">Product &amp; Transformation</a>
+      <a class="ev-filter-btn" href="#sec-aigov">AI Governance &amp; Risk</a>
+      <a class="ev-filter-btn" href="#sec-sales">Sales &amp; Revenue</a>
+      <a class="ev-filter-btn" href="#sec-hr">HR &amp; TA</a>
+      <a class="ev-filter-btn" href="#sec-cs">Customer Success &amp; Adoption</a>
+      <a class="ev-filter-btn" href="#sec-leadership">Leadership &amp; Fractional</a>
+      <a class="ev-filter-btn" href="#sec-domain">Domain Experts</a>
       <div class="tal-rail-cta">
         <p>Not sure who you need?</p>
         <a href="../book/" class="btn btn-sm btn-block">Book a call →</a>
@@ -152,9 +160,8 @@
         <button class="ev-search-clear" id="talSearchClear" type="button" aria-label="Clear search"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>
       </div>
       <div id="talGroups">
-
         <section class="tal-sec" id="sec-aiml">
-          <h3 class="tal-sec-title">AI / ML<span class="tal-sec-count">3</span></h3>
+          <h3 class="tal-sec-title">AI &amp; ML<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
             <a class="tal-card" href="profile.html" data-group="aiml"><div class="tal-card-photo" style="background-image:url('../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Ravi S.</div><div class="tal-card-role">Senior AI / ML engineer</div><p class="tal-card-sum">Ships production LLM features end-to-end: retrieval, fine-tuning, and eval pipelines.</p><div class="sc-titles"><span class="sc-title-chip">PyTorch</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">LLMs</span></div><div class="tal-card-meta"><span>Bengaluru, IN</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$95/hr</span></div></div></a>
             <a class="tal-card" href="profile.html" data-group="aiml"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Sana R.</div><div class="tal-card-role">ML engineer · NLP</div><p class="tal-card-sum">Fine-tunes and serves language models: tokenization, training, and latency work.</p><div class="sc-titles"><span class="sc-title-chip">NLP</span><span class="sc-title-chip">Transformers</span><span class="sc-title-chip">PyTorch</span></div><div class="tal-card-meta"><span>Singapore</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$100/hr</span></div></div></a>
@@ -162,44 +169,38 @@
           </div>
         </section>
 
-        <section class="tal-sec" id="sec-dataeng">
-          <h3 class="tal-sec-title">Data engineering<span class="tal-sec-count">3</span></h3>
+        <section class="tal-sec" id="sec-data">
+          <h3 class="tal-sec-title">Data &amp; Analytics<span class="tal-sec-count">12</span></h3>
           <div class="tal-grid">
-            <a class="tal-card" href="profile.html" data-group="dataeng"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Tomás F.</div><div class="tal-card-role">Data engineer</div><p class="tal-card-sum">Builds batch and streaming pipelines that keep analytics and ML fed with clean data.</p><div class="sc-titles"><span class="sc-title-chip">Spark</span><span class="sc-title-chip">Airflow</span><span class="sc-title-chip">dbt</span></div><div class="tal-card-meta"><span>Barcelona, ES</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$102/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="dataeng"><div class="tal-card-photo" style="background-image:url('../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Nia W.</div><div class="tal-card-role">Data engineer</div><p class="tal-card-sum">Owns ingestion, feature pipelines, and the warehouse teams build every metric on.</p><div class="sc-titles"><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Snowflake</span><span class="sc-title-chip">Airflow</span></div><div class="tal-card-meta"><span>Chicago, US</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$98/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="dataeng"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Kwame B.</div><div class="tal-card-role">Data engineer · streaming</div><p class="tal-card-sum">Real-time event pipelines at scale: the plumbing behind live dashboards and models.</p><div class="sc-titles"><span class="sc-title-chip">Kafka</span><span class="sc-title-chip">Spark</span><span class="sc-title-chip">Flink</span></div><div class="tal-card-meta"><span>Accra, GH</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$88/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Tomás F.</div><div class="tal-card-role">Data engineer</div><p class="tal-card-sum">Builds batch and streaming pipelines that keep analytics and ML fed with clean data.</p><div class="sc-titles"><span class="sc-title-chip">Spark</span><span class="sc-title-chip">Airflow</span><span class="sc-title-chip">dbt</span></div><div class="tal-card-meta"><span>Barcelona, ES</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$102/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('../photos/11.black-lady-laptop-christina-wocintechchat-com-m-7RRj4wDX7LE-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Nia W.</div><div class="tal-card-role">Data engineer</div><p class="tal-card-sum">Owns ingestion, feature pipelines, and the warehouse teams build every metric on.</p><div class="sc-titles"><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Snowflake</span><span class="sc-title-chip">Airflow</span></div><div class="tal-card-meta"><span>Chicago, US</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$98/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Kwame B.</div><div class="tal-card-role">Data engineer · streaming</div><p class="tal-card-sum">Real-time event pipelines at scale: the plumbing behind live dashboards and models.</p><div class="sc-titles"><span class="sc-title-chip">Kafka</span><span class="sc-title-chip">Spark</span><span class="sc-title-chip">Flink</span></div><div class="tal-card-meta"><span>Accra, GH</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$88/hr</span></div></div></a>
+          
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('../photos/05.fat-white-lady-allgo-an-app-for-plus-size-people-39qdb4V84YI-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Hannah K.</div><div class="tal-card-role">Data architect</div><p class="tal-card-sum">Designs the warehouse and lakehouse models that keep data trustworthy as you scale.</p><div class="sc-titles"><span class="sc-title-chip">Lakehouse</span><span class="sc-title-chip">dbt</span><span class="sc-title-chip">Modeling</span></div><div class="tal-card-meta"><span>Berlin, DE</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$110/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Diego H.</div><div class="tal-card-role">Data architect · platform</div><p class="tal-card-sum">Blueprints the data platform other teams build on: warehousing, contracts, and APIs.</p><div class="sc-titles"><span class="sc-title-chip">Warehousing</span><span class="sc-title-chip">dbt</span><span class="sc-title-chip">APIs</span></div><div class="tal-card-meta"><span>Bogotá, CO</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$98/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1080213/pexels-photo-1080213.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Sam O.</div><div class="tal-card-role">Data architect</div><p class="tal-card-sum">Modeling, storage strategy, and cost — the structure under a healthy data platform.</p><div class="sc-titles"><span class="sc-title-chip">Snowflake</span><span class="sc-title-chip">Modeling</span><span class="sc-title-chip">Cost</span></div><div class="tal-card-meta"><span>Amsterdam, NL</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$112/hr</span></div></div></a>
+          
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Grace L.</div><div class="tal-card-role">Analytics lead</div><p class="tal-card-sum">Turns product questions into decisions: experiment design, metrics, and the story behind them.</p><div class="sc-titles"><span class="sc-title-chip">BI</span><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Experimentation</span></div><div class="tal-card-meta"><span>London, UK</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$108/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Farah A.</div><div class="tal-card-role">BI analyst</div><p class="tal-card-sum">Builds the dashboards and self-serve reporting a team actually checks every morning.</p><div class="sc-titles"><span class="sc-title-chip">Looker</span><span class="sc-title-chip">Dashboards</span><span class="sc-title-chip">SQL</span></div><div class="tal-card-meta"><span>Dubai, AE</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$78/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Priya N.</div><div class="tal-card-role">Analytics engineer</div><p class="tal-card-sum">Owns the semantic layer: clean, tested metrics everyone can trust and reuse.</p><div class="sc-titles"><span class="sc-title-chip">dbt</span><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Metrics</span></div><div class="tal-card-meta"><span>Toronto, CA</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$88/hr</span></div></div></a>
+          
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Rosa M.</div><div class="tal-card-role">Data governance lead</div><p class="tal-card-sum">Sets the guidelines, lineage, and quality gates that keep data compliant and usable.</p><div class="sc-titles"><span class="sc-title-chip">Quality</span><span class="sc-title-chip">Lineage</span><span class="sc-title-chip">Policy</span></div><div class="tal-card-meta"><span>Lima, PE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$72/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Aisha K.</div><div class="tal-card-role">Data quality specialist</div><p class="tal-card-sum">Cataloguing, validation, and the taxonomies your training and reporting data depend on.</p><div class="sc-titles"><span class="sc-title-chip">Cataloguing</span><span class="sc-title-chip">QA</span><span class="sc-title-chip">Taxonomy</span></div><div class="tal-card-meta"><span>Casablanca, MA</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$68/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="data"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Marisol T.</div><div class="tal-card-role">Data steward</div><p class="tal-card-sum">Owns definitions and access across teams: one source of truth, documented and enforced.</p><div class="sc-titles"><span class="sc-title-chip">MDM</span><span class="sc-title-chip">Lineage</span><span class="sc-title-chip">Compliance</span></div><div class="tal-card-meta"><span>Madrid, ES</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$76/hr</span></div></div></a>
           </div>
         </section>
 
-        <section class="tal-sec" id="sec-dataarch">
-          <h3 class="tal-sec-title">Data architecture<span class="tal-sec-count">3</span></h3>
+        <section class="tal-sec" id="sec-software">
+          <h3 class="tal-sec-title">Software Engineering<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
-            <a class="tal-card" href="profile.html" data-group="dataarch"><div class="tal-card-photo" style="background-image:url('../photos/05.fat-white-lady-allgo-an-app-for-plus-size-people-39qdb4V84YI-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Hannah K.</div><div class="tal-card-role">Data architect</div><p class="tal-card-sum">Designs the warehouse and lakehouse models that keep data trustworthy as you scale.</p><div class="sc-titles"><span class="sc-title-chip">Lakehouse</span><span class="sc-title-chip">dbt</span><span class="sc-title-chip">Modeling</span></div><div class="tal-card-meta"><span>Berlin, DE</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$110/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="dataarch"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Diego H.</div><div class="tal-card-role">Data architect · platform</div><p class="tal-card-sum">Blueprints the data platform other teams build on: warehousing, contracts, and APIs.</p><div class="sc-titles"><span class="sc-title-chip">Warehousing</span><span class="sc-title-chip">dbt</span><span class="sc-title-chip">APIs</span></div><div class="tal-card-meta"><span>Bogotá, CO</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$98/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="dataarch"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1080213/pexels-photo-1080213.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Sam O.</div><div class="tal-card-role">Data architect</div><p class="tal-card-sum">Modeling, storage strategy, and cost — the structure under a healthy data platform.</p><div class="sc-titles"><span class="sc-title-chip">Snowflake</span><span class="sc-title-chip">Modeling</span><span class="sc-title-chip">Cost</span></div><div class="tal-card-meta"><span>Amsterdam, NL</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$112/hr</span></div></div></a>
-          </div>
-        </section>
-
-        <section class="tal-sec" id="sec-analytics">
-          <h3 class="tal-sec-title">Analytics / BI<span class="tal-sec-count">3</span></h3>
-          <div class="tal-grid">
-            <a class="tal-card" href="profile.html" data-group="analytics"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Grace L.</div><div class="tal-card-role">Analytics lead</div><p class="tal-card-sum">Turns product questions into decisions: experiment design, metrics, and the story behind them.</p><div class="sc-titles"><span class="sc-title-chip">BI</span><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Experimentation</span></div><div class="tal-card-meta"><span>London, UK</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$108/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="analytics"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Farah A.</div><div class="tal-card-role">BI analyst</div><p class="tal-card-sum">Builds the dashboards and self-serve reporting a team actually checks every morning.</p><div class="sc-titles"><span class="sc-title-chip">Looker</span><span class="sc-title-chip">Dashboards</span><span class="sc-title-chip">SQL</span></div><div class="tal-card-meta"><span>Dubai, AE</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$78/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="analytics"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Priya N.</div><div class="tal-card-role">Analytics engineer</div><p class="tal-card-sum">Owns the semantic layer: clean, tested metrics everyone can trust and reuse.</p><div class="sc-titles"><span class="sc-title-chip">dbt</span><span class="sc-title-chip">SQL</span><span class="sc-title-chip">Metrics</span></div><div class="tal-card-meta"><span>Toronto, CA</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$88/hr</span></div></div></a>
-          </div>
-        </section>
-
-        <section class="tal-sec" id="sec-datagov">
-          <h3 class="tal-sec-title">Data governance<span class="tal-sec-count">3</span></h3>
-          <div class="tal-grid">
-            <a class="tal-card" href="profile.html" data-group="datagov"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Rosa M.</div><div class="tal-card-role">Data governance lead</div><p class="tal-card-sum">Sets the guidelines, lineage, and quality gates that keep data compliant and usable.</p><div class="sc-titles"><span class="sc-title-chip">Quality</span><span class="sc-title-chip">Lineage</span><span class="sc-title-chip">Policy</span></div><div class="tal-card-meta"><span>Lima, PE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$72/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="datagov"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181519/pexels-photo-1181519.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Aisha K.</div><div class="tal-card-role">Data quality specialist</div><p class="tal-card-sum">Cataloguing, validation, and the taxonomies your training and reporting data depend on.</p><div class="sc-titles"><span class="sc-title-chip">Cataloguing</span><span class="sc-title-chip">QA</span><span class="sc-title-chip">Taxonomy</span></div><div class="tal-card-meta"><span>Casablanca, MA</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$68/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="datagov"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Marisol T.</div><div class="tal-card-role">Data steward</div><p class="tal-card-sum">Owns definitions and access across teams: one source of truth, documented and enforced.</p><div class="sc-titles"><span class="sc-title-chip">MDM</span><span class="sc-title-chip">Lineage</span><span class="sc-title-chip">Compliance</span></div><div class="tal-card-meta"><span>Madrid, ES</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$76/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Marcus B.</div><div class="tal-card-role">Software engineer</div><p class="tal-card-sum">Full-stack engineer shipping reliable services and agentic features into production.</p><div class="sc-titles"><span class="sc-title-chip">TypeScript</span><span class="sc-title-chip">APIs</span><span class="sc-title-chip">Agents</span></div><div class="tal-card-meta"><span>Atlanta, US</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$90/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Elin C.</div><div class="tal-card-role">Frontend engineer</div><p class="tal-card-sum">Builds accessible, fast interfaces and the design systems that keep them consistent.</p><div class="sc-titles"><span class="sc-title-chip">React</span><span class="sc-title-chip">Design systems</span><span class="sc-title-chip">a11y</span></div><div class="tal-card-meta"><span>Stockholm, SE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$100/hr</span></div></div></a>
+            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/13.latino-old-man-christian-buehner-h0_elok-uKI-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Carlos V.</div><div class="tal-card-role">Staff software engineer</div><p class="tal-card-sum">Architecture and scaling for high-traffic systems — and mentoring the team that runs them.</p><div class="sc-titles"><span class="sc-title-chip">Architecture</span><span class="sc-title-chip">Go</span><span class="sc-title-chip">Scaling</span></div><div class="tal-card-meta"><span>Madrid, ES</span><span class="dot-sep"></span><span>18 yrs</span><span class="tal-rate">$175/hr</span></div></div></a>
           </div>
         </section>
 
         <section class="tal-sec" id="sec-cloud">
-          <h3 class="tal-sec-title">Cloud &amp; infrastructure<span class="tal-sec-count">3</span></h3>
+          <h3 class="tal-sec-title">Cloud &amp; Infrastructure<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
             <a class="tal-card" href="profile.html" data-group="cloud"><div class="tal-card-photo" style="background-image:url('../photos/02.gay-white-man-white-tamara-harhai-RDcaGoxGmB4-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Daniel R.</div><div class="tal-card-role">Cloud &amp; MLOps engineer</div><p class="tal-card-sum">Builds the infrastructure that keeps services and models live: CI/CD and cost control.</p><div class="sc-titles"><span class="sc-title-chip">Kubernetes</span><span class="sc-title-chip">Terraform</span><span class="sc-title-chip">MLflow</span></div><div class="tal-card-meta"><span>Lisbon, PT</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$115/hr</span></div></div></a>
             <a class="tal-card" href="profile.html" data-group="cloud"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/936119/pexels-photo-936119.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Ben C.</div><div class="tal-card-role">Infrastructure engineer</div><p class="tal-card-sum">GPU orchestration and CI/CD — keeps training and inference fast and affordable.</p><div class="sc-titles"><span class="sc-title-chip">GPUs</span><span class="sc-title-chip">Terraform</span><span class="sc-title-chip">CI/CD</span></div><div class="tal-card-meta"><span>Dublin, IE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$110/hr</span></div></div></a>
@@ -208,7 +209,7 @@
         </section>
 
         <section class="tal-sec" id="sec-security">
-          <h3 class="tal-sec-title">Cybersecurity<span class="tal-sec-count">3</span></h3>
+          <h3 class="tal-sec-title">Cybersecurity &amp; Privacy<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
             <a class="tal-card" href="profile.html" data-group="security"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/762020/pexels-photo-762020.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Hana P.</div><div class="tal-card-role">Security engineer · red team</div><p class="tal-card-sum">Adversarial testing and threat modeling — finds the failure modes before attackers do.</p><div class="sc-titles"><span class="sc-title-chip">Pentesting</span><span class="sc-title-chip">Threat modeling</span><span class="sc-title-chip">AppSec</span></div><div class="tal-card-meta"><span>Prague, CZ</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$92/hr</span></div></div></a>
             <a class="tal-card" href="profile.html" data-group="security"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Noah P.</div><div class="tal-card-role">Application security engineer</div><p class="tal-card-sum">AppSec, SAST, and cloud hardening baked into how your team ships, not bolted on after.</p><div class="sc-titles"><span class="sc-title-chip">AppSec</span><span class="sc-title-chip">SAST</span><span class="sc-title-chip">Cloud sec</span></div><div class="tal-card-meta"><span>Berlin, DE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$98/hr</span></div></div></a>
@@ -217,7 +218,7 @@
         </section>
 
         <section class="tal-sec" id="sec-product">
-          <h3 class="tal-sec-title">Product &amp; AI product<span class="tal-sec-count">3</span></h3>
+          <h3 class="tal-sec-title">Product &amp; Transformation<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
             <a class="tal-card" href="profile.html" data-group="product"><div class="tal-card-photo" style="background-image:url('../photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Amara O.</div><div class="tal-card-role">AI product manager</div><p class="tal-card-sum">Takes AI products from prototype to launch: scoping, evals, and the cross-functional glue.</p><div class="sc-titles"><span class="sc-title-chip">Product strategy</span><span class="sc-title-chip">Evals</span><span class="sc-title-chip">Roadmap</span></div><div class="tal-card-meta"><span>Lagos, NG</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$105/hr</span></div></div></a>
             <a class="tal-card" href="profile.html" data-group="product"><div class="tal-card-photo" style="background-image:url('https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=600&h=560&fit=crop')"></div><div class="tal-card-body"><div class="tal-card-name">Lucía R.</div><div class="tal-card-role">Product manager · AI</div><p class="tal-card-sum">Discovery, prototyping, and research — validates fast and ships what tests well.</p><div class="sc-titles"><span class="sc-title-chip">Discovery</span><span class="sc-title-chip">Research</span><span class="sc-title-chip">Roadmap</span></div><div class="tal-card-meta"><span>Mexico City, MX</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$94/hr</span></div></div></a>
@@ -225,17 +226,38 @@
           </div>
         </section>
 
-        <section class="tal-sec" id="sec-software">
-          <h3 class="tal-sec-title">Software engineering<span class="tal-sec-count">3</span></h3>
-          <div class="tal-grid">
-            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Marcus B.</div><div class="tal-card-role">Software engineer</div><p class="tal-card-sum">Full-stack engineer shipping reliable services and agentic features into production.</p><div class="sc-titles"><span class="sc-title-chip">TypeScript</span><span class="sc-title-chip">APIs</span><span class="sc-title-chip">Agents</span></div><div class="tal-card-meta"><span>Atlanta, US</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$90/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/08.white-blonde-lady-carlos-sabillon-FaX3eq_MLHQ-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Elin C.</div><div class="tal-card-role">Frontend engineer</div><p class="tal-card-sum">Builds accessible, fast interfaces and the design systems that keep them consistent.</p><div class="sc-titles"><span class="sc-title-chip">React</span><span class="sc-title-chip">Design systems</span><span class="sc-title-chip">a11y</span></div><div class="tal-card-meta"><span>Stockholm, SE</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$100/hr</span></div></div></a>
-            <a class="tal-card" href="profile.html" data-group="software"><div class="tal-card-photo" style="background-image:url('../photos/13.latino-old-man-christian-buehner-h0_elok-uKI-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Carlos V.</div><div class="tal-card-role">Staff software engineer</div><p class="tal-card-sum">Architecture and scaling for high-traffic systems — and mentoring the team that runs them.</p><div class="sc-titles"><span class="sc-title-chip">Architecture</span><span class="sc-title-chip">Go</span><span class="sc-title-chip">Scaling</span></div><div class="tal-card-meta"><span>Madrid, ES</span><span class="dot-sep"></span><span>18 yrs</span><span class="tal-rate">$175/hr</span></div></div></a>
-          </div>
+        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
+        <section class="tal-sec" id="sec-aigov" data-empty="1">
+          <h3 class="tal-sec-title">AI Governance &amp; Risk</h3>
+          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+        </section>
+
+        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
+        <section class="tal-sec" id="sec-sales" data-empty="1">
+          <h3 class="tal-sec-title">Sales &amp; Revenue</h3>
+          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+        </section>
+
+        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
+        <section class="tal-sec" id="sec-hr" data-empty="1">
+          <h3 class="tal-sec-title">HR &amp; TA</h3>
+          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+        </section>
+
+        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
+        <section class="tal-sec" id="sec-cs" data-empty="1">
+          <h3 class="tal-sec-title">Customer Success &amp; Adoption</h3>
+          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+        </section>
+
+        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
+        <section class="tal-sec" id="sec-leadership" data-empty="1">
+          <h3 class="tal-sec-title">Leadership &amp; Fractional</h3>
+          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
         </section>
 
         <section class="tal-sec" id="sec-domain">
-          <h3 class="tal-sec-title">Domain experts<span class="tal-sec-count">3</span></h3>
+          <h3 class="tal-sec-title">Domain Experts<span class="tal-sec-count">3</span></h3>
           <div class="tal-grid">
             <a class="tal-card" href="profile.html" data-group="domain"><div class="tal-card-photo" style="background-image:url('../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Léa D.</div><div class="tal-card-role">AI strategy advisor</div><p class="tal-card-sum">Stands up AI functions for scaling companies: strategy, governance, and enablement.</p><div class="sc-titles"><span class="sc-title-chip">AI strategy</span><span class="sc-title-chip">Governance</span><span class="sc-title-chip">Enablement</span></div><div class="tal-card-meta"><span>Paris, FR</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$180/hr</span></div></div></a>
             <a class="tal-card" href="profile.html" data-group="domain"><div class="tal-card-photo" style="background-image:url('../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg')"></div><div class="tal-card-body"><div class="tal-card-name">Sofia M.</div><div class="tal-card-role">Healthcare AI specialist</div><p class="tal-card-sum">Clinical domain expert who keeps medical AI accurate, compliant, and safe to ship.</p><div class="sc-titles"><span class="sc-title-chip">Clinical NLP</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">QA</span></div><div class="tal-card-meta"><span>São Paulo, BR</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$95/hr</span></div></div></a>
@@ -243,79 +265,7 @@
           </div>
         </section>
 
-      </div><!-- /tal-groups -->
-      <p class="tal-empty" id="talEmpty">No experts match that search yet. Try a different community or <a href="../book/">tell us what you need →</a></p>
-    </div><!-- /tal-col -->
-  </div><!-- /ev-listing -->
-</section>
-
-<!-- 04. HOW IT WORKS — shared how-inner + steps -->
-<section class="section">
-  <div class="how-outer" style="max-width:var(--content-body);margin:0 auto;">
-    <div class="section-head"><h2>How hiring works</h2></div>
-    <div class="how-inner">
-      <div class="how-portrait-card" style="background-image:url('https://images.pexels.com/photos/4064840/pexels-photo-4064840.jpeg?auto=compress&cs=tinysrgb&w=900&h=1200&fit=crop');background-position:center;">
-        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
       </div>
-      <div class="steps" id="stepsContainer">
-        <div class="step"><div class="step-num">01</div><div class="step-content"><h4>Browse and shortlist</h4><p>Filter by community, open profiles, and save the experts who fit. No login needed to look.</p></div></div>
-        <div class="step"><div class="step-num">02</div><div class="step-content"><h4>Request an intro</h4><p>Tell us who you're interested in and what you're building. We confirm availability and set up the conversation.</p></div></div>
-        <div class="step"><div class="step-num">03</div><div class="step-content"><h4>Meet and hire</h4><p>Interview your matches and choose. We handle background checks, contracts, payroll, and compliance.</p></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 05. FAQ — shared faq-list (PTF.initFaq auto-runs) -->
-<section class="section" style="background:var(--surface-2)">
-  <div class="section-head"><span class="eyebrow">Good to know</span><h2>Questions clients ask</h2></div>
-  <div class="faq-list" style="max-width:var(--content-narrow);margin:0 auto;">
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What does "verified" mean on a profile?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Every expert on PowerToFly is screened for skills and experience, background-checked, and reference-verified before they appear here. The green check means their identity, work history, and core skills have all been confirmed by our team.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">Can I hire someone full-time, or only on contract?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Both. Many experts are open to full-time, contract, fractional, or project-to-hire — you'll see each person's availability on their card and profile. Tell us what you need and we'll match the arrangement to your team.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">How fast can I get started with someone?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">Our median time to a first match is three days. Once you request an intro, we confirm availability and schedule the conversation — most teams are interviewing within the week.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">What do the rates include?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">The rate shown is a starting point for the expert's time. PowerToFly handles contracts, payments, compliance, and international payroll, so there's one simple invoice — no hidden agency markup per hire.</div></div>
-    </div>
-    <div class="faq-item">
-      <button class="faq-q" aria-expanded="false">I don't see the exact skill I need. What now?
-        <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke-width="1.5" stroke-linecap="round"/></svg></span>
-      </button>
-      <div class="faq-a"><div class="faq-a-inner">What you see here is a small featured sample of 6,500+ experts. Book a discovery call and describe the role — we'll surface candidates matched to your exact brief, including communities not listed on this page.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- 06. FINAL CTA — shared dark band -->
-<section class="section-cta">
-  <div class="section-cta-inner">
-    <span class="eyebrow">Get started</span>
-    <h2>Found someone? Let's make the intro.</h2>
-    <p>Tell us who you're interested in and what you're building — we'll take it from there.</p>
-    <a href="../book/" class="btn btn-cta">Book a discovery call →</a>
-  </div>
-</section>
-
-</main>
-
-<div data-ptf-footer></div>
 
 <script src="../ds/ptf.js"></script>
 <script>
@@ -399,7 +349,8 @@ function positionDrawer() {
         c.classList.toggle('is-hidden', !ok);
         if (ok) { visible++; shown++; }
       });
-      sec.classList.toggle('is-hidden', visible === 0);
+      // a community with no sample profiles yet still shows itself, unless a search is on
+      sec.classList.toggle('is-hidden', visible === 0 && !(sec.dataset.empty && !q));
     });
     if (empty) empty.classList.toggle('show', shown === 0);
     if (count) count.textContent = shown + (shown === 1 ? ' expert' : ' experts');
