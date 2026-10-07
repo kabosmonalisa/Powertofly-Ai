@@ -49,6 +49,16 @@
   .more-pill-faces { display: inline-flex; align-items: center; }
   .more-pill-faces img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; object-position: center 35%; border: 2px solid var(--bg-soft); }
   .more-pill-faces img + img { margin-left: -9px; }
+
+  /* "Add to calendar" on the confirmation step — reuses the closed set: trigger is the outlined
+     .btn, the menu is the login flyout (.nav-fly.login-fly > .mega-inner > .fly-item rows).
+     Only positioning lives here: the stock .login-fly hangs off the trigger's RIGHT edge, which
+     on this centered step would run off the left of a phone screen — so center it under the
+     button instead. Promote-to-DS candidate: .cal-drop (centered flyout anchor). */
+  .cal-drop { display: inline-block; margin-bottom: 8px; }
+  .cal-drop[hidden] { display: none; }
+  .cal-drop .login-fly { left: 50%; right: auto; width: min(346px, calc(100vw - 32px)); transform: translate(-50%, -6px); text-align: left; }
+  .cal-drop .login-fly.open { transform: translate(-50%, 0); }
 </style>
 </head>
 <body class="flow-shell">
@@ -261,7 +271,26 @@
           </div>
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">You're all set!</h1>
-          <p class="thanks-body">We've sent an invite link straight to your inbox.</p>
+          <p class="thanks-body">We've sent an invite link straight to your inbox. Add it to your calendar so you don't miss it.</p><!-- COPY: confirm -->
+          <!-- UPCOMING-ONLY: Add to calendar. Hidden while the event is live (the Join button takes over).
+               Links are built by buildCalendarLinks() from CAL_EVENT; the .ics uses the same UID as the
+               confirmation email's invite so calendars de-duplicate instead of adding a second entry. -->
+          <div class="nav-drop login-drop cal-drop" id="calCta">
+            <button class="btn btn-primary" type="button" data-fly="fly-cal" aria-haspopup="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+              Add to calendar
+              <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg>
+            </button>
+            <div class="nav-fly login-fly" id="fly-cal">
+              <div class="mega-inner"><div class="mega-left">
+                <a class="fly-item" id="calGoogle" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Google Calendar</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOutlook" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Outlook.com</span><span class="fly-desc">Personal Outlook or Hotmail</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOffice" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Microsoft 365</span><span class="fly-desc">Work or school Outlook</span></span><span class="login-arrow">→</span></a>
+                <hr class="fly-rule">
+                <a class="fly-item" id="calIcs" href="#" download="powertofly-event.ics"><span class="login-tx"><span class="fly-title">Apple Calendar &amp; others</span><span class="fly-desc">Download an .ics file</span></span><span class="login-arrow">↓</span></a>
+              </div></div>
+            </div>
+          </div>
           <!-- LIVE-ONLY: primary Join button when the just-registered event is in progress (Patricia's request). Shown by setEventStatus(true); toggle via the EVENT dev control. -->
           <div class="live-cta" id="liveCta" hidden>
             <a class="btn btn-primary" href="#" id="liveJoinBtn">Join live event →</a>
@@ -567,6 +596,7 @@
   function setEventStatus(s) {
     var live = s === 'live';
     var cta = document.getElementById('liveCta'); if (cta) cta.hidden = !live;   // Browse-all is always a tertiary link (.ev-head-link); only the live Join CTA toggles
+    var cal = document.getElementById('calCta');  if (cal) cal.hidden = live;    // calendar only matters before it starts; Join replaces it when live
     var u = document.getElementById('devEvtUpcoming'), l = document.getElementById('devEvtLive');
     if (u && l) {
       u.style.background = live ? '' : '#fff'; u.style.color = live ? '#fff' : '#0A0A0A';
@@ -575,11 +605,52 @@
     return false;
   }
   setEventStatus('upcoming');  // default: not live
+
+  // ── Add to calendar — provider links + .ics, all from ONE event record ──
+  // Times in UTC: July 23, 2026 1:00–2:00 PM ET (EDT, UTC-4) → 17:00–18:00Z. COPY: confirm per event.
+  // The real build fills this from the event API; `uid` must match the confirmation email's .ics UID.
+  var CAL_EVENT = {
+    uid: 'chat-learn-2026-07-23@powertofly.com',
+    start: '20260723T170000Z',
+    end:   '20260723T180000Z',
+    location: 'Online — join link in your confirmation email'
+  };
+  function buildCalendarLinks() {
+    var title = document.getElementById('evTitle').textContent.replace(/\s+/g, ' ').trim() + ' — PowerToFly';
+    var url = location.href.split('#')[0];
+    var details = 'Event page & join link: ' + url;
+    var iso = function (s) { return s.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z'); };
+    var enc = encodeURIComponent;
+    document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + enc(title) + '&dates=' + CAL_EVENT.start + '/' + CAL_EVENT.end
+      + '&details=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    var ms = function (host) {
+      return 'https://' + host + '/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent'
+        + '&subject=' + enc(title) + '&startdt=' + enc(iso(CAL_EVENT.start)) + '&enddt=' + enc(iso(CAL_EVENT.end))
+        + '&body=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    };
+    document.getElementById('calOutlook').href = ms('outlook.live.com');
+    document.getElementById('calOffice').href  = ms('outlook.office.com');
+    var esc = function (s) { return s.replace(/([,;\\])/g, '\\$1'); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PowerToFly//Events//EN', 'BEGIN:VEVENT',
+      'UID:' + CAL_EVENT.uid, 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'DTSTART:' + CAL_EVENT.start, 'DTEND:' + CAL_EVENT.end,
+      'SUMMARY:' + esc(title), 'DESCRIPTION:' + esc(details), 'LOCATION:' + esc(CAL_EVENT.location), 'URL:' + url,
+      'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:Starting in 15 minutes', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var link = document.getElementById('calIcs');
+    if (link.dataset.blob) URL.revokeObjectURL(link.dataset.blob);
+    link.dataset.blob = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    link.href = link.dataset.blob;
+  }
+  buildCalendarLinks();
+  PTF.initMegaNav();  // this page's nav is inline (no shared flyouts), so this only wires the calendar menu
   function setEventType(key) {
     var t = EVENT_TYPES[key]; if (!t) return;
     document.getElementById('evEyebrow').textContent = t.eyebrow;
     document.getElementById('evTitle').innerHTML = t.title;
     document.getElementById('evHost').innerHTML = t.host;
+    buildCalendarLinks();  // calendar entries carry the event title
   }
 
   // Step 5 "more events coming up" — up to 10 events this year. First 6 render; the rest reveal
