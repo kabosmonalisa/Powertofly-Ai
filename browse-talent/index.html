@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Browse AI talent — PowerToFly AI</title>
-<meta property="og:title"       content="Browse verified talent — PowerToFly AI">
-<meta property="og:description" content="Browse 6,500+ pre-screened experts across twelve talent communities. Filter by community, meet your match, hire in days.">
+<meta property="og:title"       content="Browse AI talent — PowerToFly AI">
+<meta property="og:description" content="6,500+ members across twelve talent communities. The experts shown here have been screened and spoken to by our team.">
 <meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
 <meta property="og:type"        content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -121,7 +121,7 @@
   <div class="section-head">
     <div class="eyebrow">Browse talent</div>
     <h1 class="display-lg">Meet the people who move your work <em class="italic-plain">forward.</em></h1>
-    <p>Browse 6,500+ pre-screened experts across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
+    <p>A community of 6,500+ members across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
     <div class="hero-ctas">
       <a href="#brief" class="btn btn-primary">Tell us what you're looking for →</a>
       <a href="#browse" class="btn">See who's in our communities ↓</a>
@@ -132,8 +132,8 @@
 <!-- 03. THE DIRECTORY — shared events side-filter layout (.ev-head + .ev-listing + .ev-filter) -->
 <section class="section" id="browse" style="background:var(--surface-2)">
   <div class="ev-head">
-    <h2>Browse verified experts</h2>
-    <p class="tal-count" id="talCount">30 experts</p>
+    <h2>Experts we have screened</h2>
+    <p class="tal-count" id="talCount">30 vetted experts</p>
   </div>
 
   <div class="ev-listing">
@@ -412,7 +412,9 @@ function sendBrief() {
       sec.classList.toggle('is-hidden', visible === 0 && !(sec.dataset.empty && !q));
     });
     if (empty) empty.classList.toggle('show', shown === 0);
-    if (count) count.textContent = shown + (shown === 1 ? ' expert' : ' experts');
+    // Iuliia: "vetted" is reserved for people we have actually spoken to — which is
+    // everyone with a card, since only Screened and Ready Now get one.
+    if (count) count.textContent = shown + (shown === 1 ? ' vetted expert' : ' vetted experts');
     if (searchWrap) searchWrap.classList.toggle('has-value', !!q);
   }
   if (search) search.addEventListener('input', apply);
