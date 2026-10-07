@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recording gate — Diagnose your AI gap — PowerToFly AI</title>
+<!-- MOCK: the "watch the recording" email gate (popup), rebuilt in the PTF AI system.
+     The popup is the shared .modal shell + flow form parts (.field, .check-row/.event-opt,
+     .agree-row, .btn-auth, .auth-divider, .btn.btn-block). No new component CSS.
+     Page underneath = chat-learn/index.html in its PAST state. -->
+<!--
+  ════════════════════════════════════════════════════════════════════════════
+  CHAT & LEARN — reusable event-detail template (sibling of summit/ and vjf/).
+  A member lands here from a "Chat & learn" tile on events/index.html. Built
+  ENTIRELY from the shared design system:
+  · nav + footer      → injected (data-ptf-nav / data-ptf-footer)
+  · hero              → .ev-hero (same shared event-hero as summit/ + vjf/)
+  · speaker chip      → .event-host + .ev-faces (shared)
+  · about this session → prose description (unique per event)
+  · what will happen  → .section-how timeline (portrait + check marks), same
+                        treatment as summit/'s "what you'll get" section
+  · meet the speaker  → .cl-speaker (small page-specific bio layout)
+  · about PowerToFly  → editorial header + .about-stat-* grid (same as summit/)
+  · more chat&learns  → .ev-head / .ev-list / .ev-row (shared tiles)
+  · closer            → .section-cta
+  Preview-state switcher (#devStates) flips hero eyebrow + primary CTA + alert;
+  dot only in the live state. Delete #devStates before launch.
+  To spin up a new Chat & Learn: copy this file, change ONLY the copy (title,
+  date, speakers, description, takeaways, tiles) + the hero image.
+  Page-specific CSS below is the sanctioned exception (hero composition, shared
+  with summit/vjf, + the speaker-bio layout).
+  ════════════════════════════════════════════════════════════════════════════
+-->
+<!-- OG -->
+<meta property="og:title"       content="Chat &amp; Learn — Beyond the résumé — PowerToFly AI">
+<meta property="og:description" content="A Chat & Learn with Colette Hart on building human-first AI for fairer, more transparent hiring — technology that reveals real capability, not just keywords and credentials.">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<!-- Design system -->
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/*
+ * PAGE-SPECIFIC STYLES ONLY (tokens, never raw hex — see COMPONENT-INVENTORY
+ * "Allowed page-specific CSS"). Everything visual not defined here comes from ptf.css.
+ */
+
+/* ── Fixed site header (alert + nav) — same wiring as events/hire/vjf/summit ── */
+.site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
+.site-header .nav { position: static; }
+
+/* ── Event-detail hero — the reusable event-hero, shared verbatim with vjf/ + summit/. ── */
+.ev-hero {
+  position: relative; overflow: hidden;
+  padding: var(--section-y) var(--gutter);
+  background: radial-gradient(ellipse 1100px 720px at 50% -10%,
+              rgba(79,232,169,0.22) 0%, rgba(213,255,102,0.12) 35%, var(--bg) 70%);
+}
+.ev-hero-inner {
+  position: relative; z-index: 2; max-width: var(--container); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.1fr;
+  gap: clamp(28px, 4vw, 56px); align-items: stretch;
+}
+.ev-hero-text { display: flex; flex-direction: column; align-items: flex-start; }
+.ev-hero h1 { margin: 18px 0 0; max-width: 20ch; }
+.ev-hero-sub { margin: 20px 0 0; font-size: 18px; line-height: 1.55; color: var(--ink-2); max-width: 52ch; }
+.ev-hero .event-host { margin: 26px 0 0; }
+/* Page-specific hero composition: the host logo + speaker sit ON the image over a scrim,
+   the same object the Resources hero makes of its featured story. Placement only — the scrim
+   is built from var(--bg) inside .theme-dark (never a raw hex) and no shared component is
+   restyled. The stock photo carries the session's identity instead of baked-in artwork. */
+/* theme-dark sits on THIS element, not a child: var(--bg) resolves where the class is, so the
+   scrim reads #0A0A0A instead of the light theme's near-white. */
+.ev-hero-cap { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 120px 26px 26px; border-radius: 0 0 var(--r-2xl) var(--r-2xl);
+  background: linear-gradient(to top,
+    color-mix(in srgb, var(--bg) 94%, transparent) 0%,
+    color-mix(in srgb, var(--bg) 86%, transparent) 34%,
+    color-mix(in srgb, var(--bg) 55%, transparent) 62%,
+    transparent 100%); }
+/* The caption is two rows on one left edge: who is hosting, then who is speaking. Both rows
+   lead with a small muted label-or-face and settle on the same baseline rhythm. */
+.ev-hero-cap-text { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; min-width: 0; }
+/* The host STACKS: label over mark, so the plate keeps a clean left edge with the speaker
+   face below it instead of having text hanging off its side at a different height.
+   The label is a plain muted uppercase, deliberately NOT .eyebrow — the hero already has one
+   green eyebrow ("Chat & Learn") and a second would compete with it. */
+.ev-hero-host { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+.ev-hero-cap-org { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+.ev-hero-cap-org.is-name { text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); }
+/* two or more speakers: the stack keeps the names on one line, so they get no role line */
+.ev-hero-cap .event-host-name { font-size: 15px; }
+.ev-hero-cap .event-host { margin-bottom: 0; }
+.ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 26px 0 0; }
+.ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
+.ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
+.ev-hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+/* The hero image is a FIXED 4:3 slot at every width. It used to stretch to match the text
+   column, so the crop changed with the headline length and partners could not be given one
+   dimension. One ratio everywhere = one spec we can hand a client: 1600 x 1200. */
+.ev-hero-media {
+  position: relative; border-radius: var(--r-2xl); overflow: hidden;
+  aspect-ratio: 4 / 3; align-self: center; background: var(--surface-2);
+}
+/* DIRECT child only — the slot now also holds the logo tile and the speaker avatar, and a
+   blanket `.ev-hero-media img` rule stretched those to fill the frame too. */
+.ev-hero-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* "About this session" — the per-event description, left-aligned readable column ── */
+.cl-copy { max-width: var(--content-body); margin: 0 auto; }
+.cl-copy .section-head { text-align: left; max-width: var(--content-narrow); margin: 0 0 20px; }
+/* keep the DS 16px gap under the heading; only drop the centering + width cap so it left-aligns */
+.cl-copy .section-head p { margin: 16px 0 0; max-width: none; }
+
+/* "What you'll get out of this session" — the how-it-works timeline (portrait +
+   check marks), same treatment as summit/. Portrait carries the generic mockup. */
+.how-portrait-card { background-image: url('../photos/how_it_works.png'); background-position: center; }
+
+/* "About PowerToFly" — same as summit/: left edge aligned with the other sections. */
+.about-head { max-width: var(--content-body); margin: 0 auto; }
+.about-head .section-head,
+.about-head .about-stat-grid { max-width: var(--content-narrow); }
+
+/* "Meet the speaker(s)" — page-specific speaker-bio layout (no DS component for this).
+   Circular photo + name + role + bio, held to the readable column. Tokens only. */
+.cl-speakers { max-width: var(--content-body); margin: 0 auto; display: flex; flex-direction: column; gap: 40px; }
+.cl-speaker { display: flex; gap: 24px; align-items: flex-start; max-width: var(--content-narrow); }
+.cl-speaker-photo { width: 96px; height: 96px; border-radius: var(--r-pill); object-fit: cover; flex: none; background: var(--surface-2); }
+.cl-speaker-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: -0.02em; color: var(--ink); margin: 0; }
+.cl-speaker-role { font-size: 14px; color: var(--ink-3); margin: 3px 0 12px; }
+.cl-speaker-bio { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+/* "More Chat & Learns" — hold head + tiles to the shared content column. */
+.ev-upnext { max-width: var(--content-body); margin: 0 auto; }
+.ev-upnext .ev-list .ev-row:last-child { border-bottom: none; }
+
+/* jump targets — offset for the fixed header */
+#covers, #speakers, #more { scroll-margin-top: 140px; }
+
+/* ── PROTOTYPE: hero event-state cues (upcoming / live / past) + dev switcher.
+      Same wiring as summit/. Dot only appears in the live state. ── */
+.eyebrow .dot.is-live { background: #E5372F; box-shadow: 0 0 0 3px rgba(229,55,47,0.16); animation: clLivePulse 1.6s ease-in-out infinite; }
+.eyebrow.is-past { color: var(--ink-3); }
+@keyframes clLivePulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.8); } }
+#devStates button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; white-space: nowrap; padding: 8px 16px; border-radius: 9px; transition: background .12s ease, color .12s ease; }
+#devStates button:hover { background: rgba(255,255,255,0.12); }
+#devStates button.active { background: #fff; color: #0A0A0A; }
+#devStates button.active:hover { background: #fff; }
+
+/* ── Responsive ── */
+@media (max-width: 820px) {
+  .ev-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .ev-hero-media { order: -1; }   /* same 4:3 ratio on mobile — one crop everywhere */
+  .ev-hero h1 { max-width: none; }
+}
+@media (max-width: 560px) {
+  .ev-hero { padding: 40px 20px var(--section-y); }
+  h1, h2, h3 { text-wrap: pretty; }
+  .ev-hero h1 { font-size: clamp(30px, 8vw, 44px); }
+  .ev-hero-sub { font-size: 16px; }
+  .ev-hero-meta { grid-template-columns: 1fr; }
+  .cl-speaker { gap: 16px; }
+  .cl-speaker-photo { width: 72px; height: 72px; }
+}
+</style>
+</head>
+<body>
+
+<div class="site-header" id="siteHeader">
+  <!-- ═══ TOP ALERT ═══ -->
+  <div class="top-alert" id="topAlert">
+    <span id="alertText">Chat &amp; Learn &nbsp;·&nbsp; Beyond the résumé &nbsp;·&nbsp; Aug 6</span>
+    <a id="alertCta" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+    <button class="top-alert-close" id="topAlertClose" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <!-- ═══ NAV — shared injected nav ═══ -->
+  <div data-ptf-nav data-active="events"></div>
+</div><!-- /site-header -->
+
+<main>
+
+<!-- 01. HERO — the session, its speaker, facts, and the primary register action -->
+<section class="ev-hero">
+  <div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow" id="heroEyebrow">Chat &amp; Learn</div><!-- dot only appears in the live state (set by JS) -->
+      <h1 class="display">Diagnose your AI gap: a working session for <em class="italic-plain">HR and technical leaders</em></h1><!-- COPY: confirm title -->
+      <p class="ev-hero-sub">When an AI initiative isn't delivering, the gap is rarely the model — it's the people between the technology and the outcome.</p><!-- COPY: confirm -->
+
+      <div class="ev-hero-meta">
+        <!-- MUI Outlined paths, plain ink (small = no gradient) -->
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 27, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>12:00 – 1:00 PM ET</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" id="heroCta1" href="../event-common/index.html" rel="noopener">Register now →</a><!-- COPY: confirm target per state -->
+        <a class="btn" id="heroCta2" href="#speakers">Meet the speaker</a><!-- state-agnostic; pluralized by the speaker renderer -->
+      </div>
+    </div>
+
+    <div class="ev-hero-media">
+      <!-- A virtual session in progress — reads as a Chat & Learn (Pexels, verified) -->
+      <img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop" alt="A professional joining a virtual session from home — a PowerToFly Chat &amp; Learn">
+      <!-- WHO is behind the session, sitting ON the image (same recipe as the Resources
+           featured story): the caption carries theme-dark so .event-host recolors itself from
+           the dark tokens — no hand-picked white. The client logo stays OUTSIDE theme-dark so
+           .logo-tile keeps its light plate; a dark tile would swallow a dark logo. -->
+      <div class="ev-hero-cap theme-dark">
+        <div class="ev-hero-cap-text">
+          <!-- hosting client — delete this row for an event with no partner logo. The logo needs
+               --plate because the caption is theme-dark and the tile would otherwise go dark. -->
+          <div class="ev-hero-host">
+            <span class="ev-hero-cap-org">Hosted by</span>
+            <div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div>
+            <!-- A wordmark logo already says the name — printing it again reads as a stutter.
+                 For a SYMBOL-ONLY logo (no name in the mark), add the name back here:
+                 <span class="ev-hero-cap-org is-name">Esri</span> -->
+          </div>
+          <!-- speakers — rendered by the prototype script so the switcher can show 1 / 2 / 3 / 6 -->
+          <div class="event-host" id="heroSpeakers"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02. ABOUT THIS SESSION — the per-event description (prose) -->
+<section class="section" style="background: var(--bg)">
+  <div class="cl-copy">
+    <div class="section-head">
+      <h2>About this session</h2>
+      <p>When an AI initiative isn't delivering the way you expected, it's natural to check the model first: retrain it, swap tools, add more infrastructure. That's a reasonable place to start, but it's rarely where the real gap lives. More often, it's the people between the technology and the outcome who are missing — such as the person who reviews an output and knows immediately whether it's actually right for your business. That's the layer we've spent the past year studying, and it's exactly what this session is built to help you find in your own team.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03. WHAT WILL HAPPEN — how-it-works timeline (portrait + check marks), same as summit/ -->
+<section class="section-how" id="covers">
+  <div class="how-outer">
+    <div class="section-head">
+      <h2>What you'll get out of this session</h2>
+      <p>Here's what you'll take away from the hour</p>
+    </div>
+    <div class="how-inner">
+      <div class="how-portrait-card">
+        <img src="../PowerToFly-Icon.svg" alt="" class="how-portrait-icon" aria-hidden="true">
+      </div>
+      <!-- check marks, not numbers: genuine MUI check, plain single-color ink
+           (small <40px = no gradient, per DESIGN-SYSTEM rule #5) -->
+      <div class="steps">
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>See past the résumé</h4>
+            <p>Why résumés and keyword matching often miss the full picture of a person's capability — and what a more evidence-based alternative can look like.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Reduce bias early</h4>
+            <p>How candidate-controlled privacy and identity release can reduce bias early in the hiring process.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="color:var(--ink)" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div class="step-content">
+            <h4>Know what to look for</h4>
+            <p>What to look for when evaluating whether an AI hiring system is built with consent, transparency, and real human oversight in mind.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04. MEET THE SPEAKER — page-specific speaker-bio layout -->
+<section class="section" id="speakers" style="background: var(--bg)">
+  <div class="cl-copy">
+    <div class="section-head" style="text-align:left; margin:0 0 36px">
+      <h2 id="speakersHeading">Meet the speaker</h2>
+    </div>
+  </div>
+  <!-- bios — rendered from the same list as the hero stack, so the SPEAKERS dial moves both -->
+  <div class="cl-speakers" id="speakerBios"></div>
+</section>
+
+<!-- 05. ABOUT POWERTOFLY — editorial header + shared stat-card grid (identical to summit/) -->
+<section class="section" style="background: var(--bg)">
+  <div class="about-head">
+    <div class="section-head" style="text-align:left; margin:0 0 40px"><!-- margin:0 left-aligns it (the class centers via margin:0 auto) -->
+      <div class="eyebrow" style="margin-bottom:14px">About PowerToFly</div>
+      <h2>The bridge between professionals and <em class="italic-plain">the companies building what's next.</em></h2>
+      <p style="margin-left:0; margin-right:0; max-width:none">PowerToFly connects talent, community groups, and industry leaders in one platform. Meet hiring managers, recruiters, and peers from anywhere — and with our virtual events and exclusive career content, hone your skills and grow your network all in one place.</p>
+    </div>
+    <div class="about-stat-grid">
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Community</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">800K+</span>
+        <span class="about-stat-desc">Active members across every industry, domain, and geography — from anywhere in the world.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Verified experts</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">80K+</span>
+        <span class="about-stat-desc">Domain specialists in healthcare, law, finance, and more — vetted and ready.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">AI professionals</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">6,500</span>
+        <span class="about-stat-desc">Annotators, red teamers, and model evaluators who've worked on frontier AI.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Countries</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">204</span>
+        <span class="about-stat-desc">A truly global community, so you can connect and grow your network without borders.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Women &amp; BIPOC</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">75%+</span>
+        <span class="about-stat-desc">The voices most underrepresented in tech are overrepresented here — by design.</span>
+      </div>
+      <div class="about-stat-card">
+        <span class="about-stat-lbl">Years building</span>
+        <hr class="about-stat-rule">
+        <span class="about-stat-num">12+</span>
+        <span class="about-stat-desc">Connecting talent with companies that value it, since 2014.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06. MORE CHAT & LEARNS — shared event tiles (static, no filter/pager) -->
+<section class="section" id="more">
+  <div class="ev-upnext">
+  <div class="ev-head">
+    <h2>More Chat &amp; Learns</h2>
+    <a class="ev-head-link" href="../events/index.html">See all events →</a>
+  </div>
+  <div class="ev-list">
+    <!-- COPY: confirm — dates / images -->
+    <article class="ev-row" data-type="chat-learn">
+      <div class="ev-row-date">September 3, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Chat &amp; learn</span>
+        <h3 class="ev-row-title">AI-powered productivity: from adoption to impact</h3>
+        <p class="ev-row-desc">A practical look at where AI is actually moving the needle on day-to-day work — and how to adopt it without the hype.</p>
+        <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=13" alt="" loading="lazy"></div><span class="ev-people-label">Luis Mojica</span></div>
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/3865639/pexels-photo-3865639.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+
+    <article class="ev-row" data-type="chat-learn">
+      <div class="ev-row-date">September 24, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Chat &amp; learn</span>
+        <h3 class="ev-row-title">Solving complex challenges through partnership and technology</h3>
+        <p class="ev-row-desc">Two Esri leaders on thriving in partnership-driven roles, the skills most in demand, and using technology to tackle complex industry challenges.</p>
+        <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=51" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=5" alt="" loading="lazy"></div><span class="ev-people-label">Clay Starr, Renee Opatz</span></div>
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/8438940/pexels-photo-8438940.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+
+    <article class="ev-row" data-type="chat-learn">
+      <div class="ev-row-date">October 8, 2026</div>
+      <div class="ev-row-body">
+        <span class="sc-tag">Chat &amp; learn</span>
+        <h3 class="ev-row-title">Relaunching or pivoting your career in the age of AI</h3>
+        <p class="ev-row-desc">Two coaches who've helped thousands of career returners share real strategies for closing résumé gaps, reframing your story, and using AI as you re-enter or reshape your path.</p>
+        <div class="ev-people"><div class="ev-faces"><img src="https://i.pravatar.cc/64?img=45" alt="" loading="lazy"><img src="https://i.pravatar.cc/64?img=20" alt="" loading="lazy"></div><span class="ev-people-label">Kelley Biskupiak, Susan Rietano Davey</span></div>
+        <a class="ev-row-link" href="../event-common/index.html" rel="noopener">Register →</a><!-- COPY: confirm target -->
+      </div>
+      <div class="ev-thumb"><img src="https://images.pexels.com/photos/2760241/pexels-photo-2760241.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop" alt="" loading="lazy"></div>
+    </article>
+  </div>
+  </div><!-- /.ev-upnext -->
+</section>
+
+<!-- 07. CLOSER — shared dark closer band -->
+<section class="section-cta">
+  <div class="section-cta-inner">
+    <span class="eyebrow">Save your spot</span>
+    <h2>Bring your questions.</h2>
+    <p>It's free, it's virtual, and it's built for a real conversation — not a lecture. Register to join live, or to get the recording afterward.</p>
+    <a href="../event-common/index.html" class="btn btn-cta">Register now →</a>
+  </div>
+</section>
+
+</main>
+
+
+<!-- ═══ RECORDING GATE — the "watch this video" popup ═══
+     Shell  → .modal-scrim / .modal / .modal-close / .modal-head / .modal-body (shared, ds/ptf.css)
+     Form   → .auth-form + .field (flow-event step 1), .req
+     Opt-ins→ .q-label + .event-list > .check-row.event-opt (flow-event step 4)
+     Consent→ .check-row.agree-row (flow-event step 4)
+     Actions→ .btn-auth (primary) · .auth-divider · .btn.btn-block (secondary path)
+     Opened by any [data-modal="recordingGate"] — the hero CTA + alert CTA in the PAST state. -->
+<div class="modal-scrim" id="recordingGate" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rgTitle">
+    <button class="modal-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="eyebrow">Free recording</div><!-- COPY: confirm -->
+      <h2 class="auth-heading" id="rgTitle">Watch the full session</h2><!-- COPY: confirm -->
+      <p class="auth-sub">Enter your email and the recording opens right away.</p><!-- COPY: confirm -->
+    </div>
+    <div class="modal-body">
+      <form class="auth-form" id="rgForm" novalidate>
+        <div class="field">
+          <label for="rgEmail">Email <span class="req">*</span></label>
+          <input id="rgEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="rgPhone">Phone number <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><!-- same optional marker as flow-event step 4 -->
+          <input id="rgPhone" type="tel" placeholder="+1 (555) 000-0000" autocomplete="tel">
+        </div>
+
+        <!-- Opt-ins — same list as "Register for more events" in flow-event step 4 -->
+        <div class="q-group" style="margin:14px 0 0">
+          <div class="q-label">Stay in the loop <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+          <div class="event-list">
+            <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Career opportunities, in one email</span><span class="event-opt-date">Recruiters and hiring managers, upskilling events, new remote roles. Opt out anytime.</span></span></label>
+            <label class="check-row event-opt"><input type="checkbox" class="check-box"><span><span class="event-opt-title">Content for DEI leaders</span><span class="event-opt-date">Events and resources for professionals leading diversity, equity and inclusion at their organizations.</span></span></label>
+          </div>
+        </div>
+
+        <!-- Consent — the waiver + terms, required (merges the old footer line into the one checkbox) -->
+        <label class="check-row agree-row"><input type="checkbox" class="check-box" id="rgAgree" checked><span>I agree to the <a href="#">waiver</a> and accept PowerToFly's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label><!-- COPY: confirm waiver link target -->
+
+        <button class="btn-auth" type="submit">Watch the recording →</button>
+      </form>
+
+      <div class="auth-divider">or</div>
+      <a class="btn btn-block" href="../signup/index.html">Join the community — unlock every recording</a><!-- COPY: confirm -->
+      <p class="auth-fineprint">Free for members: dozens of on-demand sessions, events and job matches.</p><!-- COPY: confirm -->
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER — shared injected footer ═══ -->
+<div data-ptf-footer></div>
+
+<!-- PROTOTYPE-ONLY — switch the page between event states. Delete #devStates + its script before launch. -->
+<div id="devStates" style="position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:9999;display:flex;align-items:center;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.34);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 4px">PREVIEW STATE</span>
+  <button type="button" data-state="upcoming">Upcoming</button>
+  <button type="button" data-state="live">Live</button>
+  <button type="button" data-state="past">Past</button>
+  <span style="width:1px;align-self:stretch;background:#2a2a2a;margin:0 4px"></span>
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 0">VIEWER</span>
+  <button type="button" data-viewer="guest">Not registered</button>
+  <button type="button" data-viewer="registered">Registered</button>
+  <span style="width:1px;align-self:stretch;background:#2a2a2a;margin:0 4px"></span>
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.12em;padding:0 8px 0 0">SPEAKERS</span>
+  <button type="button" data-speakers="1">1</button>
+  <button type="button" data-speakers="2">2</button>
+  <button type="button" data-speakers="3">3</button>
+  <button type="button" data-speakers="6">6</button>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initHeader();  // fixed alert + nav offset
+
+  /* ── PROTOTYPE: speaker stack. ONE block covers 1..N speakers:
+       faces  — up to 3, then .ev-faces-count "+N" (the DS overflow disc)
+       names  — up to 3 listed; past that the first two + "and N others", because a
+                fourth name pushes the line past the caption and gets clipped
+       role   — only when there is exactly ONE speaker; two names already fill the line.
+     COPY: confirm speakers. ── */
+  (function () {
+    var SPEAKERS = [
+      { name: 'Mara Gates', role: 'Director, Content Marketing, PowerToFly', face: 31,
+        bio: "Colette is a human-centered AI systems architect with nearly 30 years of experience across UX, product design, and digital strategy. At Idonea, she's building AI designed to reveal real capability — not just keywords and credentials — while keeping people in control of their own information every step of the way." },
+      { name: 'Dana Ruiz', role: 'Head of Talent, Zapier', face: 45,
+        bio: 'Dana leads hiring at Zapier, where her team rebuilt the interview process around demonstrated skill rather than pedigree. She writes about what actually predicts performance once someone is in the job.' },
+      { name: 'Sam Okonjo', role: 'Staff Engineer, Zapier', face: 12,
+        bio: 'Sam builds the systems behind Zapier\u2019s hiring tools and has spent the last three years on the question of how a technical assessment can measure ability without measuring free time.' },
+      { name: 'Priya Raman', role: 'Design Lead, Idonea', face: 27,
+        bio: 'Priya designs the interfaces people use to describe their own work. Her focus is consent — making it obvious what a system knows about you and what it does with it.' },
+      { name: 'Marcus Webb', role: 'Recruiting Partner, PowerToFly', face: 68,
+        bio: 'Marcus has placed candidates across 40+ companies and argues that most r\u00e9sum\u00e9 screens throw away the people who would have been best at the job.' },
+      { name: 'Aisha Bello', role: 'Community Lead, PowerToFly', face: 49,
+        bio: 'Aisha runs the community programs that connect our members to the teams hiring them, and hosts the conversations that follow.' }
+    ];   /* COPY: confirm every speaker + bio — placeholders past the first */
+    var MAX_FACES = 3, MAX_NAMES = 3;
+    var box = document.getElementById('heroSpeakers');
+    var bios = document.getElementById('speakerBios');
+    var heading = document.getElementById('speakersHeading');
+    var cta2 = document.getElementById('heroCta2');
+
+    function names(list) {
+      var n = list.map(function (s) { return s.name; });
+      if (n.length === 1) return n[0];
+      if (n.length <= MAX_NAMES) return n.slice(0, -1).join(', ') + ' and ' + n[n.length - 1];
+      var rest = n.length - 2;
+      return n[0] + ', ' + n[1] + ' and ' + rest + ' others';
+    }
+
+    window.renderSpeakers = function (count) {
+      var list = SPEAKERS.slice(0, count);
+      var faces = list.slice(0, MAX_FACES).map(function (s) {
+        return '<img src="https://i.pravatar.cc/64?img=' + s.face + '" alt="" loading="lazy">';
+      }).join('');
+      if (list.length > MAX_FACES) faces += '<span class="ev-faces-count">+' + (list.length - MAX_FACES) + '</span>';
+      box.innerHTML =
+        '<div class="ev-faces">' + faces + '</div>' +
+        '<div class="event-host-text">' +
+          '<span class="event-host-name">' + names(list) + '</span>' +
+          (list.length === 1 ? '<span class="event-host-role">' + list[0].role + '</span>' : '') +
+        '</div>';
+
+      /* the bio section shows EVERY speaker — the hero summarises, this is the full list */
+      bios.innerHTML = list.map(function (s) {
+        return '<div class="cl-speaker">' +
+          '<img class="cl-speaker-photo" src="https://i.pravatar.cc/200?img=' + s.face + '" alt="" loading="lazy">' +
+          '<div class="cl-speaker-body">' +
+            '<h3 class="cl-speaker-name">' + s.name + '</h3>' +
+            '<p class="cl-speaker-role">' + s.role + '</p>' +
+            '<p class="cl-speaker-bio">' + s.bio + '</p>' +
+          '</div></div>';
+      }).join('');
+
+      var plural = list.length > 1;
+      heading.textContent = plural ? 'Meet the speakers' : 'Meet the speaker';
+      if (cta2) cta2.textContent = plural ? 'Meet the speakers' : 'Meet the speaker';
+    };
+
+    var sBtns = [].slice.call(document.querySelectorAll('#devStates [data-speakers]'));
+    function applySpeakers(n) {
+      window.renderSpeakers(n);
+      sBtns.forEach(function (b) { b.classList.toggle('active', +b.getAttribute('data-speakers') === n); });
+    }
+    sBtns.forEach(function (b) {
+      b.addEventListener('click', function () { applySpeakers(+b.getAttribute('data-speakers')); });
+    });
+    applySpeakers(1);
+  })();
+
+  /* ── PROTOTYPE: event-state switcher (upcoming / live / past). Also reachable via #live / #past.
+     Only the hero eyebrow + primary CTA + alert change per state. Same wiring as summit/. ── */
+  (function () {
+    var STATES = {
+      upcoming: {
+        dot: false, eyebrowCls: '', eyebrow: 'Chat &amp; Learn',
+        cta1: { t: 'Register now →', href: '../event-common/index.html' },
+        cta1Registered: { t: "You're registered", href: '#' }, // no action to offer yet — state only
+        alert: 'Chat &amp; Learn &nbsp;·&nbsp; Beyond the résumé &nbsp;·&nbsp; Aug 6',
+        alertCta: { t: 'Register now →', href: '../event-common/index.html' },
+        alertCtaRegistered: null   // registered viewer: promo text only, no register button
+      },
+      live: {
+        dot: ' is-live', eyebrowCls: '', eyebrow: 'Live now',
+        cta1: { t: 'Join now →', href: '#' },              // COPY: confirm live/join target
+        cta1Registered: { t: 'Already registered! Join now →', href: '#' }, // live + already-registered viewer
+        alert: 'Live now &nbsp;·&nbsp; Beyond the résumé',
+        alertCta: { t: 'Join now →', href: '#' }
+      },
+      past: {
+        dot: false, eyebrowCls: ' is-past', eyebrow: 'Past event',
+        cta1: { t: 'Watch the recording →', href: '#' },   // COPY: confirm recording target
+        alert: 'This session has ended &nbsp;·&nbsp; Watch the recording',
+        alertCta: { t: 'Watch the recording →', href: '#' }
+      }
+    };
+    var eyebrow = document.getElementById('heroEyebrow');
+    var cta1 = document.getElementById('heroCta1');
+    var alertText = document.getElementById('alertText');
+    var alertCta = document.getElementById('alertCta');
+    var btns = [].slice.call(document.querySelectorAll('#devStates [data-state]'));
+    var vBtns = [].slice.call(document.querySelectorAll('#devStates [data-viewer]'));
+    var current = 'upcoming', viewer = 'guest';
+    function apply(name) {
+      var s = STATES[name]; if (!s) return;
+      current = name;
+      eyebrow.className = 'eyebrow' + s.eyebrowCls;
+      eyebrow.innerHTML = (s.dot === false ? '' : '<span class="dot' + s.dot + '"></span>') + s.eyebrow;
+      // a registered viewer gets the state's registered CTA where one exists (live), otherwise the default
+      var c = (viewer === 'registered' && s.cta1Registered) ? s.cta1Registered : s.cta1;
+      cta1.textContent = c.t; cta1.setAttribute('href', c.href);
+      if (alertText) alertText.innerHTML = s.alert;
+      // a null alertCtaRegistered means: registered viewer sees the promo text with no button
+      var ac = (viewer === 'registered' && 'alertCtaRegistered' in s) ? s.alertCtaRegistered : s.alertCta;
+      if (alertCta) {
+        alertCta.hidden = !ac;
+        if (ac) { alertCta.textContent = ac.t; alertCta.setAttribute('href', ac.href); }
+      }
+      // MOCK: in the past state the recording sits behind the email gate (#recordingGate)
+      [cta1, alertCta].forEach(function (el) {
+        if (!el) return;
+        if (name === 'past') el.setAttribute('data-modal', 'recordingGate'); else el.removeAttribute('data-modal');
+      });
+      btns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-state') === name); });
+      vBtns.forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-viewer') === viewer); });
+    }
+    function syncHash() {
+      var h = current + (viewer === 'registered' ? '-registered' : '');
+      history.replaceState(null, '', h === 'upcoming' ? location.pathname : '#' + h);
+    }
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () { apply(b.getAttribute('data-state')); syncHash(); });
+    });
+    vBtns.forEach(function (b) {
+      b.addEventListener('click', function () { viewer = b.getAttribute('data-viewer'); apply(current); syncHash(); });
+    });
+    // hash carries both dials so a state is shareable: #live, #live-registered, #upcoming-registered …
+    function fromHash() {
+      var parts = (location.hash || '').replace('#', '').split('-');
+      if (parts[1] === 'registered' || parts[0] === 'registered') viewer = 'registered';
+      apply(STATES[parts[0]] ? parts[0] : 'past');   // MOCK: lands in the past state
+    }
+    fromHash();
+    window.addEventListener('hashchange', fromHash);
+  })();
+
+  /* MOCK: open the gate on load so the popup is the first thing you see (close it with X / Esc / scrim). */
+  window.addEventListener('load', function () { var t = document.getElementById('heroCta1'); if (t && t.hasAttribute('data-modal')) t.click(); });
+  /* MOCK: submit just validates + closes — no endpoint, and the email never goes into a URL. */
+  document.getElementById('rgForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = document.getElementById('rgEmail'), agree = document.getElementById('rgAgree');
+    email.closest('.field').classList.toggle('invalid', !email.checkValidity());
+    agree.closest('.agree-row').classList.toggle('invalid', !agree.checked);
+    if (email.checkValidity() && agree.checked) document.querySelector('#recordingGate .modal-close').click();
+  });
+</script>
+</body>
+</html>
