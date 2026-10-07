@@ -6,7 +6,7 @@
 <title>Recording gate — Diagnose your AI gap — PowerToFly AI</title>
 <!-- MOCK: the "watch the recording" email gate (popup), rebuilt in the PTF AI system.
      The popup is the shared .modal shell + flow form parts (.field, .check-row/.event-opt,
-     .agree-row, .btn-auth, .auth-divider, .btn.btn-block). No new component CSS.
+     .agree-row, .btn-primary + .btn side by side in .modal-actions). No new component CSS.
      Page underneath = chat-learn/index.html in its PAST state. -->
 <!--
   ════════════════════════════════════════════════════════════════════════════
@@ -404,11 +404,12 @@
 
 
 <!-- ═══ RECORDING GATE — the "watch this video" popup ═══
-     Shell  → .modal-scrim / .modal / .modal-close / .modal-head / .modal-body (shared, ds/ptf.css)
-     Form   → .auth-form + .field (flow-event step 1), .req
+     Fits above the fold (no scrolling body) — email + phone share a row, opt-ins are one line each.
+     Shell  → .modal-scrim / .modal / .modal-close / .modal-head / .modal-body / .modal-foot > .modal-actions
+     Form   → .auth-form + .field-row/.field (flow-event step 1), .req
      Opt-ins→ .q-label + .event-list > .check-row.event-opt (flow-event step 4)
      Consent→ .check-row.agree-row (flow-event step 4)
-     Actions→ .btn-auth (primary) · .auth-divider · .btn.btn-block (secondary path)
+     Actions→ .btn.btn-primary + .btn side by side in .modal-actions (same pair as every hero) — never stacked full-width.
      Opened by any [data-modal="recordingGate"] — the hero CTA + alert CTA in the PAST state. -->
 <div class="modal-scrim" id="recordingGate" hidden>
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rgTitle">
@@ -418,37 +419,39 @@
     <div class="modal-head">
       <div class="eyebrow">Free recording</div><!-- COPY: confirm -->
       <h2 class="auth-heading" id="rgTitle">Watch the full session</h2><!-- COPY: confirm -->
-      <p class="auth-sub">Enter your email and the recording opens right away.</p><!-- COPY: confirm -->
+      <p class="auth-sub">Enter your email to watch it right away.</p><!-- COPY: confirm -->
     </div>
     <div class="modal-body">
       <form class="auth-form" id="rgForm" novalidate>
-        <div class="field">
-          <label for="rgEmail">Email <span class="req">*</span></label>
-          <input id="rgEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
-        </div>
-        <div class="field">
-          <label for="rgPhone">Phone number <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><!-- same optional marker as flow-event step 4 -->
-          <input id="rgPhone" type="tel" placeholder="+1 (555) 000-0000" autocomplete="tel">
+        <div class="field-row">
+          <div class="field">
+            <label for="rgEmail">Email <span class="req">*</span></label>
+            <input id="rgEmail" type="email" placeholder="you@example.com" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="rgPhone">Phone <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><!-- same optional marker as flow-event step 4 -->
+            <input id="rgPhone" type="tel" placeholder="+1 (555) 000-0000" autocomplete="tel">
+          </div>
         </div>
 
         <!-- Opt-ins — same list as "Register for more events" in flow-event step 4 -->
         <div class="q-group" style="margin:14px 0 0">
           <div class="q-label">Stay in the loop <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
           <div class="event-list">
-            <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Career opportunities, in one email</span><span class="event-opt-date">Recruiters and hiring managers, upskilling events, new remote roles. Opt out anytime.</span></span></label>
-            <label class="check-row event-opt"><input type="checkbox" class="check-box"><span><span class="event-opt-title">Content for DEI leaders</span><span class="event-opt-date">Events and resources for professionals leading diversity, equity and inclusion at their organizations.</span></span></label>
+            <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Career opportunities</span><span class="event-opt-date">Jobs, recruiters and upskilling events.</span></span></label>
+            <label class="check-row event-opt"><input type="checkbox" class="check-box"><span><span class="event-opt-title">Content for DEI leaders</span><span class="event-opt-date">Events for people leading DEI at work.</span></span></label>
           </div>
         </div>
 
-        <!-- Consent — the waiver + terms, required (merges the old footer line into the one checkbox) -->
-        <label class="check-row agree-row"><input type="checkbox" class="check-box" id="rgAgree" checked><span>I agree to the <a href="#">waiver</a> and accept PowerToFly's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label><!-- COPY: confirm waiver link target -->
-
-        <button class="btn-auth" type="submit">Watch the recording →</button>
+        <!-- Consent — the waiver + terms, required -->
+        <label class="check-row agree-row"><input type="checkbox" class="check-box" id="rgAgree" checked><span>I accept the <a href="#">waiver</a>, <a href="#">Terms</a> &amp; <a href="#">Privacy Policy</a> <span class="req">*</span></span></label><!-- COPY: confirm waiver link target -->
       </form>
-
-      <div class="auth-divider">or</div>
-      <a class="btn btn-block" href="../signup/index.html">Join the community — unlock every recording</a><!-- COPY: confirm -->
-      <p class="auth-fineprint">Free for members: dozens of on-demand sessions, events and job matches.</p><!-- COPY: confirm -->
+    </div>
+    <div class="modal-foot">
+      <div class="modal-actions">
+        <button class="btn btn-primary" type="submit" form="rgForm">Watch the recording →</button>
+        <a class="btn" href="../signup/index.html">Join the community</a><!-- COPY: confirm -->
+      </div>
     </div>
   </div>
 </div>
