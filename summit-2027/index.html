@@ -80,7 +80,17 @@
 .smt-col { max-width: var(--content-body); margin: 0 auto; }
 .smt-col .ev-list .ev-row:last-child { border-bottom: none; }
 
-#days, #live, #summits { scroll-margin-top: 140px; }
+/* Schedule is a narrow list with nothing beside it — centred, as on summit/ */
+.smt-col-narrow { max-width: var(--content-narrow); margin: 0 auto; }
+
+/* Speakers: the headshot and "Read bio" both open the shared .modal (PTF.initModal).
+   The button reset is the same as talent-network/cohort.html's .tal-more. */
+.speaker-grid img[data-modal] { cursor: pointer; }
+.speaker-grid button.ev-row-link { background: none; border: 0; padding: 0; margin-top: 10px; cursor: pointer; font-family: inherit; }
+/* bio modal: the .cl-speaker card sits in the head, so drop its own bottom gap */
+#speakerModal .cl-speaker { margin: 0; }
+
+#days, #schedule, #speakers, #live, #summits { scroll-margin-top: 140px; }
 
 /* ── PROTOTYPE: event switcher (same dev-bar styling as summit/'s #devStates) ── */
 #devEvents button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 9px; white-space: nowrap; transition: background .12s ease, color .12s ease; }
@@ -231,7 +241,142 @@
   </div>
 </section>
 
-<!-- 04. SEE YOU LIVE — calm section (eyebrow + heading + one paragraph), as summit/'s job-fair note -->
+<!-- 04. SCHEDULE — the shared .agenda component (as summit/). Day headings follow the
+     event (JS). ⚠️ Times and sessions are PLACEHOLDERS until the 2027 agenda is set;
+     the four rows follow the two-day format in the copy. -->
+<section class="section" id="schedule">
+  <div class="smt-col-narrow">
+  <div class="ev-head">
+    <h2>Schedule</h2>
+  </div>
+  <p class="agenda-note">Times shown in your local timezone. Subject to change.</p><!-- COPY: confirm times -->
+  <ol class="agenda">
+    <li class="agenda-day" data-slot="schedDay1">Day 1 · Wednesday, February 3</li>
+    <li class="agenda-row">
+      <div class="agenda-time">Time TBA
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Panels and fireside chats</h3>
+        <p class="agenda-desc">Leaders share how they built their careers, how they open doors for others, and the advice they wish they’d heard earlier.</p>
+      </div>
+    </li>
+    <li class="agenda-row">
+      <div class="agenda-time">Time TBA
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Job fair prep session</h3>
+        <p class="agenda-desc">A short session to help you feel ready and make the most of the virtual job fair.</p>
+      </div>
+    </li>
+    <li class="agenda-day" data-slot="schedDay2">Day 2 · Thursday, February 4</li>
+    <li class="agenda-row">
+      <div class="agenda-time">Time TBA
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Main stage: company introductions and roundtable</h3>
+        <p class="agenda-desc">Each participating company introduces itself and joins a roundtable on inclusion and what it’s like to work on their teams.</p>
+      </div>
+    </li>
+    <li class="agenda-row">
+      <div class="agenda-time">Time TBA
+        <a class="agenda-action" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>Add to calendar</a>
+      </div>
+      <div>
+        <h3 class="agenda-title">Breakout rooms with recruiters and hiring managers</h3>
+        <p class="agenda-desc">Ask your questions and get advice on resumes, interviews, open roles, and the tools teams use every day.</p>
+      </div>
+    </li>
+  </ol>
+  </div>
+</section>
+
+<!-- 05. SPEAKERS — the shared .speaker-grid (headshot, name, title). Clicking a headshot or
+     "Read bio" opens the shared .modal with the bio. ⚠️ ALL PLACEHOLDERS — swap in the
+     2027 speakers (name, title, headshot, bio) in the markup + SPEAKERS below. -->
+<section class="section" id="speakers">
+  <div class="smt-col">
+  <div class="ev-head">
+    <h2>Speakers</h2>
+  </div>
+  <div class="speaker-grid">
+    <div>
+      <img class="speaker-photo" src="../photos/06.black-lady-etty-fidele-AzVexpHvuKY-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="0"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="0">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="1"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="1">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="2"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="2">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="3"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="3">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/12.european-lady-city-hive-Exp0ETFrQng-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="4"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="4">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/13.latino-old-man-christian-buehner-h0_elok-uKI-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="5"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="5">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/14.braids-lady-dziana-hasanbekava-7275387.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="6"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="6">Read bio →</button>
+    </div>
+    <div>
+      <img class="speaker-photo" src="../photos/09.white-young-man-mexican-irene-strong-v2aKnjMbP_k-unsplash.jpg" alt="Speaker name" data-modal="speakerModal" data-speaker="7"><!-- COPY: placeholder headshot -->
+      <p class="speaker-name">Speaker name</p>
+      <p class="speaker-role">Title, Company</p>
+      <button type="button" class="ev-row-link" data-modal="speakerModal" data-speaker="7">Read bio →</button>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- SPEAKER BIO — the shared .modal shell, filled from whichever speaker was opened
+     (one modal, not one per speaker — same as talent-network/cohort.html). -->
+<div class="modal-scrim" id="speakerModal" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="smName">
+    <button class="modal-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="cl-speaker">
+        <img class="cl-speaker-photo" id="smPhoto" src="" alt="">
+        <div>
+          <p class="cl-speaker-name" id="smName">Speaker name</p>
+          <p class="cl-speaker-role" id="smRole">Title, Company</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <p class="cl-speaker-bio" id="smBio"></p>
+    </div>
+  </div>
+</div>
+
+<!-- 06. SEE YOU LIVE — calm section (eyebrow + heading + one paragraph), as summit/'s job-fair note -->
 <section class="section" id="live" style="background: var(--bg)">
   <div class="section-head">
     <h2>Join live</h2>
@@ -239,7 +384,7 @@
   </div>
 </section>
 
-<!-- 05. MORE 2027 EVENTS — shared event tiles (static, no filter/pager). JS lists the other five. -->
+<!-- 07. MORE 2027 EVENTS — shared event tiles (static, no filter/pager). JS lists the other five. -->
 <section class="section" id="summits">
   <div class="smt-col">
   <div class="ev-head">
@@ -250,7 +395,7 @@
   </div>
 </section>
 
-<!-- 06. CLOSER — shared dark band -->
+<!-- 08. CLOSER — shared dark band -->
 <section class="section-cta">
   <div class="section-cta-inner">
     <span class="eyebrow">Free and virtual</span>
@@ -420,6 +565,7 @@
       var hi = slot('heroImg'); hi.src = img(e.photo, 1000, 750); hi.alt = e.alt;
       setText('learn', e.learn); setText('connect', e.connect); setText('explore', e.explore);
       setText('day1Label', 'Day 1 · ' + e.day1); setText('day2Label', 'Day 2 · ' + e.day2);
+      setText('schedDay1', 'Day 1 · ' + e.day1); setText('schedDay2', 'Day 2 · ' + e.day2);
       setText('day1a', e.day1a); setText('day1b', e.day1b);
       setText('day2a', e.day2a); setText('day2b', e.day2b);
       setHTML('bullets', e.bullets.map(function (b) { return '<li>' + CK + esc(b) + '</li>'; }).join(''));
@@ -431,6 +577,22 @@
       [].forEach.call(bar.querySelectorAll('button'), function (b) { b.classList.toggle('active', b.getAttribute('data-event') === e.id); });
       if (scroll) window.scrollTo({ top: 0, behavior: 'smooth' });
     }
+
+    /* Speaker bios — PLACEHOLDERS. One entry per tile, same order as the grid. */
+    var SPEAKERS = [].map.call(document.querySelectorAll('.speaker-grid > div'), function (t) {
+      return { name: t.querySelector('.speaker-name').textContent,
+               role: t.querySelector('.speaker-role').textContent,
+               photo: t.querySelector('.speaker-photo').getAttribute('src'),
+               bio: 'Bio coming soon. Each speaker’s full bio will appear here once the 2027 lineup is announced.' };
+    });
+    document.addEventListener('click', function (ev) {
+      var t = ev.target.closest('[data-speaker]'); if (!t) return;
+      var sp = SPEAKERS[+t.getAttribute('data-speaker')]; if (!sp) return;
+      var ph = document.getElementById('smPhoto'); ph.src = sp.photo; ph.alt = sp.name;
+      document.getElementById('smName').textContent = sp.name;
+      document.getElementById('smRole').textContent = sp.role;
+      document.getElementById('smBio').textContent = sp.bio;
+    }, true);  // capture: fill the modal before PTF.initModal opens it
 
     function fromHash() { return (location.hash || '').replace('#', ''); }
     var ids = EVENTS.map(function (e) { return e.id; });
