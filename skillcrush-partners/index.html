@@ -47,7 +47,7 @@
 /* Two ways to partner: photo on top of each card; links stack at the bottom so both cards line up. Page layout only. */
 .partner-photo { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: var(--r-lg); margin-bottom: 8px; }
 .partner-cards .sc-bullets { margin: 4px 0 8px; }
-.partner-cards .sc-more:first-of-type { margin-top: auto; }
+.partner-ctas { margin-top: auto; padding-top: 12px; display: flex; flex-wrap: wrap; gap: 10px; }  /* primary = talk to us, secondary = explore */
 /* Zero Irving cohort panel: ds .stats-card-dark under the photo, stats 4-up in one row, footnote inside at the bottom. */
 .zi-panel { max-width: var(--content); margin: 12px auto 0; padding: 44px 48px 32px; gap: 28px; text-align: left; }
 .zi-panel .eyebrow { color: var(--green-mid); margin-bottom: 0; }
@@ -55,6 +55,10 @@
 .zi-panel .stat-big-num { font-size: clamp(44px, 4.6vw, 64px); }
 .zi-panel sup { font-size: 18px; font-weight: 600; vertical-align: top; position: relative; top: 6px; margin-left: 2px; color: rgba(255,255,255,0.58); }  /* small asterisks (Kristina) */
 .zi-panel-note { font-size: 14px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 18px; }
+/* Testimonials inside the case study: sub-heading at h2 scale but tighter spacing than a new section. */
+.zi-voices-head { margin: 64px auto 0; }
+.zi-voices-title { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.03em; line-height: 1.1; }
+#zero-irving .testimonials { max-width: var(--content); margin-left: auto; margin-right: auto; margin-top: 32px; }
 /* What we built: 4 numbered cards in a row. */
 .zi-built { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: var(--content); margin: 0 auto; }
 .zi-built .benefit-card { padding: 24px 22px 26px; gap: 8px; }
@@ -164,26 +168,31 @@
           <img class="partner-photo" src="../photos/pexels-30879378-coding-class-instructor.jpg" alt="Adult learners coding in a computer lab while an instructor teaches">
           <div class="partner-head"><span class="about-stat-num">1</span><h3>Custom programs</h3></div>
           <p class="partner-promise">We build it with you.</p>
-          <p>Tell us who you want to reach, and we'll handle the rest.</p>
+          <p>Tell us who you need to train and what you want to achieve. We’ll design and deliver a program around your learners, goals, and budget.</p>
           <ul class="sc-bullets">
-            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Curriculum and live instruction</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Customized curriculum and live instruction</li>
             <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Learner support like laptops, transportation, and mentorship</li>
-            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Career coaching, plus reporting for funders and boards</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Career coaching through the job search</li>
           </ul>
-          <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Build a program with us →</a>
+          <div class="partner-ctas">
+            <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Build a program with us →</a>
+            <a href="#zero-irving" class="btn btn-sm">See how we built it →</a>
+          </div>
         </div>
         <div class="benefit-card" id="licensing">
           <img class="partner-photo" src="../photos/pexels-1181471-two-women-coding.jpg" alt="Two women working through code together at a computer">
-          <div class="partner-head"><span class="about-stat-num">2</span><h3>Licensing</h3></div>
+          <div class="partner-head"><span class="about-stat-num">2</span><h3>Access our training catalog</h3></div>
           <p class="partner-promise">Use what we've already built.</p>
-          <p>Give your learners or employees access to Skillcrush tracks and courses.</p>
+          <p>Give your learners or employees access to proven Skillcrush tracks and individual courses in tech and AI.</p>
           <ul class="sc-bullets">
-            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>AI Developer, Full Stack, and Front End tracks, plus courses in Python, AI, and UX</li>
-            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Launch immediately</li>
-            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Built for beginners and career changers</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Choose from AI Developer, Full Stack, and Front End tracks, plus individual courses in Python, AI, UX, and more</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Launch quickly with beginner-friendly, career-focused training</li>
+            <li><span class="sc-ck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>Volume pricing for teams and cohorts</li>
           </ul>
-          <a href="https://skillcrush.com/courses/" class="sc-more" target="_blank" rel="noopener">Explore tracks →</a>
-          <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="sc-more" target="_blank" rel="noopener">Talk to us about licensing →</a>
+          <div class="partner-ctas">
+            <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get pricing for your team →</a>
+            <!-- COPY: confirm — one page showing tracks + courses (Tauri/Bethany) --><a href="https://skillcrush.com/courses/" class="btn btn-sm" target="_blank" rel="noopener">Explore tracks &amp; courses →</a>
+          </div>
         </div>
     </div>
   </section>
@@ -193,8 +202,8 @@
     <div class="section-narrow">
       <div class="section-head">
         <span class="eyebrow">In action: Zero Irving × Skillcrush by PowerToFly</span>
-        <h2>15 New Yorkers. Six months. Beginner to <em class="italic-plain">AI developer.</em></h2>
-        <p>A fully funded, six-month workforce program for New Yorkers underrepresented in tech, built with Zero Irving and now underway at Civic Hall.</p>
+        <h2>15 New Yorkers. 12 months. Beginner to <em class="italic-plain">AI developer.</em></h2>
+        <p>A fully funded workforce program for New Yorkers underrepresented in tech: six months of technical training, then up to six months of job search support. Now underway at Civic Hall.</p>
       </div>
 
       <img class="zi-photo" src="../photos/zero-irving-cohort.jpg" alt="The Zero Irving scholarship cohort together at Civic Hall in New York">
@@ -230,12 +239,12 @@
         <div class="benefit-card">
           <span class="step-num">03</span>
           <h3>Hybrid instruction</h3>
-          <p>Weekly in-person classes at Civic Hall, plus self-paced online coursework</p>
+          <p>Weekly in-person classes at Civic Hall, plus online coursework on a set weekly schedule.</p>
         </div>
         <div class="benefit-card">
           <span class="step-num">04</span>
           <h3>Career support</h3>
-          <p>Six months of career coaching after training</p>
+          <p>Up to six months of career coaching after training.</p>
         </div>
       </div>
 
@@ -250,20 +259,10 @@
         <div class="statband-item"><div class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/></svg></div><div class="statband-text"><span class="statband-lbl">A cohort community</span></div></div>
       </div>
 
-      <div class="cs-cta-row" style="margin-top:40px">
-        <a href="https://skillcrush.com/blog/nyc-ai-developer-scholarship/" class="btn" target="_blank" rel="noopener">See the full story →</a>
+      <!-- Testimonials inside the case study (Mara: they read as part of it) — .testimonials > .t-card ×3 -->
+      <div class="section-head zi-voices-head">
+        <h3 class="zi-voices-title">Hear from the <em class="italic-plain">Zero Irving cohort</em></h3>
       </div>
-    </div>
-  </section>
-
-  <!-- ⑧ TESTIMONIALS — .testimonials > .t-card ×3, each with a big photo of the recipient on top (.t-photo, page-local). -->
-  <section class="section">
-    <div class="section-narrow">
-      <div class="section-head">
-        <h2>Hear from the <em class="italic-plain">Zero Irving cohort</em></h2>
-      </div>
-    </div>
-    <div class="experts-inner">
       <div class="testimonials">
         <div class="t-card">
           <img class="t-photo" src="../photos/testimonial-charlene-brown.jpg" alt="Charlene B., Zero Irving scholarship recipient">
@@ -280,6 +279,10 @@
           <p class="t-quote">"Success here doesn't require a traditional engineering background."</p>
           <div class="t-meta"><div class="t-meta-info"><div class="t-author">Tara D.</div><div class="t-company">Zero Irving scholarship</div><div class="t-role">Scholarship Recipient</div></div></div>
         </div>
+      </div>
+
+      <div class="cs-cta-row" style="margin-top:40px">
+        <a href="https://skillcrush.com/blog/nyc-ai-developer-scholarship/" class="btn" target="_blank" rel="noopener">See the full story →</a>
       </div>
     </div>
   </section>
@@ -299,11 +302,11 @@
         <div class="steps">
           <div class="step">
             <div class="step-num">01</div>
-            <div class="step-content"><h4>Build skills</h4><p>Beginner-friendly curriculum and live instruction in AI, web development, and UX.</p></div>
+            <div class="step-content"><h4>Build skills</h4><p>Beginner-friendly curriculum with instructor feedback in AI, web development, and UX.</p></div>
           </div>
           <div class="step">
             <div class="step-num">02</div>
-            <div class="step-content"><h4>Finish the program</h4><p>Support designed around your learners helps them stay on track and complete.</p></div>
+            <div class="step-content"><h4>Finish the program</h4><p>Support designed around your learners helps them stay motivated to complete their courses.</p></div>
           </div>
           <div class="step">
             <div class="step-num">03</div>
