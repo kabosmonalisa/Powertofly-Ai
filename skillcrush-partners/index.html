@@ -36,7 +36,7 @@
 /* Hero proof stats — .about-stat-grid, centred under the CTA. */
 .hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: center; }
 .hero-stats .about-stat-card { align-items: center; }
-@media (max-width: 768px) { .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 16px; } .hero-stats .about-stat-num { font-size: clamp(28px, 8vw, 40px); } }
+@media (max-width: 768px) { .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; } .hero-stats .about-stat-num { font-size: clamp(28px, 8vw, 40px); } .hero-stats .about-stat-desc { font-size: 14px; line-height: 1.35; margin-top: 8px; } }
 /* Partner cards: the offer name sits next to its big number at heading size, so "Custom programs" / "Licensing" read as the two headline offers. */
 .partner-head { display: flex; align-items: baseline; gap: 14px; }
 .partner-head h3 { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -0.03em; }
@@ -56,9 +56,9 @@
 .zi-panel sup { font-size: 18px; font-weight: 600; vertical-align: top; position: relative; top: 6px; margin-left: 2px; color: rgba(255,255,255,0.58); }  /* small asterisks (Kristina) */
 .zi-panel-note { font-size: 14px; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.12); padding-top: 18px; }
 /* Testimonials inside the case study: sub-heading at h2 scale but tighter spacing than a new section. */
-.zi-voices-head { margin: 64px auto 0; }
+.zi-voices-head { margin: 56px auto 0; }
 .zi-voices-title { font-family: 'Inter Tight', 'Inter', sans-serif; font-weight: 700; font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.03em; line-height: 1.1; }
-#zero-irving .testimonials { max-width: var(--content); margin-left: auto; margin-right: auto; margin-top: 32px; }
+#zero-irving .testimonials { max-width: var(--content); margin-left: auto; margin-right: auto; margin-top: 24px; }
 /* What we built: 4 numbered cards in a row. */
 .zi-built { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: var(--content); margin: 0 auto; }
 .zi-built .benefit-card { padding: 24px 22px 26px; gap: 8px; }
@@ -68,7 +68,7 @@
 /* Path section closing line, centred under the steps. */
 .path-note { max-width: 60ch; margin: 48px auto 0; text-align: center; font-size: 18px; font-weight: 600; color: var(--ink); line-height: 1.5; }
 /* What every participant gets: .statband icon tiles, 4 across, 2×2 on small screens. */
-.zi-supports-head { margin: 48px auto 12px; }
+.zi-supports-head { margin: 56px auto 16px; }  /* one rhythm inside the case study: 56px between blocks, 16px label → content */
 .zi-supports { max-width: var(--content); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .zi-supports .statband-item { padding: 22px 12px; }
 .zi-supports .statband-lbl { font-weight: 600; color: var(--ink); line-height: 1.3; }
@@ -77,6 +77,7 @@
 @media (max-width: 900px) { .zi-supports { display: grid; grid-template-columns: 1fr 1fr; } .zi-supports .statband-item { border-right: none; border-bottom: 1px solid var(--line); justify-content: flex-start; } .zi-supports .statband-item:nth-last-child(-n+2) { border-bottom: none; } }
 /* Testimonials with a large recipient photo on top of each .t-card — page-local; no photo-card variant of .t-card exists yet (candidate for ds). */
 .t-photo { width: 100%; margin: 0 0 20px; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 25%; border-radius: var(--r-lg); }
+@media (max-width: 600px) { .t-photo { aspect-ratio: 1 / 1; } }  /* shorter on phones so three stacked cards don't become a long scroll */
 /* Zero Irving: the real cohort photo, full content width (one-off feature image — no component for a wide photo). */
 .zi-photo { width: 100%; max-width: var(--content); margin: 0 auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 60%; border-radius: var(--r-2xl); }
 @media (max-width: 600px) { .benefits-row { grid-template-columns: 1fr; } }
