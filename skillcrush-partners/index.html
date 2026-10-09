@@ -33,12 +33,45 @@
 /* Skillcrush by PowerToFly logo above the hero headline (replaces the eyebrow). */
 .hero-logo { display: block; height: 52px; width: auto; margin: 0 auto 24px; }
 @media (max-width: 600px) { .hero-logo { height: 40px; margin-bottom: 18px; } }
+/* ===== Skillcrush accent — purple, so SK reads differently from the rest of PTF (Kristina). Token overrides only, scoped to this page. ===== */
+body { --accent: var(--purple); }                                   /* eyebrows, tags, text links */
+.section-hero { --iri-green: color-mix(in srgb, var(--purple) 40%, var(--bg)); --iri-lime: var(--purple-light); }  /* hero glow turns lilac */
+.statband-icon, .sc-ck { background: var(--purple-light); }          /* icon + check chips */
+.sc-ck svg, .statband-icon svg, .hv-card .statband-icon svg { fill: var(--purple); }
+.zi-panel .eyebrow { color: color-mix(in srgb, var(--purple) 45%, #fff); }
+.zi-built .step-num, .how-inner .step-num { color: var(--purple); border-color: color-mix(in srgb, var(--purple) 35%, var(--bg)); }
+/* ===== Hero: text left, visual right (version A — real cohort + scholars + floating highlights; hero composition is page-specific) ===== */
+.hero-split { display: grid; grid-template-columns: 1fr 1.05fr; gap: 56px; align-items: center; max-width: var(--content-wide); margin: 0 auto; }
+.hero-copy { text-align: left; }
+.hero-copy .hero-logo { margin: 0 0 24px; }
+.hero-copy .display { margin-bottom: 18px; }
+.hero-sub { font-size: 18px; color: var(--ink-3); line-height: 1.6; margin-bottom: 28px; max-width: 46ch; }
+@media (max-width: 900px) { .hero-split { grid-template-columns: 1fr; gap: 40px; } .hero-copy { text-align: center; } .hero-copy .hero-logo { margin: 0 auto 20px; } .hero-sub { margin-left: auto; margin-right: auto; } }
+
+/* Visual A: cohort photo + three scholar portraits + floating highlight cards (floatY = ds keyframe). */
+.hv-collage { position: relative; padding: 36px 28px 44px 36px; }
+.hv-main { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 55%; border-radius: var(--r-2xl); box-shadow: var(--shadow-card); }
+.hv-face { position: absolute; width: 92px; height: 92px; border-radius: var(--r-pill); object-fit: cover; object-position: center 25%; border: 4px solid var(--bg); box-shadow: var(--shadow-card); }
+.hv-face-1 { top: 0; left: 0; }
+.hv-face-2 { top: 44%; right: 0; width: 76px; height: 76px; }
+.hv-face-3 { bottom: 0; left: 26%; width: 80px; height: 80px; }
+.hv-card { position: absolute; display: flex; align-items: center; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: 10px 14px 10px 10px; animation: floatY 5s ease-in-out infinite; text-align: left; }
+.hv-card strong { display: block; font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.hv-card span:not(.statband-icon) { display: block; font-size: 13px; color: var(--ink-3); line-height: 1.3; }
+.hv-card .statband-icon svg { width: 16px; height: 16px; fill: var(--ink); }
+.hv-card-1 { left: -18px; bottom: 20%; }
+.hv-card-2 { right: -18px; top: 6px; animation-delay: -1.6s; }
+.hv-card-3 { right: 6%; bottom: 0; animation-delay: -3.2s; }
+@media (max-width: 600px) { .hv-collage { padding: 24px 8px 32px 16px; } .hv-face { width: 64px; height: 64px; } .hv-face-2, .hv-face-3 { width: 56px; height: 56px; } .hv-card { padding: 8px 10px 8px 8px; } .hv-card strong { font-size: 13px; } .hv-card span:not(.statband-icon) { font-size: 12px; } .hv-card-2 { display: none; } .hv-card-1 { left: 0; bottom: 18%; } .hv-card-3 { right: 0; bottom: 0; } .hv-face-3 { left: 18%; } }
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) { .hv-card { animation: none; } }
 /* Hero proof stats — .about-stat-grid, centred under the CTA. */
 .hero-stats { max-width: var(--content); margin: 56px auto 0; text-align: center; }
 .hero-stats .about-stat-card { align-items: center; }
 @media (max-width: 768px) { .hero-stats { grid-template-columns: 1fr 1fr 1fr; gap: 8px; } .hero-stats .about-stat-num { font-size: clamp(28px, 8vw, 40px); } .hero-stats .about-stat-desc { font-size: 14px; line-height: 1.35; margin-top: 8px; } }
 /* Partner cards: the offer name sits next to its big number at heading size, so "Custom programs" / "Licensing" read as the two headline offers. */
-.partner-head { display: flex; align-items: baseline; gap: 14px; }
+.partner-head { display: flex; align-items: center; gap: 14px; }
+.partner-head .step-num { width: 44px; height: 44px; font-size: 18px; color: var(--accent); border-color: var(--accent); }  /* number in a circle (Kristina) */
 .partner-head h3 { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: -0.03em; }
 .partner-cards .partner-promise { font-weight: 600; color: var(--ink); font-size: 18px; }
 /* Closing headline stays on one line on desktop (Kristina: broken in two it loses impact). */
@@ -94,16 +127,27 @@
 
 <main>
 
-  <!-- ① HERO — spacing exception: sits directly under the fixed header (--hero-top) -->
+  <!-- ① HERO — text left, real-people visual right (version A, agreed by the team) -->
   <section class="section-hero hero-glow">
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
     <div class="section-narrow">
-      <div class="section-head">
-        <img class="hero-logo" src="../logos/skillcrush-by-powertofly.png" alt="Skillcrush by PowerToFly">
-        <h1 class="display">Tech and AI training for your <em class="italic-plain">team or community.</em></h1>
-        <p>Skillcrush by PowerToFly designs beginner-friendly tech and AI training for workforce organizations, colleges, community groups, and employers.</p>
-      </div>
-      <div class="cs-cta-row">
-        <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-primary" target="_blank" rel="noopener">Talk to us about a partnership →</a>
+      <div class="hero-split">
+        <div class="hero-copy">
+          <img class="hero-logo" src="../logos/skillcrush-by-powertofly.png" alt="Skillcrush by PowerToFly">
+          <h1 class="display">Tech and AI training for your <em class="italic-plain">team or community.</em></h1>
+          <p class="hero-sub">Skillcrush by PowerToFly designs beginner-friendly tech and AI training for workforce organizations, colleges, community groups, and employers.</p>
+          <a href="https://meetings.hubspot.com/tauristclaire/partnership-call?uuid=33a791fd-72c7-4381-aed7-f9366e068e5c" class="btn btn-primary" target="_blank" rel="noopener">Talk to us about a partnership →</a>
+        </div>
+        <!-- VISUAL A — real people: the Zero Irving cohort + three scholars, with floating highlight cards -->
+        <div class="hv-collage" aria-label="The Zero Irving cohort and three of its scholars">
+          <img class="hv-main" src="../photos/zero-irving-cohort.jpg" alt="The Zero Irving cohort together at Civic Hall in New York">
+          <img class="hv-face hv-face-1" src="../photos/testimonial-charlene-brown.jpg" alt="Charlene B., Zero Irving scholar">
+          <img class="hv-face hv-face-2" src="../photos/testimonial-abby-addis.jpg" alt="Abby A., Zero Irving scholar">
+          <img class="hv-face hv-face-3" src="../photos/testimonial-tshewang-dema.jpg" alt="Tara D., Zero Irving scholar">
+          <div class="hv-card hv-card-1"><span class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></span><div><strong>15 learners</strong><span>Zero Irving cohort · New York</span></div></div>
+          <div class="hv-card hv-card-2"><span class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg></span><div><strong>Laptops + transportation</strong><span>Built into the program</span></div></div>
+          <div class="hv-card hv-card-3"><span class="statband-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg></span><div><strong>Career coaching</strong><span>Up to six months after training</span></div></div>
+        </div>
       </div>
       <!-- PROOF STATS — .about-stat-grid (was a thin .statband; Kristina: these proof points disappear, esp. on mobile) -->
       <div class="about-stat-grid hero-stats">
@@ -166,8 +210,8 @@
     </div>
     <div class="benefits-row partner-cards">
         <div class="benefit-card" id="custom-programs">
-          <img class="partner-photo" src="../photos/pexels-30879378-coding-class-instructor.jpg" alt="Adult learners coding in a computer lab while an instructor teaches">
-          <div class="partner-head"><span class="about-stat-num">1</span><h3>Custom programs</h3></div>
+          <img class="partner-photo" src="../photos/pexels-13804491-instructor-helping-learner.jpg" alt="An instructor helping a learner work through an exercise on her laptop">
+          <div class="partner-head"><span class="step-num">1</span><h3>Custom programs</h3></div>
           <p class="partner-promise">We build it with you.</p>
           <p>Tell us who you need to train and what you want to achieve. We’ll design and deliver a program around your learners, goals, and budget.</p>
           <ul class="sc-bullets">
@@ -182,7 +226,7 @@
         </div>
         <div class="benefit-card" id="licensing">
           <img class="partner-photo" src="../photos/pexels-1181471-two-women-coding.jpg" alt="Two women working through code together at a computer">
-          <div class="partner-head"><span class="about-stat-num">2</span><h3>Access our training catalog</h3></div>
+          <div class="partner-head"><span class="step-num">2</span><h3>Access our training catalog</h3></div>
           <p class="partner-promise">Use what we've already built.</p>
           <p>Give your learners or employees access to proven Skillcrush tracks and individual courses in tech and AI.</p>
           <ul class="sc-bullets">
@@ -203,7 +247,7 @@
     <div class="section-narrow">
       <div class="section-head">
         <span class="eyebrow">In action: Zero Irving × Skillcrush by PowerToFly</span>
-        <h2>15 New Yorkers. 12 months. Beginner to <em class="italic-plain">AI developer.</em></h2>
+        <h2>15 New Yorkers. 12 months.<br>Beginner to <em class="italic-plain">AI developer.</em></h2>
         <p>A fully funded workforce program for New Yorkers underrepresented in tech: six months of technical training, then up to six months of job search support. Now underway at Civic Hall.</p>
       </div>
 
@@ -262,7 +306,7 @@
 
       <!-- Testimonials inside the case study (Mara: they read as part of it) — .testimonials > .t-card ×3 -->
       <div class="section-head zi-voices-head">
-        <h3 class="zi-voices-title">Hear from the <em class="italic-plain">Zero Irving cohort</em></h3>
+        <h3 class="zi-voices-title">Hear from our <em class="italic-plain">learners</em></h3>
       </div>
       <div class="testimonials">
         <div class="t-card">
