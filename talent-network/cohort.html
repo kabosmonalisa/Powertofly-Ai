@@ -77,6 +77,10 @@
 .tal-card-body { padding: 16px 16px 15px; display: flex; flex-direction: column; flex: 1; }
 .tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
 .tal-card-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+/* "How we know them" — Iuliia's signal. Calibre you can check without a name:
+   we have spoken to this person and their rate is confirmed. Same line, same
+   words, on the public page. */
+.tal-card-trust { margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--accent); }
 .tal-card-sum { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 11px 0 13px; }
 .tal-card .sc-titles { margin-bottom: 14px; }
 .tal-card-meta {
@@ -320,6 +324,10 @@
         <div class="eyebrow">Private cohort · Northwind Robotics</div><!-- COPY: client name per cohort -->
         <h2>Your AI Product cohort</h2>
         <p class="cohort-meta"><strong>9 profiles</strong>, curated for you · Batch 1 · September 4, 2026</p>
+        <!-- Decided in the anonymity thread: this promise belongs on the curated
+             list, never on the public page. Names and photos are here because
+             these nine agreed to be shown; the introduction is still their call. -->
+        <p class="cohort-meta">Everyone here is available now and has agreed to be shown to you by name. We confirm with each person before we make an introduction.</p>
       </div>
     </div>
 
@@ -346,6 +354,7 @@
             <p class="tal-card-sum">Took an LLM assistant from prototype to general availability, and built the eval process that let the team ship it safely. Off the clock, she's training for her fourth marathon, same discipline, different finish line.</p>
             <div class="sc-titles"><span class="sc-title-chip">Evals</span><span class="sc-title-chip">RAG</span><span class="sc-title-chip">Roadmap</span></div>
             <div class="tal-card-meta"><span>Western Europe</span><span class="dot-sep"></span><span>9 yrs</span><span class="tal-rate">$110/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -361,6 +370,7 @@
             <p class="tal-card-sum">Owns model and vendor selection across three product lines, including the cost case that made the switch defensible. Has visited 89 countries and counting, always chasing the next unfamiliar system to figure out.</p>
             <div class="sc-titles"><span class="sc-title-chip">Vendor strategy</span><span class="sc-title-chip">Cost modeling</span><span class="sc-title-chip">Platform</span></div>
             <div class="tal-card-meta"><span>US East</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$135/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -376,6 +386,7 @@
             <p class="tal-card-sum">Rebuilt retrieval and ranking for a multilingual consumer app, cutting empty-result searches by half. Grew up speaking three languages at home, which might explain why multilingual keeps showing up on her resume.</p>
             <div class="sc-titles"><span class="sc-title-chip">Search</span><span class="sc-title-chip">Multilingual</span><span class="sc-title-chip">Experimentation</span></div>
             <div class="tal-card-meta"><span>Latin America</span><span class="dot-sep"></span><span>6 yrs</span><span class="tal-rate">$85/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -391,6 +402,7 @@
             <p class="tal-card-sum">Shipped AI features inside a regulator's line of sight: model risk documentation, human review, and the audit trail behind both. Restores old motorcycles on weekends, another hobby that rewards getting the paperwork right.</p>
             <div class="sc-titles"><span class="sc-title-chip">Model risk</span><span class="sc-title-chip">Compliance</span><span class="sc-title-chip">Governance</span></div>
             <div class="tal-card-meta"><span>United Kingdom</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$150/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -406,6 +418,7 @@
             <p class="tal-card-sum">Starts AI products from nothing: three launches in four years, two of which are still the team's main line of revenue. Took over a neglected allotment two years ago, which is also mostly the work of starting something from nothing.</p>
             <div class="sc-titles"><span class="sc-title-chip">0 → 1</span><span class="sc-title-chip">Marketplace</span><span class="sc-title-chip">Discovery</span></div>
             <div class="tal-card-meta"><span>South Asia</span><span class="dot-sep"></span><span>8 yrs</span><span class="tal-rate">$78/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -421,6 +434,7 @@
             <p class="tal-card-sum">Builds the tooling other teams evaluate models with: pipelines, dashboards, and the definition of "good enough to ship". Builds modular synthesizers at home, where the interesting part is also the instrumentation.</p>
             <div class="sc-titles"><span class="sc-title-chip">ML platform</span><span class="sc-title-chip">Eval tooling</span><span class="sc-title-chip">MLOps</span></div>
             <div class="tal-card-meta"><span>Canada</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$105/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -436,6 +450,7 @@
             <p class="tal-card-sum">Leads a product group building clinical decision tools, where the bar for a wrong answer is a clinical incident. Coaches a youth debate team, another setting where being confidently wrong has consequences.</p>
             <div class="sc-titles"><span class="sc-title-chip">Health data</span><span class="sc-title-chip">Safety</span><span class="sc-title-chip">Leadership</span></div>
             <div class="tal-card-meta"><span>West Africa</span><span class="dot-sep"></span><span>11 yrs</span><span class="tal-rate">$120/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -451,6 +466,7 @@
             <p class="tal-card-sum">Runs annotation and data-quality operations at scale — the unglamorous work that decides whether a model is any good. Bakes on a strict schedule and has opinions about the value of unglamorous maintenance.</p>
             <div class="sc-titles"><span class="sc-title-chip">Annotation</span><span class="sc-title-chip">Data quality</span><span class="sc-title-chip">Vendor ops</span></div>
             <div class="tal-card-meta"><span>Southeast Asia</span><span class="dot-sep"></span><span>5 yrs</span><span class="tal-rate">$62/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
@@ -466,6 +482,7 @@
             <p class="tal-card-sum">Built and sold an AI tooling company, and has been on both sides of the buy-or-build conversation you are probably having. Rebuilds vintage bicycles, and still cannot resist arguing for building over buying.</p>
             <div class="sc-titles"><span class="sc-title-chip">Dev tools</span><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">0 → 1</span></div>
             <div class="tal-card-meta"><span>Central Europe</span><span class="dot-sep"></span><span>10 yrs</span><span class="tal-rate">$140/hr</span></div>
+            <div class="tal-card-trust">Spoke with us · Rate confirmed</div>
             <div class="tal-actions">
               <button type="button" class="btn btn-sm tal-pick" aria-pressed="false">Select</button>
               <button type="button" class="ev-row-link tal-more" data-modal="profileModal">See profile →</button>
