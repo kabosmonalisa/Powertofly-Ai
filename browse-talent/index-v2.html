@@ -120,7 +120,7 @@
 <section class="section-hero">
   <div class="section-head">
     <div class="eyebrow">Browse talent</div>
-    <h1 class="display-lg">Meet the experts ready to join your <em class="italic-plain">team.</em></h1>
+    <h1 class="display-lg">Meet the vetted experts ready to join your <em class="italic-plain">team.</em></h1>
     <p>A community of 6,500+ members across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
     <div class="hero-ctas">
       <a href="#brief" class="btn btn-primary">Tell us what you're looking for →</a>
@@ -133,7 +133,7 @@
 <section class="section" id="browse" style="background:var(--surface-2)">
   <div class="ev-head">
     <h2>Screened experts</h2>
-    <p class="tal-count" id="talCount">30 vetted experts</p>
+    <p class="tal-count" id="talCount">30 experts</p>
   </div>
 
   <div class="ev-listing">
@@ -412,9 +412,8 @@ function sendBrief() {
       sec.classList.toggle('is-hidden', visible === 0 && !(sec.dataset.empty && !q));
     });
     if (empty) empty.classList.toggle('show', shown === 0);
-    // Mara's copy, with Iuliia's rule kept: "vetted" describes people we have actually
-    // spoken to, which is everyone with a card — so it lives on the count, not the hero.
-    if (count) count.textContent = shown + (shown === 1 ? ' vetted expert' : ' vetted experts');
+    // v2 (Mara): "vetted" moves up into the hero, so the count is plain.
+    if (count) count.textContent = shown + (shown === 1 ? ' expert' : ' experts');
     if (searchWrap) searchWrap.classList.toggle('has-value', !!q);
   }
   if (search) search.addEventListener('input', apply);
