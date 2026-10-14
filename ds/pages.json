@@ -46,6 +46,14 @@
    "desc": "Client-facing talent directory — sticky side-filter rail (shared .ev-filter) over a grid of verified talent cards (photo + info, whole card clickable, DS card hover). 10 specialties are placeholders pending Fran/Milena. The talent card + on-photo Verified/Available badges are promote-to-system candidates."
   },
   {
+   "id": "p-browse-talent-v2",
+   "name": "Browse talent (v2)",
+   "file": "browse-talent/index-v2.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Mara's copy pass on the marketing page (2026-10-14): clearer hero ('Meet the vetted experts ready to join your team'), 'Screened experts' + plain count, tightened brief. v1 is 'Browse talent'. Open question: 'vetted' moves into the hero here, which pulls against Iuliia's note that it should only describe people we have spoken to."
+  },
+  {
    "id": "p-browse-talent-profile",
    "name": "Talent profile",
    "file": "browse-talent/profile.html",
