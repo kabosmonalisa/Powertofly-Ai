@@ -54,6 +54,22 @@
    "desc": "Mara's copy pass on the marketing page (2026-10-14): clearer hero ('Meet the vetted experts ready to join your team'), 'Screened experts' + plain count, tightened brief. v1 is 'Browse talent'. Open question: 'vetted' moves into the hero here, which pulls against Iuliia's note that it should only describe people we have spoken to."
   },
   {
+   "id": "p-browse-talent-anon",
+   "name": "Browse talent (no photos)",
+   "file": "browse-talent/index-anon.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "v1 copy with the 2026-10-14 anonymity decision applied: no photos, no names, role as the card headline, 'Spoke with us · Rate confirmed', and no link to the named profile. Compare against 'Browse talent'."
+  },
+  {
+   "id": "p-browse-talent-v2-anon",
+   "name": "Browse talent (v2, no photos)",
+   "file": "browse-talent/index-v2-anon.html",
+   "group": "Pages",
+   "status": "draft",
+   "desc": "Mara's copy pass plus the 2026-10-14 anonymity decision: no photos, no names, role as the card headline, 'Spoke with us · Rate confirmed'. Compare against 'Browse talent (v2)'."
+  },
+  {
    "id": "p-browse-talent-profile",
    "name": "Talent profile",
    "file": "browse-talent/profile.html",
