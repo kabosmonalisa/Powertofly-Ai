@@ -43,7 +43,7 @@
    "file": "browse-talent/index.html",
    "group": "Pages",
    "status": "draft",
-   "desc": "Client-facing talent directory — sticky side-filter rail (shared .ev-filter) over a grid of verified talent cards (photo + info, whole card clickable, DS card hover). 10 specialties are placeholders pending Fran/Milena. The talent card + on-photo Verified/Available badges are promote-to-system candidates."
+   "desc": "Marketing page for employers. Its job is to collect a brief, not to hire from: the hero's primary action is 'Tell us what you're looking for' and browsing is proof. Twelve communities (Iuliia), all data in one (Fran). Claims follow the Lean V3 ladder. v2 carries Mara's copy pass."
   },
   {
    "id": "p-browse-talent-v2",
@@ -353,31 +353,31 @@
    "file": "talent-network/cohort.html",
    "group": "Pages",
    "status": "draft",
-   "desc": "The private client cohort — anonymized profiles, availability filter, tick to shortlist, sticky request bar. Carries the SECOND copy of .tal-card (promote-to-system candidate) plus its new .tal-card--anon variant and the .tn-shortlist bar the system has no pattern for."
+   "desc": "The client cohort dashboard — ONE page: email gate, anonymised profiles with photos, Select / See profile, profile modal with Previous/Next, and a sticky shortlist rail that carries the introduction request itself. Copy from Mara's two handoffs. Still page-own: .tal-card and the shortlist rail."
   },
   {
    "id": "flow-tn-apply",
    "name": "Talent Network application",
    "file": "talent-network/apply.html",
    "group": "Flows",
-   "status": "draft",
-   "desc": "Candidate application to join a talent community — the existing job-application flow with the community in the left panel. Four steps: details, background, screening questions (the per-community part), availability and consent, then submitted-for-review."
+   "status": "archived",
+   "desc": "Superseded by the Talents join flow (flow-talents-join / -v2), which is where candidates register. Kept for reference only."
   },
   {
    "id": "flow-tn-access",
    "name": "Cohort access",
    "file": "talent-network/cohort-access.html",
    "group": "Flows",
-   "status": "draft",
-   "desc": "The client gate — work email plus the code from their invitation email. Deliberately not an account."
+   "status": "archived",
+   "desc": "Superseded 2026-09-14: the email gate is now the locked state of talent-network/cohort.html, so the cohort is one page instead of three."
   },
   {
    "id": "flow-tn-intro",
    "name": "Request an introduction",
    "file": "talent-network/request-intro.html",
    "group": "Flows",
-   "status": "draft",
-   "desc": "What a client sends from a cohort: an introduction request for their shortlist, or (at #needs) a hiring brief when nobody in the batch fits. Both end in an email to the team and a HubSpot record."
+   "status": "archived",
+   "desc": "Superseded 2026-09-14: the introduction request moved into the cohort page's shortlist rail, where the list it refers to already lives."
   }
  ]
 }

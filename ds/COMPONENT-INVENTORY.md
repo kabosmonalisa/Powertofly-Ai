@@ -120,6 +120,14 @@ Color: `--ink --ink-2 --ink-3 --bg --surface --surface-2 --line --line-2 --accen
 
 ---
 
+## `[hidden]` actually hides — don't fight it
+`ds/ptf.css` carries a global `[hidden] { display: none !important; }`. It is there because any component that sets `display` (flex/grid/block) outranks the browser's own `[hidden] { display: none }`, so hiding such an element in markup or JS silently does nothing: it stays laid out, and if it is positioned it will sit over the page and swallow clicks. This bit twice — a closed `.modal-scrim` blocked every click on the cohort page, and a hidden `.auth-form` rendered underneath its own confirmation. Hide things with the `hidden` attribute and trust it; never add a page rule to re-hide a component.
+
+## Promote candidates — named here so they stop being re-invented
+These are page-own today but appear on more than one page, which by our own audit rule means the system is missing them. Decide them before the next page needs one.
+- **Talent card** (`.tal-card`, `.tal-card-photo/-ref/-name/-role/-sum/-meta`, `.tal-rate`, `.tal-grid`) — on `browse-talent/index.html`, `browse-talent/index-v2.html` and `talent-network/cohort.html`. Third copy. The `--anon` variant (no name, a reference instead) is the Talent Network's.
+- **Shortlist rail** (`.tal-rail`, `.rail-head/-badge/-row/-thumb/-text/-name/-role/-x`, `.tn-shortlist` as its narrow-screen bar) — the multi-select-then-act pattern. The system still has none.
+
 ## Allowed page-specific CSS (the ONLY exceptions)
 Per `DESIGN-SYSTEM.md` → "Not in the system": a genuinely unique hero composition or one-off decorative layout MAY have a small page `<style>` — but it must (a) use tokens, never raw hex; (b) never restyle a shared component; (c) be commented with why it's page-specific. When unsure whether something qualifies → it doesn't; ask Lizu.
 
