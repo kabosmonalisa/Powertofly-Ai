@@ -59,6 +59,11 @@
   .cal-drop[hidden] { display: none; }
   .cal-drop .login-fly { left: 50%; right: auto; width: min(346px, calc(100vw - 32px)); transform: translate(-50%, -6px); text-align: left; }
   .cal-drop .login-fly.open { transform: translate(-50%, 0); }
+  /* Compact type for the small calendar menu — the stock .fly-title is sized for the site's mega nav (16px/700 display). */
+  .cal-drop .fly-item { padding: 9px 12px; }
+  .cal-drop .fly-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; margin-bottom: 2px; }
+  .cal-drop .fly-desc { font-size: 12px; line-height: 1.4; }
+  .cal-drop .fly-rule { margin: 6px 0; }
 </style>
 </head>
 <body class="flow-shell">

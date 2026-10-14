@@ -12,9 +12,10 @@
   Duplicated from the Common Event flow (event-common/index.html) — same layout,
   components, interactions, validation and styling; shared ds/ptf.css + ds/ptf.js.
   DIFFERENCES vs common: (1) "Meet with the Company" eyebrow above the title;
-  (2) step 4 supports up to 3 custom questions; (3) resume required on ALL widths
-  (so there is no separate mobile file — one responsive page).
-  Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 questions + more events · 5 thanks.
+  (2) step 5 supports up to 3 questions for the company; (3) resume required on ALL widths
+  (so there is no separate mobile file — one responsive page); (4) step 4 = our custom
+  questions for the candidate; (5) required phone on step 5; (6) "Other" + free text in area of experience.
+  Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 our custom questions · 5 phone + questions + more events · 6 thanks (+ add to calendar).
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,6 +47,20 @@
   .phone-cc-empty { padding: 12px 10px; color: var(--ink-3); font-size: 13px; text-align: center; }
   .field.invalid .phone-field { border-color: #E8843C; }
   .field.invalid .phone-field:focus-within { box-shadow: 0 0 0 3px rgba(232,132,60,0.15); }
+  /* "Add to calendar" on the confirmation step — reuses the closed set: trigger is the outlined
+     .btn, the menu is the login flyout (.nav-fly.login-fly > .mega-inner > .fly-item rows).
+     Only positioning lives here: the stock .login-fly hangs off the trigger's RIGHT edge, which
+     on this centered step would run off the left of a phone screen — so center it under the
+     button instead. Promote-to-DS candidate: .cal-drop (centered flyout anchor). */
+  .cal-drop { display: inline-block; margin-bottom: 8px; }
+  .cal-drop[hidden] { display: none; }
+  .cal-drop .login-fly { left: 50%; right: auto; width: min(346px, calc(100vw - 32px)); transform: translate(-50%, -6px); text-align: left; }
+  .cal-drop .login-fly.open { transform: translate(-50%, 0); }
+  /* Compact type for the small calendar menu — the stock .fly-title is sized for the site's mega nav (16px/700 display). */
+  .cal-drop .fly-item { padding: 9px 12px; }
+  .cal-drop .fly-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; margin-bottom: 2px; }
+  .cal-drop .fly-desc { font-size: 12px; line-height: 1.4; }
+  .cal-drop .fly-rule { margin: 6px 0; }
 </style>
 </head>
 <body class="flow-shell">
@@ -121,11 +136,11 @@
           <p class="auth-sub">Create your account to register — free to attend.</p>
           <form class="auth-form" onsubmit="return validateStep1()" novalidate>
             <div class="field-row">
-              <div class="field"><label>First name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
-              <div class="field"><label>Last name</label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field"><label>First name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
             </div>
-            <div class="field"><label>Email</label><input type="email" oninput="clearError(this.closest('.field'))"></div>
-            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
+            <div class="field"><label>Email <span class="req">*</span></label><input type="email" oninput="clearError(this.closest('.field'))"></div>
+            <div class="field"><label>Password <span class="req">*</span></label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
             <button class="btn-auth" type="submit">Create my account →</button>
           </form>
           <div class="auth-divider">or</div>
@@ -139,7 +154,7 @@
         </div>
         <!-- Step 2 — resume + LinkedIn (golden: one step) -->
         <div class="flow-step" data-step="2" hidden>
-          <div class="step-indicator">Step 1 of 3</div>
+          <div class="step-indicator">Step 1 of 4</div>
           <!-- shown only in logged-in mode (they already have an account, so step 1 is skipped) -->
           <p class="auth-note" id="signedInNote" hidden style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="setAuthMode('out');return false">Not you?</a></p>
           <h1 class="auth-heading">Introduce yourself</h1>
@@ -160,16 +175,21 @@
         </div>
         <!-- Step 3 — demographics (golden: chips in columns) -->
         <div class="flow-step" data-step="3" hidden>
-          <div class="step-indicator">Step 2 of 3</div>
+          <div class="step-indicator">Step 2 of 4</div>
           <h1 class="auth-heading">Tell us a little more about you</h1>
           <p class="auth-sub">Choose all that apply — none of it affects your eligibility. We use it only internally and never show it publicly.</p>
           <div class="id-grid stacked">
             <div class="id-section">
-              <div class="id-section-label">Area of experience</div>
-              <div class="id-chips"><button type="button" class="id-chip">AI</button><button type="button" class="id-chip">Civil Engineering</button><button type="button" class="id-chip">Customer Service</button><button type="button" class="id-chip">Data</button><button type="button" class="id-chip">Design</button><button type="button" class="id-chip">DevOps</button><button type="button" class="id-chip">Human Resources</button><button type="button" class="id-chip">Finance</button><button type="button" class="id-chip">Product Management</button><button type="button" class="id-chip">Marketing</button><button type="button" class="id-chip">Quality Assurance</button><button type="button" class="id-chip">Software Engineering</button><button type="button" class="id-chip">Sales</button><button type="button" class="id-chip">Writing</button><button type="button" class="id-chip">Operations</button></div>
+              <div class="id-section-label">Area of experience <span class="req">*</span></div>
+              <div class="id-chips"><button type="button" class="id-chip">AI</button><button type="button" class="id-chip">Civil Engineering</button><button type="button" class="id-chip">Customer Service</button><button type="button" class="id-chip">Data</button><button type="button" class="id-chip">Design</button><button type="button" class="id-chip">DevOps</button><button type="button" class="id-chip">Human Resources</button><button type="button" class="id-chip">Finance</button><button type="button" class="id-chip">Product Management</button><button type="button" class="id-chip">Marketing</button><button type="button" class="id-chip">Quality Assurance</button><button type="button" class="id-chip">Software Engineering</button><button type="button" class="id-chip">Sales</button><button type="button" class="id-chip">Writing</button><button type="button" class="id-chip">Operations</button><button type="button" class="id-chip" id="areaOtherChip">Other</button></div>
+              <!-- Shown when "Other" is picked — required while visible -->
+              <div class="field" id="areaOtherField" hidden style="margin-top:12px">
+                <label for="areaOtherInput">What's your area? <span class="req">*</span></label>
+                <input type="text" id="areaOtherInput" placeholder="e.g. Legal, Research, Supply chain" oninput="clearError(this.closest('.field'))">
+              </div>
             </div>
             <div class="id-section">
-              <div class="id-section-label">Self-identification</div>
+              <div class="id-section-label">Self-identification <span class="req">*</span></div>
               <div class="id-chips"><button type="button" class="id-chip">Woman</button><button type="button" class="id-chip">Man</button><button type="button" class="id-chip">Non-binary</button><button type="button" class="id-chip">Latinx</button><button type="button" class="id-chip">Black</button><button type="button" class="id-chip">White</button><button type="button" class="id-chip">Asian</button><button type="button" class="id-chip">Native American / Indigenous</button><button type="button" class="id-chip">Multiracial</button><button type="button" class="id-chip">LGBTQIA+</button><button type="button" class="id-chip">Caregiver</button><button type="button" class="id-chip">Veteran, Military Spouse, or Active Service Member</button><button type="button" class="id-chip">Disabled</button><button type="button" class="id-chip">Prefer not to say</button><button type="button" class="id-chip">Other</button></div>
             </div>
           </div>
@@ -179,12 +199,38 @@
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By continuing you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
         </div>
-        <!-- Step 4 — questions for panelists + register for more events + agreement -->
+        <!-- Step 4 — OUR custom questions for the candidate (COPY: replace sample questions per event).
+             Choice questions = .id-chips[data-single] (one answer); required ones carry .req. -->
         <div class="flow-step" data-step="4" hidden>
-          <div class="step-indicator">Step 3 of 3</div>
+          <div class="step-indicator">Step 3 of 4</div>
+          <h1 class="auth-heading">A few questions for you</h1>
+          <p class="auth-sub">Your answers help the recruiters prepare for your conversation.</p><!-- COPY: confirm -->
+          <form class="auth-form" onsubmit="return validateStep4()" novalidate>
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Are you legally authorized to work in the United States? <span class="req">*</span></div><!-- COPY: sample question -->
+              <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
+            </div>
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Will you now or in the future need visa sponsorship? <span class="req">*</span></div><!-- COPY: sample question -->
+              <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
+            </div>
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Years of professional experience <span class="req">*</span></div><!-- COPY: sample question -->
+              <div class="id-chips" data-single><button type="button" class="id-chip">0–2</button><button type="button" class="id-chip">3–5</button><button type="button" class="id-chip">6–10</button><button type="button" class="id-chip">10+</button></div>
+            </div>
+            <div class="field">
+              <label>Which roles at Visa interest you most? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><!-- COPY: sample question -->
+              <textarea placeholder="e.g. Senior backend engineer, payments platform"></textarea>
+            </div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+        </div>
+        <!-- Step 5 — phone + questions for the company + register for more events + agreement -->
+        <div class="flow-step" data-step="5" hidden>
+          <div class="step-indicator">Step 4 of 4</div>
           <h1 class="auth-heading">A couple last things</h1>
           <p class="auth-sub">Tell us what you want to get out of the event, then confirm to lock in your spot.</p>
-          <form class="auth-form" onsubmit="return validateStep4()">
+          <form class="auth-form" onsubmit="return validateStep5()">
             <!-- Phone — REQUIRED for Meet with the Company (companies/our team reach you about your meeting slot). -->
             <div class="field">
               <label>Phone number <span class="req">*</span></label>
@@ -203,7 +249,7 @@
               <p style="margin:6px 0 0;font-size:13px;color:var(--ink-3)">So we can reach you about your meeting time on event day.</p>
             </div>
             <div class="field" id="questionsBlock">
-              <label>Questions for the company <span style="font-weight:500;color:var(--ink-3)">(optional — up to 3)</span></label>
+              <label>Questions for the company <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
               <textarea placeholder="e.g. What does the team structure look like?"></textarea>
               <button type="button" class="btn btn-sm" id="addQuestionBtn" onclick="addQuestion()" style="margin-top:10px;align-self:flex-start">+ Add another question</button>
             </div>
@@ -215,13 +261,13 @@
               </div>
             </div>
             <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox"><span>I accept the event <a href="#">waiver</a> and code of conduct, and agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label>
-            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(4)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
           </form>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">You can unsubscribe from event emails anytime.</p>
         </div>
-        <!-- Step 5 — thank you -->
-        <div class="flow-step" data-step="5" hidden>
+        <!-- Step 6 — thank you -->
+        <div class="flow-step" data-step="6" hidden>
           <div class="thanks-icon">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
@@ -229,8 +275,26 @@
           </div>
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">See you there</h1>
-          <p class="thanks-body">A calendar invite and venue details are on their way to your inbox.</p>
-          <a class="btn-dashboard btn-block" href="https://powertofly.com/browse-events">Browse more events →</a>
+          <p class="thanks-body">Venue details are on their way to your inbox. Add it to your calendar so you don't miss it.</p><!-- COPY: confirm -->
+          <!-- Add to calendar — same component as event-common (outlined trigger + login flyout). Links built by buildCalendarLinks() from CAL_EVENT. -->
+          <div class="nav-drop login-drop cal-drop" id="calCta" style="display:flex;justify-content:center;margin-bottom:12px">
+            <button class="btn btn-primary" type="button" data-fly="fly-cal" aria-haspopup="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+              Add to calendar
+              <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg>
+            </button>
+            <div class="nav-fly login-fly" id="fly-cal">
+              <div class="mega-inner"><div class="mega-left">
+                <a class="fly-item" id="calGoogle" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Google Calendar</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOutlook" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Outlook.com</span><span class="fly-desc">Personal Outlook or Hotmail</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOffice" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Microsoft 365</span><span class="fly-desc">Work or school Outlook</span></span><span class="login-arrow">→</span></a>
+                <hr class="fly-rule">
+                <a class="fly-item" id="calIcs" href="#" download="powertofly-event.ics"><span class="login-tx"><span class="fly-title">Apple Calendar &amp; others</span><span class="fly-desc">Download an .ics file</span></span><span class="login-arrow">↓</span></a>
+              </div></div>
+            </div>
+          </div>
+          <!-- One primary action (calendar); browsing is secondary, so it's a link -->
+          <p class="auth-note"><a href="https://powertofly.com/browse-events">Browse more events →</a></p>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>
@@ -255,6 +319,7 @@
     <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
     <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
     <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+    <button type="button" onclick="goToStep(6)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:6px 10px;border-radius:7px">6</button>
   </div>
 </div>
 
@@ -280,12 +345,12 @@
   function setAuthMode(mode) {
     var loggedIn = mode === 'in';
     window._authMode = mode;
-    // step counter: the account step is never counted (of 3 in both auth states)
+    // step counter: the account step is never counted (of 4 in both auth states)
     function ind(step, num) {
       var el = document.querySelector('[data-step="' + step + '"] .step-indicator');
-      if (el) el.textContent = 'Step ' + num + ' of 3';
+      if (el) el.textContent = 'Step ' + num + ' of 4';
     }
-    ind(2, 1); ind(3, 2); ind(4, 3);
+    ind(2, 1); ind(3, 2); ind(4, 3); ind(5, 4);
     var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
     var back = document.getElementById('step2Back');   if (back) back.style.display = loggedIn ? 'none' : '';
     // dev-button active state
@@ -344,17 +409,29 @@
       clearError(sec);
       if (!sec.querySelector('.id-chip.selected')) { setError(sec, 'Pick at least one'); ok = false; first = first || sec; }
     });
+    // "Other" picked → its free-text answer is required
+    var otherF = document.getElementById('areaOtherField'), otherI = document.getElementById('areaOtherInput');
+    if (!otherF.hidden && !otherI.value.trim()) { setError(otherF); ok = false; first = first || otherF; }
     if (!ok) { shake(3); first.scrollIntoView({ block: 'center' }); return false; }
     return goToStep(4);
   }
   function validateStep4() {
+    var ok = true, first = null;
+    document.querySelectorAll('[data-step="4"] .cq[data-required]').forEach(function (q) {
+      clearError(q);
+      if (!q.querySelector('.id-chip.selected')) { setError(q); ok = false; first = first || q; }
+    });
+    if (!ok) { shake(4); first.scrollIntoView({ block: 'center' }); return false; }
+    return goToStep(5);
+  }
+  function validateStep5() {
     var phone = document.getElementById('phoneNumber'), phoneOk = phone.value.replace(/\D/g, '').length >= 6;
     var agree = document.getElementById('agreeBox'), row = agree.closest('.agree-row');
     clearError(row);
     if (phoneOk) clearError(phone.closest('.field')); else setError(phone.closest('.field'), 'Required');
     if (!agree.checked) setError(row, 'Please confirm to continue');
-    if (!phoneOk || !agree.checked) { shake(4); if (!phoneOk) phone.focus(); return false; }
-    return goToStep(5);
+    if (!phoneOk || !agree.checked) { shake(5); if (!phoneOk) phone.focus(); return false; }
+    return goToStep(6);
   }
 
   // Phone country picker — pick your country by NAME (type to search); the +dialing code fills in
@@ -427,7 +504,7 @@
     render(COUNTRIES);
   })();
 
-  // Step 4 — up to 3 questions for the company; each added one can be removed.
+  // Step 5 — up to 3 questions for the company; each added one can be removed.
   function syncAddBtn() {
     var block = document.getElementById('questionsBlock');
     document.getElementById('addQuestionBtn').style.display =
@@ -459,8 +536,19 @@
   }
 
   // Chips toggle + clear their section's error on change
+  // [data-single] groups (step 4 custom questions) allow one answer: picking one clears the rest.
   document.querySelectorAll('.id-chip').forEach(function (c) {
-    c.addEventListener('click', function () { c.classList.toggle('selected'); clearError(c.closest('.id-section')); });
+    c.addEventListener('click', function () {
+      var group = c.closest('.id-chips');
+      if (group.hasAttribute('data-single')) group.querySelectorAll('.id-chip').forEach(function (o) { if (o !== c) o.classList.remove('selected'); });
+      c.classList.toggle('selected'); clearError(c.closest('.id-section'));
+    });
+  });
+  // Area of experience → "Other" reveals a free-text field
+  document.getElementById('areaOtherChip').addEventListener('click', function () {
+    var on = this.classList.contains('selected'), f = document.getElementById('areaOtherField');
+    f.hidden = !on; clearError(f);
+    if (on) document.getElementById('areaOtherInput').focus();
   });
   // Resume: show file name + clear error
   document.querySelectorAll('.upload-area input[type=file]').forEach(function (inp) {
@@ -489,8 +577,48 @@
     }
   })();
 
-  // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
-  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
+  // ── Add to calendar (step 6) — provider links + .ics, all from ONE event record ──
+  // Wed, Jul 8, 2026 6:30–8:00 PM CDT (UTC-5) → 23:30–01:00Z. COPY: confirm per event.
+  // The real build fills this from the event API; `uid` must match the confirmation email's .ics UID.
+  var CAL_EVENT = {
+    uid: 'mwc-visa-austin-2026-07-08@powertofly.com',
+    start: '20260708T233000Z',
+    end:   '20260709T010000Z',
+    location: 'Austin, TX — venue in your confirmation email'
+  };
+  function buildCalendarLinks() {
+    var title = document.querySelector('.event-title').textContent.replace(/\s+/g, ' ').trim() + ' — PowerToFly';
+    var url = location.href.split('#')[0];
+    var details = 'Event page: ' + url;
+    var iso = function (s) { return s.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z'); };
+    var enc = encodeURIComponent;
+    document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + enc(title) + '&dates=' + CAL_EVENT.start + '/' + CAL_EVENT.end
+      + '&details=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    var ms = function (host) {
+      return 'https://' + host + '/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent'
+        + '&subject=' + enc(title) + '&startdt=' + enc(iso(CAL_EVENT.start)) + '&enddt=' + enc(iso(CAL_EVENT.end))
+        + '&body=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    };
+    document.getElementById('calOutlook').href = ms('outlook.live.com');
+    document.getElementById('calOffice').href  = ms('outlook.office.com');
+    var esc = function (s) { return s.replace(/([,;\\])/g, '\\$1'); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PowerToFly//Events//EN', 'BEGIN:VEVENT',
+      'UID:' + CAL_EVENT.uid, 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'DTSTART:' + CAL_EVENT.start, 'DTEND:' + CAL_EVENT.end,
+      'SUMMARY:' + esc(title), 'DESCRIPTION:' + esc(details), 'LOCATION:' + esc(CAL_EVENT.location), 'URL:' + url,
+      'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:Starting in 15 minutes', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var link = document.getElementById('calIcs');
+    if (link.dataset.blob) URL.revokeObjectURL(link.dataset.blob);
+    link.dataset.blob = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    link.href = link.dataset.blob;
+  }
+  buildCalendarLinks();
+  PTF.initMegaNav();  // wires the calendar flyout (no site nav on this page)
+
+  // DEV ONLY — jump straight to any step via URL hash (#2 … #6) so you don't have to fill prior steps to review one. Remove before launch.
+  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-6])$/); if (m) goToStep(Number(m[1])); }
   jumpFromHash();
   window.addEventListener('hashchange', jumpFromHash);
 </script>
