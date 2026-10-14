@@ -58,8 +58,8 @@
    "name": "Talent profile",
    "file": "browse-talent/profile.html",
    "group": "Pages",
-   "status": "archived",
-   "desc": "Named profile with a photo. Orphaned by the 2026-10-14 decision that the public page carries no photos and no names — the cards no longer link to it. Keep as the reference for what a client sees AFTER a candidate consents; do not link it from a public page."
+   "status": "draft",
+   "desc": "Individual talent profile reached from Browse talent — photo, verified, rate, Request to hire / Book a call, about + .about-stat-grid, experience, similar experts (reuses the talent card)."
   },
   {
    "id": "p-about",
