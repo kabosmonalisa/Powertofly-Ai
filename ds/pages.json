@@ -47,27 +47,11 @@
   },
   {
    "id": "p-browse-talent-v1",
-   "name": "Browse talent (v1, replaced)",
+   "name": "Browse talent (v1)",
    "file": "browse-talent/index-v1.html",
    "group": "Pages",
    "status": "archived",
-   "desc": "The first marketing copy, replaced by Mara's version on 2026-10-15. Kept for the record only."
-  },
-  {
-   "id": "p-browse-talent-photos",
-   "name": "Browse talent (with photos, replaced)",
-   "file": "browse-talent/index-photos.html",
-   "group": "Pages",
-   "status": "archived",
-   "desc": "The same page while it still had photos and names. Replaced on 2026-10-15 when the team decided no photos on the public page. Kept for the record."
-  },
-  {
-   "id": "p-browse-talent-v1-anon",
-   "name": "Browse talent (v1, no photos)",
-   "file": "browse-talent/index-v1-anon.html",
-   "group": "Pages",
-   "status": "archived",
-   "desc": "The v1 copy with the anonymity decision applied. Superseded on 2026-10-15."
+   "desc": "The marketing page before 2026-10-15: the first copy, with photos and names. Replaced by Mara's copy plus the team's anonymity decision. Kept as the one archived version; the in-between files (index-photos.html, index-v1-anon.html) are still on disk, out of the playbook."
   },
   {
    "id": "p-browse-talent-profile",
