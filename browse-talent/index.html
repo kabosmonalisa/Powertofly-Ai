@@ -120,7 +120,7 @@
 <section class="section-hero">
   <div class="section-head">
     <div class="eyebrow">Browse talent</div>
-    <h1 class="display-lg">Meet the people who move your work <em class="italic-plain">forward.</em></h1>
+    <h1 class="display-lg">Meet the vetted experts ready to join your <em class="italic-plain">team.</em></h1>
     <p>A community of 6,500+ members across twelve talent communities, from AI &amp; ML and data to cloud, security, product, governance and domain specialists.</p>
     <div class="hero-ctas">
       <a href="#brief" class="btn btn-primary">Tell us what you're looking for →</a>
@@ -132,8 +132,8 @@
 <!-- 03. THE DIRECTORY — shared events side-filter layout (.ev-head + .ev-listing + .ev-filter) -->
 <section class="section" id="browse" style="background:var(--surface-2)">
   <div class="ev-head">
-    <h2>Experts we have screened</h2>
-    <p class="tal-count" id="talCount">30 vetted experts</p>
+    <h2>Screened experts</h2>
+    <p class="tal-count" id="talCount">30 experts</p>
   </div>
 
   <div class="ev-listing">
@@ -154,7 +154,7 @@
       <a class="ev-filter-btn" href="#sec-leadership">Leadership &amp; Fractional</a>
       <a class="ev-filter-btn" href="#sec-domain">Domain Experts</a>
       <div class="tal-rail-cta">
-        <p>Not sure who you need?</p>
+        <p>Don’t see the right fit?</p>
         <a href="../book/" class="btn btn-sm btn-block">Book a call →</a>
       </div>
     </div>
@@ -234,31 +234,31 @@
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
         <section class="tal-sec" id="sec-aigov" data-empty="1">
           <h3 class="tal-sec-title">AI Governance &amp; Risk</h3>
-          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
         <section class="tal-sec" id="sec-sales" data-empty="1">
           <h3 class="tal-sec-title">Sales &amp; Revenue</h3>
-          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
         <section class="tal-sec" id="sec-hr" data-empty="1">
           <h3 class="tal-sec-title">HR &amp; TA</h3>
-          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
         <section class="tal-sec" id="sec-cs" data-empty="1">
           <h3 class="tal-sec-title">Customer Success &amp; Adoption</h3>
-          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
         <section class="tal-sec" id="sec-leadership" data-empty="1">
           <h3 class="tal-sec-title">Leadership &amp; Fractional</h3>
-          <p class="tal-sec-note">We’re sorting experts into this community now. <a href="../book/">Tell us what you need</a> and we’ll shortlist for you.</p>
+          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
         <section class="tal-sec" id="sec-domain">
@@ -282,8 +282,8 @@
   <div class="section-narrow">
     <div class="section-head">
       <div class="eyebrow">Tell us what you need</div>
-      <h2>We'll build you a list, <em class="italic-plain">not a search box.</em></h2>
-      <p>Tell us the role and we'll come back with a shortlist of people who fit it, each one reviewed by our team. You tell us who you'd like to meet, and we make the introductions.</p>
+      <h2>Describe the role. We’ll send you <em class="italic-plain">the right people.</em></h2>
+      <p>We’ll come back with a shortlist of people who fit, each one reviewed by our team. Pick who you’d like to meet and we’ll make the introductions.</p>
     </div>
 
     <div class="auth-card" style="margin:0 auto">
@@ -291,7 +291,7 @@
         <div class="field"><label>What role are you hiring for?</label><input type="text" placeholder="e.g. Senior PM, AI platform" required></div>
         <div class="field-row">
           <div class="field">
-            <label>Engagement</label>
+            <label>Type of hire</label>
             <select required><option value="" selected disabled>Choose one</option><option>Full-time hire</option><option>Fractional</option><option>Project or contract</option><option>Still deciding</option></select>
           </div>
           <div class="field">
@@ -301,7 +301,7 @@
         </div>
         <div class="field">
           <label>What would make this hire a success?</label>
-          <textarea placeholder="The problem the person would own, the experience that matters, and anything you have struggled to find." required></textarea>
+          <textarea placeholder="The problem the person would own, the experience that matters, and anything you’ve struggled to find." required></textarea>
         </div>
         <div class="field"><label>Work email</label><input type="email" placeholder="you@company.com" autocomplete="email" required></div>
         <button class="btn btn-primary btn-block" type="submit">Send my brief →</button>
@@ -412,9 +412,8 @@ function sendBrief() {
       sec.classList.toggle('is-hidden', visible === 0 && !(sec.dataset.empty && !q));
     });
     if (empty) empty.classList.toggle('show', shown === 0);
-    // Iuliia: "vetted" is reserved for people we have actually spoken to — which is
-    // everyone with a card, since only Screened and Ready Now get one.
-    if (count) count.textContent = shown + (shown === 1 ? ' vetted expert' : ' vetted experts');
+    // v2 (Mara): "vetted" moves up into the hero, so the count is plain.
+    if (count) count.textContent = shown + (shown === 1 ? ' expert' : ' experts');
     if (searchWrap) searchWrap.classList.toggle('has-value', !!q);
   }
   if (search) search.addEventListener('input', apply);
