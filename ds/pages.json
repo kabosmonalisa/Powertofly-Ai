@@ -43,7 +43,7 @@
    "file": "browse-talent/index.html",
    "group": "Pages",
    "status": "draft",
-   "desc": "Marketing page for employers — Mara's copy, chosen over v1 on 2026-10-15. Its job is to collect a brief, not to hire from: the hero's primary action is 'Tell us what you're looking for' and browsing is proof. Twelve communities (Iuliia), all data in one (Fran). The replaced v1 is 'Browse talent (v1, replaced)'."
+   "desc": "Marketing page for employers. Mara's copy (chosen over v1), with the team's 2026-10-15 anonymity decision applied to the page itself: no photos, no names, role as the card headline, a vague company descriptor (sector + size, never guessable), and 'Spoke with us · Rate confirmed'. Its job is to collect a brief, not to hire from. Twelve communities (Iuliia), all data in one (Fran)."
   },
   {
    "id": "p-browse-talent-v1",
@@ -54,12 +54,12 @@
    "desc": "The first marketing copy, replaced by Mara's version on 2026-10-15. Kept for the record only."
   },
   {
-   "id": "p-browse-talent-anon",
-   "name": "Browse talent (no photos)",
-   "file": "browse-talent/index-anon.html",
+   "id": "p-browse-talent-photos",
+   "name": "Browse talent (with photos, replaced)",
+   "file": "browse-talent/index-photos.html",
    "group": "Pages",
-   "status": "draft",
-   "desc": "The live marketing copy with the 2026-10-14 anonymity decision applied: no photos, no names, role as the card headline, a vague company descriptor (sector + size, never guessable), and 'Spoke with us · Rate confirmed'. Compare against 'Browse talent'."
+   "status": "archived",
+   "desc": "The same page while it still had photos and names. Replaced on 2026-10-15 when the team decided no photos on the public page. Kept for the record."
   },
   {
    "id": "p-browse-talent-v1-anon",
