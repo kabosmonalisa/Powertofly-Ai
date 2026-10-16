@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who Makes AI Work? · PowerToFly AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,600;0,700;0,800;1,700;1,800&display=swap" rel="stylesheet">
+<style>/* Who Makes AI Work? — print styles.
+ * Tokens mirror Explorations/round-04-synthesis/ds/ptf.css (values, not a fork:
+ * change them there first). Print-only components live here. */
+:root {
+  --ink: #0A0A0A; --ink-2: #2A2A2A; --ink-3: #5C6F69;
+  --bg: #ffffff; --bg-soft: #FAFAF6;
+  --line: rgba(10,10,10,.08); --line-2: rgba(10,10,10,.14);
+  --green: #0A8C66; --green-mid: #4FE8A9;
+  --mint-tint: #EDFCF5;            /* green-mid at ~10% on white */
+  --iri-cyan: #5BCFFF; --iri-green: #4FE8A9; --iri-lime: #D5FF66;
+  --iri: linear-gradient(90deg, var(--iri-cyan), var(--iri-green) 55%, var(--iri-lime));
+  --r-md: 12px; --r-lg: 16px; --r-xl: 20px; --r-pill: 999px;
+  --pad-x: 0.75in;
+}
+@page { size: 8.5in 11in; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { background: #E9ECEA; margin: 0; font-family: Inter, system-ui, sans-serif; color: var(--ink-2);
+  font-size: 10pt; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+@media print { body { background: none; } }
+a { color: inherit; text-decoration: none; }
+b { color: var(--ink); font-weight: 600; }
+
+/* ── Page shell ── */
+.page { width: 8.5in; height: 11in; position: relative; overflow: hidden; background: var(--bg);
+  padding: 0.62in var(--pad-x) 0.85in; margin: 24px auto; box-shadow: 0 4px 24px rgba(0,0,0,.08);
+  break-after: page; }
+@media print { .page { margin: 0; box-shadow: none; } }
+.pfoot { position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: 0.42in;
+  display: flex; justify-content: space-between; font-size: 7.5pt; color: var(--ink-3);
+  border-top: 1px solid var(--line); padding-top: 9px; letter-spacing: .01em; }
+.pfoot span:last-child { font-weight: 600; color: var(--ink); }
+.page > * + * { margin-top: 14px; }
+.page > a[id] + * { margin-top: 0; }
+
+/* ── Type ── */
+h1, h2, h3, h4 { font-family: "Inter Tight", Inter, sans-serif; color: var(--ink); font-weight: 800;
+  letter-spacing: -.025em; line-height: 1.08; }
+h2 { font-size: 27pt; margin-top: 8px !important; }
+h3 { font-size: 15pt; letter-spacing: -.015em; margin-top: 22px !important; }
+h3.h3-first { margin-top: 0 !important; }
+h4 { font-size: 12pt; letter-spacing: -.01em; margin-top: 18px !important; }
+.italic-plain { font-style: italic; font-weight: 800; color: inherit; }
+.eyebrow { font-family: Inter, sans-serif; font-size: 7.5pt; font-weight: 700; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--green); line-height: 1.3; }
+.lead { font-size: 13pt; line-height: 1.45; color: var(--ink); font-weight: 500; letter-spacing: -.005em; }
+.big-line { font-family: "Inter Tight", sans-serif; font-size: 15pt; font-weight: 700; color: var(--ink);
+  line-height: 1.3; letter-spacing: -.015em; }
+.note { color: var(--ink); font-weight: 500; padding-left: 14px; border-left: 2px solid var(--green-mid); }
+.n { font-family: "Inter Tight", sans-serif; font-weight: 800; color: var(--green); font-size: 10pt; }
+.ico { width: 18px; height: 18px; fill: var(--ink); flex: none; }
+
+/* ── Section opener ── */
+.opener { padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 4px; }
+.opener h2 { font-size: 29pt; max-width: 6.2in; }
+.opener .lead { margin-top: 14px; font-size: 13.5pt; }
+
+/* ── Pull quote ── */
+.quote { position: relative; padding: 2px 0 2px 20px; margin-top: 20px !important; margin-bottom: 6px; }
+.quote::before { content: ""; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px;
+  border-radius: 3px; background: var(--green-mid); }
+.quote blockquote { font-family: "Inter Tight", sans-serif; font-weight: 700; color: var(--ink);
+  font-size: 13pt; line-height: 1.32; letter-spacing: -.012em; }
+.quote-big blockquote { font-size: 16pt; line-height: 1.26; }
+.quote figcaption { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.av { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; flex: none; }
+.av-init, .pav.av-init { display: inline-flex; align-items: center; justify-content: center;
+  background: var(--ink); color: var(--green-mid); font: 700 8pt Inter, sans-serif; letter-spacing: .04em; }
+.q-who { display: flex; flex-direction: column; font-size: 8pt; line-height: 1.35; color: var(--ink-3); }
+.q-who b { font-size: 8.5pt; }
+.q-note { font-style: italic; margin-top: 1px; max-width: 5.6in; }
+
+/* ── Numbered steps ── */
+.steps { list-style: none; display: grid; gap: 10px 22px; }
+.steps.cols-2 { grid-template-columns: 1fr 1fr; }
+.steps li { display: flex; gap: 12px; padding: 12px 0 0; border-top: 1px solid var(--line); }
+.steps.cols-1 li { padding: 10px 0 0; }
+.steps .n { width: 18px; flex: none; padding-top: 1px; }
+
+/* ── Bulleted checks ── */
+.checks { list-style: none; display: grid; gap: 7px; }
+.checks li { position: relative; padding-left: 24px; }
+.checks li::before { content: ""; position: absolute; left: 0; top: 2px; width: 13px; height: 13px;
+  border: 1.5px solid var(--ink); border-radius: 3px; }
+.checks-2 { grid-template-columns: 1fr 1fr; gap: 10px 26px; }
+
+/* ── Try this ── */
+.try { background: var(--mint-tint); border: 1px solid rgba(10,140,102,.18); border-radius: var(--r-lg);
+  padding: 18px 22px 20px; margin-top: 22px !important; }
+.try-head { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; }
+.try-ico { width: 20px; height: 20px; }
+.try-body { color: var(--ink); font-size: 10.5pt; }
+.try-body > * + * { margin-top: 8px; }
+.try-body .checks { margin-top: 10px; }
+.try-kicker { font-weight: 600; }
+.page .try:last-of-type { }
+
+/* ── Stats (intro) ── */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 22px 0 6px !important; }
+.stat { border-top: 2px solid var(--ink); padding-top: 14px; display: flex; flex-direction: column; gap: 8px; }
+.stat .num, .num { font-family: "Inter Tight", sans-serif; font-weight: 800; color: var(--green);
+  font-size: 40pt; line-height: .95; letter-spacing: -.035em; }
+.stat .lbl { color: var(--ink); font-weight: 500; font-size: 10pt; line-height: 1.4; }
+.stat .src { font-size: 7.5pt; color: var(--ink-3); text-transform: uppercase; letter-spacing: .1em; font-weight: 600; }
+
+/* ── Five gaps grid ── */
+.gaps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px !important; }
+.gcard { display: flex; flex-direction: column; border: 1px solid var(--line-2); border-radius: var(--r-lg);
+  padding: 18px 20px 16px; min-height: 2.05in; background: var(--bg); }
+.gcard .gnum { font-family: "Inter Tight", sans-serif; font-weight: 800; color: var(--green); font-size: 22pt;
+  line-height: 1; letter-spacing: -.03em; }
+.gcard .gtitle { font-family: "Inter Tight", sans-serif; font-weight: 800; color: var(--ink); font-size: 13.5pt;
+  line-height: 1.2; letter-spacing: -.015em; margin-top: 14px; }
+.gcard .gfix { color: var(--ink-3); font-size: 9pt; margin-top: 8px; }
+.gcard .gfix::before { content: "What to do: "; font-weight: 600; color: var(--ink-2); }
+.gcard .gpage { margin-top: auto; padding-top: 12px; font-size: 7.5pt; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--ink-3); }
+.card-dark { background: var(--ink); border-color: var(--ink); }
+.card-dark .gnum { color: var(--green-mid); }
+.card-dark .gtitle { color: #fff; }
+.card-dark .gfix { color: rgba(255,255,255,.7); }
+.card-dark .gfix::before { color: #fff; }
+.card-dark .gpage { color: var(--green-mid); }
+.gcard-more { background: var(--bg-soft); border-style: dashed; }
+
+/* ── Trio / four / regions / candidate questions ── */
+.trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.trio > div, .four > div, .regions > div, .cq > div { background: var(--bg-soft); border-radius: var(--r-md);
+  padding: 14px 15px; border: 1px solid var(--line); }
+.trio b { display: block; font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 11pt;
+  letter-spacing: -.01em; margin: 6px 0 5px; line-height: 1.2; }
+.trio p, .four p, .regions p, .cq p { font-size: 9pt; line-height: 1.45; }
+.four { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.four b, .cq b { display: block; margin-bottom: 3px; }
+.regions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.regions .eyebrow { margin-bottom: 6px; }
+.regions p:not(.eyebrow) { color: var(--ink); }
+.cq { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.cq > div:last-child { grid-column: 1 / -1; }
+
+/* ── Stakes scale ── */
+.stakes { display: grid; gap: 8px; margin-top: 16px !important; }
+.stake { display: grid; grid-template-columns: 1.35in 1fr 1.9in; gap: 16px; align-items: center;
+  border-radius: var(--r-md); padding: 14px 18px; }
+.stake .lvl { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 12pt; display: flex;
+  flex-direction: column; gap: 6px; letter-spacing: -.01em; }
+.stake .dots { display: flex; gap: 4px; }
+.stake .dots i { width: 18px; height: 5px; border-radius: 3px; background: currentColor; }
+.stake .dots i.off { opacity: .2; }
+.stake .ex { font-size: 9.5pt; line-height: 1.4; }
+.stake .who { font-size: 9.5pt; font-weight: 600; line-height: 1.35; }
+.stake .who span { display: block; font-size: 7pt; letter-spacing: .14em; text-transform: uppercase; font-weight: 700;
+  margin-bottom: 3px; opacity: .7; }
+.stake.high { background: var(--ink); color: #fff; }
+.stake.high .lvl { color: var(--green-mid); }
+.stake.high .ex, .stake.high .who { color: #fff; }
+.stake.med { background: var(--mint-tint); border: 1px solid rgba(10,140,102,.2); color: var(--ink); }
+.stake.med .lvl { color: var(--green); }
+.stake.low { background: var(--bg-soft); border: 1px solid var(--line); color: var(--ink-2); }
+.stake.low .lvl { color: var(--ink-3); }
+
+/* ── Tear-out interview card ── */
+.tear { border: 1.5px dashed var(--ink); border-radius: var(--r-lg); padding: 20px 24px 18px; position: relative;
+  margin-top: 18px !important; }
+.tear h3 { margin-top: 6px !important; font-size: 14pt; }
+.tear ol { list-style: none; margin-top: 12px; display: grid; gap: 0; }
+.tear li { display: flex; gap: 12px; padding: 9px 0; border-top: 1px solid var(--line); color: var(--ink);
+  font-weight: 500; font-size: 10.5pt; }
+.tear-foot { font-size: 8.5pt; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 9px; }
+
+/* ── Quiz band ── */
+.quizband, .cta-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  border-radius: var(--r-lg); padding: 18px 22px; background: var(--ink); color: #fff; margin-top: 20px !important; }
+.quizband .eyebrow, .cta-bar .eyebrow { color: var(--green-mid); }
+.qb-title { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 13pt; color: #fff; margin-top: 5px;
+  line-height: 1.2; letter-spacing: -.01em; }
+.qb-sub { font-size: 8.5pt; color: rgba(255,255,255,.72); margin-top: 5px; }
+.pill { flex: none; display: inline-flex; align-items: center; gap: 6px; background: var(--green-mid); color: var(--ink);
+  font: 700 9.5pt Inter, sans-serif; padding: 10px 16px 10px 18px; border-radius: var(--r-pill); }
+.pill-ico { width: 15px; height: 15px; fill: var(--ink); }
+
+/* ── Duo stat cards ── */
+.duo { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.duo-card { border: 1px solid var(--line-2); border-radius: var(--r-md); padding: 14px 16px; }
+.duo-card .num { display: block; font-size: 26pt; margin: 6px 0 6px; }
+.duo-card p:not(.eyebrow) { font-size: 9pt; }
+
+/* ── Brief worksheet ── */
+.sheet { border: 1px solid var(--line-2); border-radius: var(--r-lg); padding: 18px 22px 10px; margin-top: 18px !important; }
+.sheet .eyebrow { margin-bottom: 4px; }
+.sheet-row { display: flex; align-items: flex-end; gap: 12px; padding: 16px 0 6px; font-size: 9pt; font-weight: 600;
+  color: var(--ink); }
+.sheet-row span { flex: none; }
+.sheet-row i { flex: 1; border-bottom: 1px solid var(--line-2); height: 1px; }
+.sheet-row .opts { display: flex; align-items: center; gap: 6px; font-weight: 500; }
+.sheet-row .opts .box { margin-left: 10px; }
+.box { display: inline-block; width: 12px; height: 12px; border: 1.5px solid var(--ink); border-radius: 3px; flex: none; }
+
+/* ── Checklist ── */
+.cl { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; margin-top: 22px !important; }
+.cl-group { border-top: 2px solid var(--ink); padding-top: 12px; }
+.cl-group:nth-child(4) { grid-row: span 1; }
+.cl-h { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 12pt; color: var(--ink);
+  display: flex; gap: 8px; align-items: baseline; letter-spacing: -.01em; line-height: 1.2; }
+.cl ul { list-style: none; margin-top: 10px; display: grid; gap: 10px; }
+.cl li { display: flex; gap: 10px; font-size: 9.5pt; line-height: 1.42; color: var(--ink); }
+.cl li .box { width: 14px; height: 14px; margin-top: 1px; }
+
+/* ── PTF help page ── */
+.ptf-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.ptf-stats > div { border-top: 2px solid var(--ink); padding-top: 12px; display: flex; flex-direction: column; gap: 6px;
+  color: var(--ink); font-weight: 500; }
+.ptf-stats .num { font-size: 32pt; }
+.talks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.talk { border: 1px solid var(--line-2); border-radius: var(--r-md); padding: 14px 15px 16px; display: flex;
+  flex-direction: column; gap: 8px; }
+.talk-ico { width: 22px; height: 22px; }
+.talk-t { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 10.5pt; color: var(--ink);
+  line-height: 1.25; letter-spacing: -.01em; }
+.has-cta .cta-bar { position: absolute; left: 0; right: 0; bottom: 0; border-radius: 0; margin: 0 !important;
+  padding: 0.42in var(--pad-x) 0.5in; }
+.has-cta .pfoot { display: none; }
+.cta-t { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 19pt; color: #fff; margin-top: 6px;
+  line-height: 1.15; letter-spacing: -.02em; max-width: 4.6in; }
+.cta-bar::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; background: var(--iri); }
+.cta-bar { position: relative; }
+
+/* ── Contributors ── */
+.people { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px 16px; margin-top: 24px !important; }
+.person { display: flex; flex-direction: column; gap: 10px; }
+.pav { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; font-size: 13pt !important; }
+.person b { font-family: "Inter Tight", sans-serif; font-weight: 800; font-size: 11pt; letter-spacing: -.01em;
+  border-bottom: 1px solid var(--green-mid); }
+.person span { display: block; font-size: 8.5pt; color: var(--ink-3); line-height: 1.4; margin-top: 4px; }
+.mods { font-size: 9pt; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 12px; margin-top: 22px !important; }
+
+/* ── Cover ── */
+.dark { background: var(--ink); color: rgba(255,255,255,.8); }
+.cover { padding: 0; }
+.cover > * + * { margin-top: 0; }
+.cover-top { padding: 0.55in var(--pad-x) 0.4in; }
+.cover .logo { height: 30px; display: block; }
+.iri { height: 4px; background: var(--iri); }
+.cover-body { padding: 1.5in var(--pad-x) 0; }
+.cover-body .eyebrow { color: var(--green-mid); }
+.cover h1 { color: #fff; font-size: 66pt; line-height: .98; letter-spacing: -.04em; margin-top: 20px; max-width: 6.5in; }
+.cover-sub { font-size: 16pt; line-height: 1.35; color: rgba(255,255,255,.78); margin-top: 26px; max-width: 5in; }
+.cover-foot { position: absolute; left: var(--pad-x); right: var(--pad-x); bottom: 0.6in; }
+.facerow { display: flex; }
+.facerow img { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; border: 3px solid var(--ink);
+  margin-left: -12px; }
+.facerow img:first-child { margin-left: 0; }
+.cover-foot p { margin-top: 16px; font-size: 9.5pt; color: rgba(255,255,255,.65); max-width: 4.6in; }
+
+/* ── Social exports (1080 × 1350) ── */
+.social { width: 1080px; height: 1350px; padding: 84px 88px; background: var(--bg); position: relative;
+  display: flex; flex-direction: column; font-size: 22px; }
+.social-tall { height: 1620px; }
+.social .s-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 30px;
+  border-bottom: 1px solid var(--line); margin-bottom: 70px; font-size: 18px; color: var(--ink-3); }
+.social .s-top .logo { height: 34px; }
+.social .s-top::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; background: var(--iri); }
+.social .eyebrow { font-size: 16px; }
+.social h2 { font-size: 60px; margin-top: 16px !important; max-width: 860px; }
+.social .lead { font-size: 26px; margin-top: 20px; }
+.social .try { margin-top: 56px !important; padding: 40px 44px 44px; border-radius: 28px; }
+.social .try-ico { width: 34px; height: 34px; }
+.social .try-head { gap: 14px; margin-bottom: 20px; }
+.social .try-body { font-size: 28px; line-height: 1.45; }
+.social .try-body > * + * { margin-top: 16px; }
+.social .checks { gap: 14px; }
+.social .checks li { padding-left: 42px; }
+.social .checks li::before { width: 22px; height: 22px; top: 7px; border-width: 2.5px; border-radius: 5px; }
+.social .s-foot { margin-top: auto; font-size: 17px; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 24px; }
+.social .cl { gap: 30px 40px; margin-top: 50px !important; }
+.social .cl-h { font-size: 24px; }
+.social .cl li { font-size: 19px; gap: 14px; }
+.social .cl ul { gap: 14px; margin-top: 16px; }
+.social .cl li .box { width: 22px; height: 22px; border-width: 2.5px; }
+.social .n { font-size: 20px; }
+.social .cl-group { padding-top: 18px; }
+
+/* ── Layout refinements (round 2) ── */
+.stat .lbl { flex: 1; }
+.stats { margin-top: 26px !important; }
+.stat .num { font-size: 46pt; }
+.intro-faces { margin-top: 34px !important; padding-top: 22px; border-top: 1px solid var(--line);
+  display: flex; align-items: center; gap: 18px; }
+.intro-faces .facerow img { width: 40px; height: 40px; border-color: #fff; margin-left: -10px; }
+.intro-faces .facerow img:first-child { margin-left: 0; }
+.intro-faces p { font-size: 8.5pt; color: var(--ink-3); max-width: 1.9in; line-height: 1.4; }
+.cover-sub { max-width: 5.8in; }
+.regions, .four { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.regions > div, .four > div { padding: 12px 12px; }
+.regions p, .four p { font-size: 8.5pt; }
+.regions .eyebrow { font-size: 6.8pt; letter-spacing: .12em; }
+.four b { font-size: 9pt; line-height: 1.3; margin-bottom: 4px; }
+.tear li { padding: 7px 0; }
+.quote-first { margin-top: 0 !important; }
+.cq { gap: 8px; }
+.cq > div { padding: 11px 14px; }
+.quizband { padding: 14px 20px; }
+.sheet-row { padding-top: 22px; }
+.checklist-page .cl { display: block; columns: 2; column-gap: 26px; }
+.checklist-page .cl-group { break-inside: avoid; margin-bottom: 26px; }
+.checklist-page .cl li { font-size: 10pt; }
+.checklist-page .cl ul { gap: 13px; margin-top: 14px; }
+.talk { min-height: 1.75in; }
+.talk-t { font-size: 11.5pt; }
+.ptf-stats .num { font-size: 40pt; }
+.has-cta .ptf-stats { margin-top: 24px !important; }
+/* round 3: tighter vertical rhythm */
+.page > * + * { margin-top: 12px; }
+.quote { margin-top: 16px !important; }
+h3 { margin-top: 20px !important; }
+.try { margin-top: 18px !important; padding: 16px 22px 18px; }
+.tear { padding: 16px 22px 14px; margin-top: 14px !important; }
+.tear ol { margin-top: 8px; }
+.tear li { padding: 6px 0; font-size: 10pt; }
+.trio > div { padding: 12px 14px; }
+.checklist-page .cl-group { margin-bottom: 34px; }
+.checklist-page .cl li { font-size: 10.5pt; }
+.checklist-page .cl ul { gap: 16px; }
+.checklist-page .cl-h { font-size: 13pt; }
+.cq { grid-template-columns: repeat(3, 1fr); }
+.cq > div:last-child { grid-column: auto; }
+.cq p { font-size: 8.5pt; }
+.cq b { font-size: 9.5pt; line-height: 1.3; }
+/* round 4 */
+.stats { background: var(--ink); border-radius: var(--r-xl); padding: 26px 26px 24px; gap: 22px; margin: 28px 0 14px !important; }
+.stats .stat { border-top-color: rgba(255,255,255,.18); }
+.stats .num { color: var(--green-mid); }
+.stats .lbl { color: #fff; }
+.stats .src { color: rgba(255,255,255,.55); }
+.big-line { margin-top: 26px !important; font-size: 17pt; }
+.tear li { padding: 5px 0; }
+.checklist-page .cl li { font-size: 11pt; }
+.checklist-page .cl-group { margin-bottom: 40px; }
+.checklist-page .cl-h { font-size: 14pt; }
+.checklist-page .cl { margin-top: 30px !important; }
+.has-cta .talk { min-height: 2.2in; }
+.social .cl { display: block; columns: 2; column-gap: 40px; }
+.social .cl-group { break-inside: avoid; margin-bottom: 34px; }
+
+body { background: #E9ECEA; padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 8px; overflow-x: hidden; }
+.web-bar { max-width: 8.5in; margin: 16px auto 0; display: flex; justify-content: space-between; gap: 12px;
+  flex-wrap: wrap; font: 500 13px Inter, system-ui, sans-serif; color: #5C6F69; }
+.web-bar b { color: #0A0A0A; }
+@media print{.web-bar{display:none}body{padding:0}}</style></head>
+<body><div class="web-bar"><span><b>Who makes AI work?</b> · A PowerToFly AI guide</span>
+<a href="Who-Makes-AI-Work.pdf" style="color:#0A8C66;font-weight:700">Download the PDF →</a></div><section class="page dark cover">
+<div class="cover-top"><img class="logo" src="logo-white.svg" alt="PowerToFly AI"></div>
+<div class="iri"></div>
+<div class="cover-body">
+  <p class="eyebrow">A PowerToFly AI guide · October 2026</p>
+  <h1>Who makes AI <em class="italic-plain">work?</em></h1>
+  <p class="cover-sub">A practical guide to the people behind AI that delivers</p>
+</div>
+<div class="cover-foot">
+  <div class="facerow"><img src="speakers/01.jpg" alt=""><img src="speakers/02.jpg" alt=""><img src="speakers/03.jpg" alt=""><img src="speakers/04.jpg" alt=""><img src="speakers/05.jpg" alt=""><img src="speakers/06.jpg" alt=""><img src="speakers/07.jpg" alt=""><img src="speakers/08.jpg" alt=""><img src="speakers/09.jpg" alt=""><img src="speakers/10.jpg" alt=""><img src="speakers/11.jpg" alt=""><img src="speakers/12.jpg" alt=""></div>
+  <p>With advice from 12 HR, talent and AI leaders at the PowerToFly AI Summit, October 14, 2026</p>
+</div>
+</section>
+<section class="page ">
+<p class="eyebrow">Introduction</p>
+<h2>Why AI needs the right people around it</h2>
+<p class="lead">Picture the last AI tool your company rolled out. You bought the licenses, ran a kickoff everyone was excited about and watched the demo win over the room. Six months later, a handful of people use it regularly, nobody’s quite sure who owns it, and you’re still waiting on the results everyone hoped for.</p>
+<p>If that sounds familiar, you’re in good company.</p>
+<div class="stats">
+  <div class="stat"><span class="num">80%+</span><span class="lbl">of AI projects don’t deliver the business value they were meant to</span><span class="src">RAND</span></div>
+  <div class="stat"><span class="num">95%</span><span class="lbl">of generative AI pilots never make it past proof of concept</span><span class="src">MIT</span></div>
+  <div class="stat"><span class="num">70%</span><span class="lbl">of AI challenges come from people and processes, with only 10% coming from the AI itself</span><a class="src" href="https://bcg.com/ja-jp/press/24october2024-ai-adoption-in-2024-74-of-companies-struggle-to-achieve-and-scale-value">BCG</a></div>
+</div>
+<p class="big-line">That’s good news, because it means the fix is probably closer to home than another new tool.</p>
+<p>This guide takes each of the five people gaps we see in turn, with the steps we recommend and a short exercise to try with your team. It draws on PowerToFly AI’s research and on advice from 12 HR, talent and AI leaders who joined us for the PowerToFly AI Summit in October 2026.</p>
+<div class="intro-faces"><div class="facerow"><img src="speakers/01.jpg" alt=""><img src="speakers/02.jpg" alt=""><img src="speakers/03.jpg" alt=""><img src="speakers/04.jpg" alt=""><img src="speakers/05.jpg" alt=""><img src="speakers/06.jpg" alt=""><img src="speakers/07.jpg" alt=""><img src="speakers/08.jpg" alt=""><img src="speakers/09.jpg" alt=""><img src="speakers/10.jpg" alt=""><img src="speakers/11.jpg" alt=""><img src="speakers/12.jpg" alt=""></div><p>12 HR, talent and AI leaders from the PowerToFly AI Summit</p></div>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>02</span></footer></section>
+<section class="page ">
+<p class="eyebrow">Inside this guide</p>
+<h2>Five people gaps decide whether AI pays off</h2>
+<p class="lead">When we talk to clients about this, we describe five gaps. Each section that follows covers one of them, with what to do about it.</p>
+<div class="gaps"><a class="gcard card-dark" href="#gap-1">
+  <span class="gnum">01</span>
+  <p class="gtitle">Nobody defined the problem or the payoff before buying.</p>
+  <p class="gfix">Define the problem and the payoff before you buy</p>
+  <span class="gpage">Page 4</span>
+</a><a class="gcard" href="#gap-2">
+  <span class="gnum">02</span>
+  <p class="gtitle">Nobody owns AI.</p>
+  <p class="gfix">Make one person accountable for AI</p>
+  <span class="gpage">Page 6</span>
+</a><a class="gcard" href="#gap-3">
+  <span class="gnum">03</span>
+  <p class="gtitle">Nobody with the right expertise checks the work.</p>
+  <p class="gfix">Put experts in charge of checking the work</p>
+  <span class="gpage">Page 8</span>
+</a><a class="gcard" href="#gap-4">
+  <span class="gnum">04</span>
+  <p class="gtitle">Hiring searches for a title instead of the skills the work needs.</p>
+  <p class="gfix">Hire for the work AI needs done</p>
+  <span class="gpage">Page 10</span>
+</a><a class="gcard" href="#gap-5">
+  <span class="gnum">05</span>
+  <p class="gtitle">New habits don’t last past the launch.</p>
+  <p class="gfix">Build habits that last past the launch</p>
+  <span class="gpage">Page 13</span>
+</a>
+  <a class="gcard gcard-more" href="#first-30">
+    <span class="gnum">+</span>
+    <p class="gtitle">Plus: choosing an outside AI partner, and a 30-day checklist</p>
+    <span class="gpage">Page 17</span>
+  </a>
+</div>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>03</span></footer></section>
+<section class="page ">
+<a id="gap-1"></a>
+<header class="opener">
+  <p class="eyebrow">Gap 01</p>
+  <h2>Define the problem and the payoff before you buy</h2>
+  <p class="lead">Before you buy an AI tool or start a pilot, write down the problem it solves, what success looks like and how you’ll measure it. Skipping this step is the most common mistake we see.</p>
+</header>
+<p>It’s an easy one to make. For two years, leaders have been told that if they weren’t using AI yesterday, they’re already behind, so plenty of companies bought first and planned later. Many of them now have a tool everyone can log into and very little to show for it.</p>
+<figure class="quote quote-big">
+  <blockquote>“The biggest thing is buying tools before we know what problem we’re trying to solve.”</blockquote>
+  <figcaption><img class="av" src="speakers/09.jpg" alt="Elena Agaragimova"><span class="q-who"><b>Elena Agaragimova</b><span>Head of People, Horizon Industries</span></span></figcaption>
+</figure>
+<h3>How to set up an AI project to pay off</h3>
+<ol class="steps cols-1"><li><span class="n">01</span><div><b>Start from the workflow.</b> Ask how you’d design the process from scratch now that AI is available. The biggest gains come from rethinking a whole workflow, well beyond writing one email a little faster.</div></li><li><span class="n">02</span><div><b>Decide what the payoff is.</b> Time saved only matters once you know where that time goes. Tie each use to one of three outcomes: more revenue, lower costs or less risk.</div></li><li><span class="n">03</span><div><b>Count the time spent checking.</b> If AI doubles your team’s output but someone now spends two hours reviewing it, you’ve gained capability without gaining value.</div></li><li><span class="n">04</span><div><b>Check who has the hours.</b> Knowing you can build something with AI is different from knowing if you should. Think about who has time to build it and keep it running.</div></li><li><span class="n">05</span><div><b>Estimate the running cost.</b> Some teams are finding that usage fees for an AI workflow add up to more than paying a person to do the same work.</div></li></ol>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>04</span></footer></section>
+<section class="page ">
+<figure class="quote quote-big">
+  <blockquote>“A pilot’s never gonna work if you don’t know what success looks like and how you’re gonna measure that at the end of it.”</blockquote>
+  <figcaption><img class="av" src="speakers/11.jpg" alt="Eryn Peters"><span class="q-who"><b>Eryn Peters</b><span>Co-founder, AI Maturity Index</span></span></figcaption>
+</figure>
+<aside class="try">
+  <div class="try-head"><svg class="ico try-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><p class="eyebrow">Try this with your team</p></div>
+  <div class="try-body"><p>Before your next pilot starts, fill in a one-page brief. Use the one below as your starting point: if a line stays blank, that’s where to begin.</p></div>
+</aside>
+<div class="sheet">
+  <p class="eyebrow">One-page brief · fill in before the pilot starts</p>
+  <div class="sheet-row"><span>The problem, in one sentence</span><i></i></div>
+  <div class="sheet-row"><span>Who has it today</span><i></i></div>
+  <div class="sheet-row"><span>What success looks like</span><i></i></div>
+  <div class="sheet-row half"><span>How we’ll measure it</span><i></i><span>Check date</span><i></i></div>
+  <div class="sheet-row"><span>Outcome it moves</span><span class="opts"><b class="box"></b>Revenue <b class="box"></b>Cost <b class="box"></b>Risk</span></div>
+  <div class="sheet-row"><span>What we’ll do with time saved</span><i></i></div>
+  <div class="sheet-row"><span>Running cost (usage + review time)</span><i></i></div>
+  <div class="sheet-row"><span>Who builds and maintains it</span><i></i></div>
+</div>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>05</span></footer></section>
+<section class="page ">
+<a id="gap-2"></a>
+<header class="opener">
+  <p class="eyebrow">Gap 02</p>
+  <h2>Make one person accountable for AI</h2>
+  <p class="lead">Name one person who’s accountable for how your company uses AI, give them the authority to work across every team and give employees an approved tool from day one.</p>
+</header>
+<p>Without an owner, AI decisions get made in silos. Rollouts get stuck at whichever team inherits them, and employees fill the gap with their own tools. Regulators are starting to ask the same question too. Colorado has already passed an AI law that other states are watching, the EU’s rules are phasing in over the next couple of years, and when an auditor asks who’s responsible for an AI decision, “the team” won’t be an acceptable answer.</p>
+<figure class="quote">
+  <blockquote>“Say your AI decides to curse out a client. Who’s responsible for that? You’re gonna say, what, Claude did it? No. We have to have somebody who’s actually responsible.”</blockquote>
+  <figcaption><img class="av" src="speakers/12.jpg" alt="Mara Gates"><span class="q-who"><b>Mara Gates</b><span>Director of Content Marketing, PowerToFly AI</span></span></figcaption>
+</figure>
+<h3>What the owner needs</h3>
+<ol class="steps cols-2"><li><span class="n">01</span><div><b>Reach across the company.</b> AI touches engineering, marketing, talent acquisition, legal and finance. The owner needs the standing to set one approach for all of them.</div></li><li><span class="n">02</span><div><b>Change management skills as well as technical ones.</b> Much of the job is explaining the same plan in terms engineers, marketers and legal teams each care about, and bringing skeptical people along.</div></li><li><span class="n">03</span><div><b>HR and talent at the table from the start.</b> They hear what employees actually think, and they often end up running the rollout. We’ve seen tools a CEO loved fail at handoff because HR found out about them last.</div></li><li><span class="n">04</span><div><b>A plan for smaller teams.</b> If you don’t have an AI team, ownership sits with leadership (often the CEO), who sets the expectations and guardrails, trains people on them and gives everyone access to approved tools.</div></li></ol>
+<figure class="quote">
+  <blockquote>“Everybody owns it, but nobody owns it. Nobody’s really accountable.”</blockquote>
+  <figcaption><img class="av" src="speakers/09.jpg" alt="Elena Agaragimova"><span class="q-who"><b>Elena Agaragimova</b><span>Head of People, Horizon Industries</span></span></figcaption>
+</figure>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>06</span></footer></section>
+<section class="page ">
+<h3 class="h3-first">Give people a safe option, fast</h3>
+<p>When access to AI is restricted, employees rarely wait. They use personal accounts, paste company data into them and sometimes connect them to work email.</p>
+<figure class="quote">
+  <blockquote>“They’re probably just using their own. So they’re putting sensitive company data into a personal AI tool.”</blockquote>
+  <figcaption><img class="av" src="speakers/06.jpg" alt="Shawntay Skjoldager"><span class="q-who"><b>Shawntay Skjoldager</b><span>COO and Integrator, ThinkHuman</span></span></figcaption>
+</figure>
+<h4>We recommend this order of operations</h4>
+<ol class="steps cols-2"><li><span class="n">01</span><div><b>Pick one approved tool and use its enterprise version,</b> so your data isn’t used to train anyone’s model. Are you team Claude or team Gemini? Or maybe something else? Whatever the case, this should be a clear, documented decision.</div></li><li><span class="n">02</span><div><b>Write the policy, then enforce it.</b> A written AI policy says what people can and can’t do. A data policy, enforced by IT, controls which systems the tool can connect to.</div></li><li><span class="n">03</span><div><b>Remind people what’s private.</b> Most employees have signed something saying company systems carry no expectation of privacy, and AI tools work the same way.</div></li><li><span class="n">04</span><div><b>Ship something before it’s perfect.</b> A simple internal tool, available quickly, keeps people off personal accounts while your governance catches up. Expect to adjust the rules as you learn what’s too strict and what’s too loose.</div></li></ol>
+<figure class="quote">
+  <blockquote>“It may not be as good, but at least it’s something.”</blockquote>
+  <figcaption><img class="av" src="speakers/08.jpg" alt="Stephen Salaka"><span class="q-who"><b>Stephen Salaka</b><span>AI Enablement Manager, HII Mission Technologies</span><span class="q-note">On launching an internal AI tool for more than 8,000 people</span></span></figcaption>
+</figure>
+<aside class="try">
+  <div class="try-head"><svg class="ico try-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><p class="eyebrow">Try this with your team</p></div>
+  <div class="try-body"><p>Write down, on one page, who owns AI at your company, which tools are approved, what data can go into them and who people should ask when they’re unsure.</p>
+<p class="try-kicker">If you can’t fill in the first line, start there.</p></div>
+</aside>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>07</span></footer></section>
+<section class="page ">
+<a id="gap-3"></a>
+<header class="opener">
+  <p class="eyebrow">Gap 03</p>
+  <h2>Put experts in charge of checking the work</h2>
+  <p class="lead">Plan for people on both ends of every AI workflow: someone to prepare what goes in and someone who knows the subject well enough to judge what comes out. Then match how closely you review to how much is at stake.</p>
+</header>
+<p>AI can produce a polished, confident answer that’s completely wrong. Someone who knows the subject will catch it in minutes, while someone new to it will pass it along. Most AI budgets go to engineers and data teams, and those people are essential. Far less goes to the people in finance, HR, legal or customer service who can tell whether an answer is right.</p>
+<figure class="quote">
+  <blockquote>“Data is messy, and humans both need to organize it for the bots, and then they need to check the data that the bots give. We have to work together. It can’t be one or the other.”</blockquote>
+  <figcaption><img class="av" src="speakers/10.jpg" alt="Milena Berry"><span class="q-who"><b>Milena Berry</b><span>Co-founder and CEO, PowerToFly AI</span></span></figcaption>
+</figure>
+<h3>Build review into the product</h3>
+<p>The people who train and test your AI shape how well it works for everyone who uses it. Bringing in reviewers with different backgrounds and specialties is how you catch problems before your customers do. We focus on three places it pays off:</p>
+<div class="trio">
+  <div><span class="n">01</span><b>Bias testing before launch</b><p>A team with similar backgrounds can build something that offends or fails another group without noticing.</p></div>
+  <div><span class="n">02</span><b>Real-world testing</b><p>Running your product past people with different profiles shows how it behaves for the full range of people who’ll use it.</p></div>
+  <div><span class="n">03</span><b>Expert review for expert users</b><p>If you’re building for lawyers or HR teams, people from those fields should be training and testing it, so it stays inside the guardrails you set.</p></div>
+</div>
+<p>Hiring tools show what happens without this. If a team has always hired the same profile from the same schools, a screening tool trained on those decisions will repeat them, so you miss strong candidates and take on legal risk at the same time.</p>
+<figure class="quote">
+  <blockquote>“In the models world, this is a need-to-have, because your model just won’t perform if you don’t expose it to the right domain expert.”</blockquote>
+  <figcaption><img class="av" src="speakers/10.jpg" alt="Milena Berry"><span class="q-who"><b>Milena Berry</b><span>Co-founder and CEO, PowerToFly AI</span></span></figcaption>
+</figure>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>08</span></footer></section>
+<section class="page ">
+<h3 class="h3-first">Match the review to the stakes</h3>
+<p>No team has the people to review everything, so decide where review matters most. Anything that affects hiring, goes to a client or carries legal or financial weight gets an expert’s eyes every time. A tool that suggests the wrong training course is a much smaller problem.</p>
+<div class="stakes">
+  <div class="stake high"><div class="lvl"><span class="dots"><i></i><i></i><i></i></span>High stakes</div><div class="ex">Hiring and screening decisions, anything sent to clients or partners, legal or financial content</div><div class="who"><span>Who reviews</span>A subject expert, every time, before it goes out</div></div>
+  <div class="stake med"><div class="lvl"><span class="dots"><i></i><i></i><i class="off"></i></span>Medium stakes</div><div class="ex">Internal reports and analysis, team communications</div><div class="who"><span>Who reviews</span>The owner, plus spot checks</div></div>
+  <div class="stake low"><div class="lvl"><span class="dots"><i></i><i class="off"></i><i class="off"></i></span>Low stakes</div><div class="ex">Personal drafts, meeting notes, brainstorming</div><div class="who"><span>Who reviews</span>The person using it</div></div>
+</div>
+<p>The review has to be thorough, too. AI answers usually look finished, which makes it tempting to accept the first draft without checking it. That’s how mistakes get through. We’ve heard stories of lawyers, for example, who have filed briefs citing court cases that AI made up, with names close enough to real cases that a quick read didn’t catch them.</p>
+<figure class="quote">
+  <blockquote>“I hit the easy button, it generated for me, and now I gotta go back and put my editor hat on.”</blockquote>
+  <figcaption><img class="av" src="speakers/08.jpg" alt="Stephen Salaka"><span class="q-who"><b>Stephen Salaka</b><span>AI Enablement Manager, HII Mission Technologies</span><span class="q-note">On the need for human review</span></span></figcaption>
+</figure>
+<h4>Making the case to your CFO</h4>
+<p>When reviewers and subject experts show up as a cost line, the conversation goes badly. Present them as part of the product, since a model without them won’t work as intended. The case is easier when your CFO and your head of people are already talking about AI and talent before any budget request lands, so the numbers on rework, turnover and adoption are part of a picture they’ve both seen.</p>
+<aside class="try">
+  <div class="try-head"><svg class="ico try-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><p class="eyebrow">Try this with your team</p></div>
+  <div class="try-body"><p>List your AI uses, sort them into high, medium and low stakes, and check that every high-stakes use has a named expert reviewing it.</p></div>
+</aside>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>09</span></footer></section>
+<section class="page ">
+<a id="gap-4"></a>
+<header class="opener">
+  <p class="eyebrow">Gap 04</p>
+  <h2>Hire for the work AI needs done</h2>
+  <p class="lead">Define the work before you define the candidate. Most companies struggling to hire for AI have done it the other way round, and it shows up in three places: how the role is written, where they look and how they interview.</p>
+</header>
+<figure class="quote">
+  <blockquote>“The mistake is deciding what an AI candidate must look like before it’s really clear what job they’re actually going to be doing.”</blockquote>
+  <figcaption><img class="av" src="speakers/02.jpg" alt="Fran Griffin"><span class="q-who"><b>Fran Griffin</b><span>Talent Acquisition Manager, PowerToFly AI</span></span></figcaption>
+</figure>
+<h3>Write the role around the work</h3>
+<ol class="steps cols-2"><li><span class="n">01</span><div><b>Start with what the person will actually do.</b> A machine learning engineer needs deep technical skills. A team applying AI to healthcare, or checking how a model responds in other languages, needs clinical knowledge, language expertise and people who can train others.</div></li><li><span class="n">02</span><div><b>Cut requirements the work doesn’t need.</b> AI job titles, specific degrees, big-name employers and years of experience with tools that have barely existed all screen out people who could do the job well.</div></li><li><span class="n">03</span><div><b>Ask for transferable skills.</b> Research, clear communication and critical thinking are what let someone use AI well and question it when it’s wrong.</div></li><li><span class="n">04</span><div><b>Expect basic AI fluency.</b> For most office roles, it’s becoming like knowing Microsoft Office. You may not list it, but you should ask how candidates use AI in their work today.</div></li></ol>
+<figure class="quote">
+  <blockquote>“It is indeed ridiculous when I see people asking for 10 years of RAG pipeline experience.”</blockquote>
+  <figcaption><img class="av" src="speakers/07.jpg" alt="Katy Peichert"><span class="q-who"><b>Katy Peichert</b><span>EMEA and LATAM Talent Partner, Front</span><span class="q-note">On job descriptions that ask for more years of experience than the technology has existed. RAG, a common way of connecting AI models to a company’s own data, has only been in wide use for a few years.</span></span></figcaption>
+</figure>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>10</span></footer></section>
+<section class="page ">
+<h3 class="h3-first">Look in more places</h3>
+<p>There’s no single right place to find AI talent, so change at least one habit in how you search, whether that’s where you post, how you source or how you reach out. Our recruiters see real differences by region:</p>
+<div class="regions">
+  <div><p class="eyebrow">Europe</p><p>Asks for responsible-use and governance skills more explicitly, partly because of EU regulation.</p></div>
+  <div><p class="eyebrow">Netherlands &amp; Ireland</p><p>High concentrations of AI engineering talent, worth adding to searches that usually stop at the largest markets.</p></div>
+  <div><p class="eyebrow">Southeast Asia</p><p>Growing fast, though specialist profiles in Thailand, Indonesia and Malaysia are still hard to find.</p></div>
+  <div><p class="eyebrow">Latin America</p><p>Earlier in adoption, with Chile standing out as a fast-growing source of AI engineering skills.</p></div>
+</div>
+<p class="note">Where specialists are scarce, hire people with strong software or data experience and help them learn the rest.</p>
+<h4>Some of your best candidates may already work for you</h4>
+<p>If you need someone productive next month, you may have to hire from outside. If you have a few months, you can build. Depending on what your company already has, there are four ways to find internal candidates:</p>
+<div class="four">
+  <div><b>A skills or competency matrix</b><p>If you keep one up to date in a tool like Cornerstone or Fuel50</p></div>
+  <div><b>Talent reviews</b><p>Where leaders compare what the business needs with who has related skills</p></div>
+  <div><b>Internal chat channels</b><p>Where you can see who’s already posting about their AI experiments</p></div>
+  <div><b>Your internal job board</b><p>Because the people who apply are telling you they’re ready</p></div>
+</div>
+<h3>Interview for judgment</h3>
+<p>Credentials show that someone prepared for the work. The interview shows how they’ll actually do it. Someone who questions an approach and asks for a good reason is often worth more than someone who builds whatever they’re asked to.</p>
+<div class="tear">
+  <p class="eyebrow">Keep this card · Interview for judgment</p>
+  <h3>Five questions that show how someone will do the work</h3>
+  <ol><li><span class="n">01</span>“Walk me through a project: the problem, why you chose your approach and what happened.”</li><li><span class="n">02</span>“Which parts of that did you build yourself?”</li><li><span class="n">03</span>“Tell me about an AI result you didn’t trust. How did you check it?”</li><li><span class="n">04</span>“Explain a technical decision the way you would to someone in finance.”</li><li><span class="n">05</span>“How did you get up to speed on a tool you’d never used before?”</li></ol>
+  <p class="tear-foot">Listen for an honest account of what went wrong and what they learned.</p>
+</div>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>11</span></footer></section>
+<section class="page ">
+<figure class="quote quote-first"><blockquote>“The credentials are how you know that someone can do the work. The interview is how you know what they are going to be like while doing the work.”</blockquote><figcaption><img class="av" src="speakers/meg.jpg" alt="Meg Alexander"><span class="q-who"><b>Meg Alexander</b><span>Virtual Event Host, PowerToFly AI</span></span></figcaption></figure>
+<p>Make sure strong candidates reach the interview at all. Automated filters often reject people for a missing degree or keyword before anyone looks at their work, including people with AI certifications and shipped projects. Have a person review the skills the role needs before the filters do the deciding.</p>
+<figure class="quote">
+  <blockquote>“It’s very important to have a human looking at everything. Don’t rely on your tech tools to screen people out.”</blockquote>
+  <figcaption><img class="av" src="speakers/01.jpg" alt="Jennyn Herrera"><span class="q-who"><b>Jennyn Herrera</b><span>Head of Talent Acquisition, Biola University</span><span class="q-note">On automated candidate screening</span></span></figcaption>
+</figure>
+<h3>Be ready for the questions candidates ask you</h3>
+<p>Strong AI candidates are interviewing you as well. Have clear answers to these:</p>
+<div class="cq">
+  <div><b>What will I own?</b><p>How established is the team, and will I have the resources to deliver?</p></div>
+  <div><b>Is there real demand and budget behind this role?</b><p>Senior candidates who’ve lived through earlier technology waves ask this early.</p></div>
+  <div><b>Is the data ready?</b><p>Building an AI product and spending your first months cleaning data are both valuable, but they’re different jobs.</p></div>
+  <div><b>Will I have support to learn?</b><p>Earlier-career candidates want experienced colleagues and regular feedback.</p></div>
+  <div><b>Will the offer match what we discussed?</b><p>A lower number than the one mentioned early on is one of the fastest ways to lose a strong candidate.</p></div>
+</div>
+<a class="quizband" href="https://9hsekcro98q.typeform.com/to/GjkXRqdT">
+  <div><p class="qb-title">Not sure which part of your process is slowing your search?</p><p class="qb-sub">Our short quiz shows whether the issue is how your role is written, where you’re looking or how you’re interviewing.</p></div>
+  <span class="pill">Take the quiz <svg class="ico pill-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
+</a>
+<aside class="try">
+  <div class="try-head"><svg class="ico try-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><p class="eyebrow">Try this with your team</p></div>
+  <div class="try-body"><p>Take one open role and question one requirement, whether that’s a job title, a degree, a past employer or a specific tool.</p>
+<p>If the work doesn’t truly need it, swap it for the ability you do need, then review five people you’d have screened out before, including at least one from inside your company.</p></div>
+</aside>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>12</span></footer></section>
+<section class="page ">
+<a id="gap-5"></a>
+<header class="opener">
+  <p class="eyebrow">Gap 05</p>
+  <h2>Build habits that last past the launch</h2>
+  <p class="lead">Treat AI adoption as ongoing change management. Watch how people behave for early warning signs, make learning hands-on and social, and measure the value AI creates along with how often people use it.</p>
+</header>
+<p>Timing matters here. By the time an engagement survey flags a problem with an AI rollout, things often started going wrong 6 to 18 months earlier. What’s holding a company back also varies. Some companies promise job security and still see low usage, while others have employees eager to use AI who are stuck waiting on approvals.</p>
+<h3>Watch for early warning signs</h3>
+<div class="trio">
+  <div><span class="n">01</span><b>Workarounds</b><p>People using personal accounts, hiding how they use AI or building processes on the side usually don’t know what they’re allowed to do and don’t feel safe asking.</p></div>
+  <div><span class="n">02</span><b>Mixed messages from managers</b><p>One manager says experiment, another says don’t touch it and a third says use it but don’t make mistakes. Most employees experience change through their direct manager, so that’s where the message gets lost.</p></div>
+  <div><span class="n">03</span><b>Silence</b><p>When nobody asks questions during a training or an all-hands, don’t assume everyone’s on board. People often stay quiet because they don’t trust what they’re hearing, or don’t think speaking up will change anything.</p></div>
+</div>
+<figure class="quote">
+  <blockquote>“Our middle management is our translation layer. The way that people actually experience AI, or experience change in general, is usually through their direct managers.”</blockquote>
+  <figcaption><img class="av" src="speakers/05.jpg" alt="Kelly Blackmon"><span class="q-who"><b>Kelly Blackmon</b><span>Founder, B.E. Consulting</span></span></figcaption>
+</figure>
+<p>When people hold back, it’s usually fear or confusion, and each needs a different answer. For fear, be specific about what AI means for each role and what support is available to learn new skills. For confusion, explain what problem you want AI to solve in their work. Either way, plan for an ongoing conversation instead of a single announcement at a town hall.</p>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>13</span></footer></section>
+<section class="page ">
+<figure class="quote">
+  <blockquote>“What problem do you want me to solve with that tool, so that I know what I’m actually using it for and also not being afraid of it?”</blockquote>
+  <figcaption><img class="av" src="speakers/09.jpg" alt="Elena Agaragimova"><span class="q-who"><b>Elena Agaragimova</b><span>Head of People, Horizon Industries</span></span></figcaption>
+</figure>
+<h3>Make learning hands-on and social</h3>
+<ol class="steps cols-2"><li><span class="n">01</span><div><b>Practice on real work.</b> Courses help, but people learn by using AI on tasks they actually need to get done.</div></li><li><span class="n">02</span><div><b>Learn together.</b> Set up a shared channel or a regular show-and-tell where people post what they’ve built and what’s working.</div></li><li><span class="n">03</span><div><b>Name champions on both sides.</b> Culture champions help people buy into the change, and technical champions help them get started.</div></li><li><span class="n">04</span><div><b>Lead by example.</b> When leaders use AI themselves and protect time for learning, their teams follow.</div></li><li><span class="n">05</span><div><b>Make the approved way the easy way.</b> If your approved tools are easier than the workaround, people will use them.</div></li><li><span class="n">06</span><div><b>Address concerns through policy.</b> Some employees have ethical or environmental concerns about AI. You don’t need to change their values, but your policies can address the most common worries.</div></li></ol>
+<figure class="quote">
+  <blockquote>“Nothing beats putting my hands on the keyboard, typing a prompt out, trying to play around with building this agent because I need to get some work done.”</blockquote>
+  <figcaption><img class="av" src="speakers/03.jpg" alt="Aniya Grimm"><span class="q-who"><b>Aniya Grimm</b><span>Head of Talent Success, Amplitude</span></span></figcaption>
+</figure>
+<p class="note">This pays off in retention too. Employees want autonomy and room to grow, and time and support to build AI skills delivers both.</p>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>14</span></footer></section>
+<section class="page ">
+<h3 class="h3-first">Measure value along with usage</h3>
+<p>Logins and usage counts tell you people opened the tool, but they don’t tell you whether it helped.</p>
+<ol class="steps cols-2"><li><span class="n">01</span><div><b>Set a baseline by role.</b> Before rolling out AI, measure how long key tasks take (for example, hours a week spent on email). Measure again after, and stop using AI for tasks where nothing changed.</div></li><li><span class="n">02</span><div><b>Budget usage by outcome.</b> A flat usage allowance per person ignores what different roles are responsible for.</div></li><li><span class="n">03</span><div><b>Set limits where there’s no payoff.</b> Spend without a cap or an outcome attached can grow fast.</div></li><li><span class="n">04</span><div><b>Report against outcomes.</b> Tie results back to the revenue, cost or risk goals you set before the project started.</div></li></ol>
+<div class="duo">
+  <div class="duo-card"><p class="eyebrow">Budget by outcome</p><span class="num">£8,500</span><p>One company we heard about let an employee spend about 8,500 British pounds in AI usage in a week without concern, because that person had cut a <b>90-day process down to eight days</b>.</p></div>
+  <div class="duo-card"><p class="eyebrow">Cap where there’s no payoff</p><span class="num">$50,000</span><p>Another team got a $50,000 bill after a few developers moved all their coding work into the company’s AI tool <b>without any usage caps</b>.</p></div>
+</div>
+<figure class="quote quote-big">
+  <blockquote>“Everybody got a login, and where are my results?”</blockquote>
+  <figcaption><img class="av" src="speakers/11.jpg" alt="Eryn Peters"><span class="q-who"><b>Eryn Peters</b><span>Co-founder, AI Maturity Index</span><span class="q-note">On where most companies are stuck today</span></span></figcaption>
+</figure>
+<aside class="try">
+  <div class="try-head"><svg class="ico try-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg><p class="eyebrow">Try this with your team</p></div>
+  <div class="try-body"><p>Talk to your middle managers. Ask what they believe the company is trying to do with AI and what their teams think they’re allowed to do.</p>
+<p>Don’t correct them; just listen, and use what you hear to decide what to communicate next.</p></div>
+</aside>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>15</span></footer></section>
+<section class="page ">
+<p class="eyebrow">Beyond the five gaps</p>
+<h2>Choosing an outside AI partner</h2>
+<p class="lead">Start with a trusted advisor who can help you decide what to build, buy or hire, then choose partners on proof of results over the polish of their pitch.</p>
+<p>Most companies need some outside expertise for AI, and it’s getting harder to judge. AI makes it easy to produce an impressive proposal, so a polished deck tells you less than it used to. Good partners fail too when the scope is vague and the client expects AI to solve everything. Size isn’t the test either. Smaller specialists can tailor their work closely to your needs, and more of them now price by results instead of hours.</p>
+<figure class="quote quote-big">
+  <blockquote>“How many of you could, based on your love of eating, hire a good chef? Probably not. It’s the same thing with AI.”</blockquote>
+  <figcaption><img class="av" src="speakers/08.jpg" alt="Stephen Salaka"><span class="q-who"><b>Stephen Salaka</b><span>AI Enablement Manager, HII Mission Technologies</span></span></figcaption>
+</figure>
+<h3>Before you sign with an AI partner</h3>
+<ul class="checks checks-2">
+<li>Learn enough yourself to know what to ask, or bring in a fractional advisor who does</li>
+<li>Talk to references who hired them for something similar</li>
+<li>Ask them to walk you through your specific problem live</li>
+<li>Write a detailed scope of work with clear outcomes</li>
+<li>Consider a small paid trial with a defined result before a larger contract</li>
+<li>Agree on how your team will learn from the work, so you aren’t dependent on them for every change</li>
+</ul>
+<figure class="quote">
+  <blockquote>“You can’t prompt fast enough to talk to me and walk me through and show me confidently that you know what you’re doing.”</blockquote>
+  <figcaption><img class="av" src="speakers/05.jpg" alt="Kelly Blackmon"><span class="q-who"><b>Kelly Blackmon</b><span>Founder, B.E. Consulting</span></span></figcaption>
+</figure>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>16</span></footer></section>
+<section class="page checklist-page">
+<a id="first-30"></a>
+<p class="eyebrow">Checklist</p>
+<h2>Your first 30 days</h2>
+<p class="lead">You don’t need to fix all five gaps at once. Pick the ones that sound most like your company and start here.</p>
+<div class="cl"><div class="cl-group"><p class="cl-h"><span class="n">01</span>Define the problem and the payoff</p><ul><li><span class="box"></span>Fill in a one-page brief for your next AI pilot before it starts</li><li><span class="box"></span>List your current AI initiatives, close the ones that aren’t working and double down on the ones that are</li></ul></div><div class="cl-group"><p class="cl-h"><span class="n">02</span>Make one person accountable</p><ul><li><span class="box"></span>Name the person who owns AI at your company, or decide who it should be</li><li><span class="box"></span>Pick one approved tool and publish a short, good-enough policy now instead of waiting for a perfect one</li></ul></div><div class="cl-group"><p class="cl-h"><span class="n">03</span>Put experts in charge of checking the work</p><ul><li><span class="box"></span>Sort your AI uses by stakes and name an expert reviewer for every high-stakes one</li><li><span class="box"></span>Look at who builds and tests your AI, and widen that group where it’s narrow</li></ul></div><div class="cl-group"><p class="cl-h"><span class="n">04</span>Hire for the work</p><ul><li><span class="box"></span>Question one requirement on an open role, then review five people you’d have screened out before</li><li><span class="box"></span>Make sure a person reviews candidates’ skills before automated filters reject them</li><li><span class="box"></span>Look through your internal channels for people already posting about AI, and ask what they’re working on</li></ul></div><div class="cl-group"><p class="cl-h"><span class="n">05</span>Build habits that last</p><ul><li><span class="box"></span>Use AI more yourself, and share real examples with your team</li><li><span class="box"></span>Start a regular show-and-tell where people share what they’re doing with AI</li><li><span class="box"></span>Ask your middle managers what they think the company is doing with AI, and listen without correcting</li></ul></div></div>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>17</span></footer></section>
+<section class="page contrib">
+<p class="eyebrow">Contributors</p>
+<h2>The people behind this guide</h2>
+<p class="lead">This guide draws on advice from the speakers at the PowerToFly AI Summit on October 14, 2026.</p>
+<div class="people"><div class="person"><img class="pav" src="speakers/09.jpg" alt="Elena Agaragimova"><div><a href="https://www.linkedin.com/in/elenaagaragimova/"><b>Elena Agaragimova</b></a><span>Head of People, Horizon Industries</span></div></div><div class="person"><img class="pav" src="speakers/10.jpg" alt="Milena Berry"><div><a href="https://www.linkedin.com/in/milena-berry-she-her-66a4322/"><b>Milena Berry</b></a><span>Co-founder and CEO, PowerToFly AI</span></div></div><div class="person"><img class="pav" src="speakers/05.jpg" alt="Kelly Blackmon"><div><a href="https://www.linkedin.com/in/cultureeq/"><b>Kelly Blackmon</b></a><span>Founder, B.E. Consulting</span></div></div><div class="person"><img class="pav" src="speakers/12.jpg" alt="Mara Gates"><div><a href="https://www.linkedin.com/in/maragates/"><b>Mara Gates</b></a><span>Director of Content Marketing, PowerToFly AI</span></div></div><div class="person"><img class="pav" src="speakers/03.jpg" alt="Aniya Grimm"><div><a href="https://www.linkedin.com/in/aniya-grimm/"><b>Aniya Grimm</b></a><span>Head of Talent Success, Amplitude</span></div></div><div class="person"><img class="pav" src="speakers/02.jpg" alt="Fran Griffin"><div><a href="https://www.linkedin.com/in/fran-griffin-6089b911/"><b>Fran Griffin</b></a><span>Talent Acquisition Manager, PowerToFly AI</span></div></div><div class="person"><img class="pav" src="speakers/01.jpg" alt="Jennyn Herrera"><div><a href="https://www.linkedin.com/in/jennyn-herrera/"><b>Jennyn Herrera</b></a><span>Head of Talent Acquisition, Biola University</span></div></div><div class="person"><img class="pav" src="speakers/07.jpg" alt="Katy Peichert"><div><a href="https://www.linkedin.com/in/katarzynapeichert/"><b>Katy Peichert</b></a><span>CEO, KatGPT, and EMEA and LATAM Talent Partner, Front</span></div></div><div class="person"><img class="pav" src="speakers/11.jpg" alt="Eryn Peters"><div><a href="https://www.linkedin.com/in/eryn-peters-9182a532/"><b>Eryn Peters</b></a><span>Co-founder, AI Maturity Index, and Founder, Startup Consortium</span></div></div><div class="person"><img class="pav" src="speakers/08.jpg" alt="Stephen Salaka"><div><a href="https://www.linkedin.com/in/ssalaka/"><b>Stephen Salaka</b></a><span>AI Enablement Manager, HII Mission Technologies</span></div></div><div class="person"><img class="pav" src="speakers/06.jpg" alt="Shawntay Skjoldager"><div><a href="https://www.linkedin.com/in/shawntayskjoldager/"><b>Shawntay Skjoldager</b></a><span>COO and Integrator, ThinkHuman</span></div></div><div class="person"><img class="pav" src="speakers/04.jpg" alt="Ken Sterling"><div><a href="https://www.linkedin.com/in/kensterling/"><b>Ken Sterling</b></a><span>AI, tech and media attorney, Sterling Media Law; general counsel, Opus Intelligence Labs</span></div></div></div>
+<p class="mods">Moderated by Meg Alexander and Rob Ribar of PowerToFly AI and Hunter Lee Canning, co-founder of Plumwheel.</p>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>18</span></footer></section>
+<section class="page has-cta">
+<p class="eyebrow">How we help</p>
+<h2>Where PowerToFly AI can help</h2>
+<p class="lead">Every gap in this guide comes back to the same through line: you need people who know the work well enough to make AI useful and catch it when it’s wrong.</p>
+<p>PowerToFly AI helps companies hire those people and train your models, drawing on a community of 1.1M members.</p>
+<div class="ptf-stats">
+  <div><span class="num">1.1M</span><span>community members</span></div>
+  <div><span class="num">380K+</span><span>verified experts</span></div>
+  <div><span class="num">65K+</span><span>AI specialists</span></div>
+</div>
+<h3>Watch the full conversations</h3>
+<p>This guide covers what to do. For the stories behind it, from a 140-year-old shipbuilder rolling out AI to more than 8,000 people to recruiters comparing notes on the interview questions that show judgment, watch the three conversations from the PowerToFly AI Summit.</p>
+<div class="talks"><a class="talk" href="https://powertofly.com/events/details/2562936-from-data-to-deployment-why-the-humans-behind-your-model-determine-its-roi/"><svg class="ico talk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg><p class="eyebrow">Watch the recording</p><p class="talk-t">From Data to Deployment: Why the Humans Behind Your Model Determine Its ROI</p></a><a class="talk" href="https://powertofly.com/events/details/2562947-the-hiring-gap-why-most-companies-are-looking-for-ai-talent-in-all-the-wrong-places/"><svg class="ico talk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg><p class="eyebrow">Watch the recording</p><p class="talk-t">The Hiring Gap: Why Most Companies Are Looking for AI Talent in All the Wrong Places</p></a><a class="talk" href="https://powertofly.com/events/details/2563218-beyond-the-pilot-how-to-lead-an-ai-transformation-that-sticks/"><svg class="ico talk-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg><p class="eyebrow">Watch the recording</p><p class="talk-t">Beyond the Pilot: How to Lead an AI Transformation That Sticks</p></a></div>
+<a class="cta-bar" href="https://9hsekcro98q.typeform.com/to/GjkXRqdT">
+  <div><p class="eyebrow">If hiring is where you’re stuck</p><p class="cta-t">Why aren’t the right AI candidates finding you?</p></div>
+  <span class="pill">Take the quiz <svg class="ico pill-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg></span>
+</a>
+<footer class="pfoot"><span>Who makes AI work? · A PowerToFly AI guide</span><span>19</span></footer></section><script>
+(function(){function fit(){var w=document.documentElement.clientWidth-32,z=Math.min(1,w/816);
+document.querySelectorAll('.page').forEach(function(p){p.style.zoom=z;});}
+fit();window.addEventListener('resize',fit);})();
+</script></body></html>
