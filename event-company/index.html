@@ -15,7 +15,7 @@
   (2) step 5 supports up to 3 questions for the company; (3) resume required on ALL widths
   (so there is no separate mobile file — one responsive page); (4) step 4 = our custom
   questions for the candidate; (5) required phone on step 5; (6) "Other" + free text in area of experience.
-  Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 our custom questions · 5 phone + questions + more events · 6 thanks (+ add to calendar).
+  Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 our custom questions · 5 phone + questions + agreement · 6 thanks (+ add to calendar).
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -199,33 +199,39 @@
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By continuing you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
         </div>
-        <!-- Step 4 — OUR custom questions for the candidate (COPY: replace sample questions per event).
-             Choice questions = .id-chips[data-single] (one answer); required ones carry .req. -->
+        <!-- Step 4 — our questions for the candidate. Choice questions = .id-chips[data-single] (one answer);
+             required ones carry .req + data-required. -->
         <div class="flow-step" data-step="4" hidden>
           <div class="step-indicator">Step 3 of 4</div>
           <h1 class="auth-heading">A few questions for you</h1>
           <p class="auth-sub">Your answers help the recruiters prepare for your conversation.</p><!-- COPY: confirm -->
           <form class="auth-form" onsubmit="return validateStep4()" novalidate>
-            <div class="id-section q-group cq" data-required>
-              <div class="q-label">Are you legally authorized to work in the United States? <span class="req">*</span></div><!-- COPY: sample question -->
-              <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
-            </div>
-            <div class="id-section q-group cq" data-required>
-              <div class="q-label">Will you now or in the future need visa sponsorship? <span class="req">*</span></div><!-- COPY: sample question -->
-              <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
-            </div>
-            <div class="id-section q-group cq" data-required>
-              <div class="q-label">Years of professional experience <span class="req">*</span></div><!-- COPY: sample question -->
-              <div class="id-chips" data-single><button type="button" class="id-chip">0–2</button><button type="button" class="id-chip">3–5</button><button type="button" class="id-chip">6–10</button><button type="button" class="id-chip">10+</button></div>
+            <!-- Questions + order + required/optional mirror the live Meet with Companies form approved in
+                 #product-requests-and-discussions (Oct 9). Rows marked "per event?" are pending confirmation. -->
+            <div class="id-section q-group cq">
+              <div class="q-label">Years of experience <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+              <div class="id-chips" data-single><button type="button" class="id-chip">Less than 2 years</button><button type="button" class="id-chip">2–5 years</button><button type="button" class="id-chip">5–10 years</button><button type="button" class="id-chip">10+ years</button></div>
             </div>
             <div class="field">
-              <label>Which roles at Visa interest you most? <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label><!-- COPY: sample question -->
-              <textarea placeholder="e.g. Senior backend engineer, payments platform"></textarea>
+              <label>Company <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
+              <input type="text" id="cqCompany" autocomplete="organization" placeholder="Where you work now">
+            </div>
+            <div class="field">
+              <label>Job title <span class="req">*</span></label>
+              <input type="text" id="cqJobTitle" autocomplete="organization-title" placeholder="e.g. Senior software engineer" oninput="clearError(this.closest('.field'))">
+            </div>
+            <div class="id-section q-group cq" data-required><!-- per event? -->
+              <div class="q-label">Are you interested in learning about open roles with our partner? <span class="req">*</span></div>
+              <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
+            </div>
+            <div class="id-section q-group cq" data-required><!-- per event? -->
+              <div class="q-label">If considering new opportunities, what is your timeline? <span class="req">*</span></div>
+              <div class="id-chips" data-single><button type="button" class="id-chip">Now</button><button type="button" class="id-chip">Within 3 months</button><button type="button" class="id-chip">Within 6 months</button><button type="button" class="id-chip">Eventually</button><button type="button" class="id-chip">I'm not interested in open opportunities at this time</button></div>
             </div>
             <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
           </form>
         </div>
-        <!-- Step 5 — phone + questions for the company + register for more events + agreement -->
+        <!-- Step 5 — phone + questions for the company + agreement (no "register for more events" on Meet with Companies) -->
         <div class="flow-step" data-step="5" hidden>
           <div class="step-indicator">Step 4 of 4</div>
           <h1 class="auth-heading">A couple last things</h1>
@@ -252,13 +258,6 @@
               <label>Questions for the company <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
               <textarea placeholder="e.g. What does the team structure look like?"></textarea>
               <button type="button" class="btn btn-sm" id="addQuestionBtn" onclick="addQuestion()" style="margin-top:10px;align-self:flex-start">+ Add another question</button>
-            </div>
-            <div class="q-group" style="margin:6px 0 0">
-              <div class="q-label">Register for more events <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
-              <div class="event-list">
-                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">AI talent showcase</span><span class="event-opt-date">Oct 8, 2026 · Virtual</span></span></label>
-                <label class="check-row event-opt"><input type="checkbox" class="check-box" checked><span><span class="event-opt-title">Summit: scaling AI teams</span><span class="event-opt-date">Nov 12, 2026 · Virtual</span></span></label>
-              </div>
             </div>
             <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox"><span>I accept the event <a href="#">waiver</a> and code of conduct, and agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label>
             <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(4)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
@@ -421,6 +420,8 @@
       clearError(q);
       if (!q.querySelector('.id-chip.selected')) { setError(q); ok = false; first = first || q; }
     });
+    var jt = document.getElementById('cqJobTitle');
+    if (jt.value.trim()) clearError(jt.closest('.field')); else { setError(jt.closest('.field')); ok = false; first = first || jt; }
     if (!ok) { shake(4); first.scrollIntoView({ block: 'center' }); return false; }
     return goToStep(5);
   }
