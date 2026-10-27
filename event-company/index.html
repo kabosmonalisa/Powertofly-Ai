@@ -12,8 +12,8 @@
   Duplicated from the Common Event flow (event-common/index.html) — same layout,
   components, interactions, validation and styling; shared ds/ptf.css + ds/ptf.js.
   DIFFERENCES vs common: (1) "Meet with the Company" eyebrow above the title;
-  (2) step 5 supports up to 3 questions for the company; (3) resume required on ALL widths
-  (so there is no separate mobile file — one responsive page); (4) step 4 = our custom
+  (2) step 5 supports up to 3 questions for the company; (3) LinkedIn required, resume optional
+  (uploading on a phone is hard — team decision Oct 22); one responsive page; (4) step 4 = our custom
   questions for the candidate; (5) required phone on step 5; (6) "Other" + free text in area of experience.
   Steps: 1 account · 2 resume + LinkedIn · 3 demographics · 4 our custom questions · 5 phone + questions + agreement · 6 thanks (+ add to calendar).
 -->
@@ -161,9 +161,9 @@
           <p class="auth-sub">Helps the company's recruiters get to know you before you meet.</p>
           <form class="auth-form" onsubmit="return validateStep2()" novalidate>
             <label class="upload-area">
-              <input type="file" accept=".pdf,.doc,.docx" required>
+              <input type="file" accept=".pdf,.doc,.docx">
               <div class="upload-icon">📄</div>
-              <p><strong>Click to upload</strong> your resume <span class="req">*</span></p>
+              <p><strong>Click to upload</strong> your resume <span style="font-weight:500;color:var(--ink-3)">(optional)</span></p>
               <p style="font-size:13px;color:var(--ink-3)">PDF, DOC, DOCX — max 5MB</p>
               <div class="upload-name"></div>
             </label>
@@ -206,28 +206,30 @@
           <h1 class="auth-heading">A few questions for you</h1>
           <p class="auth-sub">Your answers help the recruiters prepare for your conversation.</p><!-- COPY: confirm -->
           <form class="auth-form" onsubmit="return validateStep4()" novalidate>
-            <!-- Questions + order + required/optional mirror the live Meet with Companies form approved in
-                 #product-requests-and-discussions (Oct 9). Rows marked "per event?" are pending confirmation. -->
-            <div class="id-section q-group cq">
-              <div class="q-label">Years of experience <span style="font-weight:500;color:var(--ink-3)">(optional)</span></div>
+            <!-- STANDARD questions — same on every Meet with Companies event (agreed in
+                 #product-requests-and-discussions, Oct 22). All required. -->
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Years of experience <span class="req">*</span></div>
               <div class="id-chips" data-single><button type="button" class="id-chip">Less than 2 years</button><button type="button" class="id-chip">2–5 years</button><button type="button" class="id-chip">5–10 years</button><button type="button" class="id-chip">10+ years</button></div>
             </div>
             <div class="field">
-              <label>Company <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
-              <input type="text" id="cqCompany" autocomplete="organization" placeholder="Where you work now">
+              <label>Company <span class="req">*</span></label>
+              <input type="text" id="cqCompany" autocomplete="organization" placeholder="Where you work now" oninput="clearError(this.closest('.field'))">
             </div>
             <div class="field">
               <label>Job title <span class="req">*</span></label>
               <input type="text" id="cqJobTitle" autocomplete="organization-title" placeholder="e.g. Senior software engineer" oninput="clearError(this.closest('.field'))">
             </div>
-            <div class="id-section q-group cq" data-required><!-- per event? -->
+            <div class="id-section q-group cq" data-required>
               <div class="q-label">Are you interested in learning about open roles with our partner? <span class="req">*</span></div>
               <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
             </div>
-            <div class="id-section q-group cq" data-required><!-- per event? -->
+            <div class="id-section q-group cq" data-required>
               <div class="q-label">If considering new opportunities, what is your timeline? <span class="req">*</span></div>
               <div class="id-chips" data-single><button type="button" class="id-chip">Now</button><button type="button" class="id-chip">Within 3 months</button><button type="button" class="id-chip">Within 6 months</button><button type="button" class="id-chip">Eventually</button><button type="button" class="id-chip">I'm not interested in open opportunities at this time</button></div>
             </div>
+            <!-- EVENT-SPECIFIC questions (set per event by the events team) render here, AFTER the standard ones.
+                 Same components: .id-section.q-group.cq for choices, .field for text. -->
             <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
           </form>
         </div>
@@ -394,10 +396,8 @@
     return goToStep(2);
   }
   function validateStep2() {
-    var file = document.querySelector('[data-step="2"] input[type=file]');
     var li   = document.querySelector('[data-step="2"] input[type=url]');
     var ok = true, firstBad = null;
-    if (!file.files.length) { setError(file.closest('.upload-area'), 'Required'); ok = false; firstBad = firstBad || file; }
     if (!li.value.trim())   { setError(li.closest('.field'), 'Required'); ok = false; firstBad = firstBad || li; }
     if (!ok) { shake(2); firstBad.focus(); return false; }
     return goToStep(3);
@@ -420,8 +420,10 @@
       clearError(q);
       if (!q.querySelector('.id-chip.selected')) { setError(q); ok = false; first = first || q; }
     });
-    var jt = document.getElementById('cqJobTitle');
-    if (jt.value.trim()) clearError(jt.closest('.field')); else { setError(jt.closest('.field')); ok = false; first = first || jt; }
+    ['cqCompany', 'cqJobTitle'].forEach(function (id) {
+      var el = document.getElementById(id), f = el.closest('.field');
+      if (el.value.trim()) clearError(f); else { setError(f); ok = false; first = first || el; }
+    });
     if (!ok) { shake(4); first.scrollIntoView({ block: 'center' }); return false; }
     return goToStep(5);
   }
