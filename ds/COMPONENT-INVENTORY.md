@@ -125,7 +125,6 @@ Color: `--ink --ink-2 --ink-3 --bg --surface --surface-2 --line --line-2 --accen
 
 ## Promote candidates — named here so they stop being re-invented
 These are page-own today but appear on more than one page, which by our own audit rule means the system is missing them. Decide them before the next page needs one.
-- **Talent card** (`.tal-card`, `.tal-card-photo/-ref/-name/-role/-sum/-meta`, `.tal-rate`, `.tal-grid`) — on `browse-talent/index.html`, `browse-talent/index-v2.html` and `talent-network/cohort.html`. Third copy. The `--anon` variant (no name, a reference instead) is the Talent Network's.
 - **Shortlist rail** (`.tal-rail`, `.rail-head/-badge/-row/-thumb/-text/-name/-role/-x`, `.tn-shortlist` as its narrow-screen bar) — the multi-select-then-act pattern. The system still has none.
 
 ## Allowed page-specific CSS (the ONLY exceptions)
@@ -212,6 +211,28 @@ The wall of faces for an event with MANY speakers: headshot, name, role, **no bi
     <p class="speaker-name">Name</p>
     <p class="speaker-role">Title, Company</p>
   </div>
+</div>
+```
+
+## Talent card (`.tal-card`, `.tal-grid`)
+A person as a card: photo, name, role, optional summary, chips, and a meta row. The whole card is normally one link. Promoted to `ds/ptf.css` 2026-11-09 from `browse-talent/index-photos.html`, values unchanged.
+
+Parts: `.tal-grid` (auto-fill, 240px minimum, one column ≤460px) · `.tal-grid-compact` (add it for 200px minimum, five across inside `.section-narrow`) · `.tal-card` (`.is-hidden` hides it) · `.tal-card-photo` (photo via inline `background-image`) · `.tal-card-photo--initials` (no photo yet: holds an `.avatar.avatar-lg`, never a stand-in face) · `.tal-card-body` · `.tal-card-name` · `.tal-card-role` · `.tal-card-sum` (optional) · `.sc-titles` > `.sc-title-chip` · `.tal-card-meta` (`.dot-sep`, `.tal-rate`).
+
+❗ Change the card in `ds/ptf.css`, never on a page. Pages keep only their real differences: `talent-network/cohort.html` (wider grid, `--anon` variant, `.tal-card-ref`, `.tal-card-trust`), `browse-talent/profile.html` ("similar experts" sizing), and the non-clickable Browse talent versions. A card with no `.tal-card-sum` needs `.tal-card .sc-titles { margin-top: 12px; }` on the page. Live example: `claude-certified/index.html`.
+
+```html
+<div class="tal-grid">
+  <a class="tal-card" href="…">
+    <div class="tal-card-photo" style="background-image:url('…')"></div>
+    <div class="tal-card-body">
+      <div class="tal-card-name">Name</div>
+      <div class="tal-card-role">Role</div>
+      <div class="tal-card-sum">One short summary.</div>
+      <div class="sc-titles"><span class="sc-title-chip">Skill</span></div>
+      <div class="tal-card-meta">Meta line</div>
+    </div>
+  </a>
 </div>
 ```
 

@@ -18,11 +18,9 @@
   · closer       → .section-cta
 
   ⚠️ PAGE-OWN, ON PURPOSE — two things the design system does not have yet:
-  1. .tal-card — the talent card, copied from browse-talent/index.html. This is
-     now its SECOND page, which by our own audit rule makes it a promote-to-
-     system candidate, not a page style. The .tal-card--anon modifier (no photo,
+  1. .tal-card lives in ds/ptf.css. The .tal-card--anon modifier (no photo,
      a reference instead of a name) is the anonymized variant the Talent Network
-     needs. Cards now show first name + last initial (2026-09-14 copy handoff),
+     needs, and stays on this page. Cards now show first name + last initial (2026-09-14 copy handoff),
      not an AP-0xx code. Decide both before final UI.
   2. .tn-shortlist — the sticky "3 selected → request introductions" bar. The
      system has no multi-select-then-act pattern at all.
@@ -41,8 +39,8 @@
 <style>
 /*
  * PAGE-SPECIFIC ONLY — tokens, never raw hex (COMPONENT-INVENTORY "Allowed page-specific CSS").
- * See the ⚠️ note in the head comment: .tal-card and .tn-shortlist are flagged
- * promote-to-system candidates, not permanent page styles.
+ * See the ⚠️ note in the head comment: .tn-shortlist is a flagged promote-to-system
+ * candidate, not a permanent page style.
  */
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .site-header .nav { position: static; }
@@ -62,37 +60,16 @@
 .cohort-meta { margin-top: 10px; font-size: 14px; line-height: 1.5; color: var(--ink-3); }
 .cohort-meta strong { color: var(--ink); font-weight: 600; }
 
-/* ── Talent card — COPIED VERBATIM from browse-talent/index.html (second copy → promote) ── */
+/* ── Talent card: base styles are in ds/ptf.css. Only this page's differences follow. ── */
 .tal-col { min-width: 0; }
 .tal-count { font-size: 13px; color: var(--ink-3); margin: 0; white-space: nowrap; }
 .tal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 @media (max-width: 460px) { .tal-grid { grid-template-columns: 1fr; } }
-.tal-card {
-  display: flex; flex-direction: column; text-decoration: none; color: var(--ink);
-  background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden;
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
-}
-.tal-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
-.tal-card.is-hidden { display: none; }
-.tal-card-body { padding: 16px 16px 15px; display: flex; flex-direction: column; flex: 1; }
-.tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
-.tal-card-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
 /* "How we know them" — Iuliia's signal. Calibre you can check without a name:
    we have spoken to this person and their rate is confirmed. Same line, same
    words, on the public page. */
 .tal-card-trust { margin-top: 10px; font-size: 12px; font-weight: 600; color: var(--accent); }
-.tal-card-sum { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 11px 0 13px; }
-.tal-card .sc-titles { margin-bottom: 14px; }
-.tal-card-meta {
-  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
-  margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line);
-  font-size: 12px; color: var(--ink-3);
-}
-.tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
-.tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
 
-/* Photo — copied VERBATIM from browse-talent/index.html (.tal-card-photo). */
-.tal-card-photo { position: relative; aspect-ratio: 5 / 4; background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
 
 /* ── The selectable variant: the whole card is the control (a <label> wrapping the
       shared .check-box). The tick sits over the photo, on a white disc so it reads

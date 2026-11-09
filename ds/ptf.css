@@ -1991,6 +1991,34 @@ img { display: block; max-width: 100%; }
   .modal-foot { padding: 16px 22px 20px; }
 }
 
+/* ===== Talent card (.tal-grid / .tal-card) =====
+ * Photo, name, role, optional summary, chips and a meta row. Promoted from
+ * browse-talent/index-photos.html (values unchanged). See COMPONENT-INVENTORY.md. */
+.tal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.tal-grid-compact { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }  /* five across inside .section-narrow */
+@media (max-width: 460px) { .tal-grid, .tal-grid-compact { grid-template-columns: 1fr; } }
+.tal-card {
+  display: flex; flex-direction: column; text-decoration: none; color: var(--ink);
+  background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden;
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.tal-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,0.10); }  /* the shared clickable-card language */
+.tal-card.is-hidden { display: none; }
+.tal-card-photo { position: relative; aspect-ratio: 5 / 4; background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
+.tal-card-photo--initials { display: flex; align-items: center; justify-content: center; }  /* no real photo yet: an .avatar, never a stand-in face */
+.tal-card-body { padding: 16px 16px 15px; display: flex; flex-direction: column; flex: 1; }
+.tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; }
+.tal-card-role { font-size: 12.5px; color: var(--ink-3); margin-top: 2px; }
+.tal-card-sum { font-size: 13px; line-height: 1.5; color: var(--ink-2); margin: 11px 0 13px; }
+.tal-card .sc-titles { margin-bottom: 14px; }
+.tal-card-meta {
+  display: flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  margin-top: auto; padding-top: 13px; border-top: 1px solid var(--line);
+  font-size: 12px; color: var(--ink-3);
+}
+.tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
+.tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
+
 /* ===== Readability floor (2026-09-29) =====
  * Feedback from Mara + Kristina: reading text was too small on a 14" laptop, and section
  * headings / big stats too large next to it. Floor for anything you READ is 16px (captions,

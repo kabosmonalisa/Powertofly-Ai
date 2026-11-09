@@ -16,7 +16,7 @@
 /*
  * PAGE-SPECIFIC — tokens only. New blocks (promote-to-system candidates, shared with index.html):
  *   .prof-*  — the talent profile header + "what I can help with" + experience list
- *   .tal-card — reused from browse-talent/index.html for "similar experts" (2nd use → promote)
+ *   .tal-card — lives in ds/ptf.css; only this page's "similar experts" differences stay here
  */
 .site-header { position: fixed; top: 0; left: 0; right: 0; z-index: 200; }
 .site-header .nav { position: static; }
@@ -65,17 +65,12 @@
 .tal-grid { max-width: var(--content-body); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 @media (max-width: 940px) { .tal-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 600px) { .tal-grid { grid-template-columns: 1fr; } }
-.tal-card { display: flex; flex-direction: column; text-decoration: none; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-xl); overflow: hidden; transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
 /* hover = the shared clickable-card language (matches .ev-row / .up-card in ptf.css): lift, border → transparent, soft shadow */
-.tal-card:hover { transform: translateY(-3px); border-color: transparent; box-shadow: 0 16px 40px rgba(0,0,0,0.10); }
-.tal-card-photo { position: relative; aspect-ratio: 5 / 4; background-size: cover; background-position: center 22%; background-color: var(--surface-2); }
 .tal-card-body { padding: 18px 18px 16px; display: flex; flex-direction: column; flex: 1; }
 .tal-card-name { font-family: 'Inter Tight', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
 .tal-card-role { font-size: 13px; color: var(--ink-3); margin-top: 2px; }
 .tal-card-sum { font-size: 13.5px; line-height: 1.5; color: var(--ink-2); margin: 12px 0 14px; }
 .tal-card-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); font-size: 12.5px; color: var(--ink-3); }
-.tal-card-meta .dot-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); opacity: .5; }
-.tal-card-meta .tal-rate { color: var(--ink); font-weight: 600; margin-left: auto; }
 .tal-card-more { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--accent); }
 
 @media (max-width: 900px) {
