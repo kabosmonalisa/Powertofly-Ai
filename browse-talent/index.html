@@ -302,6 +302,13 @@
   </div>
 </section>
 
+</main>
+
+<!-- The footer was missing entirely: <main> was never closed and the page carried no
+     footer mount, so it ended on the brief form. Both are the shared pattern
+     (profile.html / cohort.html) — injected, never hand-built. -->
+<div data-ptf-footer></div>
+
 <script src="../ds/ptf.js"></script>
 <script>
 /* ── Sync body padding to fixed header height ── */
