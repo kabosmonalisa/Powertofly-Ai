@@ -236,6 +236,11 @@ Parts: `.tal-grid` (auto-fill, 240px minimum, one column ≤460px) · `.tal-grid
 </div>
 ```
 
+## Talent profile page (`.prof-*`)
+The page a `.tal-card` opens to: portrait + identity header, about, what they can help with, experience. Promoted to `ds/ptf.css` 2026-11-09 from `browse-talent/profile.html`, values unchanged.
+
+Parts: `.prof-back-wrap` > `.prof-back` · `.prof-hero` > `.prof-hero-inner` (`.prof-photo` + `.prof-id`) · `.prof-id-avail` · `.prof-role` · `.prof-meta` (`.dot-sep`) · `.prof-rate` · `.prof-actions` · `.prof-body` · `.prof-do` · `.prof-exp` > `.prof-exp-row` (`.prof-exp-role`, `.prof-exp-co`, `.prof-exp-when`). Live examples: `browse-talent/profile.html`, `claude-certified/elizabeth-grillo.html`.
+
 ## Speaker bio card (`.cl-speaker`)
 A photo beside name / role / bio, stacked in a `.cl-speakers` column. 96px round photo (`--r-pill`, `--surface-2` placeholder), 20px/700 name, 14px `--ink-3` role, 15px `--ink-2` bio; drops to a 72px photo under 700px. Promoted from identical copies on Chat & Learn and Meet with companies. Part of the Event-detail recipe (see that Page Recipe) — use it for 'meet the speakers', never rebuild it on the page.
 
