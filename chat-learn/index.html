@@ -88,8 +88,16 @@
 .ev-hero-cap-org { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
 .ev-hero-cap-org.is-name { text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--ink); }
 /* two or more speakers: the stack keeps the names on one line, so they get no role line */
-.ev-hero-cap .event-host-name { font-size: 15px; }
-.ev-hero-cap .event-host { margin-bottom: 0; }
+.ev-hero-cap .event-host-name { font-size: 17px; }
+.ev-hero-cap .event-host-role { font-size: 14px; }
+.ev-hero-cap .event-host { margin-bottom: 0; gap: 16px; }
+/* Bigger faces in the hero ONLY: the shared .ev-faces disc is 32px, sized for listing rows.
+   On the photo the speakers are the draw, so they get 56px here; the overlap and +N disc
+   scale with them. Size only, scoped to this caption, so listing rows elsewhere keep 32px. */
+.ev-hero-cap .ev-faces img,
+.ev-hero-cap .ev-faces-count { width: 56px; height: 56px; margin-left: -16px; border-width: 3px; }
+.ev-hero-cap .ev-faces img:first-child { margin-left: 0; }
+.ev-hero-cap .ev-faces-count { font-size: 14px; }
 .ev-hero-meta { display: grid; grid-template-columns: repeat(2, max-content); gap: 15px 40px; margin: 26px 0 0; }
 .ev-fact { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-2); line-height: 1.4; }
 .ev-fact svg { width: 18px; height: 18px; flex: none; fill: var(--ink-3); }
@@ -461,7 +469,7 @@
     window.renderSpeakers = function (count) {
       var list = SPEAKERS.slice(0, count);
       var faces = list.slice(0, MAX_FACES).map(function (s) {
-        return '<img src="https://i.pravatar.cc/64?img=' + s.face + '" alt="" loading="lazy">';
+        return '<img src="https://i.pravatar.cc/128?img=' + s.face + '" alt="" loading="lazy">';
       }).join('');
       if (list.length > MAX_FACES) faces += '<span class="ev-faces-count">+' + (list.length - MAX_FACES) + '</span>';
       box.innerHTML =
