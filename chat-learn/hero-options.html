@@ -167,6 +167,15 @@
 .xp-opt .ev-hero { padding-top: 32px; }
 .xp-opt + .xp-opt { border-top: 1px solid rgba(10,10,10,0.08); }
 
+.xp-opt { display: none; } .xp-opt.on { display: block; }
+.xp-opt .ev-hero { padding-top: var(--section-y); }
+#devBar { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 9999; display: flex; align-items: center; gap: 6px;
+  background: #0A0A0A; padding: 8px 10px; border-radius: 14px; box-shadow: 0 12px 34px rgba(0,0,0,.34); font-family: 'Inter', sans-serif; max-width: calc(100vw - 24px); overflow-x: auto; }
+#devBar .dv-l { color: #8a8a8a; font-size: 10px; font-weight: 700; letter-spacing: .12em; padding: 0 8px 0 4px; }
+#devBar .dv-sep { width: 1px; align-self: stretch; background: #2a2a2a; margin: 0 4px; }
+#devBar button { all: unset; cursor: pointer; color: #fff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 9px; }
+#devBar button:hover { background: rgba(255,255,255,0.12); }
+#devBar button.active, #devBar button.active:hover { background: #fff; color: #0A0A0A; }
 /* B — the speakers ARE the image */
 .vB-panels { position: absolute; inset: 0; display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 3px; background: var(--ink); }
 .vB-panel { position: relative; overflow: hidden; }
@@ -224,16 +233,65 @@
 <body>
 <!-- EXPLORATION — five ways to make the speakers the first thing you see in the Chat & Learn
      hero WITHOUT putting the Google Slides cover in (which repeats the title + facts). -->
-<header class="xp-top">
-  <div class="eyebrow">Exploration · Chat &amp; Learn hero</div>
-  <h1>Five ways to put the speakers up front</h1>
-  <p>Each option keeps the title, date and buttons as real text, and none of them puts the Slides cover image in the hero (that would show the title and details twice). Use the switch to see each one with 1, 2 or 3 speakers.</p>
-</header>
-<nav class="xp-bar"><span>Jump to</span><a href="#opt-A">A</a><a href="#opt-B">B</a><a href="#opt-C">C</a><a href="#opt-D">D</a><a href="#opt-E">E</a><i class="xp-sep"></i><span>Speakers</span>
-  <button data-n="1">1</button><button data-n="2">2</button><button data-n="3" class="on">3</button></nav>
+<div id="devBar">
+  <span class="dv-l">OPTION</span><button type="button" data-opt="D">D</button><button type="button" data-opt="B">B</button><button type="button" data-opt="A">A</button>
+  <span class="dv-sep"></span>
+  <span class="dv-l">SPEAKERS</span><button type="button" data-n="1">1</button><button type="button" data-n="2">2</button><button type="button" data-n="3">3</button>
+</div>
 
-<section class="xp-opt" id="opt-A">
-  <div class="xp-label"><div class="xp-letter">A</div><h2>Where we are now</h2><p class="xp-what">Stock photo, dark overlay, 80px faces on it.</p><p class="xp-take">What we agreed, with bigger faces. Lowest effort per event. The speakers are visible, but the photo is still the main thing.</p></div>
+<section class="xp-opt" id="opt-D" data-opt="D">
+  <section class="ev-hero"><div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow">Chat &amp; Learn</div>
+      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
+      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
+
+      <div class="ev-hero-meta">
+        
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
+        <a class="btn" href="#">Meet the speaker</a>
+      </div>
+    </div>
+
+    
+    <div class="ev-hero-media vD theme-dark"><div class="vD-top"><span class="ev-hero-cap-org">Chat &amp; Learn · hosted by</span><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div>
+   <div class="vD-people" data-v="D"></div></div>
+  </div></section>
+</section>
+<section class="xp-opt" id="opt-B" data-opt="B">
+  <section class="ev-hero"><div class="ev-hero-inner">
+    <div class="ev-hero-text">
+      <div class="eyebrow">Chat &amp; Learn</div>
+      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
+      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
+
+      <div class="ev-hero-meta">
+        
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
+        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
+      </div>
+
+      <div class="ev-hero-ctas">
+        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
+        <a class="btn" href="#">Meet the speaker</a>
+      </div>
+    </div>
+
+    
+    <div class="ev-hero-media vB"><div class="vB-panels" data-v="B"></div>
+   <div class="vB-host"><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div></div>
+  </div></section>
+</section>
+<section class="xp-opt" id="opt-A" data-opt="A">
   <section class="ev-hero"><div class="ev-hero-inner">
     <div class="ev-hero-text">
       <div class="eyebrow">Chat &amp; Learn</div>
@@ -261,114 +319,7 @@
      <div class="event-host" data-v="A"></div></div></div></div>
   </div></section>
 </section>
-<section class="xp-opt" id="opt-B">
-  <div class="xp-label"><div class="xp-letter">B</div><h2>The speakers are the image</h2><p class="xp-what">No stock photo. The 4:3 slot is split into one panel per speaker.</p><p class="xp-take">The closest thing to what Rob is asking for, and it doesn't repeat the title. All we need per event is a headshot per speaker, which we already ask for.</p></div>
-  <section class="ev-hero"><div class="ev-hero-inner">
-    <div class="ev-hero-text">
-      <div class="eyebrow">Chat &amp; Learn</div>
-      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
-      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
 
-      <div class="ev-hero-meta">
-        
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
-      </div>
-
-      <div class="ev-hero-ctas">
-        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
-        <a class="btn" href="#">Meet the speaker</a>
-      </div>
-    </div>
-
-    
-    <div class="ev-hero-media vB"><div class="vB-panels" data-v="B"></div>
-   <div class="vB-host"><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div></div>
-  </div></section>
-</section>
-<section class="xp-opt" id="opt-C">
-  <div class="xp-label"><div class="xp-letter">C</div><h2>Stock photo + speaker cards</h2><p class="xp-what">Keep the stock photo, put light speaker cards on it.</p><p class="xp-take">Keeps what we agreed, but the speakers read as people, not avatars. With 3 speakers the cards get tight.</p></div>
-  <section class="ev-hero"><div class="ev-hero-inner">
-    <div class="ev-hero-text">
-      <div class="eyebrow">Chat &amp; Learn</div>
-      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
-      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
-
-      <div class="ev-hero-meta">
-        
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
-      </div>
-
-      <div class="ev-hero-ctas">
-        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
-        <a class="btn" href="#">Meet the speaker</a>
-      </div>
-    </div>
-
-    
-    <div class="ev-hero-media vC"><img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop" alt=""><div class="vC-shade"></div>
-   <div class="vC-host"><span class="ev-hero-cap-org">Hosted by</span><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div>
-   <div class="vC-cards" data-v="C"></div></div>
-  </div></section>
-</section>
-<section class="xp-opt" id="opt-D">
-  <div class="xp-label"><div class="xp-letter">D</div><h2>A cover built from data</h2><p class="xp-what">A dark PowerToFly panel with big portraits. It looks like the Slides cover, but the page builds it.</p><p class="xp-take">Gives Rob the "cover" feel with no designed image and no repeated title. Every Chat & Learn looks the same, which helps the brand but means less variety.</p></div>
-  <section class="ev-hero"><div class="ev-hero-inner">
-    <div class="ev-hero-text">
-      <div class="eyebrow">Chat &amp; Learn</div>
-      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
-      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
-
-      <div class="ev-hero-meta">
-        
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
-      </div>
-
-      <div class="ev-hero-ctas">
-        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
-        <a class="btn" href="#">Meet the speaker</a>
-      </div>
-    </div>
-
-    
-    <div class="ev-hero-media vD theme-dark"><div class="vD-top"><span class="ev-hero-cap-org">Chat &amp; Learn · hosted by</span><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div>
-   <div class="vD-people" data-v="D"></div></div>
-  </div></section>
-</section>
-<section class="xp-opt" id="opt-E">
-  <div class="xp-label"><div class="xp-letter">E</div><h2>Speakers in the text, photo stays clean</h2><p class="xp-what">The speakers move into the left column under the buttons. The photo has nothing on it.</p><p class="xp-take">The speakers sit right next to the "Register" button, where people are already looking. The trade-off: the photo goes back to being decoration.</p></div>
-  <section class="ev-hero"><div class="ev-hero-inner">
-    <div class="ev-hero-text">
-      <div class="eyebrow">Chat &amp; Learn</div>
-      <h1 class="display">Beyond the résumé: building human-first AI for <em class="italic-plain">fairer access to opportunity</em></h1>
-      <p class="ev-hero-sub">Ever feel like your résumé barely scratches the surface of what you can actually do?</p>
-
-      <div class="ev-hero-meta">
-        
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg>August 6, 2026</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>1:00 – 2:00 PM ET</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>Virtual</span>
-        <span class="ev-fact"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>Free to attend</span>
-      </div>
-
-      <div class="ev-hero-ctas">
-        <a class="btn btn-primary" href="#" rel="noopener">Register now →</a>
-        <a class="btn" href="#">Meet the speaker</a>
-      </div>
-    <div class="vE-line"><span>Speakers</span><div class="vE-people" data-v="E"></div></div></div>
-    <div class="ev-hero-media"><img src="https://images.pexels.com/photos/4226140/pexels-photo-4226140.jpeg?auto=compress&cs=tinysrgb&w=1600&h=1200&fit=crop" alt="">
-   <div class="ev-hero-cap theme-dark vE-cap"><div class="ev-hero-host"><span class="ev-hero-cap-org">Hosted by</span><div class="logo-cluster"><span class="logo-tile logo-tile--lg logo-tile--plate"><img src="../logos/zapier.png" alt="Zapier"></span></div></div></div></div>
-  </div></section>
-</section>
-<div style="height:80px"></div>
 <script>
 (function () {
   var P = 'hero-options/';
@@ -392,9 +343,15 @@
       el.innerHTML = R[el.dataset.v](l);
       el.classList.toggle('n3', n === 3);
     });
-    document.querySelectorAll('.xp-bar button').forEach(function (b) { b.classList.toggle('on', +b.dataset.n === n); });
+    document.querySelectorAll('#devBar [data-n]').forEach(function (b) { b.classList.toggle('active', +b.dataset.n === n); });
   }
-  document.querySelectorAll('.xp-bar button').forEach(function (b) { b.addEventListener('click', function () { render(+b.dataset.n); }); });
+  document.querySelectorAll('#devBar [data-n]').forEach(function (b) { b.addEventListener('click', function () { render(+b.dataset.n); }); });
+  function show(o) {
+    document.querySelectorAll('.xp-opt').forEach(function (s) { s.classList.toggle('on', s.dataset.opt === o); });
+    document.querySelectorAll('#devBar [data-opt]').forEach(function (b) { b.classList.toggle('active', b.dataset.opt === o); });
+  }
+  document.querySelectorAll('#devBar [data-opt]').forEach(function (b) { b.addEventListener('click', function () { show(b.dataset.opt); }); });
+  show('D');
   render(3);
 })();
 </script>
