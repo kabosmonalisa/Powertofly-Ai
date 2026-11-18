@@ -233,6 +233,7 @@ window.PTF = (function () {
               <div class="fly-eyebrow">Solutions</div>\
               <div class="emp-svc">\
                 <a class="emp-svc-item" href="../hire/"><span class="emp-svc-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one — full-time, contract,<br>or project.</span></span></a>\
+                <a class="emp-svc-item" href="../claude-certified/"><span class="emp-svc-tx"><span class="fly-title">Meet our experts</span><span class="fly-desc">Professionals certified by Anthropic to build with Claude.</span></span></a>\
                 <a class="emp-svc-item" href="../train/"><span class="emp-svc-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span></a>\
                 <a class="emp-svc-item" href="../job-board/"><span class="emp-svc-tx"><span class="fly-title">Job board</span><span class="fly-desc">Post jobs and find AI talent.</span></span></a>\
               </div>\
@@ -343,6 +344,7 @@ window.PTF = (function () {
     <div class="mega-inner">\
       <a class="fly-item" href="../employers/"><span class="login-tx"><span class="fly-title">For employers</span><span class="fly-desc">The home for teams hiring and deploying AI talent.</span></span></a>\
       <a class="fly-item" href="../hire/"><span class="login-tx"><span class="fly-title">Hire AI experts</span><span class="fly-desc">Qualified experts, ready from day one.</span></span></a>\
+      <a class="fly-item" href="../claude-certified/"><span class="login-tx"><span class="fly-title">Meet our experts</span><span class="fly-desc">Professionals certified by Anthropic to build with Claude.</span></span></a>\
       <a class="fly-item" href="../train/"><span class="login-tx"><span class="fly-title">Improve AI performance</span><span class="fly-desc">Model training, evaluation, red teaming, and QA.</span></span></a>\
       <a class="fly-item" href="../job-board/"><span class="login-tx"><span class="fly-title">Job board</span><span class="fly-desc">Post jobs and find AI talent.</span></span></a>\
     </div>\
@@ -352,7 +354,7 @@ window.PTF = (function () {
 <a class="nav-btn" data-nav="emp-resources" href="#">Resources</a>\
 <a class="nav-btn" data-nav="emp-about" href="../about/">About</a>';
         var DRAWER_TALENT = '<a href="#">Dashboard</a><a href="https://powertofly.com/jobs/">Jobs</a><a href="https://powertofly.com/browse-events">Events</a><a href="https://powertofly.com/up">Resources</a><a href="../about/">About</a>';
-        var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../train/">Improve AI performance</a><a href="#">Events</a><a href="#">Resources</a><a href="../about/">About</a>';
+        var DRAWER_EMPLOYER = '<a href="#">Dashboard</a><a href="../employers/">For employers</a><a href="../hire/">Hire AI experts</a><a href="../claude-certified/">Meet our experts</a><a href="../train/">Improve AI performance</a><a href="#">Events</a><a href="#">Resources</a><a href="../about/">About</a>';
         if (cta) cta.innerHTML = ctaHTML;
 
         var mode = mount.getAttribute('data-mode') || 'talent';
