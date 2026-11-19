@@ -15,7 +15,7 @@
   · request form        → real .auth-form / .field / .btn-auth (shared)
   · attendee takeaways  → .section-how / .how-inner / .steps (shared how-it-works layout)
   · "registered" badge  → shared .sc-ck green-circle check (shared)
-  · priority roles      → recommended-job cards (.mwc-job, page-specific — candidate component)
+  · priority roles      → shared .job-card in a 2-up grid
   · meet the speakers   → .cl-speaker bio layout (shared with chat-learn)
   · about PowerToFly     → .about-head + .about-stat-grid (shared with siblings)
   · closer              → .section-cta
@@ -132,21 +132,11 @@
 
 /* Agenda is the shared .agenda-* component (ds/ptf.css) — no page override needed. */
 
-/* ── PRIORITY ROLES → recommended-job cards (page-specific; no DS job-card component
-      exists yet — built from tokens, flagged as a candidate component). ── */
+/* ── PRIORITY ROLES → 2-up grid of shared .job-card ── */
 .mwc-jobs-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; max-width: var(--content-narrow); margin: 0 0 16px; }
 .mwc-jobs-head .ev-head-link { flex: none; }
 .mwc-jobs { max-width: var(--content-narrow); margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.mwc-job { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 20px; text-decoration: none; transition: border-color 160ms, box-shadow 160ms, transform 160ms; }
-.mwc-job:hover { border-color: var(--ink-3); box-shadow: 0 10px 26px rgba(10,10,10,0.07); transform: translateY(-1px); }
-.mwc-job-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; line-height: 1.3; color: var(--ink); margin: 0 0 12px; }
-.mwc-job-meta { display: flex; align-items: center; gap: 10px; }
-.mwc-job-logo { width: 34px; height: 34px; flex: none; border-radius: var(--r-md); background: var(--bg-soft); border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; }
-.mwc-job-logo svg { width: 22px; height: 22px; display: block; }
-.mwc-job-co { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
-.mwc-job-co strong { font-size: 13.5px; font-weight: 600; color: var(--ink); }
-.mwc-job-loc { font-size: 12.5px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 4px; }
-.mwc-job-loc svg { width: 13px; height: 13px; fill: var(--ink-3); flex: none; }
+/* The card itself is the shared .job-card (ds/ptf.css, promoted 2026-11-19); only the grid is page-level. */
 @media (max-width: 680px) { .mwc-jobs { grid-template-columns: 1fr; } }
 
 /* About PowerToFly — same as siblings: title, body and stat grid share ONE width */
@@ -367,8 +357,7 @@
 </section>
 
 <!-- 05. PRIORITY ROLES → recommended-job cards (the team promotes specific open roles).
-     Page-specific card (.mwc-job) — no DS job-card component exists yet; flagged as a
-     candidate. COPY: confirm — sample open roles; real data would come from the jobs API. -->
+     Shared .job-card (ds/ptf.css) in a page-level 2-up grid. COPY: confirm — sample open roles; real data would come from the jobs API. -->
 <section class="section" id="roles" style="background: var(--bg)">
   <div class="mwc-roles-wrap">
     <div class="section-head" style="text-align:left; max-width:var(--content-narrow); margin:0 0 20px">
@@ -380,29 +369,29 @@
       <a class="ev-head-link" href="https://powertofly.com/jobs/" target="_blank" rel="noopener">See all jobs →</a>
     </div>
     <div class="mwc-jobs">
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Mechanical Engineer — Gas Turbine Services</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Mechanical Engineer — Gas Turbine Services</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
       </a>
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Controls &amp; Instrumentation Engineer</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Controls &amp; Instrumentation Engineer</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
       </a>
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Project Manager — Power Generation Services</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Orlando, FL</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Project Manager — Power Generation Services</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Orlando, FL</span></span></div>
       </a>
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Field Service Engineer — Steam Turbines</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Nationwide, US</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Field Service Engineer — Steam Turbines</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Nationwide, US</span></span></div>
       </a>
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Electrical Engineer — New Generation Systems</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Electrical Engineer — New Generation Systems</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Lake Mary, FL</span></span></div>
       </a>
-      <a class="mwc-job" href="#">
-        <h3 class="mwc-job-title">Planning &amp; Scheduling Lead — Major Projects</h3>
-        <div class="mwc-job-meta"><span class="mwc-job-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="mwc-job-co"><strong>Mitsubishi Power</strong><span class="mwc-job-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Orlando, FL</span></span></div>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Planning &amp; Scheduling Lead — Major Projects</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="#E60012"><polygon points="12,3 16.2,6.5 12,10 7.8,6.5"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(120 12 12)"/><polygon points="12,3 16.2,6.5 12,10 7.8,6.5" transform="rotate(240 12 12)"/></g></svg></span><span class="job-card-co"><strong>Mitsubishi Power</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Orlando, FL</span></span></div>
       </a>
     </div>
   </div>

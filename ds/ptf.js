@@ -788,7 +788,38 @@ window.PTF = (function () {
     PTF._modal = { open: open, close: close };
   }
 
-  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, initSteps, initModal, renderNav, renderFooter, LOGOS };
+  /* ──────────────────────────────────────────────────────────────────────────
+   * initCarousel()
+   * Wires the arrows of every .card-carousel[data-carousel]: prev/next scroll the
+   * track by one visible page, and each arrow disables at its end. Swiping is native
+   * scroll (CSS scroll-snap), so this only adds the buttons. Auto-runs on
+   * DOMContentLoaded and is idempotent, so a page only needs the markup.
+   * ────────────────────────────────────────────────────────────────────────── */
+  function initCarousel() {
+    document.querySelectorAll('[data-carousel]:not([data-carousel-wired])').forEach(function (c) {
+      c.setAttribute('data-carousel-wired', '1');
+      var track = c.querySelector('.card-carousel-track');
+      var prev = c.querySelector('[data-carousel-prev]');
+      var next = c.querySelector('[data-carousel-next]');
+      if (!track) return;
+      function update() {
+        var max = track.scrollWidth - track.clientWidth - 2;
+        if (prev) prev.disabled = track.scrollLeft <= 2;
+        if (next) next.disabled = track.scrollLeft >= max;
+        // nothing to scroll → hide the arrows instead of showing two dead buttons
+        var nav = c.querySelector('.card-carousel-nav');
+        if (nav) nav.hidden = max <= 0;
+      }
+      function page(dir) { track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' }); }
+      if (prev) prev.addEventListener('click', function () { page(-1); });
+      if (next) next.addEventListener('click', function () { page(1); });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
+  }
+
+  return { initNav, initMarquee, initMegaNav, initHeader, initIllustrations, initEventList, initFaq, initSteps, initModal, initCarousel, renderNav, renderFooter, LOGOS };
 })();
 
 // Auto-init the base nav (hamburger + scroll) on every page.
@@ -815,4 +846,5 @@ document.addEventListener('DOMContentLoaded', function () {
   PTF.initFaq();  // no-ops unless the page has a .faq-list container
   PTF.initSteps();  // no-ops unless the page has .step rows (how-it-works reveal)
   PTF.initModal();  // no-ops unless the page has a .modal-scrim
+  PTF.initCarousel();  // no-ops unless the page has a .card-carousel[data-carousel]
 });

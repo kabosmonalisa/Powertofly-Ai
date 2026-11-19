@@ -1601,6 +1601,44 @@ img { display: block; max-width: 100%; }
    So it pins the two values it paints with rather than inheriting .theme-dark's. */
 .logo-tile--plate { background: #ffffff; border-color: rgba(10,10,10,0.10); }
 
+/* ── Job card — one open role: title, then company logo + name + location. Promoted
+   2026-11-19 from meet-with-companies (.mwc-job) so the VJF "Featured roles" carousel and
+   the Meet with Companies roles grid share ONE card. The whole card is the link. The logo
+   slot takes an <img> (a company logo file) or an inline <svg> mark. */
+.job-card { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 18px 20px; text-decoration: none; transition: border-color 160ms, box-shadow 160ms, transform 160ms; }
+.job-card:hover { border-color: var(--ink-3); box-shadow: 0 10px 26px rgba(10,10,10,0.07); transform: translateY(-1px); }
+.job-card-title { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; line-height: 1.3; color: var(--ink); margin: 0 0 12px; }
+.job-card-meta { display: flex; align-items: center; gap: 10px; }
+.job-card-logo { width: 34px; height: 34px; flex: none; padding: 5px; border-radius: var(--r-md); background: var(--bg-soft); border: 1px solid var(--line); display: inline-flex; align-items: center; justify-content: center; }
+.job-card-logo img, .job-card-logo svg { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.job-card-logo svg { width: 22px; height: 22px; }
+.job-card-co { display: flex; flex-direction: column; line-height: 1.35; min-width: 0; }
+.job-card-co strong { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.job-card-loc { font-size: 12.5px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 4px; }
+.job-card-loc svg { width: 13px; height: 13px; fill: var(--ink-3); flex: none; }
+@media (prefers-reduced-motion: reduce) { .job-card, .job-card:hover { transition: none; transform: none; } }
+
+/* ── Card carousel — a swipeable row of cards with prev/next arrows. Head row = a label on
+   the left (.eyebrow) + .card-carousel-nav on the right. The track is native horizontal
+   scroll with snap, so touch/trackpad swipe works with no JS; PTF.initCarousel() only wires
+   the arrows (one page per click) and disables them at the ends. 3-up → 2-up ≤900 → one
+   card + a peek of the next ≤600. Any card works inside (.job-card first). */
+.card-carousel { max-width: var(--content); margin: 0 auto; }
+.card-carousel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 14px; }
+.card-carousel-head .eyebrow { margin: 0; }
+.card-carousel-nav { display: flex; gap: 8px; flex: none; }
+.card-carousel-nav[hidden] { display: none; }
+.card-carousel-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: border-color 160ms, opacity 160ms; }
+.card-carousel-btn svg { width: 20px; height: 20px; fill: var(--ink); display: block; }
+.card-carousel-btn:hover:not(:disabled) { border-color: var(--ink-3); }
+.card-carousel-btn:disabled { opacity: .35; cursor: default; }
+.card-carousel-track { --cc-gap: 12px; display: flex; gap: var(--cc-gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; overscroll-behavior-x: contain; scrollbar-width: none; padding: 4px 2px 12px; margin: -4px -2px -12px; }
+.card-carousel-track::-webkit-scrollbar { display: none; }
+.card-carousel-track > * { flex: 0 0 calc((100% - 2 * var(--cc-gap)) / 3); scroll-snap-align: start; }
+@media (max-width: 900px) { .card-carousel-track > * { flex-basis: calc((100% - var(--cc-gap)) / 2); } }
+@media (max-width: 600px) { .card-carousel-track > * { flex-basis: 85%; } }
+@media (prefers-reduced-motion: reduce) { .card-carousel-track { scroll-behavior: auto; } }
+
 /* Infinite-scroll mimic on the confirmation cards: first 6 show, the rest reveal on scroll.
    The revealed cards fade + rise + settle from a slight scale, STAGGERED so the cascade
    reads as a deliberate load (not an all-at-once flash). Strong ease-out curve. */

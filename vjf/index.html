@@ -12,7 +12,7 @@
   built ENTIRELY from the shared design system:
   · nav + footer  → injected (data-ptf-nav / data-ptf-footer)
   · how it works   → .section-how / .how-inner / .steps
-  · companies      → .section-head + .logo-cluster / .logo-tile--lg
+  · companies      → .section-head + .logo-cluster / .logo-tile--lg + .card-carousel / .job-card
     (About PowerToFly, testimonial and "more upcoming job fairs" removed 2026-11-17 — Mara/Tanya)
   · FAQ            → .faq-* (shared, PTF.initFaq)
   · closer         → .section-cta
@@ -84,6 +84,9 @@
    sponsors needs to wrap and centre under the section head (the component is a single
    nowrap row built for card corners). Tiles, sizes and colours all come from ptf.css. */
 .vjf-companies { flex-wrap: wrap; justify-content: center; gap: 14px; max-width: var(--content-body); margin: 0 auto; }
+/* Space between the logo row and the "Featured roles" carousel — one sub-block gap inside the
+   section, not section spacing. */
+.vjf-roles { margin-top: 48px; }
 
 /* Jump targets — offset for the fixed header */
 #how, #companies { scroll-margin-top: 140px; }
@@ -211,23 +214,109 @@
   </div>
 </section>
 
-<!-- 03. COMPANIES HIRING — participating companies, shared logo cluster (.logo-cluster > .logo-tile--lg).
-     Brought back from the live VJF page ("Meet with representatives from"), approved by Mara 2026-11-17.
-     Each tile links to the company's PowerToFly page (roles + their session time — the FAQ points here).
-     "More upcoming job fairs" removed (Tanya/Mara): only one job fair is published at a time. -->
+<!-- 03. COMPANIES HIRING — sponsor logos (.logo-cluster > .logo-tile--lg) + "Featured roles"
+     carousel (.card-carousel > .job-card, both shared in ds/ptf.css).
+     Decided with Rob 2026-11-18: a logo click goes to JOB SEARCH filtered to that company's
+     open roles (not the company page); each sponsor gets UP TO 6 featured roles (the 6 roles
+     sponsors are asked to highlight), shown in one mixed carousel, interleaved by sponsor.
+     No per-company session time (no schedule data), so that copy is gone.
+     DEV: logo href = company-filtered job search; the ?company= URL here is a placeholder.
+     COPY: heading + intro line pending from Mara. Sample roles below (3 per sponsor). -->
 <section class="section" id="companies">
   <div class="section-head">
     <h2>Companies hiring</h2>
-    <p>Meet the teams joining this job fair. Click a logo to see their open roles and when their session starts.</p>
+    <p>Meet the teams joining this job fair. Click a logo to see all their open roles.</p>
   </div>
-  <!-- COPY: placeholder logos — swap for the event's sponsors from RebelMouse -->
   <div class="logo-cluster vjf-companies">
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="Google — open roles and session time"><img src="../logos/google.png" alt="Google"></a>
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="Visa — open roles and session time"><img src="../logos/visa.png" alt="Visa"></a>
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="S&amp;P Global — open roles and session time"><img src="../logos/sp-global.png" alt="S&amp;P Global"></a>
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="Zapier — open roles and session time"><img src="../logos/zapier.png" alt="Zapier"></a>
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="Veracode — open roles and session time"><img src="../logos/veracode.png" alt="Veracode"></a>
-    <a class="logo-tile logo-tile--lg" href="#" aria-label="Karat — open roles and session time"><img src="../logos/karat.png" alt="Karat"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=google" aria-label="Google: see open roles"><img src="../logos/google.png" alt="Google"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=visa" aria-label="Visa: see open roles"><img src="../logos/visa.png" alt="Visa"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=sp-global" aria-label="S&amp;P Global: see open roles"><img src="../logos/sp-global.png" alt="S&amp;P Global"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=zapier" aria-label="Zapier: see open roles"><img src="../logos/zapier.png" alt="Zapier"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=veracode" aria-label="Veracode: see open roles"><img src="../logos/veracode.png" alt="Veracode"></a>
+    <a class="logo-tile logo-tile--lg" href="https://powertofly.com/jobs/?company=karat" aria-label="Karat: see open roles"><img src="../logos/karat.png" alt="Karat"></a>
+  </div>
+  <div class="card-carousel vjf-roles" data-carousel>
+    <div class="card-carousel-head">
+      <span class="eyebrow">Featured roles</span>
+      <div class="card-carousel-nav">
+        <button class="card-carousel-btn" type="button" data-carousel-prev aria-label="Previous roles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+        <button class="card-carousel-btn" type="button" data-carousel-next aria-label="Next roles"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+      </div>
+    </div>
+    <div class="card-carousel-track">
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Machine Learning Engineer, Gemini</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/google.png" alt=""></span><span class="job-card-co"><strong>Google</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mountain View, CA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Senior Data Scientist, Fraud AI</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/visa.png" alt=""></span><span class="job-card-co"><strong>Visa</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Austin, TX</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">NLP Engineer, Market Intelligence</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/sp-global.png" alt=""></span><span class="job-card-co"><strong>S&amp;P Global</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>New York, NY</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Senior AI Engineer, Agents</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/zapier.png" alt=""></span><span class="job-card-co"><strong>Zapier</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, Americas</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Security Engineer, AI Code Analysis</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/veracode.png" alt=""></span><span class="job-card-co"><strong>Veracode</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Burlington, MA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Senior Full-Stack Engineer, AI Interviewing</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/karat.png" alt=""></span><span class="job-card-co"><strong>Karat</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Product Manager, AI Platforms</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/google.png" alt=""></span><span class="job-card-co"><strong>Google</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>New York, NY</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Staff Software Engineer, Payments AI</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/visa.png" alt=""></span><span class="job-card-co"><strong>Visa</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>San Francisco, CA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Data Engineer, AI Pipelines</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/sp-global.png" alt=""></span><span class="job-card-co"><strong>S&amp;P Global</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Product Designer, AI Features</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/zapier.png" alt=""></span><span class="job-card-co"><strong>Zapier</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">ML Engineer, Vulnerability Detection</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/veracode.png" alt=""></span><span class="job-card-co"><strong>Veracode</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Data Analyst, Hiring Insights</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/karat.png" alt=""></span><span class="job-card-co"><strong>Karat</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Seattle, WA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Responsible AI Researcher</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/google.png" alt=""></span><span class="job-card-co"><strong>Google</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">AI Product Lead</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/visa.png" alt=""></span><span class="job-card-co"><strong>Visa</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Foster City, CA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Quant Researcher, Machine Learning</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/sp-global.png" alt=""></span><span class="job-card-co"><strong>S&amp;P Global</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>London, UK</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Developer Advocate, AI</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/zapier.png" alt=""></span><span class="job-card-co"><strong>Zapier</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, Global</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Technical Product Manager, AI</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/veracode.png" alt=""></span><span class="job-card-co"><strong>Veracode</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Burlington, MA</span></span></div>
+      </a>
+      <a class="job-card" href="#">
+        <h3 class="job-card-title">Engineering Manager, Platform</h3>
+        <div class="job-card-meta"><span class="job-card-logo"><img src="../logos/karat.png" alt=""></span><span class="job-card-co"><strong>Karat</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote, US</span></span></div>
+      </a>
+    </div>
   </div>
 </section>
 
@@ -259,7 +348,7 @@
       <button class="faq-q" aria-expanded="false">Do you have to stay for the whole event?
         <span class="faq-icon" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><line x1="6" y1="1" x2="6" y2="11" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/><line x1="1" y1="6" x2="11" y2="6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round"/></svg></span>
       </button>
-      <div class="faq-a"><div class="faq-a-inner">No. Choose the companies you'd like to hear from and join during the time they're online. You can find each company's designated time by clicking their logo on this page.</div></div>
+      <div class="faq-a"><div class="faq-a-inner">No. Choose the companies you'd like to hear from and join while they're online.<!-- COPY: confirm — replaced "find each company's designated time by clicking their logo" (no schedule data on the page) --></div></div>
     </div>
     <div class="faq-item">
       <button class="faq-q" aria-expanded="false">Should I be on camera? Is the event recorded?
