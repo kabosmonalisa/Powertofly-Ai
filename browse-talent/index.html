@@ -117,13 +117,19 @@
 <section class="section" id="browse" style="background:var(--surface-2)">
   <div class="ev-head">
     <h2>Screened experts</h2>
-    <p class="tal-count" id="talCount">30 experts</p>
+    <p class="tal-count" id="talCount">38 experts</p>
   </div>
 
   <div class="ev-listing">
     <!-- side filter rail — the shared .ev-filter (sticky on its own). The twelve talent
          communities candidates are sorted into (Iuliia Velikaya, 2026-10-06). All data
-         stays in one community per Fran Griffin. -->
+         stays in one community per Fran Griffin.
+         Sub-folders exist inside two of them (Iuliia, 2026-11-19, partially set up):
+           Sales & Revenue      → BDR / SDR · Account Executive · Sales Leadership
+           Leadership & Fractional → CFO · Chief AI officer · AI Transformation Consultant
+                                     · CTO / CIO · COO
+         We show them as role titles on the cards, not as a second level of filtering —
+         the rail stays twelve items until Iuliia has the sub-folders filled everywhere. -->
     <div class="ev-filter" id="talFilter">
       <a class="ev-filter-btn" href="#sec-aiml">AI &amp; ML</a>
       <a class="ev-filter-btn" href="#sec-data">Data &amp; Analytics</a>
@@ -221,10 +227,17 @@
           <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
-        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
-        <section class="tal-sec" id="sec-sales" data-empty="1">
-          <h3 class="tal-sec-title">Sales &amp; Revenue</h3>
-          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
+        <!-- Role titles are Iuliia's real sub-folders in the cohort projects
+             (BDR / SDR, Account Executive, Sales Leadership), shared 2026-11-19.
+             Company descriptors, locations, years and rates are still placeholders. -->
+        <!-- COPY: confirm -->
+        <section class="tal-sec" id="sec-sales">
+          <h3 class="tal-sec-title">Sales &amp; Revenue<span class="tal-sec-count">3</span></h3>
+          <div class="tal-grid">
+            <div class="tal-card" data-group="sales"><div class="tal-card-body"><div class="tal-card-name">BDR / SDR</div><div class="tal-card-role">Series A sales-tech company, 80+ people</div><p class="tal-card-sum">Builds pipeline from a cold list: sequencing, qualification, and booked meetings that hold.</p><div class="sc-titles"><span class="sc-title-chip">Outbound</span><span class="sc-title-chip">Qualification</span><span class="sc-title-chip">CRM</span></div><div class="tal-card-meta"><span>Manila, PH</span><span class="dot-sep"></span><span>4 yrs</span><span class="tal-rate">$45/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="sales"><div class="tal-card-body"><div class="tal-card-name">Account executive</div><div class="tal-card-role">Series C B2B SaaS, 600+ people</div><p class="tal-card-sum">Owns mid-market deals end-to-end: discovery, multi-threading, and close.</p><div class="sc-titles"><span class="sc-title-chip">Mid-market</span><span class="sc-title-chip">Discovery</span><span class="sc-title-chip">Closing</span></div><div class="tal-card-meta"><span>Austin, US</span><span class="dot-sep"></span><span>7 yrs</span><span class="tal-rate">$75/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="sales"><div class="tal-card-body"><div class="tal-card-name">Sales leadership</div><div class="tal-card-role">Enterprise software company, 1,500+ people</div><p class="tal-card-sum">Hires and coaches the team, sets the forecast, and fixes the motion that is leaking.</p><div class="sc-titles"><span class="sc-title-chip">Forecasting</span><span class="sc-title-chip">Coaching</span><span class="sc-title-chip">GTM</span></div><div class="tal-card-meta"><span>São Paulo, BR</span><span class="dot-sep"></span><span>14 yrs</span><span class="tal-rate">$140/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+          </div>
         </section>
 
         <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
@@ -239,10 +252,19 @@
           <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
         </section>
 
-        <!-- Iuliia's community exists in the taxonomy but has no sample profiles yet. -->
-        <section class="tal-sec" id="sec-leadership" data-empty="1">
-          <h3 class="tal-sec-title">Leadership &amp; Fractional</h3>
-          <p class="tal-sec-note">We’re still adding experts here. <a href="../book/">Tell us what you need</a> and we’ll send you a shortlist.</p>
+        <!-- Role titles are Iuliia's real sub-folders in the cohort projects
+             (CFO, Chief AI officer, AI Transformation Consultant, CTO / CIO, COO),
+             shared 2026-11-19. Descriptors, locations, years and rates are placeholders. -->
+        <!-- COPY: confirm -->
+        <section class="tal-sec" id="sec-leadership">
+          <h3 class="tal-sec-title">Leadership &amp; Fractional<span class="tal-sec-count">5</span></h3>
+          <div class="tal-grid">
+            <div class="tal-card" data-group="leadership"><div class="tal-card-body"><div class="tal-card-name">CFO · fractional</div><div class="tal-card-role">Scale-up, 150+ people</div><p class="tal-card-sum">Part-time finance leadership: model, runway, and the numbers a board will believe.</p><div class="sc-titles"><span class="sc-title-chip">Fractional</span><span class="sc-title-chip">Modeling</span><span class="sc-title-chip">Board</span></div><div class="tal-card-meta"><span>Toronto, CA</span><span class="dot-sep"></span><span>19 yrs</span><span class="tal-rate">$210/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="leadership"><div class="tal-card-body"><div class="tal-card-name">Chief AI officer</div><div class="tal-card-role">Regulated enterprise, 4,000+ people</div><p class="tal-card-sum">Owns the AI agenda at exec level: where it pays off, who governs it, and what you stop doing.</p><div class="sc-titles"><span class="sc-title-chip">Strategy</span><span class="sc-title-chip">Governance</span><span class="sc-title-chip">Exec</span></div><div class="tal-card-meta"><span>London, UK</span><span class="dot-sep"></span><span>17 yrs</span><span class="tal-rate">$240/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="leadership"><div class="tal-card-body"><div class="tal-card-name">AI transformation consultant</div><div class="tal-card-role">Global services group, 10,000+ people</div><p class="tal-card-sum">Takes AI from pilot to operating model: process redesign, adoption, and change management.</p><div class="sc-titles"><span class="sc-title-chip">Adoption</span><span class="sc-title-chip">Operating model</span><span class="sc-title-chip">Change</span></div><div class="tal-card-meta"><span>Bangalore, IN</span><span class="dot-sep"></span><span>12 yrs</span><span class="tal-rate">$165/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="leadership"><div class="tal-card-body"><div class="tal-card-name">CTO / CIO · fractional</div><div class="tal-card-role">Private-equity-backed group, 800+ people</div><p class="tal-card-sum">Technology leadership on a part-time basis: architecture, vendors, and the build-or-buy call.</p><div class="sc-titles"><span class="sc-title-chip">Fractional</span><span class="sc-title-chip">Architecture</span><span class="sc-title-chip">Vendors</span></div><div class="tal-card-meta"><span>Amsterdam, NL</span><span class="dot-sep"></span><span>21 yrs</span><span class="tal-rate">$225/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+            <div class="tal-card" data-group="leadership"><div class="tal-card-body"><div class="tal-card-name">COO</div><div class="tal-card-role">Marketplace scale-up, 400+ people</div><p class="tal-card-sum">Runs the operating cadence: hiring plan, metrics, and the systems that keep delivery honest.</p><div class="sc-titles"><span class="sc-title-chip">Operations</span><span class="sc-title-chip">Hiring</span><span class="sc-title-chip">Metrics</span></div><div class="tal-card-meta"><span>Nairobi, KE</span><span class="dot-sep"></span><span>15 yrs</span><span class="tal-rate">$180/hr</span></div><div class="tal-card-trust">Spoke with us · Rate confirmed</div></div></div>
+          </div>
         </section>
 
         <section class="tal-sec" id="sec-domain">
