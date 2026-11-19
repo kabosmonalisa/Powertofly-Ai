@@ -14,6 +14,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../ds/ptf.css">
+<style>
+  /* Page-only: vertical intro video. Not in the system yet. */
+  .prof-video { display: block; width: 100%; max-width: 360px; aspect-ratio: 9 / 16; object-fit: cover;
+                border-radius: var(--r-lg); background: var(--bg-soft); margin-top: 20px; }
+</style>
 </head>
 <body>
 
@@ -69,6 +74,17 @@
       <div class="about-stat-card"><span class="about-stat-lbl">Mobile QA</span><hr class="about-stat-rule"><span class="about-stat-num">11</span><span class="about-stat-desc">Years at BuzzFeed, rising to project lead.</span></div>
       <div class="about-stat-card"><span class="about-stat-lbl">Leadership</span><hr class="about-stat-rule"><span class="about-stat-num">14</span><span class="about-stat-desc">People led as QA team leader at Globant.</span></div>
     </div>
+  </div>
+</section>
+
+<!-- VIDEO: Elizabeth's own intro video, shared 2026-11-19. Vertical phone recording (9:16).
+     Page-only CSS: no video-player component exists in the system yet. -->
+<section class="section">
+  <div class="prof-body">
+    <h3>Meet Elizabeth</h3>
+    <video class="prof-video" controls playsinline preload="metadata" poster="../photos/elizabeth-grillo-video.jpg">
+      <source src="../videos/elizabeth-grillo.mp4" type="video/mp4">
+    </video>
   </div>
 </section>
 
