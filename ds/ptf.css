@@ -1623,7 +1623,9 @@ img { display: block; max-width: 100%; }
    scroll with snap, so touch/trackpad swipe works with no JS; PTF.initCarousel() only wires
    the arrows (one page per click) and disables them at the ends. 3-up → 2-up ≤900 → one
    card + a peek of the next ≤600. Any card works inside (.job-card first). */
-.card-carousel { max-width: var(--content); margin: 0 auto; }
+/* min-width:0 — as a grid/flex item the carousel would otherwise grow to its track's full
+   scroll width and push the page sideways. */
+.card-carousel { max-width: var(--content); margin: 0 auto; min-width: 0; width: 100%; }
 .card-carousel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 0 0 14px; }
 .card-carousel-head .eyebrow { margin: 0; }
 .card-carousel-nav { display: flex; gap: 8px; flex: none; }
