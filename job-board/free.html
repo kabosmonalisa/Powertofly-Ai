@@ -54,8 +54,9 @@
 .jb-chip svg{width:18px;height:18px;}
 
 /* ── pricing cards ── */
-.jb-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;}
-@media(max-width:960px){.jb-plans{grid-template-columns:1fr;max-width:560px;}}
+.jb-plans{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;max-width:var(--container);margin:0 auto;}
+@media(max-width:1180px){.jb-plans{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;}}
+@media(max-width:680px){.jb-plans{grid-template-columns:1fr;max-width:560px;}}
 /* placeholder price — the number isn't decided yet; dashed so nobody reads it as final */
 .jb-plan-price.is-tbd{font-size:26px;color:var(--ink-3);border:1.5px dashed var(--line-2);border-radius:var(--r-md);padding:10px 14px;display:inline-block;align-self:flex-start;}
 .jb-plans-foot{text-align:center;font-size:15px;color:var(--ink-3);margin-top:32px;}
@@ -254,7 +255,7 @@
     <section class="section-hero hero-glow">
       <div class="section-head">
         <h1 class="display">Post jobs. Find talent.<br>Build your team.</h1>
-        <p>Post your job on PowerToFly for free. Upgrade when you want more reach, or let us find the hire for you.</p>
+        <p>Post your job on PowerToFly for free. Add paid help when you want more reach, the right people, or a recruiter.</p>
       </div>
     </section>
 
@@ -301,20 +302,36 @@
           <button class="btn btn-primary btn-block jb-plan-cta" type="button" onclick="pickPlan('boost')">Get started →</button>
         </div>
 
-        <!-- 3 · Hire with PowerToFly (paid, through sales). COPY: confirm — fees from Milena's Nov 14 plan -->
+        <!-- 3 · Hire talent through us (paid, through sales). COPY: confirm — fees from Milena's Nov 14 plan, add-on #3 -->
         <div class="jb-plan">
           <div class="jb-plan-icon">
             <svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>
           </div>
-          <h3>Hire with PowerToFly</h3>
-          <p class="jb-plan-desc">We find the person for you, as a contractor or a full-time hire.</p>
+          <h3>Hire talent through us</h3>
+          <p class="jb-plan-desc">We hand-pick people for the role, as contractors or full-time hires.</p>
           <div class="jb-plan-price is-text">Custom pricing</div>
           <div class="jb-plan-per">Talk to our team.</div>
           <ul class="jb-plan-feats">
-            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Everything in Boost &amp; Match</li>
-            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>A dedicated recruiter for the role, inbound and outbound</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Specific people put forward for your role</li>
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Contract talent (staff augmentation), billed monthly</li>
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Full-time placement: 10% of annual salary</li>
+          </ul>
+          <a class="btn btn-block jb-plan-cta" href="../book/">Talk to us →</a>
+        </div>
+        <!-- 4 · Recruiter for your role (paid, through sales). From Milena's Nov 14 plan, add-on #4. COPY: confirm — price open (monthly or per hire?) -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M10 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM4 18c.22-.72 3.31-2 6-2 0-.7.13-1.37.35-1.99C7.62 13.91 2 15.27 2 18v2h9.54c-.52-.58-.93-1.25-1.19-2H4zm15.43.02c.36-.59.57-1.28.57-2.02 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.74 0 1.43-.22 2.02-.57L20.59 22 22 20.59c-1.5-1.5-.79-.8-2.57-2.57zM16 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          </div>
+          <h3>Recruiter for your role</h3>
+          <p class="jb-plan-desc">A PowerToFly recruiter works your role until it&rsquo;s filled.</p>
+          <div class="jb-plan-price is-tbd">[Price TBD]</div>
+          <div class="jb-plan-per">Monthly or per hire, to be decided.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Manages your inbound applicants</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Does outbound sourcing when needed, including LinkedIn</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Uses AI to shorten time to fill</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Clear SLAs you can track</li>
           </ul>
           <a class="btn btn-block jb-plan-cta" href="../book/">Talk to us →</a>
         </div>
