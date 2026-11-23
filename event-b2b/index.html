@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Register — In-person leaders event — PowerToFly AI</title>
+<meta property="og:title"       content="Register — In-person leaders event — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!--
+  IN-PERSON B2B (LEADERS) EVENT registration flow.
+  Duplicated from the Meet with Companies flow (event-company/index.html) — same layout,
+  components, interactions, validation and styling; shared ds/ptf.css + ds/ptf.js.
+  These events are for business leaders, not talent, so everything job-seeking is OUT:
+  no resume, no LinkedIn, no years of experience, no "open roles" / "timeline" questions,
+  no area-of-experience list. IN its place: company, job title, company size, function.
+  Steps: 1 account · 2 role + company · 3 self-identification · 4 phone + questions for the hosts + agreement · 5 thanks (+ add to calendar).
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+  /* Phone number — a searchable COUNTRY picker + number input joined into ONE DS-style field.
+     You pick your country by NAME (type to search); the +dialing code fills in automatically.
+     Promote-to-DS candidate: .phone-field. Placed after ptf.css so :focus overrides win. */
+  .phone-field { position: relative; display: flex; align-items: stretch; border: 1.5px solid var(--line); border-radius: var(--r-md); background: var(--bg-soft); transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .phone-field.is-open, .phone-field:focus-within { border-color: var(--green-mid); box-shadow: 0 0 0 3px rgba(79,232,169,0.15); background: var(--bg); }
+  .phone-field > input { border: none; background-color: transparent; box-shadow: none; border-radius: 0; color: var(--ink); width: auto; flex: 1; min-width: 0; padding: 10px 14px 10px 12px; font-family: 'Inter', sans-serif; font-size: 15px; }
+  .phone-field > input:focus { box-shadow: none; background-color: transparent; }
+  /* country trigger (closed state): flag + code + caret */
+  .phone-cc { display: flex; align-items: center; gap: 6px; padding: 10px 10px 10px 12px; border-right: 1.5px solid var(--line); cursor: pointer; user-select: none; white-space: nowrap; color: var(--ink); font-size: 15px; }
+  .phone-cc-flag { font-size: 17px; line-height: 1; }
+  .phone-cc-code { color: var(--ink-2); }
+  .phone-cc > svg { color: var(--ink-3); flex: none; }
+  /* searchable popover */
+  .phone-cc-pop { position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; width: 300px; max-width: 84vw; background: var(--bg); border: 1.5px solid var(--line); border-radius: var(--r-md); box-shadow: 0 12px 34px rgba(0,0,0,.16); padding: 8px; }
+  .phone-cc-search { width: 100%; padding: 9px 12px; border: 1.5px solid var(--line); border-radius: 8px; background: var(--bg-soft); font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink); outline: none; margin-bottom: 6px; }
+  .phone-cc-search:focus { border-color: var(--green-mid); }
+  .phone-cc-list { list-style: none; margin: 0; padding: 0; max-height: 220px; overflow-y: auto; }
+  .phone-cc-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--ink); }
+  .phone-cc-item:hover, .phone-cc-item.active { background: var(--bg-soft); }
+  .phone-cc-item .fl { font-size: 17px; line-height: 1; flex: none; }
+  .phone-cc-item .nm { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .phone-cc-item .cd { color: var(--ink-3); flex: none; }
+  .phone-cc-empty { padding: 12px 10px; color: var(--ink-3); font-size: 13px; text-align: center; }
+  .field.invalid .phone-field { border-color: #E8843C; }
+  .field.invalid .phone-field:focus-within { box-shadow: 0 0 0 3px rgba(232,132,60,0.15); }
+  /* "Add to calendar" on the confirmation step — reuses the closed set: trigger is the outlined
+     .btn, the menu is the login flyout (.nav-fly.login-fly > .mega-inner > .fly-item rows).
+     Only positioning lives here: the stock .login-fly hangs off the trigger's RIGHT edge, which
+     on this centered step would run off the left of a phone screen — so center it under the
+     button instead. Promote-to-DS candidate: .cal-drop (centered flyout anchor). */
+  .cal-drop { display: inline-block; margin-bottom: 8px; }
+  .cal-drop[hidden] { display: none; }
+  .cal-drop .login-fly { left: 50%; right: auto; width: min(346px, calc(100vw - 32px)); transform: translate(-50%, -6px); text-align: left; }
+  .cal-drop .login-fly.open { transform: translate(-50%, 0); }
+  /* Compact type for the small calendar menu — the stock .fly-title is sized for the site's mega nav (16px/700 display). */
+  .cal-drop .fly-item { padding: 9px 12px; }
+  .cal-drop .fly-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; margin-bottom: 2px; }
+  .cal-drop .fly-desc { font-size: 12px; line-height: 1.4; }
+  .cal-drop .fly-rule { margin: 6px 0; }
+</style>
+</head>
+<body class="flow-shell">
+
+<!-- shared iridescent gradient for icons (referenced by .event-ico svg etc.) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/></linearGradient></defs></svg>
+
+<div class="auth-bg"><div class="auth-bg-blob b1"></div><div class="auth-bg-blob b2"></div><div class="auth-bg-blob b3"></div></div>
+
+<nav class="auth-nav">
+  <a class="nav-brand" href="../index.html">
+    <img src="../PowerToFly-Logo.svg" alt="PowerToFly">
+    <span class="brand-ai">AI</span>
+  </a>
+  <a class="nav-back" href="https://powertofly.com/browse-events">← All events</a>
+</nav>
+
+<main class="reg-wrap">
+  <div class="reg-layout">
+
+    <!-- ══════ LEFT — event-info panel (change copy per event) ══════ -->
+    <aside class="event-card">
+      <div class="event-top">
+        <span class="eyebrow">In-person leaders event</span><!-- COPY: confirm series name -->
+      </div>
+      <h1 class="event-title">Who makes AI work: <em class="italic-plain">a leaders’ roundtable</em></h1><!-- COPY: sample in-person B2B event -->
+      <div class="event-host">
+        <span class="event-host-logo" style="display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:9px 13px;box-shadow:0 0 0 3px #fff,0 2px 8px rgba(15,30,26,0.12);flex-shrink:0"><img src="../PowerToFly-Icon.svg" alt="PowerToFly" style="height:22px;width:auto;display:block"></span><!-- COPY: swap logo if co-hosted -->
+        <div class="event-host-text">
+          <span class="event-host-name">Hosted by PowerToFly</span><!-- COPY: confirm host -->
+          <span class="event-host-role">For HR, talent &amp; technology leaders</span><!-- COPY: confirm -->
+        </div>
+      </div>
+      <div class="event-meta">
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V8h16v13z"/></svg></span>
+          <span class="event-meta-text"><strong>Thu, Feb 11, 2027</strong><span>6:00 – 8:30 PM EST</span><!-- COPY: sample date --></span>
+        </div>
+        <div class="event-meta-row">
+          <span class="event-ico"><svg width="20" height="20" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 4c2.2 0 4 1.8 4 4 0 2.1-2.1 5.5-4 7.9C10.1 13.5 8 10.1 8 8c0-2.2 1.8-4 4-4m0-2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 5.5c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z"/></svg></span>
+          <span class="event-meta-text"><strong>In-person · New York, NY</strong><span>Venue shared after RSVP</span><!-- COPY: sample city --></span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ══════ RIGHT — form card (steps) ══════ -->
+    <div class="reg-form">
+      <div class="auth-card" id="card">
+        <!-- Sign in / Sign up toggle — visible on the auth step only -->
+        <div class="auth-toggle" id="authToggle">
+          <button id="tabSignIn" type="button" onclick="showAuth('signin')">Sign in</button>
+          <button class="active" id="tabSignUp" type="button" onclick="showAuth('signup')">Sign up</button>
+        </div>
+        <!-- Sign in -->
+        <div class="flow-step" data-step="signin" hidden>
+          <h1 class="auth-heading">Welcome back</h1>
+          <p class="auth-sub">Sign in to register for this event.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+            <button class="btn-auth" type="submit">Sign in</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Don't have an account? <a href="#" onclick="showAuth('signup');return false">Sign up free</a></p>
+        </div>
+        <!-- Step 1 — create account + register -->
+        <div class="flow-step" data-step="1">
+          <h1 class="auth-heading" style="margin-top:40px"><!-- toggle→heading gap = 40px (matches the common flow; no step indicator here) -->Save your seat</h1>
+          <p class="auth-sub">Create your account to register — free to attend.</p><!-- COPY: confirm (free?) -->
+          <form class="auth-form" onsubmit="return validateStep1()" novalidate>
+            <div class="field-row">
+              <div class="field"><label>First name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+            </div>
+            <div class="field"><label>Work email <span class="req">*</span></label><input type="email" autocomplete="email" oninput="clearError(this.closest('.field'))"></div>
+            <div class="field"><label>Password <span class="req">*</span></label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
+            <button class="btn-auth" type="submit">Create my account →</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Already have an account? <a href="#" onclick="showAuth('signin');return false">Sign in</a></p>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 2 — role + company (replaces Meet with Companies' resume/LinkedIn step and its
+             job-seeking questions; leaders aren't candidates). Same components as MWC step 4:
+             .field for text, .id-section.q-group.cq for chips. -->
+        <div class="flow-step" data-step="2" hidden>
+          <div class="step-indicator">Step 1 of 3</div>
+          <!-- shown only in logged-in mode (they already have an account, so step 1 is skipped) -->
+          <p class="auth-note" id="signedInNote" hidden style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="setAuthMode('out');return false">Not you?</a></p>
+          <h1 class="auth-heading">About you and your company</h1>
+          <p class="auth-sub">Helps us seat you with peers working on the same challenges.</p><!-- COPY: confirm -->
+          <form class="auth-form" onsubmit="return validateStep2()" novalidate>
+            <div class="field">
+              <label>Company <span class="req">*</span></label>
+              <input type="text" id="cqCompany" autocomplete="organization" placeholder="Where you work" oninput="clearError(this.closest('.field'))">
+            </div>
+            <div class="field">
+              <label>Job title <span class="req">*</span></label>
+              <input type="text" id="cqJobTitle" autocomplete="organization-title" placeholder="e.g. VP, People" oninput="clearError(this.closest('.field'))">
+            </div>
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Company size <span class="req">*</span></div>
+              <div class="id-chips" data-single><button type="button" class="id-chip">1–50</button><button type="button" class="id-chip">51–200</button><button type="button" class="id-chip">201–1,000</button><button type="button" class="id-chip">1,001–5,000</button><button type="button" class="id-chip">5,000+</button></div>
+            </div>
+            <div class="id-section q-group cq" data-required>
+              <div class="q-label">Your function <span class="req">*</span></div>
+              <div class="id-chips"><button type="button" class="id-chip">HR &amp; People</button><button type="button" class="id-chip">Talent acquisition</button><button type="button" class="id-chip">DEI &amp; belonging</button><button type="button" class="id-chip">Learning &amp; development</button><button type="button" class="id-chip">Engineering</button><button type="button" class="id-chip">Data &amp; AI</button><button type="button" class="id-chip">Product</button><button type="button" class="id-chip">Operations</button><button type="button" class="id-chip">Executive leadership</button><button type="button" class="id-chip" id="areaOtherChip">Other</button></div><!-- COPY: confirm list -->
+              <!-- Shown when "Other" is picked — required while visible -->
+              <div class="field" id="areaOtherField" hidden style="margin-top:12px">
+                <label for="areaOtherInput">What's your function? <span class="req">*</span></label>
+                <input type="text" id="areaOtherInput" placeholder="e.g. Legal, Finance, Procurement" oninput="clearError(this.closest('.field'))">
+              </div>
+            </div>
+            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 3 — self-identification (same chips as Meet with Companies; "Area of experience" dropped — step 2's function covers it) -->
+        <div class="flow-step" data-step="3" hidden>
+          <div class="step-indicator">Step 2 of 3</div>
+          <h1 class="auth-heading">Tell us a little more about you</h1>
+          <p class="auth-sub">Choose all that apply. We use it only internally and never show it publicly.</p>
+          <div class="id-grid stacked">
+            <div class="id-section">
+              <div class="id-section-label">Self-identification <span class="req">*</span></div>
+              <div class="id-chips"><button type="button" class="id-chip">Woman</button><button type="button" class="id-chip">Man</button><button type="button" class="id-chip">Non-binary</button><button type="button" class="id-chip">Latinx</button><button type="button" class="id-chip">Black</button><button type="button" class="id-chip">White</button><button type="button" class="id-chip">Asian</button><button type="button" class="id-chip">Native American / Indigenous</button><button type="button" class="id-chip">Multiracial</button><button type="button" class="id-chip">LGBTQIA+</button><button type="button" class="id-chip">Caregiver</button><button type="button" class="id-chip">Veteran, Military Spouse, or Active Service Member</button><button type="button" class="id-chip">Disabled</button><button type="button" class="id-chip">Prefer not to say</button><button type="button" class="id-chip">Other</button></div>
+            </div>
+          </div>
+          <form class="auth-form" onsubmit="return validateStep3()">
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(2)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By continuing you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
+        </div>
+        <!-- Step 4 — phone + questions for the hosts + agreement -->
+        <div class="flow-step" data-step="4" hidden>
+          <div class="step-indicator">Step 3 of 3</div>
+          <h1 class="auth-heading">A couple last things</h1>
+          <p class="auth-sub">Tell us what you’d like to discuss, then confirm to lock in your seat.</p><!-- COPY: confirm -->
+          <form class="auth-form" onsubmit="return validateStep4()">
+            <!-- Phone — REQUIRED (our team reaches you with event-day logistics). -->
+            <div class="field">
+              <label>Phone number <span class="req">*</span></label>
+              <div class="phone-field" id="phoneField">
+                <div class="phone-cc" id="ccBtn" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false" aria-label="Select country">
+                  <span class="phone-cc-flag" id="ccFlag">🇺🇸</span>
+                  <span class="phone-cc-code" id="ccCode">+1</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <input type="tel" id="phoneNumber" placeholder="(555) 000-0000" autocomplete="tel" required oninput="clearError(this.closest('.field'))">
+                <div class="phone-cc-pop" id="ccPop" role="listbox" hidden>
+                  <input type="text" class="phone-cc-search" id="ccSearch" placeholder="Search country" autocomplete="off">
+                  <ul class="phone-cc-list" id="ccList"></ul>
+                </div>
+              </div>
+              <p style="margin:6px 0 0;font-size:13px;color:var(--ink-3)">So we can reach you with event-day updates.</p>
+            </div>
+            <div class="field" id="questionsBlock">
+              <label>Questions or topics for the hosts <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
+              <textarea placeholder="e.g. How are other teams measuring AI adoption?"></textarea>
+              <button type="button" class="btn btn-sm" id="addQuestionBtn" onclick="addQuestion()" style="margin-top:10px;align-self:flex-start">+ Add another question</button>
+            </div>
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox"><span>I accept the event <a href="#">waiver</a> and code of conduct, and agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label>
+            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
+          </form>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">You can unsubscribe from event emails anytime.</p>
+        </div>
+        <!-- Step 5 — thank you -->
+        <div class="flow-step" data-step="5" hidden>
+          <div class="thanks-icon">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
+          <div class="thanks-eyebrow">You're registered</div>
+          <h1 class="auth-heading">See you there</h1>
+          <p class="thanks-body">Venue details are on their way to your inbox. Add it to your calendar so you don't miss it.</p><!-- COPY: confirm -->
+          <!-- Add to calendar — same component as event-common (outlined trigger + login flyout). Links built by buildCalendarLinks() from CAL_EVENT. -->
+          <div class="nav-drop login-drop cal-drop" id="calCta" style="display:flex;justify-content:center;margin-bottom:12px">
+            <button class="btn btn-primary" type="button" data-fly="fly-cal" aria-haspopup="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+              Add to calendar
+              <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg>
+            </button>
+            <div class="nav-fly login-fly" id="fly-cal">
+              <div class="mega-inner"><div class="mega-left">
+                <a class="fly-item" id="calGoogle" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Google Calendar</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOutlook" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Outlook.com</span><span class="fly-desc">Personal Outlook or Hotmail</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOffice" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Microsoft 365</span><span class="fly-desc">Work or school Outlook</span></span><span class="login-arrow">→</span></a>
+                <hr class="fly-rule">
+                <a class="fly-item" id="calIcs" href="#" download="powertofly-event.ics"><span class="login-tx"><span class="fly-title">Apple Calendar &amp; others</span><span class="fly-desc">Download an .ics file</span></span><span class="login-arrow">↓</span></a>
+              </div></div>
+            </div>
+          </div>
+          <!-- One primary action (calendar); browsing is secondary, so it's a link -->
+          <p class="auth-note"><a href="https://powertofly.com/browse-events">Browse more events →</a></p>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- DEV ONLY — preview the two entry paths (logged out = create account first; logged in
+     = skip straight to details) + jump between screens. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;flex-direction:column;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">AUTH</span>
+    <button type="button" id="devAuthOut" onclick="setAuthMode('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+    <button type="button" id="devAuthIn" onclick="setAuthMode('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">STEP</span>
+    <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+    <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+    <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+    <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
+    <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  function goToStep(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
+    window.scrollTo(0, 0);
+    return false;
+  }
+  function showAuth(which) {
+    goToStep(which === 'signin' ? 'signin' : 1);
+    document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
+    document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
+    return false;
+  }
+
+  // ── Entry path: logged out (create account first) vs logged in (skip to details) ──
+  // Logged in skips the account step, shows a "signed in as" note, hides the
+  // role-step Back (it is now the first step), and lands on the role + company step. Dev toggle only — real app derives this from session.
+  function setAuthMode(mode) {
+    var loggedIn = mode === 'in';
+    window._authMode = mode;
+    // step counter: the account step is never counted (of 3 in both auth states)
+    function ind(step, num) {
+      var el = document.querySelector('[data-step="' + step + '"] .step-indicator');
+      if (el) el.textContent = 'Step ' + num + ' of 3';
+    }
+    ind(2, 1); ind(3, 2); ind(4, 3);
+    var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
+    var back = document.getElementById('step2Back');   if (back) back.style.display = loggedIn ? 'none' : '';
+    // dev-button active state
+    var din = document.getElementById('devAuthIn'), dout = document.getElementById('devAuthOut');
+    if (din && dout) {
+      din.style.background = loggedIn ? '#fff' : '';  din.style.color = loggedIn ? '#0A0A0A' : '#fff';
+      dout.style.background = loggedIn ? '' : '#fff';  dout.style.color = loggedIn ? '#fff' : '#0A0A0A';
+    }
+    goToStep(loggedIn ? 2 : 1);  // land on the correct first step
+    return false;
+  }
+  // ── Inline validation: button stays active; on click we check, show an error, and focus the gap ──
+  function setError(host) {
+    if (!host) return;
+    host.classList.add('invalid');
+    host.setAttribute('aria-invalid', 'true');
+  }
+  function clearError(host) {
+    if (!host) return;
+    host.classList.remove('invalid');
+    host.removeAttribute('aria-invalid');
+  }
+  function shake(step) {
+    var btn = document.querySelector('[data-step="' + step + '"] button[type=submit]');
+    if (!btn) return;
+    btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+  }
+
+  function validateStep1() {
+    var s = document.querySelector('[data-step="1"]');
+    var rowInputs = s.querySelectorAll('.field-row input');
+    var first = rowInputs[0], last = rowInputs[1];
+    var email = s.querySelector('input[type=email]');
+    var pass  = s.querySelector('input[type=password]');
+    var ok = true, firstBad = null;
+    function chk(input, valid) { var f = input.closest('.field'); if (valid) { clearError(f); } else { setError(f); ok = false; firstBad = firstBad || input; } }
+    chk(first, first.value.trim() !== '');
+    chk(last,  last.value.trim() !== '');
+    chk(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+    chk(pass,  pass.value.length >= 8);
+    if (!ok) { shake(1); if (firstBad) firstBad.focus(); return false; }
+    return goToStep(2);
+  }
+  function validateStep2() {
+    var ok = true, first = null;
+    ['cqCompany', 'cqJobTitle'].forEach(function (id) {
+      var el = document.getElementById(id), f = el.closest('.field');
+      if (el.value.trim()) clearError(f); else { setError(f); ok = false; first = first || el; }
+    });
+    document.querySelectorAll('[data-step="2"] .cq[data-required]').forEach(function (q) {
+      clearError(q);
+      if (!q.querySelector('.id-chip.selected')) { setError(q); ok = false; first = first || q; }
+    });
+    // "Other" picked → its free-text answer is required
+    var otherF = document.getElementById('areaOtherField'), otherI = document.getElementById('areaOtherInput');
+    if (!otherF.hidden && !otherI.value.trim()) { setError(otherF); ok = false; first = first || otherF; }
+    if (!ok) { shake(2); first.scrollIntoView({ block: 'center' }); if (first.focus) first.focus(); return false; }
+    return goToStep(3);
+  }
+  function validateStep3() {
+    var ok = true, first = null;
+    document.querySelectorAll('[data-step="3"] .id-section').forEach(function (sec) {
+      clearError(sec);
+      if (!sec.querySelector('.id-chip.selected')) { setError(sec, 'Pick at least one'); ok = false; first = first || sec; }
+    });
+    if (!ok) { shake(3); first.scrollIntoView({ block: 'center' }); return false; }
+    return goToStep(4);
+  }
+  function validateStep4() {
+    var phone = document.getElementById('phoneNumber'), phoneOk = phone.value.replace(/\D/g, '').length >= 6;
+    var agree = document.getElementById('agreeBox'), row = agree.closest('.agree-row');
+    clearError(row);
+    if (phoneOk) clearError(phone.closest('.field')); else setError(phone.closest('.field'), 'Required');
+    if (!agree.checked) setError(row, 'Please confirm to continue');
+    if (!phoneOk || !agree.checked) { shake(4); if (!phoneOk) phone.focus(); return false; }
+    return goToStep(5);
+  }
+
+  // Phone country picker — pick your country by NAME (type to search); the +dialing code fills in
+  // automatically. Flag emoji render as flags on macOS/iOS; on Windows the country name carries it.
+  (function () {
+    var field = document.getElementById('phoneField'); if (!field) return;
+    var btn = document.getElementById('ccBtn'), pop = document.getElementById('ccPop'),
+        list = document.getElementById('ccList'), search = document.getElementById('ccSearch'),
+        flagEl = document.getElementById('ccFlag'), codeEl = document.getElementById('ccCode'),
+        number = document.getElementById('phoneNumber');
+    // [flag, name, dialing code] — sorted by name so the list reads alphabetically
+    var COUNTRIES = [
+      ['🇦🇷','Argentina','+54'],['🇦🇺','Australia','+61'],['🇦🇹','Austria','+43'],['🇧🇪','Belgium','+32'],
+      ['🇧🇷','Brazil','+55'],['🇨🇦','Canada','+1'],['🇨🇱','Chile','+56'],['🇨🇳','China','+86'],
+      ['🇨🇴','Colombia','+57'],['🇨🇿','Czechia','+420'],['🇩🇰','Denmark','+45'],['🇪🇬','Egypt','+20'],
+      ['🇫🇮','Finland','+358'],['🇫🇷','France','+33'],['🇩🇪','Germany','+49'],['🇬🇷','Greece','+30'],
+      ['🇭🇰','Hong Kong','+852'],['🇭🇺','Hungary','+36'],['🇮🇳','India','+91'],['🇮🇩','Indonesia','+62'],
+      ['🇮🇪','Ireland','+353'],['🇮🇱','Israel','+972'],['🇮🇹','Italy','+39'],['🇯🇵','Japan','+81'],
+      ['🇰🇪','Kenya','+254'],['🇲🇾','Malaysia','+60'],['🇲🇽','Mexico','+52'],['🇳🇱','Netherlands','+31'],
+      ['🇳🇿','New Zealand','+64'],['🇳🇬','Nigeria','+234'],['🇳🇴','Norway','+47'],['🇵🇭','Philippines','+63'],
+      ['🇵🇱','Poland','+48'],['🇵🇹','Portugal','+351'],['🇷🇴','Romania','+40'],['🇸🇦','Saudi Arabia','+966'],
+      ['🇸🇬','Singapore','+65'],['🇿🇦','South Africa','+27'],['🇰🇷','South Korea','+82'],['🇪🇸','Spain','+34'],
+      ['🇸🇪','Sweden','+46'],['🇨🇭','Switzerland','+41'],['🇹🇭','Thailand','+66'],['🇹🇷','Turkey','+90'],
+      ['🇺🇦','Ukraine','+380'],['🇦🇪','United Arab Emirates','+971'],['🇬🇧','United Kingdom','+44'],
+      ['🇺🇸','United States','+1'],['🇻🇳','Vietnam','+84']
+    ].sort(function (a, b) { return a[1] < b[1] ? -1 : a[1] > b[1] ? 1 : 0; });
+    var filtered = COUNTRIES, activeIdx = -1;
+
+    function render(items) {
+      filtered = items;
+      if (!items.length) { list.innerHTML = '<li class="phone-cc-empty">No country found</li>'; return; }
+      list.innerHTML = items.map(function (c, i) {
+        return '<li class="phone-cc-item" role="option" data-i="' + i + '"><span class="fl">' + c[0] +
+               '</span><span class="nm">' + c[1] + '</span><span class="cd">' + c[2] + '</span></li>';
+      }).join('');
+    }
+    function open() {
+      pop.hidden = false; field.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+      search.value = ''; activeIdx = -1; render(COUNTRIES);
+      setTimeout(function () { search.focus(); }, 0);
+    }
+    function close() { pop.hidden = true; field.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); }
+    function pick(c) { if (!c) return; flagEl.textContent = c[0]; codeEl.textContent = c[2]; close(); number.focus(); }
+
+    btn.addEventListener('click', function () { pop.hidden ? open() : close(); });
+    btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    search.addEventListener('input', function () {
+      var q = search.value.trim().toLowerCase();
+      activeIdx = -1;
+      render(!q ? COUNTRIES : COUNTRIES.filter(function (c) { return c[1].toLowerCase().indexOf(q) > -1 || c[2].indexOf(q) > -1; }));
+    });
+    list.addEventListener('click', function (e) {
+      var li = e.target.closest('.phone-cc-item'); if (!li || !li.hasAttribute('data-i')) return;
+      pick(filtered[+li.getAttribute('data-i')]);
+    });
+    search.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { close(); btn.focus(); return; }
+      var items = list.querySelectorAll('.phone-cc-item');
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault(); if (!items.length) return;
+        activeIdx = e.key === 'ArrowDown' ? Math.min(activeIdx + 1, items.length - 1) : Math.max(activeIdx - 1, 0);
+        items.forEach(function (it, i) { it.classList.toggle('active', i === activeIdx); });
+        items[activeIdx].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeIdx >= 0) pick(filtered[activeIdx]); else if (filtered.length === 1) pick(filtered[0]);
+      }
+    });
+    document.addEventListener('click', function (e) { if (!field.contains(e.target)) close(); });
+    render(COUNTRIES);
+  })();
+
+  // Step 4 — up to 3 questions for the hosts; each added one can be removed.
+  function syncAddBtn() {
+    var block = document.getElementById('questionsBlock');
+    document.getElementById('addQuestionBtn').style.display =
+      block.querySelectorAll('textarea').length >= 3 ? 'none' : '';
+  }
+  function addQuestion() {
+    var block = document.getElementById('questionsBlock');
+    var btn = document.getElementById('addQuestionBtn');
+    if (block.querySelectorAll('textarea').length >= 3) return;
+    var row = document.createElement('div');
+    row.className = 'q-added-row';
+    row.style.cssText = 'display:flex;gap:10px;align-items:flex-start;margin-top:10px';
+    var ta = document.createElement('textarea');
+    ta.placeholder = 'Another question (optional)';
+    ta.style.flex = '1';
+    var rm = document.createElement('button');
+    rm.type = 'button';
+    rm.setAttribute('aria-label', 'Remove question');
+    rm.title = 'Remove question';
+    rm.style.cssText = 'flex-shrink:0;background:none;border:none;cursor:pointer;padding:7px;margin-top:5px;border-radius:8px;color:var(--ink-3);display:flex;line-height:0;transition:color 160ms,background 160ms';
+    rm.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
+    rm.onmouseenter = function () { rm.style.color = 'var(--ink)'; rm.style.background = 'var(--bg-soft)'; };
+    rm.onmouseleave = function () { rm.style.color = 'var(--ink-3)'; rm.style.background = 'none'; };
+    rm.onclick = function () { row.remove(); syncAddBtn(); };
+    row.appendChild(ta);
+    row.appendChild(rm);
+    block.insertBefore(row, btn);
+    syncAddBtn();
+  }
+
+  // Chips toggle + clear their section's error on change
+  // [data-single] groups (step 2 company size) allow one answer: picking one clears the rest.
+  document.querySelectorAll('.id-chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var group = c.closest('.id-chips');
+      if (group.hasAttribute('data-single')) group.querySelectorAll('.id-chip').forEach(function (o) { if (o !== c) o.classList.remove('selected'); });
+      c.classList.toggle('selected'); clearError(c.closest('.id-section'));
+    });
+  });
+  // Function → "Other" reveals a free-text field
+  document.getElementById('areaOtherChip').addEventListener('click', function () {
+    var on = this.classList.contains('selected'), f = document.getElementById('areaOtherField');
+    f.hidden = !on; clearError(f);
+    if (on) document.getElementById('areaOtherInput').focus();
+  });
+  // Clear the waiver error when ticked
+  var agreeBox = document.getElementById('agreeBox');
+  if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
+
+  // Entry path from the landing page: ?auth=in opens the logged-in path (skip account),
+  // anything else = logged out (create account first). QA sets the scenario on the event
+  // page; the button carries it here so the flow opens in the matching state.
+  (function () {
+    var wantsIn = /[?&]auth=in\b/.test(location.search);
+    if (wantsIn) { setAuthMode('in'); }
+    else {
+      window._authMode = 'out';
+      var dout = document.getElementById('devAuthOut');
+      if (dout) { dout.style.background = '#fff'; dout.style.color = '#0A0A0A'; }
+    }
+  })();
+
+  // ── Add to calendar (step 5) — provider links + .ics, all from ONE event record ──
+  // Thu, Feb 11, 2027 6:00–8:30 PM EST (UTC-5) → 23:00–01:30Z. COPY: confirm per event.
+  // The real build fills this from the event API; `uid` must match the confirmation email's .ics UID.
+  var CAL_EVENT = {
+    uid: 'b2b-leaders-nyc-2027-02-11@powertofly.com',
+    start: '20270211T230000Z',
+    end:   '20270212T013000Z',
+    location: 'New York, NY — venue in your confirmation email'
+  };
+  function buildCalendarLinks() {
+    var title = document.querySelector('.event-title').textContent.replace(/\s+/g, ' ').trim() + ' — PowerToFly';
+    var url = location.href.split('#')[0];
+    var details = 'Event page: ' + url;
+    var iso = function (s) { return s.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z'); };
+    var enc = encodeURIComponent;
+    document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + enc(title) + '&dates=' + CAL_EVENT.start + '/' + CAL_EVENT.end
+      + '&details=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    var ms = function (host) {
+      return 'https://' + host + '/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent'
+        + '&subject=' + enc(title) + '&startdt=' + enc(iso(CAL_EVENT.start)) + '&enddt=' + enc(iso(CAL_EVENT.end))
+        + '&body=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    };
+    document.getElementById('calOutlook').href = ms('outlook.live.com');
+    document.getElementById('calOffice').href  = ms('outlook.office.com');
+    var esc = function (s) { return s.replace(/([,;\\])/g, '\\$1'); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PowerToFly//Events//EN', 'BEGIN:VEVENT',
+      'UID:' + CAL_EVENT.uid, 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'DTSTART:' + CAL_EVENT.start, 'DTEND:' + CAL_EVENT.end,
+      'SUMMARY:' + esc(title), 'DESCRIPTION:' + esc(details), 'LOCATION:' + esc(CAL_EVENT.location), 'URL:' + url,
+      'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:Starting in 15 minutes', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var link = document.getElementById('calIcs');
+    if (link.dataset.blob) URL.revokeObjectURL(link.dataset.blob);
+    link.dataset.blob = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    link.href = link.dataset.blob;
+  }
+  buildCalendarLinks();
+  PTF.initMegaNav();  // wires the calendar flyout (no site nav on this page)
+
+  // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
+  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
+  jumpFromHash();
+  window.addEventListener('hashchange', jumpFromHash);
+</script>
+</body>
+</html>
