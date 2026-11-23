@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Job Board pricing v2 (draft) — PowerToFly AI</title>
+<meta property="og:title"       content="Job Board — Post jobs, find talent — PowerToFly AI">
+<meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
+<meta property="og:type"        content="website">
+<!--
+  JOB BOARD CHECKOUT FUNNEL — faithful reproduction of the v0 flow, re-skinned into
+  the PowerToFly design system. Four screens toggled in-page:
+    1) Select package   2) Company info   3) Checkout   4) Payment successful
+  REUSED from ds/ptf.css (never rebuilt): shared nav (data-ptf-nav) + footer
+  (data-ptf-footer), .section/.section-head/.display, .field/.field-row, .btn/
+  .btn-primary/.btn-sm/.btn-block, .check-row/.check-box, .eyebrow, .logo-strip
+  marquee, and the ONE MUI-Outlined + #ptf-grad icon recipe.
+  The .jb-* block below is PAGE-SPECIFIC, FLAGGED CSS for components that have NO
+  home in the inventory yet (progress stepper, pricing cards, product chip, icon-
+  header form cards, order summary, promo, payment card, auto-renew card, next-
+  steps). Token-based, no raw hex. Candidates to promote into ptf.css if approved.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../ds/ptf.css">
+<style>
+/* ============================================================================
+   JOB BOARD CHECKOUT — PAGE-SPECIFIC (FLAGGED) COMPONENTS
+   None of these exist in the design system. Built to the reference screenshots
+   using ONLY ptf.css tokens. Reuses shared .btn/.field/.check-box/.eyebrow.
+   ============================================================================ */
+
+/* screen switcher */
+.jb-screen[hidden]{display:none;}
+
+/* ── progress stepper (Select package → Company info → Checkout) ── */
+.jb-steps{display:flex;align-items:center;justify-content:center;gap:8px;max-width:660px;margin:0 auto 44px;}
+.jb-step{display:flex;align-items:center;gap:10px;}
+.jb-step-mark{width:32px;height:32px;border-radius:var(--r-pill);display:grid;place-items:center;
+  font-size:14px;font-weight:700;background:var(--surface-2);color:var(--ink-3);border:1px solid var(--line);flex-shrink:0;}
+.jb-step.is-current .jb-step-mark{background:var(--ink);color:#fff;border-color:var(--ink);}
+.jb-step.is-done .jb-step-mark{background:var(--green-mid);color:var(--ink);border-color:var(--green-mid);}
+.jb-step-mark svg{width:16px;height:16px;}
+.jb-step-label{font-size:14px;font-weight:600;color:var(--ink);white-space:nowrap;}
+.jb-step:not(.is-current):not(.is-done) .jb-step-label{color:var(--ink-3);}
+.jb-step-line{width:60px;height:2px;background:var(--line-2);border-radius:2px;flex-shrink:0;}
+.jb-step-line.is-done{background:var(--green-mid);}
+@media(max-width:640px){.jb-step-label{display:none;} .jb-step-line{width:28px;}}
+
+/* ── product chip ("Job Board") — a neutral product indicator, NOT an eyebrow ── */
+.jb-chip{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:var(--r-pill);
+  background:var(--surface-2);border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--ink);}
+.jb-chip svg{width:18px;height:18px;}
+
+/* ── pricing cards ── */
+.jb-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;}
+.jb-plans.is-two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;}
+.jb-plans + .jb-plans-group{margin-top:56px;}
+.jb-plans-group{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);text-align:center;margin:0 auto 24px;}
+.jb-rules{max-width:900px;margin:56px auto 0;padding:28px 32px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);}
+.jb-rules h3{font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+.jb-rules ul{margin:0;padding-left:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 32px;font-size:14px;color:var(--ink-2);line-height:1.5;}
+@media(max-width:680px){.jb-rules ul{grid-template-columns:1fr;}.jb-rules{padding:24px 20px;}}
+@media(max-width:960px){.jb-plans,.jb-plans.is-two{grid-template-columns:1fr;max-width:560px;}}
+/* placeholder price — the number isn't decided yet; dashed so nobody reads it as final */
+.jb-plan-price.is-tbd{font-size:26px;color:var(--ink-3);border:1.5px dashed var(--line-2);border-radius:var(--r-md);padding:10px 14px;display:inline-block;align-self:flex-start;}
+.jb-plans-foot{text-align:center;font-size:15px;color:var(--ink-3);margin-top:32px;}
+.jb-plans-foot a{color:var(--green);font-weight:600;text-decoration:none;}
+.jb-plans-foot a:hover{text-decoration:underline;}
+.jb-plan{position:relative;display:flex;flex-direction:column;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r-xl);padding:32px;box-shadow:var(--shadow-card);}
+.jb-plan-icon{width:48px;height:48px;border-radius:var(--r-md);background:var(--surface-2);display:grid;place-items:center;margin-bottom:24px;}
+.jb-plan-icon svg{width:26px;height:26px;}
+.jb-plan h3{font-family:'Inter Tight',sans-serif;font-size:24px;font-weight:700;letter-spacing:-0.02em;margin-bottom:10px;color:var(--ink);}
+.jb-plan-desc{font-size:15px;color:var(--ink-3);line-height:1.55;margin-bottom:24px;}
+.jb-plan-price{font-family:'Inter Tight',sans-serif;font-size:44px;font-weight:800;letter-spacing:-0.03em;line-height:1;color:var(--ink);}
+.jb-plan-price span{font-size:16px;font-weight:500;color:var(--ink-3);letter-spacing:0;}
+.jb-plan-price.is-text{font-size:30px;}
+.jb-plan-per{font-size:14px;color:var(--ink-3);margin-top:8px;}
+.jb-plan-feats{list-style:none;margin:24px 0;display:flex;flex-direction:column;gap:14px;}
+.jb-plan-feats li{display:flex;gap:12px;font-size:14px;color:var(--ink-2);line-height:1.45;}
+.jb-plan-feats svg{width:18px;height:18px;flex-shrink:0;margin-top:1px;}
+.jb-plan .jb-plan-cta{margin-top:auto;}
+.jb-plan-badge{position:absolute;top:-12px;right:24px;background:var(--green-mid);color:var(--ink);
+  font-size:12px;font-weight:700;padding:5px 14px;border-radius:var(--r-pill);}
+
+/* quantity selector inside pricing card */
+.jb-qty{background:var(--surface-2);border-radius:var(--r-md);padding:16px 18px;margin-bottom:16px;}
+.jb-qty-row{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.jb-qty-label{font-size:14px;font-weight:600;color:var(--ink);}
+.jb-qty-ctrl{display:flex;align-items:center;gap:16px;}
+.jb-qty-btn{width:30px;height:30px;border-radius:var(--r-pill);border:1.5px solid var(--line-2);
+  background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--ink);
+  font-size:20px;line-height:1;padding:0;transition:border-color .15s,transform .15s;}
+.jb-qty-btn:hover{border-color:var(--ink);transform:translateY(-1px);}
+.jb-qty-num{font-size:16px;font-weight:700;min-width:20px;text-align:center;color:var(--ink);}
+.jb-qty-total{display:flex;align-items:center;justify-content:space-between;margin-top:14px;
+  padding-top:14px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-3);}
+.jb-qty-total b{font-size:16px;color:var(--ink);}
+
+/* ── icon-header form cards (Company info flow) ── */
+.jb-stack{max-width:720px;margin:0 auto;}
+.jb-fcard{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow-card);}
+.jb-fcard + .jb-fcard{margin-top:24px;}
+.jb-fcard-hd{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.jb-fcard-ic{width:44px;height:44px;border-radius:var(--r-md);background:var(--surface-2);display:grid;place-items:center;flex-shrink:0;}
+.jb-fcard-ic svg{width:24px;height:24px;}
+.jb-fcard-hd h3{font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);}
+.jb-fcard-hd p{font-size:14px;color:var(--ink-3);margin-top:2px;}
+.jb-fcard-body{display:flex;flex-direction:column;gap:16px;}
+.jb-note{background:var(--surface-2);border-radius:var(--r-md);padding:18px 22px;font-size:14px;
+  color:var(--ink-3);text-align:center;line-height:1.55;margin-top:24px;}
+
+/* ── checkout: two columns ── */
+.jb-checkout{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);gap:28px;max-width:1120px;margin:0 auto;align-items:start;}
+@media(max-width:860px){.jb-checkout{grid-template-columns:1fr;}}
+.jb-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:28px;box-shadow:var(--shadow-card);}
+.jb-card + .jb-card{margin-top:24px;}
+
+/* order summary */
+.jb-summary h3{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:8px;}
+.jb-srow{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);}
+.jb-srow:last-child{border-bottom:0;}
+.jb-slabel{font-size:13px;color:var(--ink-3);margin-bottom:4px;}
+.jb-sval{font-size:15px;font-weight:600;color:var(--ink);}
+.jb-ssub{font-size:13px;color:var(--ink-3);margin-top:4px;line-height:1.5;}
+.jb-srow--total{padding-top:20px;}
+.jb-srow--total .jb-sval,.jb-srow--total .jb-stitle{font-family:'Inter Tight',sans-serif;font-size:22px;font-weight:800;letter-spacing:-0.02em;color:var(--ink);}
+
+/* promo */
+.jb-promo h4{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:12px;}
+.jb-promo-row{display:flex;gap:10px;align-items:flex-end;}
+.jb-promo-row .field{flex:1;}
+
+/* payment card */
+.jb-pay-hd{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;}
+.jb-pay-hd h3{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:700;color:var(--ink);}
+.jb-secure{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink-3);}
+.jb-secure svg{width:15px;height:15px;}
+.jb-input-wrap{position:relative;}
+.jb-input-wrap input{padding-right:44px;}
+.jb-input-wrap svg{position:absolute;right:14px;top:50%;transform:translateY(-50%);width:24px;height:24px;pointer-events:none;}
+
+/* auto-renew toggle card */
+.jb-toggle-row{display:flex;gap:14px;align-items:flex-start;}
+.jb-toggle-main{flex:1;}
+.jb-toggle-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ink);}
+.jb-toggle-title svg{width:18px;height:18px;}
+.jb-toggle-desc{font-size:14px;color:var(--ink-3);line-height:1.55;margin-top:6px;}
+.jb-toggle-info{background:var(--surface-2);border-radius:var(--r-sm);padding:12px 14px;font-size:13px;color:var(--ink-3);line-height:1.5;margin-top:14px;}
+
+/* pay button disabled state (scoped — does not touch shared .btn) */
+.jb-paybtn{margin-top:22px;}
+.jb-paybtn svg{width:16px;height:16px;margin-left:6px;vertical-align:-2px;}
+.jb-paybtn:disabled{background:var(--surface-2);color:var(--ink-3);border-color:var(--line);cursor:not-allowed;box-shadow:none;transform:none;}
+.jb-fineprint{font-size:12.5px;color:var(--ink-3);text-align:center;line-height:1.5;margin-top:18px;}
+.jb-stripe{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--ink-3);margin-top:20px;}
+.jb-stripe svg{width:14px;height:14px;}
+
+/* back link */
+.jb-back{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500;color:var(--ink-3);text-decoration:none;margin-bottom:24px;transition:color .15s;}
+.jb-back:hover{color:var(--ink);}
+
+/* centered chip + heading blocks for the stepper screens */
+.jb-flow-head{text-align:center;margin-bottom:40px;}
+.jb-flow-head .jb-chip{margin-bottom:22px;}
+.jb-flow-head h1{margin-bottom:10px;}
+.jb-flow-head p{font-size:17px;color:var(--ink-3);}
+.jb-flow-actions{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:32px;}
+.jb-flow-actions .jb-back{margin-bottom:0;}
+
+/* ── success screen ── */
+.jb-success{max-width:640px;margin:0 auto;text-align:center;}
+.jb-success .thanks-icon{margin-bottom:26px;}
+.jb-success h1{margin-bottom:14px;}
+.jb-success-sub{font-size:18px;color:var(--ink-3);line-height:1.6;max-width:520px;margin:0 auto 40px;}
+.jb-nextsteps{text-align:left;margin:0 auto 32px;}
+.jb-nextsteps h3{font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:14px;}
+.jb-nsrow{display:flex;gap:16px;padding:14px 0;position:relative;}
+/* subtle timeline connector between the numbered steps (1→2→3). Runs from this
+   circle's centre to the next; the opaque circles mask the ends, leaving a
+   clean line only in the gaps. */
+.jb-nsrow:not(:last-child)::before{content:'';position:absolute;left:15px;top:29px;height:100%;width:2px;transform:translateX(-50%);background:var(--line-2);z-index:0;}
+.jb-nsnum{position:relative;z-index:1;width:30px;height:30px;border-radius:var(--r-pill);background:var(--surface-2);display:grid;place-items:center;
+  font-size:14px;font-weight:700;color:var(--ink-3);flex-shrink:0;}
+.jb-nsrow.is-active .jb-nsnum{background:var(--green-mid);color:var(--ink);}
+.jb-nstitle{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:var(--ink);}
+.jb-nstitle svg{width:18px;height:18px;}
+.jb-nsdesc{font-size:14px;color:var(--ink-3);margin-top:3px;}
+.jb-success .jb-paybtn{display:inline-flex;align-items:center;width:auto;}
+.jb-contact{font-size:14px;color:var(--ink-3);margin-top:26px;}
+.jb-contact a{color:var(--green);font-weight:600;text-decoration:none;}
+.jb-contact a:hover{text-decoration:underline;}
+
+/* ── ICON SIZE RULE (design system, 2026-07-04): gradient ONLY when big (≥40px).
+   Every icon under 40px on this page is plain, single-color ink MUI Outlined —
+   NO gradient (at small size the gradient turns to mush). Paths carry no colour;
+   they're filled here via tokens. Only the 46px thank-you check on the success
+   screen keeps the #ptf-grad gradient. ── */
+.jb-plan-feats svg,.jb-chip svg,.jb-plan-icon svg,.jb-fcard-ic svg,.jb-nstitle svg,.jb-toggle-title svg{fill:var(--ink);}
+.jb-input-wrap svg,.jb-secure svg,.jb-stripe svg{fill:var(--ink-3);}
+
+/* Hero glow now comes from the shared .hero-glow class in ptf.css. Page keeps only
+   its spacing: more top padding (per feedback), package section pulled up so the two
+   read as one balanced unit. Scoped to #screen-package. */
+#screen-package .section-hero{padding-top:96px;padding-bottom:72px;}
+#screen-package .section-hero + .section{padding-top:40px;}
+
+/* ── Account-validation state screens (Cases 2/4/5/6) — centered "state card".
+   New page-specific component: bordered card, centered green-tint icon tile (icon
+   <40px → plain ink), heading, muted sub, optional left-aligned fields, full-width
+   button. Reuses .field / .btn-primary / .jb-back. ── */
+.jb-statecard{max-width:520px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-xl);padding:36px 32px;box-shadow:var(--shadow-card);text-align:center;}
+.jb-statecard-ic{width:56px;height:56px;border-radius:var(--r-md);background:color-mix(in srgb,var(--green-mid) 16%,#fff);display:grid;place-items:center;margin:0 auto 22px;}
+.jb-statecard-ic svg{width:28px;height:28px;fill:var(--ink);}   /* <40px → plain ink, no gradient */
+.jb-statecard h2{font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin-bottom:10px;}
+.jb-statecard-sub{font-size:15px;color:var(--ink-3);line-height:1.6;margin-bottom:24px;}
+.jb-statecard-sub b{color:var(--ink);font-weight:600;}
+.jb-statecard .jb-fcard-body{text-align:left;margin-bottom:22px;}
+.jb-statecard .btn{width:100%;justify-content:center;}
+.jb-statecard-msg{font-size:13px;color:var(--green);font-weight:600;margin-top:14px;min-height:18px;}
+.jb-state-back{text-align:center;margin-top:28px;}
+
+/* PROTOTYPE/QA ONLY — floating dev control, deliberately OFF-BRAND (raw colours, not
+   design tokens) so nobody mistakes it for part of the design. Delete this block +
+   the #jbDemoBar markup + the demo JS for production. Collapsible via the header. */
+.jb-demobar{position:fixed;right:16px;bottom:16px;z-index:4000;width:250px;
+  background:#141414;color:#fff;border:1px dashed #4FE8A9;border-radius:12px;
+  padding:12px 14px;box-shadow:0 14px 34px rgba(0,0,0,.32);font-family:'Inter',sans-serif;}
+.jb-demobar-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#4FE8A9;cursor:pointer;}
+.jb-demobar-hd span:last-child{color:rgba(255,255,255,.5);font-size:13px;}
+.jb-demobar-body{margin-top:10px;}
+.jb-demobar.collapsed .jb-demobar-body{display:none;}
+.jb-demobar select{width:100%;font-family:inherit;font-size:13px;padding:7px 9px;border-radius:8px;
+  border:1px solid rgba(255,255,255,.25);background:#1e1e1e;color:#fff;}
+.jb-demobar-hint{font-size:10px;color:rgba(255,255,255,.55);margin-top:9px;line-height:1.55;}
+
+/* Company-context note on checkout (Cases 3 & 7). */
+.jb-conote{max-width:1120px;margin:0 auto 20px;background:color-mix(in srgb,var(--green-mid) 12%,#fff);border:1px solid color-mix(in srgb,var(--green-mid) 40%,#fff);border-radius:var(--r-md);padding:12px 16px;font-size:13.5px;color:var(--ink-2);text-align:center;}
+</style>
+</head>
+<body>
+
+<!-- shared iridescent gradient for the ONE icon recipe -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <linearGradient id="ptf-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#5BCFFF"/><stop offset="50%" stop-color="#4FE8A9"/><stop offset="100%" stop-color="#D5FF66"/>
+  </linearGradient>
+</defs></svg>
+
+<!-- REUSED: shared site nav -->
+<div data-ptf-nav data-active="employers"></div>
+
+<main>
+
+  <!-- ════════════════ SCREEN 1 — SELECT PACKAGE ════════════════ -->
+  <section class="jb-screen" id="screen-package">
+
+    <section class="section-hero hero-glow">
+      <div class="section-head">
+        <h1 class="display">Post jobs. Find talent.<br>Build your team.</h1>
+        <p>Post your job on PowerToFly for free. Add paid help when you want more reach, matched candidates, or a recruiter.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Choose how you want to hire</h2>
+        <p>Post for free. Pay for more reach, or let us hire for you.</p>
+      </div>
+
+      <h3 class="jb-plans-group">Post and promote your job</h3>
+      <div class="jb-plans">
+        <!-- 1 · Free job post. v2: company blurb, salary required, 30 days, rules below. COPY: confirm -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
+          </div>
+          <h3>Free job post</h3>
+          <p class="jb-plan-desc">Post a job on PowerToFly at no cost. Just create an account.</p>
+          <div class="jb-plan-price">$0<span>per job</span></div>
+          <div class="jb-plan-per">Live for 30 days. No credit card.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Listed on the PowerToFly job board for 30 days</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Short company blurb, written when you post</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Salary range shown on every job</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Candidates redirected to your ATS</li>
+          </ul>
+          <button class="btn btn-primary btn-block jb-plan-cta" type="button" onclick="pickPlan('free')">Post a job free →</button>
+        </div>
+        <!-- 2 · Boost (paid, self-serve). Milena's add-on #1. COPY: confirm price, duration and the visibility number -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
+          </div>
+          <h3>Boost</h3>
+          <p class="jb-plan-desc">Put your job in front of more people.</p>
+          <div class="jb-plan-price is-tbd">[Price TBD]</div>
+          <div class="jb-plan-per">Per job. Pay by card.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Featured badge and pinned near the top of the board</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Promoted in the PowerToFly newsletter</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Shared on PowerToFly social channels</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>[X]x more views than a free post</li>
+          </ul>
+          <button class="btn btn-primary btn-block jb-plan-cta" type="button" onclick="pickPlan('boost')">Boost a job →</button>
+        </div>
+        <!-- 3 · Match (paid, self-serve). Milena's add-on #2. COPY: confirm price and number of matches -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 4c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0 3c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm1.76-12.64l-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"/></svg>
+          </div>
+          <h3>Match</h3>
+          <p class="jb-plan-desc">Get matched candidates sent to you, not just applicants.</p>
+          <div class="jb-plan-price is-tbd">[Price TBD]</div>
+          <div class="jb-plan-per">Per job. Pay by card.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>A batch of [X] candidates matched to your role</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Hand-checked by the PowerToFly team</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Contact information for each match</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Analytics on views and applicants</li>
+          </ul>
+          <button class="btn btn-primary btn-block jb-plan-cta" type="button" onclick="pickPlan('match')">Get matches →</button>
+        </div>
+      </div>
+
+      <h3 class="jb-plans-group">Let us hire for you</h3>
+      <div class="jb-plans is-two">
+        <!-- 4 · Hire talent through us (sales). Milena's add-on #3. COPY: confirm fees -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>
+          </div>
+          <h3>Hire talent through us</h3>
+          <p class="jb-plan-desc">We hand-pick people for the role, as contractors or full-time hires.</p>
+          <div class="jb-plan-price is-text">Custom pricing</div>
+          <div class="jb-plan-per">Talk to our team.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Specific people put forward for your role</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Contract talent (staff augmentation), billed monthly</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Full-time placement: 10% of annual salary</li>
+          </ul>
+          <a class="btn btn-block jb-plan-cta" href="../book/">Talk to us →</a>
+        </div>
+        <!-- 5 · Recruiter on demand (sales). Milena's add-on #4. COPY: confirm price (monthly or per hire?) -->
+        <div class="jb-plan">
+          <div class="jb-plan-icon">
+            <svg viewBox="0 0 24 24"><path d="M10 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM4 18c.22-.72 3.31-2 6-2 0-.7.13-1.37.35-1.99C7.62 13.91 2 15.27 2 18v2h9.54c-.52-.58-.93-1.25-1.19-2H4zm15.43.02c.36-.59.57-1.28.57-2.02 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.74 0 1.43-.22 2.02-.57L20.59 22 22 20.59c-1.5-1.5-.79-.8-2.57-2.57zM16 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          </div>
+          <h3>Recruiter on demand</h3>
+          <p class="jb-plan-desc">A PowerToFly recruiter works your role until it&rsquo;s filled.</p>
+          <div class="jb-plan-price is-tbd">[Price TBD]</div>
+          <div class="jb-plan-per">Monthly or per hire, to be decided.</div>
+          <ul class="jb-plan-feats">
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Manages your inbound applicants</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Does outbound sourcing when needed, including LinkedIn</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Uses AI to shorten time to fill</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Clear SLAs you can track</li>
+          </ul>
+          <a class="btn btn-block jb-plan-cta" href="../book/">Talk to us →</a>
+        </div>
+      </div>
+
+      <!-- v2: quality rules for free posts (Wellfound-style). COPY: confirm -->
+      <div class="jb-rules">
+        <h3>To keep the board trustworthy</h3>
+        <ul>
+          <li>Every job shows a salary range.</li>
+          <li>Only the hiring company can post. No staffing agencies on free posts.</li>
+          <li>We can remove jobs that are misleading or low quality, paid or free.</li>
+          <li>Free jobs come down after 30 days. Repost anytime.</li>
+        </ul>
+      </div>
+
+      <!-- v2: branding package gets its own page (not built yet). COPY: confirm -->
+      <p class="jb-plans-foot">Want to show off your company, not just one job? <a href="#">See branding packages</a> · Hiring at volume? <a href="../book/">Ask about an annual partnership</a></p>
+    </section>
+
+    <!-- REUSED: logo-strip marquee -->
+    <section class="section-tight">
+      <div class="logo-strip"><div class="logo-strip-track" id="jbLogos"></div></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ SCREEN 2 — COMPANY INFO ════════════════ -->
+  <section class="jb-screen" id="screen-company" hidden>
+    <section class="section">
+      <!-- stepper -->
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+
+      <div class="jb-flow-head">
+        <span class="jb-chip">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
+          Job Board
+        </span>
+        <h1 class="display">Create your account</h1>
+        <p>Set up your company profile to get started.</p>
+      </div>
+
+      <div class="jb-stack">
+        <div class="jb-fcard">
+          <div class="jb-fcard-hd">
+            <span class="jb-fcard-ic"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span>
+            <div><h3>Company information</h3><p>Tell us about your company</p></div>
+          </div>
+          <div class="jb-fcard-body">
+            <div class="field"><label for="co-name">Company name *</label><input type="text" id="co-name" placeholder="Acme Inc."></div>
+            <div class="field"><label for="co-web">Company website (optional)</label><input type="url" id="co-web" placeholder="https://acme.com"></div>
+          </div>
+        </div>
+
+        <div class="jb-fcard">
+          <div class="jb-fcard-hd">
+            <span class="jb-fcard-ic"><svg viewBox="0 0 24 24"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg></span>
+            <div><h3>Contact details</h3><p>Your primary contact information</p></div>
+          </div>
+          <div class="jb-fcard-body">
+            <div class="field-row">
+              <div class="field"><label for="co-first">First name *</label><input type="text" id="co-first" placeholder="Jane"></div>
+              <div class="field"><label for="co-last">Last name *</label><input type="text" id="co-last" placeholder="Smith"></div>
+            </div>
+            <div class="field"><label for="co-email">Email address *</label><input type="email" id="co-email" placeholder="jane@acme.com"></div>
+          </div>
+        </div>
+
+        <div class="jb-note" id="jbCompanyNote">Your company account will be created as pending and activated after payment is completed.</div>
+
+        <div class="jb-flow-actions">
+          <a class="jb-back" href="#" onclick="showScreen('screen-package');return false">← Back</a>
+          <button class="btn btn-primary" type="button" onclick="continueFromCompany()" id="jbCompanyCta">Continue to checkout →</button>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASE 2 — LOG IN TO CONTINUE (email = existing verified client) ════════════════ -->
+  <section class="jb-screen" id="screen-login" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg></div>
+        <h2>Log in to continue</h2>
+        <p class="jb-statecard-sub">An account already exists for <b id="loginEmailLabel">verified@acme.com</b>. Log in to continue with your selected package.</p>
+        <div class="jb-fcard-body">
+          <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" readonly></div>
+          <div class="field"><label for="login-password">Password</label><input type="password" id="login-password" placeholder="Enter your password"></div>
+        </div>
+        <button class="btn btn-primary btn-block" type="button" onclick="showScreen('screen-checkout')">Log in and continue →</button>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASE 4 — VERIFY YOUR ACCOUNT (existing client, not verified) ════════════════ -->
+  <section class="jb-screen" id="screen-verify" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div>
+        <h2>Verify your account</h2>
+        <p class="jb-statecard-sub">We sent a verification link to <b id="verifyEmailLabel">jane@acme.com</b>. Verify your account, then come back to finish checkout.</p>
+        <button class="btn btn-primary btn-block" type="button" onclick="resendVerify()">Resend verification email</button>
+        <div class="jb-statecard-msg" id="verifyMsg"></div>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ CASES 5 & 6 — CONTACT OUR TEAM (suspended / talent account) ════════════════ -->
+  <section class="jb-screen" id="screen-contact" hidden>
+    <section class="section">
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">2</span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line"></span>
+        <div class="jb-step"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+      <div class="jb-statecard">
+        <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div>
+        <h2>Contact our team</h2>
+        <p class="jb-statecard-sub" id="contactBody">This email is already associated with a Talent account. Please contact our team to enable employer access.</p>
+        <a class="btn btn-primary btn-block" href="../book/">Contact sales →</a>
+      </div>
+      <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
+    </section>
+  </section>
+
+  <!-- ════════════════ SCREEN 3 — CHECKOUT ════════════════ -->
+  <section class="jb-screen" id="screen-checkout" hidden>
+    <section class="section">
+      <!-- stepper -->
+      <div class="jb-steps">
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Select package</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-done"><span class="jb-step-mark"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" stroke-linejoin="miter"/></svg></span><span class="jb-step-label">Company info</span></div>
+        <span class="jb-step-line is-done"></span>
+        <div class="jb-step is-current"><span class="jb-step-mark">3</span><span class="jb-step-label">Checkout</span></div>
+      </div>
+
+      <div class="content">
+        <!-- No back link at checkout — payment is a commit point, we don't send people backwards. -->
+        <div style="margin-bottom:24px"><span class="jb-chip">
+          <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/></svg>
+          Job Board
+        </span></div>
+
+        <p class="jb-conote" id="jbCaseNote" hidden></p>
+
+        <div class="jb-checkout">
+          <!-- LEFT: order summary + promo -->
+          <div>
+            <div class="jb-card jb-summary">
+              <h3>Order summary</h3>
+              <div class="jb-srow"><div><div class="jb-slabel">Product</div><div class="jb-sval">Job Board</div></div></div>
+              <div class="jb-srow">
+                <div><div class="jb-slabel">Package</div><div class="jb-sval" id="jbPkgName">Boost (1 job)</div><div class="jb-ssub" id="jbPkgSub">Featured badge, newsletter promotion and social posts</div></div>
+                <div class="jb-sval" data-total>[Price TBD]</div>
+              </div>
+              <div class="jb-srow"><span class="jb-slabel" style="margin:0;align-self:center">Subtotal</span><span class="jb-sval" data-total>$1,497</span></div>
+              <div class="jb-srow"><span class="jb-slabel" style="margin:0;align-self:center">Tax</span><span class="jb-sval" style="font-weight:500;color:var(--ink-3)">Calculated at checkout</span></div>
+              <div class="jb-srow jb-srow--total"><span class="jb-stitle">Total due today</span><span class="jb-sval" data-total>$1,497</span></div>
+            </div>
+
+            <div class="jb-card jb-promo">
+              <h4>Promo code</h4>
+              <div class="jb-promo-row">
+                <div class="field"><input type="text" placeholder="Enter code"></div>
+                <button class="btn btn-sm" type="button">Apply</button>
+              </div>
+            </div>
+
+            <div class="jb-stripe">
+              <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg>
+              Payments securely processed by Stripe
+            </div>
+          </div>
+
+          <!-- RIGHT: payment + agree + pay (auto-renew is on by default — no toggle) -->
+          <div>
+            <div class="jb-card">
+              <div class="jb-pay-hd">
+                <h3>Payment details</h3>
+                <span class="jb-secure">
+                  <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg>
+                  Secured by Stripe
+                </span>
+              </div>
+              <div class="jb-fcard-body">
+                <div class="field">
+                  <label for="pay-card">Card number</label>
+                  <div class="jb-input-wrap">
+                    <input type="text" id="pay-card" inputmode="numeric" placeholder="1234 5678 9012 3456">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></svg>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field"><label for="pay-exp">Expiration date</label><input type="text" id="pay-exp" placeholder="MM/YY"></div>
+                  <div class="field"><label for="pay-cvc">CVC</label><input type="text" id="pay-cvc" inputmode="numeric" placeholder="123"></div>
+                </div>
+                <div class="field"><label for="pay-name">Name on card</label><input type="text" id="pay-name" placeholder="Jane Doe"></div>
+              </div>
+            </div>
+
+            <div class="jb-card jb-agree">
+              <label class="check-row">
+                <input type="checkbox" class="check-box" id="agreeBox" onchange="document.getElementById('payBtn').disabled=!this.checked">
+                <span style="font-size:14px;color:var(--ink-2);line-height:1.5">I agree to the <a href="#" style="color:var(--green);font-weight:600;text-decoration:none">Terms of Service</a> and <a href="#" style="color:var(--green);font-weight:600;text-decoration:none">Privacy Policy</a>.</span>
+              </label>
+            </div>
+
+            <button class="btn btn-primary btn-block jb-paybtn" type="button" id="payBtn" disabled onclick="showScreen('screen-success')">
+              Pay <span data-total>$1,497</span> and activate
+              <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>
+            </button>
+            <p class="jb-fineprint">Your payment is secure and encrypted. By proceeding, you authorize PowerToFly to charge your card.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ════════════════ SCREEN 4 — PAYMENT SUCCESSFUL ════════════════ -->
+  <section class="jb-screen" id="screen-success" hidden>
+    <section class="section">
+      <div class="jb-success">
+        <!-- REUSED: the design-system thank-you check — bold fat gradient stroke, no disc/ring -->
+        <div class="thanks-icon">
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+          </svg>
+        </div>
+        <h1 class="display" id="jbSuccessTitle">Payment successful</h1>
+        <p class="jb-success-sub" id="jbSuccessSub">Your account is active and ready. Reach PowerToFly's vetted talent and start getting applications within minutes — no sourcing required.</p>
+
+        <button class="btn btn-primary jb-paybtn" type="button" style="justify-content:center">Post your first job</button>
+        <p class="jb-contact">Need help? Contact us at <a href="mailto:support@powertofly.com">support@powertofly.com</a></p>
+      </div>
+    </section>
+  </section>
+
+</main>
+
+<!-- REUSED: shared site footer -->
+<div data-ptf-footer></div>
+
+<!-- ░░░ PROTOTYPE/QA ONLY — floating validation-case picker. NOT part of the design.
+     Delete this whole block (+ its .jb-demobar CSS + the demo JS) for production. ░░░ -->
+<div id="jbDemoBar" class="jb-demobar">
+  <div class="jb-demobar-hd" onclick="document.getElementById('jbDemoBar').classList.toggle('collapsed')">
+    <span>🧪 Prototype · preview case</span><span>–</span>
+  </div>
+  <div class="jb-demobar-body">
+    <select onchange="demoCase(this)">
+      <option value="">Jump to a case…</option>
+      <option value="1">1 · New company → checkout</option>
+      <option value="2">2 · Existing co. + verified → log in</option>
+      <option value="3">3 · Existing co. + new client → checkout</option>
+      <option value="4">4 · Account not verified → verify</option>
+      <option value="5">5 · Suspended / blocked → contact</option>
+      <option value="6">6 · Talent account → contact</option>
+      <option value="7">7 · Existing co. + active jobs → checkout</option>
+    </select>
+    <select onchange="if(this.value)showScreen(this.value)" style="margin-top:8px">
+      <option value="">Jump to any step… (skip the forms)</option>
+      <option value="screen-package">Choose package</option>
+      <option value="screen-company">Create account</option>
+      <option value="screen-login">Log in to continue</option>
+      <option value="screen-verify">Verify your account</option>
+      <option value="screen-contact">Contact our team</option>
+      <option value="screen-checkout">Checkout</option>
+      <option value="screen-success">✓ Payment successful (last step)</option>
+    </select>
+    <div class="jb-demobar-hint">Or type on the form: verified@ · talent@ · suspended@ · pending@ · active@ · newclient@ — else = new company.</div>
+  </div>
+</div>
+
+<script src="../ds/ptf.js"></script>
+<script>
+  PTF.initMegaNav();
+  PTF.initMarquee(document.getElementById('jbLogos'));
+
+  /* Boost and Match prices aren't decided yet: every [data-total] shows this placeholder. */
+  var PRICE_LABEL = '[Price TBD]';
+  function recompute(){
+    document.querySelectorAll('[data-total]').forEach(function(e){ e.textContent = PRICE_LABEL; });
+  }
+
+  /* Which card the employer picked: 'free' skips checkout, 'boost' and 'match' pay by card. */
+  var plan = 'boost';
+  function pickPlan(p){
+    plan = p;
+    var free = (p === 'free');
+    setText('jbCompanyNote', free
+      ? 'No credit card needed. Your job goes live as soon as you post it.'
+      : 'Your company account will be created as pending and activated after payment is completed.');
+    setText('jbCompanyCta', free ? 'Create account and post a job →' : 'Continue to checkout →');
+    var lbl = document.querySelectorAll('#screen-company .jb-step-label')[2];
+    if (lbl) lbl.textContent = free ? 'Post job' : 'Checkout';
+    setText('jbSuccessTitle', free ? 'Your account is ready' : 'Payment successful');
+    setText('jbSuccessSub', free
+      ? 'Post your first job for free. It stays live for 30 days, and you can boost it anytime.'
+      : 'Your account is active and ready. Reach PowerToFly’s vetted talent and start getting applications within minutes, no sourcing required.');
+    if (p === 'match') { setText('jbPkgName', 'Match (1 job)'); setText('jbPkgSub', 'A hand-checked batch of candidates matched to your role'); }
+    if (p === 'boost') { setText('jbPkgName', 'Boost (1 job)'); setText('jbPkgSub', 'Featured badge, newsletter promotion and social posts'); }
+    showScreen('screen-company');
+  }
+  function showScreen(id){
+    document.querySelectorAll('.jb-screen').forEach(function(s){ s.hidden = (s.id !== id); });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── Mock account/company validation (front-end prototype). Maps the entered email
+     to one of the PO's 7 cases and routes accordingly. Real validation would run
+     server-side BEFORE Stripe checkout; here sentinel local-parts trigger each case. ── */
+  var CASES = {
+    1: { email: 'newco@acme.com',     target: 'screen-checkout', note: '' },
+    2: { email: 'verified@acme.com',  target: 'screen-login',    note: '' },
+    3: { email: 'newclient@acme.com', target: 'screen-checkout', note: "New contact — you'll be added to your company's existing account. No duplicate company is created." },
+    4: { email: 'pending@acme.com',   target: 'screen-verify',   note: '' },
+    5: { email: 'suspended@acme.com', target: 'screen-contact',  note: '' },
+    6: { email: 'talent@acme.com',    target: 'screen-contact',  note: '' },
+    7: { email: 'active@acme.com',    target: 'screen-checkout', note: 'This company already has active postings — these credits are added to its existing account.' }
+  };
+  function caseForEmail(email){
+    var lp = (email || '').trim().toLowerCase().split('@')[0];
+    if (lp === 'verified') return 2;
+    if (lp === 'newclient') return 3;
+    if (lp === 'pending' || lp === 'unverified') return 4;
+    if (lp === 'suspended' || lp === 'blocked') return 5;
+    if (lp === 'talent') return 6;
+    if (lp === 'active') return 7;
+    return 1; // new company / new client → straight to checkout
+  }
+  function setText(id, t){ var e = document.getElementById(id); if (e) e.textContent = t; }
+  function routeCase(n, email){
+    var c = CASES[n];
+    // prefill the email onto the relevant screens
+    var le = document.getElementById('login-email'); if (le) le.value = email;
+    setText('loginEmailLabel', email);
+    setText('verifyEmailLabel', email);
+    // contact-copy variant (5 suspended / 6 talent)
+    if (n === 5) setText('contactBody', "This account is currently suspended and can't purchase job postings. Please contact our team to restore access.");
+    if (n === 6) setText('contactBody', 'This email is already associated with a Talent account. Please contact our team to enable employer access.');
+    // company-context note on checkout (cases 3 & 7)
+    var note = document.getElementById('jbCaseNote');
+    if (note){ note.textContent = c.note; note.hidden = !c.note; }
+    setText('verifyMsg', ''); // reset resend confirmation
+    // free plan: nothing to pay, so a clean account goes straight to "post your first job"
+    showScreen(plan === 'free' && c.target === 'screen-checkout' ? 'screen-success' : c.target);
+  }
+  function continueFromCompany(){
+    var email = (document.getElementById('co-email').value || '').trim() || 'jane@acme.com';
+    routeCase(caseForEmail(email), email);
+  }
+  function resendVerify(){ setText('verifyMsg', '✓ Verification email sent.'); }
+  // prototype-only demo case-picker
+  function demoCase(sel){
+    var n = parseInt(sel.value, 10); if (!n) return;
+    var email = CASES[n].email;
+    var f = document.getElementById('co-email'); if (f) f.value = email;
+    routeCase(n, email);
+    sel.value = '';
+  }
+
+  recompute();
+</script>
+</body>
+</html>
