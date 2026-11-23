@@ -70,13 +70,8 @@
 .jb-free-price{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;}
 .jb-free-nocard{font-size:14px;color:var(--ink-3);}
 .jb-free-rules{font-size:13px;color:var(--ink-3);margin-top:14px;}
-.jb-free-preview-label{font-size:13px;font-weight:600;color:var(--ink-3);margin-bottom:12px;}
-.jb-job-stack{display:flex;flex-direction:column;gap:12px;}
-.jb-job-stack .job-card{box-shadow:0 10px 26px rgba(10,10,10,0.07);}
-.jb-job-stack .job-card:nth-child(2){opacity:.6;transform:scale(.96);transform-origin:top center;}
-.jb-mark{font-family:'Inter Tight',sans-serif;font-weight:800;font-size:15px;color:var(--ink);}
-.jb-job-tags{display:flex;gap:8px;margin-top:12px;}
-.jb-job-tags span{font-size:12px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-sm);padding:4px 8px;}
+.jb-free-preview .sci-card{max-width:400px;margin-left:auto;box-shadow:var(--shadow-lifted);}
+.jb-free-preview .sci-chip{margin-left:auto;}
 .jb-addons{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
 .jb-addon{display:flex;flex-direction:column;background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;}
 .jb-addon .jb-plan-icon{width:40px;height:40px;margin-bottom:14px;background:var(--surface);}
@@ -101,7 +96,7 @@
 .jb-dash{color:var(--ink-3);}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 @media(max-width:960px){.jb-addons{grid-template-columns:repeat(2,minmax(0,1fr));}}
-@media(max-width:860px){.jb-free{grid-template-columns:1fr;gap:32px;padding:32px 24px;}}
+@media(max-width:860px){.jb-free{grid-template-columns:1fr;gap:32px;padding:32px 24px;}.jb-free-preview .sci-card{margin:0 auto;}}
 @media(max-width:680px){.jb-addons{grid-template-columns:1fr;}.jb-compare tbody th{position:sticky;left:0;background:var(--surface);}}
 @media(max-width:960px){.jb-plans,.jb-plans.is-two{grid-template-columns:1fr;max-width:560px;}}
 /* placeholder price — the number isn't decided yet; dashed so nobody reads it as final */
@@ -326,18 +321,19 @@
           <button class="btn btn-primary" type="button" onclick="pickPlan('free')">Post a job free →</button>
           <p class="jb-free-rules">Salary range required · Hiring companies only, no agencies</p>
         </div>
+        <!-- v4: animated post-a-job illustration — shared .sci kit (ds/ptf.css), driven by PTF.initIllustrations(). Same pattern as employers/index-v2.html -->
         <div class="jb-free-preview" aria-hidden="true">
-          <p class="jb-free-preview-label">How your job looks on the board</p>
-          <div class="jb-job-stack">
-            <div class="job-card">
-              <h3 class="job-card-title">Senior Product Designer</h3>
-              <div class="job-card-meta"><span class="job-card-logo jb-mark">Y</span><span class="job-card-co"><strong>Your company</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote · US</span></span></div>
-              <div class="jb-job-tags"><span>$120K–$150K</span><span>Full-time</span></div>
+          <div class="sci sci-card" data-sci-hold="1300">
+            <div class="sci-card-hd"><div><div class="sci-card-title">Post a job</div><div class="sci-card-sub">PowerToFly job board · free</div></div></div>
+            <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+            <div class="sci-rows">
+              <div class="sci-row">Senior Product Designer · Remote, US</div>
+              <div class="sci-row" data-sci-step="1">Free job post · 30 days <span class="sci-chip" data-sci-step="1">Selected</span></div>
+              <div class="sci-row" data-sci-step="2">Salary $120K–$150K <span class="sci-chip" data-sci-step="2">Added</span></div>
+              <div class="sci-row" data-sci-step="3">Publish job <span class="sci-chip" data-sci-step="3">Live</span></div>
             </div>
-            <div class="job-card">
-              <h3 class="job-card-title">Data Analyst</h3>
-              <div class="job-card-meta"><span class="job-card-logo jb-mark">Y</span><span class="job-card-co"><strong>Your company</strong><span class="job-card-loc"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Remote · Worldwide</span></span></div>
-              <div class="jb-job-tags"><span>$80K–$100K</span><span>Full-time</span></div>
+            <div class="sci-reveal" data-sci-step="3">
+              <div class="sci-avatars" style="margin-top:14px"><span class="sci-av"><img src="../photos/01.fat-black-lady-photo-1664575600397-88e370cb46b8.jpg" alt=""></span><span class="sci-av"><img src="../photos/07.indian-man-harps-joseph-tAvpDE7fXgY-unsplash.jpg" alt=""></span><span class="sci-av"><img src="../photos/10.fat-latina-lady-gui-franca-NVISlgb9ME8-unsplash.jpg" alt=""></span><span class="sci-av"><img src="../photos/04.gay-black-man-good-faces-_6p2QFjur7M-unsplash.jpg" alt=""></span><span class="sci-av-lbl">New applicants, straight to your ATS</span></div>
             </div>
           </div>
         </div>
