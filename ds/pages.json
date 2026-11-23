@@ -252,6 +252,14 @@
    "desc": "Multi-step registration flow for the Meet with Companies event — logged-out (create account) vs logged-in (skip to details) entry paths via the AUTH dev toggle. Reached from the Meet with Companies event page."
   },
   {
+   "id": "flow-b2b-event",
+   "name": "In-person leaders event registration",
+   "file": "event-b2b/index.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "Registration for the quarterly in-person B2B events for AI leaders (requirements: In Person B2B Events call, 2026-11-23). The Meet with Companies registration flow minus everything talent-specific: no resume, LinkedIn profile, experience, open-roles or demographics questions. Asks only what the Luma form asks: name, email, phone, company, job title and two waivers, with a marked slot for per-event custom questions (e.g. company size). Steps: account, details + waivers, thanks + add to calendar. AUTH dev toggle shows logged-out vs logged-in."
+  },
+  {
    "id": "flow-employer",
    "name": "Employer registration",
    "file": "event-employer/index.html",
