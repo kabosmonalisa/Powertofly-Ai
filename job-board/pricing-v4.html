@@ -72,6 +72,20 @@
 .jb-free-rules{font-size:13px;color:var(--ink-3);margin-top:14px;}
 .jb-free-preview .sci-card{max-width:400px;margin-left:auto;box-shadow:var(--shadow-lifted);}
 .jb-free-preview .sci-chip{margin-left:auto;}
+.jb-field{display:flex;align-items:center;gap:10px;}
+.jb-fbody{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;}
+.jb-flabel{font-size:10.5px;font-weight:600;letter-spacing:.02em;color:rgba(255,255,255,0.45);}
+.jb-fph{color:rgba(255,255,255,0.3);}
+.jb-fval{display:none;color:#fff;}
+.jb-field.is-on .jb-fph{display:none;}
+.jb-field.is-on .jb-fval,.jb-field.is-filled .jb-fval{display:block;}
+.jb-fck{width:14px;height:14px;fill:#4FE8A9;flex:none;opacity:0;transition:opacity .25s ease;}
+.jb-field.is-on .jb-fck,.jb-field.is-filled .jb-fck{opacity:1;}
+.jb-pub{margin-top:4px;text-align:center;padding:10px;border-radius:8px;background:#fff;color:#0a0a0a;font-size:12.5px;font-weight:700;transition:background .25s ease,color .25s ease;}
+.jb-pub-done{display:none;}
+.jb-pub.is-on{background:#4FE8A9;}
+.jb-pub.is-on .jb-pub-idle{display:none;}
+.jb-pub.is-on .jb-pub-done{display:inline;}
 .jb-sci-end{display:flex;align-items:center;gap:10px;margin-top:14px;}
 .jb-sci-live{font-size:12px;color:rgba(255,255,255,0.7);}
 .jb-addons{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;}
@@ -328,11 +342,12 @@
           <div class="sci sci-card" data-sci-hold="1300">
             <div class="sci-card-hd"><div><div class="sci-card-title">Post a job</div><div class="sci-card-sub">PowerToFly job board</div></div></div>
             <div class="sci-cursor"><svg class="sci-cursor-tip" width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M5 3l14 7-6 1.5L10 18z"/></svg></div>
+            <!-- Rows behave like the real form: fields start empty (placeholder), the cursor clicks in and the text appears, then Publish is the only button. -->
             <div class="sci-rows">
-              <div class="sci-row">Senior Product Designer · Remote, US</div>
-              <div class="sci-row" data-sci-step="1">Company blurb <span class="sci-chip" data-sci-step="1">Added</span></div>
-              <div class="sci-row" data-sci-step="2">Salary range $120K–$150K <span class="sci-chip" data-sci-step="2">Added</span></div>
-              <div class="sci-row" data-sci-step="3">Publish for free <span class="sci-chip" data-sci-step="3">Live · 30 days</span></div>
+              <div class="sci-row jb-field is-filled"><span class="jb-fbody"><span class="jb-flabel">Job title</span><span class="jb-fval">Senior Product Designer · Remote, US</span></span><svg class="jb-fck" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+              <div class="sci-row jb-field" data-sci-step="1"><span class="jb-fbody"><span class="jb-flabel">Company blurb</span><span class="jb-fph">A few lines about your company</span><span class="jb-fval">We build tools that help remote teams work better.</span></span><svg class="jb-fck" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+              <div class="sci-row jb-field" data-sci-step="2"><span class="jb-fbody"><span class="jb-flabel">Salary range</span><span class="jb-fph">e.g. $120K–$150K</span><span class="jb-fval">$120K–$150K</span></span><svg class="jb-fck" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+              <div class="jb-pub" data-sci-step="3"><span class="jb-pub-idle">Publish for free</span><span class="jb-pub-done">Live · 30 days</span></div>
             </div>
             <!-- End state: live on the board + a quiet Boost hint the cursor never clicks (points to the add-ons below). No applicant faces: a free post sends candidates to the company's own ATS, so we don't promise applicants. -->
             <div class="sci-reveal" data-sci-step="3">
