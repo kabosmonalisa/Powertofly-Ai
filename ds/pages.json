@@ -257,7 +257,7 @@
    "file": "event-b2b/index.html",
    "group": "Flows",
    "status": "draft",
-   "desc": "Registration for in-person B2B events, for business leaders rather than talent. Built from the Meet with Companies registration flow (same layout, components and validation), with every job-seeking question removed: no resume, no LinkedIn profile, no years of experience, no open roles or timeline. In their place: company, job title, company size and function. Steps: account, role + company, self-identification, phone + questions for the hosts + agreement, thanks + add to calendar. AUTH dev toggle shows the logged-out vs logged-in paths."
+   "desc": "Registration for the quarterly in-person B2B events for AI leaders (requirements: In Person B2B Events call, 2026-11-23). The Meet with Companies registration flow minus everything talent-specific: no resume, LinkedIn profile, experience, open-roles or demographics questions. Asks only what the Luma form asks: name, email, phone, company, job title and two waivers, with a marked slot for per-event custom questions (e.g. company size). Steps: account, details + waivers, thanks + add to calendar. AUTH dev toggle shows logged-out vs logged-in."
   },
   {
    "id": "flow-employer",

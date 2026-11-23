@@ -8,13 +8,18 @@
 <meta property="og:image"       content="https://kabosmonalisa.github.io/Powertofly-Ai/og-image.png">
 <meta property="og:type"        content="website">
 <!--
-  IN-PERSON B2B (LEADERS) EVENT registration flow.
+  IN-PERSON B2B (LEADERS) EVENT registration flow — quarterly in-person events for AI leaders
+  (drinks, food, networking; sales follow-up after). Requirements: "In Person B2B Events" call, Nov 23 2026.
   Duplicated from the Meet with Companies flow (event-company/index.html) — same layout,
   components, interactions, validation and styling; shared ds/ptf.css + ds/ptf.js.
-  These events are for business leaders, not talent, so everything job-seeking is OUT:
-  no resume, no LinkedIn, no years of experience, no "open roles" / "timeline" questions,
-  no area-of-experience list. IN its place: company, job title, company size, function.
-  Steps: 1 account · 2 role + company · 3 self-identification · 4 phone + questions for the hosts + agreement · 5 thanks (+ add to calendar).
+  Same as Meet with Companies MINUS everything talent-specific: no resume, no LinkedIn profile,
+  no years of experience, no open-roles / timeline questions, no demographics, no questions for the company.
+  Asks ONLY what the current Luma form asks: name, email, phone, company, job title + two waivers.
+  Custom questions (e.g. company size) may be added per event later — slot marked in step 2.
+  Entry: same two links as Meet with Companies — the public "request an invite" (approved manually)
+  and the direct password link for confirmed guests, which lands here.
+  Data: registrants are saved as pending clients / leads on the master list, NOT in Power Pro.
+  Steps: 1 account · 2 details + waivers · 3 thanks (+ add to calendar).
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -85,12 +90,12 @@
       <div class="event-top">
         <span class="eyebrow">In-person leaders event</span><!-- COPY: confirm series name -->
       </div>
-      <h1 class="event-title">Who makes AI work: <em class="italic-plain">a leaders’ roundtable</em></h1><!-- COPY: sample in-person B2B event -->
+      <h1 class="event-title">Leaders in AI: <em class="italic-plain">an evening of connection</em></h1><!-- COPY: sample — set per event -->
       <div class="event-host">
         <span class="event-host-logo" style="display:flex;align-items:center;justify-content:center;background:#fff;border-radius:12px;padding:9px 13px;box-shadow:0 0 0 3px #fff,0 2px 8px rgba(15,30,26,0.12);flex-shrink:0"><img src="../PowerToFly-Icon.svg" alt="PowerToFly" style="height:22px;width:auto;display:block"></span><!-- COPY: swap logo if co-hosted -->
         <div class="event-host-text">
           <span class="event-host-name">Hosted by PowerToFly</span><!-- COPY: confirm host -->
-          <span class="event-host-role">For HR, talent &amp; technology leaders</span><!-- COPY: confirm -->
+          <span class="event-host-role">For founders &amp; leaders in AI</span><!-- COPY: confirm per event -->
         </div>
       </div>
       <div class="event-meta">
@@ -151,15 +156,12 @@
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
-        <!-- Step 2 — role + company (replaces Meet with Companies' resume/LinkedIn step and its
-             job-seeking questions; leaders aren't candidates). Same components as MWC step 4:
-             .field for text, .id-section.q-group.cq for chips. -->
+        <!-- Step 2 — details + waivers. Exactly the Luma form's fields (name + email come from step 1). -->
         <div class="flow-step" data-step="2" hidden>
-          <div class="step-indicator">Step 1 of 3</div>
           <!-- shown only in logged-in mode (they already have an account, so step 1 is skipped) -->
           <p class="auth-note" id="signedInNote" hidden style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="setAuthMode('out');return false">Not you?</a></p>
-          <h1 class="auth-heading">About you and your company</h1>
-          <p class="auth-sub">Helps us seat you with peers working on the same challenges.</p><!-- COPY: confirm -->
+          <h1 class="auth-heading">A few details</h1>
+          <p class="auth-sub">Tell us where you work, then confirm to lock in your spot.</p><!-- COPY: confirm -->
           <form class="auth-form" onsubmit="return validateStep2()" novalidate>
             <div class="field">
               <label>Company <span class="req">*</span></label>
@@ -167,50 +169,9 @@
             </div>
             <div class="field">
               <label>Job title <span class="req">*</span></label>
-              <input type="text" id="cqJobTitle" autocomplete="organization-title" placeholder="e.g. VP, People" oninput="clearError(this.closest('.field'))">
+              <input type="text" id="cqJobTitle" autocomplete="organization-title" placeholder="e.g. Founder & CEO" oninput="clearError(this.closest('.field'))">
             </div>
-            <div class="id-section q-group cq" data-required>
-              <div class="q-label">Company size <span class="req">*</span></div>
-              <div class="id-chips" data-single><button type="button" class="id-chip">1–50</button><button type="button" class="id-chip">51–200</button><button type="button" class="id-chip">201–1,000</button><button type="button" class="id-chip">1,001–5,000</button><button type="button" class="id-chip">5,000+</button></div>
-            </div>
-            <div class="id-section q-group cq" data-required>
-              <div class="q-label">Your function <span class="req">*</span></div>
-              <div class="id-chips"><button type="button" class="id-chip">HR &amp; People</button><button type="button" class="id-chip">Talent acquisition</button><button type="button" class="id-chip">DEI &amp; belonging</button><button type="button" class="id-chip">Learning &amp; development</button><button type="button" class="id-chip">Engineering</button><button type="button" class="id-chip">Data &amp; AI</button><button type="button" class="id-chip">Product</button><button type="button" class="id-chip">Operations</button><button type="button" class="id-chip">Executive leadership</button><button type="button" class="id-chip" id="areaOtherChip">Other</button></div><!-- COPY: confirm list -->
-              <!-- Shown when "Other" is picked — required while visible -->
-              <div class="field" id="areaOtherField" hidden style="margin-top:12px">
-                <label for="areaOtherInput">What's your function? <span class="req">*</span></label>
-                <input type="text" id="areaOtherInput" placeholder="e.g. Legal, Finance, Procurement" oninput="clearError(this.closest('.field'))">
-              </div>
-            </div>
-            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
-          </form>
-          <div class="thanks-divider"></div>
-          <p class="auth-note" style="margin-top:0">By continuing you agree to our <a href="#">Privacy Policy</a>.</p>
-        </div>
-        <!-- Step 3 — self-identification (same chips as Meet with Companies; "Area of experience" dropped — step 2's function covers it) -->
-        <div class="flow-step" data-step="3" hidden>
-          <div class="step-indicator">Step 2 of 3</div>
-          <h1 class="auth-heading">Tell us a little more about you</h1>
-          <p class="auth-sub">Choose all that apply. We use it only internally and never show it publicly.</p>
-          <div class="id-grid stacked">
-            <div class="id-section">
-              <div class="id-section-label">Self-identification <span class="req">*</span></div>
-              <div class="id-chips"><button type="button" class="id-chip">Woman</button><button type="button" class="id-chip">Man</button><button type="button" class="id-chip">Non-binary</button><button type="button" class="id-chip">Latinx</button><button type="button" class="id-chip">Black</button><button type="button" class="id-chip">White</button><button type="button" class="id-chip">Asian</button><button type="button" class="id-chip">Native American / Indigenous</button><button type="button" class="id-chip">Multiracial</button><button type="button" class="id-chip">LGBTQIA+</button><button type="button" class="id-chip">Caregiver</button><button type="button" class="id-chip">Veteran, Military Spouse, or Active Service Member</button><button type="button" class="id-chip">Disabled</button><button type="button" class="id-chip">Prefer not to say</button><button type="button" class="id-chip">Other</button></div>
-            </div>
-          </div>
-          <form class="auth-form" onsubmit="return validateStep3()">
-            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(2)">← Back</button><button class="btn-auth" type="submit">Continue →</button></div>
-          </form>
-          <div class="thanks-divider"></div>
-          <p class="auth-note" style="margin-top:0">By continuing you agree to share your answers per our <a href="#">Privacy Policy</a>.</p>
-        </div>
-        <!-- Step 4 — phone + questions for the hosts + agreement -->
-        <div class="flow-step" data-step="4" hidden>
-          <div class="step-indicator">Step 3 of 3</div>
-          <h1 class="auth-heading">A couple last things</h1>
-          <p class="auth-sub">Tell us what you’d like to discuss, then confirm to lock in your seat.</p><!-- COPY: confirm -->
-          <form class="auth-form" onsubmit="return validateStep4()">
-            <!-- Phone — REQUIRED (our team reaches you with event-day logistics). -->
+            <!-- Phone — REQUIRED (on the Luma form today). -->
             <div class="field">
               <label>Phone number <span class="req">*</span></label>
               <div class="phone-field" id="phoneField">
@@ -227,19 +188,17 @@
               </div>
               <p style="margin:6px 0 0;font-size:13px;color:var(--ink-3)">So we can reach you with event-day updates.</p>
             </div>
-            <div class="field" id="questionsBlock">
-              <label>Questions or topics for the hosts <span style="font-weight:500;color:var(--ink-3)">(optional)</span></label>
-              <textarea placeholder="e.g. How are other teams measuring AI adoption?"></textarea>
-              <button type="button" class="btn btn-sm" id="addQuestionBtn" onclick="addQuestion()" style="margin-top:10px;align-self:flex-start">+ Add another question</button>
-            </div>
-            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="agreeBox"><span>I accept the event <a href="#">waiver</a> and code of conduct, and agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span></span></label>
-            <div class="nav-row"><button class="btn-skip" type="button" onclick="return goToStep(3)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
+            <!-- EVENT-SPECIFIC custom questions (added per event by the events team, e.g. company size) render here.
+                 Same components as Meet with Companies: .id-section.q-group.cq + .id-chips[data-single] for choices, .field for text. -->
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="waiver1"><span>I accept the event <a href="#">liability waiver</a>. <span class="req">*</span></span></label><!-- COPY: confirm waiver 1 name + link -->
+            <label class="check-row agree-row"><input type="checkbox" class="check-box" id="waiver2"><span>I accept the <a href="#">photo &amp; video release</a>. <span class="req">*</span></span></label><!-- COPY: confirm waiver 2 name + link -->
+            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
           </form>
           <div class="thanks-divider"></div>
-          <p class="auth-note" style="margin-top:0">You can unsubscribe from event emails anytime.</p>
+          <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
-        <!-- Step 5 — thank you -->
-        <div class="flow-step" data-step="5" hidden>
+        <!-- Step 3 — thank you -->
+        <div class="flow-step" data-step="3" hidden>
           <div class="thanks-icon">
             <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
@@ -289,8 +248,6 @@
     <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
     <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
     <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
-    <button type="button" onclick="goToStep(4)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">4</button>
-    <button type="button" onclick="goToStep(5)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">5</button>
   </div>
 </div>
 
@@ -311,16 +268,11 @@
 
   // ── Entry path: logged out (create account first) vs logged in (skip to details) ──
   // Logged in skips the account step, shows a "signed in as" note, hides the
-  // role-step Back (it is now the first step), and lands on the role + company step. Dev toggle only — real app derives this from session.
+  // details-step Back (it is now the first step), and lands on the details step. Dev toggle only — real app derives this from session.
   function setAuthMode(mode) {
     var loggedIn = mode === 'in';
     window._authMode = mode;
-    // step counter: the account step is never counted (of 3 in both auth states)
-    function ind(step, num) {
-      var el = document.querySelector('[data-step="' + step + '"] .step-indicator');
-      if (el) el.textContent = 'Step ' + num + ' of 3';
-    }
-    ind(2, 1); ind(3, 2); ind(4, 3);
+    // no step counter — only one details step after the account step
     var note = document.getElementById('signedInNote'); if (note) note.hidden = !loggedIn;
     var back = document.getElementById('step2Back');   if (back) back.style.display = loggedIn ? 'none' : '';
     // dev-button active state
@@ -370,33 +322,20 @@
       var el = document.getElementById(id), f = el.closest('.field');
       if (el.value.trim()) clearError(f); else { setError(f); ok = false; first = first || el; }
     });
+    var phone = document.getElementById('phoneNumber');
+    if (phone.value.replace(/\D/g, '').length >= 6) clearError(phone.closest('.field'));
+    else { setError(phone.closest('.field')); ok = false; first = first || phone; }
+    // event-specific required choice questions, if the event adds any
     document.querySelectorAll('[data-step="2"] .cq[data-required]').forEach(function (q) {
       clearError(q);
       if (!q.querySelector('.id-chip.selected')) { setError(q); ok = false; first = first || q; }
     });
-    // "Other" picked → its free-text answer is required
-    var otherF = document.getElementById('areaOtherField'), otherI = document.getElementById('areaOtherInput');
-    if (!otherF.hidden && !otherI.value.trim()) { setError(otherF); ok = false; first = first || otherF; }
+    ['waiver1', 'waiver2'].forEach(function (id) {
+      var box = document.getElementById(id), row = box.closest('.agree-row');
+      if (box.checked) clearError(row); else { setError(row); ok = false; first = first || box; }
+    });
     if (!ok) { shake(2); first.scrollIntoView({ block: 'center' }); if (first.focus) first.focus(); return false; }
     return goToStep(3);
-  }
-  function validateStep3() {
-    var ok = true, first = null;
-    document.querySelectorAll('[data-step="3"] .id-section').forEach(function (sec) {
-      clearError(sec);
-      if (!sec.querySelector('.id-chip.selected')) { setError(sec, 'Pick at least one'); ok = false; first = first || sec; }
-    });
-    if (!ok) { shake(3); first.scrollIntoView({ block: 'center' }); return false; }
-    return goToStep(4);
-  }
-  function validateStep4() {
-    var phone = document.getElementById('phoneNumber'), phoneOk = phone.value.replace(/\D/g, '').length >= 6;
-    var agree = document.getElementById('agreeBox'), row = agree.closest('.agree-row');
-    clearError(row);
-    if (phoneOk) clearError(phone.closest('.field')); else setError(phone.closest('.field'), 'Required');
-    if (!agree.checked) setError(row, 'Please confirm to continue');
-    if (!phoneOk || !agree.checked) { shake(4); if (!phoneOk) phone.focus(); return false; }
-    return goToStep(5);
   }
 
   // Phone country picker — pick your country by NAME (type to search); the +dialing code fills in
@@ -469,39 +408,9 @@
     render(COUNTRIES);
   })();
 
-  // Step 4 — up to 3 questions for the hosts; each added one can be removed.
-  function syncAddBtn() {
-    var block = document.getElementById('questionsBlock');
-    document.getElementById('addQuestionBtn').style.display =
-      block.querySelectorAll('textarea').length >= 3 ? 'none' : '';
-  }
-  function addQuestion() {
-    var block = document.getElementById('questionsBlock');
-    var btn = document.getElementById('addQuestionBtn');
-    if (block.querySelectorAll('textarea').length >= 3) return;
-    var row = document.createElement('div');
-    row.className = 'q-added-row';
-    row.style.cssText = 'display:flex;gap:10px;align-items:flex-start;margin-top:10px';
-    var ta = document.createElement('textarea');
-    ta.placeholder = 'Another question (optional)';
-    ta.style.flex = '1';
-    var rm = document.createElement('button');
-    rm.type = 'button';
-    rm.setAttribute('aria-label', 'Remove question');
-    rm.title = 'Remove question';
-    rm.style.cssText = 'flex-shrink:0;background:none;border:none;cursor:pointer;padding:7px;margin-top:5px;border-radius:8px;color:var(--ink-3);display:flex;line-height:0;transition:color 160ms,background 160ms';
-    rm.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>';
-    rm.onmouseenter = function () { rm.style.color = 'var(--ink)'; rm.style.background = 'var(--bg-soft)'; };
-    rm.onmouseleave = function () { rm.style.color = 'var(--ink-3)'; rm.style.background = 'none'; };
-    rm.onclick = function () { row.remove(); syncAddBtn(); };
-    row.appendChild(ta);
-    row.appendChild(rm);
-    block.insertBefore(row, btn);
-    syncAddBtn();
-  }
-
+  // (Questions-for-the-company block removed — not on the B2B form.)
   // Chips toggle + clear their section's error on change
-  // [data-single] groups (step 2 company size) allow one answer: picking one clears the rest.
+  // [data-single] groups (event-specific custom questions) allow one answer: picking one clears the rest.
   document.querySelectorAll('.id-chip').forEach(function (c) {
     c.addEventListener('click', function () {
       var group = c.closest('.id-chips');
@@ -509,15 +418,11 @@
       c.classList.toggle('selected'); clearError(c.closest('.id-section'));
     });
   });
-  // Function → "Other" reveals a free-text field
-  document.getElementById('areaOtherChip').addEventListener('click', function () {
-    var on = this.classList.contains('selected'), f = document.getElementById('areaOtherField');
-    f.hidden = !on; clearError(f);
-    if (on) document.getElementById('areaOtherInput').focus();
+  // Clear a waiver's error when it's ticked
+  ['waiver1', 'waiver2'].forEach(function (id) {
+    var box = document.getElementById(id);
+    box.addEventListener('change', function () { clearError(box.closest('.agree-row')); });
   });
-  // Clear the waiver error when ticked
-  var agreeBox = document.getElementById('agreeBox');
-  if (agreeBox) agreeBox.addEventListener('change', function () { clearError(agreeBox.closest('.agree-row')); });
 
   // Entry path from the landing page: ?auth=in opens the logged-in path (skip account),
   // anything else = logged out (create account first). QA sets the scenario on the event
@@ -532,11 +437,11 @@
     }
   })();
 
-  // ── Add to calendar (step 5) — provider links + .ics, all from ONE event record ──
+  // ── Add to calendar (step 3) — provider links + .ics, all from ONE event record ──
   // Thu, Feb 11, 2027 6:00–8:30 PM EST (UTC-5) → 23:00–01:30Z. COPY: confirm per event.
   // The real build fills this from the event API; `uid` must match the confirmation email's .ics UID.
   var CAL_EVENT = {
-    uid: 'b2b-leaders-nyc-2027-02-11@powertofly.com',
+    uid: 'b2b-leaders-nyc-2027-02-11@powertofly.com'  /* COPY: sample event */,
     start: '20270211T230000Z',
     end:   '20270212T013000Z',
     location: 'New York, NY — venue in your confirmation email'
@@ -572,8 +477,8 @@
   buildCalendarLinks();
   PTF.initMegaNav();  // wires the calendar flyout (no site nav on this page)
 
-  // DEV ONLY — jump straight to any step via URL hash (#2 … #5) so you don't have to fill prior steps to review one. Remove before launch.
-  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-5])$/); if (m) goToStep(Number(m[1])); }
+  // DEV ONLY — jump straight to any step via URL hash (#2 … #3) so you don't have to fill prior steps to review one. Remove before launch.
+  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-3])$/); if (m) goToStep(Number(m[1])); }
   jumpFromHash();
   window.addEventListener('hashchange', jumpFromHash);
 </script>
