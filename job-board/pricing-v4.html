@@ -94,6 +94,10 @@
 .jb-addon .jb-plan-icon svg{width:22px;height:22px;}
 .jb-addon h3{font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;}
 .jb-addon p{font-size:14px;color:var(--ink-3);line-height:1.45;margin-bottom:12px;}
+.jb-addon-stat{font-size:13px;color:var(--ink-3);line-height:1.4;margin-bottom:12px;}
+.jb-addon-stat strong{display:block;font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:var(--ink);line-height:1.1;}
+.jb-addons-note{max-width:1000px;margin:12px auto 0;font-size:12px;color:var(--ink-3);}
+.jb-compare-intro{text-align:center;font-size:15px;color:var(--ink-3);margin:-12px auto 20px;}
 .jb-addon-price{font-size:13px;font-weight:600;color:var(--ink-2);margin-top:auto;margin-bottom:10px;}
 .jb-addon-link{background:none;border:0;padding:0;font:inherit;font-size:14px;font-weight:600;color:var(--green);text-align:left;cursor:pointer;text-decoration:none;}
 .jb-addon-link:hover{text-decoration:underline;}
@@ -103,8 +107,6 @@
 .jb-compare th,.jb-compare td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle;}
 .jb-compare tbody th{text-align:left;font-weight:500;color:var(--ink-2);}
 .jb-compare thead th{font-family:'Inter Tight',sans-serif;font-weight:700;color:var(--ink);font-size:14px;}
-.jb-compare .is-main{background:var(--surface-2);}
-.jb-compare td:nth-child(2){background:var(--surface-2);}
 .jb-compare tr:last-child th,.jb-compare tr:last-child td{border-bottom:0;}
 .jb-compare .is-price td{font-weight:700;color:var(--ink);}
 .jb-compare .is-buy td{color:var(--ink-3);font-size:13px;}
@@ -312,17 +314,12 @@
 
     <section class="section-hero hero-glow">
       <div class="section-head">
-        <h1 class="display">Post jobs. Find talent.<br>Build your team.</h1>
-        <p>Post your job on PowerToFly for free. Free to post. Add extra help only when you need it.</p>
+        <h1 class="display">Post your job for free</h1>
+        <p>Share your open role with our community. You can add more reach or hiring help whenever you need it.</p>
       </div>
     </section>
 
     <section class="section">
-      <div class="section-head">
-        <h2>Start with a free job post</h2>
-        <p>Add extra help only if you need it.</p>
-      </div>
-
       <!-- v4: prettier free card: "Start here" label, job-card preview, soft iridescent background. COPY: confirm -->
       <div class="jb-free">
         <div class="jb-free-main">
@@ -331,11 +328,11 @@
           <ul class="jb-plan-feats">
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Live on the PowerToFly job board for 30 days</li>
             <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>Candidates go straight to your ATS</li>
-            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>A short company blurb, no profile to build</li>
+            <li><svg viewBox="0 0 24 24"><path d="M16.59 7.58L10 14.17l-3.59-3.58L5 12l5 5 8-8zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>A few lines about your company (no full profile needed)</li>
           </ul>
-          <div class="jb-free-price"><div class="jb-plan-price">$0<span>per job</span></div><span class="jb-free-nocard">No credit card</span></div>
-          <button class="btn btn-primary" type="button" onclick="pickPlan('free')">Post a job free →</button>
-          <p class="jb-free-rules">Salary range required · Hiring companies only, no agencies</p>
+          <div class="jb-free-price"><div class="jb-plan-price">$0<span>per job</span></div><span class="jb-free-nocard">No credit card needed</span></div>
+          <button class="btn btn-primary" type="button" onclick="pickPlan('free')">Post your job →</button>
+          <p class="jb-free-rules">Salary range required · For hiring companies only (no agencies)</p>
         </div>
         <!-- v4: animated post-a-job illustration — shared .sci kit (ds/ptf.css), driven by PTF.initIllustrations(). Same pattern as employers/index-v2.html -->
         <div class="jb-free-preview" aria-hidden="true">
@@ -359,31 +356,35 @@
 
       <!-- v3: add-ons are secondary (Mara): smaller, soft background, one line each. COPY: confirm -->
       <h3 class="jb-plans-group">Optional add-ons</h3>
+      <!-- Copy from Mara (Nov 24). Stats on Boost, Match and Recruiter are PLACEHOLDERS — COPY: confirm before launch. 380K+ marked approved by Mara, but CLAUDE.md lists 80K+ experts — COPY: confirm. -->
       <div class="jb-addons">
         <div class="jb-addon">
           <div class="jb-plan-icon">
             <svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
           </div>
           <h3>Boost</h3>
-          <p>More people see your job.</p>
+          <p>Get your job in front of more people with a featured spot, a newsletter mention, and social posts.</p>
+          <div class="jb-addon-stat"><strong>7x</strong> more applications on boosted jobs</div>
           <div class="jb-addon-price">[Price TBD] per job</div>
-          <button class="jb-addon-link" type="button" onclick="pickPlan('boost')">Add to a job →</button>
+          <button class="jb-addon-link" type="button" onclick="pickPlan('boost')">Boost your job →</button>
         </div>
         <div class="jb-addon">
           <div class="jb-plan-icon">
             <svg viewBox="0 0 24 24"><path d="M9 4c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 6c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0 3c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1zm1.76-12.64l-1.68 1.69c.84 1.18.84 2.71 0 3.89l1.68 1.69c2.02-2.02 2.02-5.07 0-7.27zM20.07 2l-1.63 1.63c2.77 3.02 2.77 7.56 0 10.74L20.07 16c3.9-3.89 3.91-9.95 0-14z"/></svg>
           </div>
           <h3>Match</h3>
-          <p>Matched candidates sent to you.</p>
+          <p>Our team hand-picks candidates who fit your role and sends them your way.</p>
+          <div class="jb-addon-stat"><strong>85%</strong> of matched candidates move to interview</div>
           <div class="jb-addon-price">[Price TBD] per job</div>
-          <button class="jb-addon-link" type="button" onclick="pickPlan('match')">Add to a job →</button>
+          <button class="jb-addon-link" type="button" onclick="pickPlan('match')">Get matched candidates →</button>
         </div>
         <div class="jb-addon">
           <div class="jb-plan-icon">
             <svg viewBox="0 0 24 24"><path d="M10 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM4 18c.22-.72 3.31-2 6-2 0-.7.13-1.37.35-1.99C7.62 13.91 2 15.27 2 18v2h9.54c-.52-.58-.93-1.25-1.19-2H4zm15.43.02c.36-.59.57-1.28.57-2.02 0-2.21-1.79-4-4-4s-4 1.79-4 4 1.79 4 4 4c.74 0 1.43-.22 2.02-.57L20.59 22 22 20.59c-1.5-1.5-.79-.8-2.57-2.57zM16 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
           </div>
           <h3>Recruiter on demand</h3>
-          <p>A recruiter fills the role for you.</p>
+          <p>A recruiter manages outreach and applicants for your role, and you run the interviews.</p>
+          <div class="jb-addon-stat"><strong>15</strong> qualified candidates per role, on average</div>
           <div class="jb-addon-price">[Price TBD]</div>
           <a class="jb-addon-link" href="../book/">Talk to us →</a>
         </div>
@@ -391,36 +392,36 @@
           <div class="jb-plan-icon">
             <svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg>
           </div>
-          <h3>Hire talent</h3>
-          <p>We place a contractor or full-time hire.</p>
+          <h3>Full-service hiring</h3>
+          <p>We run the whole hiring process, from finding candidates to placing your hire.</p>
+          <div class="jb-addon-stat"><strong>380K+</strong> verified experts to hire from</div>
           <div class="jb-addon-price">10% of salary for full-time</div>
           <a class="jb-addon-link" href="../book/">Talk to us →</a>
         </div>
       </div>
+      <p class="jb-addons-note">Based on PowerToFly job board data, 2026.</p>
+      </div>
 
-      <h3 class="jb-plans-group">Compare</h3>
-      <!-- v3: comparison checklist (Mara). COPY: confirm rows -->
+      <h3 class="jb-plans-group">Which option is right for you?</h3>
+      <p class="jb-compare-intro">Every option includes your free job post.</p>
+      <!-- Copy from Mara (Nov 24). Full-service hiring tick on the outreach row needs Lizu's confirmation. -->
       <div class="jb-compare-wrap">
         <table class="jb-compare">
           <thead>
-            <tr><th scope="col"><span class="sr-only">Feature</span></th><th scope="col" class="is-main">Free post</th><th scope="col">+ Boost</th><th scope="col">+ Match</th><th scope="col">+ Recruiter on demand</th><th scope="col">+ Hire talent</th></tr>
+            <tr><th scope="col"><span class="sr-only">Feature</span></th><th scope="col">Boost</th><th scope="col">Match</th><th scope="col">Recruiter on demand</th><th scope="col">Full-service hiring</th></tr>
           </thead>
           <tbody>
-            <tr><th scope="row">Listed on the job board for 30 days</th><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
-            <tr><th scope="row">Featured badge, pinned near the top</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td></tr>
-            <tr><th scope="row">Newsletter and social promotion</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td></tr>
-            <tr><th scope="row">Matched candidates sent to you</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
-            <tr><th scope="row">Hand-checked by our team</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
-            <tr><th scope="row">A recruiter manages applicants and outreach</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><span class="jb-dash" aria-label="Not included">–</span></td></tr>
-            <tr><th scope="row">We place a contractor or full-time hire</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
-            <tr class="is-price"><th scope="row">Price</th><td>$0</td><td>[Price TBD]</td><td>[Price TBD]</td><td>[Price TBD]</td><td>Custom</td></tr>
-            <tr class="is-buy"><th scope="row">How you get it</th><td>Sign up</td><td>Pay by card</td><td>Pay by card</td><td>Talk to us</td><td>Talk to us</td></tr>
+            <tr><th scope="row">Featured badge and a spot near the top</th><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td></tr>
+            <tr><th scope="row">Promoted in our newsletter and on social</th><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td></tr>
+            <tr><th scope="row">Candidates hand-picked by our team</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
+            <tr><th scope="row">Outreach and applicant management</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
+            <tr><th scope="row">Interviews and placement</th><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><span class="jb-dash" aria-label="Not included">–</span></td><td><svg class="jb-tick" viewBox="0 0 24 24" aria-label="Included"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></td></tr>
           </tbody>
         </table>
       </div>
 
       <!-- v3: branding package gets its own page (not built yet). COPY: confirm -->
-      <p class="jb-plans-foot">Want to show off your company, not just one job? <a href="#">See branding packages</a></p>
+      <p class="jb-plans-foot">Want to show candidates what it&rsquo;s like to work with you? <a href="#">See branding packages</a></p>
     </section>
 
     <!-- REUSED: logo-strip marquee -->
@@ -447,14 +448,14 @@
           Job Board
         </span>
         <h1 class="display">Create your account</h1>
-        <p>Set up your company profile to get started.</p>
+        <p>Tell us a bit about your company to get started.</p>
       </div>
 
       <div class="jb-stack">
         <div class="jb-fcard">
           <div class="jb-fcard-hd">
             <span class="jb-fcard-ic"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></span>
-            <div><h3>Company information</h3><p>Tell us about your company</p></div>
+            <div><h3>Company information</h3></div>
           </div>
           <div class="jb-fcard-body">
             <div class="field"><label for="co-name">Company name *</label><input type="text" id="co-name" placeholder="Acme Inc."></div>
@@ -465,7 +466,7 @@
         <div class="jb-fcard">
           <div class="jb-fcard-hd">
             <span class="jb-fcard-ic"><svg viewBox="0 0 24 24"><path d="M12 5.9c1.16 0 2.1.94 2.1 2.1s-.94 2.1-2.1 2.1S9.9 9.16 9.9 8s.94-2.1 2.1-2.1m0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1M12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"/></svg></span>
-            <div><h3>Contact details</h3><p>Your primary contact information</p></div>
+            <div><h3>Contact details</h3></div>
           </div>
           <div class="jb-fcard-body">
             <div class="field-row">
@@ -476,7 +477,7 @@
           </div>
         </div>
 
-        <div class="jb-note" id="jbCompanyNote">Your company account will be created as pending and activated after payment is completed.</div>
+        <div class="jb-note" id="jbCompanyNote">We’ll activate your company account once payment is completed.</div>
 
         <div class="jb-flow-actions">
           <a class="jb-back" href="#" onclick="showScreen('screen-package');return false">← Back</a>
@@ -499,7 +500,7 @@
       <div class="jb-statecard">
         <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg></div>
         <h2>Log in to continue</h2>
-        <p class="jb-statecard-sub">An account already exists for <b id="loginEmailLabel">verified@acme.com</b>. Log in to continue with your selected package.</p>
+        <p class="jb-statecard-sub">You already have an account with <b id="loginEmailLabel">verified@acme.com</b>. Log in to continue with your package.</p>
         <div class="jb-fcard-body">
           <div class="field"><label for="login-email">Email</label><input type="email" id="login-email" readonly></div>
           <div class="field"><label for="login-password">Password</label><input type="password" id="login-password" placeholder="Enter your password"></div>
@@ -523,8 +524,8 @@
       <div class="jb-statecard">
         <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg></div>
         <h2>Verify your account</h2>
-        <p class="jb-statecard-sub">We sent a verification link to <b id="verifyEmailLabel">jane@acme.com</b>. Verify your account, then come back to finish checkout.</p>
-        <button class="btn btn-primary btn-block" type="button" onclick="resendVerify()">Resend verification email</button>
+        <p class="jb-statecard-sub">We sent a link to <b id="verifyEmailLabel">jane@acme.com</b>. Click it to verify your account, then come back here to finish checking out.</p>
+        <button class="btn btn-primary btn-block" type="button" onclick="resendVerify()">Resend the link</button>
         <div class="jb-statecard-msg" id="verifyMsg"></div>
       </div>
       <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
@@ -544,8 +545,8 @@
       <div class="jb-statecard">
         <div class="jb-statecard-ic"><svg viewBox="0 0 24 24"><path d="M16.5 13c-1.2 0-3.07.34-4.5 1-1.43-.67-3.3-1-4.5-1C5.33 13 1 14.08 1 16.25V19h22v-2.75c0-2.17-4.33-3.25-6.5-3.25zm-4 4.5h-10v-1.25c0-.54 2.56-1.75 5-1.75s5 1.21 5 1.75v1.25zm9 0H14v-1.25c0-.46-.2-.86-.52-1.22.88-.3 1.96-.53 3.02-.53 2.44 0 5 1.21 5 1.75v1.25zM7.5 12c1.93 0 3.5-1.57 3.5-3.5S9.43 5 7.5 5 4 6.57 4 8.5 5.57 12 7.5 12zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 5.5c1.93 0 3.5-1.57 3.5-3.5S18.43 5 16.5 5 13 6.57 13 8.5s1.57 3.5 3.5 3.5zm0-5.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2z"/></svg></div>
         <h2>Contact our team</h2>
-        <p class="jb-statecard-sub" id="contactBody">This email is already associated with a Talent account. Please contact our team to enable employer access.</p>
-        <a class="btn btn-primary btn-block" href="../book/">Contact sales →</a>
+        <p class="jb-statecard-sub" id="contactBody">This email is already linked to a talent account. Contact our team and we’ll set up employer access for you.</p>
+        <a class="btn btn-primary btn-block" href="../book/">Contact our team →</a>
       </div>
       <div class="jb-state-back"><a class="jb-back" href="#" onclick="showScreen('screen-company');return false">← Back to account details</a></div>
     </section>
@@ -579,7 +580,7 @@
               <h3>Order summary</h3>
               <div class="jb-srow"><div><div class="jb-slabel">Product</div><div class="jb-sval">Job Board</div></div></div>
               <div class="jb-srow">
-                <div><div class="jb-slabel">Package</div><div class="jb-sval" id="jbPkgName">Boost (1 job)</div><div class="jb-ssub" id="jbPkgSub">Featured badge, newsletter promotion and social posts</div></div>
+                <div><div class="jb-slabel">Package</div><div class="jb-sval" id="jbPkgName">Boost (1 job)</div><div class="jb-ssub" id="jbPkgSub">Featured badge, newsletter mention, and social posts</div></div>
                 <div class="jb-sval" data-total>[Price TBD]</div>
               </div>
               <div class="jb-srow"><span class="jb-slabel" style="margin:0;align-self:center">Subtotal</span><span class="jb-sval" data-total>$1,497</span></div>
@@ -595,10 +596,6 @@
               </div>
             </div>
 
-            <div class="jb-stripe">
-              <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM8.9 6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2H8.9V6zM18 20H6V10h12v10z"/></svg>
-              Payments securely processed by Stripe
-            </div>
           </div>
 
           <!-- RIGHT: payment + agree + pay (auto-renew is on by default — no toggle) -->
@@ -635,7 +632,7 @@
             </div>
 
             <button class="btn btn-primary btn-block jb-paybtn" type="button" id="payBtn" disabled onclick="showScreen('screen-success')">
-              Pay <span data-total>$1,497</span> and activate
+              Pay <span data-total>$1,497</span>
               <svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6z"/></svg>
             </button>
             <p class="jb-fineprint">Your payment is secure and encrypted. By proceeding, you authorize PowerToFly to charge your card.</p>
@@ -656,9 +653,9 @@
           </svg>
         </div>
         <h1 class="display" id="jbSuccessTitle">Payment successful</h1>
-        <p class="jb-success-sub" id="jbSuccessSub">Your account is active and ready. Reach PowerToFly's vetted talent and start getting applications within minutes — no sourcing required.</p>
+        <p class="jb-success-sub" id="jbSuccessSub">Your account is active and ready. Post your job and start hearing from candidates in our community.</p>
 
-        <button class="btn btn-primary jb-paybtn" type="button" style="justify-content:center">Post your first job</button>
+        <button class="btn btn-primary jb-paybtn" type="button" style="justify-content:center" id="jbSuccessCta">Post a job</button>
         <p class="jb-contact">Need help? Contact us at <a href="mailto:support@powertofly.com">support@powertofly.com</a></p>
       </div>
     </section>
@@ -718,16 +715,17 @@
     var free = (p === 'free');
     setText('jbCompanyNote', free
       ? 'No credit card needed. Your job goes live as soon as you post it.'
-      : 'Your company account will be created as pending and activated after payment is completed.');
+      : 'We’ll activate your company account once payment is completed.');
     setText('jbCompanyCta', free ? 'Create account and post a job →' : 'Continue to checkout →');
     var lbl = document.querySelectorAll('#screen-company .jb-step-label')[2];
     if (lbl) lbl.textContent = free ? 'Post job' : 'Checkout';
+    setText('jbSuccessCta', free ? 'Post your first job' : 'Post a job');
     setText('jbSuccessTitle', free ? 'Your account is ready' : 'Payment successful');
     setText('jbSuccessSub', free
-      ? 'Post your first job for free. It stays live for 30 days, and you can boost it anytime.'
-      : 'Your account is active and ready. Reach PowerToFly’s vetted talent and start getting applications within minutes, no sourcing required.');
+      ? 'Post your first job for free and share it with our community. You can add more reach or hiring help anytime.'
+      : 'Your account is active and ready. Post your job and start hearing from candidates in our community.');
     if (p === 'match') { setText('jbPkgName', 'Match (1 job)'); setText('jbPkgSub', 'A hand-checked batch of candidates matched to your role'); }
-    if (p === 'boost') { setText('jbPkgName', 'Boost (1 job)'); setText('jbPkgSub', 'Featured badge, newsletter promotion and social posts'); }
+    if (p === 'boost') { setText('jbPkgName', 'Boost (1 job)'); setText('jbPkgSub', 'Featured badge, newsletter mention, and social posts'); }
     showScreen('screen-company');
   }
   function showScreen(id){
@@ -765,8 +763,8 @@
     setText('loginEmailLabel', email);
     setText('verifyEmailLabel', email);
     // contact-copy variant (5 suspended / 6 talent)
-    if (n === 5) setText('contactBody', "This account is currently suspended and can't purchase job postings. Please contact our team to restore access.");
-    if (n === 6) setText('contactBody', 'This email is already associated with a Talent account. Please contact our team to enable employer access.');
+    if (n === 5) setText('contactBody', "There’s an issue with this account. Contact our team and we’ll help you sort it out.");
+    if (n === 6) setText('contactBody', 'This email is already linked to a talent account. Contact our team and we’ll set up employer access for you.');
     // company-context note on checkout (cases 3 & 7)
     var note = document.getElementById('jbCaseNote');
     if (note){ note.textContent = c.note; note.hidden = !c.note; }
