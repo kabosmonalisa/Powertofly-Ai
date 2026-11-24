@@ -298,13 +298,50 @@
   .v3-spons .cta{ font-size:1cqw; color:var(--ink-2); text-align:right; }
   .v3-spons .cta a{ display:block; color:var(--vio); font-weight:700; text-decoration:none; font-size:1.05cqw; }
 
+  .v4-main{ flex:1; display:grid; grid-template-columns:1fr 1.12fr 1fr; gap:1.4cqw; min-height:0; }
+  .v4-about{ background:var(--mint-tint); border-radius:1.5cqw; padding:1.35cqw 1.6cqw; display:flex; flex-direction:column; }
+  .v4-about .d-eyebrow{ color:var(--mint-ink); }
+  .v4-about h3{ font-family:"Inter Tight",sans-serif; font-weight:700; font-size:1.55cqw; line-height:1.2; margin:0 0 .8cqw; color:var(--ink); }
+  .v4-about p{ font-size:1cqw; line-height:1.42; color:var(--ink-2); margin:0 0 .55cqw; }
+  .v4-facts{ margin-top:auto; border-top:1px solid rgba(0,147,106,.22); padding-top:.9cqw; font-size:1cqw; line-height:1.45; color:var(--ink-2); }
+  .v4-facts b{ display:block; font-size:.88cqw; letter-spacing:.14em; text-transform:uppercase; color:var(--mint-ink); margin-bottom:.3cqw; }
+  .v4-pkg{ background:var(--ink); border-radius:1.5cqw; padding:1.35cqw 1.6cqw; display:flex; flex-direction:column; }
+  .v4-pkg .lead{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; color:#fff; margin:0; line-height:1.25; }
+  .v4-pkg .v3-price{ margin-top:.8cqw; padding-bottom:1cqw; flex-wrap:wrap; row-gap:.3cqw; }
+  .v4-pkg .v3-price b{ font-size:3.1cqw; }
+  .v4-pkg .lbl{ font-size:.92cqw; letter-spacing:.14em; text-transform:uppercase; font-weight:700; color:var(--mint); margin:1cqw 0 .3cqw; }
+  .v4-pkg .v3-row{ padding:.34cqw 0; font-size:1cqw; }
+  .v4-ticks{ margin:.8cqw 0 0 !important; gap:.35cqw !important; }
+  .v4-ticks li{ font-size:.98cqw !important; }
+  .v4-mini{ margin-top:auto !important; padding-top:.8cqw; gap:.6cqw !important; }
+  .v4-mini div{ display:flex; align-items:baseline; justify-content:center; gap:.5cqw; padding:.45cqw .6cqw !important; }
+  .v4-mini b{ display:inline !important; font-size:1.45cqw !important; }
+  .v4-right{ display:flex; flex-direction:column; gap:1cqw; min-height:0; }
+  .v4-room{ flex:1; background:var(--vio-tint); border-radius:1.5cqw; padding:1.3cqw 1.5cqw; display:flex; flex-direction:column; }
+  .v4-room .big{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; margin:0; color:var(--ink); }
+  .v4-room .ppl-h{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1cqw; color:var(--ink-2); margin:.8cqw 0 .2cqw; }
+  .v4-people{ flex:1; display:flex; flex-direction:column; justify-content:space-around; }
+  .v4-people .sp-person img{ width:2.6cqw; height:2.6cqw; }
+  .v4-people .nm{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.02cqw; color:var(--vio); line-height:1.15; }
+  .v4-people .ro{ font-size:.86cqw; color:var(--ink-3); margin-top:.15cqw; }
+  .v4-room .note{ font-size:.85cqw; color:var(--ink-3); margin-top:.4cqw; }
+  .v4-spons{ border:1px solid var(--line); border-radius:1.3cqw; padding:1cqw 1.3cqw; }
+  .v4-spons .d-eyebrow{ margin:0 0 .6cqw; }
+  .v4-spons .logos{ display:flex; gap:1.3cqw; align-items:center; }
+  .v4-spons .logos img{ height:1.5cqw; display:block; }
+  .sp-row2{ display:flex; justify-content:space-between; align-items:center; gap:1cqw; }
+  .v4-spons .logos{ gap:.9cqw; }
+  .v4-spons .logos img{ height:1.25cqw; }
+  .v4-spons .cta{ font-size:.82cqw; color:var(--ink-2); text-align:right; line-height:1.3; }
+  .v4-spons .cta a{ display:block; color:var(--vio); font-weight:700; text-decoration:none; font-size:.9cqw; }
+
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="lede"><h1>Sponsorship slides — v3</h1>
-    <p>Milena's feedback applied: the vibrant green and purple from the original slide 1, slides 5 + 6 merged (the "What you get" list now sits in the $4,000 column), and "Who's in the room" moved onto the pricing slide. Copy unchanged.</p></div>
+  <div class="lede"><h1>Sponsorship slides — v4</h1>
+    <p>Milena's feedback applied: vibrant green and purple from the original slide 1; one $16K package that carries the full "What you get" list; an event description from the Women Builders registration page in place of the $4K block; "Who's in the room" and a smaller "Current sponsors" on the same slide.</p></div>
 
   <div class="slabel"><b>1 · Trusted by top brands</b> <span>vibrant green + purple</span></div>
   <div class="slide"><div class="pad">
@@ -336,39 +373,41 @@
     <div class="d-foot"><span>PowerToFly AI · Event sponsorship</span><span>1</span></div>
   </div></div>
 
-  <div class="slabel"><b>2 · Sponsor our event series</b> <span>v3: one $16K package, smaller current sponsors</span></div>
-  <div class="slide"><div class="pad" style="gap:1.5cqw;">
-    <div class="sp-head"><img class="sp-logo" src="_assets/spons/ptf-ai-logo.svg" alt="PowerToFly AI"></div>
-    <div class="sp-titlerow">
+  <div class="slabel"><b>2 · Sponsor our event series</b> <span>v4: event description · one $16K package · who's in the room</span></div>
+  <div class="slide"><div class="pad" style="gap:1.1cqw; padding-top:2.9cqw; padding-bottom:2.9cqw;">
+    <div class="sp-titlerow" style="align-items:flex-start;">
       <div><span class="d-eyebrow">Event sponsorship</span><h2 class="sp-h" style="font-size:2.8cqw;">Sponsor our event series</h2>
         <p class="sp-sub">Your brand in the room and in every invite. <em>Four in-person events.</em></p></div>
-      <div class="sp-todo">TO ADD A BRIEF DESCRIPTION</div>
+      <img class="sp-logo" src="_assets/spons/ptf-ai-logo.svg" alt="PowerToFly AI">
     </div>
-    <div class="v3-main">
-      <div class="v3-pkg">
+    <div class="v4-main">
+      <div class="v4-about">
+        <span class="d-eyebrow">About the series</span>
+        <h3>PowerToFly NYC Women Builders Network</h3>
+        <p>A quarterly series that brings women founders, builders, and investors in New York into the same room.</p>
+        <p>We’ve seen how much changes when women founders and investors really know each other. They back each other, share what’s working, and open doors for one another.</p>
+        <p>Cocktails, mocktails, small bites, and custom swag. We keep the room small: invited guests only.</p>
+        <div class="v4-facts"><b>First event</b>Tuesday, December 15th · 6:00 to 8:00pm<br>Lerer Hippeau, 555 Greenwich St, 11th Floor, New York, NY</div>
+      </div>
+      <div class="v4-pkg">
         <span class="d-eyebrow on-dark">Full series</span>
         <p class="lead">Your brand at all four events, start to finish.</p>
         <div class="v3-price"><b>$16,000</b><span>for the four-event series</span></div>
-        <div class="v3-body">
-          <div><div class="lbl">What you get</div>
-            <div class="v3-row"><span>Category exclusivity</span><b>1 per industry</b></div>
-            <div class="v3-row"><span>Logo in event promotion</span><b>~1,000 reach</b></div>
-            <div class="v3-row"><span>Logo on event signage</span><b>Every event</b></div>
-            <div class="v3-row"><span>Your team at the event</span><b>1–3 people</b></div>
-            <div class="v3-row"><span>RSVP list + marketing opt-in</span><b>Included</b></div>
-          </div>
-          <div class="v3-side">
-            <ul class="sp-ticks"><li><span><b>Every benefit</b> at every event</span></li><li><span><b>Your logo</b> in all series promo</span></li></ul>
-            <div class="sp-mini"><div><b>4</b><span>Events</span></div><div><b>4</b><span>RSVP lists</span></div></div>
-          </div>
-        </div>
+        <ul class="sp-ticks v4-ticks"><li><span><b>Every benefit</b> at every event</span></li><li><span><b>Your logo</b> in all series promo</span></li></ul>
+        <div class="lbl">What you get</div>
+        <div class="v3-row"><span>Category exclusivity</span><b>1 per industry</b></div>
+        <div class="v3-row"><span>Logo in event promotion</span><b>~1,000 reach</b></div>
+        <div class="v3-row"><span>Logo on event signage</span><b>Every event</b></div>
+        <div class="v3-row"><span>Your team at the event</span><b>1–3 people</b></div>
+        <div class="v3-row"><span>RSVP list + marketing opt-in</span><b>Included</b></div>
+        <div class="sp-mini v4-mini"><div><b>4</b><span>Events</span></div><div><b>4</b><span>RSVP lists</span></div></div>
       </div>
-      <div class="v3-right">
-        <div class="v3-room">
+      <div class="v4-right">
+        <div class="v4-room">
           <span class="d-eyebrow">Who's in the room</span>
           <p class="big">Women founders and investors.</p>
           <p class="ppl-h">Sample invite list</p>
-          <div class="v3-people">
+          <div class="v4-people">
             <div class="sp-person"><img src="_assets/spons/invitee-1.png" alt=""><div><div class="nm">Summer Delaney, MBA</div><div class="ro">Founder &amp; CEO, CollabWORK</div></div></div>
             <div class="sp-person"><img src="_assets/spons/invitee-2.png" alt=""><div><div class="nm">Anna Ogan</div><div class="ro">Program Manager, Founderz</div></div></div>
             <div class="sp-person"><img src="_assets/spons/invitee-3.png" alt=""><div><div class="nm">Grace Dhanraj</div><div class="ro">Principal, Hearst Ventures</div></div></div>
@@ -376,10 +415,10 @@
           </div>
           <div class="note">Sample invite list; guests vary by event.</div>
         </div>
-        <div class="v3-spons">
+        <div class="v4-spons">
           <span class="d-eyebrow">Current sponsors</span>
-          <div class="logos"><img src="_assets/spons/sponsor-lererhippeau.png" alt="Lerer Hippeau"><img src="_assets/spons/sponsor-withum.png" alt="Withum"></div>
-          <div class="cta">Ready to become a sponsor?<a>milena@powertofly.com</a></div>
+          <div class="sp-row2"><div class="logos"><img src="_assets/spons/sponsor-lererhippeau.png" alt="Lerer Hippeau"><img src="_assets/spons/sponsor-withum.png" alt="Withum"></div>
+          <div class="cta">Ready to become a sponsor?<a>milena@powertofly.com</a></div></div>
         </div>
       </div>
     </div>
