@@ -193,87 +193,90 @@
   .cta-center{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; }
   .cta-center .btn-pill{ display:inline-block; background:#fff; color:var(--ink); font-weight:600; font-size:1.7cqw; padding:1.5cqw 3.4cqw; border-radius:99px; margin-top:3cqw; }
 
-  /* sponsorship slides — even rhythm: blocks are distributed, eyebrows are block-level */
-  .pad{ padding:3.8cqw 5.4cqw; gap:2cqw; }
+  /* vibrant accent pair (Milena): purple + mint, taken from the original slide 1 */
+  :root{ --vio:#743FFD; --vio-tint:#F3EFFF; --mint:#03E6A4; --mint-tint:#E7FBF4; --mint-ink:#00936A; }
+  .pad{ padding:3.6cqw 5.2cqw; gap:1.8cqw; }
   .slide .pad > .d-foot{ margin-top:0; }
-  .slide .d-eyebrow{ display:flex; margin:0 0 .7cqw; }
+  .slide::before{ content:""; position:absolute; left:0; right:0; top:0; height:.55cqw; background:linear-gradient(90deg,var(--vio),var(--mint)); z-index:2; }
+  .slide .d-eyebrow{ display:flex; margin:0 0 .7cqw; color:var(--vio); }
+  .slide .d-eyebrow.on-dark{ color:var(--mint); }
+  .d-em{ color:var(--vio); }
   .sp-head{ display:flex; justify-content:space-between; align-items:center; }
   .sp-logo{ height:2.1cqw; display:block; }
-  .sp-main{ flex:1; display:grid; gap:3cqw; margin:0; min-height:0; }
+  .sp-main{ flex:1; display:grid; gap:2.8cqw; min-height:0; }
   .sp-col{ display:flex; flex-direction:column; justify-content:space-between; min-height:0; }
   .sp-h{ font-family:'Inter Tight',sans-serif; font-weight:800; letter-spacing:-.03em; line-height:1.05; margin:0; color:var(--ink); }
   .sp-h2{ font-family:'Inter Tight',sans-serif; font-weight:700; letter-spacing:-.02em; line-height:1.15; margin:.5cqw 0 0; color:var(--ink); }
-  .sp-tags{ display:flex; flex-wrap:wrap; gap:.4cqw 1.6cqw; font-size:1.05cqw; letter-spacing:.12em; text-transform:uppercase; font-weight:700; color:var(--green); }
-  .sp-tags span{ display:flex; align-items:center; gap:.6cqw; }
-  .sp-tags span::before{ content:""; width:.6cqw; height:.6cqw; border-radius:50%; background:currentColor; }
+  .sp-tags{ display:flex; flex-wrap:wrap; gap:.7cqw; }
+  .sp-tags span{ background:var(--mint); color:#04231A; font-size:1.02cqw; font-weight:700; padding:.55cqw 1.1cqw; border-radius:.6cqw; }
   .sp-stats{ display:grid; grid-template-columns:repeat(3,auto); justify-content:start; gap:1.6cqw 3.6cqw; }
-  .sp-stat .n{ font-family:'Inter Tight',sans-serif; font-weight:800; color:var(--green); line-height:1; letter-spacing:-.02em; }
-  .sp-stat .l{ font-size:1.2cqw; color:var(--ink-2); margin-top:.5cqw; line-height:1.3; }
+  .sp-stat .n{ font-family:'Inter Tight',sans-serif; font-weight:800; color:var(--vio); line-height:1; letter-spacing:-.02em; }
+  .sp-stat.g .n{ color:var(--mint-ink); }
+  .sp-stat .l{ font-size:1.2cqw; color:var(--ink-2); margin-top:.5cqw; line-height:1.3; font-weight:600; }
   .sp-trust{ display:flex; gap:2cqw; align-items:center; }
-  .sp-trust .lbl{ writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.9cqw; letter-spacing:-.01em; color:var(--ink); }
+  .sp-trust .lbl{ writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.9cqw; color:var(--ink); }
   .sp-trust img{ width:100%; min-width:0; display:block; }
   .sp-cats{ display:flex; flex-direction:column; gap:.8cqw; }
-  .sp-cat{ border:1px solid var(--line); border-radius:1.2cqw; padding:1cqw 1.4cqw; }
+  .sp-cat{ border-radius:1.2cqw; padding:1cqw 1.4cqw; background:var(--vio-tint); }
+  .sp-cat.m{ background:var(--mint-tint); }
   .sp-cat h3{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.45cqw; margin:0 0 .4cqw; color:var(--ink); line-height:1.2; display:flex; gap:.7cqw; align-items:baseline; }
-  .sp-cat h3::before{ content:""; flex:none; width:.75cqw; height:.75cqw; border-radius:50%; background:var(--green); transform:translateY(-.1cqw); }
-  .sp-cat p{ font-size:1.02cqw; line-height:1.4; color:var(--ink-3); margin:0; }
+  .sp-cat h3::before{ content:""; flex:none; width:.8cqw; height:.8cqw; border-radius:50%; background:var(--vio); transform:translateY(-.1cqw); }
+  .sp-cat.m h3::before{ background:var(--mint-ink); }
+  .sp-cat p{ font-size:1.02cqw; line-height:1.4; color:var(--ink-2); margin:0; }
   .sp-contact{ font-size:1.35cqw; color:var(--ink-2); }
   .sp-contact b{ font-family:'Inter Tight',sans-serif; color:var(--ink); }
-  .sp-contact a{ color:var(--green); text-decoration:none; font-weight:600; }
-  /* slide 2 */
-  .sp-todo{ border:1.5px dashed var(--line); border-radius:1cqw; padding:1cqw 1.3cqw; font-size:1.1cqw; letter-spacing:.1em; font-weight:700; color:var(--ink-3); background:var(--bg-soft); }
-  .sp-card{ border:1px solid var(--line); border-radius:1.4cqw; padding:1.4cqw 1.8cqw; }
-  .sp-card .lead{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.55cqw; line-height:1.25; color:var(--ink); margin:0 0 1cqw; }
-  .sp-card .lead em{ font-style:normal; color:var(--green); }
-  .sp-row{ display:flex; justify-content:space-between; gap:1cqw; padding:.62cqw 0; border-top:1px solid var(--line); font-size:1.22cqw; }
-  .sp-row span{ color:var(--ink); font-weight:600; }
-  .sp-row b{ font-family:'Inter Tight',sans-serif; color:var(--green); font-weight:700; white-space:nowrap; }
-  .sp-note{ font-size:1.05cqw; color:var(--ink-3); }
-  .sp-dark{ background:var(--ink); color:#fff; border-radius:1.8cqw; padding:2.2cqw 2.4cqw; display:flex; flex-direction:column; }
-  .sp-dark .big{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.85cqw; line-height:1.2; margin:0; color:#fff; padding-bottom:1.3cqw; border-bottom:1px solid rgba(255,255,255,.12); }
-  .sp-dark .sub{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; color:rgba(255,255,255,.85); margin:1.3cqw 0 0; }
-  .sp-people{ flex:1; display:flex; flex-direction:column; justify-content:space-around; margin-top:1cqw; }
-  .sp-person{ display:flex; align-items:center; gap:1.5cqw; }
-  .sp-person img{ width:4.6cqw; height:4.6cqw; border-radius:50%; object-fit:cover; transform:scale(1.04); flex:none; }
-  .sp-person .nm{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.5cqw; color:var(--green-mid); }
-  .sp-person .ro{ font-size:1.15cqw; color:rgba(255,255,255,.65); margin-top:.2cqw; }
-  /* slide 3 */
-  .sp-price{ border:1px solid var(--line); border-radius:1.6cqw; padding:1.6cqw 1.9cqw; display:flex; flex-direction:column; }
+  .sp-contact a{ color:var(--vio); text-decoration:none; font-weight:700; }
+  /* merged pricing slide */
+  .sp-titlerow{ display:flex; justify-content:space-between; align-items:flex-end; gap:2cqw; }
+  .sp-sub{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.4cqw; color:var(--ink-2); margin:.6cqw 0 0; }
+  .sp-sub em{ font-style:normal; color:var(--mint-ink); }
+  .sp-todo{ border:1.5px dashed #D9D4F5; border-radius:.8cqw; padding:.6cqw 1cqw; font-size:.9cqw; letter-spacing:.1em; font-weight:700; color:var(--ink-3); white-space:nowrap; }
+  .sp-price{ border:1px solid var(--line); border-radius:1.5cqw; padding:1.5cqw 1.7cqw; display:flex; flex-direction:column; }
   .sp-price.dark{ background:var(--ink); border-color:var(--ink); }
-  .sp-price .lead{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.55cqw; line-height:1.25; color:var(--ink); margin:0; }
+  .sp-price .lead{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; line-height:1.25; color:var(--ink); margin:0; }
   .sp-price.dark .lead{ color:#fff; }
-  .sp-price .lead em{ font-style:normal; color:var(--green); }
-  .sp-amt{ font-family:'Inter Tight',sans-serif; font-weight:800; letter-spacing:-.02em; line-height:1; color:var(--green); margin-top:1.3cqw; }
-  .sp-price.dark .sp-amt{ color:var(--green-mid); }
-  .sp-amt small{ font-family:'Inter',sans-serif; font-weight:400; font-size:1.3cqw; color:var(--ink-3); letter-spacing:0; margin-left:.4cqw; }
-  .sp-under{ font-size:1.2cqw; color:rgba(255,255,255,.6); margin-top:.7cqw; }
-  .sp-box{ margin-top:auto; background:var(--bg-soft); border-radius:1cqw; padding:1.2cqw 1.4cqw; font-size:1.15cqw; line-height:1.4; color:var(--ink-2); }
-  .sp-box span{ color:var(--ink-3); }
-  .sp-ticks{ list-style:none; padding:0; margin:1.1cqw 0 0; display:flex; flex-direction:column; gap:.6cqw; }
-  .sp-ticks li{ font-size:1.2cqw; color:rgba(255,255,255,.7); display:flex; gap:.8cqw; align-items:center; }
-  .sp-ticks li::before{ content:""; width:.8cqw; height:.8cqw; border-radius:50%; background:var(--green-mid); flex:none; }
+  .sp-price .lead em{ font-style:normal; color:var(--mint-ink); }
+  .sp-amt{ font-family:'Inter Tight',sans-serif; font-weight:800; letter-spacing:-.02em; line-height:1; color:var(--vio); margin-top:1cqw; }
+  .sp-price.dark .sp-amt{ color:var(--mint); }
+  .sp-amt small{ font-family:'Inter',sans-serif; font-weight:400; font-size:1.2cqw; color:var(--ink-3); letter-spacing:0; margin-left:.4cqw; }
+  .sp-under{ font-size:1.1cqw; color:rgba(255,255,255,.6); margin-top:.6cqw; }
+  .sp-rows{ margin-top:1cqw; }
+  .sp-row{ display:flex; justify-content:space-between; gap:.8cqw; padding:.42cqw 0; border-top:1px solid var(--line); font-size:1.02cqw; }
+  .sp-row span{ color:var(--ink); font-weight:600; }
+  .sp-row b{ font-family:'Inter Tight',sans-serif; color:var(--vio); font-weight:700; white-space:nowrap; }
+  .sp-ticks{ list-style:none; padding:0; margin:1cqw 0 0; display:flex; flex-direction:column; gap:.5cqw; }
+  .sp-ticks li{ font-size:1.1cqw; color:rgba(255,255,255,.7); display:flex; gap:.8cqw; align-items:center; }
+  .sp-ticks li::before{ content:""; width:.8cqw; height:.8cqw; border-radius:50%; background:var(--mint); flex:none; }
   .sp-ticks b{ color:#fff; }
-  .sp-mini{ margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:.9cqw; }
-  .sp-mini div{ background:rgba(255,255,255,.07); border-radius:.9cqw; padding:.55cqw; text-align:center; }
-  .sp-mini b{ display:block; font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.8cqw; color:var(--green-mid); }
-  .sp-mini span{ font-size:1.05cqw; color:rgba(255,255,255,.6); }
-  .sp-logos{ display:flex; flex-direction:column; gap:.7cqw; margin-top:1.2cqw; }
-  .sp-logos div{ border:1px solid var(--line); border-radius:1cqw; height:3.7cqw; display:flex; align-items:center; justify-content:center; padding:0 1cqw; }
-  .sp-logos img{ max-height:2.6cqw; max-width:90%; }
-  .sp-cta{ margin-top:auto; background:var(--bg-soft); border-radius:1cqw; padding:1.2cqw 1.4cqw; }
-  .sp-cta .q{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; color:var(--ink); }
-  .sp-cta a{ font-size:1.25cqw; color:var(--green); font-weight:700; text-decoration:none; }
+  .sp-mini{ margin-top:auto; display:grid; grid-template-columns:1fr 1fr; gap:.8cqw; }
+  .sp-mini div{ background:rgba(255,255,255,.08); border-radius:.9cqw; padding:.5cqw; text-align:center; }
+  .sp-mini b{ display:block; font-family:'Inter Tight',sans-serif; font-weight:800; font-size:1.7cqw; color:var(--mint); }
+  .sp-mini span{ font-size:1cqw; color:rgba(255,255,255,.6); }
+  .sp-logos{ display:flex; flex-direction:column; gap:.7cqw; margin-top:1.1cqw; }
+  .sp-logos div{ border:1px solid var(--line); border-radius:1cqw; height:3.4cqw; display:flex; align-items:center; justify-content:center; }
+  .sp-logos img{ max-height:2.2cqw; max-width:85%; }
+  .sp-cta{ margin-top:auto; background:var(--vio-tint); border-radius:1cqw; padding:1cqw 1.2cqw; }
+  .sp-cta .q{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.25cqw; color:var(--ink); }
+  .sp-cta a{ font-size:1.15cqw; color:var(--vio); font-weight:700; text-decoration:none; }
+  .sp-room{ background:var(--ink); border-radius:1.5cqw; padding:1.5cqw 1.6cqw; display:flex; flex-direction:column; }
+  .sp-room .big{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.35cqw; line-height:1.25; margin:0; color:#fff; padding-bottom:.9cqw; border-bottom:1px solid rgba(255,255,255,.12); }
+  .sp-room .ppl-h{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.05cqw; color:rgba(255,255,255,.82); margin:.9cqw 0 0; }
+  .sp-room .note{ font-size:.9cqw; color:rgba(255,255,255,.5); margin-top:.8cqw; }
+  .sp-people{ flex:1; display:flex; flex-direction:column; justify-content:space-around; margin-top:.4cqw; }
+  .sp-person{ display:flex; align-items:center; gap:.9cqw; }
+  .sp-person img{ width:3.1cqw; height:3.1cqw; border-radius:50%; object-fit:cover; transform:scale(1.04); flex:none; }
+  .sp-person .nm{ font-family:'Inter Tight',sans-serif; font-weight:700; font-size:1.08cqw; color:var(--mint); line-height:1.15; }
+  .sp-person .ro{ font-size:.88cqw; color:rgba(255,255,255,.62); margin-top:.2cqw; line-height:1.25; }
 
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <div class="lede"><h1>Sponsorship slides — on brand</h1>
-    <p>The three sponsorship slides rebuilt on the deck system with every word of the original copy kept. Labels are plain green (no pills), one green instead of purple, real logos and invitee photos carried over.</p></div>
+  <div class="lede"><h1>Sponsorship slides — v2</h1>
+    <p>Milena's feedback applied: the vibrant green and purple from the original slide 1, slides 5 + 6 merged (the "What you get" list now sits in the $4,000 column), and "Who's in the room" moved onto the pricing slide. Copy unchanged.</p></div>
 
-  <!-- SLIDE 1 -->
-  <div class="slabel"><b>1 · Trusted by top brands</b> <span>from slide 1 — copy unchanged</span></div>
+  <div class="slabel"><b>1 · Trusted by top brands</b> <span>vibrant green + purple</span></div>
   <div class="slide"><div class="pad">
     <div class="sp-head"><img class="sp-logo" src="_assets/spons/ptf-ai-logo.svg" alt="PowerToFly AI"></div>
     <div class="sp-main" style="grid-template-columns:1.6fr 1fr;">
@@ -284,18 +287,18 @@
         <div class="sp-stats">
           <div class="sp-stat"><div class="n" style="font-size:4.6cqw;">1.1M+</div><div class="l">Active Community</div></div>
           <div class="sp-stat" style="grid-column:span 2;"><div class="n" style="font-size:3.2cqw;">250M+</div><div class="l">Access to Professionals<br>Across Networks</div></div>
-          <div class="sp-stat"><div class="n" style="font-size:3.2cqw;">75%+</div><div class="l">Women &amp; BIPOC</div></div>
-          <div class="sp-stat"><div class="n" style="font-size:3.2cqw;">70%+</div><div class="l">Senior w 10+ yrs</div></div>
+          <div class="sp-stat g"><div class="n" style="font-size:3.2cqw;">75%+</div><div class="l">Women &amp; BIPOC</div></div>
+          <div class="sp-stat g"><div class="n" style="font-size:3.2cqw;">70%+</div><div class="l">Senior w 10+ yrs</div></div>
           <div class="sp-stat"><div class="n" style="font-size:3.2cqw;">12 yrs</div><div class="l">Market trust</div></div>
         </div>
-        <div class="sp-trust"><span class="lbl">Trusted by</span><img src="_assets/spons/logo-wall.png" alt="Google, Amazon, Microsoft, Meta, AbbVie, Bristol Myers Squibb, Stryker, Salesforce, Deloitte, PwC, Morgan Stanley, ServiceNow, Autodesk, Atlassian, Wells Fargo, Bank of America, American Express, Visa, Veracode, Canonical, Celonis, S&amp;P Global, Moody's, RTX, Siemens, UnitedHealth Group, Cloudflare, Contentful"></div>
+        <div class="sp-trust"><span class="lbl">Trusted by</span><img src="_assets/spons/logo-wall.png" alt="Google, Amazon, Microsoft, Meta and more"></div>
       </div>
       <div class="sp-col">
         <div class="sp-cats">
           <div class="sp-cat"><h3>Executive Recruiting &amp; Fractional Leaders</h3><p>CAIO · CEO · CTO · CFO · CMO · COO · CPO · CRO · CISO · CHRO</p></div>
-          <div class="sp-cat"><h3>AI Technical experts</h3><p>ML / Data Science · Forward Deployed Engineers · DevOps · Cyber &amp; Info Sec · RLHF &amp; Eval · AI Safety · Applied Research · MLOps Engineer · Prompt Engineer · Product Designers · Forward Deployed Product Managers</p></div>
+          <div class="sp-cat m"><h3>AI Technical experts</h3><p>ML / Data Science · Forward Deployed Engineers · DevOps · Cyber &amp; Info Sec · RLHF &amp; Eval · AI Safety · Applied Research · MLOps Engineer · Prompt Engineer · Product Designers · Forward Deployed Product Managers</p></div>
           <div class="sp-cat"><h3>GTM, Implementation, G&amp;A</h3><p>Go To Market · Solutions Engineers · Technical Account Managers · Product Marketing Managers · Customer Success Managers · Revenue Operations · Human Resources</p></div>
-          <div class="sp-cat"><h3>Domain experts</h3><p>Finance · Healthcare · Legal · Media · Retail and Consumer Goods · E-Commerce · Hospitality · Technology · Telecommunications · Manufacturing</p></div>
+          <div class="sp-cat m"><h3>Domain experts</h3><p>Finance · Healthcare · Legal · Media · Retail and Consumer Goods · E-Commerce · Hospitality · Technology · Telecommunications · Manufacturing</p></div>
         </div>
         <div class="sp-contact"><b>Contact:</b> <a>sales@powertofly.com</a></div>
       </div>
@@ -303,68 +306,55 @@
     <div class="d-foot"><span>PowerToFly AI · Event sponsorship</span><span>1</span></div>
   </div></div>
 
-  <!-- SLIDE 2 -->
-  <div class="slabel"><b>2 · Sponsor our event series</b> <span>from slide 2 — copy unchanged (placeholder kept)</span></div>
-  <div class="slide"><div class="pad">
+  <div class="slabel"><b>2 · Sponsor our event series + pricing</b> <span>slides 5 + 6 merged, Who's in the room added</span></div>
+  <div class="slide"><div class="pad" style="gap:1.5cqw;">
     <div class="sp-head"><img class="sp-logo" src="_assets/spons/ptf-ai-logo.svg" alt="PowerToFly AI"></div>
-    <div class="sp-main" style="grid-template-columns:1fr 1fr;">
-      <div class="sp-col">
-        <div><span class="d-eyebrow">Event sponsorship</span><h2 class="sp-h" style="font-size:3cqw;">Sponsor our event series</h2></div>
-        <div class="sp-todo">TO ADD A BRIEF DESCRIPTION</div>
-        <div class="sp-card">
-          <span class="d-eyebrow">What you get</span>
-          <p class="lead">Your brand in the room and in every invite. <em>Four in-person events.</em></p>
+    <div class="sp-titlerow">
+      <div><span class="d-eyebrow">Event sponsorship</span><h2 class="sp-h" style="font-size:2.8cqw;">Sponsor our event series</h2>
+        <p class="sp-sub">Your brand in the room and in every invite. <em>Four in-person events.</em></p></div>
+      <div class="sp-todo">TO ADD A BRIEF DESCRIPTION</div>
+    </div>
+    <div class="sp-main" style="grid-template-columns:1.3fr 1fr 1fr 1.05fr; gap:1.3cqw;">
+      <div class="sp-price">
+        <span class="d-eyebrow">Single event</span>
+        <p class="lead">Sponsor the event that fits your timing. <em>Full benefits.</em></p>
+        <div class="sp-amt" style="font-size:3cqw;">$4,000<small>/event</small></div>
+        <div class="sp-rows">
           <div class="sp-row"><span>Category exclusivity</span><b>1 per industry</b></div>
           <div class="sp-row"><span>Logo in event promotion</span><b>~1,000 reach</b></div>
           <div class="sp-row"><span>Logo on event signage</span><b>Every event</b></div>
           <div class="sp-row"><span>Your team at the event</span><b>1–3 people</b></div>
           <div class="sp-row"><span>RSVP list + marketing opt-in</span><b>Included</b></div>
         </div>
-        <div class="sp-note">Sample invite list; guests vary by event.</div>
       </div>
-      <div class="sp-dark">
+      <div class="sp-price dark">
+        <span class="d-eyebrow on-dark">Full series</span>
+        <p class="lead">Your brand at all four events, start to finish.</p>
+        <div class="sp-amt" style="font-size:3.2cqw;">$16,000</div>
+        <div class="sp-under">for the four-event series</div>
+        <ul class="sp-ticks"><li><span><b>Every benefit</b> at every event</span></li><li><span><b>Your logo</b> in all series promo</span></li></ul>
+        <div class="sp-mini"><div><b>4</b><span>Events</span></div><div><b>4</b><span>RSVP lists</span></div></div>
+      </div>
+      <div class="sp-price">
+        <span class="d-eyebrow">Current sponsors</span>
+        <p class="lead">Join the brands already backing the series.</p>
+        <div class="sp-logos"><div><img src="_assets/spons/sponsor-lererhippeau.png" alt="Lerer Hippeau"></div><div><img src="_assets/spons/sponsor-withum.png" alt="Withum"></div></div>
+        <div class="sp-cta"><div class="q">Ready to become a sponsor?</div><a>milena@powertofly.com</a></div>
+      </div>
+      <div class="sp-room">
         <span class="d-eyebrow on-dark">Who's in the room</span>
         <p class="big">Women founders and investors.</p>
-        <p class="sub">Sample invite list</p>
+        <p class="ppl-h">Sample invite list</p>
         <div class="sp-people">
           <div class="sp-person"><img src="_assets/spons/invitee-1.png" alt=""><div><div class="nm">Summer Delaney, MBA</div><div class="ro">Founder &amp; CEO, CollabWORK</div></div></div>
           <div class="sp-person"><img src="_assets/spons/invitee-2.png" alt=""><div><div class="nm">Anna Ogan</div><div class="ro">Program Manager, Founderz</div></div></div>
           <div class="sp-person"><img src="_assets/spons/invitee-3.png" alt=""><div><div class="nm">Grace Dhanraj</div><div class="ro">Principal, Hearst Ventures</div></div></div>
           <div class="sp-person"><img src="_assets/spons/invitee-4.png" alt=""><div><div class="nm">Frida Polli, PhD</div><div class="ro">Founder, pymetrics</div></div></div>
         </div>
+        <div class="note">Sample invite list; guests vary by event.</div>
       </div>
     </div>
     <div class="d-foot"><span>PowerToFly AI · Event sponsorship</span><span>2</span></div>
-  </div></div>
-
-  <!-- SLIDE 3 -->
-  <div class="slabel"><b>3 · Pricing</b> <span>from slide 3 — copy unchanged</span></div>
-  <div class="slide"><div class="pad">
-    <div class="sp-head"><img class="sp-logo" src="_assets/spons/ptf-ai-logo.svg" alt="PowerToFly AI"></div>
-    <div><span class="d-eyebrow">Pricing</span><h2 class="sp-h" style="font-size:3cqw;">Event Sponsorship</h2></div>
-    <div class="sp-main" style="grid-template-columns:repeat(3,1fr); gap:2cqw;">
-      <div class="sp-price">
-        <span class="d-eyebrow">Single event</span>
-        <p class="lead">Sponsor the event that fits your timing. <em>Full benefits.</em></p>
-        <div class="sp-amt" style="font-size:3.6cqw;">$4,000<small>/event</small></div>
-        <div class="sp-box" style="margin-top:1.4cqw;">Includes every sponsor benefit at that event, <span>from your logo in promotion to the RSVP list.</span></div>
-      </div>
-      <div class="sp-price dark">
-        <span class="d-eyebrow on-dark">Full series</span>
-        <p class="lead">Your brand at all four events, start to finish.</p>
-        <div class="sp-amt" style="font-size:3.8cqw;">$16,000</div>
-        <div class="sp-under">for the four-event series</div>
-        <ul class="sp-ticks"><li><span><b>Every benefit</b> at every event</span></li><li><span><b>Your logo</b> in all series promo</span></li></ul>
-        <div class="sp-mini" style="margin-top:1.1cqw;"><div><b>4</b><span>Events</span></div><div><b>4</b><span>RSVP lists</span></div></div>
-      </div>
-      <div class="sp-price">
-        <span class="d-eyebrow">Current sponsors</span>
-        <p class="lead">Join the brands already backing the series.</p>
-        <div class="sp-logos"><div><img src="_assets/spons/sponsor-lererhippeau.png" alt="Lerer Hippeau"></div><div><img src="_assets/spons/sponsor-withum.png" alt="Withum"></div></div>
-        <div class="sp-cta" style="margin-top:1.1cqw;"><div class="q">Ready to become a sponsor?</div><a>milena@powertofly.com</a></div>
-      </div>
-    </div>
-    <div class="d-foot"><span>PowerToFly AI · Event sponsorship</span><span>3</span></div>
   </div></div>
 
 </div>
