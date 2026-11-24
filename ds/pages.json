@@ -308,6 +308,14 @@
    "desc": "The GTM SALES DECK — the real deck content consolidated from the 67-slide original onto our templates (25 slides). Includes a new media/video template + contacts template. The Google Slides/.pptx download is generated once the look is approved."
   },
   {
+   "id": "slides-sponsorship",
+   "name": "Event sponsorship",
+   "file": "decks/sponsorship.html",
+   "group": "Slides",
+   "status": "live",
+   "desc": "Event sponsorship slides (trusted by / sponsor our event series / pricing) rebuilt on the deck system with the original copy kept word for word. Google Slides download: decks/PowerToFly-Sponsorship.pptx"
+  },
+  {
    "id": "slides-case-tiugo",
    "name": "Case study — Tiugo / CKEditor",
    "file": "decks/case-tiugo.html",
