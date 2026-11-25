@@ -10,8 +10,9 @@
 <!--
   LOGGED-IN PROMPT — mandatory per-summit identity question (Rob's ask, 2026-11-25 · Jira B2C-2598).
   AUTH dev toggle (bottom-left):
-    Logged in  → 1 · "One quick question" (one required Yes/No, set per summit) → 2 · registered.
-    Logged out → 0 · create account → 1 · the same question → 2 · registered.  (?auth=out opens it)
+    Logged in  → 2 · "One quick question" (one required Yes/No, set per summit) → 3 · registered.
+    Logged out → 1 · create account → 2 · the same question → 3 · registered.  (?auth=out opens it)
+  Sign-up (step 1) and thank-you (step 3) are copied from the in-person B2B flow (event-b2b), copy adapted for virtual.
   They are not added as a registrant until they answer. Built from the event flow kit
   (ds/flow-event.html): .event-card panel, .auth-card, .id-section.q-group.cq + .id-chips[data-single]
   (same as Meet with Companies step 4), thank-you parts. No new components.
@@ -33,6 +34,20 @@
   .more-pill-faces { display: inline-flex; align-items: center; }
   .more-pill-faces img { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; object-position: center 35%; border: 2px solid var(--bg-soft); }
   .more-pill-faces img + img { margin-left: -9px; }
+  /* Copied verbatim from event-b2b. "Add to calendar" on the confirmation step — reuses the closed set: trigger is the outlined
+     .btn, the menu is the login flyout (.nav-fly.login-fly > .mega-inner > .fly-item rows).
+     Only positioning lives here: the stock .login-fly hangs off the trigger's RIGHT edge, which
+     on this centered step would run off the left of a phone screen — so center it under the
+     button instead. Promote-to-DS candidate: .cal-drop (centered flyout anchor). */
+  .cal-drop { display: inline-block; margin-bottom: 8px; }
+  .cal-drop[hidden] { display: none; }
+  .cal-drop .login-fly { left: 50%; right: auto; width: min(346px, calc(100vw - 32px)); transform: translate(-50%, -6px); text-align: left; }
+  .cal-drop .login-fly.open { transform: translate(-50%, 0); }
+  /* Compact type for the small calendar menu — the stock .fly-title is sized for the site's mega nav (16px/700 display). */
+  .cal-drop .fly-item { padding: 9px 12px; }
+  .cal-drop .fly-title { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 0; margin-bottom: 2px; }
+  .cal-drop .fly-desc { font-size: 12px; line-height: 1.4; }
+  .cal-drop .fly-rule { margin: 6px 0; }
 </style>
 </head>
 <body class="flow-shell">
@@ -81,115 +96,228 @@
     <!-- RIGHT — form card -->
     <div class="reg-form">
       <div class="auth-card" id="card">
-
-        <!-- 0 · LOGGED OUT only — create account (same markup as event-common step 1, minus phone), then the question -->
-        <div class="flow-step" data-step="0" hidden>
-          <h1 class="auth-heading">Save your seat</h1>
+        <!-- Sign in / Sign up toggle — visible on the auth step only -->
+        <div class="auth-toggle" id="authToggle">
+          <button id="tabSignIn" type="button" onclick="showAuth('signin')">Sign in</button>
+          <button class="active" id="tabSignUp" type="button" onclick="showAuth('signup')">Sign up</button>
+        </div>
+        <!-- Sign in -->
+        <div class="flow-step" data-step="signin" hidden>
+          <h1 class="auth-heading">Welcome back</h1>
+          <p class="auth-sub">Sign in to register for this event.</p>
+          <form class="auth-form" onsubmit="return goToStep(2)">
+            <div class="field"><label>Email</label><input type="email" placeholder="you@example.com" autocomplete="email" required></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="••••••••" autocomplete="current-password" required></div>
+            <button class="btn-auth" type="submit">Sign in</button>
+          </form>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Don't have an account? <a href="#" onclick="showAuth('signup');return false">Sign up free</a></p>
+        </div>
+        <!-- Step 1 — create account + register -->
+        <div class="flow-step" data-step="1">
+          <h1 class="auth-heading" style="margin-top:40px"><!-- toggle→heading gap = 40px (matches the common flow; no step indicator here) -->Save your seat</h1>
           <p class="auth-sub">Create your account to register. It's free, and it's virtual.</p>
-          <form class="auth-form" onsubmit="return createAccount()" novalidate>
+          <form class="auth-form" onsubmit="return validateStep1()" novalidate>
             <div class="field-row">
-              <div class="field"><label>First name</label><input type="text" oninput="this.closest('.field').classList.remove('invalid')"></div>
-              <div class="field"><label>Last name</label><input type="text" oninput="this.closest('.field').classList.remove('invalid')"></div>
+              <div class="field"><label>First name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
+              <div class="field"><label>Last name <span class="req">*</span></label><input type="text" oninput="clearError(this.closest('.field'))"></div>
             </div>
-            <div class="field"><label>Email</label><input type="email" autocomplete="email" oninput="this.closest('.field').classList.remove('invalid')"></div>
-            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="this.closest('.field').classList.remove('invalid')"></div>
+            <div class="field"><label>Work email <span class="req">*</span></label><input type="email" autocomplete="email" oninput="clearError(this.closest('.field'))"></div>
+            <div class="field"><label>Password <span class="req">*</span></label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="clearError(this.closest('.field'))"></div>
             <button class="btn-auth" type="submit">Create my account →</button>
           </form>
-          <p class="auth-note">Already have an account? <a href="#" onclick="return setAuth('in')">Sign in</a></p>
+          <div class="auth-divider">or</div>
+          <div class="social-btns">
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332Z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 6.294C4.672 4.169 6.656 3.58 9 3.58Z" fill="#EA4335"/></svg>Continue with Google</button>
+            <button class="btn-social"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect width="18" height="18" rx="3" fill="#0A66C2"/><path d="M5.5 7.5H3.5V14H5.5V7.5ZM4.5 6.5C5.05 6.5 5.5 6.05 5.5 5.5C5.5 4.95 5.05 4.5 4.5 4.5C3.95 4.5 3.5 4.95 3.5 5.5C3.5 6.05 3.95 6.5 4.5 6.5ZM14.5 14H12.5V10.75C12.5 9.65 12.1 9 11.15 9C10.4 9 9.95 9.5 9.75 9.95C9.7 10.1 9.7 10.3 9.7 10.5V14H7.7V7.5H9.7V8.35C10 7.9 10.55 7.25 11.85 7.25C13.45 7.25 14.5 8.15 14.5 10.45V14Z" fill="white"/></svg>Continue with LinkedIn</button>
+          </div>
+          <p class="auth-note">Already have an account? <a href="#" onclick="showAuth('signin');return false">Sign in</a></p>
           <div class="thanks-divider"></div>
           <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
         </div>
-
-        <!-- 1 · the identity question: one required Yes/No. Logged in = first screen; logged out = after the account -->
-        <div class="flow-step" data-step="1">
-          <p class="auth-note" id="signedInNote" style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="return setAuth('out')">Not you?</a></p>
+        <!-- Step 2 — the identity question: one required Yes/No. Logged in = the first screen; logged out = after the account. -->
+        <div class="flow-step" data-step="2" hidden>
           <h1 class="auth-heading">One quick question</h1>
           <p class="auth-sub">Answer to finish registering. Your answer is private and never shown publicly.</p><!-- COPY: confirm with Rob -->
-          <form class="auth-form" onsubmit="return finish()" novalidate>
+          <form class="auth-form" onsubmit="return validateStep2()" novalidate>
             <div class="id-section q-group cq" data-required>
               <div class="q-label">Do you identify as Black / African American? <span class="req">*</span></div>
               <div class="id-chips" data-single><button type="button" class="id-chip">Yes</button><button type="button" class="id-chip">No</button></div>
             </div>
-            <button class="btn-auth" type="submit">Finish registration</button>
+            <div class="nav-row"><button class="btn-skip" type="button" id="step2Back" onclick="return goToStep(1)">← Back</button><button class="btn-auth" type="submit" id="finishBtn">Finish registration</button></div>
           </form>
         </div>
-
-        <!-- 2 · registered -->
-        <div class="flow-step" data-step="2" hidden>
+        <!-- Step 3 — thank you (B2B structure; virtual copy) -->
+        <div class="flow-step" data-step="3" hidden>
           <div class="thanks-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/></svg>
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 12.5l4.5 4.5L19.5 6" stroke="url(#ptf-grad)" stroke-width="6.5" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
           </div>
           <div class="thanks-eyebrow">You're registered</div>
           <h1 class="auth-heading">You're all set!</h1>
-          <p class="thanks-body">We've sent the details to your inbox.</p><!-- COPY: confirm -->
+          <p class="thanks-body">We've sent the details and join link to your inbox. Add it to your calendar so you don't miss it.</p><!-- COPY: confirm -->
+          <!-- Add to calendar — same component as event-common (outlined trigger + login flyout). Links built by buildCalendarLinks() from CAL_EVENT. -->
+          <div class="nav-drop login-drop cal-drop" id="calCta" style="display:flex;justify-content:center;margin-bottom:12px">
+            <button class="btn btn-primary" type="button" data-fly="fly-cal" aria-haspopup="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z"/></svg>
+              Add to calendar
+              <svg class="nav-chev" viewBox="0 0 13 13"><polyline points="2,4.5 6.5,9 11,4.5"></polyline></svg>
+            </button>
+            <div class="nav-fly login-fly" id="fly-cal">
+              <div class="mega-inner"><div class="mega-left">
+                <a class="fly-item" id="calGoogle" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Google Calendar</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOutlook" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Outlook.com</span><span class="fly-desc">Personal Outlook or Hotmail</span></span><span class="login-arrow">→</span></a>
+                <a class="fly-item" id="calOffice" href="#" target="_blank" rel="noopener"><span class="login-tx"><span class="fly-title">Microsoft 365</span><span class="fly-desc">Work or school Outlook</span></span><span class="login-arrow">→</span></a>
+                <hr class="fly-rule">
+                <a class="fly-item" id="calIcs" href="#" download="powertofly-event.ics"><span class="login-tx"><span class="fly-title">Apple Calendar &amp; others</span><span class="fly-desc">Download an .ics file</span></span><span class="login-arrow">↓</span></a>
+              </div></div>
+            </div>
+          </div>
+          <!-- One primary action (calendar); browsing is secondary, so it's a link -->
           <p class="auth-note"><a href="https://powertofly.com/browse-events">Browse more events →</a></p>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">Questions? <a href="https://powertofly.com/about/contact-us">Contact us</a></p>
         </div>
-
       </div>
     </div>
 
   </div>
 </main>
 
-<!-- DEV ONLY — same dial style as event-common / Meet with Companies. Remove before launch. -->
-<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
-  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">AUTH</span>
-  <button type="button" id="devIn" onclick="setAuth('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
-  <button type="button" id="devOut" onclick="setAuth('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+<!-- DEV ONLY — preview the two entry paths (logged out = create account first; logged in
+     = skip straight to the question) + jump between screens. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;flex-direction:column;gap:6px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">AUTH</span>
+    <button type="button" id="devAuthOut" onclick="setAuthMode('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+    <button type="button" id="devAuthIn" onclick="setAuthMode('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
+  </div>
+  <div style="display:flex;align-items:center;gap:4px">
+    <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">STEP</span>
+    <button type="button" onclick="goToStep(1)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">1</button>
+    <button type="button" onclick="goToStep(2)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">2</button>
+    <button type="button" onclick="goToStep(3)" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 10px;border-radius:7px">3</button>
+  </div>
 </div>
 
 <script src="../ds/ptf.js"></script>
 <script>
-  // Yes / No — one answer; picking one clears the other and the error
-  document.querySelectorAll('.id-chip').forEach(function (c) {
-    c.addEventListener('click', function () {
-      c.parentNode.querySelectorAll('.id-chip').forEach(function (o) { if (o !== c) o.classList.remove('selected'); });
-      c.classList.toggle('selected');
-      c.closest('.id-section').classList.remove('invalid');
-    });
-  });
-  // Required: no answer → orange label + shake; answered → registered
-  function finish() {
-    var q = document.querySelector('.cq'), btn = document.querySelector('[data-step="1"] .btn-auth');
-    if (!q.querySelector('.id-chip.selected')) {
-      q.classList.add('invalid');
-      btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
-      return false;
-    }
-    return show(2);
-  }
-
-  function show(n) {
-    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = s.dataset.step !== String(n); });
+  function goToStep(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = (String(s.dataset.step) !== String(n)); });
+    document.getElementById('authToggle').style.display = (n === 1 || n === 'signin') ? 'flex' : 'none';
     window.scrollTo(0, 0);
     return false;
   }
-  // Logged out: account fields required, then the question (now signed in → no "Signed in as" note needed)
-  function createAccount() {
-    var s = document.querySelector('[data-step="0"]'), ok = true, first = null;
-    s.querySelectorAll('input').forEach(function (i) {
-      var bad = i.type === 'email' ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value.trim())
-              : i.type === 'password' ? i.value.length < 8 : !i.value.trim();
-      i.closest('.field').classList.toggle('invalid', bad);
-      if (bad) { ok = false; first = first || i; }
-    });
-    if (!ok) { var b = s.querySelector('.btn-auth'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); first.focus(); return false; }
-    document.getElementById('signedInNote').hidden = true;
-    return show(1);
+  function showAuth(which) {
+    goToStep(which === 'signin' ? 'signin' : 1);
+    document.getElementById('tabSignIn').classList.toggle('active', which === 'signin');
+    document.getElementById('tabSignUp').classList.toggle('active', which !== 'signin');
+    return false;
   }
+  // ── Entry path (same as event-b2b): logged out = create account first; logged in = straight to the question.
+  // Logged in hides the question's Back (it is the first step). Dev toggle only — the real app derives this from the session.
+  function setAuthMode(mode) {
+    var loggedIn = mode === 'in';
+    window._authMode = mode;
+    var back = document.getElementById('step2Back'); if (back) back.style.display = loggedIn ? 'none' : '';
+    var din = document.getElementById('devAuthIn'), dout = document.getElementById('devAuthOut');
+    if (din && dout) {
+      din.style.background = loggedIn ? '#fff' : '';  din.style.color = loggedIn ? '#0A0A0A' : '#fff';
+      dout.style.background = loggedIn ? '' : '#fff';  dout.style.color = loggedIn ? '#fff' : '#0A0A0A';
+    }
+    goToStep(loggedIn ? 2 : 1);
+    return false;
+  }
+  function setError(host) { if (!host) return; host.classList.add('invalid'); host.setAttribute('aria-invalid', 'true'); }
+  function clearError(host) { if (!host) return; host.classList.remove('invalid'); host.removeAttribute('aria-invalid'); }
+  function shake(step) {
+    var btn = document.querySelector('[data-step="' + step + '"] button[type=submit]');
+    if (!btn) return;
+    btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+  }
+  function validateStep1() {
+    var s = document.querySelector('[data-step="1"]');
+    var rowInputs = s.querySelectorAll('.field-row input');
+    var first = rowInputs[0], last = rowInputs[1];
+    var email = s.querySelector('input[type=email]');
+    var pass  = s.querySelector('input[type=password]');
+    var ok = true, firstBad = null;
+    function chk(input, valid) { var f = input.closest('.field'); if (valid) { clearError(f); } else { setError(f); ok = false; firstBad = firstBad || input; } }
+    chk(first, first.value.trim() !== '');
+    chk(last,  last.value.trim() !== '');
+    chk(email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim()));
+    chk(pass,  pass.value.length >= 8);
+    if (!ok) { shake(1); if (firstBad) firstBad.focus(); return false; }
+    return goToStep(2);
+  }
+  // The identity question is REQUIRED — no answer, no registration (B2C-2598)
+  function validateStep2() {
+    var q = document.querySelector('[data-step="2"] .cq[data-required]');
+    clearError(q);
+    if (!q.querySelector('.id-chip.selected')) { setError(q); shake(2); return false; }
+    return goToStep(3);
+  }
+  // Yes / No — one answer; picking one clears the other and the error
+  document.querySelectorAll('.id-chip').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var group = c.closest('.id-chips');
+      if (group.hasAttribute('data-single')) group.querySelectorAll('.id-chip').forEach(function (o) { if (o !== c) o.classList.remove('selected'); });
+      c.classList.toggle('selected'); clearError(c.closest('.id-section'));
+    });
+  });
 
-  // DEV ONLY — AUTH toggle: logged in (question first) vs logged out (account → question). Remove before launch.
-  function setAuth(mode) {
-    var out = mode === 'out';
-    document.getElementById('signedInNote').hidden = out;
-    document.querySelectorAll('.id-chip').forEach(function (c) { c.classList.remove('selected'); });
-    document.querySelector('.cq').classList.remove('invalid');
-    [['devIn', !out], ['devOut', out]].forEach(function (d) {
-      var b = document.getElementById(d[0]); b.style.background = d[1] ? '#fff' : ''; b.style.color = d[1] ? '#0A0A0A' : '#fff';
-    });
-    return show(out ? 0 : 1);
+  // ── Add to calendar (step 3) — copied from event-b2b — provider links + .ics, all from ONE event record ──
+  // Sample date — the 2027 dates aren't set yet. COPY: confirm per event.
+  // The real build fills this from the event API; `uid` must match the confirmation email's .ics UID.
+  var CAL_EVENT = {
+    uid: 'summit-2027-02@powertofly.com'  /* COPY: real event UID + times */,
+    start: '20270217T170000Z',
+    end:   '20270217T220000Z',
+    location: 'Online — join link in your confirmation email'
+  };
+  function buildCalendarLinks() {
+    var title = document.querySelector('.event-title').textContent.replace(/\s+/g, ' ').trim() + ' — PowerToFly';
+    var url = location.href.split('#')[0];
+    var details = 'Event page: ' + url;
+    var iso = function (s) { return s.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z/, '$1-$2-$3T$4:$5:$6Z'); };
+    var enc = encodeURIComponent;
+    document.getElementById('calGoogle').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + enc(title) + '&dates=' + CAL_EVENT.start + '/' + CAL_EVENT.end
+      + '&details=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    var ms = function (host) {
+      return 'https://' + host + '/calendar/0/deeplink/compose?path=%2Fcalendar%2Faction%2Fcompose&rru=addevent'
+        + '&subject=' + enc(title) + '&startdt=' + enc(iso(CAL_EVENT.start)) + '&enddt=' + enc(iso(CAL_EVENT.end))
+        + '&body=' + enc(details) + '&location=' + enc(CAL_EVENT.location);
+    };
+    document.getElementById('calOutlook').href = ms('outlook.live.com');
+    document.getElementById('calOffice').href  = ms('outlook.office.com');
+    var esc = function (s) { return s.replace(/([,;\\])/g, '\\$1'); };
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//PowerToFly//Events//EN', 'BEGIN:VEVENT',
+      'UID:' + CAL_EVENT.uid, 'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+      'DTSTART:' + CAL_EVENT.start, 'DTEND:' + CAL_EVENT.end,
+      'SUMMARY:' + esc(title), 'DESCRIPTION:' + esc(details), 'LOCATION:' + esc(CAL_EVENT.location), 'URL:' + url,
+      'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY', 'DESCRIPTION:Starting in 15 minutes', 'END:VALARM',
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    var link = document.getElementById('calIcs');
+    if (link.dataset.blob) URL.revokeObjectURL(link.dataset.blob);
+    link.dataset.blob = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+    link.href = link.dataset.blob;
   }
-  setAuth(/[?&]auth=out\b/.test(location.search) ? 'out' : 'in');
+  buildCalendarLinks();
+  PTF.initMegaNav();  // wires the calendar flyout (no site nav on this page)
+
+  // Entry: ?auth=out opens the logged-out path; default = logged in (this prototype is about the logged-in prompt)
+  setAuthMode(/[?&]auth=out\b/.test(location.search) ? 'out' : 'in');
+
+  // DEV ONLY — jump to a step via URL hash (#1 … #3). Remove before launch.
+  function jumpFromHash() { var m = (location.hash || '').match(/^#(?:step)?([1-3])$/); if (m) goToStep(Number(m[1])); }
+  jumpFromHash();
+  window.addEventListener('hashchange', jumpFromHash);
 </script>
 </body>
 </html>
