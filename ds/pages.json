@@ -261,11 +261,11 @@
   },
   {
    "id": "flow-summit-2027",
-   "name": "Summit & VJF registration 2027",
+   "name": "Summit logged-in identity question",
    "file": "event-summit/index.html",
    "group": "Flows",
    "status": "draft",
-   "desc": "2027 Summit + Virtual Job Fair registration with the MANDATORY per-summit identity question (Rob's ask in #temp-2027-summit-jobfair-planning + Jira B2C-2598, 2026-11-25). The common event flow plus a new 'One quick question' step: one required Yes/No per summit (Feb Black Excellence, Mar Empower Her, Jun Pride, Sep AI, Oct Latinidad, Nov Veterans). Logged out: account, then the question. Logged in: the question is the first screen — this is the prompt that closes the logged-in data gap; with a profile on file it's question + finishing up only. Nobody counts as a registrant until Finish registration. Self-identification (master identity question) stays required. Chat & Learns stay on event-common. Dev dials: TYPE, SUMMIT, EVENT, AUTH, PROFILE, STEP."
+   "desc": "The logged-in prompt for 2027 summits / VJFs (Rob's ask + Jira B2C-2598, 2026-11-25): a signed-in person clicks Register and gets ONE required Yes/No identity question for that summit, then is registered. Not a registrant until they answer. Two screens only: question, registered."
   },
   {
    "id": "flow-employer",
