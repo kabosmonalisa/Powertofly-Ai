@@ -736,7 +736,7 @@ img { display: block; max-width: 100%; }
 .field.invalid input, input.invalid { border-color: #E8843C; }
 .field.invalid input:focus { border-color: #E8843C; box-shadow: 0 0 0 3px rgba(232,132,60,0.15); }  /* keep the orange on focus, not the green ring */
 .upload-area.invalid { border-color: #E8843C; border-style: solid; }
-.id-section.invalid .id-section-label { color: #E8843C; }   /* step 3: tint the label, not a crowded ring around the chips */
+.id-section.invalid .id-section-label, .id-section.invalid .q-label { color: #E8843C; }   /* step 3 + required question groups (.q-group.cq): tint the label, not a crowded ring around the chips */
 .agree-row.invalid { outline: 1.5px solid #E8843C; outline-offset: 6px; border-radius: 10px; }
 /* Optional resume reveal (Step 2) — quiet icon+text secondary action that expands the upload tile */
 .resume-toggle { display: inline-flex; align-items: center; gap: 7px; margin: 2px 0 0; padding: 7px 0; background: none; border: 0; font-family: inherit; font-size: 13.5px; font-weight: 500; color: var(--ink-3); cursor: pointer; transition: color .15s ease; }

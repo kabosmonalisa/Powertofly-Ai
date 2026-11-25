@@ -260,6 +260,14 @@
    "desc": "Registration for the quarterly in-person B2B events for AI leaders (requirements: In Person B2B Events call, 2026-11-23). The Meet with Companies registration flow minus everything talent-specific: no resume, LinkedIn profile, experience, open-roles or demographics questions. Asks only what the Luma form asks: name, email, phone, company, job title and two waivers, with a marked slot for per-event custom questions (e.g. company size). Steps: account, details + waivers, thanks + add to calendar. AUTH dev toggle shows logged-out vs logged-in."
   },
   {
+   "id": "flow-summit-2027",
+   "name": "Summit & VJF registration 2027",
+   "file": "event-summit/index.html",
+   "group": "Flows",
+   "status": "draft",
+   "desc": "2027 Summit + Virtual Job Fair registration with the MANDATORY per-summit identity question (Rob's ask in #temp-2027-summit-jobfair-planning + Jira B2C-2598, 2026-11-25). The common event flow plus a new 'One quick question' step: one required Yes/No per summit (Feb Black Excellence, Mar Empower Her, Jun Pride, Sep AI, Oct Latinidad, Nov Veterans). Logged out: account, then the question. Logged in: the question is the first screen — this is the prompt that closes the logged-in data gap; with a profile on file it's question + finishing up only. Nobody counts as a registrant until Finish registration. Self-identification (master identity question) stays required. Chat & Learns stay on event-common. Dev dials: TYPE, SUMMIT, EVENT, AUTH, PROFILE, STEP."
+  },
+  {
    "id": "flow-employer",
    "name": "Employer registration",
    "file": "event-employer/index.html",
