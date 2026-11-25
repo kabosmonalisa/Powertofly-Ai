@@ -9,8 +9,9 @@
 <meta property="og:type"        content="website">
 <!--
   LOGGED-IN PROMPT — mandatory per-summit identity question (Rob's ask, 2026-11-25 · Jira B2C-2598).
-  Shows ONLY the logged-in case: signed-in user clicks Register on a summit/VJF →
-  1 · "One quick question" (one required Yes/No, set per summit) → 2 · registered.
+  AUTH dev toggle (bottom-left):
+    Logged in  → 1 · "One quick question" (one required Yes/No, set per summit) → 2 · registered.
+    Logged out → 0 · create account → 1 · the same question → 2 · registered.  (?auth=out opens it)
   They are not added as a registrant until they answer. Built from the event flow kit
   (ds/flow-event.html): .event-card panel, .auth-card, .id-section.q-group.cq + .id-chips[data-single]
   (same as Meet with Companies step 4), thank-you parts. No new components.
@@ -81,9 +82,27 @@
     <div class="reg-form">
       <div class="auth-card" id="card">
 
-        <!-- 1 · the logged-in prompt: one required Yes/No identity question -->
+        <!-- 0 · LOGGED OUT only — create account (same markup as event-common step 1, minus phone), then the question -->
+        <div class="flow-step" data-step="0" hidden>
+          <h1 class="auth-heading">Save your seat</h1>
+          <p class="auth-sub">Create your account to register. It's free, and it's virtual.</p>
+          <form class="auth-form" onsubmit="return createAccount()" novalidate>
+            <div class="field-row">
+              <div class="field"><label>First name</label><input type="text" oninput="this.closest('.field').classList.remove('invalid')"></div>
+              <div class="field"><label>Last name</label><input type="text" oninput="this.closest('.field').classList.remove('invalid')"></div>
+            </div>
+            <div class="field"><label>Email</label><input type="email" autocomplete="email" oninput="this.closest('.field').classList.remove('invalid')"></div>
+            <div class="field"><label>Password</label><input type="password" placeholder="Min. 8 characters" autocomplete="new-password" oninput="this.closest('.field').classList.remove('invalid')"></div>
+            <button class="btn-auth" type="submit">Create my account →</button>
+          </form>
+          <p class="auth-note">Already have an account? <a href="#" onclick="return setAuth('in')">Sign in</a></p>
+          <div class="thanks-divider"></div>
+          <p class="auth-note" style="margin-top:0">By registering you agree to PowerToFly's <a href="#">Terms</a> and <a href="#">Privacy Policy</a>.</p>
+        </div>
+
+        <!-- 1 · the identity question: one required Yes/No. Logged in = first screen; logged out = after the account -->
         <div class="flow-step" data-step="1">
-          <p class="auth-note" style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#">Not you?</a></p>
+          <p class="auth-note" id="signedInNote" style="margin:0 0 10px">Signed in as <strong>Amara Okafor</strong> · <a href="#" onclick="return setAuth('out')">Not you?</a></p>
           <h1 class="auth-heading">One quick question</h1>
           <p class="auth-sub">Answer to finish registering. Your answer is private and never shown publicly.</p><!-- COPY: confirm with Rob -->
           <form class="auth-form" onsubmit="return finish()" novalidate>
@@ -112,6 +131,13 @@
   </div>
 </main>
 
+<!-- DEV ONLY — same dial style as event-common / Meet with Companies. Remove before launch. -->
+<div id="devNav" style="position:fixed;left:14px;bottom:14px;z-index:9999;display:flex;align-items:center;gap:4px;background:#0A0A0A;padding:8px 10px;border-radius:14px;box-shadow:0 6px 20px rgba(0,0,0,.25);font-family:'Inter',sans-serif">
+  <span style="color:#8a8a8a;font-size:10px;font-weight:700;letter-spacing:.1em;width:38px;padding-left:2px">AUTH</span>
+  <button type="button" id="devIn" onclick="setAuth('in')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged in</button>
+  <button type="button" id="devOut" onclick="setAuth('out')" style="all:unset;cursor:pointer;color:#fff;font-size:12px;font-weight:600;padding:5px 12px;border-radius:7px">Logged out</button>
+</div>
+
 <script src="../ds/ptf.js"></script>
 <script>
   // Yes / No — one answer; picking one clears the other and the error
@@ -130,10 +156,40 @@
       btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
       return false;
     }
-    document.querySelector('[data-step="1"]').hidden = true;
-    document.querySelector('[data-step="2"]').hidden = false;
+    return show(2);
+  }
+
+  function show(n) {
+    document.querySelectorAll('.flow-step').forEach(function (s) { s.hidden = s.dataset.step !== String(n); });
+    window.scrollTo(0, 0);
     return false;
   }
+  // Logged out: account fields required, then the question (now signed in → no "Signed in as" note needed)
+  function createAccount() {
+    var s = document.querySelector('[data-step="0"]'), ok = true, first = null;
+    s.querySelectorAll('input').forEach(function (i) {
+      var bad = i.type === 'email' ? !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(i.value.trim())
+              : i.type === 'password' ? i.value.length < 8 : !i.value.trim();
+      i.closest('.field').classList.toggle('invalid', bad);
+      if (bad) { ok = false; first = first || i; }
+    });
+    if (!ok) { var b = s.querySelector('.btn-auth'); b.classList.remove('shake'); void b.offsetWidth; b.classList.add('shake'); first.focus(); return false; }
+    document.getElementById('signedInNote').hidden = true;
+    return show(1);
+  }
+
+  // DEV ONLY — AUTH toggle: logged in (question first) vs logged out (account → question). Remove before launch.
+  function setAuth(mode) {
+    var out = mode === 'out';
+    document.getElementById('signedInNote').hidden = out;
+    document.querySelectorAll('.id-chip').forEach(function (c) { c.classList.remove('selected'); });
+    document.querySelector('.cq').classList.remove('invalid');
+    [['devIn', !out], ['devOut', out]].forEach(function (d) {
+      var b = document.getElementById(d[0]); b.style.background = d[1] ? '#fff' : ''; b.style.color = d[1] ? '#0A0A0A' : '#fff';
+    });
+    return show(out ? 0 : 1);
+  }
+  setAuth(/[?&]auth=out\b/.test(location.search) ? 'out' : 'in');
 </script>
 </body>
 </html>
