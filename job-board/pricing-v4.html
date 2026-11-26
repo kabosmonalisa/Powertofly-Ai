@@ -56,7 +56,6 @@
 /* ── pricing cards ── */
 .jb-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1200px;margin:0 auto;}
 .jb-plans.is-two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;}
-.jb-plans + .jb-plans-group{margin-top:56px;}
 .jb-plans-group{font-family:'Inter Tight',sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);text-align:center;margin:0 auto 24px;}
 .jb-rules{max-width:900px;margin:56px auto 0;padding:28px 32px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);}
 .jb-rules h3{font-family:'Inter Tight',sans-serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:12px;}
@@ -97,11 +96,9 @@
 .jb-addon-stat{font-size:13px;color:var(--ink-3);line-height:1.4;margin-bottom:12px;}
 .jb-addon-stat strong{display:block;font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:800;letter-spacing:-0.02em;color:var(--ink);line-height:1.1;}
 .jb-addons-note{max-width:1000px;margin:12px auto 0;font-size:12px;color:var(--ink-3);}
-.jb-compare-intro{text-align:center;font-size:15px;color:var(--ink-3);margin:-12px auto 20px;}
 .jb-addon-price{font-size:13px;font-weight:600;color:var(--ink-2);margin-top:auto;margin-bottom:10px;}
 .jb-addon-link{background:none;border:0;padding:0;font:inherit;font-size:14px;font-weight:600;color:var(--green);text-align:left;cursor:pointer;text-decoration:none;}
 .jb-addon-link:hover{text-decoration:underline;}
-.jb-free + .jb-plans-group,.jb-addons + .jb-plans-group{margin-top:56px;}
 .jb-compare-wrap{max-width:1000px;margin:0 auto;overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);}
 .jb-compare{width:100%;min-width:640px;border-collapse:collapse;font-size:14px;color:var(--ink-2);}
 .jb-compare th,.jb-compare td{padding:14px 16px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle;}
@@ -258,8 +255,8 @@
 /* Hero glow now comes from the shared .hero-glow class in ptf.css. Page keeps only
    its spacing: more top padding (per feedback), package section pulled up so the two
    read as one balanced unit. Scoped to #screen-package. */
-#screen-package .section-hero{padding-top:96px;padding-bottom:72px;}
-#screen-package .section-hero + .section{padding-top:40px;}
+/* Hero owns its TOP padding (rule 1 exception). Bottom + the next section use --section-y from ptf.css, so the gap is even. */
+#screen-package .section-hero{padding-top:96px;}
 
 /* ── Account-validation state screens (Cases 2/4/5/6) — centered "state card".
    New page-specific component: bordered card, centered green-tint icon tile (icon
@@ -354,8 +351,13 @@
         </div>
       </div>
 
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Optional add-ons</h2>
+      </div>
       <!-- v3: add-ons are secondary (Mara): smaller, soft background, one line each. COPY: confirm -->
-      <h3 class="jb-plans-group">Optional add-ons</h3>
       <!-- Copy from Mara (Nov 24). Stats on Boost, Match and Recruiter are PLACEHOLDERS — COPY: confirm before launch. 380K+ is approved sitewide and in the GTM deck (Mara, Nov 25). -->
       <div class="jb-addons">
         <div class="jb-addon">
@@ -402,8 +404,13 @@
       <p class="jb-addons-note">Based on PowerToFly job board data, 2026.</p>
       </div>
 
-      <h3 class="jb-plans-group">Which option is right for you?</h3>
-      <p class="jb-compare-intro">Every option includes your free job post.</p>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Which option is right for you?</h2>
+        <p>Every option includes your free job post.</p>
+      </div>
       <!-- Copy from Mara (Nov 24). Full-service hiring tick on the outreach row confirmed by Mara (Nov 25). -->
       <div class="jb-compare-wrap">
         <table class="jb-compare">
